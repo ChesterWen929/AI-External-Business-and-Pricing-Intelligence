@@ -1,13 +1,12 @@
 from flask import Flask, render_template, request
-import openai
+from openai import OpenAI
 import os
 
 app = Flask(__name__)
 
-# 從 Render 的環境變數中讀取你的 OpenAI API 金鑰
-openai.api_key = os.getenv("OPENAI_API_KEY")
+# 初始化新版 OpenAI client
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-# 預設問題清單
 DEFAULT_QUESTIONS = [
     "What are the strengths of this company?",
     "What are the challenges this company is facing?",
@@ -22,13 +21,12 @@ def index():
         for q in DEFAULT_QUESTIONS:
             prompt = f"{q} The company is {company}."
             try:
-                # 呼叫 OpenAI GPT API
-                response = openai.ChatCompletion.create(
+                response = client.chat.completions.create(
                     model="gpt-3.5-turbo",
                     messages=[{"role": "user", "content": prompt}],
                     temperature=0.7
                 )
-                answer = response["choices"][0]["message"]["content"]
+                answer = response.choices[0].message.content
                 print(f"[GPT Response] {answer}")
                 answers.append({"question": q, "answer": answer})
             except Exception as e:
