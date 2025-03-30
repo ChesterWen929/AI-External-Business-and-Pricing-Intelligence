@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>ChatGPT Company Analyzer</title>
+    <title>Company Dashboard</title>
 </head>
 <body>
     <h1>Enter a Company Name</h1>
     <form method="post">
-        <input type="text" name="company" placeholder="e.g. TSMC" />
+        <input type="text" name="company" placeholder="e.g. TSMC" required />
         <button type="submit">Analyze</button>
     </form>
 
     {% if answers %}
-        <h2>Results:</h2>
+        <h2>Results</h2>
         <ul>
         {% for item in answers %}
-            <li><strong>{{ item.question }}</strong>: {{ item.answer }}</li>
+            <li><strong>{{ item.question }}</strong><br>{{ item.answer }}</li>
         {% endfor %}
         </ul>
+    {% else %}
+        <p style="color: gray;">No response yet. Please enter a company and click Analyze.</p>
     {% endif %}
 </body>
 </html>
