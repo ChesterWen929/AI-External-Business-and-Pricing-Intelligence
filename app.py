@@ -8,9 +8,9 @@ app = Flask(__name__)
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 DEFAULT_QUESTIONS = [
-    "What are the strengths of this company?",
-    "What are the challenges this company is facing?",
-    "What trends are impacting this company or its industry?"
+    "What recent price competition is this company facing in the market?",
+    "How has this company’s stock price changed recently, and what are the main reasons?",
+    "What semiconductor-specific risks and opportunities has this company recently encountered?"
 ]
 
 @app.route("/", methods=["GET", "POST"])
