@@ -18,7 +18,7 @@ import json
 import os
 import re
 import threading
-from datetime import datetime
+from datetime import datetime, date, timedelta
 from email.message import EmailMessage
 from email.utils import make_msgid, formatdate
 from pathlib import Path
@@ -48,12 +48,59 @@ def _fmt_value(value: float, fmt: str) -> str:
     if fmt == "percent":
         return f"{value:.2f}%"
     if fmt == "billions":
-        return f"${value/1000:.2f}B" if value > 1000 else f"${value:.1f}M"
+        return f"${value/1000:.2f}B" if abs(value) > 1000 else f"${value:.1f}M"
     if fmt == "thousands":
+        # FRED value is already expressed in thousands (e.g. PAYEMS 159,001 = 159M persons)
         return f"{value:,.0f}K"
+    if fmt == "count":
+        # FRED value is a raw count (e.g. ICSA 225,000 claims) — abbreviate it
+        if abs(value) >= 1_000_000:
+            return f"{value/1_000_000:,.2f}M"
+        if abs(value) >= 1_000:
+            return f"{value/1_000:,.0f}K"
+        return f"{value:,.0f}"
     if fmt == "index":
         return f"{value:.1f}"
     return f"{value:,.2f}"
+
+
+# ── Multi-horizon change (week / month / quarter / year) ──────────────────────
+# Each indicator's change is computed against the observation closest to
+# (latest_date − horizon). A horizon is reported only when a real observation
+# lands near it, so a monthly series has no "1w" and a quarterly series has no
+# "1m" (they show "—" in the UI rather than a misleading number).
+_HORIZONS = {"1w": 7, "1m": 30, "3m": 91, "1y": 365}
+
+
+def _nearest_excluding_latest(obs: list[dict], target_iso: str):
+    """Observation whose date is closest to target_iso, excluding the latest point."""
+    target = date.fromisoformat(target_iso)
+    best = None
+    best_gap = None
+    for o in obs[:-1]:
+        gap = abs((date.fromisoformat(o["date"]) - target).days)
+        if best_gap is None or gap < best_gap:
+            best_gap, best = gap, o
+    return best, best_gap
+
+
+def _changes_over_horizons(obs: list[dict]) -> dict:
+    """{'1w'|'1m'|'3m'|'1y': {delta, pct, ref_date, ref_value} | None} from a series' own history."""
+    out: dict = {k: None for k in _HORIZONS}
+    if len(obs) < 2:
+        return out
+    latest = obs[-1]
+    lv = latest["value"]
+    ld = date.fromisoformat(latest["date"])
+    for key, days in _HORIZONS.items():
+        target = (ld - timedelta(days=days)).isoformat()
+        ref, gap = _nearest_excluding_latest(obs, target)
+        if ref is None or gap is None or gap > max(days * 0.4, 10) or ref["date"] == latest["date"]:
+            continue
+        delta = lv - ref["value"]
+        pct = (delta / abs(ref["value"]) * 100) if ref["value"] != 0 else None
+        out[key] = {"delta": delta, "pct": pct, "ref_date": ref["date"], "ref_value": ref["value"]}
+    return out
 
 
 async def _gen_ai(ind: dict, obs: list[dict], anthropic_key: str) -> dict:
@@ -277,6 +324,7 @@ async def run_weekly_refresh(anthropic_key: str, fred_key: str, gen_ai: bool = T
                 "prev_value": prev["value"] if prev else None,
                 "delta": delta,
                 "pct_change": pct,
+                "changes": _changes_over_horizons(obs),
                 "observations": obs,
             })
         except Exception as e:
