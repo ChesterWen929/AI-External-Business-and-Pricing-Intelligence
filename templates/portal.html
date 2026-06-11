@@ -4,123 +4,196 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ t('title') }}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0c0d10;
-    --panel: #15161b;
-    --panel-2: #1b1d24;
-    --line: #262833;
-    --ink: #e9eaf0;
-    --ink-soft: #9a9db0;
-    --ink-dim: #5f6275;
-    --accent: #6f7bff;
+    --bg: #0a0b0f;
+    --panel: rgba(22, 24, 31, 0.72);
+    --panel-hi: rgba(30, 33, 42, 0.85);
+    --line: rgba(255, 255, 255, 0.08);
+    --line-hi: rgba(255, 255, 255, 0.16);
+    --ink: #ecedf2;
+    --ink-soft: #a6a9b8;
+    --ink-dim: #6a6e80;
+    --gold: #c8a86a;
+    --gold-soft: #d8c199;
+    --accent: #7c83ff;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
   body {
     background:
-      radial-gradient(1000px 520px at 78% -12%, #181a2b 0%, transparent 58%),
-      radial-gradient(820px 440px at -8% 6%, #14171f 0%, transparent 52%),
+      radial-gradient(1100px 560px at 82% -14%, rgba(124,131,255,0.10) 0%, transparent 58%),
+      radial-gradient(900px 520px at -8% 4%, rgba(200,168,106,0.08) 0%, transparent 52%),
       var(--bg);
     color: var(--ink);
     font-family: "Inter", "PingFang TC", "Noto Sans TC", -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    position: relative;
+    overflow-x: hidden;
   }
+  /* fine grid + vignette overlay */
+  body::before {
+    content: "";
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 46px 46px;
+    mask-image: radial-gradient(1200px 700px at 50% 18%, #000 0%, transparent 78%);
+    -webkit-mask-image: radial-gradient(1200px 700px at 50% 18%, #000 0%, transparent 78%);
+  }
+  body::after {
+    content: "";
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background: radial-gradient(120% 90% at 50% 50%, transparent 60%, rgba(0,0,0,0.55) 100%);
+  }
+  .layer { position: relative; z-index: 1; display: flex; flex-direction: column; flex: 1; }
   a { color: inherit; text-decoration: none; }
+
+  /* ── top bar ── */
   .top {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 18px 26px; max-width: 980px; width: 100%; margin: 0 auto;
+    padding: 20px 30px; max-width: 1020px; width: 100%; margin: 0 auto;
   }
-  .mark { display: flex; align-items: baseline; gap: 9px; }
-  .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 14px var(--accent); }
-  .mark b { font-weight: 600; letter-spacing: .2px; font-size: 15px; }
-  .mark span { color: var(--ink-dim); font-size: 12.5px; }
-  .top-right { display: flex; align-items: center; gap: 14px; }
-  .lang { display: flex; gap: 6px; font-size: 12.5px; color: var(--ink-dim); }
-  .lang a { padding: 2px 7px; border-radius: 6px; }
-  .lang a.on { color: var(--ink); background: var(--panel-2); }
+  .mark { display: flex; align-items: center; gap: 11px; }
+  .gem { width: 18px; height: 18px; transform: rotate(45deg); border: 1px solid var(--gold);
+         border-radius: 4px; position: relative; box-shadow: 0 0 16px rgba(200,168,106,0.25); }
+  .gem::after { content: ""; position: absolute; inset: 4px; background: var(--gold); border-radius: 2px; opacity: .85; }
+  .mark b { font-weight: 500; font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ink-soft); }
+  .top-right { display: flex; align-items: center; gap: 16px; }
+  .lang { display: flex; gap: 3px; font-size: 12px; }
+  .lang a { padding: 3px 9px; border-radius: 7px; color: var(--ink-dim); letter-spacing: .5px; transition: color .15s, background .15s; }
+  .lang a.on { color: var(--ink); background: rgba(255,255,255,0.06); }
   .lang a:hover { color: var(--ink-soft); }
-  .signout { font-size: 12.5px; color: var(--ink-dim); }
-  .signout:hover { color: var(--ink-soft); }
+  .signout { font-size: 12px; color: var(--ink-dim); letter-spacing: .5px; transition: color .15s; }
+  .signout:hover { color: var(--gold-soft); }
 
-  .wrap { flex: 1; display: flex; align-items: center; justify-content: center; padding: 20px; }
-  .inner { width: 100%; max-width: 760px; }
-  .lede { text-align: center; margin-bottom: 30px; }
-  .lede h1 { font-weight: 600; font-size: 21px; letter-spacing: .2px; }
-  .lede p { color: var(--ink-dim); font-size: 13px; margin-top: 6px; }
+  /* ── hero ── */
+  .wrap { flex: 1; display: flex; align-items: center; justify-content: center; padding: 30px 20px 10px; }
+  .inner { width: 100%; max-width: 880px; }
+  .lede { text-align: center; margin-bottom: 40px; }
+  .eyebrow {
+    display: inline-block; font-size: 11px; letter-spacing: 3.5px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 18px;
+  }
+  .lede h1 {
+    font-family: "Noto Serif TC", "Songti TC", serif; font-weight: 600;
+    font-size: clamp(26px, 4.6vw, 42px); line-height: 1.25; letter-spacing: 1px;
+    background: linear-gradient(180deg, #ffffff 0%, #c7cad6 100%);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .rule { width: 56px; height: 1px; margin: 22px auto 0;
+          background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+  .lede p { color: var(--ink-dim); font-size: 13.5px; margin-top: 18px; letter-spacing: .4px; }
 
-  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  @media (max-width: 620px) { .cards { grid-template-columns: 1fr; } }
+  /* ── cards ── */
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 640px) { .cards { grid-template-columns: 1fr; } }
   .card {
-    display: block; background: var(--panel); border: 1px solid var(--line);
-    border-radius: 16px; padding: 22px 22px 18px; transition: border-color .15s, transform .15s, background .15s;
+    position: relative; display: block; overflow: hidden;
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: 18px; padding: 26px 26px 22px;
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    transition: transform .22s cubic-bezier(.2,.7,.3,1), border-color .22s, background .22s, box-shadow .22s;
   }
-  .card:hover { border-color: #3a3d52; transform: translateY(-2px); background: var(--panel-2); }
-  .card .kicker { font-size: 11px; letter-spacing: 1.4px; text-transform: uppercase; color: var(--ink-dim); }
-  .card h2 { font-size: 17px; font-weight: 600; margin: 8px 0 7px; }
-  .card .desc { color: var(--ink-soft); font-size: 12.8px; line-height: 1.55; min-height: 38px; }
-  .card .foot {
-    display: flex; align-items: center; justify-content: space-between;
-    margin-top: 16px; padding-top: 13px; border-top: 1px solid var(--line);
+  .card::before { /* top sheen */
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(200,168,106,0.5), transparent);
+    opacity: .5; transition: opacity .22s;
   }
-  .meta { font-size: 11.5px; color: var(--ink-dim); }
-  .open { font-size: 12.5px; color: var(--accent); font-weight: 500; }
-  .open:after { content: " →"; }
-  .score { font-variant-numeric: tabular-nums; font-weight: 600; color: var(--ink); }
-  .score small { color: var(--ink-dim); font-weight: 400; margin-left: 5px; }
+  .card:hover {
+    transform: translateY(-4px); border-color: var(--line-hi); background: var(--panel-hi);
+    box-shadow: 0 18px 40px -18px rgba(0,0,0,0.7), 0 0 0 1px rgba(200,168,106,0.06);
+  }
+  .card:hover::before { opacity: 1; }
+  .kicker { font-family: "Noto Serif TC", serif; font-size: 13px; letter-spacing: 2px; color: var(--gold); opacity: .8; }
+  .card h2 { font-family: "Noto Serif TC", "Songti TC", serif; font-size: 20px; font-weight: 600; margin: 9px 0 9px; letter-spacing: .5px; }
+  .card .desc { color: var(--ink-soft); font-size: 13px; line-height: 1.6; min-height: 41px; }
+  .foot {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-top: 20px; padding-top: 15px; border-top: 1px solid var(--line);
+  }
+  .stat { display: flex; flex-direction: column; gap: 5px; }
+  .score { font-variant-numeric: tabular-nums; font-weight: 600; font-size: 17px; color: var(--ink); }
+  .score small { color: var(--gold-soft); font-weight: 500; font-size: 12px; margin-left: 7px; letter-spacing: .5px; }
+  .meta { font-size: 11px; color: var(--ink-dim); letter-spacing: .4px; }
+  .enter { font-size: 12.5px; color: var(--gold); font-weight: 500; letter-spacing: 1px;
+           display: inline-flex; align-items: center; gap: 6px; transition: gap .2s; }
+  .card:hover .enter { gap: 11px; }
+  .enter .arr { transition: transform .2s; }
+  .card:hover .enter .arr { transform: translateX(2px); }
 
-  footer { text-align: center; padding: 16px; color: var(--ink-dim); font-size: 11px; }
+  /* ── footer ── */
+  footer { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 26px 16px; }
+  .pill { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-dim);
+          border: 1px solid var(--line); border-radius: 999px; padding: 3px 11px; }
+  footer span.f { font-size: 11.5px; color: var(--ink-dim); letter-spacing: .4px; }
 </style>
 </head>
 <body>
-  <div class="top">
-    <div class="mark"><span class="dot"></span><b>{{ t('title') }}</b><span>· {{ t('subtitle') }}</span></div>
-    <div class="top-right">
-      <div class="lang">
-        <a href="/lang/en?next=/" class="{{ 'on' if lang == 'en' else '' }}">EN</a>
-        <a href="/lang/zh?next=/" class="{{ 'on' if lang == 'zh' else '' }}">中文</a>
-      </div>
-      <a class="signout" href="/logout">{{ t('signout') }}</a>
-    </div>
-  </div>
-
-  <div class="wrap">
-    <div class="inner">
-      <div class="lede">
-        <h1>{{ t('title') }}</h1>
-        <p>{{ t('subtitle') }}</p>
-      </div>
-      <div class="cards">
-        <a class="card" href="/aibubble/">
-          <div class="kicker">01</div>
-          <h2>{{ t('aib_name') }}</h2>
-          <div class="desc">{{ t('aib_desc') }}</div>
-          <div class="foot">
-            {% if aib_score is not none %}
-              <span class="score">{{ '%.1f'|format(aib_score) }}{% if aib_zone %}<small>{{ aib_zone }}</small>{% endif %}</span>
-            {% else %}
-              <span class="meta">—</span>
-            {% endif %}
-            <span class="open">{{ t('enter') }}</span>
-          </div>
-          {% if aib_updated %}<div class="meta" style="margin-top:7px">{{ t('updated') }} · {{ aib_updated }}</div>{% endif %}
-        </a>
-
-        <a class="card" href="/econ/">
-          <div class="kicker">02</div>
-          <h2>{{ t('econ_name') }}</h2>
-          <div class="desc">{{ t('econ_desc') }}</div>
-          <div class="foot">
-            <span class="meta">{% if econ_count %}{{ econ_count }} {{ '指標' if lang == 'zh' else 'indicators' }}{% else %}—{% endif %}</span>
-            <span class="open">{{ t('enter') }}</span>
-          </div>
-          {% if econ_updated %}<div class="meta" style="margin-top:7px">{{ t('updated') }} · {{ econ_updated }}</div>{% endif %}
-        </a>
+  <div class="layer">
+    <div class="top">
+      <div class="mark"><span class="gem"></span><b>{{ t('brand') }}</b></div>
+      <div class="top-right">
+        <div class="lang">
+          <a href="/lang/en?next=/" class="{{ 'on' if lang == 'en' else '' }}">EN</a>
+          <a href="/lang/zh?next=/" class="{{ 'on' if lang == 'zh' else '' }}">中文</a>
+        </div>
+        <a class="signout" href="/logout">{{ t('signout') }}</a>
       </div>
     </div>
-  </div>
 
-  <footer>{{ t('subtitle') }}</footer>
+    <div class="wrap">
+      <div class="inner">
+        <div class="lede">
+          <span class="eyebrow">{{ t('eyebrow') }}</span>
+          <h1>{{ t('title') }}</h1>
+          <div class="rule"></div>
+          <p>{{ t('subtitle') }}</p>
+        </div>
+
+        <div class="cards">
+          <a class="card" href="/aibubble/">
+            <div class="kicker">01</div>
+            <h2>{{ t('aib_name') }}</h2>
+            <div class="desc">{{ t('aib_desc') }}</div>
+            <div class="foot">
+              <div class="stat">
+                {% if aib_score is not none %}
+                  <span class="score">{{ '%.1f'|format(aib_score) }}{% if aib_zone %}<small>{{ aib_zone }}</small>{% endif %}</span>
+                {% endif %}
+                {% if aib_updated %}<span class="meta">{{ t('updated') }} · {{ aib_updated }}</span>{% endif %}
+              </div>
+              <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
+            </div>
+          </a>
+
+          <a class="card" href="/econ/">
+            <div class="kicker">02</div>
+            <h2>{{ t('econ_name') }}</h2>
+            <div class="desc">{{ t('econ_desc') }}</div>
+            <div class="foot">
+              <div class="stat">
+                {% if econ_count %}<span class="score">{{ econ_count }}<small>{{ t('indicators') }}</small></span>{% endif %}
+                {% if econ_updated %}<span class="meta">{{ t('updated') }} · {{ econ_updated }}</span>{% endif %}
+              </div>
+              <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <span class="pill">Private</span>
+      <span class="f">{{ t('subtitle') }}</span>
+    </footer>
+  </div>
 </body>
 </html>
