@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-Hant" id="htmlRoot">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -44,6 +44,11 @@
   .brand .sub { font-size: 12px; color: var(--ink-soft); margin-top: 2px; }
   .topbar .right { margin-left: auto; display: flex; align-items: center; gap: 12px; }
   .updated { font-size: 12px; color: var(--ink-soft); text-align: right; }
+  .btn-lang {
+    background: var(--panel-2); border: 1px solid var(--line); color: var(--ink);
+    border-radius: 9px; padding: 8px 14px; font-size: 13px; cursor: pointer; white-space: nowrap;
+  }
+  .btn-lang:hover { border-color: var(--accent-2); color: var(--accent-2); }
   .btn-refresh {
     background: linear-gradient(135deg, #f06a2c, #ff9d5c);
     color: white; border: none; border-radius: 9px;
@@ -232,12 +237,13 @@
 <body>
 <div class="wrap">
   <div class="topbar">
-    <a class="back" href="/">← 平台入口</a>
+    <a class="back" href="/" id="backLink">← 平台入口</a>
     <div class="brand">
-      <h1>AI 泡沫監控平台 <span style="color:var(--accent)">·</span> AI Bubble Monitor</h1>
-      <div class="sub">雙層溫度計：市場訊號（同步）× 前瞻訊號（GPU 現貨租金 / 供需剪刀差 / 退租雷達 / 循環交易 — 領先 6–12 個月）</div>
+      <h1 id="brandH1">AI 泡沫監控平台 <span style="color:var(--accent)">·</span> AI Bubble Monitor</h1>
+      <div class="sub" id="brandSub"></div>
     </div>
     <div class="right">
+      <button class="btn-lang" id="btnLang">EN</button>
       <span class="updated" id="updated"></span>
       <button class="btn-refresh" id="btnRefresh">⟳ 更新數據</button>
     </div>
@@ -246,8 +252,8 @@
   <div id="content"></div>
 
   <details class="method">
-    <summary>方法論與數據源說明 · Methodology &amp; Sources</summary>
-    <div class="mbody">
+    <summary id="methodSummary">方法論與數據源說明 · Methodology &amp; Sources</summary>
+    <div class="mbody" id="mbodyZh">
       <b>雙層泡沫溫度（0–100）</b>：所有子訊號各自以「分段線性映射」把原始指標轉為 0（冷靜）–100（極端泡沫）分數，再按權重加權。<b>市場層</b>：巨頭資本支出 20%、估值熱度 20%、價格動能 15%、基礎設施溢價 15%、信用與投機 15%、市場集中度 15%。<b>前瞻層</b>：GPU 現貨租金 25%、供需剪刀差 20%、資料中心壓力事件 20%、循環交易 15%、徵才成熟度 10%、收入缺口 10%。映射節點寫死於程式碼，方法完全透明、可重現；分數高低代表「偏離歷史常態的程度」，並非漲跌預測。<br>
       <b>前瞻層資料源</b>：GPU 現貨租金 = vast.ai 公開市場 API（H100 SXM / H200 / A100 SXM4 單卡 on-demand 報價中位數），歷史錨點為公開報導約數；回本帶 $1.3–1.9/hr 為「採購 $25–30k、5 年折舊、含電力機房、70% 利用率」之全成本粗估。開發者採用 = npm 官方下載統計 API（openai 與 @anthropic-ai/sdk 套件，52 週週頻），需求年增率為兩套件平均；注意下載量含 CI/CD 流量，看趨勢不看絕對值。資料中心壓力事件 = Google News 中英文關鍵詞雷達，逐標題分類（取消/退租/延後 vs 動工/簽約/擴建）；設定 ANTHROPIC_API_KEY 時由 Claude 分類，否則為關鍵詞規則。循環交易 = 公開報導之大型「供應商投資客戶→客戶回購算力」結構台帳（承諾級別約數）+ 新增報導監測。徵才成熟度 = Hacker News「Who is hiring」月帖（Algolia API）關鍵詞分類。收入缺口 = 年化 CapEx×2（Sequoia 框架）對照公開報導之 AI 終端收入估計。<br>
       <b>行情</b>：Yahoo Finance（yfinance 批次抓取，日線一年，調整後收盤價）。漲跌幅口徑：1日 / 1週(5交易日) / 1月(21) / 6月(126) / 1年。美股慣例配色：綠漲紅跌。<br>
@@ -259,17 +265,27 @@
       <b>資訊雷達</b>：Google News 繁中版關鍵詞聚合，點擊跳轉原始報導。<br>
       本平台僅供研究參考，不構成投資建議。
     </div>
+    <div class="mbody" id="mbodyEn" style="display:none">
+      <b>Twin bubble thermometers (0–100)</b>: each sub-signal maps its raw indicator to a 0 (calm) – 100 (extreme bubble) score via piecewise-linear mapping, then weights are applied. <b>Market layer</b>: hyperscaler capex 20%, valuation heat 20%, momentum 15%, infrastructure premium 15%, credit &amp; speculation 15%, concentration 15%. <b>Frontier layer</b>: GPU spot rent 25%, supply–demand scissors 20%, DC stress events 20%, circularity 15%, hiring maturity 10%, revenue gap 10%. Mapping anchors are hard-coded — fully transparent and reproducible. Scores measure deviation from historical norms, not price forecasts.<br>
+      <b>Frontier sources</b>: GPU spot rent = vast.ai public market API (median on-demand per-GPU asks for H100 SXM / H200 / A100 SXM4); historical anchors are public-report approximations; the $1.3–1.9/hr breakeven band is a full-cost estimate ($25–30k purchase, 5-yr depreciation, power &amp; facility, 70% utilization). Developer adoption = official npm download API (openai and @anthropic-ai/sdk, 52 weekly points); demand YoY is the two-package average; downloads include CI/CD traffic, so watch the trend, not the level. DC stress = bilingual Google News keyword radar, each headline classified (cancel/lease-exit/delay vs groundbreaking/signing/expansion); Claude classifies when ANTHROPIC_API_KEY is set, otherwise keyword rules. Circularity = a ledger of large publicly reported "supplier invests in customer → customer buys compute back" structures (commitment-level approximations) plus new-report monitoring. Hiring maturity = Hacker News "Who is hiring" monthly threads (Algolia API), keyword-classified. Revenue gap = annualized capex ×2 (Sequoia framework) vs publicly reported AI end-revenue estimates.<br>
+      <b>Quotes</b>: Yahoo Finance (yfinance batch, one year of daily adjusted closes). Change windows: 1D / 1W (5 sessions) / 1M (21) / 6M (126) / 1Y. US color convention: green up, red down.<br>
+      <b>Capex</b>: quarterly cash-flow statements for Microsoft, Alphabet, Amazon, Meta and Oracle (Yahoo Finance), capex as absolute value; YoY compares the same fiscal quarter; the aggregate YoY only includes companies with both this-year and last-year data. Fiscal quarter-ends differ, so "latest quarter" is per company.<br>
+      <b>Fundamentals</b>: PE (TTM), forward PE, PS (TTM), revenue growth (latest quarter YoY) and gross margin come from Yahoo Finance summary fields; definitions may differ — for cross-sectional comparison only.<br>
+      <b>High-yield spread</b>: with FRED_API_KEY set, ICE BofA US High Yield OAS (FRED: BAMLH0A0HYM2); otherwise HYG−IEF 6-month relative performance as a directional proxy.<br>
+      <b>Executive brief</b>: written by Claude from this snapshot's facts when ANTHROPIC_API_KEY is set (tagged AI-generated); otherwise a rules template. All numbers come from this page's snapshot.<br>
+      <b>Historical analogy</b>: qualitative framing (approximate figures).<br>
+      <b>News radar</b>: Google News (Traditional Chinese) keyword feeds; click through to the original story.<br>
+      For research reference only — not investment advice.
+    </div>
   </details>
 
-  <div class="pagefoot">
-    配色採美股慣例（綠漲 / 紅跌）· 溫度分區：&lt;30 冷靜 / 30–50 升溫 / 50–70 過熱 / 70–85 泡沫警戒 / ≥85 極端泡沫 · AI Bubble Monitor
-  </div>
+  <div class="pagefoot" id="pagefoot"></div>
 </div>
 
 <div class="modal-mask" id="pwMask">
   <div class="modal" id="pwModal">
-    <h3>更新數據</h3>
-    <p>更新按鈕受密碼保護。確認後將重新抓取行情、基本面、巨頭資本支出與新聞，並重新計算泡沫溫度與執行摘要（約需 1–3 分鐘）。</p>
+    <h3 id="pwTitle">更新數據</h3>
+    <p id="pwDesc"></p>
     <input type="password" id="pwInput" placeholder="更新密碼" autocomplete="off">
     <div class="err" id="pwErr"></div>
     <div class="acts">
@@ -286,6 +302,195 @@
   const SNAP = JSON.parse(document.getElementById('snap-data').textContent);
   const HIST = JSON.parse(document.getElementById('hist-data').textContent);
   const content = document.getElementById('content');
+
+  /* ── i18n ── */
+  let LANG = localStorage.getItem('aib_lang') || 'zh';
+  const Z = (zh, en) => LANG === 'zh' ? zh : en;
+
+  /* English names for tickers (data only carries zh names) */
+  const TICKER_EN = {
+    MSFT: 'Microsoft', GOOGL: 'Alphabet', AMZN: 'Amazon', META: 'Meta', ORCL: 'Oracle',
+    NVDA: 'Nvidia', TSM: 'TSMC ADR', AVGO: 'Broadcom', AMD: 'AMD', MU: 'Micron',
+    ASML: 'ASML', ANET: 'Arista', SMCI: 'Supermicro', ARM: 'Arm', VRT: 'Vertiv',
+    CRWV: 'CoreWeave', NBIS: 'Nebius', PLTR: 'Palantir', AI: 'C3.ai',
+    VST: 'Vistra', CEG: 'Constellation', NRG: 'NRG Energy', TLN: 'Talen', GEV: 'GE Vernova',
+    OKLO: 'Oklo', SMR: 'NuScale', CCJ: 'Cameco', XLU: 'Utilities ETF',
+    DLR: 'Digital Realty', EQIX: 'Equinix', IRM: 'Iron Mountain', SRVR: 'Data-Infra REIT ETF', VNQ: 'REIT Index',
+    HYG: 'High-Yield ETF', IEF: '7–10Y Treasury ETF', 'BTC-USD': 'Bitcoin', ARKK: 'ARK Innovation',
+    '^VIX': 'VIX', SPY: 'S&P 500', RSP: 'S&P 500 Equal-Weight', QQQ: 'Nasdaq-100', '^TNX': 'US 10Y Yield',
+  };
+  const tnm = m => LANG === 'zh' ? m.zh : (TICKER_EN[m.ticker] || m.zh);
+
+  /* zh→en for strings that arrive inside the data snapshot (fallback = zh) */
+  const TR = {
+    /* zones */
+    '冷靜區': 'Calm', '升溫區': 'Warming', '過熱區': 'Hot', '泡沫警戒': 'Bubble Alert', '極端泡沫': 'Extreme',
+    '市場情緒與基本面大致匹配': 'Sentiment broadly matches fundamentals',
+    '資金流入加速，估值開始領先基本面': 'Inflows accelerating; valuations starting to outrun fundamentals',
+    '多項指標偏離歷史常態，需提高警覺': 'Multiple indicators deviate from historical norms — stay alert',
+    '估值/槓桿/投機指標同步亮紅燈': 'Valuation, leverage and speculation flashing red together',
+    '歷史級別的過熱，任何催化劑都可能觸發回調': 'Historic overheating — any catalyst could trigger a correction',
+    /* market sub notes */
+    '五大雲端巨頭最新季資本支出年增率、CapEx/營運現金流、CapEx/營收——燒錢越兇、離現金流極限越近，泡沫溫度越高': 'Latest-quarter capex YoY, capex/OCF and capex/revenue for the five hyperscalers — the faster the burn and the closer to cash-flow limits, the hotter the reading.',
+    'AI 算力核心股 PE/PS 中位數與輝達 PS——估值越貴溫度越高': 'Median PE/PS of AI compute core names plus Nvidia PS — richer valuations, hotter reading.',
+    'AI 核心 + 新雲籃子近 6 月/1 年漲幅與相對大盤超額——漲得越急溫度越高': '6-month / 1-year gains of the AI-core + neocloud basket and excess vs the index — steeper rallies, hotter reading.',
+    '電力股相對公用事業、資料中心 REIT 相對地產大盤的超額漲幅，及 SMR 無營收投機股漲幅': 'Power vs utilities and DC REITs vs broad REITs excess returns, plus pre-revenue SMR speculatives.',
+    '高收益債利差（越窄越自滿）、比特幣動能、ARKK 超額、VIX 水位（越低越自滿）': 'High-yield spreads (tighter = complacent), Bitcoin momentum, ARKK excess, VIX level (lower = complacent).',
+    '標普市值加權對等權重、那斯達克對標普的 1 年領先幅度——少數巨頭撐起大盤即是集中度風險': 'Cap-weighted vs equal-weight S&P and Nasdaq vs S&P 1-year spreads — a few giants carrying the index is concentration risk.',
+    /* market sub input labels */
+    '五巨頭最新季 CapEx 合計': 'Big-5 latest-quarter capex total',
+    'CapEx 年增率（合計）': 'Capex YoY (aggregate)',
+    'CapEx / 營運現金流': 'Capex / operating cash flow',
+    'CapEx / 營收': 'Capex / revenue',
+    'AI 核心股 PE 中位數': 'AI core median PE',
+    'AI 核心股 PS 中位數': 'AI core median PS',
+    '輝達 PS（TTM）': 'Nvidia PS (TTM)',
+    'AI 籃子近 1 年平均漲幅': 'AI basket avg 1-year gain',
+    'AI 籃子近 6 月平均漲幅': 'AI basket avg 6-month gain',
+    '近 6 月相對標普超額': '6-month excess vs S&P',
+    '電力股 1 年超額（vs 公用事業）': 'Power 1-year excess (vs utilities)',
+    'SMR 投機股（Oklo/NuScale）1 年': 'SMR speculatives (Oklo/NuScale) 1Y',
+    '資料中心 REIT 6 月超額（vs REIT 大盤）': 'DC REIT 6-month excess (vs broad REITs)',
+    '高收益債相對公債 6 月（HYG−IEF）': 'High-yield vs Treasuries 6M (HYG−IEF)',
+    '比特幣近 6 月': 'Bitcoin 6-month',
+    'ARKK 近 6 月超額（vs 標普）': 'ARKK 6-month excess (vs S&P)',
+    'VIX 水位（越低越自滿）': 'VIX level (lower = complacent)',
+    '市值加權 − 等權重（1 年）': 'Cap-weight − equal-weight (1Y)',
+    '那斯達克100 − 標普500（1 年）': 'Nasdaq-100 − S&P 500 (1Y)',
+    /* frontier sub names + notes + inputs */
+    'GPU 現貨租金': 'GPU Spot Rent',
+    '算力供需剪刀差': 'Supply–Demand Scissors',
+    '資料中心壓力事件': 'DC Stress Events',
+    '循環交易強度': 'Circularity',
+    '徵才部署成熟度': 'Hiring Maturity',
+    '收入缺口倍數': 'Revenue Gap',
+    'vast.ai H100 on-demand 中位數——本輪的「暗光纖點亮率」。租金越接近回本帶，過建證據越強': "vast.ai H100 on-demand median — this cycle's 'dark-fiber lit rate'. The closer rents get to the breakeven band, the stronger the overbuild evidence.",
+    'CapEx 年增率（供給）vs 開發者採用年增率（npm SDK 下載，需求）——供給跑贏需求即泡沫指紋': 'Capex growth (supply) vs developer-adoption growth (npm SDK downloads, demand) — supply outrunning demand is the bubble fingerprint.',
+    '新聞雷達自動分類：取消/退租/延後 vs 動工/簽約/擴建——微軟 2025 退租事件的泛化監測': "Auto-classified news radar: cancellations / lease exits / delays vs groundbreakings / signings / expansions — generalizing Microsoft's 2025 lease-exit signal.",
+    '供應商融資/股權換算力的累計規模與新增事件——思科 vendor financing 的本輪版本': "Cumulative size and new cases of vendor-financing / equity-for-compute structures — this cycle's Cisco vendor financing.",
+    'HN Who-is-hiring 月帖：AI 職缺中「生產期」vs「探索期」比例——需求是否真的落地': "HN 'Who is hiring' monthly threads: production-stage vs exploration-stage share of AI roles — is demand actually landing?",
+    '年化 CapEx×2 的隱含必要收入 vs 目前 AI 終端收入估計——$6000 億問題的即時讀數': "Implied required revenue (annualized capex ×2) vs current AI end-revenue estimates — a live read on the '$600B question'.",
+    'H100 現貨中位數（vast.ai on-demand）': 'H100 spot median (vast.ai on-demand)',
+    'A100 現貨中位數': 'A100 spot median',
+    '回本帶（全成本粗估）': 'Breakeven band (full-cost est.)',
+    '供給端：CapEx 年增率': 'Supply: capex YoY',
+    '需求端：SDK 下載年增率（npm 平均）': 'Demand: SDK download YoY (npm avg)',
+    '剪刀差（供給−需求）': 'Scissors (supply − demand)',
+    '壓力事件（取消/退租/延後）': 'Stress events (cancel/exit/delay)',
+    '擴張事件（動工/簽約/擴建）': 'Expansion events (build/sign/expand)',
+    '壓力比率': 'Stress ratio',
+    '已揭露循環結構累計（種子台帳）': 'Disclosed circular structures, cumulative',
+    '本期新增相關報導': 'New related reports this period',
+    '本月 AI 職缺占比': 'AI share of postings this month',
+    'AI 職缺中生產期比例': 'Production-stage share of AI roles',
+    '樣本（頂層徵才帖）': 'Sample (top-level posts)',
+    '隱含必要收入（CapEx×2 年化）': 'Implied required revenue (capex ×2, annualized)',
+    '目前 AI 終端收入估計': 'Current AI end-revenue estimate',
+    '缺口倍數': 'Gap multiple',
+    /* group descriptions */
+    'AI 基建投資的金主——資本支出趨勢是本平台核心訊號': "The financiers of AI infrastructure — capex trends are this platform's core signal",
+    '晶片與算力供應鏈——估值與動能是泡沫溫度的直接讀數': 'Chip & compute supply chain — valuation and momentum are direct bubble reads',
+    '舉債買 GPU 的新雲 + 高估值 AI 應用——投機溫度最敏感的一群': 'Debt-funded GPU neoclouds + richly valued AI apps — the most speculation-sensitive cohort',
+    'AI 資料中心吃電——電力股相對公用事業的超額漲幅 = 基礎設施溢價': "AI datacenters eat power — power names' excess over utilities = the infrastructure premium",
+    '資料中心地產——租金與估值反映算力空間供需，落後則暗示過建': 'Datacenter real estate — rents and valuations reflect capacity supply/demand; lagging hints at overbuild',
+    '泡沫靠便宜資金餵養——高收益債利差、比特幣、投機成長股、VIX': 'Bubbles feed on cheap money — HY spreads, Bitcoin, speculative growth, VIX',
+    '大盤對照——等權重 vs 市值加權的分歧即是集中度訊號': 'Benchmarks — equal-weight vs cap-weight divergence is the concentration signal',
+    /* ticker tags */
+    'Azure / OpenAI 最大金主': "Azure / OpenAI's biggest backer",
+    'GCP / Gemini / TPU 自研': 'GCP / Gemini / in-house TPUs',
+    'AWS / Trainium 自研': 'AWS / in-house Trainium',
+    '開源 Llama / 自用算力': 'Open-source Llama / internal compute',
+    'OCI / 舉債擴建疑慮焦點': 'OCI / debt-funded buildout concerns',
+    'AI 晶片霸主 / 泡沫論主角': 'AI chip hegemon / bubble-debate protagonist',
+    '先進製程獨家代工': 'Sole leading-edge foundry',
+    'ASIC / 網通晶片': 'ASICs / networking silicon',
+    'GPU 第二供應商': '#2 GPU supplier',
+    'HBM 記憶體': 'HBM memory',
+    'EUV 微影設備': 'EUV lithography',
+    'AI 資料中心網路': 'AI datacenter networking',
+    'AI 伺服器 / 高波動': 'AI servers / high beta',
+    'IP 授權 / 高估值指標': 'IP licensing / valuation bellwether',
+    '資料中心電力散熱設備': 'DC power & cooling gear',
+    'GPU 租賃 / 債務融資指標': 'GPU leasing / debt-financing bellwether',
+    '歐系新雲': 'European neocloud',
+    'AI 應用估值風向標': 'AI-app valuation bellwether',
+    '企業 AI / 上一輪炒作殘留': 'Enterprise AI / residue of the last hype cycle',
+    '獨立發電 / AI 電力首選': 'IPP / AI power favorite',
+    '核電 / 微軟三哩島合約': 'Nuclear / Microsoft TMI contract',
+    '獨立發電': 'Independent power producer',
+    '核電直供 AWS': 'Nuclear direct-to-AWS',
+    '燃氣輪機 / 電網設備': 'Gas turbines / grid equipment',
+    'SMR 小型核電 / 無營收投機標的': 'SMR micro-nuclear / pre-revenue speculative',
+    'SMR 概念': 'SMR concept',
+    '鈾礦 / 核燃料': 'Uranium / nuclear fuel',
+    '電力板塊基準（對照組）': 'Utilities benchmark (control)',
+    '全球資料中心 REIT 龍頭': 'Global DC REIT leader',
+    '互聯資料中心龍頭': 'Interconnection DC leader',
+    '文件倉儲轉型資料中心': 'Records storage pivoting to DCs',
+    '地產板塊基準（對照組）': 'REIT benchmark (control)',
+    '垃圾債價格（利差反向）': 'Junk-bond prices (inverse of spreads)',
+    '無風險利率對照': 'Risk-free rate control',
+    '全市場風險偏好溫度計': 'Market-wide risk-appetite gauge',
+    '投機成長股代理': 'Speculative-growth proxy',
+    '過低 = 自滿訊號': 'Too low = complacency signal',
+    '市值加權大盤': 'Cap-weighted index',
+    '等權重對照（集中度訊號）': 'Equal-weight control (concentration signal)',
+    '科技權值': 'Tech mega-caps',
+    '資金成本錨': 'Cost-of-capital anchor',
+    /* circularity deals */
+    '輝達 → OpenAI': 'Nvidia → OpenAI',
+    '甲骨文 ↔ OpenAI': 'Oracle ↔ OpenAI',
+    '輝達 → CoreWeave': 'Nvidia → CoreWeave',
+    '微軟 → OpenAI': 'Microsoft → OpenAI',
+    '輝達 → xAI / Nebius / Humain 等': 'Nvidia → xAI / Nebius / Humain etc.',
+    '最高 $100B 分階段投資，與算力部署里程碑掛鉤——被投方再採購輝達晶片': 'Up to $100B staged investment tied to compute-deployment milestones — investee buys Nvidia chips back',
+    '6GW 算力採購合約 + 最多 1.6 億股認股權證（約 10% 股權）——客戶變股東': '6GW compute purchase + warrants for up to 160M shares (~10%) — the customer becomes a shareholder',
+    '報導約 $300B / 5 年算力合約（Stargate）——甲骨文舉債建設、收入依賴單一客戶': 'Reported ~$300B / 5-yr compute contract (Stargate) — Oracle builds on debt, revenue hangs on one customer',
+    '持股 + $6.3B 算力回購保底（backstop）——供應商為客戶的需求兜底': "Equity stake + $6.3B compute-buyback backstop — the supplier underwrites its customer's demand",
+    '累計約 $13B 投資，多數以 Azure 算力抵扣——投資即營收': '~$13B cumulative investment, largely consumed as Azure credits — investment doubles as revenue',
+    '多起「入股 + 供貨」組合，金額數十億美元級': 'Multiple equity-plus-supply combos in the billions of dollars',
+    /* revenue-gap items */
+    'OpenAI（年化營收，2026 報導）': 'OpenAI (annualized revenue, 2026 reports)',
+    'Anthropic（年化營收，2026 報導）': 'Anthropic (annualized revenue, 2026 reports)',
+    '微軟/谷歌/Meta AI 歸屬收入（估）': 'Microsoft/Google/Meta AI-attributed revenue (est.)',
+    '其他 AI 應用與 API（估）': 'Other AI apps & APIs (est.)',
+    /* news topics */
+    'AI 泡沫論戰': 'AI bubble debate',
+    '資本支出與資料中心': 'Capex & datacenters',
+    '電力與能源': 'Power & energy',
+    '晶片與算力': 'Chips & compute',
+    '融資與信用': 'Financing & credit',
+    /* relchart series */
+    '標普500（市值加權）': 'S&P 500 (cap-weighted)',
+    '標普500 等權重': 'S&P 500 equal-weight',
+    '那斯達克100': 'Nasdaq-100',
+    /* history */
+    '歷史泡沫對照：2000 網路泡沫 vs 本輪 AI 週期': 'Historical analogy: the 2000 dot-com bubble vs this AI cycle',
+    '定性整理（數字為約數，供框架參考，非精確統計）。歷史不會重複，但會押韻。': "Qualitative framing (figures approximate, for perspective). History doesn't repeat, but it rhymes.",
+    '龍頭估值': 'Leader valuations',
+    '資金來源': 'Funding source',
+    '基礎設施過建': 'Infrastructure overbuild',
+    '收入兌現': 'Revenue delivery',
+    '循環交易': 'Circular deals',
+    '實體瓶頸': 'Physical bottlenecks',
+    '思科前瞻 PE 約 130 倍；那斯達克整體 PE 約 70 倍': 'Cisco forward PE ~130x; Nasdaq overall ~70x',
+    '電信商靠垃圾債舉債鋪光纖，槓桿驅動': 'Telecoms laid fiber on junk-bond leverage',
+    '光纖鋪完點亮率不到 10%，暗光纖過剩消化十年': 'Under 10% of fiber was lit; the dark-fiber glut took a decade to digest',
+    '.com 公司普遍無營收、燒錢換眼球': '.coms were mostly pre-revenue, burning cash for eyeballs',
+    '思科供應商融資（vendor financing）撐起客戶採購': 'Cisco vendor financing propped up customer purchases',
+    '頻寬過剩、無實體限制': 'Bandwidth glut, no physical constraint',
+    '輝達前瞻 PE 約 30–40 倍；Mag7 約 30 倍上下——估值有獲利支撐': 'Nvidia forward PE ~30–40x; Mag7 ~30x — valuations backed by earnings',
+    '巨頭前期以自有現金流支應；2025 起 Meta/甲骨文/CoreWeave 轉向債券、SPV、私募信貸': 'Hyperscalers first funded from cash flow; since 2025 Meta/Oracle/CoreWeave shift to bonds, SPVs, private credit',
+    'GPU 折舊僅 3–6 年、技術迭代快——若過建，貶值速度遠快於光纖': 'GPUs depreciate in 3–6 years with fast iteration — an overbuild devalues far faster than fiber',
+    'AI 應用收入成長中，但體量仍遠小於每年數千億美元的基建投資，缺口待補': 'AI app revenue is growing but still dwarfed by hundreds of billions in annual capex — the gap remains',
+    '輝達投資 OpenAI/CoreWeave，被投方再回頭採購晶片與算力——結構神似': 'Nvidia invests in OpenAI/CoreWeave; investees buy chips and compute back — strikingly similar structure',
+    '電網互聯排隊 5–7 年、燃氣輪機缺貨、電價上行——瓶頸既是護城河也是過熱證據': '5–7 yr grid-interconnect queues, turbine shortages, rising power prices — bottlenecks are both moat and overheat evidence',
+    '2000 年泡沫破裂後，基礎設施留存並孕育了寬頻時代——即使泡沫破裂，算力與電力資產不會消失，但「誰在最高點買單」決定誰受傷。': 'After 2000 burst, the infrastructure survived and seeded the broadband era — compute and power assets will not vanish if this bubble pops, but who bought at the top decides who gets hurt.',
+    '亞馬遜在 2000–2001 下跌 94% 後才成為巨頭——泡沫判斷與長期價值判斷是兩回事。': 'Amazon fell 94% through 2000–01 before becoming a giant — bubble calls and long-term value calls are different judgments.',
+    '本輪與 2000 最大差異：金主是全球現金流最強的公司；最大相似：資本開支成長率遠超收入成長率，且融資結構正在轉向槓桿。': 'Biggest difference vs 2000: the financiers are the strongest cash-flow companies on earth. Biggest similarity: capex growth far outruns revenue growth, and funding is shifting toward leverage.',
+    '監測重點不是「會不會破」，而是訊號的邊際變化：資本支出指引下修、GPU 租賃價格鬆動、信用利差走闊、電力合約毀約——任何兩項同時出現即應提高現金比重。': 'Watch the margins, not "will it pop": capex guidance cuts, softening GPU rents, widening credit spreads, power-contract defaults — any two together means raise cash.',
+  };
+  const D = s => (LANG === 'zh' || s == null) ? s : (TR[s] != null ? TR[s] : s);
 
   /* ── helpers ── */
   function esc(s) {
@@ -305,9 +510,10 @@
     if (v >= 1) return v.toFixed(2);
     return v.toFixed(4);
   }
+  /* primary/secondary swap with language */
   function sec(num, zh, en, desc) {
-    return '<div class="sec-head"><span class="sec-num">' + num + '</span><h2>' + esc(zh) +
-      '</h2><span class="en">' + esc(en) + '</span>' +
+    return '<div class="sec-head"><span class="sec-num">' + num + '</span><h2>' + esc(Z(zh, en)) +
+      '</h2><span class="en">' + esc(Z(en, zh)) + '</span>' +
       (desc ? '<span class="desc">' + esc(desc) + '</span>' : '') + '</div>';
   }
   function spark(points, w, h) {
@@ -324,11 +530,11 @@
 
   const ZONE_COLOR = { calm: 'var(--z-calm)', warming: 'var(--z-warming)', hot: 'var(--z-hot)', alert: 'var(--z-alert)', extreme: 'var(--z-extreme)' };
   const ZONE_SEGS = [
-    { from: 0, to: 30, key: 'calm', zh: '冷靜' },
-    { from: 30, to: 50, key: 'warming', zh: '升溫' },
-    { from: 50, to: 70, key: 'hot', zh: '過熱' },
-    { from: 70, to: 85, key: 'alert', zh: '警戒' },
-    { from: 85, to: 100, key: 'extreme', zh: '極端' },
+    { from: 0, to: 30, key: 'calm', zh: '冷靜', en: 'Calm' },
+    { from: 30, to: 50, key: 'warming', zh: '升溫', en: 'Warming' },
+    { from: 50, to: 70, key: 'hot', zh: '過熱', en: 'Hot' },
+    { from: 70, to: 85, key: 'alert', zh: '警戒', en: 'Alert' },
+    { from: 85, to: 100, key: 'extreme', zh: '極端', en: 'Extreme' },
   ];
   const ZONE_HEX = { calm: '#2fbf71', warming: '#b8c94b', hot: '#f5a942', alert: '#ff6b4b', extreme: '#ff3030' };
 
@@ -354,7 +560,6 @@
     });
     [0, 30, 50, 70, 85, 100].forEach(v => {
       const [x, y] = pt(v / 100);
-      const inner = [cx + (r - 13) * (x - cx) / r, cy + (r - 13) * (y - cy) / r];
       svg += '<text x="' + (cx + (r + 14) * (x - cx) / r).toFixed(1) + '" y="' + (cy + (r + 14) * (y - cy) / r + 3).toFixed(1) +
         '" text-anchor="middle" font-size="9.5" fill="#6c628a">' + v + '</text>';
     });
@@ -370,59 +575,63 @@
     return svg;
   }
 
-  function gaugeBox(score, labelZh, labelEn, descOverride) {
+  function gaugeBox(score, labelMain, labelSub, descOverride) {
     const z = zoneFor(score);
     const zc = z ? ZONE_HEX[z.key] : 'var(--na)';
-    return '<div class="gauge-box"><div class="gauge-label">' + esc(labelZh) +
-      '<span class="sub-en">' + esc(labelEn) + '</span></div>' + gaugeSVG(score) +
+    return '<div class="gauge-box"><div class="gauge-label">' + esc(labelMain) +
+      '<span class="sub-en">' + esc(labelSub) + '</span></div>' + gaugeSVG(score) +
       '<div class="gauge-score" style="color:' + zc + '">' + (score != null ? score.toFixed(1) : '—') + '</div>' +
-      '<div class="gauge-zone" style="background:color-mix(in srgb, ' + zc + ' 16%, transparent);color:' + zc + '">' + esc(z ? z.zh : '無資料') + '</div>' +
+      '<div class="gauge-zone" style="background:color-mix(in srgb, ' + zc + ' 16%, transparent);color:' + zc + '">' + esc(z ? Z(z.zh, z.en) : Z('無資料', 'No data')) + '</div>' +
       '<div class="gauge-desc">' + esc(descOverride || '') + '</div></div>';
   }
 
   function heroHTML() {
     const S = SNAP.scores || {};
     const F = (SNAP.frontier || {}).scores || {};
-    const mz = SNAP.scores && SNAP.scores.zone ? SNAP.scores.zone.desc_zh : '';
+    const mz = SNAP.scores && SNAP.scores.zone ? D(SNAP.scores.zone.desc_zh) : '';
     const b = SNAP.brief || { source: 'rules', bullets: [], watch: '' };
     const diverge = (S.composite != null && F.composite != null)
       ? (F.composite < S.composite
-        ? '前瞻層（實體算力經濟）比市場層更冷 — 泡沫頂部尚未獲得實體面確認；若前瞻層升溫追上市場層，即是離場訊號。'
-        : '⚠ 前瞻層比市場層更熱 — 實體經濟惡化領先於價格，歷史上這是泡沫見頂的指紋。')
+        ? Z('前瞻層（實體算力經濟）比市場層更冷 — 泡沫頂部尚未獲得實體面確認；若前瞻層升溫追上市場層，即是離場訊號。',
+            'The frontier layer (the physical compute economy) is cooler than the market layer — no physical-side confirmation of a top yet; if the frontier heats up to meet the market, that is the exit signal.')
+        : Z('⚠ 前瞻層比市場層更熱 — 實體經濟惡化領先於價格，歷史上這是泡沫見頂的指紋。',
+            '⚠ Frontier hotter than market — physical deterioration is leading price; historically the fingerprint of a topping bubble.'))
       : '';
-    let html = '<div class="section">' + sec('01', '雙層泡沫溫度計', 'Twin Thermometers', '市場訊號（同步）× 前瞻訊號（領先 6–12 個月）') + '<div class="hero-grid">';
+    let html = '<div class="section">' + sec('01', '雙層泡沫溫度計', 'Twin Thermometers',
+      Z('市場訊號（同步）× 前瞻訊號（領先 6–12 個月）', 'Market signals (coincident) × frontier signals (leading 6–12 months)')) + '<div class="hero-grid">';
     html += '<div class="panel"><div class="gauges-row">' +
-      gaugeBox(S.composite, '市場訊號溫度', 'MARKET SIGNALS', mz) +
-      gaugeBox(F.composite, '前瞻訊號溫度', 'FRONTIER SIGNALS', '實體算力經濟讀數：GPU 租金 / 供需 / 退租事件 / 循環交易') +
+      gaugeBox(S.composite, Z('市場訊號溫度', 'Market Signals'), Z('MARKET SIGNALS', '市場訊號'), mz) +
+      gaugeBox(F.composite, Z('前瞻訊號溫度', 'Frontier Signals'), Z('FRONTIER SIGNALS', '前瞻訊號'),
+        Z('實體算力經濟讀數：GPU 租金 / 供需 / 退租事件 / 循環交易', 'Physical compute economy: GPU rents / supply-demand / lease exits / circular deals')) +
       '</div>' +
       '<div class="zone-scale">' + ZONE_SEGS.map(z =>
-        '<div class="zone-seg" style="border-color:' + ZONE_HEX[z.key] + '">' + z.zh + '<br>' + z.from + '–' + z.to + '</div>'
+        '<div class="zone-seg" style="border-color:' + ZONE_HEX[z.key] + '">' + Z(z.zh, z.en) + '<br>' + z.from + '–' + z.to + '</div>'
       ).join('') + '</div>' +
       (diverge ? '<div class="layer-note">' + esc(diverge) + '</div>' : '') + '</div>';
     html += '<div class="panel brief"><span class="brief-tag' + (b.source === 'ai' ? ' ai' : '') + '">' +
-      (b.source === 'ai' ? '✦ AI 生成 · CLAUDE' : '規則引擎生成') + '</span>' +
-      (b.stance ? '<span class="stance">態勢：' + esc(b.stance) + '</span>' : '') + '<ul>';
+      (b.source === 'ai' ? Z('✦ AI 生成 · CLAUDE', '✦ AI-GENERATED · CLAUDE (ZH)') : Z('規則引擎生成', 'RULES-ENGINE GENERATED (ZH)')) + '</span>' +
+      (b.stance ? '<span class="stance">' + Z('態勢：', 'Stance: ') + esc(b.stance) + '</span>' : '') + '<ul>';
     (b.bullets || []).forEach(t => { html += '<li>' + esc(t) + '</li>'; });
     html += '</ul>';
-    if (b.watch) html += '<div class="watch"><b>本期關注：</b>' + esc(b.watch) + '</div>';
+    if (b.watch) html += '<div class="watch"><b>' + Z('本期關注：', 'Watch this period: ') + '</b>' + esc(b.watch) + '</div>';
     html += '</div></div></div>';
     return html;
   }
 
-  /* ── sub-score card renderer (市場層 / 前瞻層共用) ── */
+  /* ── sub-score card renderer (market / frontier shared) ── */
   function subCards(subs) {
     let html = '<div class="subs">';
     subs.forEach(s => {
       const zc = s.score == null ? 'var(--na)' : (s.score < 30 ? ZONE_HEX.calm : s.score < 50 ? ZONE_HEX.warming : s.score < 70 ? ZONE_HEX.hot : s.score < 85 ? ZONE_HEX.alert : ZONE_HEX.extreme);
       html += '<div class="sub"><div class="head"><span class="dot ' + esc(s.level) + '"></span>' +
-        '<div><div class="nm">' + esc(s.zh) + '</div><div class="en">' + esc(s.en) + '</div></div>' +
+        '<div><div class="nm">' + esc(Z(s.zh, s.en || D(s.zh))) + '</div><div class="en">' + esc(Z(s.en || '', s.zh)) + '</div></div>' +
         '<span class="sc" style="color:' + zc + '">' + (s.score != null ? s.score.toFixed(0) : '—') +
-        '<span class="wt">/100 · 權重 ' + Math.round(s.weight * 100) + '%</span></span></div>' +
+        '<span class="wt">/100 · ' + Z('權重 ', 'weight ') + Math.round(s.weight * 100) + '%</span></span></div>' +
         '<div class="bar-track"><div class="bar" style="width:' + (s.score || 0) + '%;background:' + zc + '"></div></div>';
       (s.inputs || []).forEach(i => {
-        html += '<div class="inp"><span>' + esc(i.zh) + '</span><b>' + esc(i.v) + '</b></div>';
+        html += '<div class="inp"><span>' + esc(D(i.zh)) + '</span><b>' + esc(i.v) + '</b></div>';
       });
-      html += '<div class="note">' + esc(s.note_zh) + '</div></div>';
+      html += '<div class="note">' + esc(D(s.note_zh)) + '</div></div>';
     });
     html += '</div>';
     return html;
@@ -431,20 +640,20 @@
   function subsHTML() {
     const subs = (SNAP.scores || {}).subs || [];
     if (!subs.length) return '';
-    return '<div class="section">' + sec('03', '市場訊號層：六大維度', 'Market Signal Layer', '同步指標 — 分數 = 偏離歷史常態的程度，非漲跌預測') + subCards(subs) + '</div>';
+    return '<div class="section">' + sec('03', '市場訊號層：六大維度', 'Market Signal Layer',
+      Z('同步指標 — 分數 = 偏離歷史常態的程度，非漲跌預測', 'Coincident — scores measure deviation from historical norms, not price forecasts')) + subCards(subs) + '</div>';
   }
 
-  /* ── 02 前瞻訊號層 ── */
+  /* ── 02 frontier layer ── */
   function fpanel(zh, en, right, body) {
-    return '<div class="fpanel"><div class="ft"><h3>' + esc(zh) + '</h3><span class="en">' + esc(en) + '</span>' +
+    return '<div class="fpanel"><div class="ft"><h3>' + esc(Z(zh, en)) + '</h3><span class="en">' + esc(Z(en, zh)) + '</span>' +
       (right ? '<span class="right">' + esc(right) + '</span>' : '') + '</div>' + body + '</div>';
   }
 
   function lineChart(seriesArr, opts) {
-    // seriesArr: [{label, color, points:[{x(label), y}]}] — x 軸共用第一條的標籤
     const W = opts.w || 460, H = opts.h || 200, padL = opts.padL || 44, padR = 12, padT = 12, padB = 26;
     const allY = seriesArr.flatMap(s => s.points.map(p => p.y)).filter(v => v != null);
-    if (!allY.length) return '<div class="nodata">資料不足</div>';
+    if (!allY.length) return '<div class="nodata">' + Z('資料不足', 'Insufficient data') + '</div>';
     let lo = opts.lo != null ? opts.lo : Math.min(...allY), hi = Math.max(...allY);
     const m = (hi - lo) * 0.1 || 1; hi += m; if (opts.lo == null) lo = Math.max(0, lo - m);
     const n = Math.max(...seriesArr.map(s => s.points.length));
@@ -480,98 +689,103 @@
 
   function gpuPanel(FR) {
     const g = FR.gpu_spot;
-    if (!g) return fpanel('GPU 現貨租金', 'GPU Spot', '', '<div class="nodata">vast.ai 暫無資料</div>');
+    if (!g) return fpanel('GPU 現貨租金', 'GPU Spot', '', '<div class="nodata">' + Z('vast.ai 暫無資料', 'No vast.ai data yet') + '</div>');
     const G = g.gpus || {};
     let stats = '<div class="bigstats">';
     [['h100', 'H100 SXM'], ['h200', 'H200'], ['a100', 'A100 SXM4']].forEach(([k, lab]) => {
       const x = G[k];
-      if (x) stats += '<div class="bstat"><div class="k">' + lab + ' 中位數</div><div class="v">$' + x.median.toFixed(2) + '<small>/hr · ' + x.offers + ' 報價</small></div></div>';
+      if (x) stats += '<div class="bstat"><div class="k">' + lab + Z(' 中位數', ' median') + '</div><div class="v">$' + x.median.toFixed(2) + '<small>/hr · ' + x.offers + Z(' 報價', ' offers') + '</small></div></div>';
     });
     stats += '</div>';
     const hist = g.history || [];
     const chart = lineChart([
       { label: 'H100', color: '#ff8c4b', points: hist.map(h => ({ x: h.date.slice(2), y: h.h100 })) },
       { label: 'A100', color: '#b88cff', points: hist.map(h => ({ x: h.date.slice(2), y: h.a100 })) },
-    ], { h: 190, band: g.breakeven_band, bandLabel: '回本帶 $' + g.breakeven_band[0] + '–' + g.breakeven_band[1], lo: 0, fmtY: v => '$' + v.toFixed(1) });
+    ], { h: 190, band: g.breakeven_band, bandLabel: Z('回本帶 $', 'Breakeven $') + g.breakeven_band[0] + '–' + g.breakeven_band[1], lo: 0, fmtY: v => '$' + v.toFixed(1) });
     const legend = '<div class="legend"><span><span class="sw" style="background:#ff8c4b"></span>H100</span><span><span class="sw" style="background:#b88cff"></span>A100</span></div>';
-    return fpanel('GPU 現貨租金 — 本輪的「暗光纖點亮率」', 'GPU Spot Rent', 'vast.ai 即時', stats + chart + legend +
-      '<div class="footnote">歷史錨點為公開報導約數、即時點為 vast.ai on-demand 單卡報價中位數。租金跌入紅色回本帶 = 租賃商無利可圖 = 算力過建的直接實證——A100 已在帶內（上一代已「破裂」）。</div>');
+    return fpanel('GPU 現貨租金 — 本輪的「暗光纖點亮率」', 'GPU Spot Rent', Z('vast.ai 即時', 'vast.ai live'), stats + chart + legend +
+      '<div class="footnote">' + Z('歷史錨點為公開報導約數、即時點為 vast.ai on-demand 單卡報價中位數。租金跌入紅色回本帶 = 租賃商無利可圖 = 算力過建的直接實證——A100 已在帶內（上一代已「破裂」）。',
+        'Historical anchors are public-report approximations; the live point is the vast.ai on-demand per-GPU median. Rent falling into the red breakeven band = GPU renting is unprofitable = direct evidence of overbuild — A100 is already inside the band (the previous generation has "popped").') + '</div>');
   }
 
   function scissorsPanel(FR) {
     const a = FR.adoption, agg = (SNAP.capex || {}).agg || {};
-    if (!a) return fpanel('算力供需剪刀差', 'Scissors', '', '<div class="nodata">npm 暫無資料</div>');
+    if (!a) return fpanel('算力供需剪刀差', 'Scissors', '', '<div class="nodata">' + Z('npm 暫無資料', 'No npm data yet') + '</div>');
     let stats = '<div class="bigstats">' +
-      '<div class="bstat"><div class="k">供給端：CapEx 年增</div><div class="v" style="color:var(--accent)">' + fmtPct1(agg.yoy) + '</div></div>' +
-      '<div class="bstat"><div class="k">需求端：SDK 下載年增</div><div class="v" style="color:var(--good)">' + fmtPct1(a.avg_g1y) + '</div></div>' +
-      '<div class="bstat"><div class="k">近 6 月需求增速</div><div class="v">' + fmtPct1(a.avg_g6m) + '</div></div></div>';
+      '<div class="bstat"><div class="k">' + Z('供給端：CapEx 年增', 'Supply: capex YoY') + '</div><div class="v" style="color:var(--accent)">' + fmtPct1(agg.yoy) + '</div></div>' +
+      '<div class="bstat"><div class="k">' + Z('需求端：SDK 下載年增', 'Demand: SDK downloads YoY') + '</div><div class="v" style="color:var(--good)">' + fmtPct1(a.avg_g1y) + '</div></div>' +
+      '<div class="bstat"><div class="k">' + Z('近 6 月需求增速', 'Demand growth, 6M') + '</div><div class="v">' + fmtPct1(a.avg_g6m) + '</div></div></div>';
     const pkgs = Object.entries(a.packages || {});
     const colors = ['#2fbf71', '#4f9cff'];
     const series = pkgs.map(([pkg, d], i) => ({
       label: pkg, color: colors[i % 2],
-      points: (d.series || []).map((v, j) => ({ x: j === 0 ? '52週前' : (j === (d.series.length - 1) ? '本週' : ''), y: v / 1e6 })),
+      points: (d.series || []).map((v, j) => ({ x: j === 0 ? Z('52週前', '52w ago') : (j === (d.series.length - 1) ? Z('本週', 'now') : ''), y: v / 1e6 })),
     }));
     const chart = series.length ? lineChart(series, { h: 190, fmtY: v => v.toFixed(0) + 'M' }) : '';
     const legend = '<div class="legend">' + pkgs.map(([pkg, d], i) =>
-      '<span><span class="sw" style="background:' + colors[i % 2] + '"></span>' + esc(d.zh || pkg) + ' <b>' + (d.weekly_now / 1e6).toFixed(1) + 'M/週</b></span>').join('') + '</div>';
-    return fpanel('算力供需剪刀差', 'Supply–Demand Scissors', 'npm 週下載 52 週', stats + chart + legend +
-      '<div class="footnote">需求代理 = OpenAI / Anthropic 官方 SDK 的 npm 週下載（開發者實際在建的東西）。只要需求增速 &gt; 供給增速，過建風險可控；剪刀差反轉（供給跑贏）即是 2000 式泡沫指紋——這條線反轉的那天，就是你比全世界早知道的那天。</div>');
+      '<span><span class="sw" style="background:' + colors[i % 2] + '"></span>' + esc(d.zh || pkg) + ' <b>' + (d.weekly_now / 1e6).toFixed(1) + 'M' + Z('/週', '/wk') + '</b></span>').join('') + '</div>';
+    return fpanel('算力供需剪刀差', 'Supply–Demand Scissors', Z('npm 週下載 52 週', 'npm weekly · 52w'), stats + chart + legend +
+      '<div class="footnote">' + Z('需求代理 = OpenAI / Anthropic 官方 SDK 的 npm 週下載（開發者實際在建的東西）。只要需求增速 > 供給增速，過建風險可控；剪刀差反轉（供給跑贏）即是 2000 式泡沫指紋——這條線反轉的那天，就是你比全世界早知道的那天。',
+        'Demand proxy = npm weekly downloads of the official OpenAI / Anthropic SDKs (what developers are actually building). While demand growth > supply growth, overbuild risk is contained; the scissors flipping (supply outrunning demand) is the 2000-style fingerprint — the day that line flips is the day you know before everyone else.') + '</div>');
   }
 
   function dcPanel(FR) {
     const d = FR.dc_stress;
-    if (!d) return fpanel('資料中心壓力雷達', 'DC Stress', '', '<div class="nodata">新聞雷達暫無資料</div>');
+    if (!d) return fpanel('資料中心壓力雷達', 'DC Stress', '', '<div class="nodata">' + Z('新聞雷達暫無資料', 'No radar data yet') + '</div>');
     const total = (d.stress_n || 0) + (d.expand_n || 0);
     const pct = total ? Math.round(d.stress_n / total * 100) : 0;
     let body = '<div class="bigstats">' +
-      '<div class="bstat"><div class="k">壓力事件（取消/退租/延後）</div><div class="v" style="color:var(--bad)">' + d.stress_n + ' 則</div></div>' +
-      '<div class="bstat"><div class="k">擴張事件（動工/簽約）</div><div class="v" style="color:var(--good)">' + d.expand_n + ' 則</div></div>' +
-      '<div class="bstat"><div class="k">壓力比率</div><div class="v">' + pct + '%</div></div></div>';
-    body += '<div class="hbar"><div class="fill" style="width:' + pct + '%;background:linear-gradient(90deg,#f5a942,#ff5d5d)"></div><span class="lab">' + pct + '% 壓力</span></div>';
+      '<div class="bstat"><div class="k">' + Z('壓力事件（取消/退租/延後）', 'Stress (cancel/exit/delay)') + '</div><div class="v" style="color:var(--bad)">' + d.stress_n + Z(' 則', '') + '</div></div>' +
+      '<div class="bstat"><div class="k">' + Z('擴張事件（動工/簽約）', 'Expansion (build/sign)') + '</div><div class="v" style="color:var(--good)">' + d.expand_n + Z(' 則', '') + '</div></div>' +
+      '<div class="bstat"><div class="k">' + Z('壓力比率', 'Stress ratio') + '</div><div class="v">' + pct + '%</div></div></div>';
+    body += '<div class="hbar"><div class="fill" style="width:' + pct + '%;background:linear-gradient(90deg,#f5a942,#ff5d5d)"></div><span class="lab">' + pct + Z('% 壓力', '% stress') + '</span></div>';
     (d.items || []).slice(0, 10).forEach(it => {
       body += '<a class="fnews" href="' + esc(it.link) + '" target="_blank" rel="noopener">' +
-        '<span class="nbadge ' + (it.label === 'stress' ? 'nb-stress' : 'nb-expand') + '">' + (it.label === 'stress' ? '壓力' : '擴張') + '</span>' +
+        '<span class="nbadge ' + (it.label === 'stress' ? 'nb-stress' : 'nb-expand') + '">' + (it.label === 'stress' ? Z('壓力', 'STRESS') : Z('擴張', 'EXPAND')) + '</span>' +
         esc(it.title) + '<span class="meta">' + esc(it.source || '') + '</span></a>';
     });
-    body += '<div class="footnote">2025 年初微軟退租資料中心是被分析師最早抓到的轉折訊號——本雷達將其泛化為自動監測。分類器：' + (d.classifier === 'ai' ? 'Claude AI' : '關鍵詞規則（設定 ANTHROPIC_API_KEY 後自動升級為 AI 分類）') + '。</div>';
-    return fpanel('資料中心壓力事件雷達', 'DC Stress Radar', '雙語新聞自動分類', body);
+    body += '<div class="footnote">' + Z('2025 年初微軟退租資料中心是被分析師最早抓到的轉折訊號——本雷達將其泛化為自動監測。分類器：', "Microsoft's early-2025 datacenter lease exits were the earliest analyst-caught turn signal — this radar generalizes it into automated monitoring. Classifier: ") +
+      (d.classifier === 'ai' ? 'Claude AI' : Z('關鍵詞規則（設定 ANTHROPIC_API_KEY 後自動升級為 AI 分類）', 'keyword rules (set ANTHROPIC_API_KEY to upgrade to AI classification)')) + '。</div>';
+    return fpanel('資料中心壓力事件雷達', 'DC Stress Radar', Z('雙語新聞自動分類', 'auto-classified bilingual news'), body);
   }
 
   function circPanel(FR) {
     const c = FR.circularity;
     if (!c) return '';
     let body = '<div class="bigstats">' +
-      '<div class="bstat"><div class="k">已揭露循環結構累計</div><div class="v" style="color:var(--accent)">~$' + (c.seed_total_b || 0).toFixed(0) + 'B</div></div>' +
-      '<div class="bstat"><div class="k">本期新增相關報導</div><div class="v">' + (c.fresh_n || 0) + ' 則</div></div></div>';
+      '<div class="bstat"><div class="k">' + Z('已揭露循環結構累計', 'Disclosed circular structures') + '</div><div class="v" style="color:var(--accent)">~$' + (c.seed_total_b || 0).toFixed(0) + 'B</div></div>' +
+      '<div class="bstat"><div class="k">' + Z('本期新增相關報導', 'New reports this period') + '</div><div class="v">' + (c.fresh_n || 0) + Z(' 則', '') + '</div></div></div>';
     body += '<table class="deals">';
     (c.seed_deals || []).forEach(dl => {
-      body += '<tr><td class="dt">' + esc(dl.date) + '</td><td class="pp">' + esc(dl.parties_zh) + '</td>' +
-        '<td>' + esc(dl.structure_zh) + '</td><td class="vv">~$' + dl.value_b + 'B</td></tr>';
+      body += '<tr><td class="dt">' + esc(dl.date) + '</td><td class="pp">' + esc(D(dl.parties_zh)) + '</td>' +
+        '<td>' + esc(D(dl.structure_zh)) + '</td><td class="vv">~$' + dl.value_b + 'B</td></tr>';
     });
     body += '</table>';
     if ((c.fresh_items || []).length) {
-      body += '<div style="font-size:11px;color:var(--ink-dim);margin:10px 0 4px">本期相關報導</div>';
+      body += '<div style="font-size:11px;color:var(--ink-dim);margin:10px 0 4px">' + Z('本期相關報導', 'Related reports this period') + '</div>';
       c.fresh_items.slice(0, 5).forEach(it => {
         body += '<a class="fnews" href="' + esc(it.link) + '" target="_blank" rel="noopener">' + esc(it.title) +
           '<span class="meta">' + esc(it.source || '') + '</span></a>';
       });
     }
-    body += '<div class="footnote">2000 年思科以 vendor financing 撐起客戶採購、泡沫破裂時壞帳回旋鏢。本台帳追蹤本輪「供應商投資客戶→客戶回購算力」的循環結構（金額為公開報導承諾級別約數）。</div>';
-    return fpanel('循環交易追蹤器 — 思科時刻監測', 'Circularity Tracker', '種子台帳 + 新聞', body);
+    body += '<div class="footnote">' + Z('2000 年思科以 vendor financing 撐起客戶採購、泡沫破裂時壞帳回旋鏢。本台帳追蹤本輪「供應商投資客戶→客戶回購算力」的循環結構（金額為公開報導承諾級別約數）。',
+      'In 2000, Cisco propped up customer purchases with vendor financing; when the bubble burst, the bad debt boomeranged. This ledger tracks this cycle\'s "supplier invests in customer → customer buys compute back" structures (commitment-level approximations from public reports).') + '</div>';
+    return fpanel('循環交易追蹤器 — 思科時刻監測', 'Circularity Tracker', Z('種子台帳 + 新聞', 'seed ledger + news'), body);
   }
 
   function hnPanel(FR) {
     const h = FR.hn;
-    if (!h) return fpanel('徵才部署成熟度', 'Hiring Maturity', '', '<div class="nodata">HN 資料暫無</div>');
+    if (!h) return fpanel('徵才部署成熟度', 'Hiring Maturity', '', '<div class="nodata">' + Z('HN 資料暫無', 'No HN data yet') + '</div>');
     let body = '<div class="bigstats">' +
-      '<div class="bstat"><div class="k">樣本（' + esc(h.month || '') + '）</div><div class="v">' + h.total_posts + '<small> 帖</small></div></div>' +
-      '<div class="bstat"><div class="k">AI 相關職缺占比</div><div class="v">' + h.ai_share + '%</div></div>' +
-      '<div class="bstat"><div class="k">其中生產期比例</div><div class="v" style="color:var(--good)">' + (h.prod_share != null ? h.prod_share + '%' : '—') + '</div></div></div>';
-    body += '<div style="font-size:11px;color:var(--ink-soft);margin-bottom:4px">AI 職缺滲透</div>' +
+      '<div class="bstat"><div class="k">' + Z('樣本（', 'Sample (') + esc(h.month || '') + '）</div><div class="v">' + h.total_posts + '<small>' + Z(' 帖', ' posts') + '</small></div></div>' +
+      '<div class="bstat"><div class="k">' + Z('AI 相關職缺占比', 'AI share of postings') + '</div><div class="v">' + h.ai_share + '%</div></div>' +
+      '<div class="bstat"><div class="k">' + Z('其中生產期比例', 'Production-stage share') + '</div><div class="v" style="color:var(--good)">' + (h.prod_share != null ? h.prod_share + '%' : '—') + '</div></div></div>';
+    body += '<div style="font-size:11px;color:var(--ink-soft);margin-bottom:4px">' + Z('AI 職缺滲透', 'AI posting penetration') + '</div>' +
       '<div class="hbar"><div class="fill" style="width:' + h.ai_share + '%;background:#4f9cff"></div><span class="lab">' + h.ai_share + '%</span></div>' +
-      '<div style="font-size:11px;color:var(--ink-soft);margin-bottom:4px">生產期（inference/scaling/production 關鍵詞）</div>' +
+      '<div style="font-size:11px;color:var(--ink-soft);margin-bottom:4px">' + Z('生產期（inference/scaling/production 關鍵詞）', 'Production stage (inference/scaling/production keywords)') + '</div>' +
       '<div class="hbar"><div class="fill" style="width:' + (h.prod_share || 0) + '%;background:#2fbf71"></div><span class="lab">' + (h.prod_share || 0) + '%</span></div>';
-    body += '<div class="footnote">資料源：Hacker News「Ask HN: Who is hiring?」月帖（Algolia API），逐帖關鍵詞分類。生產期比例高 = 企業在為「已上線的 AI」招人 = 需求真實落地；若 AI 占比仍高但生產期比例驟降，代表炒作多於落地。</div>';
+    body += '<div class="footnote">' + Z('資料源：Hacker News「Who is hiring?」月帖（Algolia API），逐帖關鍵詞分類。生產期比例高 = 企業在為「已上線的 AI」招人 = 需求真實落地；若 AI 占比仍高但生產期比例驟降，代表炒作多於落地。',
+      'Source: Hacker News "Who is hiring?" monthly threads (Algolia API), keyword-classified per post. High production-stage share = hiring for AI already in production = demand actually landing; if AI share stays high but production share drops, hype exceeds delivery.') + '</div>';
     return fpanel('徵才部署成熟度（HN Who-is-Hiring）', 'Hiring Maturity', esc(h.month || ''), body);
   }
 
@@ -579,23 +793,25 @@
     const g = FR.revenue_gap;
     if (!g) return '';
     let body = '<div class="bigstats">' +
-      '<div class="bstat"><div class="k">年化 CapEx（五巨頭）</div><div class="v">$' + g.capex_annual_t.toFixed(2) + 'T</div></div>' +
-      '<div class="bstat"><div class="k">隱含必要收入（×2）</div><div class="v" style="color:var(--accent)">$' + g.required_t.toFixed(2) + 'T</div></div>' +
-      '<div class="bstat"><div class="k">目前 AI 終端收入估計</div><div class="v">$' + g.est_revenue_b.toFixed(0) + 'B</div></div>' +
-      '<div class="bstat"><div class="k">缺口倍數</div><div class="v" style="color:var(--bad)">' + g.multiple + 'x</div></div></div>';
+      '<div class="bstat"><div class="k">' + Z('年化 CapEx（五巨頭）', 'Annualized capex (Big 5)') + '</div><div class="v">$' + g.capex_annual_t.toFixed(2) + 'T</div></div>' +
+      '<div class="bstat"><div class="k">' + Z('隱含必要收入（×2）', 'Implied required revenue (×2)') + '</div><div class="v" style="color:var(--accent)">$' + g.required_t.toFixed(2) + 'T</div></div>' +
+      '<div class="bstat"><div class="k">' + Z('目前 AI 終端收入估計', 'Current AI end-revenue est.') + '</div><div class="v">$' + g.est_revenue_b.toFixed(0) + 'B</div></div>' +
+      '<div class="bstat"><div class="k">' + Z('缺口倍數', 'Gap multiple') + '</div><div class="v" style="color:var(--bad)">' + g.multiple + 'x</div></div></div>';
     body += '<table class="deals">';
     (g.items || []).forEach(it => {
-      body += '<tr><td>' + esc(it.zh) + '</td><td class="vv">~$' + it.value_b + 'B</td></tr>';
+      body += '<tr><td>' + esc(D(it.zh)) + '</td><td class="vv">~$' + it.value_b + 'B</td></tr>';
     });
-    body += '</table><div class="footnote">Sequoia「$6000 億問題」框架的即時版：資料中心要回本，終端 AI 收入須達 CapEx 的約 2 倍（涵蓋電力/營運/毛利結構）。收入估計為公開報導約數（可在 config 調整）——缺口本身不會立刻刺破泡沫，但缺口收斂的「速度」決定這是亞馬遜還是思科。</div>';
-    return fpanel('收入缺口倍數 — $6000 億問題即時版', 'Revenue Gap', 'CapEx 即時連動', body);
+    body += '</table><div class="footnote">' + Z('Sequoia「$6000 億問題」框架的即時版：資料中心要回本，終端 AI 收入須達 CapEx 的約 2 倍（涵蓋電力/營運/毛利結構）。收入估計為公開報導約數（可在 config 調整）——缺口本身不會立刻刺破泡沫，但缺口收斂的「速度」決定這是亞馬遜還是思科。',
+      'A live version of Sequoia\'s "$600B question": for the datacenters to pay back, end AI revenue must reach ~2× capex (covering power/opex/margin structure). Revenue estimates are public-report approximations (adjustable in config) — the gap itself won\'t pop the bubble, but how fast it closes decides whether this is Amazon or Cisco.') + '</div>';
+    return fpanel('收入缺口倍數 — $6000 億問題即時版', 'Revenue Gap', Z('CapEx 即時連動', 'live capex link'), body);
   }
 
   function frontierHTML() {
     const FR = SNAP.frontier;
     if (!FR) return '';
     const subs = (FR.scores || {}).subs || [];
-    let html = '<div class="section">' + sec('02', '前瞻訊號層', 'Frontier Signal Layer', '實體算力經濟即時讀數 — 設計目標：領先市場價格 6–12 個月') +
+    let html = '<div class="section">' + sec('02', '前瞻訊號層', 'Frontier Signal Layer',
+      Z('實體算力經濟即時讀數 — 設計目標：領先市場價格 6–12 個月', 'Live reads on the physical compute economy — designed to lead prices by 6–12 months')) +
       (subs.length ? subCards(subs) : '') +
       '<div class="fpanels">' +
       gpuPanel(FR) + scissorsPanel(FR) + dcPanel(FR) + circPanel(FR) + hnPanel(FR) + gapPanel(FR) +
@@ -629,25 +845,27 @@
     if (!agg) return '';
     const metaMap = {};
     (SNAP.groups || []).forEach(g => g.tickers.forEach(t => metaMap[t.ticker] = t));
-    let html = '<div class="section">' + sec('04', 'AI 巨頭資本支出', 'Hyperscaler CapEx', '本輪週期的核心變數——錢從哪來、燒得多快') + '<div class="panel">';
+    let html = '<div class="section">' + sec('04', 'AI 巨頭資本支出', 'Hyperscaler CapEx',
+      Z('本輪週期的核心變數——錢從哪來、燒得多快', 'The core variable of this cycle — where the money comes from and how fast it burns')) + '<div class="panel">';
     html += '<div class="capex-chips">' +
-      '<div class="kchip"><div class="k">五巨頭最新季 CapEx 合計</div><div class="v">$' + fmtX(agg.latest_total_b, 1) + 'B <small>年化 ~$' + fmtX(agg.annual_run_rate_t, 2) + '兆</small></div></div>' +
-      '<div class="kchip"><div class="k">合計年增率（同季比）</div><div class="v" style="color:var(--accent)">' + fmtPct1(agg.yoy) + '</div></div>' +
-      '<div class="kchip"><div class="k">CapEx / 營運現金流</div><div class="v">' + fmtX(agg.capex_ocf, 1) + '%</div></div>' +
-      '<div class="kchip"><div class="k">CapEx / 營收</div><div class="v">' + fmtX(agg.capex_rev, 1) + '%</div></div>' +
+      '<div class="kchip"><div class="k">' + Z('五巨頭最新季 CapEx 合計', 'Big-5 latest-quarter capex') + '</div><div class="v">$' + fmtX(agg.latest_total_b, 1) + 'B <small>' + Z('年化 ~$', '~$') + fmtX(agg.annual_run_rate_t, 2) + Z('兆', 'T annualized') + '</small></div></div>' +
+      '<div class="kchip"><div class="k">' + Z('合計年增率（同季比）', 'Aggregate YoY (same quarter)') + '</div><div class="v" style="color:var(--accent)">' + fmtPct1(agg.yoy) + '</div></div>' +
+      '<div class="kchip"><div class="k">CapEx / ' + Z('營運現金流', 'OCF') + '</div><div class="v">' + fmtX(agg.capex_ocf, 1) + '%</div></div>' +
+      '<div class="kchip"><div class="k">CapEx / ' + Z('營收', 'revenue') + '</div><div class="v">' + fmtX(agg.capex_rev, 1) + '%</div></div>' +
       '</div>';
     html += '<div class="capex-cards">';
     Object.keys(cos).sort((a, b) => cos[b].latest_capex_b - cos[a].latest_capex_b).forEach(sym => {
-      const c = cos[sym], m = metaMap[sym] || { zh: sym };
-      html += '<div class="ccard"><div class="row1"><span class="nm">' + esc(m.zh) + '</span><span class="tk">' + esc(sym) + ' · ' + esc(c.latest_q) + '</span></div>' +
-        '<div class="big">$' + c.latest_capex_b.toFixed(1) + 'B <small>最新季 CapEx</small></div>' +
+      const c = cos[sym], m = metaMap[sym] || { zh: sym, ticker: sym };
+      html += '<div class="ccard"><div class="row1"><span class="nm">' + esc(tnm(m)) + '</span><span class="tk">' + esc(sym) + ' · ' + esc(c.latest_q) + '</span></div>' +
+        '<div class="big">$' + c.latest_capex_b.toFixed(1) + 'B <small>' + Z('最新季 CapEx', 'latest-qtr capex') + '</small></div>' +
         '<div class="stats">' +
-        '<span class="mini">年增 <b class="hotv">' + fmtPct1(c.yoy) + '</b></span>' +
+        '<span class="mini">' + Z('年增', 'YoY') + ' <b class="hotv">' + fmtPct1(c.yoy) + '</b></span>' +
         '<span class="mini">/OCF <b>' + fmtX(c.capex_ocf, 0) + '%</b></span>' +
-        '<span class="mini">/營收 <b>' + fmtX(c.capex_rev, 0) + '%</b></span></div>' +
+        '<span class="mini">/' + Z('營收', 'rev') + ' <b>' + fmtX(c.capex_rev, 0) + '%</b></span></div>' +
         capexBars(c.quarters) + '</div>';
     });
-    html += '</div><div class="footnote">資料：Yahoo Finance 季度現金流量表（各家財年季度截止日不同）。CapEx/OCF 越接近 100%，代表自有現金流越無法覆蓋投資，越依賴外部融資——資金來源從現金流轉向債務是泡沫化的關鍵轉折訊號。</div></div></div>';
+    html += '</div><div class="footnote">' + Z('資料：Yahoo Finance 季度現金流量表（各家財年季度截止日不同）。CapEx/OCF 越接近 100%，代表自有現金流越無法覆蓋投資，越依賴外部融資——資金來源從現金流轉向債務是泡沫化的關鍵轉折訊號。',
+      'Data: Yahoo Finance quarterly cash-flow statements (fiscal quarter-ends differ by company). The closer capex/OCF gets to 100%, the less the buildout is self-funded and the more it depends on external financing — funding shifting from cash flow to debt is the key bubble-turn signal.') + '</div></div></div>';
     return html;
   }
 
@@ -661,11 +879,12 @@
       .map(t => ({ t, m: metaMap[t], f: F[t], q: Q[t] || {} }))
       .sort((a, b) => (b.f.mcap_usd || 0) - (a.f.mcap_usd || 0));
     if (!rows.length) return '';
-    let html = '<div class="section">' + sec('05', 'AI 核心股估值與動能', 'Valuation & Momentum', 'Yahoo Finance TTM 口徑 · 按市值排序') + '<div class="panel tbl-wrap">';
-    html += '<table class="tbl"><tr><th>公司</th><th>市值 $B</th><th>PE</th><th>前瞻 PE</th><th>PS</th><th>營收增速</th><th>近 6 月</th><th>近 1 年</th><th>距 52 週高</th><th>走勢</th></tr>';
+    let html = '<div class="section">' + sec('05', 'AI 核心股估值與動能', 'Valuation & Momentum',
+      Z('Yahoo Finance TTM 口徑 · 按市值排序', 'Yahoo Finance TTM basis · sorted by market cap')) + '<div class="panel tbl-wrap">';
+    html += '<table class="tbl"><tr><th>' + Z('公司', 'Company') + '</th><th>' + Z('市值 $B', 'Mcap $B') + '</th><th>PE</th><th>' + Z('前瞻 PE', 'Fwd PE') + '</th><th>PS</th><th>' + Z('營收增速', 'Rev growth') + '</th><th>' + Z('近 6 月', '6M') + '</th><th>' + Z('近 1 年', '1Y') + '</th><th>' + Z('距 52 週高', 'Off 52w high') + '</th><th>' + Z('走勢', 'Trend') + '</th></tr>';
     rows.forEach(r => {
       const g = r.f.rev_growth;
-      html += '<tr><td><span class="co">' + esc(r.m.zh) + '</span><span class="grp">' + esc(r.t) + '</span></td>' +
+      html += '<tr><td><span class="co">' + esc(tnm(r.m)) + '</span><span class="grp">' + esc(r.t) + '</span></td>' +
         '<td>' + (r.f.mcap_usd != null ? r.f.mcap_usd.toLocaleString('en-US') : '—') + '</td>' +
         '<td' + (r.f.pe > 60 ? ' class="hotcell"' : '') + '>' + fmtX(r.f.pe, 1) + '</td>' +
         '<td>' + fmtX(r.f.fwd_pe, 1) + '</td>' +
@@ -676,34 +895,35 @@
         '<td class="neg">' + fmtPct1(r.q.off_high) + '</td>' +
         '<td style="min-width:90px">' + spark(r.q.spark, 90, 26) + '</td></tr>';
     });
-    html += '</table><div class="footnote">橘色標示 = 估值偏熱（PE &gt; 60x 或 PS &gt; 20x）。前瞻 PE 為分析師預估，僅供參考；新雲公司多數尚無獲利，PE 欄為空屬正常。</div></div></div>';
+    html += '</table><div class="footnote">' + Z('橘色標示 = 估值偏熱（PE > 60x 或 PS > 20x）。前瞻 PE 為分析師預估，僅供參考；新雲公司多數尚無獲利，PE 欄為空屬正常。',
+      'Orange = hot valuation (PE > 60x or PS > 20x). Forward PE is analyst estimates, for reference only; most neoclouds are pre-profit, so an empty PE column is normal.') + '</div></div></div>';
     return html;
   }
 
-  /* ── quote cards (05 電力 / 06 REIT / 07 信用) ── */
+  /* ── quote cards (06 power / 07 REIT / 08 credit) ── */
   function cardHTML(meta, q) {
     let body;
     if (!q) {
-      body = '<div class="nodata">暫無行情資料</div>';
+      body = '<div class="nodata">' + Z('暫無行情資料', 'No quote data') + '</div>';
     } else {
       body =
         '<div class="px-row"><span class="px">' + fmtPrice(q.price) + '</span>' +
         '<span class="d1 ' + cls(q.chg_1d) + '">' + fmtPct(q.chg_1d) + '</span></div>' +
         '<div class="mini-chips">' +
-        '<span class="mini">1月 <b class="' + cls(q.chg_1m) + '">' + fmtPct1(q.chg_1m) + '</b></span>' +
-        '<span class="mini">6月 <b class="' + cls(q.chg_6m) + '">' + fmtPct1(q.chg_6m) + '</b></span>' +
-        '<span class="mini">1年 <b class="' + cls(q.chg_1y) + '">' + fmtPct1(q.chg_1y) + '</b></span>' +
+        '<span class="mini">' + Z('1月', '1M') + ' <b class="' + cls(q.chg_1m) + '">' + fmtPct1(q.chg_1m) + '</b></span>' +
+        '<span class="mini">' + Z('6月', '6M') + ' <b class="' + cls(q.chg_6m) + '">' + fmtPct1(q.chg_6m) + '</b></span>' +
+        '<span class="mini">' + Z('1年', '1Y') + ' <b class="' + cls(q.chg_1y) + '">' + fmtPct1(q.chg_1y) + '</b></span>' +
         '</div>' + spark(q.spark, 200, 32);
     }
-    return '<div class="card"><div class="row1"><span class="nm">' + esc(meta.zh) + '</span><span class="tk">' + esc(meta.ticker) + '</span></div>' +
-      '<div class="tag">' + esc(meta.tag_zh || '') + '</div>' + body + '</div>';
+    return '<div class="card"><div class="row1"><span class="nm">' + esc(tnm(meta)) + '</span><span class="tk">' + esc(meta.ticker) + '</span></div>' +
+      '<div class="tag">' + esc(D(meta.tag_zh) || '') + '</div>' + body + '</div>';
   }
 
   function groupSection(num, gkey, extraChips) {
     const g = (SNAP.groups || []).find(x => x.key === gkey);
     if (!g) return '';
     const Q = SNAP.quotes || {};
-    let html = '<div class="section">' + sec(num, g.zh, g.en, g.desc_zh);
+    let html = '<div class="section">' + sec(num, g.zh, g.en, D(g.desc_zh));
     if (extraChips) html += '<div class="ex-chips">' + extraChips + '</div>';
     html += '<div class="cards">';
     g.tickers.forEach(m => { html += cardHTML(m, Q[m.ticker]); });
@@ -728,14 +948,14 @@
     const xlu = ((SNAP.quotes || {}).XLU || {}).chg_1y;
     const ex = (p1y != null && xlu != null) ? p1y - xlu : null;
     const smr = avgOf(['OKLO', 'SMR'], 'chg_1y');
-    return statChip('電力五雄 1 年平均', p1y) + statChip('相對公用事業超額', ex, true) + statChip('SMR 投機組 1 年', smr, true);
+    return statChip(Z('電力五雄 1 年平均', 'Power big-5 1Y avg'), p1y) + statChip(Z('相對公用事業超額', 'Excess vs utilities'), ex, true) + statChip(Z('SMR 投機組 1 年', 'SMR speculatives 1Y'), smr, true);
   }
 
   function reitChips() {
     const r6 = avgOf(['DLR', 'EQIX', 'IRM', 'SRVR'], 'chg_6m');
     const vnq = ((SNAP.quotes || {}).VNQ || {}).chg_6m;
     const ex = (r6 != null && vnq != null) ? r6 - vnq : null;
-    return statChip('DC REIT 6 月平均', r6) + statChip('相對 REIT 大盤超額', ex, true);
+    return statChip(Z('DC REIT 6 月平均', 'DC REIT 6M avg'), r6) + statChip(Z('相對 REIT 大盤超額', 'Excess vs broad REITs'), ex, true);
   }
 
   function creditChips() {
@@ -743,15 +963,15 @@
     let chips = '';
     if (oas && oas.bps != null) {
       chips += '<span class="mini" style="font-size:11px;padding:5px 11px">HY OAS（FRED ' + esc(oas.asof || '') + '）<b class="hotv">' + oas.bps + ' bps</b>' +
-        (oas.bps_3m_ago != null ? ' <span style="color:var(--ink-dim)">3月前 ' + oas.bps_3m_ago + '</span>' : '') + '</span>';
+        (oas.bps_3m_ago != null ? ' <span style="color:var(--ink-dim)">' + Z('3月前 ', '3M ago ') + oas.bps_3m_ago + '</span>' : '') + '</span>';
     }
     const Q = SNAP.quotes || {};
     const rel = (Q.HYG && Q.IEF && Q.HYG.chg_6m != null && Q.IEF.chg_6m != null) ? Q.HYG.chg_6m - Q.IEF.chg_6m : null;
-    chips += statChip('HYG−IEF 6 月相對', rel, true);
+    chips += statChip(Z('HYG−IEF 6 月相對', 'HYG−IEF 6M relative'), rel, true);
     return chips;
   }
 
-  /* ── 08 concentration ── */
+  /* ── 09 concentration ── */
   const REL_COLORS = { SPY: '#ff8c4b', RSP: '#a89fc0', QQQ: '#b88cff' };
 
   function relChartSVG(rel) {
@@ -786,52 +1006,55 @@
     if (!SNAP.relchart) return '';
     const Q = SNAP.quotes || {};
     const spy = (Q.SPY || {}).chg_1y, rsp = (Q.RSP || {}).chg_1y, qqq = (Q.QQQ || {}).chg_1y;
-    const chips = statChip('標普500（市值加權）1 年', spy) + statChip('等權重 1 年', rsp) +
-      statChip('加權 − 等權差', (spy != null && rsp != null) ? spy - rsp : null, true) +
-      statChip('那斯達克100 − 標普差', (qqq != null && spy != null) ? qqq - spy : null, true);
-    let html = '<div class="section">' + sec('09', '市場集中度', 'Concentration', '少數 AI 巨頭撐起大盤 = 指數的隱形單一押注') +
+    const chips = statChip(Z('標普500（市值加權）1 年', 'S&P 500 (cap-wt) 1Y'), spy) + statChip(Z('等權重 1 年', 'Equal-weight 1Y'), rsp) +
+      statChip(Z('加權 − 等權差', 'Cap-wt − equal-wt'), (spy != null && rsp != null) ? spy - rsp : null, true) +
+      statChip(Z('那斯達克100 − 標普差', 'Nasdaq-100 − S&P'), (qqq != null && spy != null) ? qqq - spy : null, true);
+    let html = '<div class="section">' + sec('09', '市場集中度', 'Concentration',
+      Z('少數 AI 巨頭撐起大盤 = 指數的隱形單一押注', 'A few AI giants carry the index = a hidden single bet')) +
       '<div class="panel"><div class="ex-chips">' + chips + '</div>' + relChartSVG(SNAP.relchart) +
       '<div class="legend">' + SNAP.relchart.series.map(s => {
         const last = s.values[s.values.length - 1] - 100;
         return '<span><span class="sw" style="background:' + (REL_COLORS[s.key] || '#888') + '"></span>' +
-          esc(s.zh) + ' <b style="color:var(--' + (last >= 0 ? 'up' : 'down') + ')">' + fmtPct1(last) + '</b></span>';
+          esc(D(s.zh)) + ' <b style="color:var(--' + (last >= 0 ? 'up' : 'down') + ')">' + fmtPct1(last) + '</b></span>';
       }).join('') + '</div>' +
-      '<div class="footnote">區間首日 = 100。市值加權持續跑贏等權重，代表大盤報酬越來越依賴少數權值股——2000 年泡沫頂點前同樣出現極端分歧。</div></div></div>';
+      '<div class="footnote">' + Z('區間首日 = 100。市值加權持續跑贏等權重，代表大盤報酬越來越依賴少數權值股——2000 年泡沫頂點前同樣出現極端分歧。',
+        'Window start = 100. Cap-weighted persistently beating equal-weight means index returns increasingly depend on a few mega-caps — the same extreme divergence appeared before the 2000 top.') + '</div></div></div>';
     return html;
   }
 
-  /* ── 09 history ── */
+  /* ── 10 history ── */
   const VERDICT_META = {
-    lower: ['較 2000 溫和', 'v-lower'], watch: ['需持續盯', 'v-watch'],
-    worse: ['較 2000 更危險', 'v-worse'], similar: ['歷史押韻', 'v-similar'], new: ['本輪新變數', 'v-new'],
+    lower: ['較 2000 溫和', 'Milder than 2000', 'v-lower'], watch: ['需持續盯', 'Keep watching', 'v-watch'],
+    worse: ['較 2000 更危險', 'More dangerous than 2000', 'v-worse'], similar: ['歷史押韻', 'History rhymes', 'v-similar'], new: ['本輪新變數', 'New this cycle', 'v-new'],
   };
 
   function historyHTML() {
-    let html = '<div class="section">' + sec('10', '歷史泡沫對照', 'Historical Analogy', HIST.title_zh) + '<div class="panel">';
-    html += '<div class="hist-note">' + esc(HIST.note_zh) + '</div><div class="tbl-wrap"><table class="hist">';
-    html += '<tr><th>指標</th><th>2000 網路泡沫</th><th>本輪 AI 週期</th><th>判定</th></tr>';
+    let html = '<div class="section">' + sec('10', '歷史泡沫對照', 'Historical Analogy', D(HIST.title_zh)) + '<div class="panel">';
+    html += '<div class="hist-note">' + esc(D(HIST.note_zh)) + '</div><div class="tbl-wrap"><table class="hist">';
+    html += '<tr><th>' + Z('指標', 'Metric') + '</th><th>' + Z('2000 網路泡沫', '2000 dot-com bubble') + '</th><th>' + Z('本輪 AI 週期', 'This AI cycle') + '</th><th>' + Z('判定', 'Verdict') + '</th></tr>';
     (HIST.rows || []).forEach(r => {
-      const vm = VERDICT_META[r.verdict] || ['—', 'v-watch'];
-      html += '<tr><td class="m">' + esc(r.metric_zh) + '</td><td>' + esc(r.then_zh) + '</td><td>' + esc(r.now_zh) +
-        '</td><td><span class="vbadge ' + vm[1] + '">' + vm[0] + '</span></td></tr>';
+      const vm = VERDICT_META[r.verdict] || ['—', '—', 'v-watch'];
+      html += '<tr><td class="m">' + esc(D(r.metric_zh)) + '</td><td>' + esc(D(r.then_zh)) + '</td><td>' + esc(D(r.now_zh)) +
+        '</td><td><span class="vbadge ' + vm[2] + '">' + Z(vm[0], vm[1]) + '</span></td></tr>';
     });
-    html += '</table></div><div style="font-size:12.5px;font-weight:650;margin:18px 0 10px">歷史的教訓</div><ul class="lessons">';
-    (HIST.lessons_zh || []).forEach(l => { html += '<li>' + esc(l) + '</li>'; });
+    html += '</table></div><div style="font-size:12.5px;font-weight:650;margin:18px 0 10px">' + Z('歷史的教訓', 'Lessons from history') + '</div><ul class="lessons">';
+    (HIST.lessons_zh || []).forEach(l => { html += '<li>' + esc(D(l)) + '</li>'; });
     html += '</ul></div></div>';
     return html;
   }
 
-  /* ── 10 news ── */
+  /* ── 11 news ── */
   function newsHTML() {
     const topics = (SNAP.news || []).filter(t => t.items && t.items.length);
     if (!topics.length) return '';
-    let html = '<div class="section">' + sec('11', '資訊雷達', 'News Radar', 'Google News 繁中關鍵詞聚合 · 點擊跳轉原文') +
+    let html = '<div class="section">' + sec('11', '資訊雷達', 'News Radar',
+      Z('Google News 繁中關鍵詞聚合 · 點擊跳轉原文', 'Google News (Trad. Chinese) keyword feeds · click through to source')) +
       '<div class="panel"><div class="news-grid">';
     topics.forEach(t => {
-      html += '<div class="news-col"><h3>' + esc(t.zh) + '</h3>';
+      html += '<div class="news-col"><h3>' + esc(D(t.zh)) + '</h3>';
       t.items.forEach(it => {
         let d = '';
-        if (it.pubDate) { const dt = new Date(it.pubDate); if (!isNaN(dt)) d = dt.toLocaleDateString('zh-TW'); }
+        if (it.pubDate) { const dt = new Date(it.pubDate); if (!isNaN(dt)) d = dt.toLocaleDateString(Z('zh-TW', 'en-US')); }
         html += '<a class="news-item" href="' + esc(it.link) + '" target="_blank" rel="noopener">' + esc(it.title) +
           '<span class="meta">' + esc(it.source || '') + (d ? ' · ' + d : '') + '</span></a>';
       });
@@ -841,11 +1064,36 @@
     return html;
   }
 
+  /* ── static chrome (topbar / modal / footer) ── */
+  function applyChrome() {
+    document.getElementById('htmlRoot').setAttribute('lang', Z('zh-Hant', 'en'));
+    document.getElementById('backLink').textContent = Z('← 平台入口', '← Portal');
+    document.getElementById('brandH1').innerHTML = Z('AI 泡沫監控平台 <span style="color:var(--accent)">·</span> AI Bubble Monitor',
+      'AI Bubble Monitor <span style="color:var(--accent)">·</span> AI 泡沫監控平台');
+    document.getElementById('brandSub').textContent = Z('雙層溫度計：市場訊號（同步）× 前瞻訊號（GPU 現貨租金 / 供需剪刀差 / 退租雷達 / 循環交易 — 領先 6–12 個月）',
+      'Twin thermometers: market signals (coincident) × frontier signals (GPU spot rents / scissors / lease-exit radar / circularity — leading 6–12 months)');
+    document.getElementById('btnLang').textContent = Z('EN', '中文');
+    document.getElementById('btnRefresh').textContent = Z('⟳ 更新數據', '⟳ Refresh');
+    document.getElementById('methodSummary').innerHTML = Z('方法論與數據源說明 · Methodology &amp; Sources', 'Methodology &amp; Sources · 方法論與數據源說明');
+    document.getElementById('mbodyZh').style.display = LANG === 'zh' ? '' : 'none';
+    document.getElementById('mbodyEn').style.display = LANG === 'zh' ? 'none' : '';
+    document.getElementById('pagefoot').textContent = Z('配色採美股慣例（綠漲 / 紅跌）· 溫度分區：<30 冷靜 / 30–50 升溫 / 50–70 過熱 / 70–85 泡沫警戒 / ≥85 極端泡沫 · AI Bubble Monitor',
+      'US color convention (green up / red down) · Zones: <30 Calm / 30–50 Warming / 50–70 Hot / 70–85 Alert / ≥85 Extreme · AI Bubble Monitor');
+    document.getElementById('pwTitle').textContent = Z('更新數據', 'Refresh data');
+    document.getElementById('pwDesc').textContent = Z('更新按鈕受密碼保護。確認後將重新抓取行情、基本面、巨頭資本支出與新聞，並重新計算泡沫溫度與執行摘要（約需 1–3 分鐘）。',
+      'The refresh button is password-protected. Confirming re-fetches quotes, fundamentals, hyperscaler capex and news, then recomputes the bubble temperatures and the executive brief (takes ~1–3 minutes).');
+    document.getElementById('pwInput').placeholder = Z('更新密碼', 'Refresh password');
+    document.getElementById('pwCancel').textContent = Z('取消', 'Cancel');
+    document.getElementById('pwOk').textContent = Z('確認更新', 'Refresh');
+  }
+
   /* ── render ── */
   function render() {
+    applyChrome();
     if (!SNAP) {
-      content.innerHTML = '<div class="empty"><div class="big">尚未生成數據快照</div>' +
-        '點擊右上角「⟳ 更新數據」並輸入更新密碼，即可抓取行情、資本支出與新聞並計算泡沫溫度。</div>';
+      content.innerHTML = '<div class="empty"><div class="big">' + Z('尚未生成數據快照', 'No data snapshot yet') + '</div>' +
+        Z('點擊右上角「⟳ 更新數據」並輸入更新密碼，即可抓取行情、資本支出與新聞並計算泡沫溫度。',
+          'Click "⟳ Refresh" in the top right and enter the refresh password to fetch quotes, capex and news and compute the bubble temperatures.') + '</div>';
       return;
     }
     content.innerHTML = heroHTML() + frontierHTML() + subsHTML() + capexHTML() + valuationHTML() +
@@ -856,9 +1104,16 @@
     if (SNAP.generated_at) {
       const dt = new Date(SNAP.generated_at);
       document.getElementById('updated').textContent =
-        '數據更新：' + (isNaN(dt) ? SNAP.generated_at : dt.toLocaleString('zh-TW'));
+        Z('數據更新：', 'Updated: ') + (isNaN(dt) ? SNAP.generated_at : dt.toLocaleString(Z('zh-TW', 'en-US')));
     }
   }
+
+  /* ── language toggle ── */
+  document.getElementById('btnLang').addEventListener('click', () => {
+    LANG = LANG === 'zh' ? 'en' : 'zh';
+    localStorage.setItem('aib_lang', LANG);
+    render();
+  });
 
   /* ── refresh button + password modal ── */
   const mask = document.getElementById('pwMask');
@@ -879,11 +1134,12 @@
 
   btnOk.addEventListener('click', async () => {
     const pw = input.value;
-    if (!pw) { err.textContent = '請輸入更新密碼'; return; }
+    if (!pw) { err.textContent = Z('請輸入更新密碼', 'Enter the refresh password'); return; }
     btnOk.disabled = true; btnCancel.disabled = true;
-    btnOk.textContent = '更新中…';
+    btnOk.textContent = Z('更新中…', 'Refreshing…');
     err.style.color = 'var(--ink-soft)';
-    err.textContent = '正在抓取行情、資本支出與新聞，並重新計算泡沫溫度（約 1–3 分鐘）…';
+    err.textContent = Z('正在抓取行情、資本支出與新聞，並重新計算泡沫溫度（約 1–3 分鐘）…',
+      'Fetching quotes, capex and news, recomputing bubble temperatures (~1–3 minutes)…');
     try {
       const resp = await fetch('/aibubble/api/refresh', {
         method: 'POST',
@@ -893,22 +1149,22 @@
       const data = await resp.json().catch(() => ({}));
       if (resp.ok && data.ok) {
         err.style.color = 'var(--good)';
-        err.textContent = '更新成功，正在重新整理頁面…';
+        err.textContent = Z('更新成功，正在重新整理頁面…', 'Refreshed — reloading…');
         setTimeout(() => location.reload(), 600);
         return;
       }
       err.style.color = 'var(--bad)';
       if (resp.status === 403) {
-        err.textContent = '密碼錯誤，請重試';
+        err.textContent = Z('密碼錯誤，請重試', 'Wrong password, try again');
         modal.classList.remove('shake'); void modal.offsetWidth; modal.classList.add('shake');
       } else {
-        err.textContent = '更新失敗，請稍後重試';
+        err.textContent = Z('更新失敗，請稍後重試', 'Refresh failed, try again later');
       }
     } catch (e) {
       err.style.color = 'var(--bad)';
-      err.textContent = '網路異常，請稍後重試';
+      err.textContent = Z('網路異常，請稍後重試', 'Network error, try again later');
     }
-    btnOk.disabled = false; btnCancel.disabled = false; btnOk.textContent = '確認更新';
+    btnOk.disabled = false; btnCancel.disabled = false; btnOk.textContent = Z('確認更新', 'Refresh');
   });
 
   render();
