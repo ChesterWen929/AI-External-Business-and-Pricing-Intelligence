@@ -1,0 +1,17 @@
+# secrets / local env
+.env
+
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# node (econ UI is built & vendored under econ_ui/ — source lives elsewhere)
+node_modules/
+
+# os
+.DS_Store
+
+# generated econ alert drafts (snapshots ARE committed as the deploy seed)
+data/econ/alerts/

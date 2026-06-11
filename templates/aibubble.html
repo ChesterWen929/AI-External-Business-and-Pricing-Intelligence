@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 泡沫監控平台 · AI Bubble Monitor</title>
+<style>
+  :root {
+    --bg: #0d0a14;
+    --panel: #171221;
+    --panel-2: #201a2e;
+    --line: #322a45;
+    --ink: #f0ecf8;
+    --ink-soft: #a89fc0;
+    --ink-dim: #6c628a;
+    --accent: #ff8c4b;       /* 溫度橘 */
+    --accent-2: #b88cff;
+    --gold: #e8b34b;
+    --up: #2fbf71;           /* 美股慣例：綠漲 */
+    --down: #ff5d5d;         /* 紅跌 */
+    --good: #2fbf71;
+    --warn: #f5b942;
+    --bad: #ff5d5d;
+    --na: #6c628a;
+    --z-calm: #2fbf71; --z-warming: #b8c94b; --z-hot: #f5a942; --z-alert: #ff6b4b; --z-extreme: #ff3030;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background:
+      radial-gradient(1100px 600px at 80% -10%, #2a1430 0%, transparent 55%),
+      radial-gradient(900px 500px at -10% 10%, #14182e 0%, transparent 50%),
+      var(--bg);
+    color: var(--ink);
+    font-family: "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", -apple-system, sans-serif;
+    min-height: 100vh;
+  }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 1340px; margin: 0 auto; padding: 20px 26px 70px; }
+
+  .topbar { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; padding: 6px 0 16px; border-bottom: 1px solid var(--line); }
+  .back { color: var(--ink-soft); font-size: 13px; border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px; white-space: nowrap; }
+  .back:hover { color: var(--ink); border-color: var(--accent); }
+  .brand h1 { font-size: 20px; letter-spacing: .5px; }
+  .brand .sub { font-size: 12px; color: var(--ink-soft); margin-top: 2px; }
+  .topbar .right { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+  .updated { font-size: 12px; color: var(--ink-soft); text-align: right; }
+  .btn-refresh {
+    background: linear-gradient(135deg, #f06a2c, #ff9d5c);
+    color: white; border: none; border-radius: 9px;
+    padding: 9px 18px; font-size: 14px; font-weight: 600; cursor: pointer;
+    box-shadow: 0 4px 16px rgba(240, 106, 44, .35); white-space: nowrap;
+  }
+  .btn-refresh:hover { filter: brightness(1.08); }
+
+  .section { margin-top: 36px; }
+  .sec-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+  .sec-num { font-size: 26px; font-weight: 800; color: var(--accent); opacity: .9; font-variant-numeric: tabular-nums; }
+  .sec-head h2 { font-size: 17px; letter-spacing: .3px; }
+  .sec-head .en { font-size: 11px; color: var(--ink-dim); letter-spacing: 2px; text-transform: uppercase; }
+  .sec-head .desc { font-size: 12px; color: var(--ink-soft); margin-left: auto; }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px; }
+  .footnote { font-size: 10.5px; color: var(--ink-dim); margin-top: 10px; line-height: 1.7; }
+
+  /* 01 gauge + brief */
+  .hero-grid { display: grid; grid-template-columns: 1.15fr 1.35fr; gap: 14px; }
+  @media (max-width: 1020px) { .hero-grid { grid-template-columns: 1fr; } }
+  .gauges-row { display: flex; gap: 8px; justify-content: center; }
+  .gauge-box { text-align: center; padding-top: 6px; flex: 1; min-width: 0; }
+  .gauge-label { font-size: 12px; font-weight: 700; color: var(--ink-soft); letter-spacing: 1px; }
+  .gauge-label .sub-en { display: block; font-size: 9px; color: var(--ink-dim); letter-spacing: 1.5px; margin-top: 2px; }
+  .gauge-score { font-size: 38px; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; margin-top: -52px; }
+  .gauge-zone { display: inline-block; font-size: 12.5px; font-weight: 700; padding: 3px 13px; border-radius: 14px; margin-top: 7px; }
+  .gauge-desc { font-size: 11px; color: var(--ink-soft); margin-top: 8px; line-height: 1.65; min-height: 30px; }
+  .zone-scale { display: flex; gap: 4px; margin-top: 14px; }
+  .zone-seg { flex: 1; font-size: 9.5px; color: var(--ink-dim); padding-top: 7px; border-top: 3px solid; line-height: 1.5; }
+  .layer-note { font-size: 10.5px; color: var(--ink-dim); margin-top: 10px; line-height: 1.7; border-top: 1px dashed var(--line); padding-top: 9px; text-align: left; }
+
+  /* 02 frontier */
+  .fpanels { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+  @media (max-width: 1020px) { .fpanels { grid-template-columns: 1fr; } }
+  .fpanel { background: var(--panel); border: 1px solid var(--line); border-radius: 13px; padding: 16px 17px; }
+  .fpanel .ft { display: flex; align-items: baseline; gap: 9px; margin-bottom: 11px; }
+  .fpanel .ft h3 { font-size: 14px; }
+  .fpanel .ft .en { font-size: 9.5px; color: var(--accent-2); letter-spacing: 1.5px; text-transform: uppercase; }
+  .fpanel .ft .right { margin-left: auto; font-size: 10.5px; color: var(--ink-dim); }
+  .bigstats { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+  .bstat { background: var(--panel-2); border-radius: 9px; padding: 9px 13px; min-width: 110px; }
+  .bstat .k { font-size: 10px; color: var(--ink-soft); }
+  .bstat .v { font-size: 19px; font-weight: 800; font-variant-numeric: tabular-nums; margin-top: 2px; }
+  .bstat .v small { font-size: 10px; font-weight: 400; color: var(--ink-dim); }
+  .nbadge { display: inline-block; font-size: 9.5px; font-weight: 700; padding: 1.5px 8px; border-radius: 9px; margin-right: 7px; white-space: nowrap; vertical-align: middle; }
+  .nb-stress { background: rgba(255,93,93,.16); color: var(--bad); }
+  .nb-expand { background: rgba(47,191,113,.15); color: var(--good); }
+  .fnews { display: block; padding: 6px 8px; border-radius: 7px; font-size: 11.5px; line-height: 1.55; color: var(--ink); }
+  .fnews:hover { background: var(--panel-2); }
+  .fnews .meta { color: var(--ink-dim); font-size: 9.5px; margin-left: 6px; }
+  table.deals { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+  .deals td { padding: 7px 8px; border-bottom: 1px solid rgba(50,42,69,.5); line-height: 1.6; vertical-align: top; }
+  .deals td.dt { white-space: nowrap; color: var(--ink-dim); font-variant-numeric: tabular-nums; }
+  .deals td.pp { white-space: nowrap; font-weight: 650; }
+  .deals td.vv { white-space: nowrap; text-align: right; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+  .hbar { height: 18px; background: var(--panel-2); border-radius: 9px; overflow: hidden; position: relative; margin: 6px 0 12px; }
+  .hbar .fill { position: absolute; top: 0; bottom: 0; left: 0; border-radius: 9px; }
+  .hbar .lab { position: absolute; right: 8px; top: 1.5px; font-size: 10.5px; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .brief-tag { display: inline-block; font-size: 10.5px; letter-spacing: 1px; padding: 3px 9px; border-radius: 5px; background: rgba(184,140,255,.14); color: var(--accent-2); margin-bottom: 10px; }
+  .brief-tag.ai { background: rgba(232,179,75,.13); color: var(--gold); }
+  .stance { display: inline-block; margin-left: 8px; font-size: 11px; padding: 3px 10px; border-radius: 5px; background: rgba(255,140,75,.13); color: var(--accent); font-weight: 700; }
+  .brief li { font-size: 13.5px; line-height: 1.85; color: var(--ink); margin: 0 0 9px 18px; }
+  .brief .watch { margin-top: 12px; padding: 11px 14px; border-left: 3px solid var(--gold); background: rgba(232,179,75,.07); font-size: 13px; line-height: 1.7; border-radius: 0 8px 8px 0; }
+
+  /* 02 sub-score cards */
+  .subs { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 12px; }
+  .subs .sub { background: var(--panel); border: 1px solid var(--line); border-radius: 13px; padding: 15px 17px; }
+  .subs .sub .head { display: flex; align-items: center; gap: 9px; }
+  .sub .dot { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+  .dot.good { background: var(--good); box-shadow: 0 0 9px var(--good); }
+  .dot.warn { background: var(--warn); box-shadow: 0 0 9px var(--warn); }
+  .dot.bad  { background: var(--bad);  box-shadow: 0 0 9px var(--bad); }
+  .dot.na   { background: var(--na); }
+  .sub .nm { font-size: 13.5px; font-weight: 650; }
+  .sub .en { font-size: 9.5px; color: var(--ink-dim); letter-spacing: 1.5px; text-transform: uppercase; }
+  .sub .sc { margin-left: auto; font-size: 22px; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .sub .wt { font-size: 9.5px; color: var(--ink-dim); margin-left: 6px; }
+  .sub .bar-track { height: 7px; background: var(--panel-2); border-radius: 4px; margin: 10px 0 11px; overflow: hidden; }
+  .sub .bar { height: 100%; border-radius: 4px; }
+  .sub .inp { display: flex; justify-content: space-between; gap: 10px; font-size: 11.5px; color: var(--ink-soft); padding: 2.5px 0; }
+  .sub .inp b { color: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .sub .note { font-size: 10px; color: var(--ink-dim); margin-top: 9px; line-height: 1.6; border-top: 1px dashed var(--line); padding-top: 8px; }
+
+  /* 03 capex */
+  .capex-chips { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+  .kchip { background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px; padding: 10px 16px; }
+  .kchip .k { font-size: 10.5px; color: var(--ink-soft); }
+  .kchip .v { font-size: 20px; font-weight: 800; font-variant-numeric: tabular-nums; margin-top: 3px; }
+  .kchip .v small { font-size: 11px; font-weight: 400; color: var(--ink-dim); }
+  .capex-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 11px; }
+  .ccard { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 13px 14px; }
+  .ccard .row1 { display: flex; justify-content: space-between; align-items: baseline; }
+  .ccard .nm { font-size: 14px; font-weight: 650; }
+  .ccard .tk { font-size: 10.5px; color: var(--ink-dim); }
+  .ccard .big { font-size: 21px; font-weight: 800; font-variant-numeric: tabular-nums; margin-top: 7px; }
+  .ccard .big small { font-size: 10.5px; color: var(--ink-dim); font-weight: 400; }
+  .ccard .stats { display: flex; gap: 6px; flex-wrap: wrap; margin: 7px 0 4px; }
+  .mini { font-size: 10px; padding: 2px 7px; border-radius: 5px; background: var(--panel-2); color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+  .mini b { font-weight: 700; }
+  .mini b.up { color: var(--up); } .mini b.down { color: var(--down); }
+  .mini b.hotv { color: var(--accent); }
+
+  /* tables */
+  .tbl-wrap { overflow-x: auto; }
+  table.tbl { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .tbl th { text-align: right; font-size: 10.5px; color: var(--ink-dim); font-weight: 600; letter-spacing: .5px; padding: 7px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  .tbl th:first-child { text-align: left; }
+  .tbl td { padding: 7px 8px; text-align: right; border-bottom: 1px solid rgba(50,42,69,.5); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .tbl td:first-child { text-align: left; }
+  .tbl .co { font-weight: 600; }
+  .tbl .grp { font-size: 10px; color: var(--ink-dim); margin-left: 6px; }
+  .tbl .pos { color: var(--up); } .tbl .neg { color: var(--down); }
+  .tbl .hotcell { color: var(--accent); font-weight: 700; }
+
+  /* quote cards */
+  .grp-block { margin-top: 18px; }
+  .grp-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+  .grp-head h3 { font-size: 14px; }
+  .grp-head .en { font-size: 10px; color: var(--accent); letter-spacing: 1.5px; text-transform: uppercase; }
+  .grp-head .desc { font-size: 11px; color: var(--ink-dim); margin-left: auto; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(218px, 1fr)); gap: 11px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 13px; transition: border-color .15s; }
+  .card:hover { border-color: var(--accent); }
+  .card .row1 { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+  .card .nm { font-size: 14px; font-weight: 650; }
+  .card .tk { font-size: 10.5px; color: var(--ink-dim); font-variant-numeric: tabular-nums; }
+  .card .tag { font-size: 10.5px; color: var(--ink-soft); margin-top: 2px; }
+  .card .px-row { display: flex; justify-content: space-between; align-items: center; margin-top: 9px; }
+  .card .px { font-size: 20px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .card .d1 { font-size: 12.5px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .d1.up { color: var(--up); } .d1.down { color: var(--down); } .d1.na { color: var(--na); }
+  .card .mini-chips { display: flex; gap: 5px; margin-top: 7px; flex-wrap: wrap; }
+  .card svg.spark { display: block; margin-top: 9px; width: 100%; height: 32px; }
+  .nodata { color: var(--na); font-size: 12px; margin-top: 10px; }
+  .ex-chips { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 6px; }
+
+  /* 08 concentration chart */
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 11.5px; color: var(--ink-soft); margin-top: 10px; }
+  .legend .sw { display: inline-block; width: 14px; height: 3px; border-radius: 2px; margin-right: 6px; vertical-align: middle; }
+
+  /* 09 history */
+  .hist-note { font-size: 11px; color: var(--ink-dim); margin-bottom: 12px; }
+  table.hist { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .hist th { font-size: 11px; color: var(--ink-dim); text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  .hist td { padding: 10px; border-bottom: 1px solid rgba(50,42,69,.5); line-height: 1.7; vertical-align: top; }
+  .hist td.m { font-weight: 700; white-space: nowrap; }
+  .vbadge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 9px; border-radius: 10px; white-space: nowrap; }
+  .v-lower { background: rgba(47,191,113,.15); color: var(--good); }
+  .v-watch { background: rgba(245,185,66,.15); color: var(--warn); }
+  .v-worse, .v-similar { background: rgba(255,93,93,.15); color: var(--bad); }
+  .v-new { background: rgba(184,140,255,.15); color: var(--accent-2); }
+  .lessons li { font-size: 12.5px; line-height: 1.9; color: var(--ink-soft); margin: 0 0 9px 18px; }
+
+  /* 10 news */
+  .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+  .news-col h3 { font-size: 13px; margin-bottom: 9px; color: var(--accent); }
+  .news-item { display: block; padding: 8px 10px; border-radius: 8px; font-size: 12px; line-height: 1.55; color: var(--ink); }
+  .news-item:hover { background: var(--panel-2); }
+  .news-item .meta { display: block; font-size: 10px; color: var(--ink-dim); margin-top: 3px; }
+
+  details.method { margin-top: 36px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); }
+  details.method summary { padding: 14px 18px; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--ink-soft); }
+  details.method .mbody { padding: 0 18px 16px; font-size: 12px; color: var(--ink-soft); line-height: 1.9; }
+  .pagefoot { font-size: 10.5px; color: var(--ink-dim); margin-top: 24px; text-align: center; line-height: 1.8; }
+  .empty { text-align: center; padding: 90px 20px; color: var(--ink-soft); }
+  .empty .big { font-size: 18px; color: var(--ink); margin-bottom: 8px; }
+  svg text { font-family: inherit; }
+
+  /* modal */
+  .modal-mask { position: fixed; inset: 0; background: rgba(8, 5, 16, .76); display: none; align-items: center; justify-content: center; z-index: 50; }
+  .modal-mask.show { display: flex; }
+  .modal { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 26px; width: 350px; }
+  .modal h3 { font-size: 16px; margin-bottom: 6px; }
+  .modal p { font-size: 12px; color: var(--ink-soft); margin-bottom: 14px; line-height: 1.7; }
+  .modal input { width: 100%; background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; color: var(--ink); padding: 10px 12px; font-size: 14px; outline: none; }
+  .modal input:focus { border-color: var(--accent); }
+  .modal .err { color: var(--bad); font-size: 12px; min-height: 18px; margin-top: 8px; }
+  .modal .acts { display: flex; gap: 10px; margin-top: 10px; }
+  .modal button { flex: 1; padding: 9px 0; border-radius: 8px; font-size: 14px; cursor: pointer; border: 1px solid var(--line); background: var(--panel-2); color: var(--ink); }
+  .modal button.primary { background: linear-gradient(135deg, #f06a2c, #ff9d5c); border: none; font-weight: 600; }
+  .modal button:disabled { opacity: .55; cursor: wait; }
+  .shake { animation: shake .35s; }
+  @keyframes shake { 25% { transform: translateX(-6px); } 50% { transform: translateX(6px); } 75% { transform: translateX(-4px); } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <a class="back" href="/">← 平台入口</a>
+    <div class="brand">
+      <h1>AI 泡沫監控平台 <span style="color:var(--accent)">·</span> AI Bubble Monitor</h1>
+      <div class="sub">雙層溫度計：市場訊號（同步）× 前瞻訊號（GPU 現貨租金 / 供需剪刀差 / 退租雷達 / 循環交易 — 領先 6–12 個月）</div>
+    </div>
+    <div class="right">
+      <span class="updated" id="updated"></span>
+      <button class="btn-refresh" id="btnRefresh">⟳ 更新數據</button>
+    </div>
+  </div>
+
+  <div id="content"></div>
+
+  <details class="method">
+    <summary>方法論與數據源說明 · Methodology &amp; Sources</summary>
+    <div class="mbody">
+      <b>雙層泡沫溫度（0–100）</b>：所有子訊號各自以「分段線性映射」把原始指標轉為 0（冷靜）–100（極端泡沫）分數，再按權重加權。<b>市場層</b>：巨頭資本支出 20%、估值熱度 20%、價格動能 15%、基礎設施溢價 15%、信用與投機 15%、市場集中度 15%。<b>前瞻層</b>：GPU 現貨租金 25%、供需剪刀差 20%、資料中心壓力事件 20%、循環交易 15%、徵才成熟度 10%、收入缺口 10%。映射節點寫死於程式碼，方法完全透明、可重現；分數高低代表「偏離歷史常態的程度」，並非漲跌預測。<br>
+      <b>前瞻層資料源</b>：GPU 現貨租金 = vast.ai 公開市場 API（H100 SXM / H200 / A100 SXM4 單卡 on-demand 報價中位數），歷史錨點為公開報導約數；回本帶 $1.3–1.9/hr 為「採購 $25–30k、5 年折舊、含電力機房、70% 利用率」之全成本粗估。開發者採用 = npm 官方下載統計 API（openai 與 @anthropic-ai/sdk 套件，52 週週頻），需求年增率為兩套件平均；注意下載量含 CI/CD 流量，看趨勢不看絕對值。資料中心壓力事件 = Google News 中英文關鍵詞雷達，逐標題分類（取消/退租/延後 vs 動工/簽約/擴建）；設定 ANTHROPIC_API_KEY 時由 Claude 分類，否則為關鍵詞規則。循環交易 = 公開報導之大型「供應商投資客戶→客戶回購算力」結構台帳（承諾級別約數）+ 新增報導監測。徵才成熟度 = Hacker News「Who is hiring」月帖（Algolia API）關鍵詞分類。收入缺口 = 年化 CapEx×2（Sequoia 框架）對照公開報導之 AI 終端收入估計。<br>
+      <b>行情</b>：Yahoo Finance（yfinance 批次抓取，日線一年，調整後收盤價）。漲跌幅口徑：1日 / 1週(5交易日) / 1月(21) / 6月(126) / 1年。美股慣例配色：綠漲紅跌。<br>
+      <b>資本支出</b>：微軟、Alphabet、亞馬遜、Meta、甲骨文季度現金流量表（Yahoo Finance），CapEx 取絕對值；年增率為同季比較，合計年增率僅累計同時有今年/去年同季資料的公司。各家財年季度截止日不同，「最新季」以各自最近一季為準。<br>
+      <b>基本面</b>：PE（TTM）、前瞻 PE、PS（TTM）、營收增速（最近季 YoY）、毛利率均來自 Yahoo Finance 彙總欄位，可能存在口徑差異，僅供橫向比較。<br>
+      <b>高收益債利差</b>：設定 FRED_API_KEY 時抓取 ICE BofA US High Yield OAS（FRED：BAMLH0A0HYM2）；否則以 HYG−IEF 六個月相對表現作為方向代理。<br>
+      <b>執行摘要</b>：設定 ANTHROPIC_API_KEY 時由 Claude 基於本期數據事實撰寫（標註 AI 生成）；否則使用規則模板。所有數字均來自本頁快照。<br>
+      <b>歷史對照</b>：定性整理（約數），供框架參考。<br>
+      <b>資訊雷達</b>：Google News 繁中版關鍵詞聚合，點擊跳轉原始報導。<br>
+      本平台僅供研究參考，不構成投資建議。
+    </div>
+  </details>
+
+  <div class="pagefoot">
+    配色採美股慣例（綠漲 / 紅跌）· 溫度分區：&lt;30 冷靜 / 30–50 升溫 / 50–70 過熱 / 70–85 泡沫警戒 / ≥85 極端泡沫 · AI Bubble Monitor
+  </div>
+</div>
+
+<div class="modal-mask" id="pwMask">
+  <div class="modal" id="pwModal">
+    <h3>更新數據</h3>
+    <p>更新按鈕受密碼保護。確認後將重新抓取行情、基本面、巨頭資本支出與新聞，並重新計算泡沫溫度與執行摘要（約需 1–3 分鐘）。</p>
+    <input type="password" id="pwInput" placeholder="更新密碼" autocomplete="off">
+    <div class="err" id="pwErr"></div>
+    <div class="acts">
+      <button id="pwCancel">取消</button>
+      <button class="primary" id="pwOk">確認更新</button>
+    </div>
+  </div>
+</div>
+
+<script id="snap-data" type="application/json">{{ (snap | tojson) if snap else 'null' }}</script>
+<script id="hist-data" type="application/json">{{ history | tojson }}</script>
+<script>
+(function () {
+  const SNAP = JSON.parse(document.getElementById('snap-data').textContent);
+  const HIST = JSON.parse(document.getElementById('hist-data').textContent);
+  const content = document.getElementById('content');
+
+  /* ── helpers ── */
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    })[c]);
+  }
+  const fmtPct = v => v == null ? '—' : (v > 0 ? '+' : '') + Number(v).toFixed(2) + '%';
+  const fmtPct1 = v => v == null ? '—' : (v > 0 ? '+' : '') + Number(v).toFixed(1) + '%';
+  const cls = v => v == null ? 'na' : (v >= 0 ? 'up' : 'down');
+  const fmtX = (v, d) => v == null ? '—' : Number(v).toFixed(d == null ? 1 : d);
+  function fmtPrice(v) {
+    if (v == null) return '—';
+    if (v >= 10000) return v.toLocaleString('en-US', { maximumFractionDigits: 0 });
+    if (v >= 1000) return v.toLocaleString('en-US', { maximumFractionDigits: 0 });
+    if (v >= 100) return v.toFixed(1);
+    if (v >= 1) return v.toFixed(2);
+    return v.toFixed(4);
+  }
+  function sec(num, zh, en, desc) {
+    return '<div class="sec-head"><span class="sec-num">' + num + '</span><h2>' + esc(zh) +
+      '</h2><span class="en">' + esc(en) + '</span>' +
+      (desc ? '<span class="desc">' + esc(desc) + '</span>' : '') + '</div>';
+  }
+  function spark(points, w, h) {
+    if (!points || points.length < 2) return '';
+    const min = Math.min(...points), max = Math.max(...points);
+    const span = (max - min) || 1;
+    const step = w / (points.length - 1);
+    const xy = points.map((p, i) => [i * step, h - 3 - (p - min) / span * (h - 6)]);
+    const line = xy.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
+    const color = points[points.length - 1] >= points[0] ? 'var(--up)' : 'var(--down)';
+    return '<svg class="spark" viewBox="0 0 ' + w + ' ' + h + '" preserveAspectRatio="none">' +
+      '<polyline points="' + line + '" fill="none" stroke="' + color + '" stroke-width="1.6"/></svg>';
+  }
+
+  const ZONE_COLOR = { calm: 'var(--z-calm)', warming: 'var(--z-warming)', hot: 'var(--z-hot)', alert: 'var(--z-alert)', extreme: 'var(--z-extreme)' };
+  const ZONE_SEGS = [
+    { from: 0, to: 30, key: 'calm', zh: '冷靜' },
+    { from: 30, to: 50, key: 'warming', zh: '升溫' },
+    { from: 50, to: 70, key: 'hot', zh: '過熱' },
+    { from: 70, to: 85, key: 'alert', zh: '警戒' },
+    { from: 85, to: 100, key: 'extreme', zh: '極端' },
+  ];
+  const ZONE_HEX = { calm: '#2fbf71', warming: '#b8c94b', hot: '#f5a942', alert: '#ff6b4b', extreme: '#ff3030' };
+
+  function zoneFor(score) {
+    if (score == null) return null;
+    const z = ZONE_SEGS.find(z => score < z.to) || ZONE_SEGS[ZONE_SEGS.length - 1];
+    return z;
+  }
+
+  /* ── 01 gauge + brief ── */
+  function gaugeSVG(score) {
+    const W = 330, H = 185, cx = 165, cy = 168, r = 132;
+    const pt = t => {
+      const th = Math.PI * (1 - t);
+      return [cx + r * Math.cos(th), cy - r * Math.sin(th)];
+    };
+    let svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" style="width:100%;max-width:360px;display:block;margin:0 auto">';
+    ZONE_SEGS.forEach(z => {
+      const [x0, y0] = pt(z.from / 100), [x1, y1] = pt(z.to / 100);
+      svg += '<path d="M ' + x0.toFixed(1) + ' ' + y0.toFixed(1) + ' A ' + r + ' ' + r +
+        ' 0 0 1 ' + x1.toFixed(1) + ' ' + y1.toFixed(1) + '" fill="none" stroke="' + ZONE_HEX[z.key] +
+        '" stroke-width="15" stroke-linecap="butt" opacity=".82"/>';
+    });
+    [0, 30, 50, 70, 85, 100].forEach(v => {
+      const [x, y] = pt(v / 100);
+      const inner = [cx + (r - 13) * (x - cx) / r, cy + (r - 13) * (y - cy) / r];
+      svg += '<text x="' + (cx + (r + 14) * (x - cx) / r).toFixed(1) + '" y="' + (cy + (r + 14) * (y - cy) / r + 3).toFixed(1) +
+        '" text-anchor="middle" font-size="9.5" fill="#6c628a">' + v + '</text>';
+    });
+    if (score != null) {
+      const t = Math.max(0, Math.min(1, score / 100));
+      const [nx, ny] = pt(t);
+      const bx = cx + (r - 38) * (nx - cx) / r, by = cy + (r - 38) * (ny - cy) / r;
+      svg += '<line x1="' + cx + '" y1="' + cy + '" x2="' + bx.toFixed(1) + '" y2="' + by.toFixed(1) +
+        '" stroke="#f0ecf8" stroke-width="3.5" stroke-linecap="round"/>' +
+        '<circle cx="' + cx + '" cy="' + cy + '" r="7" fill="#f0ecf8"/>';
+    }
+    svg += '</svg>';
+    return svg;
+  }
+
+  function gaugeBox(score, labelZh, labelEn, descOverride) {
+    const z = zoneFor(score);
+    const zc = z ? ZONE_HEX[z.key] : 'var(--na)';
+    return '<div class="gauge-box"><div class="gauge-label">' + esc(labelZh) +
+      '<span class="sub-en">' + esc(labelEn) + '</span></div>' + gaugeSVG(score) +
+      '<div class="gauge-score" style="color:' + zc + '">' + (score != null ? score.toFixed(1) : '—') + '</div>' +
+      '<div class="gauge-zone" style="background:color-mix(in srgb, ' + zc + ' 16%, transparent);color:' + zc + '">' + esc(z ? z.zh : '無資料') + '</div>' +
+      '<div class="gauge-desc">' + esc(descOverride || '') + '</div></div>';
+  }
+
+  function heroHTML() {
+    const S = SNAP.scores || {};
+    const F = (SNAP.frontier || {}).scores || {};
+    const mz = SNAP.scores && SNAP.scores.zone ? SNAP.scores.zone.desc_zh : '';
+    const b = SNAP.brief || { source: 'rules', bullets: [], watch: '' };
+    const diverge = (S.composite != null && F.composite != null)
+      ? (F.composite < S.composite
+        ? '前瞻層（實體算力經濟）比市場層更冷 — 泡沫頂部尚未獲得實體面確認；若前瞻層升溫追上市場層，即是離場訊號。'
+        : '⚠ 前瞻層比市場層更熱 — 實體經濟惡化領先於價格，歷史上這是泡沫見頂的指紋。')
+      : '';
+    let html = '<div class="section">' + sec('01', '雙層泡沫溫度計', 'Twin Thermometers', '市場訊號（同步）× 前瞻訊號（領先 6–12 個月）') + '<div class="hero-grid">';
+    html += '<div class="panel"><div class="gauges-row">' +
+      gaugeBox(S.composite, '市場訊號溫度', 'MARKET SIGNALS', mz) +
+      gaugeBox(F.composite, '前瞻訊號溫度', 'FRONTIER SIGNALS', '實體算力經濟讀數：GPU 租金 / 供需 / 退租事件 / 循環交易') +
+      '</div>' +
+      '<div class="zone-scale">' + ZONE_SEGS.map(z =>
+        '<div class="zone-seg" style="border-color:' + ZONE_HEX[z.key] + '">' + z.zh + '<br>' + z.from + '–' + z.to + '</div>'
+      ).join('') + '</div>' +
+      (diverge ? '<div class="layer-note">' + esc(diverge) + '</div>' : '') + '</div>';
+    html += '<div class="panel brief"><span class="brief-tag' + (b.source === 'ai' ? ' ai' : '') + '">' +
+      (b.source === 'ai' ? '✦ AI 生成 · CLAUDE' : '規則引擎生成') + '</span>' +
+      (b.stance ? '<span class="stance">態勢：' + esc(b.stance) + '</span>' : '') + '<ul>';
+    (b.bullets || []).forEach(t => { html += '<li>' + esc(t) + '</li>'; });
+    html += '</ul>';
+    if (b.watch) html += '<div class="watch"><b>本期關注：</b>' + esc(b.watch) + '</div>';
+    html += '</div></div></div>';
+    return html;
+  }
+
+  /* ── sub-score card renderer (市場層 / 前瞻層共用) ── */
+  function subCards(subs) {
+    let html = '<div class="subs">';
+    subs.forEach(s => {
+      const zc = s.score == null ? 'var(--na)' : (s.score < 30 ? ZONE_HEX.calm : s.score < 50 ? ZONE_HEX.warming : s.score < 70 ? ZONE_HEX.hot : s.score < 85 ? ZONE_HEX.alert : ZONE_HEX.extreme);
+      html += '<div class="sub"><div class="head"><span class="dot ' + esc(s.level) + '"></span>' +
+        '<div><div class="nm">' + esc(s.zh) + '</div><div class="en">' + esc(s.en) + '</div></div>' +
+        '<span class="sc" style="color:' + zc + '">' + (s.score != null ? s.score.toFixed(0) : '—') +
+        '<span class="wt">/100 · 權重 ' + Math.round(s.weight * 100) + '%</span></span></div>' +
+        '<div class="bar-track"><div class="bar" style="width:' + (s.score || 0) + '%;background:' + zc + '"></div></div>';
+      (s.inputs || []).forEach(i => {
+        html += '<div class="inp"><span>' + esc(i.zh) + '</span><b>' + esc(i.v) + '</b></div>';
+      });
+      html += '<div class="note">' + esc(s.note_zh) + '</div></div>';
+    });
+    html += '</div>';
+    return html;
+  }
+
+  function subsHTML() {
+    const subs = (SNAP.scores || {}).subs || [];
+    if (!subs.length) return '';
+    return '<div class="section">' + sec('03', '市場訊號層：六大維度', 'Market Signal Layer', '同步指標 — 分數 = 偏離歷史常態的程度，非漲跌預測') + subCards(subs) + '</div>';
+  }
+
+  /* ── 02 前瞻訊號層 ── */
+  function fpanel(zh, en, right, body) {
+    return '<div class="fpanel"><div class="ft"><h3>' + esc(zh) + '</h3><span class="en">' + esc(en) + '</span>' +
+      (right ? '<span class="right">' + esc(right) + '</span>' : '') + '</div>' + body + '</div>';
+  }
+
+  function lineChart(seriesArr, opts) {
+    // seriesArr: [{label, color, points:[{x(label), y}]}] — x 軸共用第一條的標籤
+    const W = opts.w || 460, H = opts.h || 200, padL = opts.padL || 44, padR = 12, padT = 12, padB = 26;
+    const allY = seriesArr.flatMap(s => s.points.map(p => p.y)).filter(v => v != null);
+    if (!allY.length) return '<div class="nodata">資料不足</div>';
+    let lo = opts.lo != null ? opts.lo : Math.min(...allY), hi = Math.max(...allY);
+    const m = (hi - lo) * 0.1 || 1; hi += m; if (opts.lo == null) lo = Math.max(0, lo - m);
+    const n = Math.max(...seriesArr.map(s => s.points.length));
+    const X = i => padL + i / Math.max(1, n - 1) * (W - padL - padR);
+    const Y = v => padT + (hi - v) / (hi - lo) * (H - padT - padB);
+    let svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" style="width:100%;display:block">';
+    if (opts.band) {
+      const [b0, b1] = opts.band;
+      svg += '<rect x="' + padL + '" y="' + Y(b1) + '" width="' + (W - padL - padR) + '" height="' + (Y(b0) - Y(b1)) +
+        '" fill="rgba(255,93,93,.10)"/><text x="' + (W - padR - 4) + '" y="' + (Y(b1) + 11) + '" text-anchor="end" font-size="8.5" fill="#ff5d5d">' + esc(opts.bandLabel || '') + '</text>';
+    }
+    for (let g = 0; g <= 3; g++) {
+      const v = lo + (hi - lo) * g / 3;
+      svg += '<line x1="' + padL + '" y1="' + Y(v) + '" x2="' + (W - padR) + '" y2="' + Y(v) + '" stroke="rgba(50,42,69,.6)"/>' +
+        '<text x="' + (padL - 6) + '" y="' + (Y(v) + 3) + '" text-anchor="end" font-size="9" fill="#6c628a">' + (opts.fmtY ? opts.fmtY(v) : v.toFixed(1)) + '</text>';
+    }
+    const labels = seriesArr[0].points.map(p => p.x);
+    [0, 0.5, 1].forEach(f => {
+      const i = Math.round(f * (labels.length - 1));
+      if (labels[i] != null) svg += '<text x="' + X(i) + '" y="' + (H - 7) + '" text-anchor="middle" font-size="8.5" fill="#6c628a">' + esc(String(labels[i])) + '</text>';
+    });
+    seriesArr.forEach(s => {
+      const pts = s.points.map((p, i) => p.y == null ? null : X(i).toFixed(1) + ',' + Y(p.y).toFixed(1)).filter(Boolean).join(' ');
+      svg += '<polyline points="' + pts + '" fill="none" stroke="' + s.color + '" stroke-width="2"/>';
+      const lastIdx = s.points.length - 1;
+      if (s.points[lastIdx] && s.points[lastIdx].y != null) {
+        svg += '<circle cx="' + X(lastIdx) + '" cy="' + Y(s.points[lastIdx].y) + '" r="3" fill="' + s.color + '"/>';
+      }
+    });
+    svg += '</svg>';
+    return svg;
+  }
+
+  function gpuPanel(FR) {
+    const g = FR.gpu_spot;
+    if (!g) return fpanel('GPU 現貨租金', 'GPU Spot', '', '<div class="nodata">vast.ai 暫無資料</div>');
+    const G = g.gpus || {};
+    let stats = '<div class="bigstats">';
+    [['h100', 'H100 SXM'], ['h200', 'H200'], ['a100', 'A100 SXM4']].forEach(([k, lab]) => {
+      const x = G[k];
+      if (x) stats += '<div class="bstat"><div class="k">' + lab + ' 中位數</div><div class="v">$' + x.median.toFixed(2) + '<small>/hr · ' + x.offers + ' 報價</small></div></div>';
+    });
+    stats += '</div>';
+    const hist = g.history || [];
+    const chart = lineChart([
+      { label: 'H100', color: '#ff8c4b', points: hist.map(h => ({ x: h.date.slice(2), y: h.h100 })) },
+      { label: 'A100', color: '#b88cff', points: hist.map(h => ({ x: h.date.slice(2), y: h.a100 })) },
+    ], { h: 190, band: g.breakeven_band, bandLabel: '回本帶 $' + g.breakeven_band[0] + '–' + g.breakeven_band[1], lo: 0, fmtY: v => '$' + v.toFixed(1) });
+    const legend = '<div class="legend"><span><span class="sw" style="background:#ff8c4b"></span>H100</span><span><span class="sw" style="background:#b88cff"></span>A100</span></div>';
+    return fpanel('GPU 現貨租金 — 本輪的「暗光纖點亮率」', 'GPU Spot Rent', 'vast.ai 即時', stats + chart + legend +
+      '<div class="footnote">歷史錨點為公開報導約數、即時點為 vast.ai on-demand 單卡報價中位數。租金跌入紅色回本帶 = 租賃商無利可圖 = 算力過建的直接實證——A100 已在帶內（上一代已「破裂」）。</div>');
+  }
+
+  function scissorsPanel(FR) {
+    const a = FR.adoption, agg = (SNAP.capex || {}).agg || {};
+    if (!a) return fpanel('算力供需剪刀差', 'Scissors', '', '<div class="nodata">npm 暫無資料</div>');
+    let stats = '<div class="bigstats">' +
+      '<div class="bstat"><div class="k">供給端：CapEx 年增</div><div class="v" style="color:var(--accent)">' + fmtPct1(agg.yoy) + '</div></div>' +
+      '<div class="bstat"><div class="k">需求端：SDK 下載年增</div><div class="v" style="color:var(--good)">' + fmtPct1(a.avg_g1y) + '</div></div>' +
+      '<div class="bstat"><div class="k">近 6 月需求增速</div><div class="v">' + fmtPct1(a.avg_g6m) + '</div></div></div>';
+    const pkgs = Object.entries(a.packages || {});
+    const colors = ['#2fbf71', '#4f9cff'];
+    const series = pkgs.map(([pkg, d], i) => ({
+      label: pkg, color: colors[i % 2],
+      points: (d.series || []).map((v, j) => ({ x: j === 0 ? '52週前' : (j === (d.series.length - 1) ? '本週' : ''), y: v / 1e6 })),
+    }));
+    const chart = series.length ? lineChart(series, { h: 190, fmtY: v => v.toFixed(0) + 'M' }) : '';
+    const legend = '<div class="legend">' + pkgs.map(([pkg, d], i) =>
+      '<span><span class="sw" style="background:' + colors[i % 2] + '"></span>' + esc(d.zh || pkg) + ' <b>' + (d.weekly_now / 1e6).toFixed(1) + 'M/週</b></span>').join('') + '</div>';
+    return fpanel('算力供需剪刀差', 'Supply–Demand Scissors', 'npm 週下載 52 週', stats + chart + legend +
+      '<div class="footnote">需求代理 = OpenAI / Anthropic 官方 SDK 的 npm 週下載（開發者實際在建的東西）。只要需求增速 &gt; 供給增速，過建風險可控；剪刀差反轉（供給跑贏）即是 2000 式泡沫指紋——這條線反轉的那天，就是你比全世界早知道的那天。</div>');
+  }
+
+  function dcPanel(FR) {
+    const d = FR.dc_stress;
+    if (!d) return fpanel('資料中心壓力雷達', 'DC Stress', '', '<div class="nodata">新聞雷達暫無資料</div>');
+    const total = (d.stress_n || 0) + (d.expand_n || 0);
+    const pct = total ? Math.round(d.stress_n / total * 100) : 0;
+    let body = '<div class="bigstats">' +
+      '<div class="bstat"><div class="k">壓力事件（取消/退租/延後）</div><div class="v" style="color:var(--bad)">' + d.stress_n + ' 則</div></div>' +
+      '<div class="bstat"><div class="k">擴張事件（動工/簽約）</div><div class="v" style="color:var(--good)">' + d.expand_n + ' 則</div></div>' +
+      '<div class="bstat"><div class="k">壓力比率</div><div class="v">' + pct + '%</div></div></div>';
+    body += '<div class="hbar"><div class="fill" style="width:' + pct + '%;background:linear-gradient(90deg,#f5a942,#ff5d5d)"></div><span class="lab">' + pct + '% 壓力</span></div>';
+    (d.items || []).slice(0, 10).forEach(it => {
+      body += '<a class="fnews" href="' + esc(it.link) + '" target="_blank" rel="noopener">' +
+        '<span class="nbadge ' + (it.label === 'stress' ? 'nb-stress' : 'nb-expand') + '">' + (it.label === 'stress' ? '壓力' : '擴張') + '</span>' +
+        esc(it.title) + '<span class="meta">' + esc(it.source || '') + '</span></a>';
+    });
+    body += '<div class="footnote">2025 年初微軟退租資料中心是被分析師最早抓到的轉折訊號——本雷達將其泛化為自動監測。分類器：' + (d.classifier === 'ai' ? 'Claude AI' : '關鍵詞規則（設定 ANTHROPIC_API_KEY 後自動升級為 AI 分類）') + '。</div>';
+    return fpanel('資料中心壓力事件雷達', 'DC Stress Radar', '雙語新聞自動分類', body);
+  }
+
+  function circPanel(FR) {
+    const c = FR.circularity;
+    if (!c) return '';
+    let body = '<div class="bigstats">' +
+      '<div class="bstat"><div class="k">已揭露循環結構累計</div><div class="v" style="color:var(--accent)">~$' + (c.seed_total_b || 0).toFixed(0) + 'B</div></div>' +
+      '<div class="bstat"><div class="k">本期新增相關報導</div><div class="v">' + (c.fresh_n || 0) + ' 則</div></div></div>';
+    body += '<table class="deals">';
+    (c.seed_deals || []).forEach(dl => {
+      body += '<tr><td class="dt">' + esc(dl.date) + '</td><td class="pp">' + esc(dl.parties_zh) + '</td>' +
+        '<td>' + esc(dl.structure_zh) + '</td><td class="vv">~$' + dl.value_b + 'B</td></tr>';
+    });
+    body += '</table>';
+    if ((c.fresh_items || []).length) {
+      body += '<div style="font-size:11px;color:var(--ink-dim);margin:10px 0 4px">本期相關報導</div>';
+      c.fresh_items.slice(0, 5).forEach(it => {
+        body += '<a class="fnews" href="' + esc(it.link) + '" target="_blank" rel="noopener">' + esc(it.title) +
+          '<span class="meta">' + esc(it.source || '') + '</span></a>';
+      });
+    }
+    body += '<div class="footnote">2000 年思科以 vendor financing 撐起客戶採購、泡沫破裂時壞帳回旋鏢。本台帳追蹤本輪「供應商投資客戶→客戶回購算力」的循環結構（金額為公開報導承諾級別約數）。</div>';
+    return fpanel('循環交易追蹤器 — 思科時刻監測', 'Circularity Tracker', '種子台帳 + 新聞', body);
+  }
+
+  function hnPanel(FR) {
+    const h = FR.hn;
+    if (!h) return fpanel('徵才部署成熟度', 'Hiring Maturity', '', '<div class="nodata">HN 資料暫無</div>');
+    let body = '<div class="bigstats">' +
+      '<div class="bstat"><div class="k">樣本（' + esc(h.month || '') + '）</div><div class="v">' + h.total_posts + '<small> 帖</small></div></div>' +
+      '<div class="bstat"><div class="k">AI 相關職缺占比</div><div class="v">' + h.ai_share + '%</div></div>' +
+      '<div class="bstat"><div class="k">其中生產期比例</div><div class="v" style="color:var(--good)">' + (h.prod_share != null ? h.prod_share + '%' : '—') + '</div></div></div>';
+    body += '<div style="font-size:11px;color:var(--ink-soft);margin-bottom:4px">AI 職缺滲透</div>' +
+      '<div class="hbar"><div class="fill" style="width:' + h.ai_share + '%;background:#4f9cff"></div><span class="lab">' + h.ai_share + '%</span></div>' +
+      '<div style="font-size:11px;color:var(--ink-soft);margin-bottom:4px">生產期（inference/scaling/production 關鍵詞）</div>' +
+      '<div class="hbar"><div class="fill" style="width:' + (h.prod_share || 0) + '%;background:#2fbf71"></div><span class="lab">' + (h.prod_share || 0) + '%</span></div>';
+    body += '<div class="footnote">資料源：Hacker News「Ask HN: Who is hiring?」月帖（Algolia API），逐帖關鍵詞分類。生產期比例高 = 企業在為「已上線的 AI」招人 = 需求真實落地；若 AI 占比仍高但生產期比例驟降，代表炒作多於落地。</div>';
+    return fpanel('徵才部署成熟度（HN Who-is-Hiring）', 'Hiring Maturity', esc(h.month || ''), body);
+  }
+
+  function gapPanel(FR) {
+    const g = FR.revenue_gap;
+    if (!g) return '';
+    let body = '<div class="bigstats">' +
+      '<div class="bstat"><div class="k">年化 CapEx（五巨頭）</div><div class="v">$' + g.capex_annual_t.toFixed(2) + 'T</div></div>' +
+      '<div class="bstat"><div class="k">隱含必要收入（×2）</div><div class="v" style="color:var(--accent)">$' + g.required_t.toFixed(2) + 'T</div></div>' +
+      '<div class="bstat"><div class="k">目前 AI 終端收入估計</div><div class="v">$' + g.est_revenue_b.toFixed(0) + 'B</div></div>' +
+      '<div class="bstat"><div class="k">缺口倍數</div><div class="v" style="color:var(--bad)">' + g.multiple + 'x</div></div></div>';
+    body += '<table class="deals">';
+    (g.items || []).forEach(it => {
+      body += '<tr><td>' + esc(it.zh) + '</td><td class="vv">~$' + it.value_b + 'B</td></tr>';
+    });
+    body += '</table><div class="footnote">Sequoia「$6000 億問題」框架的即時版：資料中心要回本，終端 AI 收入須達 CapEx 的約 2 倍（涵蓋電力/營運/毛利結構）。收入估計為公開報導約數（可在 config 調整）——缺口本身不會立刻刺破泡沫，但缺口收斂的「速度」決定這是亞馬遜還是思科。</div>';
+    return fpanel('收入缺口倍數 — $6000 億問題即時版', 'Revenue Gap', 'CapEx 即時連動', body);
+  }
+
+  function frontierHTML() {
+    const FR = SNAP.frontier;
+    if (!FR) return '';
+    const subs = (FR.scores || {}).subs || [];
+    let html = '<div class="section">' + sec('02', '前瞻訊號層', 'Frontier Signal Layer', '實體算力經濟即時讀數 — 設計目標：領先市場價格 6–12 個月') +
+      (subs.length ? subCards(subs) : '') +
+      '<div class="fpanels">' +
+      gpuPanel(FR) + scissorsPanel(FR) + dcPanel(FR) + circPanel(FR) + hnPanel(FR) + gapPanel(FR) +
+      '</div></div>';
+    return html;
+  }
+
+  /* ── 03 capex ── */
+  function capexBars(quarters) {
+    if (!quarters || quarters.length < 2) return '';
+    const W = 210, H = 74, padB = 16;
+    const hi = Math.max(...quarters.map(q => q.capex_b)) * 1.15 || 1;
+    const bw = W / quarters.length;
+    let svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" style="width:100%;display:block;margin-top:8px">';
+    quarters.forEach((q, i) => {
+      const h = q.capex_b / hi * (H - padB - 12);
+      const x = i * bw + bw * 0.14, y = H - padB - h;
+      const latest = i === quarters.length - 1;
+      svg += '<rect x="' + x.toFixed(1) + '" y="' + y.toFixed(1) + '" width="' + (bw * 0.72).toFixed(1) + '" height="' + h.toFixed(1) +
+        '" rx="3" fill="' + (latest ? 'rgba(255,140,75,.9)' : 'rgba(255,140,75,.38)') + '"/>' +
+        '<text x="' + (x + bw * 0.36).toFixed(1) + '" y="' + (y - 3).toFixed(1) + '" text-anchor="middle" font-size="8.5" fill="#a89fc0">' + q.capex_b.toFixed(1) + '</text>' +
+        '<text x="' + (x + bw * 0.36).toFixed(1) + '" y="' + (H - 4) + '" text-anchor="middle" font-size="8" fill="#6c628a">' + esc(q.q.slice(2)) + '</text>';
+    });
+    svg += '</svg>';
+    return svg;
+  }
+
+  function capexHTML() {
+    const C = SNAP.capex || {};
+    const agg = C.agg, cos = C.companies || {};
+    if (!agg) return '';
+    const metaMap = {};
+    (SNAP.groups || []).forEach(g => g.tickers.forEach(t => metaMap[t.ticker] = t));
+    let html = '<div class="section">' + sec('04', 'AI 巨頭資本支出', 'Hyperscaler CapEx', '本輪週期的核心變數——錢從哪來、燒得多快') + '<div class="panel">';
+    html += '<div class="capex-chips">' +
+      '<div class="kchip"><div class="k">五巨頭最新季 CapEx 合計</div><div class="v">$' + fmtX(agg.latest_total_b, 1) + 'B <small>年化 ~$' + fmtX(agg.annual_run_rate_t, 2) + '兆</small></div></div>' +
+      '<div class="kchip"><div class="k">合計年增率（同季比）</div><div class="v" style="color:var(--accent)">' + fmtPct1(agg.yoy) + '</div></div>' +
+      '<div class="kchip"><div class="k">CapEx / 營運現金流</div><div class="v">' + fmtX(agg.capex_ocf, 1) + '%</div></div>' +
+      '<div class="kchip"><div class="k">CapEx / 營收</div><div class="v">' + fmtX(agg.capex_rev, 1) + '%</div></div>' +
+      '</div>';
+    html += '<div class="capex-cards">';
+    Object.keys(cos).sort((a, b) => cos[b].latest_capex_b - cos[a].latest_capex_b).forEach(sym => {
+      const c = cos[sym], m = metaMap[sym] || { zh: sym };
+      html += '<div class="ccard"><div class="row1"><span class="nm">' + esc(m.zh) + '</span><span class="tk">' + esc(sym) + ' · ' + esc(c.latest_q) + '</span></div>' +
+        '<div class="big">$' + c.latest_capex_b.toFixed(1) + 'B <small>最新季 CapEx</small></div>' +
+        '<div class="stats">' +
+        '<span class="mini">年增 <b class="hotv">' + fmtPct1(c.yoy) + '</b></span>' +
+        '<span class="mini">/OCF <b>' + fmtX(c.capex_ocf, 0) + '%</b></span>' +
+        '<span class="mini">/營收 <b>' + fmtX(c.capex_rev, 0) + '%</b></span></div>' +
+        capexBars(c.quarters) + '</div>';
+    });
+    html += '</div><div class="footnote">資料：Yahoo Finance 季度現金流量表（各家財年季度截止日不同）。CapEx/OCF 越接近 100%，代表自有現金流越無法覆蓋投資，越依賴外部融資——資金來源從現金流轉向債務是泡沫化的關鍵轉折訊號。</div></div></div>';
+    return html;
+  }
+
+  /* ── 04 valuation table ── */
+  function valuationHTML() {
+    const F = SNAP.fundamentals || {}, Q = SNAP.quotes || {};
+    const metaMap = {};
+    (SNAP.groups || []).forEach(g => g.tickers.forEach(t => metaMap[t.ticker] = Object.assign({ gzh: g.zh, gkey: g.key }, t)));
+    const rows = Object.keys(F)
+      .filter(t => metaMap[t] && ['mega', 'core', 'neocloud'].includes(metaMap[t].gkey))
+      .map(t => ({ t, m: metaMap[t], f: F[t], q: Q[t] || {} }))
+      .sort((a, b) => (b.f.mcap_usd || 0) - (a.f.mcap_usd || 0));
+    if (!rows.length) return '';
+    let html = '<div class="section">' + sec('05', 'AI 核心股估值與動能', 'Valuation & Momentum', 'Yahoo Finance TTM 口徑 · 按市值排序') + '<div class="panel tbl-wrap">';
+    html += '<table class="tbl"><tr><th>公司</th><th>市值 $B</th><th>PE</th><th>前瞻 PE</th><th>PS</th><th>營收增速</th><th>近 6 月</th><th>近 1 年</th><th>距 52 週高</th><th>走勢</th></tr>';
+    rows.forEach(r => {
+      const g = r.f.rev_growth;
+      html += '<tr><td><span class="co">' + esc(r.m.zh) + '</span><span class="grp">' + esc(r.t) + '</span></td>' +
+        '<td>' + (r.f.mcap_usd != null ? r.f.mcap_usd.toLocaleString('en-US') : '—') + '</td>' +
+        '<td' + (r.f.pe > 60 ? ' class="hotcell"' : '') + '>' + fmtX(r.f.pe, 1) + '</td>' +
+        '<td>' + fmtX(r.f.fwd_pe, 1) + '</td>' +
+        '<td' + (r.f.ps > 20 ? ' class="hotcell"' : '') + '>' + fmtX(r.f.ps, 1) + '</td>' +
+        '<td class="' + (g >= 0 ? 'pos' : 'neg') + '">' + (g != null ? fmtPct1(g * 100) : '—') + '</td>' +
+        '<td class="' + (r.q.chg_6m >= 0 ? 'pos' : 'neg') + '">' + fmtPct1(r.q.chg_6m) + '</td>' +
+        '<td class="' + (r.q.chg_1y >= 0 ? 'pos' : 'neg') + '">' + fmtPct1(r.q.chg_1y) + '</td>' +
+        '<td class="neg">' + fmtPct1(r.q.off_high) + '</td>' +
+        '<td style="min-width:90px">' + spark(r.q.spark, 90, 26) + '</td></tr>';
+    });
+    html += '</table><div class="footnote">橘色標示 = 估值偏熱（PE &gt; 60x 或 PS &gt; 20x）。前瞻 PE 為分析師預估，僅供參考；新雲公司多數尚無獲利，PE 欄為空屬正常。</div></div></div>';
+    return html;
+  }
+
+  /* ── quote cards (05 電力 / 06 REIT / 07 信用) ── */
+  function cardHTML(meta, q) {
+    let body;
+    if (!q) {
+      body = '<div class="nodata">暫無行情資料</div>';
+    } else {
+      body =
+        '<div class="px-row"><span class="px">' + fmtPrice(q.price) + '</span>' +
+        '<span class="d1 ' + cls(q.chg_1d) + '">' + fmtPct(q.chg_1d) + '</span></div>' +
+        '<div class="mini-chips">' +
+        '<span class="mini">1月 <b class="' + cls(q.chg_1m) + '">' + fmtPct1(q.chg_1m) + '</b></span>' +
+        '<span class="mini">6月 <b class="' + cls(q.chg_6m) + '">' + fmtPct1(q.chg_6m) + '</b></span>' +
+        '<span class="mini">1年 <b class="' + cls(q.chg_1y) + '">' + fmtPct1(q.chg_1y) + '</b></span>' +
+        '</div>' + spark(q.spark, 200, 32);
+    }
+    return '<div class="card"><div class="row1"><span class="nm">' + esc(meta.zh) + '</span><span class="tk">' + esc(meta.ticker) + '</span></div>' +
+      '<div class="tag">' + esc(meta.tag_zh || '') + '</div>' + body + '</div>';
+  }
+
+  function groupSection(num, gkey, extraChips) {
+    const g = (SNAP.groups || []).find(x => x.key === gkey);
+    if (!g) return '';
+    const Q = SNAP.quotes || {};
+    let html = '<div class="section">' + sec(num, g.zh, g.en, g.desc_zh);
+    if (extraChips) html += '<div class="ex-chips">' + extraChips + '</div>';
+    html += '<div class="cards">';
+    g.tickers.forEach(m => { html += cardHTML(m, Q[m.ticker]); });
+    html += '</div></div>';
+    return html;
+  }
+
+  function statChip(label, v, hot) {
+    return '<span class="mini" style="font-size:11px;padding:5px 11px">' + esc(label) +
+      ' <b class="' + (hot ? 'hotv' : cls(v)) + '">' + fmtPct1(v) + '</b></span>';
+  }
+
+  function avgOf(tickers, field) {
+    const Q = SNAP.quotes || {};
+    const vals = tickers.map(t => (Q[t] || {})[field]).filter(v => v != null);
+    if (!vals.length) return null;
+    return vals.reduce((a, b) => a + b, 0) / vals.length;
+  }
+
+  function powerChips() {
+    const p1y = avgOf(['VST', 'CEG', 'NRG', 'TLN', 'GEV'], 'chg_1y');
+    const xlu = ((SNAP.quotes || {}).XLU || {}).chg_1y;
+    const ex = (p1y != null && xlu != null) ? p1y - xlu : null;
+    const smr = avgOf(['OKLO', 'SMR'], 'chg_1y');
+    return statChip('電力五雄 1 年平均', p1y) + statChip('相對公用事業超額', ex, true) + statChip('SMR 投機組 1 年', smr, true);
+  }
+
+  function reitChips() {
+    const r6 = avgOf(['DLR', 'EQIX', 'IRM', 'SRVR'], 'chg_6m');
+    const vnq = ((SNAP.quotes || {}).VNQ || {}).chg_6m;
+    const ex = (r6 != null && vnq != null) ? r6 - vnq : null;
+    return statChip('DC REIT 6 月平均', r6) + statChip('相對 REIT 大盤超額', ex, true);
+  }
+
+  function creditChips() {
+    const oas = SNAP.hy_oas;
+    let chips = '';
+    if (oas && oas.bps != null) {
+      chips += '<span class="mini" style="font-size:11px;padding:5px 11px">HY OAS（FRED ' + esc(oas.asof || '') + '）<b class="hotv">' + oas.bps + ' bps</b>' +
+        (oas.bps_3m_ago != null ? ' <span style="color:var(--ink-dim)">3月前 ' + oas.bps_3m_ago + '</span>' : '') + '</span>';
+    }
+    const Q = SNAP.quotes || {};
+    const rel = (Q.HYG && Q.IEF && Q.HYG.chg_6m != null && Q.IEF.chg_6m != null) ? Q.HYG.chg_6m - Q.IEF.chg_6m : null;
+    chips += statChip('HYG−IEF 6 月相對', rel, true);
+    return chips;
+  }
+
+  /* ── 08 concentration ── */
+  const REL_COLORS = { SPY: '#ff8c4b', RSP: '#a89fc0', QQQ: '#b88cff' };
+
+  function relChartSVG(rel) {
+    const W = 920, H = 300, padL = 46, padR = 14, padT = 14, padB = 28;
+    const series = rel.series;
+    const all = series.flatMap(s => s.values);
+    let lo = Math.min(...all), hi = Math.max(...all);
+    const m = (hi - lo) * 0.08 || 4; lo -= m; hi += m;
+    const X = i => padL + i / (series[0].values.length - 1) * (W - padL - padR);
+    const Y = v => padT + (hi - v) / (hi - lo) * (H - padT - padB);
+    let svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" style="width:100%;display:block">';
+    for (let g = 0; g <= 4; g++) {
+      const v = lo + (hi - lo) * g / 4;
+      svg += '<line x1="' + padL + '" y1="' + Y(v) + '" x2="' + (W - padR) + '" y2="' + Y(v) + '" stroke="rgba(50,42,69,.6)" stroke-width="1"/>' +
+        '<text x="' + (padL - 7) + '" y="' + (Y(v) + 4) + '" text-anchor="end" font-size="10" fill="#6c628a">' + v.toFixed(0) + '</text>';
+    }
+    svg += '<line x1="' + padL + '" y1="' + Y(100) + '" x2="' + (W - padR) + '" y2="' + Y(100) + '" stroke="rgba(168,159,192,.45)" stroke-dasharray="4 4" stroke-width="1"/>';
+    const dates = rel.dates;
+    [0, .33, .66, 1].forEach(f => {
+      const i = Math.round(f * (dates.length - 1));
+      svg += '<text x="' + X(i) + '" y="' + (H - 8) + '" text-anchor="middle" font-size="10" fill="#6c628a">' + dates[i].slice(2) + '</text>';
+    });
+    series.forEach(s => {
+      const line = s.values.map((v, i) => X(i).toFixed(1) + ',' + Y(v).toFixed(1)).join(' ');
+      svg += '<polyline points="' + line + '" fill="none" stroke="' + (REL_COLORS[s.key] || '#888') + '" stroke-width="' + (s.key === 'SPY' ? 2.4 : 1.6) + '"/>';
+    });
+    svg += '</svg>';
+    return svg;
+  }
+
+  function concentrationHTML() {
+    if (!SNAP.relchart) return '';
+    const Q = SNAP.quotes || {};
+    const spy = (Q.SPY || {}).chg_1y, rsp = (Q.RSP || {}).chg_1y, qqq = (Q.QQQ || {}).chg_1y;
+    const chips = statChip('標普500（市值加權）1 年', spy) + statChip('等權重 1 年', rsp) +
+      statChip('加權 − 等權差', (spy != null && rsp != null) ? spy - rsp : null, true) +
+      statChip('那斯達克100 − 標普差', (qqq != null && spy != null) ? qqq - spy : null, true);
+    let html = '<div class="section">' + sec('09', '市場集中度', 'Concentration', '少數 AI 巨頭撐起大盤 = 指數的隱形單一押注') +
+      '<div class="panel"><div class="ex-chips">' + chips + '</div>' + relChartSVG(SNAP.relchart) +
+      '<div class="legend">' + SNAP.relchart.series.map(s => {
+        const last = s.values[s.values.length - 1] - 100;
+        return '<span><span class="sw" style="background:' + (REL_COLORS[s.key] || '#888') + '"></span>' +
+          esc(s.zh) + ' <b style="color:var(--' + (last >= 0 ? 'up' : 'down') + ')">' + fmtPct1(last) + '</b></span>';
+      }).join('') + '</div>' +
+      '<div class="footnote">區間首日 = 100。市值加權持續跑贏等權重，代表大盤報酬越來越依賴少數權值股——2000 年泡沫頂點前同樣出現極端分歧。</div></div></div>';
+    return html;
+  }
+
+  /* ── 09 history ── */
+  const VERDICT_META = {
+    lower: ['較 2000 溫和', 'v-lower'], watch: ['需持續盯', 'v-watch'],
+    worse: ['較 2000 更危險', 'v-worse'], similar: ['歷史押韻', 'v-similar'], new: ['本輪新變數', 'v-new'],
+  };
+
+  function historyHTML() {
+    let html = '<div class="section">' + sec('10', '歷史泡沫對照', 'Historical Analogy', HIST.title_zh) + '<div class="panel">';
+    html += '<div class="hist-note">' + esc(HIST.note_zh) + '</div><div class="tbl-wrap"><table class="hist">';
+    html += '<tr><th>指標</th><th>2000 網路泡沫</th><th>本輪 AI 週期</th><th>判定</th></tr>';
+    (HIST.rows || []).forEach(r => {
+      const vm = VERDICT_META[r.verdict] || ['—', 'v-watch'];
+      html += '<tr><td class="m">' + esc(r.metric_zh) + '</td><td>' + esc(r.then_zh) + '</td><td>' + esc(r.now_zh) +
+        '</td><td><span class="vbadge ' + vm[1] + '">' + vm[0] + '</span></td></tr>';
+    });
+    html += '</table></div><div style="font-size:12.5px;font-weight:650;margin:18px 0 10px">歷史的教訓</div><ul class="lessons">';
+    (HIST.lessons_zh || []).forEach(l => { html += '<li>' + esc(l) + '</li>'; });
+    html += '</ul></div></div>';
+    return html;
+  }
+
+  /* ── 10 news ── */
+  function newsHTML() {
+    const topics = (SNAP.news || []).filter(t => t.items && t.items.length);
+    if (!topics.length) return '';
+    let html = '<div class="section">' + sec('11', '資訊雷達', 'News Radar', 'Google News 繁中關鍵詞聚合 · 點擊跳轉原文') +
+      '<div class="panel"><div class="news-grid">';
+    topics.forEach(t => {
+      html += '<div class="news-col"><h3>' + esc(t.zh) + '</h3>';
+      t.items.forEach(it => {
+        let d = '';
+        if (it.pubDate) { const dt = new Date(it.pubDate); if (!isNaN(dt)) d = dt.toLocaleDateString('zh-TW'); }
+        html += '<a class="news-item" href="' + esc(it.link) + '" target="_blank" rel="noopener">' + esc(it.title) +
+          '<span class="meta">' + esc(it.source || '') + (d ? ' · ' + d : '') + '</span></a>';
+      });
+      html += '</div>';
+    });
+    html += '</div></div></div>';
+    return html;
+  }
+
+  /* ── render ── */
+  function render() {
+    if (!SNAP) {
+      content.innerHTML = '<div class="empty"><div class="big">尚未生成數據快照</div>' +
+        '點擊右上角「⟳ 更新數據」並輸入更新密碼，即可抓取行情、資本支出與新聞並計算泡沫溫度。</div>';
+      return;
+    }
+    content.innerHTML = heroHTML() + frontierHTML() + subsHTML() + capexHTML() + valuationHTML() +
+      groupSection('06', 'power', powerChips()) +
+      groupSection('07', 'reit', reitChips()) +
+      groupSection('08', 'credit', creditChips()) +
+      concentrationHTML() + historyHTML() + newsHTML();
+    if (SNAP.generated_at) {
+      const dt = new Date(SNAP.generated_at);
+      document.getElementById('updated').textContent =
+        '數據更新：' + (isNaN(dt) ? SNAP.generated_at : dt.toLocaleString('zh-TW'));
+    }
+  }
+
+  /* ── refresh button + password modal ── */
+  const mask = document.getElementById('pwMask');
+  const modal = document.getElementById('pwModal');
+  const input = document.getElementById('pwInput');
+  const err = document.getElementById('pwErr');
+  const btnOk = document.getElementById('pwOk');
+  const btnCancel = document.getElementById('pwCancel');
+
+  document.getElementById('btnRefresh').addEventListener('click', () => {
+    err.textContent = ''; input.value = '';
+    mask.classList.add('show');
+    setTimeout(() => input.focus(), 50);
+  });
+  btnCancel.addEventListener('click', () => mask.classList.remove('show'));
+  mask.addEventListener('click', e => { if (e.target === mask) mask.classList.remove('show'); });
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') btnOk.click(); });
+
+  btnOk.addEventListener('click', async () => {
+    const pw = input.value;
+    if (!pw) { err.textContent = '請輸入更新密碼'; return; }
+    btnOk.disabled = true; btnCancel.disabled = true;
+    btnOk.textContent = '更新中…';
+    err.style.color = 'var(--ink-soft)';
+    err.textContent = '正在抓取行情、資本支出與新聞，並重新計算泡沫溫度（約 1–3 分鐘）…';
+    try {
+      const resp = await fetch('/aibubble/api/refresh', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: pw }),
+      });
+      const data = await resp.json().catch(() => ({}));
+      if (resp.ok && data.ok) {
+        err.style.color = 'var(--good)';
+        err.textContent = '更新成功，正在重新整理頁面…';
+        setTimeout(() => location.reload(), 600);
+        return;
+      }
+      err.style.color = 'var(--bad)';
+      if (resp.status === 403) {
+        err.textContent = '密碼錯誤，請重試';
+        modal.classList.remove('shake'); void modal.offsetWidth; modal.classList.add('shake');
+      } else {
+        err.textContent = '更新失敗，請稍後重試';
+      }
+    } catch (e) {
+      err.style.color = 'var(--bad)';
+      err.textContent = '網路異常，請稍後重試';
+    }
+    btnOk.disabled = false; btnCancel.disabled = false; btnOk.textContent = '確認更新';
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

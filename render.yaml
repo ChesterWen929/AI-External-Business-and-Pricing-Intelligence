@@ -1,0 +1,26 @@
+# Render Blueprint — deploy with "New + → Blueprint" pointed at this repo.
+# Docs: https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: macro-ai-monitor
+    runtime: python
+    plan: free               # sleeps after 15 min idle (cron-job.org wakes it weekly); upgrade to "starter" to stay warm
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 300
+    healthCheckPath: /healthz
+    autoDeploy: true
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true       # Render generates a strong random value
+      - key: APP_USERNAME
+        sync: false               # set in dashboard (neutral, e.g. "analyst")
+      - key: APP_PASSWORD
+        sync: false               # set in dashboard (your own strong value)
+      - key: REFRESH_TOKEN
+        generateValue: true       # used by the external weekly cron pinger
+      - key: FRED_API_KEY
+        sync: false               # set in dashboard — weekly econ data refresh
+      - key: ANTHROPIC_API_KEY
+        sync: false               # set in dashboard — AI commentary / briefs (optional; rules fallback otherwise)
+      - key: AIBUBBLE_REFRESH_PASSWORD
+        sync: false               # optional — AI Bubble refresh-button password (code default: aibubble2026)
