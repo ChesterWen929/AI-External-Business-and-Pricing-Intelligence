@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rival Radar — 競爭者情報雷達</title>
+<style>
+:root{
+  --bg:#070b14; --panel:#0e1626; --panel2:#121d33; --border:#1c2a42;
+  --text:#dbe7ff; --muted:#7e90b5; --accent:#4dd8ff;
+  --red:#ff5d6c; --green:#3ddc97; --amber:#ffc24d; --violet:#b18cff; --gray:#5d6c8a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Helvetica Neue",Arial,sans-serif;font-size:14px;line-height:1.55}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+header{position:sticky;top:0;z-index:50;background:rgba(7,11,20,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);padding:10px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.logo{display:flex;align-items:baseline;gap:9px}
+.logo .mark{font-size:19px;font-weight:800;letter-spacing:.5px;color:var(--accent)}
+.logo .sub{font-size:12px;color:var(--muted)}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-left:auto;align-items:center}
+.badge{font-size:11px;padding:3px 9px;border:1px solid var(--border);border-radius:99px;color:var(--muted);background:var(--panel)}
+.badge b{color:var(--text);font-weight:600}
+button{cursor:pointer;font-family:inherit}
+.btn{background:var(--panel2);border:1px solid var(--border);color:var(--text);padding:6px 14px;border-radius:8px;font-size:13px}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn-accent{background:linear-gradient(135deg,#0d4d63,#103a63);border:1px solid #2a7da0;color:#bfeeff;font-weight:600}
+.btn-accent:hover{filter:brightness(1.2);color:#fff}
+nav{display:flex;gap:4px;padding:8px 20px 0;border-bottom:1px solid var(--border);background:var(--bg);overflow-x:auto;position:sticky;top:53px;z-index:40}
+nav button{background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);padding:9px 14px;font-size:13.5px;white-space:nowrap}
+nav button.on{color:var(--accent);border-bottom-color:var(--accent);font-weight:600}
+nav button:hover{color:var(--text)}
+main{padding:18px 20px 60px;max-width:1380px;margin:0 auto}
+.grid{display:grid;gap:14px}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:16px}
+.card h3{font-size:13px;color:var(--muted);font-weight:600;letter-spacing:.4px;margin-bottom:10px;text-transform:uppercase}
+.kpis{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+.kpi .v{font-size:24px;font-weight:800;margin:2px 0}
+.kpi .l{font-size:12px;color:var(--muted)}
+.kpi .s{font-size:11.5px;color:var(--muted)}
+.kpi.good .v{color:var(--green)} .kpi.warn .v{color:var(--amber)} .kpi.bad .v{color:var(--red)} .kpi.neutral .v{color:var(--accent)}
+.brief{font-size:14.5px;line-height:1.75;white-space:pre-wrap}
+.row2{grid-template-columns:1.4fr 1fr}
+@media(max-width:980px){.row2{grid-template-columns:1fr}}
+.rankbar{display:flex;align-items:center;gap:10px;margin:7px 0}
+.rankbar .nm{width:170px;font-size:13px;text-align:right;color:var(--text);flex-shrink:0}
+.rankbar .bar{flex:1;height:18px;background:var(--panel2);border-radius:5px;overflow:hidden;position:relative}
+.rankbar .fill{height:100%;border-radius:5px;background:linear-gradient(90deg,#1d4ed8,var(--red))}
+.rankbar .sc{width:34px;font-weight:700;font-size:13px}
+.rankbar .ol{font-size:11.5px;color:var(--muted);width:100%;}
+.tag{display:inline-block;font-size:10.5px;padding:1.5px 8px;border-radius:99px;border:1px solid;font-weight:600;letter-spacing:.3px;vertical-align:middle}
+.tier-T1{color:#7be3a8;border-color:#2c7a4f;background:#0e2a1c}
+.tier-T2{color:#86c9ff;border-color:#2a5d8f;background:#0d2236}
+.tier-T3{color:#ffce85;border-color:#8f6b2a;background:#2e2410}
+.st-confirmed,.st-in_production{color:#7be3a8;border-color:#2c7a4f;background:#0e2a1c}
+.st-in_progress,.st-evaluating{color:#ffce85;border-color:#8f6b2a;background:#2e2410}
+.st-rumored{color:#c9b1ff;border-color:#6a4f9e;background:#1d1430}
+.st-denied,.st-reversed{color:#9aa7c4;border-color:#44516e;background:#141b2b}
+.dir-away_from_tsmc{color:#ff9aa5;border-color:#a03945;background:#2e1014}
+.dir-to_tsmc{color:#7be3a8;border-color:#2c7a4f;background:#0e2a1c}
+.dir-dual_source,.dir-considering{color:#ffce85;border-color:#8f6b2a;background:#2e2410}
+.dir-reversed{color:#9aa7c4;border-color:#44516e;background:#141b2b}
+table{width:100%;border-collapse:collapse}
+th{font-size:11px;color:var(--muted);text-align:left;padding:8px 10px;border-bottom:1px solid var(--border);letter-spacing:.4px;text-transform:uppercase}
+td{padding:9px 10px;border-bottom:1px solid #131e33;font-size:13px;vertical-align:top}
+tr.evt{cursor:pointer} tr.evt:hover{background:#101a2e}
+tr.detail td{background:#0b1322;padding:14px 16px}
+.impact-dots{letter-spacing:2px;color:var(--red);font-size:11px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;align-items:center}
+select,input[type=text],input[type=password]{background:var(--panel2);border:1px solid var(--border);color:var(--text);padding:6px 10px;border-radius:8px;font-size:13px;font-family:inherit}
+input[type=text]{min-width:180px}
+.src{font-size:12.5px;margin:3px 0;color:var(--muted)}
+.profiles{grid-template-columns:repeat(auto-fit,minmax(380px,1fr))}
+.pcard .top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.pcard h2{font-size:17px}
+.pcard .hq{font-size:12px;color:var(--muted)}
+.pcard .total{font-size:26px;font-weight:800;color:var(--red)}
+.pcard .total small{font-size:11px;color:var(--muted);font-weight:400;display:block;text-align:right}
+.dims{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.dim{font-size:11px;background:var(--panel2);border:1px solid var(--border);border-radius:6px;padding:3px 8px;color:var(--muted)}
+.dim b{color:var(--text)}
+.moves{margin-top:10px;border-top:1px solid var(--border);padding-top:8px}
+.move{margin:7px 0;font-size:12.5px}
+.move .d{color:var(--muted);font-size:11px}
+.nodechips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{font-size:11.5px;padding:4px 9px;border-radius:7px;border:1px solid var(--border);background:var(--panel2)}
+.chip b{font-size:12px}
+.chip.production{border-color:#2c7a4f;background:#0e2a1c}
+.chip.risk_production{border-color:#2a7da0;background:#0d2530}
+.chip.development{border-color:#8f6b2a;background:#2e2410}
+.chip.roadmap{border-color:#44516e;background:#141b2b;color:var(--muted)}
+.chip.cancelled{border-color:#a03945;background:#2e1014;text-decoration:line-through;color:var(--muted)}
+.gap{font-size:10px;color:var(--amber);display:block}
+.qcard{border-left:3px solid var(--accent);padding-left:13px;margin-bottom:14px}
+.qcard .q{font-size:14px;font-style:italic;line-height:1.7}
+.qcard .meta{font-size:11.5px;color:var(--muted);margin-top:5px}
+.qcard .rel{font-size:12.5px;color:#a8baD9;margin-top:4px}
+.newsitem{padding:9px 0;border-bottom:1px solid #131e33;font-size:13px}
+.newsitem .m{font-size:11px;color:var(--muted);margin-top:2px}
+.sig{display:inline-block;font-size:10px;padding:1px 7px;border-radius:99px;margin-left:6px;border:1px solid var(--border);color:var(--amber)}
+.sig.defection{color:#ff9aa5;border-color:#a03945}
+.sig.win{color:#7be3a8;border-color:#2c7a4f}
+.quotegrid{grid-template-columns:repeat(auto-fit,minmax(155px,1fr))}
+.qt{background:var(--panel2);border:1px solid var(--border);border-radius:10px;padding:10px 12px}
+.qt .nm{font-size:11.5px;color:var(--muted)}
+.qt .px{font-size:17px;font-weight:700;margin:2px 0}
+.qt .ch{font-size:12px;font-weight:600}
+.up{color:var(--green)} .dn{color:var(--red)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin:8px 0}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.empty{padding:40px;text-align:center;color:var(--muted);font-size:14px}
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;align-items:center;justify-content:center;z-index:100}
+.modal-bg.show{display:flex}
+.modal{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:24px;width:min(400px,92vw)}
+.modal h2{font-size:16px;margin-bottom:6px}
+.modal p{font-size:12.5px;color:var(--muted);margin-bottom:14px}
+.modal .rowx{display:flex;gap:8px}
+.modal input{flex:1}
+.modal .err{color:var(--red);font-size:12.5px;margin-top:10px;min-height:18px}
+.modal .ok{color:var(--green)}
+svg text{font-family:inherit}
+.checkline{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:5px}
+footer{text-align:center;color:#3d4a66;font-size:11px;padding:30px 0 10px}
+@media(max-width:680px){
+  .logo .sub{display:none}
+  header{padding:8px 12px;gap:8px}
+  .badges{margin-left:0;gap:5px}
+  .badge{font-size:10px;padding:2px 7px}
+  nav{top:auto;position:static}
+  main{padding:14px 10px 50px}
+}
+.conf{font-size:10.5px;color:var(--muted)}
+.verd{background:#0b1322;border:1px solid var(--border);border-radius:8px;padding:8px 12px;margin:8px 0;font-size:12.5px}
+.verd b{color:var(--accent)}
+h4.sec{font-size:12px;color:var(--muted);margin:10px 0 4px;letter-spacing:.4px}
+</style>
+</head>
+<body>
+<header>
+  <a id="hBack" href="/" style="font-size:12px;color:var(--muted);white-space:nowrap"></a>
+  <div class="logo"><span class="mark">⬡ RIVAL RADAR</span><span class="sub" id="hSub"></span></div>
+  <div class="badges">
+    <span class="badge" id="bResearch"></span>
+    <span class="badge" id="bLive"></span>
+    <button class="btn" id="btnLang"></button>
+    <button class="btn btn-accent" id="btnRefresh"></button>
+  </div>
+</header>
+<nav id="nav"></nav>
+<main id="main"><div class="empty">Loading…</div></main>
+<footer id="foot"></footer>
+
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <h2 id="mTitle"></h2>
+    <p id="mDesc"></p>
+    <div class="rowx">
+      <input type="password" id="mPass" autocomplete="off">
+      <button class="btn btn-accent" id="mGo"></button>
+    </div>
+    <div class="err" id="mMsg"></div>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* ---------------- i18n ---------------- */
+const I18N = {
+  back:       {zh:"← 平台入口", en:"← Portal"},
+  sub:        {zh:"台積電競爭者與客戶流向情報平台", en:"TSMC Competitor & Customer-Flow Intelligence"},
+  research:   {zh:"情報基準日", en:"Intel as of"},
+  live:       {zh:"行情更新", en:"Market data"},
+  lang:       {zh:"EN", en:"中文"},
+  refresh:    {zh:"⟳ 更新資料", en:"⟳ Refresh"},
+  tab_overview:{zh:"總覽", en:"Overview"},
+  tab_flow:   {zh:"客戶流向", en:"Customer Flow"},
+  tab_threat: {zh:"威脅儀表板", en:"Threat Board"},
+  tab_nodes:  {zh:"節點戰場", en:"Node Battle Map"},
+  tab_events: {zh:"事件與證據", en:"Events & Evidence"},
+  tab_quotes: {zh:"深層來源", en:"Primary Sources"},
+  tab_live:   {zh:"即時行情與新聞", en:"Live Market & News"},
+  exec_brief: {zh:"CEO 摘要簡報", en:"Executive Brief"},
+  threat_rank:{zh:"威脅排名", en:"Threat Ranking"},
+  share_trend:{zh:"晶圓代工市佔走勢(%)", en:"Foundry Market Share Trend (%)"},
+  ex_tsmc:    {zh:"不含台積電(放大對手)", en:"Exclude TSMC (zoom rivals)"},
+  capex:      {zh:"資本支出比較(十億美元)", en:"Capex Comparison (US$B)"},
+  flow_title: {zh:"客戶流向圖 — 線寬=衝擊度,點擊看證據", en:"Customer flow — width = impact, click for evidence"},
+  l_away:     {zh:"流失(離開台積電)", en:"Defection (away from TSMC)"},
+  l_to:       {zh:"流入(台積電贏單)", en:"Win (to TSMC)"},
+  l_dual:     {zh:"雙供應/評估中", en:"Dual-source / evaluating"},
+  l_rev:      {zh:"已否認/回流", en:"Denied / reversed"},
+  f_dir:      {zh:"方向", en:"Direction"},
+  f_status:   {zh:"狀態", en:"Status"},
+  f_tier:     {zh:"證據層級", en:"Evidence tier"},
+  f_search:   {zh:"搜尋客戶/產品…", en:"Search customer/product…"},
+  f_all:      {zh:"全部", en:"All"},
+  th_customer:{zh:"客戶", en:"Customer"},
+  th_flow:    {zh:"流向", en:"Flow"},
+  th_product: {zh:"產品 / 節點", en:"Product / Node"},
+  th_status:  {zh:"狀態", en:"Status"},
+  th_tier:    {zh:"證據", en:"Evidence"},
+  th_impact:  {zh:"衝擊", en:"Impact"},
+  th_date:    {zh:"首報", en:"First reported"},
+  verdict:    {zh:"獨立查證結論", en:"Independent verification"},
+  confidence: {zh:"查證信心", en:"Verify confidence"},
+  sources:    {zh:"來源", en:"Sources"},
+  impact_lbl: {zh:"衝擊評估", en:"Impact assessment"},
+  tier_note:  {zh:"T1 確證(官方/申報) T2 量化(權威數據) T3 旁證(供應鏈傳聞)", en:"T1 primary (official/filings) · T2 quantitative (trackers) · T3 circumstantial (trade press)"},
+  strategy:   {zh:"策略", en:"Strategy"},
+  recent:     {zh:"近期動態", en:"Recent moves"},
+  customers_lbl:{zh:"主要客戶", en:"Key customers"},
+  node_title: {zh:"製程節點戰況 — 顏色=狀態,標籤=與台積電同級節點差距", en:"Node battle map — color = status, label = gap vs TSMC equivalent"},
+  tsmc_ref:   {zh:"台積電基準:N3(量產)、N2(2025H2 量產)、A16(2026H2)、A14(2028)", en:"TSMC baseline: N3 (HVM), N2 (HVM 2025H2), A16 (2026H2), A14 (2028)"},
+  st_production:{zh:"量產", en:"Production"},
+  st_risk_production:{zh:"風險量產", en:"Risk production"},
+  st_development:{zh:"開發中", en:"Development"},
+  st_roadmap: {zh:"規劃", en:"Roadmap"},
+  st_cancelled:{zh:"取消", en:"Cancelled"},
+  gap_behind: {zh:"落後 ~{n} 季", en:"~{n}Q behind"},
+  gap_ahead:  {zh:"領先 ~{n} 季", en:"~{n}Q ahead"},
+  gap_par:    {zh:"並駕", en:"Parity"},
+  quotes_title:{zh:"法說會與申報文件原文 — 比新聞更深一層", en:"Earnings calls & filings — one layer deeper than news"},
+  mkt_quotes: {zh:"競爭者即時行情", en:"Live competitor quotes"},
+  news_title: {zh:"即時新聞訊號(Google News)", en:"Live news signals (Google News)"},
+  sig_only:   {zh:"只看轉單訊號", en:"Movement signals only"},
+  sig_defection:{zh:"轉單", en:"defection"},
+  sig_win:    {zh:"贏單", en:"win"},
+  sig_dual:   {zh:"雙供應", en:"dual"},
+  sig_capacity:{zh:"產能", en:"capacity"},
+  sig_node:   {zh:"節點", en:"node"},
+  ytd:        {zh:"今年迄今", en:"YTD"},
+  m_title:    {zh:"更新即時資料", en:"Refresh live data"},
+  m_desc:     {zh:"將重新抓取 yfinance 行情與 Google News。策展情報庫(競爭者檔案/客戶流向)為研究戰隊產出,不受此更新影響。", en:"Re-fetches yfinance quotes and Google News. The curated intel layer (profiles / customer flows) is research-built and unaffected."},
+  m_pass:     {zh:"輸入更新密碼", en:"Refresh password"},
+  m_go:       {zh:"更新", en:"Refresh"},
+  m_bad:      {zh:"密碼錯誤", en:"Wrong password"},
+  m_busy:     {zh:"更新進行中,稍候再試", en:"Refresh already in progress"},
+  m_running:  {zh:"更新中…(約 30–60 秒)", en:"Refreshing… (~30–60s)"},
+  m_done:     {zh:"完成!行情 {q} 檔、新聞 {n} 條", en:"Done! {q} quotes, {n} news items"},
+  m_fail:     {zh:"更新失敗:", en:"Refresh failed: "},
+  empty_kb:   {zh:"情報庫建置中 — 研究戰隊尚未交付。", en:"Intel KB under construction — research fleet has not delivered yet."},
+  total_threat:{zh:"綜合威脅", en:"THREAT"},
+  status_lbl: {zh:"狀態", en:"Status"},
+  evt_count:  {zh:"共 {n} 條事件", en:"{n} events"},
+  dir_away_from_tsmc:{zh:"流失", en:"Away"},
+  dir_to_tsmc:{zh:"贏單", en:"To TSMC"},
+  dir_dual_source:{zh:"雙供應", en:"Dual-source"},
+  dir_considering:{zh:"評估中", en:"Considering"},
+  dir_reversed:{zh:"回流/反轉", en:"Reversed"},
+  est_confirmed:{zh:"確認", en:"Confirmed"},
+  est_in_production:{zh:"量產中", en:"In production"},
+  est_in_progress:{zh:"進行中", en:"In progress"},
+  est_evaluating:{zh:"評估中", en:"Evaluating"},
+  est_rumored:{zh:"傳聞", en:"Rumored"},
+  est_denied: {zh:"已否認", en:"Denied"},
+  est_reversed:{zh:"已反轉", en:"Reversed"},
+  corrected:  {zh:"查證後修正", en:"corrected by verification"},
+  share_src:  {zh:"市佔來源", en:"Share source"},
+  foot:       {zh:"資料層級:T1 官方申報/法說會 · T2 權威量化 · T3 供應鏈旁證 — 所有宣稱可溯源。內部參考,非投資建議。", en:"Evidence: T1 filings/calls · T2 quantitative trackers · T3 trade press — every claim traceable. Internal reference, not investment advice."},
+  dim_technology:{zh:"技術", en:"Tech"},
+  dim_capacity:{zh:"產能", en:"Capacity"},
+  dim_customer_traction:{zh:"客戶動能", en:"Customers"},
+  dim_geopolitics:{zh:"地緣", en:"Geopolitics"},
+  dim_momentum:{zh:"動能", en:"Momentum"},
+  more_src:   {zh:"查證補充來源", en:"Extra sources from verification"},
+  share_lbl:  {zh:"市佔", en:"Share"},
+  mktcap:     {zh:"市值", en:"Mkt cap"}
+};
+let lang = localStorage.getItem("rr_lang") || "zh";
+let tab = "overview";
+let DB = null;
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const t = (k, vars) => {
+  let s = (I18N[k] && I18N[k][lang]) || (I18N[k] && I18N[k].en) || k;
+  if (vars) for (const v in vars) s = s.replace("{"+v+"}", vars[v]);
+  return s;
+};
+const f = (obj, base) => esc((obj && (obj[base+"_"+lang] || obj[base+"_en"] || obj[base+"_zh"])) || "");
+
+const TABS = ["overview","flow","threat","nodes","events","quotes","live"];
+const DIR_COLORS = {away_from_tsmc:"var(--red)", to_tsmc:"var(--green)", dual_source:"var(--amber)", considering:"var(--amber)", reversed:"var(--gray)"};
+const DIRS = ["away_from_tsmc","to_tsmc","dual_source","considering","reversed"];
+const STATUSES = ["confirmed","in_production","in_progress","evaluating","rumored","denied","reversed"];
+
+/* effective status/tier: verification verdict overrides the original report */
+const effStatus = e => (e.verdict && e.verdict.corrected_status) || e.status;
+const effTier   = e => (e.verdict && e.verdict.corrected_tier) || e.evidence_tier;
+
+/* ---------------- data ---------------- */
+async function loadData(){
+  const r = await fetch("/rival/api/data");
+  DB = await r.json();
+  render();
+}
+
+/* ---------------- shell ---------------- */
+function renderShell(){
+  $("hBack").textContent = t("back");
+  $("hSub").textContent = t("sub");
+  $("btnLang").textContent = t("lang");
+  $("btnRefresh").textContent = t("refresh");
+  const kb = DB && DB.kb || {};
+  $("bResearch").innerHTML = t("research") + " <b>" + esc(kb.research_date || "—") + "</b>";
+  const ml = DB && DB.market_live || {};
+  $("bLive").innerHTML = t("live") + " <b>" + esc((ml.updated_at||"—").slice(0,16).replace("T"," ")) + "</b>";
+  $("nav").innerHTML = TABS.map(x =>
+    '<button class="'+(tab===x?"on":"")+'" onclick="setTab(\''+x+'\')">'+t("tab_"+x)+"</button>").join("");
+  $("foot").textContent = t("foot");
+}
+function setTab(x){ tab = x; render(); window.scrollTo(0,0); }
+function setLang(){ lang = lang==="zh" ? "en" : "zh"; localStorage.setItem("rr_lang", lang); render(); }
+
+function render(){
+  renderShell();
+  const kb = DB.kb || {};
+  const empty = !(kb.profiles && kb.profiles.length);
+  const m = $("main");
+  if (empty && tab !== "live"){ m.innerHTML = '<div class="empty">'+t("empty_kb")+"</div>"; return; }
+  if (tab==="overview") m.innerHTML = vOverview(kb);
+  else if (tab==="flow") m.innerHTML = vFlow(kb);
+  else if (tab==="threat") m.innerHTML = vThreat(kb);
+  else if (tab==="nodes") m.innerHTML = vNodes(kb);
+  else if (tab==="events") m.innerHTML = vEvents(kb);
+  else if (tab==="quotes") m.innerHTML = vQuotes(kb);
+  else m.innerHTML = vLive();
+  if (tab==="events") bindEventFilters(kb);
+}
+
+/* ---------------- overview ---------------- */
+function vOverview(kb){
+  const s = kb.synth || {};
+  let h = "";
+  if (s.kpis && s.kpis.length){
+    h += '<div class="grid kpis" style="margin-bottom:14px">' + s.kpis.map(k =>
+      '<div class="card kpi '+esc(k.tone)+'"><div class="l">'+f(k,"label")+'</div><div class="v">'+esc(k.value)+'</div><div class="s">'+f(k,"sub")+"</div></div>").join("") + "</div>";
+  }
+  h += '<div class="grid row2">';
+  h += '<div class="card"><h3>'+t("exec_brief")+'</h3><div class="brief">'+f(s,"exec_brief")+"</div></div>";
+  h += '<div class="card"><h3>'+t("threat_rank")+"</h3>" + threatBars(kb) + "</div>";
+  h += "</div>";
+  h += '<div class="grid row2" style="margin-top:14px">';
+  h += '<div class="card"><h3>'+t("share_trend")+'</h3><label class="checkline"><input type="checkbox" id="exTsmc" onchange="render()" '+(window._exTsmc?"checked":"")+'>'+t("ex_tsmc")+"</label>" + shareChart(kb) + shareSource(kb) + "</div>";
+  h += '<div class="card"><h3>'+t("capex")+"</h3>" + capexChart(kb) + "</div>";
+  h += "</div>";
+  return h;
+}
+function profName(kb, key){
+  const p = (kb.profiles||[]).find(x => x.key===key);
+  return p ? (lang==="zh" ? p.name_zh : p.name_en) : key;
+}
+function threatBars(kb){
+  const s = kb.synth || {};
+  const rk = (s.threat_ranking||[]).slice().sort((a,b)=>b.total-a.total);
+  if (!rk.length) return '<div class="empty">—</div>';
+  return rk.map(r =>
+    '<div class="rankbar"><div class="nm">'+esc(profName(kb,r.key))+'</div><div class="bar"><div class="fill" style="width:'+(r.total*10)+'%"></div></div><div class="sc">'+r.total.toFixed(1)+'</div></div>'
+    + '<div class="rankbar" style="margin-top:-4px"><div class="nm"></div><div class="ol">'+f(r,"one_liner")+"</div></div>"
+  ).join("");
+}
+const LINE_COLORS = ["#4dd8ff","#ff5d6c","#ffc24d","#3ddc97","#b18cff","#ff9d5c","#6ea8fe","#9aa7c4"];
+function shareChart(kb){
+  const qs = (kb.market && kb.market.share_quarters) || [];
+  if (!qs.length) return '<div class="empty">—</div>';
+  const ex = window._exTsmc = !!($("exTsmc") && $("exTsmc").checked);
+  const companies = [];
+  qs.forEach(q => (q.entries||[]).forEach(e => { if (!companies.includes(e.company)) companies.push(e.company); }));
+  const shown = companies.filter(c => !(ex && /tsmc/i.test(c))).slice(0, 8);
+  const W=620, H=260, padL=36, padR=110, padT=12, padB=26;
+  let maxY = 0;
+  shown.forEach(c => qs.forEach(q => { const e=(q.entries||[]).find(x=>x.company===c); if (e && e.pct>maxY) maxY=e.pct; }));
+  maxY = Math.ceil(maxY/10)*10 || 10;
+  const x = i => padL + i*(W-padL-padR)/Math.max(1,qs.length-1);
+  const y = v => padT + (H-padT-padB)*(1 - v/maxY);
+  let svg = '<svg viewBox="0 0 '+W+' '+H+'" style="width:100%">';
+  for (let g=0; g<=4; g++){
+    const vy = y(maxY*g/4);
+    svg += '<line x1="'+padL+'" y1="'+vy+'" x2="'+(W-padR)+'" y2="'+vy+'" stroke="#1c2a42" stroke-width="1"/>';
+    svg += '<text x="'+(padL-6)+'" y="'+(vy+4)+'" fill="#7e90b5" font-size="10" text-anchor="end">'+(maxY*g/4)+"</text>";
+  }
+  qs.forEach((q,i)=>{ svg += '<text x="'+x(i)+'" y="'+(H-8)+'" fill="#7e90b5" font-size="9.5" text-anchor="middle">'+esc(q.quarter)+"</text>"; });
+  shown.forEach((c, ci)=>{
+    const pts = [];
+    qs.forEach((q,i)=>{ const e=(q.entries||[]).find(z=>z.company===c); if (e) pts.push([x(i), y(e.pct), e.pct]); });
+    if (!pts.length) return;
+    const col = LINE_COLORS[ci % LINE_COLORS.length];
+    svg += '<polyline points="'+pts.map(p=>p[0]+","+p[1]).join(" ")+'" fill="none" stroke="'+col+'" stroke-width="2"/>';
+    pts.forEach(p => { svg += '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="2.5" fill="'+col+'"/>'; });
+    const last = pts[pts.length-1];
+    svg += '<text x="'+(last[0]+6)+'" y="'+(last[1]+4)+'" fill="'+col+'" font-size="10.5">'+esc(c)+" "+last[2]+"%</text>";
+  });
+  return svg + "</svg>";
+}
+function shareSource(kb){
+  const qs = (kb.market && kb.market.share_quarters) || [];
+  if (!qs.length) return "";
+  const last = qs[qs.length-1];
+  return '<div class="src">'+t("share_src")+': <a href="'+esc(last.source_url)+'" target="_blank" rel="noopener">'+esc(last.source_title)+"</a></div>";
+}
+function capexChart(kb){
+  const cx = (kb.market && kb.market.capex) || [];
+  if (!cx.length) return '<div class="empty">—</div>';
+  const years = [...new Set(cx.map(c=>c.year))].sort();
+  const yr = years[years.length-1];
+  const prev = years.length>1 ? years[years.length-2] : null;
+  const rows = {};
+  cx.forEach(c => { (rows[c.company] = rows[c.company] || {})[c.year] = c; });
+  const names = Object.keys(rows).sort((a,b)=>((rows[b][yr]&&rows[b][yr].usd_b)||0)-((rows[a][yr]&&rows[a][yr].usd_b)||0));
+  const maxV = Math.max(...names.map(n=>Math.max((rows[n][yr]&&rows[n][yr].usd_b)||0,(prev&&rows[n][prev]&&rows[n][prev].usd_b)||0)), 1);
+  let h = '<div class="legend"><span><i style="background:#4dd8ff"></i>'+esc(yr)+'</span>'+(prev?'<span><i style="background:#44516e"></i>'+esc(prev)+"</span>":"")+"</div>";
+  names.forEach(n => {
+    const cur = rows[n][yr], pv = prev && rows[n][prev];
+    h += '<div class="rankbar"><div class="nm">'+esc(n)+'</div><div style="flex:1">';
+    if (pv) h += '<div class="bar" style="height:9px;margin-bottom:3px"><div class="fill" style="background:#44516e;width:'+(pv.usd_b/maxV*100)+'%"></div></div>';
+    h += '<div class="bar" style="height:13px"><div class="fill" style="background:#4dd8ff;width:'+((cur&&cur.usd_b||0)/maxV*100)+'%"></div></div>';
+    h += '</div><div class="sc" style="width:52px">'+((cur&&cur.usd_b)||0)+"B</div></div>";
+    if (cur && cur["note_"+lang]) h += '<div class="rankbar" style="margin-top:-4px"><div class="nm"></div><div class="ol">'+f(cur,"note")+"</div></div>";
+  });
+  return h;
+}
+
+/* ---------------- customer flow (hand-rolled sankey) ---------------- */
+function vFlow(kb){
+  const events = (kb.events||[]).map((e,idx)=>Object.assign({},e,{_idx:idx})).filter(e => !["denied"].includes(effStatus(e)));
+  let h = '<div class="card"><h3>'+t("flow_title")+"</h3>";
+  h += '<div class="legend">'
+    + '<span><i style="background:var(--red)"></i>'+t("l_away")+"</span>"
+    + '<span><i style="background:var(--green)"></i>'+t("l_to")+"</span>"
+    + '<span><i style="background:var(--amber)"></i>'+t("l_dual")+"</span>"
+    + '<span><i style="background:var(--gray)"></i>'+t("l_rev")+"</span></div>";
+  h += sankey(kb, events);
+  h += '<div class="src">'+t("tier_note")+"</div></div>";
+  h += '<div id="flowDetail"></div>';
+  return h;
+}
+function sankey(kb, events){
+  if (!events.length) return '<div class="empty">—</div>';
+  const W=1000, NW=14, GAP=10;
+  const lefts=[], rights=[];
+  const lw={}, rw={};
+  events.forEach(e=>{
+    const w = Math.max(1, e.impact_score||1);
+    if(!lefts.includes(e.from_co)) lefts.push(e.from_co);
+    if(!rights.includes(e.to_co)) rights.push(e.to_co);
+    lw[e.from_co]=(lw[e.from_co]||0)+w; rw[e.to_co]=(rw[e.to_co]||0)+w;
+  });
+  lefts.sort((a,b)=>lw[b]-lw[a]); rights.sort((a,b)=>rw[b]-rw[a]);
+  const total = events.reduce((s,e)=>s+Math.max(1,e.impact_score||1),0);
+  const innerH = Math.max(320, total*16);
+  const H = innerH + 40;
+  const scaleL = (innerH - GAP*(lefts.length-1)) / total;
+  const scaleR = (innerH - GAP*(rights.length-1)) / total;
+  const ly={}, ry={};
+  let cy=20; lefts.forEach(n=>{ ly[n]={y:cy,off:0}; cy+=lw[n]*scaleL+GAP; });
+  cy=20; rights.forEach(n=>{ ry[n]={y:cy,off:0}; cy+=rw[n]*scaleR+GAP; });
+  const x0=190, x1=W-190;
+  let svg = '<svg viewBox="0 0 '+W+" "+H+'" style="width:100%">';
+  const ribbons=[], labels=[];
+  const sorted = events.map(e=>({e,i:e._idx})).sort((a,b)=>(b.e.impact_score||1)-(a.e.impact_score||1));
+  sorted.forEach(({e,i})=>{
+    const w=Math.max(1,e.impact_score||1);
+    const hL=w*scaleL, hR=w*scaleR;
+    const sy=ly[e.from_co].y+ly[e.from_co].off, ty=ry[e.to_co].y+ry[e.to_co].off;
+    ly[e.from_co].off+=hL; ry[e.to_co].off+=hR;
+    const cxm=(x0+x1)/2;
+    const col = DIR_COLORS[e.direction]||"var(--gray)";
+    const path = "M"+(x0+NW)+","+sy+" C"+cxm+","+sy+" "+cxm+","+ty+" "+x1+","+ty
+      + " L"+x1+","+(ty+hR)+" C"+cxm+","+(ty+hR)+" "+cxm+","+(sy+hL)+" "+(x0+NW)+","+(sy+hL)+" Z";
+    const cname = (lang==="zh"&&e.customer_zh)?e.customer_zh:e.customer;
+    const tip = esc(cname)+": "+esc(e.from_co)+" → "+esc(e.to_co)+" ("+esc(e.product||"")+")";
+    ribbons.push('<path d="'+path+'" fill="'+col+'" opacity="0.45" style="cursor:pointer" onmouseover="this.setAttribute(\'opacity\',0.8)" onmouseout="this.setAttribute(\'opacity\',0.45)" onclick="showFlowDetail('+i+')"><title>'+tip+"</title></path>");
+    if (hL >= 11) labels.push('<text x="'+(x0+NW+8)+'" y="'+(sy+hL/2+3.5)+'" fill="#eaf2ff" font-size="10.5" style="pointer-events:none;text-shadow:0 1px 3px #000">'+esc(cname.length>22?cname.slice(0,21)+"…":cname)+"</text>");
+  });
+  svg += ribbons.join("")+labels.join("");
+  lefts.forEach(n=>{
+    const hgt=lw[n]*scaleL;
+    svg += '<rect x="'+x0+'" y="'+ly[n].y+'" width="'+NW+'" height="'+(ly[n].off||hgt)+'" rx="3" fill="#2a3d5f"/>';
+    svg += '<text x="'+(x0-8)+'" y="'+(ly[n].y+hgt/2+4)+'" fill="#dbe7ff" font-size="12" text-anchor="end">'+esc(n)+"</text>";
+  });
+  rights.forEach(n=>{
+    const hgt=rw[n]*scaleR;
+    svg += '<rect x="'+(x1)+'" y="'+ry[n].y+'" width="'+NW+'" height="'+(ry[n].off||hgt)+'" rx="3" fill="#2a3d5f"/>';
+    svg += '<text x="'+(x1+NW+8)+'" y="'+(ry[n].y+hgt/2+4)+'" fill="#dbe7ff" font-size="12">'+esc(n)+"</text>";
+  });
+  return svg+"</svg>";
+}
+function showFlowDetail(i){
+  const e = (DB.kb.events||[])[i];
+  if (!e) return;
+  $("flowDetail").innerHTML = '<div class="card" style="margin-top:14px">'+eventDetail(e)+"</div>";
+  $("flowDetail").scrollIntoView({behavior:"smooth"});
+}
+
+/* ---------------- threat board ---------------- */
+function vThreat(kb){
+  const s = kb.synth||{};
+  const totals = {};
+  (s.threat_ranking||[]).forEach(r=>totals[r.key]=r.total);
+  const ps = (kb.profiles||[]).slice().sort((a,b)=>(totals[b.key]||0)-(totals[a.key]||0));
+  return '<div class="grid profiles">'+ps.map(p=>{
+    const th=p.threat||{};
+    const dims=["technology","capacity","customer_traction","geopolitics","momentum"];
+    let h='<div class="card pcard"><div class="top"><div><h2>'+f(p,"name")+'</h2><div class="hq">'+f(p,"hq")
+      +(p.ticker?" · "+esc(p.ticker):"")
+      +(p.market_share_pct?" · "+t("share_lbl")+" "+p.market_share_pct+"%":"")
+      +'</div></div>';
+    h+='<div class="total">'+( totals[p.key]!=null ? totals[p.key].toFixed(1) : "—")+'<small>'+t("total_threat")+"</small></div></div>";
+    h+=radarSVG(th, dims);
+    h+='<div class="dims">'+dims.map(d=>'<span class="dim">'+t("dim_"+d)+" <b>"+(th[d]!=null?th[d]:"—")+"</b></span>").join("")+"</div>";
+    h+='<div style="font-size:12.5px;color:#a8bad9">'+f(th,"rationale")+"</div>";
+    h+='<h4 class="sec">'+t("strategy")+'</h4><div style="font-size:12.5px">'+f(p,"strategy")+"</div>";
+    if ((p.customers||[]).length){
+      h+='<h4 class="sec">'+t("customers_lbl")+'</h4><div class="nodechips">'+p.customers.slice(0,8).map(c=>'<span class="chip" title="'+f(c,"relationship")+'">'+esc(c.name)+"</span>").join("")+"</div>";
+    }
+    if ((p.recent_moves||[]).length){
+      h+='<div class="moves"><h4 class="sec">'+t("recent")+"</h4>"+p.recent_moves.slice(0,5).map(mv=>
+        '<div class="move"><span class="d">'+esc(mv.date)+"</span> <b>"+f(mv,"headline")+"</b><br>"+f(mv,"detail")
+        +' '+(mv.sources||[]).slice(0,2).map(srcLink).join(" ")+"</div>").join("")+"</div>";
+    }
+    if (p.check && p.check.confidence!=null){
+      h+='<div class="conf" style="margin-top:8px">'+t("confidence")+": "+Math.round(p.check.confidence*100)+"%"
+        +((p.check.corrections||[]).length? " · "+p.check.corrections.map(c=>f(c,"fix")).join(" / "):"")+"</div>";
+    }
+    return h+"</div>";
+  }).join("")+"</div>";
+}
+function radarSVG(th, dims){
+  const C=85, R=62, W=420, cx=110, cy=C;
+  const pt=(i,v)=>{ const a=-Math.PI/2 + i*2*Math.PI/dims.length; return [cx+Math.cos(a)*R*v/10, cy+Math.sin(a)*R*v/10]; };
+  let svg='<svg viewBox="0 0 '+W+' '+(C*2)+'" style="width:100%;max-width:420px">';
+  [2.5,5,7.5,10].forEach(g=>{
+    svg+='<polygon points="'+dims.map((d,i)=>pt(i,g).join(",")).join(" ")+'" fill="none" stroke="#1c2a42"/>';
+  });
+  dims.forEach((d,i)=>{
+    const p=pt(i,10); const lp=pt(i,13.2);
+    svg+='<line x1="'+cx+'" y1="'+cy+'" x2="'+p[0]+'" y2="'+p[1]+'" stroke="#1c2a42"/>';
+    svg+='<text x="'+lp[0]+'" y="'+(lp[1]+3)+'" fill="#7e90b5" font-size="10" text-anchor="middle">'+t("dim_"+d)+"</text>";
+  });
+  svg+='<polygon points="'+dims.map((d,i)=>pt(i,th[d]||0).join(",")).join(" ")+'" fill="rgba(255,93,108,.25)" stroke="#ff5d6c" stroke-width="1.5"/>';
+  return svg+"</svg>";
+}
+
+/* ---------------- node battle map ---------------- */
+function vNodes(kb){
+  let h='<div class="card"><h3>'+t("node_title")+'</h3><div class="src" style="margin-bottom:12px">'+t("tsmc_ref")+"</div>";
+  h+='<div class="legend">'+["production","risk_production","development","roadmap","cancelled"].map(s=>
+    '<span><i class="chip '+s+'" style="border-width:1px"></i>'+t("st_"+s)+"</span>").join("")+"</div>";
+  h+="<table><tbody>";
+  (kb.profiles||[]).forEach(p=>{
+    h+='<tr><td style="width:190px;font-weight:600">'+f(p,"name")+'</td><td><div class="nodechips">';
+    (p.nodes||[]).forEach(n=>{
+      let gap="";
+      if (n.gap_vs_tsmc_quarters!=null && n.gap_vs_tsmc_quarters!==0)
+        gap='<span class="gap">'+(n.gap_vs_tsmc_quarters>0?t("gap_behind",{n:n.gap_vs_tsmc_quarters}):t("gap_ahead",{n:-n.gap_vs_tsmc_quarters}))+"</span>";
+      else if (n.gap_vs_tsmc_quarters===0 && ["production","risk_production"].includes(n.status))
+        gap='<span class="gap">'+t("gap_par")+"</span>";
+      h+='<span class="chip '+esc(n.status)+'" title="'+f(n,"note")+'"><b>'+esc(n.node)+"</b> "+esc(n.year||"")+gap+"</span>";
+    });
+    h+="</div></td></tr>";
+  });
+  return h+"</tbody></table></div>";
+}
+
+/* ---------------- events & evidence ---------------- */
+let evFilters={dir:"",status:"",tier:"",q:""};
+function vEvents(kb){
+  const evs=kb.events||[];
+  let h='<div class="card"><div class="filters">';
+  h+='<span class="src">'+t("f_dir")+'</span><select id="fDir"><option value="">'+t("f_all")+"</option>"+DIRS.map(d=>'<option value="'+d+'"'+(evFilters.dir===d?" selected":"")+">"+t("dir_"+d)+"</option>").join("")+"</select>";
+  h+='<span class="src">'+t("f_status")+'</span><select id="fStatus"><option value="">'+t("f_all")+"</option>"+STATUSES.map(s=>'<option value="'+s+'"'+(evFilters.status===s?" selected":"")+">"+t("est_"+s)+"</option>").join("")+"</select>";
+  h+='<span class="src">'+t("f_tier")+'</span><select id="fTier"><option value="">'+t("f_all")+"</option>"+["T1","T2","T3"].map(x=>'<option'+(evFilters.tier===x?" selected":"")+">"+x+"</option>").join("")+"</select>";
+  h+='<input type="text" id="fQ" placeholder="'+t("f_search")+'" value="'+esc(evFilters.q)+'">';
+  h+='<span class="src" id="evCount"></span></div>';
+  h+='<div class="src" style="margin-bottom:8px">'+t("tier_note")+"</div>";
+  h+='<table><thead><tr><th>'+t("th_customer")+"</th><th>"+t("th_flow")+"</th><th>"+t("th_product")+"</th><th>"+t("th_status")+"</th><th>"+t("th_tier")+"</th><th>"+t("th_impact")+"</th><th>"+t("th_date")+'</th></tr></thead><tbody id="evBody"></tbody></table></div>';
+  return h;
+}
+function bindEventFilters(kb){
+  const rerun=()=>{ evFilters={dir:$("fDir").value,status:$("fStatus").value,tier:$("fTier").value,q:$("fQ").value}; fillEvents(kb); };
+  ["fDir","fStatus","fTier"].forEach(id=>$(id).onchange=rerun);
+  $("fQ").oninput=rerun;
+  fillEvents(kb);
+}
+function fillEvents(kb){
+  const evs=(kb.events||[]).map((e,i)=>({e,i})).filter(({e})=>{
+    if (evFilters.dir && e.direction!==evFilters.dir) return false;
+    if (evFilters.status && effStatus(e)!==evFilters.status) return false;
+    if (evFilters.tier && effTier(e)!==evFilters.tier) return false;
+    if (evFilters.q){ const q=evFilters.q.toLowerCase();
+      if (!((e.customer||"")+(e.customer_zh||"")+(e.product||"")+(e.to_co||"")+(e.from_co||"")).toLowerCase().includes(q)) return false; }
+    return true;
+  }).sort((a,b)=>(b.e.impact_score||0)-(a.e.impact_score||0));
+  $("evCount").textContent=t("evt_count",{n:evs.length});
+  $("evBody").innerHTML=evs.map(({e,i})=>{
+    const st=effStatus(e), tr=effTier(e);
+    return '<tr class="evt" onclick="toggleEvt('+i+')"><td><b>'+(lang==="zh"&&e.customer_zh?esc(e.customer_zh):esc(e.customer))+"</b></td>"
+      +'<td><span class="tag dir-'+esc(e.direction)+'">'+t("dir_"+e.direction)+"</span><br><span class='src'>"+esc(e.from_co)+" → "+esc(e.to_co)+"</span></td>"
+      +"<td>"+esc(e.product||"")+(e.node?'<br><span class="src">'+esc(e.node)+"</span>":"")+"</td>"
+      +'<td><span class="tag st-'+esc(st)+'">'+t("est_"+st)+"</span>"+(st!==e.status?'<br><span class="conf">'+t("corrected")+"</span>":"")+"</td>"
+      +'<td><span class="tag tier-'+esc(tr)+'">'+esc(tr)+"</span></td>"
+      +'<td><span class="impact-dots">'+"●".repeat(Math.max(1,e.impact_score||1))+"○".repeat(Math.max(0,5-(e.impact_score||1)))+"</span></td>"
+      +"<td>"+esc(e.first_reported||"")+"</td></tr>"
+      +'<tr class="detail" id="evd'+i+'" style="display:none"><td colspan="7">'+eventDetail(e)+"</td></tr>";
+  }).join("");
+}
+function toggleEvt(i){ const r=$("evd"+i); if(r) r.style.display = r.style.display==="none" ? "" : "none"; }
+function srcLink(s){
+  return '<a href="'+esc(s.url)+'" target="_blank" rel="noopener">'+esc(s.title)+'</a> <span class="tag tier-'+esc(s.tier)+'">'+esc(s.tier)+"</span>"+(s.date?' <span class="conf">'+esc(s.date)+"</span>":"");
+}
+function eventDetail(e){
+  let h="<div style='font-size:13.5px'><b>"+(lang==="zh"&&e.customer_zh?esc(e.customer_zh):esc(e.customer))+"</b> · "+esc(e.from_co)+" → "+esc(e.to_co)+"</div>";
+  h+='<div style="margin:6px 0">'+f(e,"summary")+"</div>";
+  h+='<div class="src"><b>'+t("impact_lbl")+":</b> "+f(e,"impact")+"</div>";
+  if (e.verdict){
+    h+='<div class="verd"><b>'+t("verdict")+"</b> ("+t("confidence")+" "+Math.round((e.verdict.confidence||0)*100)+"%): "+f(e.verdict,"note")+"</div>";
+  }
+  h+='<h4 class="sec">'+t("sources")+"</h4>"+(e.sources||[]).map(s=>'<div class="src">'+srcLink(s)+"</div>").join("");
+  if (e.verdict && (e.verdict.extra_sources||[]).length)
+    h+='<h4 class="sec">'+t("more_src")+"</h4>"+e.verdict.extra_sources.map(s=>'<div class="src">'+srcLink(s)+"</div>").join("");
+  return h;
+}
+
+/* ---------------- primary sources ---------------- */
+function vQuotes(kb){
+  const qs=kb.quotes||[];
+  let h='<div class="card"><h3>'+t("quotes_title")+"</h3>";
+  if(!qs.length) return h+'<div class="empty">—</div></div>';
+  h+=qs.map(q=>'<div class="qcard"><div class="q">“'+f(q,"quote")+'”</div>'
+    +'<div class="meta"><b>'+esc(q.company)+"</b> · "+esc(q.speaker||"")+" · "+esc(q.venue)+" · "+esc(q.date)
+    +' <span class="tag tier-'+esc(q.tier)+'">'+esc(q.tier)+"</span>"
+    +' · <a href="'+esc(q.url)+'" target="_blank" rel="noopener">link</a></div>'
+    +'<div class="rel">'+f(q,"relevance")+"</div></div>").join("");
+  return h+"</div>";
+}
+
+/* ---------------- live ---------------- */
+let sigOnly=false;
+function vLive(){
+  const ml=DB.market_live||{}, nl=DB.news_live||{};
+  let h='<div class="card"><h3>'+t("mkt_quotes")+'</h3><div class="grid quotegrid">';
+  (ml.quotes||[]).forEach(q=>{
+    const chg=q.change_pct==null?0:q.change_pct;
+    const cls=chg>=0?"up":"dn";
+    h+='<div class="qt"><div class="nm">'+(lang==="zh"?esc(q.name_zh):esc(q.name_en))+' <span class="conf">'+esc(q.ticker)+'</span></div>'
+      +'<div class="px">'+q.price+' <span class="conf">'+esc(q.currency||"")+"</span></div>"
+      +'<div class="ch '+cls+'">'+(chg>=0?"+":"")+chg+"%"
+      +(q.ytd_pct!=null?' <span class="conf">'+t("ytd")+" "+(q.ytd_pct>=0?"+":"")+q.ytd_pct+"%</span>":"")+"</div></div>";
+  });
+  h+="</div></div>";
+  h+='<div class="card" style="margin-top:14px"><h3>'+t("news_title")+'</h3>';
+  h+='<label class="checkline" style="margin-bottom:8px"><input type="checkbox" '+(sigOnly?"checked":"")+' onchange="sigOnly=this.checked;render()">'+t("sig_only")+"</label>";
+  const items=(nl.items||[]).filter(it=>!sigOnly||(it.signals||[]).some(s=>["defection","win","dual"].includes(s)));
+  items.slice(0,60).forEach(it=>{
+    h+='<div class="newsitem"><a href="'+esc(it.link)+'" target="_blank" rel="noopener">'+esc(it.title)+"</a>"
+      +(it.signals||[]).map(s=>'<span class="sig '+esc(s)+'">'+t("sig_"+s)+"</span>").join("")
+      +'<div class="m">'+esc(it.source||"")+" · "+esc(it.published||"")+"</div></div>";
+  });
+  return h+"</div>";
+}
+
+/* ---------------- refresh modal ---------------- */
+function openModal(){
+  $("mTitle").textContent=t("m_title"); $("mDesc").textContent=t("m_desc");
+  $("mPass").placeholder=t("m_pass"); $("mGo").textContent=t("m_go");
+  $("mMsg").textContent=""; $("mPass").value="";
+  $("modalBg").classList.add("show"); $("mPass").focus();
+}
+function closeModal(){ $("modalBg").classList.remove("show"); }
+async function doRefresh(){
+  const msg=$("mMsg");
+  msg.className="err"; msg.textContent=t("m_running");
+  $("mGo").disabled=true;
+  try{
+    const r=await fetch("/rival/api/refresh",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({password:$("mPass").value})});
+    const j=await r.json();
+    if(r.status===401){ msg.textContent=t("m_bad"); }
+    else if(r.status===429){ msg.textContent=t("m_busy"); }
+    else if(!j.ok){ msg.textContent=t("m_fail")+(j.error||r.status); }
+    else{
+      msg.className="err ok";
+      msg.textContent=t("m_done",{q:j.market_quotes,n:j.news_items});
+      await loadData();
+      setTimeout(closeModal, 1400);
+    }
+  }catch(err){ msg.textContent=t("m_fail")+err; }
+  $("mGo").disabled=false;
+}
+$("btnLang").onclick=setLang;
+$("btnRefresh").onclick=openModal;
+$("mGo").onclick=doRefresh;
+$("mPass").addEventListener("keydown",e=>{ if(e.key==="Enter") doRefresh(); });
+$("modalBg").addEventListener("click",e=>{ if(e.target===$("modalBg")) closeModal(); });
+
+loadData();
+</script>
+</body>
+</html>

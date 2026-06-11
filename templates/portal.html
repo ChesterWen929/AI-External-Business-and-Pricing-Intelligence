@@ -76,7 +76,7 @@
 
   /* ── hero ── */
   .wrap { flex: 1; display: flex; align-items: center; justify-content: center; padding: 30px 20px 10px; }
-  .inner { width: 100%; max-width: 880px; }
+  .inner { width: 100%; max-width: 1020px; }
   .lede { text-align: center; margin-bottom: 40px; }
   .eyebrow {
     display: inline-block; font-size: 11px; letter-spacing: 3.5px; text-transform: uppercase;
@@ -93,7 +93,8 @@
   .lede p { color: var(--ink-dim); font-size: 13.5px; margin-top: 18px; letter-spacing: .4px; }
 
   /* ── cards ── */
-  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  @media (max-width: 900px) { .cards { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 640px) { .cards { grid-template-columns: 1fr; } }
   .card {
     position: relative; display: block; overflow: hidden;
@@ -182,6 +183,19 @@
               <div class="stat">
                 {% if econ_count %}<span class="score">{{ econ_count }}<small>{{ t('indicators') }}</small></span>{% endif %}
                 {% if econ_updated %}<span class="meta">{{ t('updated') }} · {{ econ_updated }}</span>{% endif %}
+              </div>
+              <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
+            </div>
+          </a>
+
+          <a class="card" href="/rival/">
+            <div class="kicker">03</div>
+            <h2>{{ t('rival_name') }}</h2>
+            <div class="desc">{{ t('rival_desc') }}</div>
+            <div class="foot">
+              <div class="stat">
+                {% if rival_events %}<span class="score">{{ rival_events }}<small>{{ t('events_lbl') }}</small></span>{% endif %}
+                {% if rival_updated %}<span class="meta">{{ t('updated') }} · {{ rival_updated }}</span>{% endif %}
               </div>
               <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
             </div>

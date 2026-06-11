@@ -1,8 +1,9 @@
 """Macro & AI Monitor — standalone Flask app.
 
-Bundles two read-only research dashboards behind one discreet shared login:
+Bundles three read-only research dashboards behind one discreet shared login:
   • /aibubble — AI Bubble Monitor (twin thermometer: market layer + frontier layer)
   • /econ     — US Economic Monitor (FRED indicators, multi-horizon change)
+  • /rival    — Rival Radar (foundry competitor & customer-flow intelligence)
 
 Auth:    single shared username/password (env APP_USERNAME / APP_PASSWORD).
 Refresh: weekly via APScheduler (Wed 07:00 US Pacific) + a token-protected
@@ -41,6 +42,9 @@ from aibubble import aibubble_bp
 from aibubble import fetcher as aibubble_fetcher
 from econ import econ_bp, _load_snapshot as econ_load_snapshot
 from econ import refresh_job as econ_refresh_job
+from rival import load_kb as rival_load_kb
+from rival import refresh_live as rival_refresh_live
+from rival import rival_bp
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)s | %(message)s")
 log = logging.getLogger("macro-ai")
@@ -49,6 +53,7 @@ app = Flask(__name__)
 app.config["JSON_AS_ASCII"] = False
 app.register_blueprint(aibubble_bp)
 app.register_blueprint(econ_bp)
+app.register_blueprint(rival_bp)
 
 # ── secrets / auth (all from env; never hard-code real values) ──
 _DEFAULT_SECRET = "dev-insecure-change-me"
@@ -79,6 +84,10 @@ STRINGS = {
     "econ_name": {"en": "US Economic Monitor",        "zh": "美國經濟指標"},
     "econ_desc": {"en": "FRED indicators with week / month / quarter / year change.",
                   "zh": "FRED 指標，含 週 / 月 / 季 / 年 變化切換。"},
+    "rival_name":{"en": "Rival Radar",                "zh": "競爭者雷達"},
+    "rival_desc":{"en": "Foundry rivals & customer-flow intelligence — tiered evidence, primary sources.",
+                  "zh": "晶圓代工競爭格局與客戶流向 — 證據分級、一手來源。"},
+    "events_lbl":{"en": "flow events",                "zh": "流向事件"},
     "updated":   {"en": "Updated",                    "zh": "更新"},
     "indicators":{"en": "indicators",                 "zh": "指標"},
     "signout":   {"en": "Sign out",                   "zh": "登出"},
@@ -115,7 +124,7 @@ def require_login():
     if session.get("auth"):
         return None
     # Unauthenticated: API/JSON callers get 401, humans go to the login page.
-    if request.path.startswith(("/api/", "/econ/api/", "/aibubble/api/")):
+    if request.path.startswith(("/api/", "/econ/api/", "/aibubble/api/", "/rival/api/")):
         return jsonify({"error": "auth required"}), 401
     return redirect(url_for("login", next=request.path))
 
@@ -163,6 +172,7 @@ def set_lang(new_lang):
 def portal():
     econ_snap = econ_load_snapshot()
     aib_snap = aibubble_fetcher.load_snapshot()
+    rival_kb = rival_load_kb()
     return render_template(
         "portal.html",
         econ_updated=econ_snap.get("date") if econ_snap else None,
@@ -171,13 +181,15 @@ def portal():
         aib_score=((aib_snap.get("scores") or {}).get("composite")) if aib_snap else None,
         aib_zone=(((aib_snap.get("scores") or {}).get("zone") or {}).get("zh" if ui_lang() == "zh" else "en"))
         if aib_snap else None,
+        rival_events=len(rival_kb.get("events") or []),
+        rival_updated=rival_kb.get("research_date"),
     )
 
 
 # ────────────────────────────── refresh / health ──────────────────────────────
 
 def _refresh_all_bg() -> None:
-    """Refresh both dashboards in the background (econ can take minutes)."""
+    """Refresh all dashboards in the background (econ can take minutes)."""
     try:
         aibubble_fetcher.refresh()
     except Exception:
@@ -186,6 +198,10 @@ def _refresh_all_bg() -> None:
         econ_refresh_job.run_weekly_refresh_sync()
     except Exception:
         log.exception("econ refresh failed")
+    try:
+        rival_refresh_live()
+    except Exception:
+        log.exception("rival live refresh failed")
 
 
 @app.route("/cron/refresh")

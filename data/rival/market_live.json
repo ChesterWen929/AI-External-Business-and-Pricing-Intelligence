@@ -1,0 +1,106 @@
+{
+ "updated_at": "2026-06-11T09:00:46Z",
+ "quotes": [
+  {
+   "ticker": "TSM",
+   "name_en": "TSMC",
+   "name_zh": "台積電",
+   "price": 408.75,
+   "currency": "USD",
+   "change_pct": 0.41,
+   "market_cap": 0,
+   "ytd_pct": 34.3
+  },
+  {
+   "ticker": "005930.KS",
+   "name_en": "Samsung",
+   "name_zh": "三星電子",
+   "price": 299000.0,
+   "currency": "KRW",
+   "change_pct": -1.16,
+   "market_cap": 0,
+   "ytd_pct": 133.2
+  },
+  {
+   "ticker": "INTC",
+   "name_en": "Intel",
+   "name_zh": "英特爾",
+   "price": 107.04,
+   "currency": "USD",
+   "change_pct": 1.87,
+   "market_cap": 0,
+   "ytd_pct": 174.0
+  },
+  {
+   "ticker": "0981.HK",
+   "name_en": "SMIC",
+   "name_zh": "中芯國際",
+   "price": 73.3,
+   "currency": "HKD",
+   "change_pct": 1.31,
+   "market_cap": 0,
+   "ytd_pct": -2.4
+  },
+  {
+   "ticker": "UMC",
+   "name_en": "UMC",
+   "name_zh": "聯電",
+   "price": 18.9,
+   "currency": "USD",
+   "change_pct": -0.11,
+   "market_cap": 0,
+   "ytd_pct": 153.6
+  },
+  {
+   "ticker": "GFS",
+   "name_en": "GlobalFoundries",
+   "name_zh": "格羅方德",
+   "price": 74.82,
+   "currency": "USD",
+   "change_pct": 1.46,
+   "market_cap": 0,
+   "ytd_pct": 104.1
+  },
+  {
+   "ticker": "TSEM",
+   "name_en": "Tower Semi",
+   "name_zh": "高塔半導體",
+   "price": 233.54,
+   "currency": "USD",
+   "change_pct": 1.54,
+   "market_cap": 0,
+   "ytd_pct": 87.4
+  },
+  {
+   "ticker": "1347.HK",
+   "name_en": "Hua Hong",
+   "name_zh": "華虹半導體",
+   "price": 139.3,
+   "currency": "HKD",
+   "change_pct": 1.46,
+   "market_cap": 0,
+   "ytd_pct": 71.3
+  },
+  {
+   "ticker": "5347.TWO",
+   "name_en": "Vanguard (VIS)",
+   "name_zh": "世界先進",
+   "price": 161.5,
+   "currency": "TWD",
+   "change_pct": 6.6,
+   "market_cap": 0,
+   "ytd_pct": 75.0
+  },
+  {
+   "ticker": "6770.TW",
+   "name_en": "PSMC",
+   "name_zh": "力積電",
+   "price": 64.4,
+   "currency": "TWD",
+   "change_pct": -0.16,
+   "market_cap": 0,
+   "ytd_pct": 53.0
+  }
+ ],
+ "errors": []
+}
