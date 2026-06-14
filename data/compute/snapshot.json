@@ -1,0 +1,1030 @@
+{
+  "generated_at": "live seed 2026-06-14",
+  "as_of": "2026-06-13",
+  "base_year": 2025,
+  "end_year": 2030,
+  "years": [
+    2024,
+    2025,
+    2026,
+    2027,
+    2028,
+    2029,
+    2030
+  ],
+  "live_present": true,
+  "live_capex_ttm_context": {
+    "Microsoft": 97.2,
+    "Alphabet": 109.9,
+    "Amazon": 151.0,
+    "Meta": 75.7,
+    "Oracle": 48.2
+  },
+  "headline": {
+    "base_year": 2025,
+    "central_usd_bn": 204.0,
+    "band_usd_bn": {
+      "low": 159.5,
+      "high": 248.8
+    },
+    "spread_pct": 44.0,
+    "current_runrate_year": 2026,
+    "current_runrate_bottomup_usd_bn": 380.0,
+    "current_runrate_topdown_mid_usd_bn": 332.6,
+    "current_runrate_gap_pct": 14.0,
+    "forecast_2030_base_usd_bn": 590.6,
+    "forecast_2030_bull_usd_bn": 936.0,
+    "forecast_2030_bear_usd_bn": 318.8,
+    "forecast_cagr_pct": 24.1,
+    "hyperscaler_capex_base_year_usd_bn": 403.0,
+    "hyperscaler_capex_current_year_usd_bn": 660.0,
+    "edge_base_year_usd_bn": 26.1,
+    "grand_total_base_year_usd_bn": 227.1,
+    "grand_total_end_year_usd_bn": 649.5,
+    "inference_share_end_year": 0.67,
+    "sovereign_end_year_usd_bn": 88.6
+  },
+  "topdown": [
+    {
+      "year": 2024,
+      "ai_dc_capex_usd_bn": 191.1,
+      "total_usd_bn": {
+        "low": 95.5,
+        "mid": 120.4,
+        "high": 149.1
+      },
+      "categories": {
+        "gpu": {
+          "usd_bn": 96.3,
+          "units_m": 3.7,
+          "asp_usd": 26000
+        },
+        "asic": {
+          "usd_bn": 13.2,
+          "units_m": 2.04,
+          "asp_usd": 6500
+        },
+        "cpu": {
+          "usd_bn": 10.8,
+          "units_m": 8.25,
+          "asp_usd": 1313
+        }
+      }
+    },
+    {
+      "year": 2025,
+      "ai_dc_capex_usd_bn": 319.0,
+      "total_usd_bn": {
+        "low": 159.5,
+        "mid": 201.0,
+        "high": 248.8
+      },
+      "categories": {
+        "gpu": {
+          "usd_bn": 156.8,
+          "units_m": 6.03,
+          "asp_usd": 26000
+        },
+        "asic": {
+          "usd_bn": 28.1,
+          "units_m": 4.33,
+          "asp_usd": 6500
+        },
+        "cpu": {
+          "usd_bn": 16.1,
+          "units_m": 12.37,
+          "asp_usd": 1300
+        }
+      }
+    },
+    {
+      "year": 2026,
+      "ai_dc_capex_usd_bn": 528.0,
+      "total_usd_bn": {
+        "low": 264.0,
+        "mid": 332.6,
+        "high": 411.8
+      },
+      "categories": {
+        "gpu": {
+          "usd_bn": 246.2,
+          "units_m": 9.47,
+          "asp_usd": 26000
+        },
+        "asic": {
+          "usd_bn": 59.9,
+          "units_m": 9.21,
+          "asp_usd": 6500
+        },
+        "cpu": {
+          "usd_bn": 26.6,
+          "units_m": 20.68,
+          "asp_usd": 1287
+        }
+      }
+    },
+    {
+      "year": 2027,
+      "ai_dc_capex_usd_bn": 672.0,
+      "total_usd_bn": {
+        "low": 336.0,
+        "mid": 423.4,
+        "high": 524.2
+      },
+      "categories": {
+        "gpu": {
+          "usd_bn": 296.4,
+          "units_m": 11.4,
+          "asp_usd": 26000
+        },
+        "asic": {
+          "usd_bn": 93.1,
+          "units_m": 14.33,
+          "asp_usd": 6500
+        },
+        "cpu": {
+          "usd_bn": 33.9,
+          "units_m": 26.58,
+          "asp_usd": 1274
+        }
+      }
+    },
+    {
+      "year": 2028,
+      "ai_dc_capex_usd_bn": 784.8,
+      "total_usd_bn": {
+        "low": 392.4,
+        "mid": 494.4,
+        "high": 612.1
+      },
+      "categories": {
+        "gpu": {
+          "usd_bn": 331.3,
+          "units_m": 12.74,
+          "asp_usd": 26000
+        },
+        "asic": {
+          "usd_bn": 123.6,
+          "units_m": 19.02,
+          "asp_usd": 6500
+        },
+        "cpu": {
+          "usd_bn": 39.6,
+          "units_m": 31.36,
+          "asp_usd": 1261
+        }
+      }
+    },
+    {
+      "year": 2029,
+      "ai_dc_capex_usd_bn": 873.2,
+      "total_usd_bn": {
+        "low": 436.6,
+        "mid": 550.1,
+        "high": 681.1
+      },
+      "categories": {
+        "gpu": {
+          "usd_bn": 352.1,
+          "units_m": 13.54,
+          "asp_usd": 26000
+        },
+        "asic": {
+          "usd_bn": 154.0,
+          "units_m": 23.7,
+          "asp_usd": 6500
+        },
+        "cpu": {
+          "usd_bn": 44.0,
+          "units_m": 35.24,
+          "asp_usd": 1249
+        }
+      }
+    },
+    {
+      "year": 2030,
+      "ai_dc_capex_usd_bn": 937.5,
+      "total_usd_bn": {
+        "low": 468.8,
+        "mid": 590.6,
+        "high": 731.2
+      },
+      "categories": {
+        "gpu": {
+          "usd_bn": 366.2,
+          "units_m": 14.08,
+          "asp_usd": 26000
+        },
+        "asic": {
+          "usd_bn": 177.2,
+          "units_m": 27.26,
+          "asp_usd": 6500
+        },
+        "cpu": {
+          "usd_bn": 47.2,
+          "units_m": 38.22,
+          "asp_usd": 1236
+        }
+      }
+    }
+  ],
+  "bottomup": {
+    "lines": [
+      {
+        "name": "nvidia_datacenter",
+        "ticker": "NVDA",
+        "category": "gpu",
+        "anchor_usd_bn": 249.0,
+        "estimate_usd_bn": 249.0,
+        "live_scaled": true,
+        "live_source": "yfinance",
+        "confidence": "high"
+      },
+      {
+        "name": "amd_instinct_gpu",
+        "ticker": "AMD",
+        "category": "gpu",
+        "anchor_usd_bn": 11.0,
+        "estimate_usd_bn": 11.0,
+        "live_scaled": true,
+        "live_source": "yfinance",
+        "confidence": "medium"
+      },
+      {
+        "name": "broadcom_ai_semi",
+        "ticker": "AVGO",
+        "category": "asic",
+        "anchor_usd_bn": 45.0,
+        "estimate_usd_bn": 45.0,
+        "live_scaled": true,
+        "live_source": "yfinance",
+        "confidence": "high"
+      },
+      {
+        "name": "marvell_custom_dc",
+        "ticker": "MRVL",
+        "category": "asic",
+        "anchor_usd_bn": 8.0,
+        "estimate_usd_bn": 8.0,
+        "live_scaled": true,
+        "live_source": "yfinance",
+        "confidence": "medium"
+      },
+      {
+        "name": "internal_custom_asic",
+        "ticker": null,
+        "category": "asic",
+        "anchor_usd_bn": 30.0,
+        "estimate_usd_bn": 30.0,
+        "live_scaled": false,
+        "live_source": null,
+        "confidence": "low"
+      },
+      {
+        "name": "intel_dcai_cpu",
+        "ticker": "INTC",
+        "category": "cpu",
+        "anchor_usd_bn": 13.0,
+        "estimate_usd_bn": 13.0,
+        "live_scaled": true,
+        "live_source": "yfinance",
+        "confidence": "medium"
+      },
+      {
+        "name": "amd_epyc_cpu",
+        "ticker": "AMD",
+        "category": "cpu",
+        "anchor_usd_bn": 15.0,
+        "estimate_usd_bn": 15.0,
+        "live_scaled": true,
+        "live_source": "yfinance",
+        "confidence": "medium"
+      },
+      {
+        "name": "arm_based_server_cpu",
+        "ticker": null,
+        "category": "cpu",
+        "anchor_usd_bn": 9.0,
+        "estimate_usd_bn": 9.0,
+        "live_scaled": false,
+        "live_source": null,
+        "confidence": "low"
+      }
+    ],
+    "by_category_usd_bn": {
+      "gpu": 260.0,
+      "asic": 83.0,
+      "cpu": 37.0
+    },
+    "total_usd_bn": 380.0
+  },
+  "analyst": {
+    "benchmarks": [
+      {
+        "name": "Omdia (AI DC chip, conservative)",
+        "y2024": 123,
+        "y2025": 207,
+        "y2030": 286,
+        "url": "https://omdia.tech.informa.com/pr/2025/aug/ai-data-center-chip-market-to-hit-286bn-growth-likely-peaking-as-custom-asics-gain-ground"
+      },
+      {
+        "name": "Mordor Intelligence (AI accelerators)",
+        "y2024": 140.55,
+        "y2025": null,
+        "y2030": 440.3,
+        "url": "https://www.mordorintelligence.com/industry-reports/ai-accelerators-market"
+      },
+      {
+        "name": "Bloomberg Intelligence (to 2033)",
+        "y2024": 116,
+        "y2025": null,
+        "y2030": null,
+        "y2033": 604,
+        "url": "https://www.bloomberg.com/company/press/ai-accelerator-market-looks-set-to-exceed-600-billion-by-2033-driven-by-hyperscale-spending-and-asic-adoption-according-to-bloomberg-intelligence/"
+      },
+      {
+        "name": "Bull case (NVDA/AMD framing, accelerators)",
+        "y2024": null,
+        "y2025": null,
+        "y2030": 1000,
+        "url": "https://semiengineering.com/2030-data-center-ai-chip-winners-the-trillion-dollar-club/"
+      }
+    ],
+    "base_year_band": {
+      "min": 207.0,
+      "max": 207.0,
+      "mid": 207.0,
+      "n": 1
+    }
+  },
+  "scenarios": {
+    "base": {
+      "label_zh": "基準",
+      "label_en": "Base",
+      "conversion_use": "mid",
+      "path": {
+        "2024": 120.4,
+        "2025": 201.0,
+        "2026": 332.6,
+        "2027": 423.4,
+        "2028": 494.4,
+        "2029": 550.1,
+        "2030": 590.6
+      }
+    },
+    "bull": {
+      "label_zh": "多頭",
+      "label_en": "Bull",
+      "conversion_use": "high",
+      "path": {
+        "2024": 149.1,
+        "2025": 248.8,
+        "2026": 434.9,
+        "2027": 582.9,
+        "2028": 715.0,
+        "2029": 833.7,
+        "2030": 936.0
+      }
+    },
+    "bear": {
+      "label_zh": "空頭",
+      "label_en": "Bear",
+      "conversion_use": "low",
+      "path": {
+        "2024": 95.5,
+        "2025": 159.5,
+        "2026": 247.1,
+        "2027": 293.0,
+        "2028": 317.1,
+        "2029": 324.8,
+        "2030": 318.8
+      }
+    }
+  },
+  "reconciliation": {
+    "base_year": 2025,
+    "topdown_mid_usd_bn": 201.0,
+    "topdown_band_usd_bn": {
+      "low": 159.5,
+      "mid": 201.0,
+      "high": 248.8
+    },
+    "analyst_mid_usd_bn": 207.0,
+    "blended_central_usd_bn": 204.0,
+    "current_runrate": {
+      "year": 2026,
+      "bottomup_usd_bn": 380.0,
+      "topdown_mid_usd_bn": 332.6,
+      "gap_pct": 14.0
+    }
+  },
+  "category_forecast": [
+    {
+      "category": "gpu",
+      "by_year": {
+        "2024": {
+          "usd_bn": 96.3,
+          "units_m": 3.7,
+          "asp_usd": 26000
+        },
+        "2025": {
+          "usd_bn": 156.8,
+          "units_m": 6.03,
+          "asp_usd": 26000
+        },
+        "2026": {
+          "usd_bn": 246.2,
+          "units_m": 9.47,
+          "asp_usd": 26000
+        },
+        "2027": {
+          "usd_bn": 296.4,
+          "units_m": 11.4,
+          "asp_usd": 26000
+        },
+        "2028": {
+          "usd_bn": 331.3,
+          "units_m": 12.74,
+          "asp_usd": 26000
+        },
+        "2029": {
+          "usd_bn": 352.1,
+          "units_m": 13.54,
+          "asp_usd": 26000
+        },
+        "2030": {
+          "usd_bn": 366.2,
+          "units_m": 14.08,
+          "asp_usd": 26000
+        }
+      },
+      "cagr_pct": 18.5
+    },
+    {
+      "category": "asic",
+      "by_year": {
+        "2024": {
+          "usd_bn": 13.2,
+          "units_m": 2.04,
+          "asp_usd": 6500
+        },
+        "2025": {
+          "usd_bn": 28.1,
+          "units_m": 4.33,
+          "asp_usd": 6500
+        },
+        "2026": {
+          "usd_bn": 59.9,
+          "units_m": 9.21,
+          "asp_usd": 6500
+        },
+        "2027": {
+          "usd_bn": 93.1,
+          "units_m": 14.33,
+          "asp_usd": 6500
+        },
+        "2028": {
+          "usd_bn": 123.6,
+          "units_m": 19.02,
+          "asp_usd": 6500
+        },
+        "2029": {
+          "usd_bn": 154.0,
+          "units_m": 23.7,
+          "asp_usd": 6500
+        },
+        "2030": {
+          "usd_bn": 177.2,
+          "units_m": 27.26,
+          "asp_usd": 6500
+        }
+      },
+      "cagr_pct": 44.5
+    },
+    {
+      "category": "cpu",
+      "by_year": {
+        "2024": {
+          "usd_bn": 10.8,
+          "units_m": 8.25,
+          "asp_usd": 1313
+        },
+        "2025": {
+          "usd_bn": 16.1,
+          "units_m": 12.37,
+          "asp_usd": 1300
+        },
+        "2026": {
+          "usd_bn": 26.6,
+          "units_m": 20.68,
+          "asp_usd": 1287
+        },
+        "2027": {
+          "usd_bn": 33.9,
+          "units_m": 26.58,
+          "asp_usd": 1274
+        },
+        "2028": {
+          "usd_bn": 39.6,
+          "units_m": 31.36,
+          "asp_usd": 1261
+        },
+        "2029": {
+          "usd_bn": 44.0,
+          "units_m": 35.24,
+          "asp_usd": 1249
+        },
+        "2030": {
+          "usd_bn": 47.2,
+          "units_m": 38.22,
+          "asp_usd": 1236
+        }
+      },
+      "cagr_pct": 24.0
+    }
+  ],
+  "workload": {
+    "rows": [
+      {
+        "year": 2024,
+        "accelerator_usd_bn": 109.5,
+        "training_usd_bn": 65.7,
+        "inference_usd_bn": 43.8,
+        "inference_share": 0.4
+      },
+      {
+        "year": 2025,
+        "accelerator_usd_bn": 184.9,
+        "training_usd_bn": 96.1,
+        "inference_usd_bn": 88.8,
+        "inference_share": 0.48
+      },
+      {
+        "year": 2026,
+        "accelerator_usd_bn": 306.1,
+        "training_usd_bn": 137.7,
+        "inference_usd_bn": 168.4,
+        "inference_share": 0.55
+      },
+      {
+        "year": 2027,
+        "accelerator_usd_bn": 389.5,
+        "training_usd_bn": 155.8,
+        "inference_usd_bn": 233.7,
+        "inference_share": 0.6
+      },
+      {
+        "year": 2028,
+        "accelerator_usd_bn": 454.9,
+        "training_usd_bn": 168.3,
+        "inference_usd_bn": 286.6,
+        "inference_share": 0.63
+      },
+      {
+        "year": 2029,
+        "accelerator_usd_bn": 506.1,
+        "training_usd_bn": 177.1,
+        "inference_usd_bn": 329.0,
+        "inference_share": 0.65
+      },
+      {
+        "year": 2030,
+        "accelerator_usd_bn": 543.4,
+        "training_usd_bn": 179.3,
+        "inference_usd_bn": 364.1,
+        "inference_share": 0.67
+      }
+    ],
+    "source": "McKinsey/IDC/MarketsandMarkets: inference 33% of AI compute (2023) -> 65%+ (2029) -> ~two-thirds (2030); inference overtakes training mid-decade. AI inference market $106B (2025) -> $255B (2030)."
+  },
+  "buyer": {
+    "rows": [
+      {
+        "year": 2024,
+        "total_usd_bn": 120.4,
+        "hyperscaler": 81.9,
+        "enterprise": 19.3,
+        "sovereign": 7.2,
+        "neocloud": 12.0,
+        "shares": {
+          "hyperscaler": 0.68,
+          "enterprise": 0.16,
+          "sovereign": 0.06,
+          "neocloud": 0.1
+        }
+      },
+      {
+        "year": 2025,
+        "total_usd_bn": 201.0,
+        "hyperscaler": 130.7,
+        "enterprise": 32.2,
+        "sovereign": 16.1,
+        "neocloud": 22.1,
+        "shares": {
+          "hyperscaler": 0.65,
+          "enterprise": 0.16,
+          "sovereign": 0.08,
+          "neocloud": 0.11
+        }
+      },
+      {
+        "year": 2026,
+        "total_usd_bn": 332.6,
+        "hyperscaler": 209.5,
+        "enterprise": 56.5,
+        "sovereign": 29.9,
+        "neocloud": 36.6,
+        "shares": {
+          "hyperscaler": 0.63,
+          "enterprise": 0.17,
+          "sovereign": 0.09,
+          "neocloud": 0.11
+        }
+      },
+      {
+        "year": 2027,
+        "total_usd_bn": 423.4,
+        "hyperscaler": 254.0,
+        "enterprise": 72.0,
+        "sovereign": 46.6,
+        "neocloud": 50.8,
+        "shares": {
+          "hyperscaler": 0.6,
+          "enterprise": 0.17,
+          "sovereign": 0.11,
+          "neocloud": 0.12
+        }
+      },
+      {
+        "year": 2028,
+        "total_usd_bn": 494.4,
+        "hyperscaler": 286.8,
+        "enterprise": 84.0,
+        "sovereign": 64.3,
+        "neocloud": 59.3,
+        "shares": {
+          "hyperscaler": 0.58,
+          "enterprise": 0.17,
+          "sovereign": 0.13,
+          "neocloud": 0.12
+        }
+      },
+      {
+        "year": 2029,
+        "total_usd_bn": 550.1,
+        "hyperscaler": 308.1,
+        "enterprise": 99.0,
+        "sovereign": 77.0,
+        "neocloud": 66.0,
+        "shares": {
+          "hyperscaler": 0.56,
+          "enterprise": 0.18,
+          "sovereign": 0.14,
+          "neocloud": 0.12
+        }
+      },
+      {
+        "year": 2030,
+        "total_usd_bn": 590.6,
+        "hyperscaler": 324.8,
+        "enterprise": 106.3,
+        "sovereign": 88.6,
+        "neocloud": 70.9,
+        "shares": {
+          "hyperscaler": 0.55,
+          "enterprise": 0.18,
+          "sovereign": 0.15,
+          "neocloud": 0.12
+        }
+      }
+    ],
+    "keys": [
+      "hyperscaler",
+      "enterprise",
+      "sovereign",
+      "neocloud"
+    ],
+    "source": "IDC AI infrastructure spend $153B(2024)->$318B(2025)->>$1T(2029); sovereign AI a ~$600B market by 2030 (France EUR109B, Saudi $1.44B->$6.4B, S.Korea mega-program); neocloud (CoreWeave/Nebius/Lambda) a distinct buyer."
+  },
+  "edge_total": {
+    "rows": [
+      {
+        "year": 2024,
+        "datacenter_usd_bn": 120.4,
+        "edge_usd_bn": 20.0,
+        "grand_total_usd_bn": 140.4
+      },
+      {
+        "year": 2025,
+        "datacenter_usd_bn": 201.0,
+        "edge_usd_bn": 26.1,
+        "grand_total_usd_bn": 227.1
+      },
+      {
+        "year": 2026,
+        "datacenter_usd_bn": 332.6,
+        "edge_usd_bn": 33.0,
+        "grand_total_usd_bn": 365.6
+      },
+      {
+        "year": 2027,
+        "datacenter_usd_bn": 423.4,
+        "edge_usd_bn": 40.0,
+        "grand_total_usd_bn": 463.4
+      },
+      {
+        "year": 2028,
+        "datacenter_usd_bn": 494.4,
+        "edge_usd_bn": 47.0,
+        "grand_total_usd_bn": 541.4
+      },
+      {
+        "year": 2029,
+        "datacenter_usd_bn": 550.1,
+        "edge_usd_bn": 53.0,
+        "grand_total_usd_bn": 603.1
+      },
+      {
+        "year": 2030,
+        "datacenter_usd_bn": 590.6,
+        "edge_usd_bn": 58.9,
+        "grand_total_usd_bn": 649.5
+      }
+    ],
+    "source": "MarketsandMarkets edge AI hardware $26.1B (2025) -> $58.9B (2030), 17.6% CAGR. SEPARATE end market from data-center silicon (on-device/edge inference: phones, PCs, cars, IoT, robotics).",
+    "url": "https://www.marketsandmarkets.com/Market-Reports/edge-ai-hardware-market-158498281.html"
+  },
+  "hyperscaler_capex_usd_bn": {
+    "2024": 242.0,
+    "2025": 403.0,
+    "2026": 660.0,
+    "2027": 0,
+    "2028": 0,
+    "2029": 0,
+    "2030": 0
+  },
+  "global_dc_capex_usd_bn": {
+    "2024": 455.0,
+    "2025": 580.0,
+    "2026": 800.0,
+    "2027": 960.0,
+    "2028": 1090.0,
+    "2029": 1180.0,
+    "2030": 1250.0
+  },
+  "power": {
+    "rows": [
+      {
+        "year": 2024,
+        "dc_twh": 415,
+        "ai_share": 0.12,
+        "ai_twh": 49.8
+      },
+      {
+        "year": 2025,
+        "dc_twh": 490,
+        "ai_share": 0.18,
+        "ai_twh": 88.2
+      },
+      {
+        "year": 2026,
+        "dc_twh": 580,
+        "ai_share": 0.24,
+        "ai_twh": 139.2
+      },
+      {
+        "year": 2027,
+        "dc_twh": 670,
+        "ai_share": 0.3,
+        "ai_twh": 201.0
+      },
+      {
+        "year": 2028,
+        "dc_twh": 770,
+        "ai_share": 0.36,
+        "ai_twh": 277.2
+      },
+      {
+        "year": 2029,
+        "dc_twh": 860,
+        "ai_share": 0.42,
+        "ai_twh": 361.2
+      },
+      {
+        "year": 2030,
+        "dc_twh": 945,
+        "ai_share": 0.45,
+        "ai_twh": 425.2
+      }
+    ],
+    "source": "IEA 'Energy and AI' 2025: global DC electricity 415 TWh (2024, 1.5% of world) -> ~945 TWh (2030, <3%); ~1200 TWh (2035). AI share of DC power 5-15% recent -> 35-50% by 2030.",
+    "url": "https://www.iea.org/reports/energy-and-ai/executive-summary"
+  },
+  "supply": {
+    "_source": "TSMC earnings 2025: HPC >60% of revenue (Q1'25); CoWoS advanced-packaging capacity ~35k wpm (2024) -> ~70k (end-2025) -> ~150k (2026); tight through 2027. Advanced packaging is the binding supply constraint on AI accelerator units.",
+    "_confidence": "high",
+    "url": "https://longyield.substack.com/p/tsmc-at-the-center-of-the-ai-boom",
+    "cowos_wpm": {
+      "2024": 35000,
+      "2025": 70000,
+      "2026": 150000
+    }
+  },
+  "macro": {},
+  "edgar_official": {
+    "NVDA": {
+      "annual_revenue_usd_bn": 215.9,
+      "annual_fy_end": "2026-01-25",
+      "latest_quarter_revenue_usd_bn": 81.6,
+      "quarter_end": "2026-04-26",
+      "annual_capex_usd_bn": 6.0,
+      "source": "SEC EDGAR companyfacts"
+    },
+    "AMD": {
+      "annual_revenue_usd_bn": 34.6,
+      "annual_fy_end": "2025-12-27",
+      "latest_quarter_revenue_usd_bn": 10.3,
+      "quarter_end": "2026-03-28",
+      "annual_capex_usd_bn": 1.0,
+      "source": "SEC EDGAR companyfacts"
+    },
+    "AVGO": {
+      "annual_revenue_usd_bn": 63.9,
+      "annual_fy_end": "2025-11-02",
+      "latest_quarter_revenue_usd_bn": 22.2,
+      "quarter_end": "2026-05-03",
+      "annual_capex_usd_bn": 0.6,
+      "source": "SEC EDGAR companyfacts"
+    },
+    "MRVL": {
+      "annual_revenue_usd_bn": 8.2,
+      "annual_fy_end": "2026-01-31",
+      "latest_quarter_revenue_usd_bn": 2.4,
+      "quarter_end": "2026-05-02",
+      "annual_capex_usd_bn": 0.4,
+      "source": "SEC EDGAR companyfacts"
+    },
+    "INTC": {
+      "annual_revenue_usd_bn": 52.9,
+      "annual_fy_end": "2025-12-27",
+      "latest_quarter_revenue_usd_bn": 13.6,
+      "quarter_end": "2026-03-28",
+      "annual_capex_usd_bn": 14.6,
+      "source": "SEC EDGAR companyfacts"
+    },
+    "MSFT": {
+      "annual_revenue_usd_bn": 281.7,
+      "annual_fy_end": "2025-06-30",
+      "latest_quarter_revenue_usd_bn": 82.9,
+      "quarter_end": "2026-03-31",
+      "annual_capex_usd_bn": 64.6,
+      "source": "SEC EDGAR companyfacts"
+    },
+    "GOOGL": {
+      "annual_revenue_usd_bn": 402.8,
+      "annual_fy_end": "2025-12-31",
+      "latest_quarter_revenue_usd_bn": 109.9,
+      "quarter_end": "2026-03-31",
+      "annual_capex_usd_bn": 91.4,
+      "source": "SEC EDGAR companyfacts"
+    },
+    "AMZN": {
+      "annual_revenue_usd_bn": 716.9,
+      "annual_fy_end": "2025-12-31",
+      "latest_quarter_revenue_usd_bn": 181.5,
+      "quarter_end": "2026-03-31",
+      "annual_capex_usd_bn": 151.0,
+      "source": "SEC EDGAR companyfacts"
+    },
+    "META": {
+      "annual_revenue_usd_bn": 201.0,
+      "annual_fy_end": "2025-12-31",
+      "latest_quarter_revenue_usd_bn": 56.3,
+      "quarter_end": "2026-03-31",
+      "annual_capex_usd_bn": 69.7,
+      "source": "SEC EDGAR companyfacts"
+    },
+    "ORCL": {
+      "annual_revenue_usd_bn": 57.4,
+      "annual_fy_end": "2025-05-31",
+      "latest_quarter_revenue_usd_bn": 17.2,
+      "quarter_end": "2026-02-28",
+      "annual_capex_usd_bn": 21.2,
+      "source": "SEC EDGAR companyfacts"
+    }
+  },
+  "sources": [
+    {
+      "key": "hyperscaler_capex_usd_bn",
+      "source": "Company FY2025 reports + 2026 guidance; visualcapitalist/valueaddvc/CNBC/Futurum compilations (as_of 2026-02)",
+      "confidence": "high (2024-25 actuals) / medium (2026 guide)",
+      "as_of": "2026-06-13",
+      "url": null
+    },
+    {
+      "key": "global_dc_capex_usd_bn",
+      "source": "Hyperscaler spine grossed up for colo/enterprise/sovereign/neocloud (CoreWeave etc.). Cross-checked vs Dell'Oro / IDC DC capex prints.",
+      "confidence": "medium",
+      "as_of": "2026-06-13",
+      "url": null
+    },
+    {
+      "key": "ai_dc_capex_share",
+      "source": "IEA Energy & AI 2025 (AI = 35-50% of DC power by 2030) + hyperscaler commentary (~75% of 2026 capex AI-tied, Futurum/CNBC)",
+      "confidence": "medium",
+      "as_of": "2026-06-13",
+      "url": null
+    },
+    {
+      "key": "silicon_conversion_band",
+      "source": "Calibrated so 2025 mid reconciles with observed merchant vendor revenue (~$200B) and Omdia 2025 TAM ($207B). Represents fraction of AI-DC capex realized as compute accelerator + CPU silicon/system value.",
+      "confidence": "medium",
+      "as_of": "2026-06-13",
+      "url": null
+    },
+    {
+      "key": "category_mix",
+      "source": "Omdia/Bloomberg Intelligence: GPU dominant 2024 (~78-80% of accelerator $), custom ASIC fastest-growing (43%+ CAGR), share rising toward ~30% by 2030. CPU is the smaller general-compute/head-node slice.",
+      "confidence": "medium",
+      "as_of": "2026-06-13",
+      "url": null
+    },
+    {
+      "key": "asp_usd",
+      "source": "Blended ASPs across product mix. GPU = H100/H200/B200/GB200 blend (system-attached, incl HBM). ASIC = TPU/Trainium/MTIA/custom blend. CPU = server CPU blend.",
+      "confidence": "low-medium",
+      "as_of": "2026-06-13",
+      "url": null
+    },
+    {
+      "key": "bottomup_vendor_anchors_usd_bn",
+      "source": "Latest earnings as researched 2026-06: NVDA DC Q4FY26 $62.3B/q (annualized ~$249B); AVGO AI semi Q1FY26 $8.4B +106% YoY, Q2 guide $10.7B (annualized ~$45B); MRVL DC custom XPU run-rate; INTC DCAI; AMD DC (Instinct + EPYC split).",
+      "confidence": "high (merchant revenue) / low (internal custom ASIC deployed value)",
+      "as_of": "2026-06-13",
+      "url": null
+    },
+    {
+      "key": "analyst_tam_benchmarks_usd_bn",
+      "source": "Published third-party AI accelerator/AI-chip TAM forecasts (as_of 2025-2026).",
+      "confidence": "external — for triangulation overlay only",
+      "as_of": "2026-06-13",
+      "url": null
+    },
+    {
+      "key": "scenarios",
+      "source": "Spread around the base capex path; bull = sustained 75%+ AI capex + slower ASP erosion; bear = capex digestion / overbuild correction.",
+      "confidence": "scenario design",
+      "as_of": "2026-06-13",
+      "url": null
+    },
+    {
+      "key": "power_cross_check",
+      "source": "IEA 'Energy and AI' 2025: global DC electricity 415 TWh (2024, 1.5% of world) -> ~945 TWh (2030, <3%); ~1200 TWh (2035). AI share of DC power 5-15% recent -> 35-50% by 2030.",
+      "confidence": "high (IEA)",
+      "as_of": "2026-06-13",
+      "url": "https://www.iea.org/reports/energy-and-ai/executive-summary"
+    },
+    {
+      "key": "supply_anchors",
+      "source": "TSMC earnings 2025: HPC >60% of revenue (Q1'25); CoWoS advanced-packaging capacity ~35k wpm (2024) -> ~70k (end-2025) -> ~150k (2026); tight through 2027. Advanced packaging is the binding supply constraint on AI accelerator units.",
+      "confidence": "high",
+      "as_of": "2026-06-13",
+      "url": "https://longyield.substack.com/p/tsmc-at-the-center-of-the-ai-boom"
+    },
+    {
+      "key": "workload_split",
+      "source": "McKinsey/IDC/MarketsandMarkets: inference 33% of AI compute (2023) -> 65%+ (2029) -> ~two-thirds (2030); inference overtakes training mid-decade. AI inference market $106B (2025) -> $255B (2030).",
+      "confidence": "medium",
+      "as_of": "2026-06-13",
+      "url": null
+    },
+    {
+      "key": "buyer_split",
+      "source": "IDC AI infrastructure spend $153B(2024)->$318B(2025)->>$1T(2029); sovereign AI a ~$600B market by 2030 (France EUR109B, Saudi $1.44B->$6.4B, S.Korea mega-program); neocloud (CoreWeave/Nebius/Lambda) a distinct buyer.",
+      "confidence": "medium-low",
+      "as_of": "2026-06-13",
+      "url": null
+    },
+    {
+      "key": "edge_ai_silicon_usd_bn",
+      "source": "MarketsandMarkets edge AI hardware $26.1B (2025) -> $58.9B (2030), 17.6% CAGR. SEPARATE end market from data-center silicon (on-device/edge inference: phones, PCs, cars, IoT, robotics).",
+      "confidence": "medium-low",
+      "as_of": "2026-06-13",
+      "url": "https://www.marketsandmarkets.com/Market-Reports/edge-ai-hardware-market-158498281.html"
+    },
+    {
+      "key": "edgar_cik_map",
+      "source": "SEC EDGAR central index keys (10-digit). Used to pull OFFICIAL total revenue + capex from companyfacts XBRL (authoritative, no scraping). Foreign filers (TSM 20-F) excluded.",
+      "confidence": "",
+      "as_of": "2026-06-13",
+      "url": null
+    },
+    {
+      "key": "fred_macro_series",
+      "source": "FRED (St. Louis Fed). Demand-environment cross-check: is the macro that funds compute capex expanding? Fetched via no-key fredgraph CSV; FRED_API_KEY used if present.",
+      "confidence": "official",
+      "as_of": "2026-06-13",
+      "url": null
+    }
+  ]
+}

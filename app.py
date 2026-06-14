@@ -45,6 +45,9 @@ from econ import refresh_job as econ_refresh_job
 from rival import load_kb as rival_load_kb
 from rival import refresh_live as rival_refresh_live
 from rival import rival_bp
+from compute import compute_bp
+from compute import load_snapshot as compute_load_snapshot
+from compute import refresh as compute_refresh
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)s | %(message)s")
 log = logging.getLogger("macro-ai")
@@ -54,6 +57,7 @@ app.config["JSON_AS_ASCII"] = False
 app.register_blueprint(aibubble_bp)
 app.register_blueprint(econ_bp)
 app.register_blueprint(rival_bp)
+app.register_blueprint(compute_bp)
 
 # ── secrets / auth (all from env; never hard-code real values) ──
 _DEFAULT_SECRET = "dev-insecure-change-me"
@@ -87,6 +91,10 @@ STRINGS = {
     "rival_name":{"en": "Rival Radar",                "zh": "競爭者雷達"},
     "rival_desc":{"en": "Foundry rivals & customer-flow intelligence — tiered evidence, primary sources.",
                   "zh": "晶圓代工競爭格局與客戶流向 — 證據分級、一手來源。"},
+    "compute_name":{"en": "AI Compute Demand Radar",  "zh": "AI 算力需求雷達"},
+    "compute_desc":{"en": "Global AI CPU/GPU/ASIC demand worked backward from end demand — triangulated 3 ways + SEC EDGAR & FRED.",
+                    "zh": "從終端需求回推全球 AI CPU/GPU/ASIC 需求 — 三鏡頭交叉驗證 ＋ SEC EDGAR、FRED。"},
+    "compute_lbl":{"en": "2030E $B",                  "zh": "2030E $B"},
     "events_lbl":{"en": "flow events",                "zh": "流向事件"},
     "updated":   {"en": "Updated",                    "zh": "更新"},
     "indicators":{"en": "indicators",                 "zh": "指標"},
@@ -124,7 +132,7 @@ def require_login():
     if session.get("auth"):
         return None
     # Unauthenticated: API/JSON callers get 401, humans go to the login page.
-    if request.path.startswith(("/api/", "/econ/api/", "/aibubble/api/", "/rival/api/")):
+    if request.path.startswith(("/api/", "/econ/api/", "/aibubble/api/", "/rival/api/", "/compute/api/")):
         return jsonify({"error": "auth required"}), 401
     return redirect(url_for("login", next=request.path))
 
@@ -173,6 +181,10 @@ def portal():
     econ_snap = econ_load_snapshot()
     aib_snap = aibubble_fetcher.load_snapshot()
     rival_kb = rival_load_kb()
+    try:
+        compute_snap = compute_load_snapshot()
+    except Exception:
+        compute_snap = None
     return render_template(
         "portal.html",
         econ_updated=econ_snap.get("date") if econ_snap else None,
@@ -183,6 +195,8 @@ def portal():
         if aib_snap else None,
         rival_events=len(rival_kb.get("events") or []),
         rival_updated=rival_kb.get("research_date"),
+        compute_updated=(compute_snap.get("generated_at") or "")[:10] if compute_snap else None,
+        compute_2030=((compute_snap.get("headline") or {}).get("grand_total_end_year_usd_bn")) if compute_snap else None,
     )
 
 
@@ -202,6 +216,10 @@ def _refresh_all_bg() -> None:
         rival_refresh_live()
     except Exception:
         log.exception("rival live refresh failed")
+    try:
+        compute_refresh()
+    except Exception:
+        log.exception("compute refresh failed")
 
 
 @app.route("/cron/refresh")

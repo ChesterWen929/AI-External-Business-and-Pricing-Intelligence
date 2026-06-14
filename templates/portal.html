@@ -93,8 +93,8 @@
   .lede p { color: var(--ink-dim); font-size: 13.5px; margin-top: 18px; letter-spacing: .4px; }
 
   /* ── cards ── */
-  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-  @media (max-width: 900px) { .cards { grid-template-columns: 1fr 1fr; } }
+  .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  @media (min-width: 1000px) { .cards { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 640px) { .cards { grid-template-columns: 1fr; } }
   .card {
     position: relative; display: block; overflow: hidden;
@@ -196,6 +196,19 @@
               <div class="stat">
                 {% if rival_events %}<span class="score">{{ rival_events }}<small>{{ t('events_lbl') }}</small></span>{% endif %}
                 {% if rival_updated %}<span class="meta">{{ t('updated') }} · {{ rival_updated }}</span>{% endif %}
+              </div>
+              <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
+            </div>
+          </a>
+
+          <a class="card" href="/compute/">
+            <div class="kicker">04</div>
+            <h2>{{ t('compute_name') }}</h2>
+            <div class="desc">{{ t('compute_desc') }}</div>
+            <div class="foot">
+              <div class="stat">
+                {% if compute_2030 %}<span class="score">{{ compute_2030|round|int }}<small>{{ t('compute_lbl') }}</small></span>{% endif %}
+                {% if compute_updated %}<span class="meta">{{ t('updated') }} · {{ compute_updated }}</span>{% endif %}
               </div>
               <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
             </div>

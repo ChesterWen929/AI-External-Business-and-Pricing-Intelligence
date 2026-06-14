@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Compute Demand Radar · AI 算力需求雷達</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#0a0e17; --panel:#121826; --panel2:#0f1421; --line:#23304a;
+    --txt:#e6edf6; --mut:#8da2c0; --dim:#5e739a;
+    --gpu:#4ea8ff; --asic:#ff9f43; --cpu:#7d8ca3;
+    --acc:#36e2a4; --warn:#ffd166; --bad:#ff6b6b; --good:#36e2a4;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font-family:-apple-system,"Segoe UI",Roboto,"Noto Sans TC",sans-serif;line-height:1.5;padding:0 0 60px}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+  header{border-bottom:1px solid var(--line);padding:22px 0 18px;margin-bottom:22px;position:sticky;top:0;background:linear-gradient(180deg,#0a0e17 70%,rgba(10,14,23,.6));backdrop-filter:blur(6px);z-index:20}
+  .htop{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+  h1{font-size:22px;font-weight:700;letter-spacing:.2px}
+  h1 .em{color:var(--acc)}
+  .sub{color:var(--mut);font-size:13px;margin-top:4px;max-width:760px}
+  .ctrls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .btn{background:var(--panel);border:1px solid var(--line);color:var(--txt);padding:6px 12px;border-radius:8px;font-size:13px;cursor:pointer;transition:.15s}
+  .btn:hover{border-color:var(--acc)}
+  .btn.active{background:var(--acc);color:#04241a;border-color:var(--acc);font-weight:600}
+  .meta{color:var(--dim);font-size:11.5px;margin-top:8px}
+  .meta b{color:var(--mut)}
+  h2{font-size:15px;font-weight:600;margin:30px 0 12px;display:flex;align-items:center;gap:8px}
+  h2 .n{color:var(--acc);font-variant-numeric:tabular-nums;font-size:13px;border:1px solid var(--line);border-radius:6px;padding:1px 7px}
+  .note{color:var(--mut);font-size:12.5px;margin:-4px 0 14px}
+  /* KPI */
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+  .kpi{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 15px}
+  .kpi .k{color:var(--mut);font-size:11.5px;text-transform:uppercase;letter-spacing:.4px}
+  .kpi .v{font-size:25px;font-weight:700;margin-top:4px;font-variant-numeric:tabular-nums}
+  .kpi .v small{font-size:14px;color:var(--mut);font-weight:500}
+  .kpi .d{font-size:11.5px;color:var(--dim);margin-top:3px}
+  .kpi.hl{border-color:var(--acc);box-shadow:inset 0 0 0 1px rgba(54,226,164,.2)}
+  /* flow */
+  .flow{display:flex;gap:8px;flex-wrap:wrap;align-items:stretch}
+  .step{flex:1;min-width:150px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:11px 12px;position:relative}
+  .step .si{color:var(--acc);font-size:11px;font-weight:700;letter-spacing:.5px}
+  .step .st{font-size:13.5px;font-weight:600;margin:3px 0}
+  .step .sd{color:var(--mut);font-size:11.5px}
+  .step .sv{color:var(--txt);font-size:12.5px;margin-top:5px;font-variant-numeric:tabular-nums}
+  .arrow{align-self:center;color:var(--dim);font-size:18px}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:820px){.grid2{grid-template-columns:1fr}}
+  .chartbox{position:relative;height:340px}
+  .chartbox.sm{height:230px}
+  table{width:100%;border-collapse:collapse;font-size:12.5px}
+  th,td{text-align:right;padding:7px 9px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+  th:first-child,td:first-child{text-align:left}
+  thead th{color:var(--mut);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.3px}
+  tbody tr:hover{background:rgba(255,255,255,.02)}
+  .tag{display:inline-block;font-size:10px;padding:1px 6px;border-radius:5px;border:1px solid var(--line);color:var(--mut)}
+  .tag.gpu{color:var(--gpu);border-color:#1f4a73}
+  .tag.asic{color:var(--asic);border-color:#7a531c}
+  .tag.cpu{color:var(--cpu);border-color:#3a4658}
+  .conf{font-size:10px;padding:1px 6px;border-radius:5px}
+  .conf.high{background:rgba(54,226,164,.13);color:var(--good)}
+  .conf.medium{background:rgba(255,209,102,.13);color:var(--warn)}
+  .conf.low,.conf.low-medium{background:rgba(255,107,107,.13);color:var(--bad)}
+  .live{font-size:10px;color:var(--acc)}
+  .reco{display:flex;flex-direction:column;gap:10px}
+  .bar{display:flex;align-items:center;gap:10px}
+  .bar .lbl{width:150px;font-size:12px;color:var(--mut)}
+  .bar .track{flex:1;height:22px;background:var(--panel2);border-radius:6px;position:relative;overflow:hidden}
+  .bar .fill{height:100%;border-radius:6px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;font-size:11.5px;font-weight:600;color:#04241a}
+  a{color:var(--gpu);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .src td{font-size:11.5px;vertical-align:top}
+  .src .s{color:var(--mut)}
+  footer{color:var(--dim);font-size:11.5px;margin-top:34px;border-top:1px solid var(--line);padding-top:16px}
+  .disc{background:rgba(255,209,102,.07);border:1px solid #4a4222;border-radius:8px;padding:10px 12px;color:var(--warn);font-size:11.5px;margin-top:10px}
+  .hide{display:none!important}
+  .pill{font-size:11px;color:var(--mut);border:1px solid var(--line);border-radius:20px;padding:3px 10px}
+</style>
+</head>
+<body>
+<header><div class="wrap htop">
+  <div>
+    <h1><span class="em">◈</span> <span data-t="title"></span></h1>
+    <div class="sub" data-t="subtitle"></div>
+    <div class="meta"><span data-t="asof"></span> · <span data-t="gen"></span> · <span data-t="livestate"></span></div>
+  </div>
+  <div class="ctrls">
+    <button class="btn" id="langBtn" onclick="toggleLang()">EN</button>
+    <span class="pill" data-t="refreshhint"></span>
+  </div>
+</div></header>
+
+<div class="wrap">
+
+  <!-- KPI -->
+  <div class="kpis" id="kpis"></div>
+
+  <!-- METHOD FLOW -->
+  <h2><span class="n">A</span><span data-t="h_method"></span></h2>
+  <div class="note" data-t="method_note"></div>
+  <div class="flow" id="flow"></div>
+
+  <!-- FORECAST CHART -->
+  <h2><span class="n">B</span><span data-t="h_forecast"></span></h2>
+  <div class="note" data-t="forecast_note"></div>
+  <div class="panel">
+    <div class="ctrls" style="margin-bottom:12px">
+      <span style="color:var(--mut);font-size:12px" data-t="scenario_lbl"></span>
+      <button class="btn scenbtn active" data-scen="base" onclick="setScen('base')"></button>
+      <button class="btn scenbtn" data-scen="bull" onclick="setScen('bull')"></button>
+      <button class="btn scenbtn" data-scen="bear" onclick="setScen('bear')"></button>
+      <span style="flex:1"></span>
+      <span class="pill" id="scenTotal"></span>
+    </div>
+    <div class="chartbox"><canvas id="forecastChart"></canvas></div>
+  </div>
+
+  <!-- RECONCILIATION -->
+  <h2><span class="n">C</span><span data-t="h_reco"></span></h2>
+  <div class="note" data-t="reco_note"></div>
+  <div class="grid2">
+    <div class="panel">
+      <div style="font-size:12.5px;color:var(--mut);margin-bottom:10px" data-t="reco_2025"></div>
+      <div class="reco" id="reco2025"></div>
+    </div>
+    <div class="panel">
+      <div style="font-size:12.5px;color:var(--mut);margin-bottom:10px" data-t="reco_runrate"></div>
+      <div class="reco" id="recoRun"></div>
+      <div class="note" id="recoGap" style="margin:10px 0 0"></div>
+    </div>
+  </div>
+
+  <!-- CATEGORY TABLE -->
+  <h2><span class="n">D</span><span data-t="h_cat"></span></h2>
+  <div class="panel" style="overflow-x:auto"><table id="catTable"></table></div>
+
+  <!-- END-DEMAND DECOMPOSITION -->
+  <h2><span class="n">D2</span><span data-t="h_decomp"></span></h2>
+  <div class="note" data-t="decomp_note"></div>
+  <div class="grid2">
+    <div class="panel">
+      <div style="font-size:12.5px;color:var(--mut);margin-bottom:8px" data-t="h_workload"></div>
+      <div class="chartbox sm"><canvas id="workloadChart"></canvas></div>
+    </div>
+    <div class="panel">
+      <div style="font-size:12.5px;color:var(--mut);margin-bottom:8px" data-t="h_buyer"></div>
+      <div class="chartbox sm"><canvas id="buyerChart"></canvas></div>
+    </div>
+  </div>
+  <div class="panel" style="margin-top:14px">
+    <div style="font-size:12.5px;color:var(--mut);margin-bottom:8px" data-t="h_edge"></div>
+    <div class="chartbox sm"><canvas id="edgeChart"></canvas></div>
+    <div class="note" id="edgeNote" style="margin:10px 0 0"></div>
+  </div>
+
+  <!-- BOTTOM-UP VENDORS -->
+  <h2><span class="n">E</span><span data-t="h_vendor"></span></h2>
+  <div class="note" data-t="vendor_note"></div>
+  <div class="panel" style="overflow-x:auto"><table id="vendorTable"></table></div>
+
+  <!-- POWER -->
+  <h2><span class="n">F</span><span data-t="h_power"></span></h2>
+  <div class="note" data-t="power_note"></div>
+  <div class="grid2">
+    <div class="panel"><div class="chartbox sm"><canvas id="powerChart"></canvas></div></div>
+    <div class="panel" style="overflow-x:auto"><table id="supplyTable"></table></div>
+  </div>
+
+  <!-- SEC EDGAR OFFICIAL FILINGS -->
+  <h2><span class="n">G1</span><span data-t="h_edgar"></span></h2>
+  <div class="note" data-t="edgar_note"></div>
+  <div class="panel" id="edgarPanel" style="overflow-x:auto"><table id="edgarTable"></table></div>
+
+  <!-- FRED MACRO CONTEXT -->
+  <h2><span class="n">G2</span><span data-t="h_macro"></span></h2>
+  <div class="note" data-t="macro_note"></div>
+  <div class="kpis" id="macroCards"></div>
+
+  <!-- SOURCES -->
+  <h2><span class="n">G</span><span data-t="h_sources"></span></h2>
+  <div class="note" data-t="sources_note"></div>
+  <div class="panel" style="overflow-x:auto"><table id="srcTable" class="src"></table></div>
+
+  <footer>
+    <div data-t="foot_method"></div>
+    <div class="disc" data-t="disclaimer"></div>
+  </footer>
+</div>
+
+<script>
+const SNAP = {{ snapshot | safe }};
+let LANG = 'zh';
+let SCEN = 'base';
+let charts = {};
+
+const T = {
+  zh:{
+    title:"AI 算力需求雷達", langbtn:"EN",
+    subtitle:"從終端需求往回推，估計全球 AI 用 CPU / GPU / ASIC(TPU 等)需求。三鏡頭交叉驗證(Top-down capex × Bottom-up 廠商營收 × 分析師 TAM)＋終端拆解(推論/訓練、買方、邊緣)＋官方源(SEC EDGAR、FRED)。",
+    asof:s=>`資料基準 ${SNAP.as_of}`, gen:s=>`產生於 ${SNAP.generated_at}`,
+    livestate:s=>SNAP.live_present?"含即時 yfinance 資料":"種子資料(尚未抓即時)",
+    refreshhint:"更新：POST /compute/api/refresh?password=…",
+    h_method:"方法論：從終端需求往回推",
+    method_note:"主軸 Lens A — 不猜單一數字，而是把『最後的需求』一層層往回拆成矽的金額與顆數。",
+    h_forecast:"需求預測 2024–2030（依情境）",
+    forecast_note:"堆疊長條 = 各類別金額(Top-down 中位驅動)；虛線點 = 第三方分析師 TAM 校準；上方藥丸 = 該情境 2030 總額。",
+    scenario_lbl:"情境：", scenario:{base:"基準",bull:"多頭",bear:"空頭"},
+    h_reco:"三鏡頭對帳",
+    reco_note:"data-driven 的誠實之處：把三種獨立估法並排，缺口公開，不藏。",
+    reco_2025:"① 2025 基準錨點(Top-down vs 分析師)— 兩者吻合 → 高信心",
+    reco_runrate:"② 當前 run-rate 交叉檢核(Bottom-up 年化 vs Top-down 同年)",
+    h_cat:"分類明細(金額 $B 與顆數 百萬顆)",
+    h_vendor:"Bottom-up 廠商營收(yfinance 即時縮放)",
+    vendor_note:"各廠資料中心矽營收加總。即時模式下，每條會依 yfinance 最新 TTM 營收 ÷ 錨定 TTM 自動縮放 → 新財報一出估計就跟著動。",
+    h_power:"電力交叉檢核(IEA)與供給瓶頸",
+    power_note:"需求要落地需要電與先進封裝。IEA 電力與台積電 CoWoS 產能是兩道現實天花板。",
+    h_sources:"資料來源與假設(可更新)",
+    sources_note:"yfinance 抓不到的數都在 assumptions.json，每項附來源/日期/信心。改數字＋日期再 Refresh 即更新預測。",
+    foot_method:"方法：終端 DC capex → ×AI 占比 → ×矽含量轉換帶(low/mid/high) → 分類 mix → ÷ASP = 顆數。Bottom-up 與分析師 TAM 作交叉驗證；情境用 capex 乘數＋轉換層差異。",
+    disclaimer:"⚠ 本工具為需求『估計』非投資建議。轉換比率、分部營收、內部 ASIC 部署值含主觀假設,請見來源表信心等級。多個第三方 TAM 彼此差距可達數倍,本面板刻意以區間/區帶呈現不確定性。",
+    cat_th:["類別","2024","2025","2026","2027","2028","2029","2030","CAGR 25–30"],
+    vendor_th:["廠商營收線","代號","類別","錨定 $B","估計 $B","即時","信心"],
+    supply_th:["供給錨點","2024","2025","2026"],
+    src_th:["區塊","來源","信心","日期"],
+    units:"顆數",
+    h_decomp:"終端需求拆解：推論/訓練 × 買方",
+    decomp_note:"把加速器需求再往終端細分——是訓練還是推論?是誰在買(超大規模商/企業/主權/neocloud)?這是「從最後需求往回推」的下一層。",
+    h_workload:"工作負載:訓練 vs 推論($B,佔加速器)",
+    h_buyer:"買方:超大規模商 / 企業 / 主權 / Neocloud($B)",
+    h_edge:"資料中心 + 邊緣 AI = 全球總量($B)",
+    h_edgar:"SEC EDGAR 官方申報(出處交叉檢核)",
+    edgar_note:"從 SEC EDGAR companyfacts(XBRL)抓各公司官方申報的年報/最新季營收與申報日。註:companyfacts 僅含彙總值不含分部明細,故作出處核對,bottom-up 縮放仍以 yfinance 即時 TTM 驅動。",
+    edgar_th:["公司","代號","年報營收 $B","年報截止","最新季營收 $B","季截止"],
+    h_macro:"FRED 總體環境(需求溫床)",
+    macro_note:"資助算力 capex 的總體環境是否在擴張?FRED 官方序列;無金鑰 fredgraph,Render 上每次 refresh 更新(本地 sandbox 可能 timeout)。",
+    macro_empty:"目前快照無 FRED 資料(本地抓取 timeout)。部署到 Render 後按 Refresh 即會填入。",
+    kpi:{
+      central:"2025 AI 算力矽 中心估計", band:"區帶",
+      f2030:"2030 預測(基準)", cagr:"2025→2030 CAGR",
+      runrate:"當前年化 run-rate", capex:"超大規模商 capex(2026E)",
+      grand25:"2025 全球總量(DC+邊緣)", grand30:"2030 全球總量(DC+邊緣)",
+      infer30:"2030 推論佔加速器", sov30:"2030 主權 AI 矽",
+    }
+  },
+  en:{
+    title:"AI Compute Demand Radar", langbtn:"中",
+    subtitle:"Global demand for AI CPUs / GPUs / ASICs (TPUs etc.), worked BACKWARD from end demand. Triangulated 3 ways (Top-down capex × Bottom-up vendor revenue × analyst TAM) + end-demand decomposition (inference/training, buyer, edge) + official sources (SEC EDGAR, FRED).",
+    asof:s=>`Data as of ${SNAP.as_of}`, gen:s=>`Generated ${SNAP.generated_at}`,
+    livestate:s=>SNAP.live_present?"with live yfinance data":"seed data (no live pull yet)",
+    refreshhint:"Update: POST /compute/api/refresh?password=…",
+    h_method:"Methodology: demand worked backward from end demand",
+    method_note:"Primary Lens A — not a single guessed number, but the 'final demand' decomposed step by step into silicon dollars and unit counts.",
+    h_forecast:"Demand forecast 2024–2030 (by scenario)",
+    forecast_note:"Stacked bars = $ by category (top-down mid driven); dashed points = third-party analyst TAM calibration; pill = scenario 2030 total.",
+    scenario_lbl:"Scenario:", scenario:{base:"Base",bull:"Bull",bear:"Bear"},
+    h_reco:"Three-lens reconciliation",
+    reco_note:"The honest part of 'data-driven': three independent estimates side by side, the gap shown, not hidden.",
+    reco_2025:"① 2025 anchor (Top-down vs analyst) — they agree → high confidence",
+    reco_runrate:"② Current run-rate cross-check (Bottom-up annualized vs Top-down same year)",
+    h_cat:"Category detail ($B and units, millions)",
+    h_vendor:"Bottom-up vendor revenue (yfinance live-scaled)",
+    vendor_note:"Sum of vendor data-center silicon revenue. In live mode each line auto-scales by latest yfinance TTM ÷ anchor TTM → estimate moves the moment a new earnings print lands.",
+    h_power:"Power cross-check (IEA) & supply bottleneck",
+    power_note:"Demand needs electricity and advanced packaging to land. IEA power and TSMC CoWoS capacity are the two reality ceilings.",
+    h_sources:"Data sources & assumptions (updatable)",
+    sources_note:"Everything yfinance can't fetch lives in assumptions.json, each with source/date/confidence. Edit numbers + date, hit Refresh, forecast updates.",
+    foot_method:"Method: end-demand DC capex → ×AI share → ×silicon-conversion band (low/mid/high) → category mix → ÷ASP = units. Bottom-up & analyst TAM cross-validate; scenarios use a capex multiplier + conversion tier.",
+    disclaimer:"⚠ This is a demand ESTIMATE, not investment advice. Conversion ratios, segment revenue and internal-ASIC deployed value carry judgment — see confidence flags. Published third-party TAMs differ by multiples; this board deliberately shows uncertainty as bands.",
+    cat_th:["Category","2024","2025","2026","2027","2028","2029","2030","CAGR 25–30"],
+    vendor_th:["Revenue line","Ticker","Cat","Anchor $B","Est $B","Live","Conf"],
+    supply_th:["Supply anchor","2024","2025","2026"],
+    src_th:["Block","Source","Conf","As of"],
+    units:"units",
+    h_decomp:"End-demand decomposition: inference/training × buyer",
+    decomp_note:"Drill the accelerator demand further toward end use — training or inference? who buys (hyperscaler / enterprise / sovereign / neocloud)? The next layer of working backward from final demand.",
+    h_workload:"Workload: training vs inference ($B, of accelerator)",
+    h_buyer:"Buyer: hyperscaler / enterprise / sovereign / neocloud ($B)",
+    h_edge:"Data center + edge AI = global total ($B)",
+    h_edgar:"SEC EDGAR official filings (provenance cross-check)",
+    edgar_note:"Official annual / latest-quarter revenue + filing dates pulled from SEC EDGAR companyfacts (XBRL). Note: companyfacts is aggregate-only (no segment), so it serves as provenance; bottom-up scaling is driven by yfinance live TTM.",
+    edgar_th:["Company","Ticker","Annual rev $B","FY end","Latest Q rev $B","Q end"],
+    h_macro:"FRED macro environment (demand soil)",
+    macro_note:"Is the macro that funds compute capex expanding? Official FRED series via no-key fredgraph; refreshes on Render (local sandbox may time out).",
+    macro_empty:"No FRED data in current snapshot (local fetch timed out). Deploy to Render and hit Refresh to populate.",
+    kpi:{
+      central:"2025 AI compute silicon — central", band:"band",
+      f2030:"2030 forecast (base)", cagr:"2025→2030 CAGR",
+      runrate:"Current annualized run-rate", capex:"Hyperscaler capex (2026E)",
+      grand25:"2025 global total (DC+edge)", grand30:"2030 global total (DC+edge)",
+      infer30:"2030 inference of accel.", sov30:"2030 sovereign AI silicon",
+    }
+  }
+};
+const CATCOLOR={gpu:'#4ea8ff',asic:'#ff9f43',cpu:'#7d8ca3'};
+const fmt=n=>n==null?'—':(Math.round(n*10)/10).toLocaleString();
+const fmt0=n=>n==null?'—':Math.round(n).toLocaleString();
+function tt(){return T[LANG];}
+
+function toggleLang(){LANG=LANG==='zh'?'en':'zh';render();}
+function setScen(s){SCEN=s;document.querySelectorAll('.scenbtn').forEach(b=>b.classList.toggle('active',b.dataset.scen===s));drawForecast();updateScenLabels();}
+
+function applyText(){
+  document.documentElement.lang = LANG==='zh'?'zh-Hant':'en';
+  document.getElementById('langBtn').textContent = tt().langbtn;
+  document.querySelectorAll('[data-t]').forEach(el=>{
+    const v=tt()[el.dataset.t];
+    if(typeof v==='function') el.textContent=v();
+    else if(typeof v==='string') el.textContent=v;
+  });
+  updateScenLabels();
+}
+function updateScenLabels(){
+  document.querySelectorAll('.scenbtn').forEach(b=>b.textContent=tt().scenario[b.dataset.scen]);
+  const p=SNAP.scenarios[SCEN].path; const ey=SNAP.end_year;
+  document.getElementById('scenTotal').textContent=`${tt().scenario[SCEN]} 2030 ≈ $${fmt0(p[ey])}B`;
+}
+
+function renderKPI(){
+  const h=SNAP.headline,k=tt().kpi;
+  const cards=[
+    {cls:'hl',k:k.central,v:`$${fmt0(h.central_usd_bn)}`,u:'B',d:`${k.band} $${fmt0(h.band_usd_bn.low)}–${fmt0(h.band_usd_bn.high)}B (±${h.spread_pct}%)`},
+    {cls:'hl',k:k.f2030,v:`$${fmt0(h.forecast_2030_base_usd_bn)}`,u:'B',d:`bull $${fmt0(h.forecast_2030_bull_usd_bn)} · bear $${fmt0(h.forecast_2030_bear_usd_bn)}`},
+    {k:k.cagr,v:`${h.forecast_cagr_pct}`,u:'%',d:'2025→2030'},
+    {k:k.runrate,v:`$${fmt0(h.current_runrate_bottomup_usd_bn)}`,u:'B',d:`${h.current_runrate_year} bottom-up · gap ${h.current_runrate_gap_pct>0?'+':''}${h.current_runrate_gap_pct}% vs top-down`},
+    {k:k.capex,v:`$${fmt0(h.hyperscaler_capex_current_year_usd_bn)}`,u:'B',d:`vs ${SNAP.base_year} $${fmt0(h.hyperscaler_capex_base_year_usd_bn)}B`},
+    {cls:'hl',k:k.grand30,v:`$${fmt0(h.grand_total_end_year_usd_bn)}`,u:'B',d:`${LANG==='zh'?'含邊緣':'incl edge'} · ${SNAP.base_year} $${fmt0(h.grand_total_base_year_usd_bn)}B`},
+    {k:k.infer30,v:`${Math.round(h.inference_share_end_year*100)}`,u:'%',d:`${LANG==='zh'?'推論 2030 主導':'inference dominant by 2030'}`},
+    {k:k.sov30,v:`$${fmt0(h.sovereign_end_year_usd_bn)}`,u:'B',d:`${LANG==='zh'?'主權 AI 升勢':'sovereign AI rising'}`},
+  ];
+  document.getElementById('kpis').innerHTML=cards.map(c=>`
+    <div class="kpi ${c.cls||''}"><div class="k">${c.k}</div>
+    <div class="v">${c.v}<small> ${c.u}</small></div><div class="d">${c.d}</div></div>`).join('');
+}
+
+function renderFlow(){
+  const by=String(SNAP.base_year);
+  const gdc=SNAP.global_dc_capex_usd_bn[by];
+  const aicapex=SNAP.topdown.find(r=>r.year===SNAP.base_year).ai_dc_capex_usd_bn;
+  const tot=SNAP.reconciliation.topdown_mid_usd_bn;
+  const cats=SNAP.topdown.find(r=>r.year===SNAP.base_year).categories;
+  const steps = LANG==='zh'?[
+    {i:'終端需求',t:'全球 DC capex',d:`${by} 全球資料中心資本支出`,v:`$${fmt0(gdc)}B`},
+    {i:'× AI 占比',t:'AI 資料中心 capex',d:'扣除一般 DC',v:`$${fmt0(aicapex)}B`},
+    {i:'× 矽含量帶',t:'AI 算力矽 $',d:'low / mid / high 轉換',v:`$${fmt0(tot)}B (mid)`},
+    {i:'× 分類 mix',t:'GPU / ASIC / CPU',d:'依年度演進(ASIC 升)',v:`${fmt0(cats.gpu.usd_bn)} / ${fmt0(cats.asic.usd_bn)} / ${fmt0(cats.cpu.usd_bn)}`},
+    {i:'÷ ASP',t:'顆數(百萬顆)',d:'金額 ÷ 平均售價',v:`${fmt(cats.gpu.units_m)} / ${fmt(cats.asic.units_m)} / ${fmt(cats.cpu.units_m)} M`},
+  ]:[
+    {i:'END DEMAND',t:'Global DC capex',d:`${by} global data-center capex`,v:`$${fmt0(gdc)}B`},
+    {i:'× AI SHARE',t:'AI data-center capex',d:'net of general DC',v:`$${fmt0(aicapex)}B`},
+    {i:'× SILICON BAND',t:'AI compute silicon $',d:'low / mid / high conversion',v:`$${fmt0(tot)}B (mid)`},
+    {i:'× CAT MIX',t:'GPU / ASIC / CPU',d:'evolving (ASIC rising)',v:`${fmt0(cats.gpu.usd_bn)} / ${fmt0(cats.asic.usd_bn)} / ${fmt0(cats.cpu.usd_bn)}`},
+    {i:'÷ ASP',t:'Units (millions)',d:'$ ÷ avg selling price',v:`${fmt(cats.gpu.units_m)} / ${fmt(cats.asic.units_m)} / ${fmt(cats.cpu.units_m)} M`},
+  ];
+  let html='';
+  steps.forEach((s,idx)=>{
+    html+=`<div class="step"><div class="si">${s.i}</div><div class="st">${s.t}</div><div class="sd">${s.d}</div><div class="sv">${s.v}</div></div>`;
+    if(idx<steps.length-1) html+='<div class="arrow">→</div>';
+  });
+  document.getElementById('flow').innerHTML=html;
+}
+
+function scenScaledCats(){
+  // scale base top-down categories per year by scenario_path/base_path ratio
+  const base=SNAP.scenarios.base.path, sc=SNAP.scenarios[SCEN].path;
+  return SNAP.years.map(y=>{
+    const r=SNAP.topdown.find(x=>x.year===y);
+    const ratio=(sc[y]&&base[y])?sc[y]/base[y]:1;
+    return {year:y, gpu:r.categories.gpu.usd_bn*ratio, asic:r.categories.asic.usd_bn*ratio, cpu:r.categories.cpu.usd_bn*ratio};
+  });
+}
+
+function drawForecast(){
+  const data=scenScaledCats();
+  // IMPORTANT: pass a fresh string array. Chart.js mutates the labels array it
+  // receives when a scatter dataset has x-values not already present; passing
+  // SNAP.years by reference (numbers) vs string scatter x ("2024") corrupts it.
+  const labels=SNAP.years.map(String);
+  // analyst overlay points (x as string to match string labels -> no append)
+  const bench=SNAP.analyst.benchmarks;
+  const points=[];
+  bench.forEach(b=>{[2024,2025,2030].forEach(y=>{const v=b['y'+y];if(v!=null)points.push({x:String(y),y:v});});});
+  if(charts.fc)charts.fc.destroy();
+  charts.fc=new Chart(document.getElementById('forecastChart'),{
+    data:{labels:labels,datasets:[
+      {type:'bar',label:'GPU',data:data.map(d=>d.gpu),backgroundColor:CATCOLOR.gpu,stack:'s'},
+      {type:'bar',label:'ASIC',data:data.map(d=>d.asic),backgroundColor:CATCOLOR.asic,stack:'s'},
+      {type:'bar',label:'CPU',data:data.map(d=>d.cpu),backgroundColor:CATCOLOR.cpu,stack:'s'},
+      {type:'scatter',label:LANG==='zh'?'分析師 TAM':'Analyst TAM',data:points,
+        backgroundColor:'#ffffff',borderColor:'#fff',pointStyle:'crossRot',radius:6,borderWidth:2}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{labels:{color:'#8da2c0',usePointStyle:true,boxWidth:8}},
+        tooltip:{callbacks:{label:c=>`${c.dataset.label}: $${fmt(c.parsed.y)}B`}}},
+      scales:{
+        x:{stacked:true,grid:{color:'#1a2334'},ticks:{color:'#8da2c0'}},
+        y:{stacked:true,grid:{color:'#1a2334'},ticks:{color:'#8da2c0',callback:v=>'$'+v+'B'},title:{display:true,text:LANG==='zh'?'AI 算力矽需求 ($B/年)':'AI compute silicon $B/yr',color:'#5e739a'}}
+      }}
+  });
+}
+
+function bar(label,val,max,color,sub){
+  const w=Math.max(4,Math.min(100,val/max*100));
+  return `<div class="bar"><div class="lbl">${label}</div><div class="track"><div class="fill" style="width:${w}%;background:${color}">$${fmt0(val)}B</div></div></div>${sub?`<div class="note" style="margin:-4px 0 0 160px">${sub}</div>`:''}`;
+}
+
+function renderReco(){
+  const r=SNAP.reconciliation;
+  const max1=Math.max(r.topdown_band_usd_bn.high,r.analyst_mid_usd_bn||0)*1.1;
+  document.getElementById('reco2025').innerHTML=
+    bar('Top-down '+(LANG==='zh'?'中位':'mid'),r.topdown_mid_usd_bn,max1,'#4ea8ff',`band $${fmt0(r.topdown_band_usd_bn.low)}–${fmt0(r.topdown_band_usd_bn.high)}B`)+
+    bar(LANG==='zh'?'分析師 中位':'Analyst mid',r.analyst_mid_usd_bn,max1,'#36e2a4','Omdia 2025')+
+    bar(LANG==='zh'?'★ 混合中心':'★ Blended',r.blended_central_usd_bn,max1,'#ffd166');
+  const rr=r.current_runrate;
+  const max2=Math.max(rr.bottomup_usd_bn,rr.topdown_mid_usd_bn)*1.15;
+  document.getElementById('recoRun').innerHTML=
+    bar('Bottom-up '+rr.year,rr.bottomup_usd_bn,max2,'#ff9f43')+
+    bar('Top-down '+rr.year+' mid',rr.topdown_mid_usd_bn,max2,'#4ea8ff');
+  document.getElementById('recoGap').textContent=(LANG==='zh'
+    ?`缺口 ${rr.gap_pct>0?'+':''}${rr.gap_pct}%：bottom-up 廠商年化 run-rate ${rr.gap_pct>0?'略領先':'低於'} top-down 平滑路徑，反映市場當前實際出貨節奏。`
+    :`Gap ${rr.gap_pct>0?'+':''}${rr.gap_pct}%: vendor annualized run-rate is ${rr.gap_pct>0?'running ahead of':'below'} the smoothed top-down path — current real shipment pace.`);
+}
+
+function renderCatTable(){
+  const th=tt().cat_th;
+  let h='<thead><tr>'+th.map(x=>`<th>${x}</th>`).join('')+'</tr></thead><tbody>';
+  SNAP.category_forecast.forEach(c=>{
+    h+=`<tr><td><span class="tag ${c.category}">${c.category.toUpperCase()}</span></td>`;
+    SNAP.years.forEach(y=>{const cell=c.by_year[String(y)];h+=`<td>$${fmt0(cell.usd_bn)}<br><span style="color:var(--dim);font-size:10.5px">${fmt(cell.units_m)}M</span></td>`;});
+    h+=`<td style="color:var(--acc)">${c.cagr_pct}%</td></tr>`;
+  });
+  // totals row
+  h+='<tr style="font-weight:700"><td>'+(LANG==='zh'?'合計':'Total')+'</td>';
+  SNAP.years.forEach(y=>{const t=SNAP.topdown.find(r=>r.year===y).total_usd_bn.mid;h+=`<td>$${fmt0(t)}</td>`;});
+  h+=`<td style="color:var(--acc)">${SNAP.headline.forecast_cagr_pct}%</td></tr>`;
+  document.getElementById('catTable').innerHTML=h+'</tbody>';
+}
+
+function renderVendor(){
+  const th=tt().vendor_th;
+  let h='<thead><tr>'+th.map(x=>`<th>${x}</th>`).join('')+'</tr></thead><tbody>';
+  SNAP.bottomup.lines.forEach(l=>{
+    h+=`<tr><td>${l.name.replace(/_/g,' ')}</td><td>${l.ticker||'—'}</td>
+      <td><span class="tag ${l.category}">${l.category.toUpperCase()}</span></td>
+      <td>$${fmt(l.anchor_usd_bn)}</td><td><b>$${fmt(l.estimate_usd_bn)}</b></td>
+      <td>${l.live_scaled?'<span class="live">● live</span>':'—'}</td>
+      <td><span class="conf ${l.confidence}">${l.confidence}</span></td></tr>`;
+  });
+  const bc=SNAP.bottomup.by_category_usd_bn;
+  h+=`<tr style="font-weight:700"><td>${LANG==='zh'?'合計':'Total'}</td><td></td>
+     <td style="font-size:10px;color:var(--mut)">G ${fmt0(bc.gpu)} · A ${fmt0(bc.asic)} · C ${fmt0(bc.cpu)}</td>
+     <td></td><td><b>$${fmt0(SNAP.bottomup.total_usd_bn)}B</b></td><td></td><td></td></tr>`;
+  document.getElementById('vendorTable').innerHTML=h+'</tbody>';
+}
+
+function renderPower(){
+  const rows=SNAP.power.rows;
+  if(charts.pw)charts.pw.destroy();
+  charts.pw=new Chart(document.getElementById('powerChart'),{
+    data:{labels:rows.map(r=>r.year),datasets:[
+      {type:'bar',label:LANG==='zh'?'DC 總電力 TWh':'Total DC TWh',data:rows.map(r=>r.dc_twh),backgroundColor:'#23304a'},
+      {type:'bar',label:LANG==='zh'?'AI 用電 TWh':'AI TWh',data:rows.map(r=>r.ai_twh),backgroundColor:'#36e2a4'},
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{labels:{color:'#8da2c0',usePointStyle:true,boxWidth:8}}},
+      scales:{x:{grid:{color:'#1a2334'},ticks:{color:'#8da2c0'}},
+        y:{grid:{color:'#1a2334'},ticks:{color:'#8da2c0',callback:v=>v+' TWh'}}}}
+  });
+  // supply table
+  const sw=(SNAP.supply.cowos_wpm)||{};
+  const th=tt().supply_th;
+  let h='<thead><tr>'+th.map(x=>`<th>${x}</th>`).join('')+'</tr></thead><tbody>';
+  h+=`<tr><td>TSMC CoWoS (wafers/mo)</td><td>${fmt0(sw['2024'])}</td><td>${fmt0(sw['2025'])}</td><td>${fmt0(sw['2026'])}</td></tr>`;
+  h+=`<tr><td>${LANG==='zh'?'AI 用電 (TWh)':'AI power (TWh)'}</td>`;
+  [2024,2025,2026].forEach(y=>{const r=rows.find(x=>x.year===y);h+=`<td>${r?fmt0(r.ai_twh):'—'}</td>`;});
+  h+='</tr>';
+  document.getElementById('supplyTable').innerHTML=h+'</tbody>';
+}
+
+function renderSources(){
+  const th=tt().src_th;
+  let h='<thead><tr>'+th.map(x=>`<th>${x}</th>`).join('')+'</tr></thead><tbody>';
+  SNAP.sources.forEach(s=>{
+    const src=s.url?`<a href="${s.url}" target="_blank" rel="noopener">${s.source}</a>`:s.source;
+    h+=`<tr><td>${s.key.replace(/_/g,' ')}</td><td class="s">${src||'—'}</td>
+      <td>${s.confidence||'—'}</td><td>${s.as_of||'—'}</td></tr>`;
+  });
+  document.getElementById('srcTable').innerHTML=h+'</tbody>';
+}
+
+function stackedBar(canvasId, key, labels, datasets, yTitle){
+  if(charts[key])charts[key].destroy();
+  charts[key]=new Chart(document.getElementById(canvasId),{
+    type:'bar',
+    data:{labels:labels.map(String),datasets:datasets},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{labels:{color:'#8da2c0',usePointStyle:true,boxWidth:8}},
+        tooltip:{callbacks:{label:c=>`${c.dataset.label}: $${fmt(c.parsed.y)}B`}}},
+      scales:{x:{stacked:true,grid:{color:'#1a2334'},ticks:{color:'#8da2c0'}},
+        y:{stacked:true,grid:{color:'#1a2334'},ticks:{color:'#8da2c0',callback:v=>'$'+v},
+           title:{display:!!yTitle,text:yTitle||'',color:'#5e739a'}}}}
+  });
+}
+
+function drawWorkload(){
+  const rows=SNAP.workload.rows, yrs=rows.map(r=>r.year);
+  stackedBar('workloadChart','wl',yrs,[
+    {label:LANG==='zh'?'訓練':'Training',data:rows.map(r=>r.training_usd_bn),backgroundColor:'#7d8ca3',stack:'s'},
+    {label:LANG==='zh'?'推論':'Inference',data:rows.map(r=>r.inference_usd_bn),backgroundColor:'#4ea8ff',stack:'s'},
+  ]);
+}
+function drawBuyer(){
+  const rows=SNAP.buyer.rows, yrs=rows.map(r=>r.year);
+  const C={hyperscaler:'#4ea8ff',enterprise:'#36e2a4',sovereign:'#ffd166',neocloud:'#ff9f43'};
+  const L=LANG==='zh'?{hyperscaler:'超大規模商',enterprise:'企業',sovereign:'主權',neocloud:'Neocloud'}
+                     :{hyperscaler:'Hyperscaler',enterprise:'Enterprise',sovereign:'Sovereign',neocloud:'Neocloud'};
+  stackedBar('buyerChart','buy',yrs,SNAP.buyer.keys.map(k=>(
+    {label:L[k],data:rows.map(r=>r[k]),backgroundColor:C[k],stack:'s'})));
+}
+function drawEdge(){
+  const rows=SNAP.edge_total.rows, yrs=rows.map(r=>r.year);
+  stackedBar('edgeChart','edge',yrs,[
+    {label:LANG==='zh'?'資料中心':'Data center',data:rows.map(r=>r.datacenter_usd_bn),backgroundColor:'#4ea8ff',stack:'s'},
+    {label:LANG==='zh'?'邊緣 AI':'Edge AI',data:rows.map(r=>r.edge_usd_bn),backgroundColor:'#ff9f43',stack:'s'},
+  ]);
+  const g=rows.find(r=>r.year===SNAP.end_year);
+  document.getElementById('edgeNote').textContent=(LANG==='zh'
+    ?`2030 全球 AI 矽總量 ≈ $${fmt0(g.grand_total_usd_bn)}B(資料中心 $${fmt0(g.datacenter_usd_bn)}B + 邊緣 $${fmt0(g.edge_usd_bn)}B)。邊緣為獨立終端市場(手機/PC/車/IoT/機器人)。`
+    :`2030 global AI silicon ≈ $${fmt0(g.grand_total_usd_bn)}B (data center $${fmt0(g.datacenter_usd_bn)}B + edge $${fmt0(g.edge_usd_bn)}B). Edge is a separate end market (phones/PCs/cars/IoT/robotics).`);
+}
+
+const EDGAR_NAME={NVDA:'NVIDIA',AMD:'AMD',AVGO:'Broadcom',MRVL:'Marvell',INTC:'Intel',MSFT:'Microsoft',GOOGL:'Alphabet',AMZN:'Amazon',META:'Meta',ORCL:'Oracle'};
+function renderEdgar(){
+  const e=SNAP.edgar_official||{};
+  const ticks=Object.keys(e);
+  if(!ticks.length){document.getElementById('edgarPanel').innerHTML=`<div class="note">${LANG==='zh'?'本快照無 EDGAR 即時資料(離線種子)。Refresh 後填入。':'No live EDGAR in this snapshot (offline seed). Populates on refresh.'}</div>`;return;}
+  const th=tt().edgar_th;
+  let h='<thead><tr>'+th.map(x=>`<th>${x}</th>`).join('')+'</tr></thead><tbody>';
+  ticks.sort((a,b)=>(e[b].annual_revenue_usd_bn||0)-(e[a].annual_revenue_usd_bn||0));
+  ticks.forEach(tk=>{const r=e[tk];
+    h+=`<tr><td>${EDGAR_NAME[tk]||tk}</td><td>${tk}</td>
+      <td><b>$${fmt(r.annual_revenue_usd_bn)}</b></td><td class="s">${r.annual_fy_end||'—'}</td>
+      <td>$${fmt(r.latest_quarter_revenue_usd_bn)}</td><td class="s">${r.quarter_end||'—'}</td></tr>`;});
+  document.getElementById('edgarTable').innerHTML=h+'</tbody>';
+}
+
+function renderMacro(){
+  const m=SNAP.macro||{};
+  const ids=Object.keys(m);
+  const box=document.getElementById('macroCards');
+  if(!ids.length){box.innerHTML=`<div class="kpi" style="grid-column:1/-1"><div class="d">${tt().macro_empty}</div></div>`;return;}
+  box.innerHTML=ids.map(id=>{const s=m[id];const lbl=LANG==='zh'?s.label_zh:s.label_en;
+    const up=s.yoy_pct>=0;
+    return `<div class="kpi"><div class="k">${lbl||id}</div>
+      <div class="v">${fmt(s.latest)}<small> ${s.kind==='index'?'idx':'$B'}</small></div>
+      <div class="d">${s.date} · YoY <span style="color:${up?'var(--good)':'var(--bad)'}">${up?'+':''}${s.yoy_pct}%</span></div></div>`;}).join('');
+}
+
+function render(){
+  applyText();renderKPI();renderFlow();drawForecast();renderReco();
+  renderCatTable();drawWorkload();drawBuyer();drawEdge();
+  renderVendor();renderPower();renderEdgar();renderMacro();renderSources();updateScenLabels();
+}
+render();
+</script>
+</body>
+</html>
