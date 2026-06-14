@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Rack BOM Radar · AI 機櫃 BOM 雷達</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#0a0e17; --panel:#121826; --panel2:#0f1421; --line:#23304a;
+    --txt:#e6edf6; --mut:#8da2c0; --dim:#5e739a;
+    --acc:#36e2a4; --warn:#ffd166; --bad:#ff6b6b; --good:#36e2a4;
+    --nvidia:#76b900; --amd:#ed1c24; --intel:#0091ff; --google:#4285f4;
+    --aws:#ff9900; --microsoft:#22b3ef; --meta:#0866ff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font-family:-apple-system,"Segoe UI",Roboto,"Noto Sans TC",sans-serif;line-height:1.5;padding:0 0 60px}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 20px}
+  header{border-bottom:1px solid var(--line);padding:22px 0 18px;margin-bottom:20px;position:sticky;top:0;background:linear-gradient(180deg,#0a0e17 72%,rgba(10,14,23,.6));backdrop-filter:blur(6px);z-index:30}
+  .htop{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+  h1{font-size:22px;font-weight:700}
+  h1 .em{color:var(--acc)}
+  .sub{color:var(--mut);font-size:13px;margin-top:4px;max-width:820px}
+  .meta{color:var(--dim);font-size:11.5px;margin-top:8px}
+  .ctrls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .btn{background:var(--panel);border:1px solid var(--line);color:var(--txt);padding:6px 12px;border-radius:8px;font-size:12.5px;cursor:pointer;transition:.15s}
+  .btn:hover{border-color:var(--acc)}
+  .btn.active{background:var(--acc);color:#04241a;border-color:var(--acc);font-weight:600}
+  .pill{font-size:11px;color:var(--mut);border:1px solid var(--line);border-radius:20px;padding:3px 10px}
+  h2{font-size:15px;font-weight:600;margin:28px 0 12px;display:flex;align-items:center;gap:8px}
+  h2 .n{color:var(--acc);font-size:13px;border:1px solid var(--line);border-radius:6px;padding:1px 7px}
+  .note{color:var(--mut);font-size:12.5px;margin:-4px 0 14px}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+  .kpi{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:13px 14px}
+  .kpi .k{color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.4px}
+  .kpi .v{font-size:23px;font-weight:700;margin-top:4px;font-variant-numeric:tabular-nums}
+  .kpi .v small{font-size:13px;color:var(--mut);font-weight:500}
+  .kpi .d{font-size:11px;color:var(--dim);margin-top:3px}
+  /* filter bar */
+  .filters{display:flex;gap:14px;flex-wrap:wrap;align-items:center;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;position:sticky;top:96px;z-index:20}
+  .fgroup{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+  .fgroup .lbl{font-size:11px;color:var(--dim);margin-right:2px}
+  .chip{font-size:11.5px;padding:3px 9px;border-radius:14px;border:1px solid var(--line);color:var(--mut);cursor:pointer;background:var(--panel)}
+  .chip.on{background:var(--acc);color:#04241a;border-color:var(--acc);font-weight:600}
+  /* system cards */
+  .sysgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:14px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;border-left:3px solid var(--line)}
+  .card .chd{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+  .card .vendor{font-size:11px;font-weight:700;letter-spacing:.4px}
+  .card h3{font-size:15.5px;font-weight:700;margin:2px 0 2px}
+  .card .gen{font-size:11.5px;color:var(--mut)}
+  .badges{display:flex;gap:5px;flex-wrap:wrap;margin-top:4px}
+  .bdg{font-size:10px;padding:1px 7px;border-radius:5px;border:1px solid var(--line);color:var(--mut)}
+  .bdg.shipping{color:var(--good);border-color:#1c6b4f}
+  .bdg.sampling{color:var(--warn);border-color:#7a6320}
+  .bdg.announced{color:var(--intel);border-color:#1f4a73}
+  .bom{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:11px 0 8px}
+  .bom .cell{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:7px 9px}
+  .bom .cl{font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:.3px}
+  .bom .cv{font-size:14px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:1px}
+  .bom .cs{font-size:10.5px;color:var(--mut)}
+  .meta2{font-size:11px;color:var(--mut);display:flex;flex-direction:column;gap:2px;margin-bottom:8px}
+  .hbmok{font-size:10px;padding:0 5px;border-radius:4px;background:rgba(54,226,164,.12);color:var(--good)}
+  .hbmbad{font-size:10px;padding:0 5px;border-radius:4px;background:rgba(255,107,107,.12);color:var(--bad)}
+  .toggle{font-size:11.5px;color:var(--acc);cursor:pointer;user-select:none}
+  .supwrap{display:none;margin-top:8px;border-top:1px dashed var(--line);padding-top:8px}
+  .supwrap.open{display:block}
+  .suprow{font-size:11.5px;margin-bottom:5px;display:flex;gap:6px;flex-wrap:wrap;align-items:baseline}
+  .supcat{color:var(--dim);min-width:84px;font-size:10.5px;text-transform:uppercase}
+  .tier{font-size:9px;padding:0 4px;border-radius:3px;border:1px solid var(--line)}
+  .tier.T1{color:var(--good);border-color:#1c6b4f}
+  .tier.T2{color:var(--warn);border-color:#7a6320}
+  .tier.T3{color:var(--bad);border-color:#6b2a2a}
+  .srcs{margin-top:7px;font-size:11px}
+  .srcs a{color:var(--intel);text-decoration:none;margin-right:8px}
+  .srcs a:hover{text-decoration:underline}
+  .stale{font-size:10px;color:var(--warn)}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:860px){.grid2{grid-template-columns:1fr}}
+  .chartbox{position:relative;height:420px}
+  .chartbox.sm{height:300px}
+  table{width:100%;border-collapse:collapse;font-size:12px}
+  th,td{text-align:left;padding:6px 9px;border-bottom:1px solid var(--line)}
+  thead th{color:var(--mut);font-weight:600;font-size:10.5px;text-transform:uppercase;letter-spacing:.3px}
+  tbody tr:hover{background:rgba(255,255,255,.02)}
+  .chg-up{color:var(--good)} .chg-dn{color:var(--bad)}
+  .lscat{margin-bottom:8px}
+  .news{display:flex;flex-direction:column;gap:8px}
+  .nrow{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:9px 11px}
+  .nrow a{color:var(--txt);text-decoration:none;font-size:13px;font-weight:500}
+  .nrow a:hover{color:var(--acc)}
+  .nmeta{font-size:10.5px;color:var(--dim);margin-top:3px}
+  .qbadge{font-size:9.5px;color:var(--mut);border:1px solid var(--line);border-radius:4px;padding:0 5px}
+  a.src{color:var(--intel)}
+  footer{color:var(--dim);font-size:11.5px;margin-top:34px;border-top:1px solid var(--line);padding-top:16px}
+  .disc{background:rgba(255,209,102,.07);border:1px solid #4a4222;border-radius:8px;padding:10px 12px;color:var(--warn);font-size:11.5px;margin-top:10px}
+  .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11px;color:var(--mut);margin-bottom:10px}
+</style>
+</head>
+<body>
+<header><div class="wrap htop">
+  <div>
+    <h1><span class="em">▤</span> <span data-t="title"></span></h1>
+    <div class="sub" data-t="subtitle"></div>
+    <div class="meta"><span data-t="asof"></span> · <span data-t="gen"></span> · <span data-t="livestate"></span></div>
+  </div>
+  <div class="ctrls">
+    <button class="btn" id="langBtn" onclick="toggleLang()">EN</button>
+    <button class="btn" id="refreshBtn" onclick="doRefresh()" style="border-color:var(--acc);color:var(--acc)"></button>
+    <span class="pill" id="refreshStatus"></span>
+  </div>
+</div></header>
+
+<div class="wrap">
+  <div class="kpis" id="kpis"></div>
+
+  <!-- TIER LEGEND -->
+  <div class="legend" id="legend" style="margin-top:16px"></div>
+
+  <!-- SYSTEMS -->
+  <h2><span class="n">A</span><span data-t="h_systems"></span></h2>
+  <div class="note" data-t="systems_note"></div>
+  <div class="filters" id="filters"></div>
+  <div style="height:12px"></div>
+  <div class="sysgrid" id="sysgrid"></div>
+
+  <!-- COMPARISON -->
+  <h2><span class="n">B</span><span data-t="h_compare"></span></h2>
+  <div class="note" data-t="compare_note"></div>
+  <div class="grid2">
+    <div class="panel"><div style="font-size:12.5px;color:var(--mut);margin-bottom:8px" data-t="h_hbm_per"></div><div class="chartbox sm"><canvas id="hbmPerChart"></canvas></div></div>
+    <div class="panel"><div style="font-size:12.5px;color:var(--mut);margin-bottom:8px" data-t="h_accel_per"></div><div class="chartbox sm"><canvas id="accelChart"></canvas></div></div>
+  </div>
+
+  <!-- SUPPLIER LANDSCAPE -->
+  <h2><span class="n">C</span><span data-t="h_landscape"></span></h2>
+  <div class="note" data-t="landscape_note"></div>
+  <div id="landscape"></div>
+
+  <!-- SUPPLIER CROSS-INDEX -->
+  <h2><span class="n">D</span><span data-t="h_index"></span></h2>
+  <div class="note" data-t="index_note"></div>
+  <div class="panel"><div class="chartbox sm"><canvas id="indexChart"></canvas></div></div>
+
+  <!-- NEWS RADAR -->
+  <h2><span class="n">E</span><span data-t="h_news"></span></h2>
+  <div class="note" data-t="news_note"></div>
+  <div class="news" id="news"></div>
+
+  <!-- REFERENCES -->
+  <h2><span class="n">F</span><span data-t="h_refs"></span></h2>
+  <div class="note" data-t="refs_note"></div>
+  <div class="panel" id="refsSummary" style="margin-bottom:12px"></div>
+  <div class="panel" id="refs" style="overflow-x:auto"></div>
+
+  <footer>
+    <div data-t="foot"></div>
+    <div class="disc" data-t="disclaimer"></div>
+  </footer>
+</div>
+
+<script>
+const SNAP = {{ snapshot | safe }};
+let LANG='zh';
+let charts={};
+let FILTER={vendor:'all',category:'all',status:'all'};
+
+const VC={NVIDIA:'#76b900',AMD:'#ed1c24',Intel:'#0091ff',Google:'#4285f4',AWS:'#ff9900',Microsoft:'#22b3ef',Meta:'#0866ff'};
+const vcolor=v=>VC[v]||'#8da2c0';
+const fmt=n=>n==null?'—':(Math.round(n*10)/10).toLocaleString();
+const fmt0=n=>n==null?'—':Math.round(n).toLocaleString();
+
+const T={
+ zh:{
+  title:"AI 機櫃 BOM × 供應鏈雷達", langbtn:"EN",
+  subtitle:"逐一拆解 AI 資料中心的 rack-scale 大模組:每櫃幾顆 GPU/CPU、HBM 多少、各零件供應商是誰。策展知識庫 + 證據分級(T1/T2/T3),一鍵 refresh 抓新品新聞與供應商股價。",
+  asof:()=>`規格基準 ${SNAP.as_of}`, gen:()=>`產生於 ${SNAP.generated_at}`,
+  livestate:()=>SNAP.live_present?`含即時新聞 ${SNAP.news.length} 則`:"策展種子(尚未抓即時)",
+  refreshbtn:"↻ 更新", refresh_prompt:"輸入更新密碼(預設 racks2026):", refreshing:"更新中…抓新聞+股價", refresh_done:"完成,重新載入中…", refresh_fail:"更新失敗",
+  h_systems:"系統 BOM 卡(可篩選)",
+  systems_note:"每張卡 = 一個 rack-scale 系統。點「供應商 ▾」展開逐零件供應商與證據分級;HBM✓ 表示『顆數×每顆 HBM = 標稱總量』對得上。",
+  h_compare:"跨系統比較",
+  compare_note:"per-chip HBM 軍備競賽(每顆加速器 GB)+ scale-up 規模(每單位加速器數,對數軸)。",
+  h_hbm_per:"每顆加速器 HBM (GB)", h_accel_per:"每 scale-up 單位 加速器數 (對數軸)",
+  h_landscape:"供應鏈地圖(九大類)",
+  landscape_note:"各零件類別的關鍵供應商、份額、代號與證據分級;refresh 後附即時股價。",
+  h_index:"供應商交叉索引(出現在最多系統)",
+  index_note:"把所有系統的供應商反查加總——誰是最普遍的咽喉點。",
+  h_news:"新品雷達(refresh 抓取)",
+  news_note:"Google News RSS 抓新機櫃/晶片/供應商 design win——標出『自上次更新後有什麼新東西』,作為知識庫待更新候選。",
+  h_refs:"參考來源(全部出處)",
+  refs_note:"知識庫每筆規格與供應商都可追溯到下列來源;此處自動彙整全 KB 的獨立來源並標證據分級與被引用處。點 ↗ 開原始來源。",
+  refs_th:["來源","證據","被引用於"],
+  foot:"方法:規格與供應商為策展知識庫(knowledge_base.json,每欄附來源 URL + 證據分級 T1 官方/T2 拆解分析/T3 供應鏈傳聞 + 查證日);refresh 只更新新聞、股價與時效時鐘。要更新規格→編輯知識庫。",
+  disclaimer:"⚠ 規格隨配置/世代變動;許多供應商份額為 T3 供應鏈傳聞,僅方向性參考。預發表系統(Vera Rubin、Helios MI400、Maia 200)數字為初步。非投資建議。",
+  filt_vendor:"廠商", filt_cat:"類別", filt_status:"狀態", filt_all:"全部",
+  cat:{"merchant-rack":"商用機櫃","merchant-baseboard":"商用基板","custom-pod":"自研 pod"},
+  status:{shipping:"量產",sampling:"送樣",announced:"已發表"},
+  bom:{accel:"加速器",cpu:"CPU",hbm:"HBM",power:"功耗",cooling:"散熱",scaleup:"Scale-up",scaleout:"Scale-out"},
+  sup_toggle:"供應商 ▾", sup_toggle_open:"供應商 ▴", verified:"查證", stale:"天未更新",
+  kpi:{systems:"追蹤系統數",vendors:"廠商",shipping:"量產中",maxhbm:"單一 pod/櫃 最大 HBM",maxaccel:"單一單位 最多加速器",hbmchk:"HBM 校驗通過"},
+   landscape_th:["供應商","代號","份額/定位","備註","證據","即時"]
+ },
+ en:{
+  title:"AI Rack BOM × Supply-Chain Radar", langbtn:"中",
+  subtitle:"Decompose the big rack-scale modules of an AI data center: GPUs/CPUs per rack, how much HBM, and who supplies each part. Curated KB + evidence tiers (T1/T2/T3), one-click refresh for new-product news + supplier stock context.",
+  asof:()=>`Specs as of ${SNAP.as_of}`, gen:()=>`Generated ${SNAP.generated_at}`,
+  livestate:()=>SNAP.live_present?`with ${SNAP.news.length} live headlines`:"curated seed (no live pull yet)",
+  refreshbtn:"↻ Refresh", refresh_prompt:"Enter refresh password (default racks2026):", refreshing:"refreshing… news+stocks", refresh_done:"done, reloading…", refresh_fail:"refresh failed",
+  h_systems:"System BOM cards (filterable)",
+  systems_note:"Each card = one rack-scale system. Click 'Suppliers ▾' for per-component suppliers + evidence tier; HBM✓ means accelerators × per-accel HBM reconciles to the stated total.",
+  h_compare:"Cross-system comparison",
+  compare_note:"Per-chip HBM arms race (GB per accelerator) + scale-up size (accelerators per unit, log axis).",
+  h_hbm_per:"HBM per accelerator (GB)", h_accel_per:"Accelerators per scale-up unit (log)",
+  h_landscape:"Supply-chain map (9 categories)",
+  landscape_note:"Key suppliers, share, ticker and evidence tier per component category; live stock attached after refresh.",
+  h_index:"Supplier cross-index (in most systems)",
+  index_note:"Invert all systems' suppliers — who are the most pervasive chokepoints.",
+  h_news:"New-product radar (fetched on refresh)",
+  news_note:"Google News RSS for new racks/chips/supplier design wins — surfaces 'what's new since last update' as KB-update candidates.",
+  h_refs:"References (all sources)",
+  refs_note:"Every spec and supplier in the KB traces to a source below; this auto-aggregates all unique KB sources with evidence tier and where each is cited. Click ↗ for the original.",
+  refs_th:["Source","Tier","Cited by"],
+  foot:"Method: specs & suppliers are a curated KB (knowledge_base.json, every field with source URL + evidence tier T1 official / T2 teardown-analyst / T3 supply-chain-rumor + verified date); refresh only updates news, stocks and the staleness clock. Edit the KB to update specs.",
+  disclaimer:"⚠ Specs vary by config/generation; many supplier shares are T3 supply-chain rumor — directional only. Pre-launch systems (Vera Rubin, Helios MI400, Maia 200) are preliminary. Not investment advice.",
+  filt_vendor:"Vendor", filt_cat:"Category", filt_status:"Status", filt_all:"All",
+  cat:{"merchant-rack":"Merchant rack","merchant-baseboard":"Merchant baseboard","custom-pod":"Custom pod"},
+  status:{shipping:"Shipping",sampling:"Sampling",announced:"Announced"},
+  bom:{accel:"Accelerators",cpu:"CPU",hbm:"HBM",power:"Power",cooling:"Cooling",scaleup:"Scale-up",scaleout:"Scale-out"},
+  sup_toggle:"Suppliers ▾", sup_toggle_open:"Suppliers ▴", verified:"verified", stale:"days stale",
+  kpi:{systems:"Systems tracked",vendors:"Vendors",shipping:"Shipping",maxhbm:"Max HBM / pod·rack",maxaccel:"Max accelerators / unit",hbmchk:"HBM check passed"},
+  landscape_th:["Supplier","Ticker","Share / positioning","Note","Tier","Live"]
+ }
+};
+const tt=()=>T[LANG];
+
+function toggleLang(){LANG=LANG==='zh'?'en':'zh';render();}
+
+function applyText(){
+  document.documentElement.lang=LANG==='zh'?'zh-Hant':'en';
+  document.getElementById('langBtn').textContent=tt().langbtn;
+  document.getElementById('refreshBtn').textContent=tt().refreshbtn;
+  document.querySelectorAll('[data-t]').forEach(el=>{const v=tt()[el.dataset.t];
+    if(typeof v==='function')el.textContent=v();else if(typeof v==='string')el.textContent=v;});
+}
+
+async function doRefresh(){
+  const pw=prompt(tt().refresh_prompt); if(!pw)return;
+  const st=document.getElementById('refreshStatus'); st.textContent=tt().refreshing;
+  try{
+    const r=await fetch('/racks/api/refresh?password='+encodeURIComponent(pw),{method:'POST'});
+    const j=await r.json();
+    if(!r.ok||!j.ok){st.textContent=tt().refresh_fail+(j.error?` (${j.error})`:'');return;}
+    st.textContent=`${tt().refresh_done} (news ${j.news}, stocks ${j.stocks})`;
+    setTimeout(()=>location.reload(),900);
+  }catch(e){st.textContent=tt().refresh_fail;}
+}
+
+function renderKPI(){
+  const s=SNAP.summary,k=tt().kpi;
+  const cards=[
+    {k:k.systems,v:s.n_systems,d:`${Object.keys(s.by_vendor).length} ${LANG==='zh'?'家廠商':'vendors'}`},
+    {k:k.shipping,v:s.n_shipping,d:`${s.by_status.announced||0} ${LANG==='zh'?'已發表':'announced'}`},
+    {k:k.maxhbm,v:`${fmt0(s.max_hbm.tb)}`,u:'TB',d:s.max_hbm.name},
+    {k:k.maxaccel,v:`${fmt0(s.max_accelerators.n)}`,d:s.max_accelerators.name},
+    {k:k.hbmchk,v:`${s.hbm_check_pass}/${s.hbm_check_total}`,d:LANG==='zh'?'顆數×HBM 對帳':'count×HBM reconciles'},
+  ];
+  document.getElementById('kpis').innerHTML=cards.map(c=>`<div class="kpi"><div class="k">${c.k}</div>
+    <div class="v">${c.v}${c.u?`<small> ${c.u}</small>`:''}</div><div class="d">${c.d}</div></div>`).join('');
+}
+
+function renderLegend(){
+  const lg=SNAP.tier_legend;
+  document.getElementById('legend').innerHTML=Object.entries(lg).map(([t,d])=>
+    `<span><span class="tier ${t}">${t}</span> ${d}</span>`).join('');
+}
+
+function renderFilters(){
+  const vendors=Object.keys(SNAP.summary.by_vendor);
+  const cats=Object.keys(SNAP.category_legend);
+  const stats=['shipping','sampling','announced'];
+  const grp=(lbl,key,opts,labelMap)=>{
+    let h=`<div class="fgroup"><span class="lbl">${lbl}</span>`;
+    h+=`<span class="chip ${FILTER[key]==='all'?'on':''}" onclick="setF('${key}','all')">${tt().filt_all}</span>`;
+    opts.forEach(o=>{h+=`<span class="chip ${FILTER[key]===o?'on':''}" onclick="setF('${key}','${o}')">${labelMap?labelMap[o]||o:o}</span>`;});
+    return h+'</div>';
+  };
+  document.getElementById('filters').innerHTML=
+    grp(tt().filt_vendor,'vendor',vendors)+
+    grp(tt().filt_cat,'category',cats,tt().cat)+
+    grp(tt().filt_status,'status',stats,tt().status);
+}
+function setF(key,val){FILTER[key]=val;renderFilters();renderSystems();}
+
+function renderSystems(){
+  const t=tt();
+  const list=SNAP.systems.filter(s=>
+    (FILTER.vendor==='all'||s.vendor===FILTER.vendor)&&
+    (FILTER.category==='all'||s.category===FILTER.category)&&
+    (FILTER.status==='all'||s.status===FILTER.status));
+  document.getElementById('sysgrid').innerHTML=list.map(s=>{
+    const hbmTag=s.hbm_check_ok===true?`<span class="hbmok">HBM✓</span>`:(s.hbm_check_ok===false?`<span class="hbmbad">HBM✗</span>`:'');
+    const cpu=s.cpus>0?`${s.cpus} × ${s.cpu_model}`:(s.cpu_model||'—');
+    const hbmTotal=s.hbm_total_tb>0?`${fmt(s.hbm_total_tb)} TB ${LANG==='zh'?'總':'total'}`:(s.hbm_type.includes('LPDDR')?'LPDDR':'—');
+    const supHtml=Object.entries(s.suppliers||{}).map(([cat,lst])=>
+      `<div class="suprow"><span class="supcat">${cat.replace(/_/g,' ')}</span>${lst.map(x=>
+        `${x.name}${x.role?` <span style="color:var(--dim)">(${x.role})</span>`:''} <span class="tier ${x.tier}">${x.tier}</span>`).join(' · ')}</div>`).join('');
+    const srcHtml=(s.sources||[]).map(x=>`<a href="${x.url}" target="_blank" rel="noopener">${x.label} <span class="tier ${x.tier}">${x.tier}</span></a>`).join('');
+    const staleTag=s.staleness_days>SNAP.staleness.threshold_days?`<span class="stale">· ${s.staleness_days} ${t.stale}</span>`:'';
+    return `<div class="card" style="border-left-color:${vcolor(s.vendor)}">
+      <div class="chd">
+        <div><div class="vendor" style="color:${vcolor(s.vendor)}">${s.vendor}</div>
+        <h3>${s.name}</h3><div class="gen">${s.generation} · ${s.accelerator_model}</div></div>
+        ${hbmTag}
+      </div>
+      <div class="badges">
+        <span class="bdg ${s.status}">${t.status[s.status]}</span>
+        <span class="bdg">${t.cat[s.category]}</span>
+        <span class="bdg">${s.availability||''}</span>
+        <span class="bdg">${s.unit}</span>
+      </div>
+      <div class="bom">
+        <div class="cell"><div class="cl">${t.bom.accel}</div><div class="cv">${fmt0(s.accelerators)||'—'}</div><div class="cs">${s.accelerator_model}</div></div>
+        <div class="cell"><div class="cl">${t.bom.cpu}</div><div class="cv">${s.cpus>0?s.cpus:'—'}</div><div class="cs">${s.cpu_model}</div></div>
+        <div class="cell"><div class="cl">${t.bom.hbm}</div><div class="cv">${s.hbm_gb_per_accel?s.hbm_gb_per_accel+' GB':'—'}</div><div class="cs">${s.hbm_type} · ${hbmTotal}</div></div>
+        <div class="cell"><div class="cl">${t.bom.power} / ${t.bom.cooling}</div><div class="cv">${s.power_kw>0?fmt(s.power_kw)+' kW':'—'}</div><div class="cs">${s.cooling}</div></div>
+      </div>
+      <div class="meta2">
+        <span><b>${t.bom.scaleup}:</b> ${s.scale_up||'—'}</span>
+        <span><b>${t.bom.scaleout}:</b> ${s.scale_out||'—'}</span>
+      </div>
+      <div class="toggle" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'${t.sup_toggle_open}':'${t.sup_toggle}'">${t.sup_toggle}</div>
+      <div class="supwrap">${supHtml}
+        <div class="srcs">${srcHtml}</div>
+        ${s.notes?`<div class="note" style="margin:7px 0 0">${s.notes}</div>`:''}
+        <div class="note" style="margin:5px 0 0;font-size:10.5px">${t.verified} ${s.last_verified} ${staleTag}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function barChart(id,key,labels,data,colors,opts){
+  opts=opts||{};
+  const xscale=Object.assign({grid:{color:'#1a2334'},ticks:{color:'#8da2c0'}},opts.xscale||{});
+  if(charts[key])charts[key].destroy();
+  charts[key]=new Chart(document.getElementById(id),{
+    type:'bar',
+    data:{labels:labels.map(String),datasets:[{data:data,backgroundColor:colors,borderWidth:0}]},
+    options:{
+      responsive:true,maintainAspectRatio:false,indexAxis:'y',
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return ' '+fmt(c.parsed.x)+(opts.unit||'');}}}},
+      scales:{x:xscale,y:{grid:{display:false},ticks:{color:'#cdd9ec',font:{size:10}}}}
+    }
+  });
+}
+
+function drawCompare(){
+  // HBM per accelerator
+  const byHbm=[...SNAP.systems].filter(s=>s.hbm_gb_per_accel>0).sort((a,b)=>b.hbm_gb_per_accel-a.hbm_gb_per_accel);
+  barChart('hbmPerChart','hbmPer',byHbm.map(s=>s.name),byHbm.map(s=>s.hbm_gb_per_accel),byHbm.map(s=>vcolor(s.vendor)),{unit:' GB'});
+  // accelerators per unit (log)
+  const byAcc=[...SNAP.comparison].sort((a,b)=>b.accelerators-a.accelerators);
+  barChart('accelChart','accel',byAcc.map(s=>s.name),byAcc.map(s=>s.accelerators),byAcc.map(s=>vcolor(s.vendor)),
+    {xscale:{type:'logarithmic'}});
+}
+
+function renderLandscape(){
+  const th=tt().landscape_th;
+  let html='';
+  for(const [cat,blk] of Object.entries(SNAP.supplier_landscape)){
+    const lbl=LANG==='zh'?blk.label_zh:blk.label_en;
+    html+=`<div class="lscat panel" style="margin-bottom:12px"><div style="font-size:13px;font-weight:600;margin-bottom:8px">${lbl}</div>
+      <table><thead><tr>${th.map(x=>`<th>${x}</th>`).join('')}</tr></thead><tbody>`;
+    blk.rows.forEach(r=>{
+      let live='—';
+      if(r.live){const up=r.live.change_pct>=0;live=`${fmt(r.live.price)} <span class="${up?'chg-up':'chg-dn'}">${up?'+':''}${r.live.change_pct}%</span>`;}
+      html+=`<tr><td><b>${r.name}</b></td><td>${r.ticker||'—'}</td><td>${r.share||'—'}</td>
+        <td style="color:var(--mut)">${r.note||''} ${r.url?`<a class="src" href="${r.url}" target="_blank" rel="noopener">↗</a>`:''}</td>
+        <td><span class="tier ${r.tier}">${r.tier}</span></td><td>${live}</td></tr>`;
+    });
+    html+='</tbody></table></div>';
+  }
+  document.getElementById('landscape').innerHTML=html;
+}
+
+function drawIndex(){
+  const top=SNAP.supplier_index.slice(0,14);
+  if(charts.idx)charts.idx.destroy();
+  charts.idx=new Chart(document.getElementById('indexChart'),{
+    type:'bar',
+    data:{labels:top.map(e=>e.name),datasets:[{data:top.map(e=>e.count),
+      backgroundColor:'#36e2a4',borderWidth:0}]},
+    options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` ${c.parsed.x} ${LANG==='zh'?'個系統':'systems'} · ${top[c.dataIndex].categories.join(', ')}`}}},
+      scales:{x:{grid:{color:'#1a2334'},ticks:{color:'#8da2c0',stepSize:1}},y:{grid:{display:false},ticks:{color:'#cdd9ec',font:{size:10}}}}}
+  });
+}
+
+function renderNews(){
+  const news=SNAP.news||[];
+  const box=document.getElementById('news');
+  if(!news.length){box.innerHTML=`<div class="nrow"><div class="nmeta">${LANG==='zh'?'本快照無即時新聞——按右上「↻ 更新」抓取。':'No live news in this snapshot — hit the ↻ Refresh button to fetch.'}</div></div>`;return;}
+  box.innerHTML=news.slice(0,24).map(n=>`<div class="nrow">
+    <a href="${n.url}" target="_blank" rel="noopener">${n.title}</a>
+    <div class="nmeta">${n.date} · ${n.source||''} <span class="qbadge">${n.query}</span></div></div>`).join('');
+}
+
+function renderRefs(){
+  const r=SNAP.references; if(!r){return;}
+  const sumZh=`<b style="color:var(--good)">${r.n_systems_sourced}/${r.total_systems}</b> ${LANG==='zh'?'系統皆有來源':'systems sourced'} · <b>${r.n_unique}</b> ${LANG==='zh'?'個獨立來源':'unique sources'} · `+
+    `<span class="tier T1">T1</span> ${r.counts.T1} · <span class="tier T2">T2</span> ${r.counts.T2} · <span class="tier T3">T3</span> ${r.counts.T3}`;
+  document.getElementById('refsSummary').innerHTML=`<div style="font-size:13px">${sumZh}</div>`;
+  const th=tt().refs_th;
+  let h=`<table><thead><tr>${th.map(x=>`<th>${x}</th>`).join('')}</tr></thead><tbody>`;
+  r.items.forEach(it=>{
+    const cb=it.cited_by.slice(0,4).join(', ')+(it.cited_by.length>4?` +${it.cited_by.length-4}`:'');
+    h+=`<tr><td><a class="src" href="${it.url}" target="_blank" rel="noopener">${it.label} ↗</a></td>
+      <td><span class="tier ${it.tier}">${it.tier}</span></td>
+      <td style="color:var(--mut);font-size:11px">${cb}</td></tr>`;
+  });
+  document.getElementById('refs').innerHTML=h+'</tbody></table>';
+}
+
+function render(){
+  applyText();renderKPI();renderLegend();renderFilters();renderSystems();
+  drawCompare();renderLandscape();drawIndex();renderNews();renderRefs();
+}
+render();
+</script>
+</body>
+</html>

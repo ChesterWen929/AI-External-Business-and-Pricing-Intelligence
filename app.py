@@ -48,6 +48,9 @@ from rival import rival_bp
 from compute import compute_bp
 from compute import load_snapshot as compute_load_snapshot
 from compute import refresh as compute_refresh
+from racks import racks_bp
+from racks import load_snapshot as racks_load_snapshot
+from racks import refresh as racks_refresh
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)s | %(message)s")
 log = logging.getLogger("macro-ai")
@@ -58,6 +61,7 @@ app.register_blueprint(aibubble_bp)
 app.register_blueprint(econ_bp)
 app.register_blueprint(rival_bp)
 app.register_blueprint(compute_bp)
+app.register_blueprint(racks_bp)
 
 # ── secrets / auth (all from env; never hard-code real values) ──
 _DEFAULT_SECRET = "dev-insecure-change-me"
@@ -95,6 +99,10 @@ STRINGS = {
     "compute_desc":{"en": "Global AI CPU/GPU/ASIC demand worked backward from end demand — triangulated 3 ways + SEC EDGAR & FRED.",
                     "zh": "從終端需求回推全球 AI CPU/GPU/ASIC 需求 — 三鏡頭交叉驗證 ＋ SEC EDGAR、FRED。"},
     "compute_lbl":{"en": "2030E $B",                  "zh": "2030E $B"},
+    "racks_name":{"en": "AI Rack BOM Radar",          "zh": "AI 機櫃 BOM 雷達"},
+    "racks_desc":{"en": "Rack-scale system BOMs — GPUs/CPUs/HBM per rack and who supplies each part — fully sourced (T1/T2/T3).",
+                  "zh": "Rack-scale 系統 BOM — 每櫃 GPU/CPU/HBM 數量與各零件供應商 — 全程附證據分級(T1/T2/T3)。"},
+    "racks_lbl":{"en": "systems",                     "zh": "系統"},
     "events_lbl":{"en": "flow events",                "zh": "流向事件"},
     "updated":   {"en": "Updated",                    "zh": "更新"},
     "indicators":{"en": "indicators",                 "zh": "指標"},
@@ -132,7 +140,7 @@ def require_login():
     if session.get("auth"):
         return None
     # Unauthenticated: API/JSON callers get 401, humans go to the login page.
-    if request.path.startswith(("/api/", "/econ/api/", "/aibubble/api/", "/rival/api/", "/compute/api/")):
+    if request.path.startswith(("/api/", "/econ/api/", "/aibubble/api/", "/rival/api/", "/compute/api/", "/racks/api/")):
         return jsonify({"error": "auth required"}), 401
     return redirect(url_for("login", next=request.path))
 
@@ -185,6 +193,10 @@ def portal():
         compute_snap = compute_load_snapshot()
     except Exception:
         compute_snap = None
+    try:
+        racks_snap = racks_load_snapshot()
+    except Exception:
+        racks_snap = None
     return render_template(
         "portal.html",
         econ_updated=econ_snap.get("date") if econ_snap else None,
@@ -197,6 +209,8 @@ def portal():
         rival_updated=rival_kb.get("research_date"),
         compute_updated=(compute_snap.get("generated_at") or "")[:10] if compute_snap else None,
         compute_2030=((compute_snap.get("headline") or {}).get("grand_total_end_year_usd_bn")) if compute_snap else None,
+        racks_updated=(racks_snap.get("as_of") if racks_snap else None),
+        racks_count=((racks_snap.get("summary") or {}).get("n_systems")) if racks_snap else None,
     )
 
 
@@ -220,6 +234,10 @@ def _refresh_all_bg() -> None:
         compute_refresh()
     except Exception:
         log.exception("compute refresh failed")
+    try:
+        racks_refresh()
+    except Exception:
+        log.exception("racks refresh failed")
 
 
 @app.route("/cron/refresh")
