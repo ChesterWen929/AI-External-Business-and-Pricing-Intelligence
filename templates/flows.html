@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Capital Flow Radar · 資金流向雷達</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0b0f; --panel:rgba(22,24,31,.72); --panel-hi:rgba(30,33,42,.9);
+    --line:rgba(255,255,255,.08); --line-hi:rgba(255,255,255,.16);
+    --ink:#ecedf2; --soft:#a6a9b8; --dim:#6a6e80; --gold:#c8a86a; --acc:#7c83ff;
+    --on:#43c08a; --off:#e0626e; --neu:#c8a86a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:radial-gradient(1100px 560px at 82% -14%,rgba(124,131,255,.10),transparent 58%),radial-gradient(900px 520px at -8% 4%,rgba(200,168,106,.08),transparent 52%),var(--bg);
+       color:var(--ink);font-family:"Inter","PingFang TC","Noto Sans TC",-apple-system,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:22px 26px 60px}
+  .top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:8px}
+  .brand{display:flex;align-items:center;gap:11px}
+  .gem{width:16px;height:16px;transform:rotate(45deg);border:1px solid var(--gold);border-radius:4px;position:relative}
+  .gem::after{content:"";position:absolute;inset:4px;background:var(--gold);border-radius:2px;opacity:.85}
+  h1{font-family:"Noto Serif TC",serif;font-weight:600;font-size:22px;letter-spacing:.5px}
+  .tools{display:flex;align-items:center;gap:10px}
+  .btn{font-size:12px;padding:6px 12px;border-radius:8px;border:1px solid var(--line-hi);background:transparent;color:var(--soft);cursor:pointer;transition:.15s}
+  .btn:hover{color:var(--ink);border-color:var(--acc)}
+  .btn.go{border-color:var(--acc);color:var(--acc)}
+  .status{font-size:11.5px;color:var(--dim)}
+  .crumb{font-size:11px;color:var(--dim);letter-spacing:.4px;margin-bottom:18px}
+  .crumb a:hover{color:var(--gold)}
+  .demo{background:rgba(200,168,106,.10);border:1px solid rgba(200,168,106,.3);color:var(--gold);
+        font-size:12px;padding:9px 13px;border-radius:10px;margin-bottom:18px}
+  .sub{color:var(--dim);font-size:12.5px;line-height:1.6;margin-bottom:22px}
+
+  .grid{display:grid;gap:16px}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+  .panel h2{font-family:"Noto Serif TC",serif;font-size:15px;font-weight:600;letter-spacing:.5px;margin-bottom:4px}
+  .panel .note{font-size:11.5px;color:var(--dim);margin-bottom:14px;line-height:1.5}
+  .eyebrow{font-size:10.5px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);opacity:.85}
+
+  /* hero */
+  .hero{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:16px;margin-bottom:16px}
+  @media(max-width:780px){.hero{grid-template-columns:1fr}}
+  .big{font-variant-numeric:tabular-nums;font-weight:600;font-size:30px;letter-spacing:.5px}
+  .gauge{height:8px;border-radius:999px;background:linear-gradient(90deg,var(--off),var(--neu),var(--on));position:relative;margin:14px 0 8px}
+  .gauge .pin{position:absolute;top:-4px;width:3px;height:16px;background:#fff;border-radius:2px;box-shadow:0 0 8px rgba(255,255,255,.6)}
+  .scale{display:flex;justify-content:space-between;font-size:10px;color:var(--dim)}
+  .tag{display:inline-block;font-size:11px;font-weight:500;padding:2px 9px;border-radius:999px;letter-spacing:.4px}
+  .tag.on{background:rgba(67,192,138,.15);color:var(--on)} .tag.off{background:rgba(224,98,110,.15);color:var(--off)}
+  .tag.neutral{background:rgba(200,168,106,.15);color:var(--neu)}
+  .tag.mixed{background:rgba(200,168,106,.15);color:var(--neu)}
+
+  /* lenses */
+  .lenses{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  @media(max-width:680px){.lenses{grid-template-columns:1fr}}
+  .lens{background:var(--panel-hi);border:1px solid var(--line);border-radius:12px;padding:13px 15px}
+  .lens .k{font-size:11px;color:var(--soft);letter-spacing:.5px}
+  .lens .v{font-variant-numeric:tabular-nums;font-size:20px;font-weight:600;margin-top:3px}
+  .align{font-size:12px;margin-top:10px}
+
+  /* reservoir cards */
+  .res{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  @media(max-width:680px){.res{grid-template-columns:1fr}}
+  .rescard{background:var(--panel-hi);border:1px solid var(--line);border-radius:12px;padding:14px 15px}
+  .reshead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:4px}
+  .reshead .nm{font-weight:600;font-size:14px}
+  .ressize{font-size:10.5px;color:var(--dim)}
+  .resrole{font-size:11px;color:var(--soft);line-height:1.45;margin:6px 0 10px}
+  .ind{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12px;padding:5px 0;border-top:1px solid var(--line)}
+  .ind .iname{color:var(--soft)}
+  .ind .ival{font-variant-numeric:tabular-nums;display:flex;gap:8px;align-items:center}
+  .chg.up{color:var(--on)} .chg.down{color:var(--off)} .chg.flat{color:var(--dim)}
+  .dot{width:7px;height:7px;border-radius:50%}
+  .dot.on{background:var(--on)} .dot.off{background:var(--off)} .dot.neutral{background:var(--neu)}
+  .live{font-size:9px;color:var(--dim);border:1px solid var(--line);border-radius:4px;padding:0 4px}
+
+  /* money map */
+  .mm{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:680px){.mm{grid-template-columns:1fr}}
+  .chan{font-size:12px;color:var(--soft);padding:6px 0;border-top:1px solid var(--line);line-height:1.5}
+  .chan b{color:var(--ink);font-weight:500}
+  .arrow{color:var(--gold)}
+
+  /* L4/L5 */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:780px){.two{grid-template-columns:1fr}}
+  .body{font-size:13px;line-height:1.7;color:var(--ink)}
+  .leads li,.fals li{font-size:12.5px;line-height:1.6;color:var(--soft);margin:6px 0 6px 2px;list-style:none;padding-left:16px;position:relative}
+  .leads li::before,.fals li::before{content:"▸";position:absolute;left:0;color:var(--gold)}
+  .scn{padding:11px 0;border-top:1px solid var(--line)}
+  .scnhead{display:flex;justify-content:space-between;gap:10px;font-size:13px}
+  .scnname{font-weight:500}
+  .scnprob{font-variant-numeric:tabular-nums;color:var(--gold);font-weight:600}
+  .bar{height:6px;border-radius:999px;background:rgba(255,255,255,.06);margin:7px 0 6px;overflow:hidden}
+  .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--acc),var(--gold))}
+  .scntrig{font-size:11.5px;color:var(--dim);line-height:1.5}
+  table.ew{width:100%;border-collapse:collapse;font-size:12.5px}
+  table.ew td{padding:7px 8px;border-top:1px solid var(--line)}
+  table.ew td.f{text-align:right;color:var(--gold);font-size:11px;white-space:nowrap}
+  .news a{display:block;font-size:12.5px;color:var(--soft);padding:7px 0;border-top:1px solid var(--line);line-height:1.4}
+  .news a:hover{color:var(--ink)} .news .src{color:var(--dim);font-size:11px}
+  .foot{margin-top:24px;font-size:11px;color:var(--dim);line-height:1.7}
+  .conf{font-size:11px;color:var(--soft)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand"><span class="gem"></span><h1 id="title"></h1></div>
+    <div class="tools">
+      <button class="btn" id="langBtn"></button>
+      <button class="btn go" id="refreshBtn"></button>
+      <span class="status" id="status"></span>
+    </div>
+  </div>
+  <div class="crumb"><a href="/">← <span id="crumbHome"></span></a> · <span id="asof"></span> · <span id="engine"></span></div>
+  <div id="demo" class="demo" style="display:none"></div>
+  <div class="sub" id="method"></div>
+
+  <!-- hero -->
+  <div class="hero">
+    <div class="panel">
+      <span class="eyebrow" id="h_marg"></span>
+      <div class="big"><span id="margScore"></span> <span class="tag" id="margTag"></span></div>
+      <div class="gauge"><div class="pin" id="margPin"></div></div>
+      <div class="scale"><span>−100 risk-off</span><span>0</span><span>+100 risk-on</span></div>
+    </div>
+    <div class="panel">
+      <span class="eyebrow" id="h_ai"></span>
+      <div class="big"><span id="aiScore"></span><span style="font-size:15px;color:var(--dim)">/100</span></div>
+      <div style="margin-top:8px"><span class="tag" id="aiTag"></span></div>
+      <div class="note" style="margin-top:12px;margin-bottom:0" id="aiHint"></div>
+    </div>
+    <div class="panel">
+      <span class="eyebrow" id="h_rvi"></span>
+      <div style="display:flex;gap:18px;margin-top:8px">
+        <div><div class="note" style="margin:0" id="rvi_r_l"></div><div class="big" style="font-size:22px" id="rviRetail"></div></div>
+        <div><div class="note" style="margin:0" id="rvi_i_l"></div><div class="big" style="font-size:22px" id="rviInst"></div></div>
+      </div>
+      <div class="note" style="margin-top:12px;margin-bottom:0" id="rviDiv"></div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <!-- three-lens cross check -->
+    <div class="panel">
+      <h2 id="h_lens"></h2><div class="note" id="n_lens"></div>
+      <div class="lenses" id="lenses"></div>
+      <div class="align" id="lensAlign"></div>
+    </div>
+
+    <!-- L3 reservoirs -->
+    <div class="panel">
+      <h2 id="h_res"></h2><div class="note" id="n_res"></div>
+      <div class="res" id="reservoirs"></div>
+    </div>
+
+    <!-- L4 thesis + mapping -->
+    <div class="two">
+      <div class="panel">
+        <h2 id="h_thesis"></h2>
+        <div class="big" style="font-size:17px;line-height:1.4;margin:6px 0 6px" id="thesisDir"></div>
+        <div class="conf" id="thesisConf"></div>
+        <div class="note" style="margin:14px 0 6px" id="h_leads"></div>
+        <ul class="leads" id="leads"></ul>
+      </div>
+      <div class="panel">
+        <h2 id="h_rvi2"></h2>
+        <div class="body" id="rviText"></div>
+        <h2 style="margin-top:16px" id="h_aimap"></h2>
+        <div class="body" id="aiMapText"></div>
+      </div>
+    </div>
+
+    <!-- L5 scenarios -->
+    <div class="two">
+      <div class="panel">
+        <h2 id="h_scn"></h2><div class="note" id="n_scn"></div>
+        <div id="scenarios"></div>
+      </div>
+      <div class="panel">
+        <h2 id="h_fals"></h2>
+        <ul class="fals" id="falsification"></ul>
+        <h2 style="margin-top:16px" id="h_ew"></h2>
+        <table class="ew"><tbody id="earlyWarn"></tbody></table>
+      </div>
+    </div>
+
+    <!-- money map (L1) -->
+    <div class="panel">
+      <h2 id="h_mm"></h2><div class="note" id="n_mm"></div>
+      <div class="mm">
+        <div><div class="eyebrow" id="mm_res_l"></div><div id="mmRes"></div></div>
+        <div><div class="eyebrow" id="mm_chan_l"></div><div id="mmChan"></div></div>
+      </div>
+      <div class="note" style="margin-top:14px;margin-bottom:0" id="mmTap"></div>
+    </div>
+
+    <!-- news -->
+    <div class="panel" id="newsPanel" style="display:none">
+      <h2 id="h_news"></h2>
+      <div class="news" id="news"></div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <div id="blindHead"></div>
+    <ul style="list-style:none;margin-top:6px" id="blind"></ul>
+    <div style="margin-top:12px" id="methodFoot"></div>
+  </div>
+</div>
+
+<script>
+const SNAP = {{ snapshot | safe }};
+let LANG = localStorage.getItem("flows_lang") || "en";
+
+const T = {
+  en:{home:"External Market Analysis", lang:"中文", refresh:"↻ Refresh",
+      pwPrompt:"Enter refresh password (default capflow2026):", refreshing:"refreshing… live data + Claude L4/L5",
+      done:"done, reloading…", fail:"refresh failed", demo:"Seed/demo view — hit ↻ Refresh to pull live data (and Claude L4/L5 if an API key is set).",
+      asof:"As of", engineRules:"engine: rules (no API key)", engineClaude:"engine: Claude Opus 4.8",
+      marg:"Marginal capital direction", ai:"AI continuation signal", rvi:"Retail vs institution",
+      retail:"Retail", inst:"Institution", aiHint:"Higher = flows support AI continuation",
+      lens:"Three-lens cross-check", lensNote:"Liquidity / price / positioning — do they agree?",
+      aligned:"✓ All three lenses aligned — higher-conviction read.", notAligned:"✕ Lenses diverge — lower conviction; treat the signal as two-way.",
+      res:"L3 · Live flow diagnosis", resNote:"Where the marginal dollar moved over the last month, per reservoir. 1m change; ● = risk-on / risk-off tilt.",
+      thesis:"L4 · AI-market thesis", conf:"confidence", leads:"Leading signals (move before price)",
+      rvi2:"L4 · Retail vs institution", aimap:"L4 · AI-market mapping",
+      scn:"L5 · Scenarios", scnNote:"Probabilities from the current read; each with a concrete trigger.",
+      fals:"L5 · Falsification — what would flip the thesis", ew:"L5 · Early-warning checklist",
+      mm:"L1 · Money map", mmNote:"The reservoirs and the channels between them (curated framework).",
+      mmRes:"Reservoirs", mmChan:"Flow channels", news:"News radar (fetched on refresh)",
+      blind:"Blind spots", trigger:"Trigger"},
+  zh:{home:"外部市場分析", lang:"EN", refresh:"↻ 更新",
+      pwPrompt:"輸入更新密碼(預設 capflow2026):", refreshing:"更新中…即時數據 + Claude L4/L5",
+      done:"完成,重新載入中…", fail:"更新失敗", demo:"種子/示範視圖 — 按 ↻ 更新 抓即時數據(若設了 API key 會跑 Claude L4/L5)。",
+      asof:"資料時點", engineRules:"引擎:規則(無 API key)", engineClaude:"引擎:Claude Opus 4.8",
+      marg:"邊際資金方向", ai:"AI 延續訊號", rvi:"散戶 vs 機構",
+      retail:"散戶", inst:"機構", aiHint:"分數越高 = 資金越支撐 AI 延續",
+      lens:"三鏡頭交叉驗證", lensNote:"流動性 / 價格 / 部位 — 三者是否一致?",
+      aligned:"✓ 三鏡頭一致 — 判讀信心較高。", notAligned:"✕ 鏡頭背離 — 信心較低;訊號視為雙向。",
+      res:"L3 · 即時流向診斷", resNote:"過去一個月邊際資金往哪走,逐一蓄水池。月變化;● = risk-on / risk-off 傾向。",
+      thesis:"L4 · AI 市場論點", conf:"信心", leads:"領先訊號(比股價先動)",
+      rvi2:"L4 · 散戶 vs 機構", aimap:"L4 · AI 市場映射",
+      scn:"L5 · 情境", scnNote:"機率來自當前判讀;每個情境附具體觸發條件。",
+      fals:"L5 · 證偽 — 什麼會翻轉論點", ew:"L5 · 早期預警清單",
+      mm:"L1 · 資金地圖", mmNote:"蓄水池與彼此之間的流動管道(策展框架)。",
+      mmRes:"蓄水池", mmChan:"流動管道", news:"新聞雷達(更新時抓取)",
+      blind:"盲點", trigger:"觸發"}
+};
+
+function L(o,base){ return (o && (o[base+"_"+LANG] ?? o[base+"_en"])) || ""; }
+function fmtChg(v,unit){
+  if(v===null||v===undefined) return "—";
+  const isPct = unit==="%"||unit===""||unit===undefined;
+  const sign = v>0?"+":"";
+  return sign + v + (unit && unit!=="%"? "" : (isPct?"%":""));
+}
+function chgClass(v){ if(v===null||v===undefined||v===0) return "flat"; return v>0?"up":"down"; }
+
+function render(){
+  const t = T[LANG], s = SNAP;
+  document.documentElement.lang = LANG==="zh"?"zh-Hant":"en";
+  document.getElementById("title").textContent = LANG==="zh"? s.title_zh : s.title_en;
+  document.getElementById("langBtn").textContent = t.lang;
+  document.getElementById("refreshBtn").textContent = t.refresh;
+  document.getElementById("crumbHome").textContent = t.home;
+  document.getElementById("asof").textContent = t.asof + " " + (s.as_of||"") + (s.generated_at? " · "+s.generated_at : "");
+  document.getElementById("engine").textContent = s.analysis_engine==="claude"? t.engineClaude : t.engineRules;
+  document.getElementById("method").textContent = LANG==="zh"? s.method_zh : s.method_en;
+  const demo = document.getElementById("demo");
+  if(s.is_demo){ demo.style.display="block"; demo.textContent = t.demo; } else { demo.style.display="none"; }
+
+  const l3 = s.l3;
+  // hero — marginal direction
+  const md = l3.marginal_direction;
+  document.getElementById("h_marg").textContent = t.marg;
+  document.getElementById("margScore").textContent = (md.score>0?"+":"") + md.score;
+  const mtag = document.getElementById("margTag");
+  mtag.textContent = LANG==="zh"? md.label_zh : md.label_en;
+  mtag.className = "tag " + (md.score>25?"on":md.score<-25?"off":"neutral");
+  document.getElementById("margPin").style.left = ((md.score+100)/200*100) + "%";
+
+  // ai signal
+  const ai = l3.ai_signal;
+  document.getElementById("h_ai").textContent = t.ai;
+  document.getElementById("aiScore").textContent = ai.score;
+  const aitag = document.getElementById("aiTag");
+  aitag.textContent = LANG==="zh"? ai.label_zh : ai.label_en;
+  aitag.className = "tag " + (ai.score>=60?"on":ai.score<=40?"off":"neutral");
+  document.getElementById("aiHint").textContent = t.aiHint;
+
+  // retail vs inst
+  const rvi = l3.retail_vs_inst;
+  document.getElementById("h_rvi").textContent = t.rvi;
+  document.getElementById("rvi_r_l").textContent = t.retail;
+  document.getElementById("rvi_i_l").textContent = t.inst;
+  document.getElementById("rviRetail").textContent = (rvi.retail>0?"+":"")+rvi.retail;
+  document.getElementById("rviInst").textContent = (rvi.institution>0?"+":"")+rvi.institution;
+  document.getElementById("rviDiv").textContent = (LANG==="zh"?"背離 ":"divergence ") + (rvi.divergence>0?"+":"") + rvi.divergence + (rvi.warning? (LANG==="zh"?" ⚠ 散戶過熱":" ⚠ retail hot"):"");
+
+  // lenses
+  document.getElementById("h_lens").textContent = t.lens;
+  document.getElementById("n_lens").textContent = t.lensNote;
+  const lz = l3.lenses, lensBox = document.getElementById("lenses");
+  const lensKeys = [["liquidity", LANG==="zh"?"流動性":"Liquidity"],["price",LANG==="zh"?"價格":"Price"],["positioning",LANG==="zh"?"部位":"Positioning"]];
+  lensBox.innerHTML = lensKeys.map(([k,lab])=>{
+    const o = lz[k]; const cls = o.label;
+    return `<div class="lens"><div class="k">${lab}</div><div class="v">${o.score>0?"+":""}${o.score}</div><span class="tag ${cls}">${cls.replace("_"," ")}</span></div>`;
+  }).join("");
+  document.getElementById("lensAlign").textContent = lz.aligned? t.aligned : t.notAligned;
+  document.getElementById("lensAlign").style.color = lz.aligned? "var(--on)":"var(--neu)";
+
+  // reservoirs
+  document.getElementById("h_res").textContent = t.res;
+  document.getElementById("n_res").textContent = t.resNote;
+  document.getElementById("reservoirs").innerHTML = l3.reservoirs.map(r=>{
+    const inds = r.indicators.map(i=>`
+      <div class="ind">
+        <span class="iname">${LANG==="zh"?i.name_zh:i.name_en}${i.live?' <span class="live">live</span>':''}</span>
+        <span class="ival"><span class="chg ${chgClass(i.chg_1m)}">${fmtChg(i.chg_1m,i.unit)}</span><span class="dot ${i.signal}"></span></span>
+      </div>`).join("");
+    return `<div class="rescard">
+      <div class="reshead"><span class="nm">${LANG==="zh"?r.name_zh:r.name_en}</span><span class="tag ${r.signal}">${r.signal.replace("_"," ")}</span></div>
+      <div class="ressize">${LANG==="zh"?r.size_zh:r.size_en}</div>
+      <div class="resrole">${LANG==="zh"?r.role_zh:r.role_en}</div>
+      ${inds}
+    </div>`;
+  }).join("");
+
+  // L4
+  const l4 = s.l4;
+  document.getElementById("h_thesis").textContent = t.thesis;
+  document.getElementById("thesisDir").textContent = LANG==="zh"? l4.thesis.direction_zh : l4.thesis.direction_en;
+  document.getElementById("thesisConf").textContent = t.conf + ": " + l4.thesis.confidence;
+  document.getElementById("h_leads").textContent = t.leads;
+  document.getElementById("leads").innerHTML = l4.thesis.leading_signals.map(x=>`<li>${LANG==="zh"?x.zh:x.en}</li>`).join("");
+  document.getElementById("h_rvi2").textContent = t.rvi2;
+  document.getElementById("rviText").textContent = LANG==="zh"? l4.retail_vs_institution.summary_zh : l4.retail_vs_institution.summary_en;
+  document.getElementById("h_aimap").textContent = t.aimap;
+  document.getElementById("aiMapText").textContent = LANG==="zh"? l4.ai_mapping.summary_zh : l4.ai_mapping.summary_en;
+
+  // L5
+  const l5 = s.l5;
+  document.getElementById("h_scn").textContent = t.scn;
+  document.getElementById("n_scn").textContent = t.scnNote;
+  document.getElementById("scenarios").innerHTML = l5.scenarios.map(sc=>`
+    <div class="scn">
+      <div class="scnhead"><span class="scnname">${LANG==="zh"?sc.name_zh:sc.name_en}</span><span class="scnprob">${sc.prob}%</span></div>
+      <div class="bar"><i style="width:${sc.prob}%"></i></div>
+      <div class="scntrig">${t.trigger}: ${LANG==="zh"?sc.trigger_zh:sc.trigger_en}</div>
+    </div>`).join("");
+  document.getElementById("h_fals").textContent = t.fals;
+  document.getElementById("falsification").innerHTML = l5.falsification.map(x=>`<li>${LANG==="zh"?x.zh:x.en}</li>`).join("");
+  document.getElementById("h_ew").textContent = t.ew;
+  document.getElementById("earlyWarn").innerHTML = l5.early_warning.map(x=>`<tr><td>${LANG==="zh"?x.zh:x.en}</td><td class="f">${x.freq}</td></tr>`).join("");
+
+  // money map
+  const mm = s.money_map;
+  document.getElementById("h_mm").textContent = t.mm;
+  document.getElementById("n_mm").textContent = t.mmNote;
+  document.getElementById("mm_res_l").textContent = t.mmRes;
+  document.getElementById("mm_chan_l").textContent = t.mmChan;
+  document.getElementById("mmRes").innerHTML = mm.reservoirs.map(r=>`<div class="chan"><b>${LANG==="zh"?r.name_zh:r.name_en}</b> · ${LANG==="zh"?r.size_zh:r.size_en}<br>${LANG==="zh"?r.role_zh:r.role_en}</div>`).join("");
+  const nmeById = {}; mm.reservoirs.forEach(r=>nmeById[r.id]=LANG==="zh"?r.name_zh:r.name_en);
+  document.getElementById("mmChan").innerHTML = mm.channels.map(c=>`<div class="chan"><b>${nmeById[c.from]||c.from}</b> <span class="arrow">→</span> <b>${nmeById[c.to]||c.to}</b><br>${LANG==="zh"?c.trigger_zh:c.trigger_en}</div>`).join("");
+  document.getElementById("mmTap").textContent = (LANG==="zh"? mm.tap.name_zh+"："+mm.tap.desc_zh : mm.tap.name_en+" — "+mm.tap.desc_en);
+
+  // news
+  if(s.news && s.news.length){
+    document.getElementById("newsPanel").style.display="block";
+    document.getElementById("h_news").textContent = t.news;
+    document.getElementById("news").innerHTML = s.news.slice(0,12).map(n=>`<a href="${n.url}" target="_blank" rel="noopener">${n.title} <span class="src">${n.source?("· "+n.source):""} ${n.date||""}</span></a>`).join("");
+  }
+
+  // blind spots + method
+  document.getElementById("blindHead").textContent = t.blind + ":";
+  const blind = LANG==="zh"? s.blind_spots_zh : s.blind_spots_en;
+  document.getElementById("blind").innerHTML = (blind||[]).map(b=>`<li>· ${b}</li>`).join("");
+  document.getElementById("methodFoot").textContent = LANG==="zh"? s.method_zh : s.method_en;
+}
+
+document.getElementById("langBtn").addEventListener("click",()=>{
+  LANG = LANG==="zh"?"en":"zh"; localStorage.setItem("flows_lang",LANG); render();
+});
+async function doRefresh(){
+  const t = T[LANG];
+  const pw = prompt(t.pwPrompt); if(!pw) return;
+  const st = document.getElementById("status"); st.textContent = t.refreshing;
+  try{
+    const r = await fetch("/flows/api/refresh",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({password:pw})});
+    const j = await r.json();
+    if(!r.ok || !j.ok){ st.textContent = t.fail + (j.error?` (${j.error})`:""); return; }
+    st.textContent = `${t.done} (${j.engine}, ${j.live_metrics} live)`;
+    setTimeout(()=>location.reload(),900);
+  }catch(e){ st.textContent = t.fail; }
+}
+document.getElementById("refreshBtn").addEventListener("click",doRefresh);
+render();
+</script>
+</body>
+</html>

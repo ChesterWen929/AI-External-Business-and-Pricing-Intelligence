@@ -1,0 +1,97 @@
+{
+  "version": "1.0",
+  "as_of_curated": "2026-06-14",
+  "title_en": "Capital Flow Radar",
+  "title_zh": "資金流向雷達",
+  "method_en": "Five sequential layers: (L1) money map + (L2) indicator dictionary are a curated KB; (L3) live flow diagnosis is pure-quant from yfinance + FRED (keyless fredgraph.csv) + defillama; (L4) retail-vs-institution split + AI-market mapping and (L5) scenarios/triggers/falsification are synthesized by Claude on each refresh (rules fallback if no API key). Seed values let the dashboard render offline.",
+  "method_zh": "五層循序：(L1)資金地圖 +(L2)指標字典為策展知識庫；(L3)即時流向診斷純量化,取自 yfinance + FRED(免 key 的 fredgraph.csv)+ defillama;(L4)散戶vs機構拆解 + AI 市場映射、(L5)情境/觸發/證偽,每次刷新由 Claude 綜合(無 API key 時走規則 fallback)。種子值讓儀表板可離線渲染。",
+
+  "reservoirs": [
+    {"id": "cash_mmf",   "name_en": "Cash / Money-market funds", "name_zh": "現金 / 貨幣市場基金", "size_en": "~$7.0T", "size_zh": "約 $7.0兆", "role_en": "Sidelined dry powder; the marginal fuel for risk assets.", "role_zh": "場邊乾火藥;風險資產的邊際燃料。", "group": "safe"},
+    {"id": "bonds",      "name_en": "Government & credit bonds",  "name_zh": "公債與信用債",       "size_en": "~$28T UST", "size_zh": "約 $28兆 美債", "role_en": "Gravity for all risk assets; rates set the discount rate.", "role_zh": "所有風險資產的地心引力;利率決定折現率。", "group": "safe"},
+    {"id": "gold",       "name_en": "Gold",                       "name_zh": "黃金",               "size_en": "~$18T mkt", "size_zh": "約 $18兆 市值", "role_en": "Safe haven & anti-fiat hedge; inverse to real yields.", "role_zh": "避險與抗法幣對沖;與實質利率反向。", "group": "safe"},
+    {"id": "crypto",     "name_en": "Bitcoin & stablecoins",      "name_zh": "比特幣與穩定幣",     "size_en": "~$2T+$0.25T", "size_zh": "約 $2兆+$0.25兆", "role_en": "Risk-on liquidity sponge; stablecoin supply = crypto dry powder.", "role_zh": "risk-on 流動性海綿;穩定幣供應 = 加密乾火藥。", "group": "risk"},
+    {"id": "equities",   "name_en": "Broad equity market",        "name_zh": "股票大盤",           "size_en": "~$55T US", "size_zh": "約 $55兆 美股", "role_en": "The main risk reservoir; breadth shows participation.", "role_zh": "主要風險蓄水池;廣度顯示參與度。", "group": "risk"},
+    {"id": "ai_sector",  "name_en": "AI / semiconductor sector",  "name_zh": "AI / 半導體板塊",    "size_en": "concentrated", "size_zh": "高度集中", "role_en": "Where the AI thesis is priced; concentration & capex live here.", "role_zh": "AI 論點定價之處;集中度與 capex 在此。", "group": "risk"},
+    {"id": "usd",        "name_en": "US dollar (DXY)",            "name_zh": "美元 (DXY)",         "size_en": "reserve FX", "size_zh": "儲備貨幣", "role_en": "Strong USD drains global liquidity, pressures risk & gold.", "role_zh": "美元走強抽乾全球流動性,壓制風險資產與黃金。", "group": "macro"}
+  ],
+
+  "tap": {
+    "name_en": "Aggregate liquidity (the master tide)",
+    "name_zh": "全市場流動性(主水龍頭)",
+    "desc_en": "Net liquidity = Fed balance sheet − reverse repo − Treasury General Account. The tide that lifts or sinks every reservoir at once.",
+    "desc_zh": "淨流動性 = Fed 資產負債表 − 逆回購 − 財政部帳戶(TGA)。同時抬升或下沉所有蓄水池的潮汐。"
+  },
+
+  "channels": [
+    {"from": "cash_mmf", "to": "equities", "trigger_en": "Risk appetite rises / rate cuts", "trigger_zh": "風險偏好上升 / 降息", "direction": "risk_on"},
+    {"from": "equities", "to": "cash_mmf", "trigger_en": "Rising MMF yields / fear spike", "trigger_zh": "貨幣基金殖利率升 / 恐慌", "direction": "risk_off"},
+    {"from": "bonds",    "to": "gold",     "trigger_en": "Real yields fall / debasement fear", "trigger_zh": "實質利率下降 / 貶值疑慮", "direction": "hedge"},
+    {"from": "gold",     "to": "bonds",    "trigger_en": "Real yields rise", "trigger_zh": "實質利率上升", "direction": "risk_off"},
+    {"from": "cash_mmf", "to": "crypto",   "trigger_en": "Stablecoin supply expands / risk-on", "trigger_zh": "穩定幣供應擴張 / risk-on", "direction": "risk_on"},
+    {"from": "equities", "to": "ai_sector","trigger_en": "AI thesis strength / capex acceleration", "trigger_zh": "AI 論點轉強 / capex 加速", "direction": "risk_on"},
+    {"from": "ai_sector","to": "equities", "trigger_en": "Rotation out of AI / breadth broadens", "trigger_zh": "資金輪出 AI / 廣度擴散", "direction": "rotation"},
+    {"from": "equities", "to": "usd",      "trigger_en": "Global risk-off / USD safe-haven bid", "trigger_zh": "全球 risk-off / 美元避險", "direction": "risk_off"}
+  ],
+
+  "indicators": [
+    {"id": "gold",        "reservoir": "gold",      "name_en": "Gold (GLD)",                 "name_zh": "黃金 (GLD)",        "fetch": {"kind": "yfinance", "ticker": "GLD"},        "freq": "daily",   "rising_means": "hedge",    "rising_en": "Hedge bid (debasement / real-rate fall)", "rising_zh": "避險買盤(貶值/實質利率下降)", "seed": {"value": 386.0, "chg_1w": -2.4, "chg_1m": -10.2}},
+    {"id": "btc",         "reservoir": "crypto",    "name_en": "Bitcoin (BTC-USD)",          "name_zh": "比特幣 (BTC-USD)",  "fetch": {"kind": "yfinance", "ticker": "BTC-USD"},   "freq": "daily",   "rising_means": "risk_on",  "rising_en": "Retail / speculative risk appetite up", "rising_zh": "散戶/投機風險偏好上升", "seed": {"value": 105000.0, "chg_1w": 2.0, "chg_1m": -4.0}},
+    {"id": "spx",         "reservoir": "equities",  "name_en": "S&P 500 (^GSPC)",            "name_zh": "標普500 (^GSPC)",   "fetch": {"kind": "yfinance", "ticker": "^GSPC"},     "freq": "daily",   "rising_means": "risk_on",  "rising_en": "Broad market into risk", "rising_zh": "大盤偏risk-on", "seed": {"value": 6300.0, "chg_1w": 0.6, "chg_1m": 1.8}},
+    {"id": "rsp",         "reservoir": "equities",  "name_en": "Equal-weight S&P (RSP)",     "name_zh": "等權標普 (RSP)",    "fetch": {"kind": "yfinance", "ticker": "RSP"},       "freq": "daily",   "rising_means": "risk_on",  "rising_en": "Breadth — broad participation", "rising_zh": "廣度 — 普遍參與", "seed": {"value": 185.0, "chg_1w": 0.2, "chg_1m": 0.8}},
+    {"id": "qqq",         "reservoir": "equities",  "name_en": "Nasdaq 100 (QQQ)",           "name_zh": "那斯達克100 (QQQ)", "fetch": {"kind": "yfinance", "ticker": "QQQ"},       "freq": "daily",   "rising_means": "risk_on",  "rising_en": "Growth / tech bid", "rising_zh": "成長/科技買盤", "seed": {"value": 560.0, "chg_1w": 0.9, "chg_1m": 2.5}},
+    {"id": "semis",       "reservoir": "ai_sector", "name_en": "Semiconductors (SOXX)",      "name_zh": "半導體 (SOXX)",     "fetch": {"kind": "yfinance", "ticker": "SOXX"},      "freq": "daily",   "rising_means": "risk_on",  "rising_en": "AI-infrastructure demand bid", "rising_zh": "AI 基礎設施需求買盤", "seed": {"value": 280.0, "chg_1w": 1.5, "chg_1m": 4.2}},
+    {"id": "arkk",        "reservoir": "equities",  "name_en": "Speculative growth (ARKK)",  "name_zh": "投機成長 (ARKK)",   "fetch": {"kind": "yfinance", "ticker": "ARKK"},      "freq": "daily",   "rising_means": "risk_on",  "rising_en": "Retail speculation proxy", "rising_zh": "散戶投機代理", "seed": {"value": 62.0, "chg_1w": 1.0, "chg_1m": -2.0}},
+    {"id": "iwm",         "reservoir": "equities",  "name_en": "Small caps (IWM)",           "name_zh": "小型股 (IWM)",      "fetch": {"kind": "yfinance", "ticker": "IWM"},       "freq": "daily",   "rising_means": "risk_on",  "rising_en": "Cyclical / breadth risk appetite", "rising_zh": "景氣循環/廣度風險偏好", "seed": {"value": 220.0, "chg_1w": 0.1, "chg_1m": 0.4}},
+    {"id": "tlt",         "reservoir": "bonds",     "name_en": "Long Treasuries (TLT)",      "name_zh": "長天期公債 (TLT)",  "fetch": {"kind": "yfinance", "ticker": "TLT"},       "freq": "daily",   "rising_means": "risk_off", "rising_en": "Flight to safety / falling rates", "rising_zh": "避險/利率下降", "seed": {"value": 88.0, "chg_1w": -0.5, "chg_1m": -1.5}},
+    {"id": "hyg",         "reservoir": "bonds",     "name_en": "High-yield credit (HYG)",    "name_zh": "高收益債 (HYG)",    "fetch": {"kind": "yfinance", "ticker": "HYG"},       "freq": "daily",   "rising_means": "risk_on",  "rising_en": "Credit risk appetite intact", "rising_zh": "信用風險偏好仍在", "seed": {"value": 79.0, "chg_1w": 0.2, "chg_1m": 0.6}},
+    {"id": "dxy",         "reservoir": "usd",       "name_en": "US Dollar Index (DXY)",      "name_zh": "美元指數 (DXY)",    "fetch": {"kind": "yfinance", "ticker": "DX-Y.NYB"},  "freq": "daily",   "rising_means": "risk_off", "rising_en": "Strong USD drains global liquidity", "rising_zh": "美元走強抽乾全球流動性", "seed": {"value": 99.5, "chg_1w": 0.3, "chg_1m": -0.8}},
+    {"id": "vix",         "reservoir": "equities",  "name_en": "Volatility (VIX)",           "name_zh": "波動率 (VIX)",      "fetch": {"kind": "yfinance", "ticker": "^VIX"},      "freq": "daily",   "rising_means": "risk_off", "rising_en": "Fear up — hedging demand", "rising_zh": "恐慌上升 — 避險需求", "seed": {"value": 17.7, "chg_1w": -3.8, "chg_1m": 0.4}, "is_level": true},
+
+    {"id": "walcl",       "reservoir": "cash_mmf",  "name_en": "Fed balance sheet (WALCL)",  "name_zh": "Fed 資產負債表",    "fetch": {"kind": "fred", "series": "WALCL", "scale": 0.001}, "unit": "$B", "freq": "weekly",  "rising_means": "risk_on",  "rising_en": "Liquidity injection", "rising_zh": "流動性注入", "seed": {"value": 6600.0, "chg_1w": -0.3, "chg_1m": -0.8}},
+    {"id": "rrp",         "reservoir": "cash_mmf",  "name_en": "Reverse repo (RRP)",         "name_zh": "逆回購 (RRP)",      "fetch": {"kind": "fred", "series": "RRPONTSYD"},     "unit": "$B", "freq": "daily",   "rising_means": "risk_off", "rising_en": "Cash parked at Fed (drains net liquidity)", "rising_zh": "資金停在 Fed(抽乾淨流動性)", "seed": {"value": 250.0, "chg_1w": -2.0, "chg_1m": -10.0}},
+    {"id": "tga",         "reservoir": "cash_mmf",  "name_en": "Treasury account (TGA)",     "name_zh": "財政部帳戶 (TGA)",  "fetch": {"kind": "fred", "series": "WTREGEN"},       "unit": "$B", "freq": "weekly",  "rising_means": "risk_off", "rising_en": "Treasury draining cash from markets", "rising_zh": "財政部從市場抽走現金", "seed": {"value": 750.0, "chg_1w": 1.0, "chg_1m": 4.0}},
+    {"id": "m2",          "reservoir": "cash_mmf",  "name_en": "Money supply (M2, WM2NS)",   "name_zh": "貨幣供給 (M2)",     "fetch": {"kind": "fred", "series": "WM2NS"},        "unit": "$B", "freq": "weekly",  "rising_means": "risk_on",  "rising_en": "Money growth supports risk", "rising_zh": "貨幣成長支撐風險", "seed": {"value": 21800.0, "chg_1w": 0.1, "chg_1m": 0.4}},
+    {"id": "real10y",     "reservoir": "bonds",     "name_en": "10y real yield (DFII10)",    "name_zh": "10年實質利率",      "fetch": {"kind": "fred", "series": "DFII10"},       "unit": "%",  "freq": "daily",   "rising_means": "risk_off", "rising_en": "Higher discount rate — headwind for gold & AI valuations", "rising_zh": "折現率上升 — 黃金與 AI 估值逆風", "seed": {"value": 2.0, "chg_1w": -0.03, "chg_1m": -0.1}, "is_level": true},
+    {"id": "nom10y",      "reservoir": "bonds",     "name_en": "10y Treasury yield (DGS10)", "name_zh": "10年公債殖利率",    "fetch": {"kind": "fred", "series": "DGS10"},        "unit": "%",  "freq": "daily",   "rising_means": "risk_off", "rising_en": "Higher risk-free rate", "rising_zh": "無風險利率上升", "seed": {"value": 4.3, "chg_1w": -0.05, "chg_1m": -0.15}, "is_level": true},
+    {"id": "hy_oas",      "reservoir": "bonds",     "name_en": "High-yield OAS spread",      "name_zh": "高收益信用利差",    "fetch": {"kind": "fred", "series": "BAMLH0A0HYM2"}, "unit": "%",  "freq": "daily",   "rising_means": "risk_off", "rising_en": "Credit stress — early risk-off warning", "rising_zh": "信用壓力 — 早期 risk-off 警訊", "seed": {"value": 3.1, "chg_1w": -0.05, "chg_1m": -0.2}, "is_level": true},
+
+    {"id": "stablecoins", "reservoir": "crypto",    "name_en": "Stablecoin supply (USDT+USDC+…)", "name_zh": "穩定幣總供應", "fetch": {"kind": "defillama"}, "unit": "$B", "freq": "daily", "rising_means": "risk_on", "rising_en": "Crypto dry powder entering", "rising_zh": "加密乾火藥進場", "seed": {"value": 314.0, "chg_1w": -0.3, "chg_1m": -2.5}}
+  ],
+
+  "computed": [
+    {"id": "net_liquidity", "name_en": "Net liquidity (WALCL−RRP−TGA)", "name_zh": "淨流動性(WALCL−RRP−TGA)", "unit": "$B", "formula": "walcl - rrp - tga", "rising_means": "risk_on", "rising_en": "Master tide rising — fuel for risk", "rising_zh": "主潮上升 — 風險資產燃料"},
+    {"id": "breadth", "name_en": "Breadth (RSP/SPX relative)", "name_zh": "市場廣度(等權/市值)", "unit": "rel%", "formula": "rsp_minus_spx", "rising_means": "risk_on", "rising_en": "Broadening participation (healthy)", "rising_zh": "參與度擴散(健康)", "falling_en": "Narrowing — concentration risk", "falling_zh": "收窄 — 集中度風險"},
+    {"id": "ai_rel", "name_en": "AI leadership (SOXX vs SPX)", "name_zh": "AI 領先度(SOXX vs SPX)", "unit": "rel%", "formula": "semis_minus_spx", "rising_means": "risk_on", "rising_en": "AI leading the tape", "rising_zh": "AI 領漲", "falling_en": "AI lagging — thesis cooling", "falling_zh": "AI 落後 — 論點降溫"}
+  ],
+
+  "retail_proxies": ["btc", "arkk", "iwm"],
+  "institution_proxies": ["hy_oas", "vix", "gold", "tlt"],
+  "ai_signal_inputs": ["semis", "ai_rel", "breadth", "net_liquidity", "stablecoins"],
+
+  "scenarios_seed": [
+    {"id": "continuation", "name_en": "Liquidity holds → AI continues", "name_zh": "流動性續強 → AI 延續", "trigger_en": "Net liquidity rising + breadth ≥0 + HY OAS <3.5%", "trigger_zh": "淨流動性上升 + 廣度≥0 + HY OAS <3.5%"},
+    {"id": "rotation",     "name_en": "Rotation → AI corrects, index holds", "name_zh": "資金輪動 → AI 補跌、大盤撐住", "trigger_en": "AI_rel falling while RSP holds + breadth broadening", "trigger_zh": "AI 領先度下滑但 RSP 撐住 + 廣度擴散"},
+    {"id": "blowoff",      "name_en": "Retail blow-off → whistle period", "name_zh": "散戶見頂式狂熱 → 吹哨期", "trigger_en": "BTC+ARKK surging with margin/leverage as institutions raise cash", "trigger_zh": "BTC+ARKK 噴出且槓桿上升,同時機構加現金"},
+    {"id": "regime_break", "name_en": "Credit cracks → regime break", "name_zh": "信用裂縫 → regime break", "trigger_en": "HY OAS widening >50bp + VIX >22 + net liquidity contracting", "trigger_zh": "HY OAS 擴張 >50bp + VIX >22 + 淨流動性收縮"}
+  ],
+
+  "blind_spots_en": [
+    "No direct institutional positioning (CFTC COT, BofA FMS cash, 13F) in the free layer — inferred from price/credit/vol proxies.",
+    "Retail behavior (0DTE options, AAII, margin debt) is proxied by BTC/ARKK/IWM, not measured directly.",
+    "Fund-flow (ETF creations/redemptions) not yet wired — would sharpen the reservoir-level read."
+  ],
+  "blind_spots_zh": [
+    "免費層沒有機構部位直接數據(CFTC COT、BofA FMS 現金、13F)——以價格/信用/波動代理推斷。",
+    "散戶行為(0DTE 選擇權、AAII、margin debt)以 BTC/ARKK/IWM 代理,非直接量測。",
+    "ETF 申購/贖回的資金流尚未接入——接上後可銳化蓄水池層的判讀。"
+  ],
+
+  "news_queries": [
+    "money market fund flows record cash",
+    "stablecoin supply growth crypto liquidity",
+    "AI stocks concentration breadth market",
+    "high yield credit spreads widening",
+    "Fed balance sheet liquidity reverse repo"
+  ]
+}
