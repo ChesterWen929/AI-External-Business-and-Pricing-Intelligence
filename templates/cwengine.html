@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CapEx → Wafer Demand Inference Engine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0b0f; --panel:rgba(22,24,31,.72); --panel-hi:rgba(30,33,42,.9);
+    --line:rgba(255,255,255,.08); --line-hi:rgba(255,255,255,.16);
+    --ink:#ecedf2; --soft:#a6a9b8; --dim:#6a6e80; --gold:#c8a86a; --acc:#7c83ff; --teal:#5fb8a0;
+    --up:#43c08a; --down:#e0626e;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:radial-gradient(1100px 560px at 82% -14%,rgba(124,131,255,.10),transparent 58%),radial-gradient(900px 520px at -8% 4%,rgba(200,168,106,.08),transparent 52%),var(--bg);
+       color:var(--ink);font-family:"Inter","PingFang TC","Noto Sans TC",-apple-system,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1120px;margin:0 auto;padding:22px 26px 70px}
+  .top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:8px}
+  .brand{display:flex;align-items:center;gap:11px}
+  .gem{width:16px;height:16px;transform:rotate(45deg);border:1px solid var(--gold);border-radius:4px;position:relative}
+  .gem::after{content:"";position:absolute;inset:4px;background:var(--gold);border-radius:2px;opacity:.85}
+  h1{font-family:"Noto Serif TC",serif;font-weight:600;font-size:21px;letter-spacing:.5px}
+  .tools{display:flex;align-items:center;gap:10px}
+  .btn{font-size:12px;padding:6px 12px;border-radius:8px;border:1px solid var(--line-hi);background:transparent;color:var(--soft);cursor:pointer;transition:.15s}
+  .btn:hover{color:var(--ink);border-color:var(--acc)}
+  .btn.go{border-color:var(--acc);color:var(--acc)}
+  .status{font-size:11.5px;color:var(--dim)}
+  .crumb{font-size:11px;color:var(--dim);letter-spacing:.4px;margin-bottom:16px}
+  .crumb a:hover{color:var(--gold)}
+  .demo{background:rgba(200,168,106,.10);border:1px solid rgba(200,168,106,.3);color:var(--gold);font-size:12px;padding:9px 13px;border-radius:10px;margin-bottom:16px;line-height:1.5}
+  .sub{color:var(--soft);font-size:12.5px;line-height:1.65;margin-bottom:8px}
+  .caveat{color:var(--dim);font-size:11.5px;line-height:1.6;margin-bottom:20px;border-left:2px solid var(--line-hi);padding-left:12px}
+
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin-bottom:16px}
+  .eyebrow{font-size:10.5px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);opacity:.85}
+  .panel h2{font-family:"Noto Serif TC",serif;font-size:16px;font-weight:600;letter-spacing:.5px;margin:5px 0 3px}
+  .panel .note{font-size:11.5px;color:var(--dim);margin-bottom:14px;line-height:1.55}
+
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 14px}
+  .chip{font-size:11.5px;padding:5px 11px;border-radius:999px;border:1px solid var(--line-hi);color:var(--soft);cursor:pointer;transition:.15s;background:transparent}
+  .chip:hover{color:var(--ink);border-color:var(--acc)}
+  .chip.on{background:rgba(200,168,106,.14);border-color:var(--gold);color:var(--gold)}
+  .chip small{color:var(--dim);margin-left:5px}
+
+  .hero{display:grid;grid-template-columns:1.25fr 1fr;gap:18px;align-items:center}
+  @media(max-width:760px){.hero{grid-template-columns:1fr}}
+  .big{font-variant-numeric:tabular-nums;font-weight:600;font-size:46px;letter-spacing:.5px;line-height:1}
+  .big small{font-size:15px;color:var(--soft);font-weight:500;margin-left:8px}
+  .sub2{font-size:12px;color:var(--dim);margin-top:6px}
+  .rbadge{display:inline-block;font-size:11px;font-weight:500;padding:3px 10px;border-radius:999px;letter-spacing:.4px;border:1px solid var(--line-hi);margin-bottom:8px}
+  .bandwrap{margin-top:6px}
+  .bandlabel{display:flex;justify-content:space-between;font-size:11px;color:var(--dim);margin-bottom:4px}
+  .bandtrack{position:relative;height:12px;border-radius:999px;background:rgba(255,255,255,.05);overflow:hidden}
+  .bandfill{position:absolute;top:0;height:100%;background:linear-gradient(90deg,rgba(124,131,255,.4),rgba(200,168,106,.55));border-radius:999px}
+  .bandpin{position:absolute;top:-3px;width:3px;height:18px;background:#fff;border-radius:2px;box-shadow:0 0 8px rgba(255,255,255,.6)}
+  .bandnums{display:flex;justify-content:space-between;font-variant-numeric:tabular-nums;font-size:12px;margin-top:6px;color:var(--soft)}
+  .env{font-size:11px;color:var(--dim);margin-top:8px;line-height:1.5}
+  .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:6px}
+  .kpi{background:var(--panel-hi);border:1px solid var(--line);border-radius:11px;padding:11px 13px}
+  .kpi .k{font-size:10.5px;color:var(--soft);letter-spacing:.4px}
+  .kpi .v{font-variant-numeric:tabular-nums;font-size:18px;font-weight:600;margin-top:3px}
+  .kpi .u{font-size:10.5px;color:var(--dim)}
+
+  table.t{width:100%;border-collapse:collapse;font-size:12px;margin-top:6px}
+  table.t th{text-align:right;font-weight:500;color:var(--dim);font-size:10.5px;letter-spacing:.4px;padding:7px 7px;border-bottom:1px solid var(--line-hi);text-transform:uppercase}
+  table.t th:first-child,table.t td:first-child{text-align:left}
+  table.t td{padding:8px 7px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+  table.t tr:hover td{background:rgba(255,255,255,.02)}
+  .segname{font-weight:500;color:var(--ink)} .segex{font-size:10px;color:var(--dim)}
+  .nodepill{font-size:10px;color:var(--soft);border:1px solid var(--line);border-radius:5px;padding:1px 6px}
+
+  /* waterfall */
+  .wf{display:flex;flex-direction:column;gap:8px}
+  .wfstage{background:var(--panel-hi);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .wfhead{display:grid;grid-template-columns:26px 1fr auto;gap:12px;align-items:center;padding:12px 14px;cursor:pointer;transition:.15s}
+  .wfhead:hover{background:rgba(255,255,255,.03)}
+  .wfn{width:26px;height:26px;border-radius:50%;border:1px solid var(--gold);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600}
+  .wfmid .nm{font-size:13px;font-weight:500}
+  .wfmid .flow{font-size:11px;color:var(--soft);margin-top:3px}
+  .wfmid .flow .arr{color:var(--gold);margin:0 5px}
+  .wfright{text-align:right}
+  .wfout{font-variant-numeric:tabular-nums;font-weight:600;font-size:14px}
+  .wfconf{font-size:10px;margin-top:3px}
+  .wfbody{display:none;padding:0 14px 14px 52px;font-size:12px;color:var(--soft);line-height:1.6}
+  .wfstage.open .wfbody{display:block}
+  .wfmeta{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+  .metapill{font-size:10.5px;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:2px 8px}
+  .metapill b{color:var(--soft);font-weight:500}
+  .evchip{display:inline-block;font-size:10.5px;color:var(--teal);border:1px solid rgba(95,184,160,.3);background:rgba(95,184,160,.08);border-radius:6px;padding:2px 8px;margin:3px 4px 0 0}
+  .evchip .tier{color:var(--dim);margin-left:5px}
+  .caret{color:var(--dim);font-size:11px;transition:.15s}
+  .wfstage.open .caret{transform:rotate(90deg);color:var(--gold)}
+
+  .conf-high{color:var(--up)} .conf-medium,.conf-medium-high{color:var(--gold)} .conf-low{color:var(--down)}
+  .tag{display:inline-block;font-size:10px;font-weight:500;padding:1px 7px;border-radius:999px}
+  .tag-high{background:rgba(67,192,138,.15);color:var(--up)} .tag-medium,.tag-medium-high{background:rgba(200,168,106,.15);color:var(--gold)} .tag-low{background:rgba(224,98,110,.15);color:var(--down)}
+
+  /* scenarios */
+  .scen{padding:12px 0;border-top:1px solid var(--line)}
+  .scen:first-child{border-top:none}
+  .scenhead{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+  .scenname{font-size:13px;font-weight:500}
+  .scenname .era{color:var(--dim);font-size:10.5px;margin-left:6px}
+  .scenval{font-variant-numeric:tabular-nums;font-weight:600;font-size:15px}
+  .scenval small{color:var(--soft);font-size:11px;font-weight:400;margin-left:5px}
+  .sbar{height:9px;border-radius:999px;background:rgba(255,255,255,.05);margin:8px 0 5px;overflow:hidden;position:relative}
+  .sbar i{display:block;height:100%;border-radius:999px}
+  .sbar .lohi{position:absolute;top:0;height:100%;background:rgba(255,255,255,.10)}
+  .scenmeta{font-size:11px;color:var(--dim);display:flex;gap:14px;flex-wrap:wrap}
+  .spread{font-size:12px;color:var(--gold);margin-top:12px;text-align:center}
+
+  /* drift */
+  .drift{display:flex;flex-direction:column;gap:12px}
+  .driftcard{background:var(--panel-hi);border:1px solid var(--line);border-radius:12px;padding:13px 15px;display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center}
+  .driftcard.up{border-left:3px solid var(--up)} .driftcard.down{border-left:3px solid var(--down)}
+  .driftnm{font-size:13px;font-weight:500}
+  .driftmetric{font-size:11px;color:var(--soft);margin-top:3px}
+  .driftchg{font-variant-numeric:tabular-nums;font-size:13px;margin-top:6px}
+  .driftchg .arr-up{color:var(--up)} .driftchg .arr-down{color:var(--down)}
+  .spark{display:block}
+  .driftflag{font-size:10px;color:var(--gold);letter-spacing:.3px;margin-top:5px}
+
+  /* sensitivity */
+  .sens{display:flex;flex-direction:column;gap:9px}
+  .sensrow{display:grid;grid-template-columns:200px 1fr 64px;gap:12px;align-items:center;font-size:12px}
+  @media(max-width:680px){.sensrow{grid-template-columns:130px 1fr 54px}}
+  .sensnm{color:var(--soft)}
+  .senstrack{height:14px;border-radius:6px;background:rgba(255,255,255,.05);overflow:hidden}
+  .senstrack i{display:block;height:100%;background:linear-gradient(90deg,var(--acc),var(--gold));border-radius:6px}
+  .senspct{text-align:right;font-variant-numeric:tabular-nums;color:var(--ink)}
+  .regswing{margin-top:12px;font-size:12px;color:var(--soft);background:rgba(124,131,255,.08);border:1px solid rgba(124,131,255,.2);border-radius:10px;padding:11px 13px;line-height:1.55}
+
+  /* evidence intake */
+  .evintake textarea{width:100%;min-height:80px;background:var(--panel-hi);border:1px solid var(--line-hi);border-radius:10px;color:var(--ink);font-family:inherit;font-size:12.5px;padding:11px 13px;resize:vertical}
+  .evintake textarea:focus{outline:none;border-color:var(--acc)}
+  .evrow{display:flex;gap:10px;align-items:center;margin-top:10px;flex-wrap:wrap}
+  .proposal{margin-top:14px;background:var(--panel-hi);border:1px solid var(--gold);border-radius:12px;padding:14px 16px;display:none}
+  .proposal.show{display:block}
+  .proposal .ph{font-size:11px;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px}
+  .proposal .pg{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+  .proposal .body{font-size:12.5px;line-height:1.6;color:var(--ink)}
+  .proposal .hil{font-size:11px;color:var(--dim);margin-top:9px;border-top:1px solid var(--line);padding-top:9px}
+
+  .evlist .ev{padding:10px 0;border-top:1px solid var(--line);font-size:12px;line-height:1.55}
+  .evlist .ev:first-child{border-top:none}
+  .evlist .evh{display:flex;justify-content:space-between;gap:10px;color:var(--soft)}
+  .evlist .evsnip{color:var(--ink);margin:4px 0}
+  .evlist .evlink{color:var(--dim);font-size:10.5px}
+  .evlist .evlink b{color:var(--teal);font-weight:500}
+
+  .src{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+  .srcpill{font-size:11px;color:var(--soft);border:1px solid var(--line);border-radius:8px;padding:6px 11px}
+  .srcpill b{color:var(--gold);font-weight:600;margin-right:6px}
+  .foot{margin-top:24px;font-size:11px;color:var(--dim);line-height:1.7}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand"><span class="gem"></span><h1 id="title"></h1></div>
+    <div class="tools">
+      <button class="btn" id="langBtn"></button>
+      <button class="btn go" id="refreshBtn"></button>
+      <span class="status" id="status"></span>
+    </div>
+  </div>
+  <div class="crumb"><a href="/">← <span id="crumbHome"></span></a> · <span id="asof"></span></div>
+  <div id="demo" class="demo" style="display:none"></div>
+  <div class="sub" id="subtitle"></div>
+  <div class="caveat" id="caveat"></div>
+
+  <!-- VIEW 1 — INFERENCE RESULT -->
+  <div class="panel">
+    <div class="eyebrow" id="v1eye"></div>
+    <h2 id="v1h"></h2>
+    <div class="note" id="v1note"></div>
+    <div id="capexChips" class="chips"></div>
+    <div class="hero">
+      <div>
+        <div id="regimeBadge" class="rbadge"></div>
+        <div class="big"><span id="wafersBig"></span><small id="wafersUnit"></small></div>
+        <div class="sub2" id="wpmLine"></div>
+        <div class="bandwrap">
+          <div class="bandlabel"><span id="bandLabel"></span><span id="bandPctLabel"></span></div>
+          <div class="bandtrack"><div class="bandfill" id="bandFill"></div><div class="bandpin" id="bandPin"></div></div>
+          <div class="bandnums"><span id="bandLo"></span><span id="bandHi"></span></div>
+          <div class="env" id="envText"></div>
+        </div>
+      </div>
+      <div>
+        <div class="kpis">
+          <div class="kpi"><div class="k" id="kpiSiK"></div><div class="v" id="kpiSi"></div><div class="u" id="kpiSiU"></div></div>
+          <div class="kpi"><div class="k" id="kpiUnK"></div><div class="v" id="kpiUn"></div><div class="u" id="kpiUnU"></div></div>
+          <div class="kpi"><div class="k" id="kpiHbK"></div><div class="v" id="kpiHb"></div><div class="u" id="kpiHbU"></div></div>
+        </div>
+        <div class="note" id="regimeDesc" style="margin-top:12px"></div>
+      </div>
+    </div>
+    <table class="t">
+      <thead><tr>
+        <th id="thSeg"></th><th id="thShare"></th><th id="thDollars"></th><th id="thAsp"></th>
+        <th id="thUnits"></th><th id="thDie"></th><th id="thNode"></th><th id="thYield"></th><th id="thWaf"></th>
+      </tr></thead>
+      <tbody id="segTable"></tbody>
+    </table>
+  </div>
+
+  <!-- VIEW 2 — TRACEABILITY WATERFALL -->
+  <div class="panel">
+    <div class="eyebrow" id="v2eye"></div>
+    <h2 id="v2h"></h2>
+    <div class="note" id="v2note"></div>
+    <div class="wf" id="waterfall"></div>
+  </div>
+
+  <!-- VIEW 3 — SCENARIO COMPARISON -->
+  <div class="panel">
+    <div class="eyebrow" id="v3eye"></div>
+    <h2 id="v3h"></h2>
+    <div class="note" id="v3note"></div>
+    <div id="scenRows"></div>
+    <div class="spread" id="scenSpread"></div>
+  </div>
+
+  <!-- VIEW 4 — DRIFT DASHBOARD -->
+  <div class="panel">
+    <div class="eyebrow" id="v4eye"></div>
+    <h2 id="v4h"></h2>
+    <div class="note" id="driftNote"></div>
+    <div class="drift" id="driftFlags"></div>
+  </div>
+
+  <!-- VIEW 5 — SENSITIVITY -->
+  <div class="panel">
+    <div class="eyebrow" id="v5eye"></div>
+    <h2 id="v5h"></h2>
+    <div class="note" id="v5note"></div>
+    <div class="sens" id="sensRows"></div>
+    <div class="regswing" id="regimeSwing"></div>
+  </div>
+
+  <!-- EVIDENCE INTAKE (human-in-the-loop) -->
+  <div class="panel evintake">
+    <div class="eyebrow" id="v6eye"></div>
+    <h2 id="v6h"></h2>
+    <div class="note" id="v6note"></div>
+    <textarea id="evText" placeholder=""></textarea>
+    <div class="evrow">
+      <button class="btn go" id="proposeBtn"></button>
+      <span class="status" id="proposeStatus"></span>
+    </div>
+    <div class="proposal" id="proposalBox">
+      <div class="ph" id="propHead"></div>
+      <div class="pg" id="propGrid"></div>
+      <div class="body" id="propBody"></div>
+      <div class="hil" id="propHil"></div>
+    </div>
+    <h2 style="font-size:14px;margin-top:18px" id="evLogH"></h2>
+    <div class="evlist" id="evList"></div>
+  </div>
+
+  <!-- SOURCES -->
+  <div class="panel">
+    <div class="eyebrow" id="v7eye"></div>
+    <h2 id="v7h"></h2>
+    <div class="src" id="sources"></div>
+  </div>
+
+  <div class="foot" id="foot"></div>
+</div>
+
+<script>
+const SNAP = {{ snapshot | safe }};
+let LANG = localStorage.getItem("cwe_lang") || "en";
+let CAPEX = SNAP.capex_input.value_usd_bn;
+const DEFAULT_CAPEX = SNAP.capex_input.value_usd_bn;
+
+const T = {
+  en:{lang:"中文",refresh:"Refresh capex",home:"Market Analysis",demo:"Seed demo — figures are flagged mock assumptions for the foundry pricing team to correct. Click any waterfall stage to trace the number to its dated, sourced assumption.",
+      v1:"01 · Inference result",v1h:"Implied leading-edge logic-wafer demand",
+      v1n:"Given the selected CapEx + active regime → implied annual 300mm leading-edge LOGIC wafer starts, with a confidence band (not a single false-precise number).",
+      capexLbl:"CapEx input",band:"Confidence band (independent ±)",
+      seg:"Segment",share:"Mix",dollars:"$B",asp:"ASP",units:"Units(M)",die:"Die mm²",node:"Node",yield:"Yield",waf:"Wafers/yr",
+      siK:"Accelerator silicon",unK:"Accelerators",hbK:"HBM (parallel)",perYr:"wafers / yr",wpm:"≈ {x} wafers / month",
+      env:"Outer envelope (all assumptions at extremes together): {lo} – {hi}",
+      v2:"02 · Traceability",v2h:"Waterfall — every number to its assumption",v2n:"Click a stage to see the assumption node behind it: value, version, valid-from date, confidence and the evidence that justifies it.",
+      v3:"03 · Scenario comparison",v3h:"Same CapEx, different regime → different wafer demand",v3n:"The governing insight: the training→inference rotation re-routes the chain. The bars share one CapEx; only the regime's assumption set changes.",
+      v4:"04 · Drift detection",v4h:"Assumptions drifting — possible regime change forming",
+      v5:"05 · Sensitivity",v5h:"Which single assumption moves the answer most",v5n:"Each assumption swung across its own band (others held). Ranks where the output uncertainty concentrates → where to spend research effort.",
+      regswing:"Regime swing — {lo} → {hi}: {w} wafers ({p}%). Note: the regime mainly re-shapes WHICH segments/nodes carry the demand; its net effect on the TOTAL can be smaller than the parameter bands above. The platform's job is to keep that shape visible.",
+      v6:"Evidence intake",v6h:"Paste market evidence → suggested assumption update",v6n:"LLM-assisted, human-in-the-loop: paste an earnings snippet / analyst note / supply-chain datapoint. The engine proposes which assumption it should update and how — you approve. Nothing is auto-written.",
+      evph:"e.g. \"Hyperscaler reaffirmed TPU v7 + Trainium3 ramp; inference now >50% of accelerator cycles…\"",
+      propose:"Suggest update",proposed:"Proposed assumption change",evlog:"Logged evidence items",
+      v7:"Evidence tiers",foot:"Pure inference engine + assumption graph. Assumptions are versioned, dated, regime-tagged DATA — no hardcoded constants. Wafer = 300mm leading-edge logic starts; HBM tracked in parallel. Not investment advice.",
+      pwPrompt:"Refresh password:",propPwPrompt:"Propose password:",refreshing:"refreshing…",thinking:"analyzing…"},
+  zh:{lang:"EN",refresh:"更新 capex",home:"市場分析",demo:"種子展示——數字為標示待校正的假設，供晶圓代工定價團隊修正。點任一瀑布階段即可追溯該數字回到帶日期、帶來源的假設。",
+      v1:"01 · 推估結果",v1h:"隱含的先進製程邏輯晶圓需求",
+      v1n:"在所選 CapEx ＋ 當前體制下 → 隱含的每年 300mm 先進製程「邏輯」晶圓投片量，附信賴區間（而非單一假精確數字）。",
+      capexLbl:"CapEx 輸入",band:"信賴區間（獨立 ±）",
+      seg:"區段",share:"組合",dollars:"$B",asp:"ASP",units:"單位(M)",die:"裸晶 mm²",node:"製程",yield:"良率",waf:"晶圓/年",
+      siK:"加速器矽",unK:"加速器",hbK:"HBM（平行）",perYr:"片 / 年",wpm:"≈ {x} 片 / 月",
+      env:"外包絡（所有假設同時取極端）：{lo} – {hi}",
+      v2:"02 · 可追溯性",v2h:"瀑布圖——每個數字回到其假設",v2n:"點任一階段，檢視其背後的假設節點：數值、版本、生效日、信心度，以及佐證其值的證據。",
+      v3:"03 · 情境比較",v3h:"相同 CapEx、不同體制 → 不同晶圓需求",v3n:"核心洞見：訓練→推論的輪動會改變整條鏈的路由。各長條共用同一 CapEx，只有體制的假設集改變。",
+      v4:"04 · 漂移偵測",v4h:"正在漂移的假設——可能正形成體制變化",
+      v5:"05 · 敏感度",v5h:"哪一個假設對結果影響最大",v5n:"每個假設在自身區間內擺動（其餘固定）。排出輸出不確定性集中之處 → 研究資源該投向何處。",
+      regswing:"體制擺幅——{lo} → {hi}：{w} 片（{p}%）。注意：體制主要重塑「哪些區段／製程」承載需求；其對「總量」的淨效果可能小於上方的參數區間。平台的職責是讓這個結構保持可見。",
+      v6:"證據匯入",v6h:"貼上市場證據 → 建議的假設更新",v6n:"LLM 輔助、人工把關：貼上法說片段／分析師備註／供應鏈數據。引擎建議應更新哪個假設與方向——由你核准。不會自動寫入。",
+      evph:"例如：「雲端業者重申 TPU v7 ＋ Trainium3 放量；推論已超過加速器週期 50%……」",
+      propose:"建議更新",proposed:"建議的假設變更",evlog:"已記錄的證據項",
+      v7:"證據分級",foot:"純推估引擎 ＋ 假設圖。假設皆為帶版本、帶日期、帶體制標籤的「資料」——無寫死常數。晶圓 = 300mm 先進製程邏輯投片；HBM 平行追蹤。非投資建議。",
+      pwPrompt:"更新密碼：",propPwPrompt:"建議密碼：",refreshing:"更新中…",thinking:"分析中…"}
+};
+
+const nf=n=>n==null?"—":Number(Math.round(n)).toLocaleString("en-US");
+const cs=(en,zh)=>LANG==="zh"?zh:en;
+function scale(){return CAPEX/DEFAULT_CAPEX;}
+function regimeName(id){const r=SNAP.regimes.find(x=>x.id===id);return r?cs(r.name_en,r.name_zh):id;}
+
+function render(){
+  const t=T[LANG], s=SNAP;
+  document.documentElement.lang=LANG==="zh"?"zh-Hant":"en";
+  document.getElementById("title").textContent=cs(s.meta.title_en,s.meta.title_zh);
+  document.getElementById("langBtn").textContent=t.lang;
+  document.getElementById("refreshBtn").textContent=t.refresh;
+  document.getElementById("crumbHome").textContent=t.home;
+  document.getElementById("asof").textContent=(LANG==="zh"?"資料日 ":"as of ")+s.as_of+(s.generated_at?" · "+s.generated_at:"");
+  const demo=document.getElementById("demo");
+  if(s.is_demo){demo.style.display="block";demo.textContent=t.demo;}else{demo.style.display="none";}
+  document.getElementById("subtitle").textContent=cs(s.meta.subtitle_en,s.meta.subtitle_zh)+" "+cs(s.meta.unit_note_en,s.meta.unit_note_zh);
+  document.getElementById("caveat").textContent=cs(s.meta.domain_caveat_en,s.meta.domain_caveat_zh);
+
+  // headings
+  const setH=(eye,h,note,et,ht,nt)=>{document.getElementById(eye).textContent=et;document.getElementById(h).textContent=ht;if(note)document.getElementById(note).textContent=nt;};
+  setH("v1eye","v1h","v1note",t.v1,t.v1h,t.v1n);
+  setH("v2eye","v2h","v2note",t.v2,t.v2h,t.v2n);
+  setH("v3eye","v3h","v3note",t.v3,t.v3h,t.v3n);
+  document.getElementById("v4eye").textContent=t.v4;document.getElementById("v4h").textContent=t.v4h;
+  document.getElementById("driftNote").textContent=cs(s.drift.note_en,s.drift.note_zh);
+  setH("v5eye","v5h","v5note",t.v5,t.v5h,t.v5n);
+  setH("v6eye","v6h","v6note",t.v6,t.v6h,t.v6n);
+  document.getElementById("v7eye").textContent=t.v7;document.getElementById("v7h").textContent=cs("Evidence tiers","證據分級");
+  document.getElementById("foot").textContent=t.foot;
+
+  renderCapexChips();
+  renderInference();
+  renderWaterfall();
+  renderScenarios();
+  renderDrift();
+  renderSensitivity();
+  renderEvidence();
+  renderSources();
+
+  // evidence intake static text
+  document.getElementById("evText").placeholder=t.evph;
+  document.getElementById("proposeBtn").textContent=t.propose;
+  document.getElementById("evLogH").textContent=t.evlog;
+}
+
+function renderCapexChips(){
+  const t=T[LANG];
+  const box=document.getElementById("capexChips");
+  box.innerHTML=`<span style="font-size:11px;color:var(--dim);align-self:center;margin-right:4px">${t.capexLbl}:</span>`+
+    SNAP.capex_inputs.map(c=>`<button class="chip ${c.value_usd_bn===CAPEX?'on':''}" data-cap="${c.value_usd_bn}">${cs(c.name_en,c.name_zh)} <small>$${nf(c.value_usd_bn)}B · ${c.tier}</small></button>`).join("");
+  box.querySelectorAll(".chip").forEach(b=>b.addEventListener("click",()=>{CAPEX=Number(b.dataset.cap);renderCapexChips();renderInference();renderWaterfall();renderScenarios();}));
+}
+
+function bandClass(c){return "tag tag-"+(c||"medium").replace("-","-");}
+
+function renderInference(){
+  const t=T[LANG], inf=SNAP.inference, k=scale();
+  const r=SNAP.active_regime_obj;
+  const rb=document.getElementById("regimeBadge");
+  rb.textContent=cs(r.name_en,r.name_zh)+" · "+cs(r.era_en,r.era_zh)+" · inf "+Math.round(r.inference_share*100)+"%";
+  rb.style.color=r.color;rb.style.borderColor=r.color;
+  document.getElementById("regimeDesc").textContent=cs(r.desc_en,r.desc_zh);
+
+  const w=inf.wafers_year*k;
+  document.getElementById("wafersBig").textContent=nf(w);
+  document.getElementById("wafersUnit").textContent=t.perYr;
+  document.getElementById("wpmLine").textContent=t.wpm.replace("{x}",nf(inf.wafers_per_month*k));
+
+  const lo=inf.wafers_year_low*k, hi=inf.wafers_year_high*k;
+  document.getElementById("bandLabel").textContent=t.band;
+  document.getElementById("bandPctLabel").textContent="±"+inf.band_pct+"%";
+  // band fill spans lo..hi over an axis [env_lo, env_hi]
+  const elo=inf.wafers_env_low*k, ehi=inf.wafers_env_high*k, span=ehi-elo||1;
+  const pl=x=>Math.max(0,Math.min(100,(x-elo)/span*100));
+  document.getElementById("bandFill").style.left=pl(lo)+"%";
+  document.getElementById("bandFill").style.width=(pl(hi)-pl(lo))+"%";
+  document.getElementById("bandPin").style.left=pl(w)+"%";
+  document.getElementById("bandLo").textContent=nf(lo);
+  document.getElementById("bandHi").textContent=nf(hi);
+  document.getElementById("envText").textContent=t.env.replace("{lo}",nf(elo)).replace("{hi}",nf(ehi));
+
+  document.getElementById("kpiSiK").textContent=t.siK;
+  document.getElementById("kpiSi").textContent="$"+nf(inf.silicon_usd_bn*k);
+  const siPct=Math.round(inf.silicon_usd_bn/DEFAULT_CAPEX*100);
+  document.getElementById("kpiSiU").textContent="B · "+siPct+cs("% of CapEx","% 占 CapEx");
+  document.getElementById("kpiUnK").textContent=t.unK;
+  document.getElementById("kpiUn").textContent=nf(inf.total_units_m*k);
+  document.getElementById("kpiUnU").textContent="M units";
+  document.getElementById("kpiHbK").textContent=t.hbK;
+  document.getElementById("kpiHb").textContent=nf(inf.hbm_total_PB*k);
+  document.getElementById("kpiHbU").textContent="PB HBM";
+
+  // segment table headers
+  document.getElementById("thSeg").textContent=t.seg;document.getElementById("thShare").textContent=t.share;
+  document.getElementById("thDollars").textContent=t.dollars;document.getElementById("thAsp").textContent=t.asp;
+  document.getElementById("thUnits").textContent=t.units;document.getElementById("thDie").textContent=t.die;
+  document.getElementById("thNode").textContent=t.node;document.getElementById("thYield").textContent=t.yield;
+  document.getElementById("thWaf").textContent=t.waf;
+  document.getElementById("segTable").innerHTML=inf.segments.map(g=>`
+    <tr>
+      <td><span class="segname">${cs(g.name_en,g.name_zh)}</span><br><span class="segex">${g.examples}</span></td>
+      <td>${Math.round(g.share*100)}%</td>
+      <td>$${(g.dollars_usd_bn*k).toFixed(1)}</td>
+      <td>$${nf(g.asp_usd)}</td>
+      <td>${(g.units_m*k).toFixed(2)}</td>
+      <td>${g.die_mm2}</td>
+      <td><span class="nodepill">${g.node}</span></td>
+      <td>${(g.yield*100).toFixed(0)}%</td>
+      <td><b>${nf(g.wafers_year*k)}</b><br><span class="segex">${Math.round(g.wafers_share*100)}%</span></td>
+    </tr>`).join("");
+}
+
+function renderWaterfall(){
+  const k=scale();
+  const fmtOut=st=>{
+    if(st.out_unit==="usd_bn")return "$"+nf(st.out_value*k)+"B";
+    if(st.out_unit==="units_m")return nf(st.out_value*k)+"M";
+    if(st.out_unit==="Mmm2")return nf(st.out_value*k)+"M mm²";
+    if(st.out_unit==="wafers_year")return nf(st.out_value*k)+" "+cs("waf/yr","片/年");
+    return nf(st.out_value*k);
+  };
+  document.getElementById("waterfall").innerHTML=SNAP.inference.waterfall.map(st=>{
+    const m=st.meta, conf=m.confidence||"medium";
+    const evs=(st.evidence||[]).map(e=>`<span class="evchip">${cs(e.source_en,e.source_zh)}<span class="tier">${e.tier} · ${e.date}</span></span>`).join("");
+    const co=(m.co_nodes||[]).map(c=>`<span class="metapill"><b>+${cs(c.name_en,c.name_zh)}</b> v${c.version} · ${c.confidence}</span>`).join("");
+    return `<div class="wfstage">
+      <div class="wfhead">
+        <div class="wfn">${st.stage}</div>
+        <div class="wfmid">
+          <div class="nm">${cs(st.name_en,st.name_zh)}</div>
+          <div class="flow">${cs(st.in_label_en,st.in_label_zh)}<span class="arr">→</span>${cs(st.factor_en,st.factor_zh)}</div>
+        </div>
+        <div class="wfright">
+          <div class="wfout">${fmtOut(st)}</div>
+          <div class="wfconf"><span class="${bandClass(conf)}">${conf}</span> <span class="caret">▸</span></div>
+        </div>
+      </div>
+      <div class="wfbody">
+        <div><b style="color:var(--ink)">${cs(m.name_en,m.name_zh)}</b></div>
+        <div class="wfmeta">
+          <span class="metapill"><b>v${m.version}</b> · ${cs("valid from","生效")} ${m.valid_from}</span>
+          <span class="metapill"><b>${cs("regime","體制")}</b> ${m.regime_source==="_all"?cs("all","通用"):regimeName(m.regime_source)}</span>
+          <span class="metapill"><b>${cs("confidence","信心")}</b> <span class="conf-${(conf).replace('-','-')}">${conf}</span></span>
+          ${co}
+        </div>
+        <div>${cs(m.rationale_en,m.rationale_zh)}</div>
+        ${evs?`<div style="margin-top:8px">${evs}</div>`:""}
+      </div>
+    </div>`;
+  }).join("");
+  document.querySelectorAll(".wfhead").forEach(h=>h.addEventListener("click",()=>h.parentElement.classList.toggle("open")));
+}
+
+function renderScenarios(){
+  const k=scale();
+  const rows=SNAP.scenarios.rows.map(r=>({...r,w:r.wafers_year*k,lo:r.wafers_year_low*k,hi:r.wafers_year_high*k}));
+  const maxHi=Math.max(...rows.map(r=>r.hi));
+  document.getElementById("scenRows").innerHTML=rows.map(r=>{
+    const active=r.regime===SNAP.active_regime;
+    return `<div class="scen">
+      <div class="scenhead">
+        <div class="scenname" style="color:${r.color}">${cs(r.name_en,r.name_zh)}<span class="era">${cs(r.era_en,r.era_zh)} · inf ${Math.round(r.inference_share*100)}% · ASIC+inf ${Math.round(r.asic_inf_share*100)}%${active?" · "+cs("active","當前"):""}</span></div>
+        <div class="scenval">${nf(r.w)}<small>${cs("waf/yr","片/年")}</small></div>
+      </div>
+      <div class="sbar">
+        <div class="lohi" style="left:${r.lo/maxHi*100}%;width:${(r.hi-r.lo)/maxHi*100}%"></div>
+        <i style="width:${r.w/maxHi*100}%;background:${r.color}"></i>
+      </div>
+      <div class="scenmeta"><span>${nf(r.wafers_per_month*k)} ${cs("wpm","片/月")}</span><span>${r.total_units_m.toFixed(1)}M ${cs("units","單位")}</span></div>
+    </div>`;
+  }).join("");
+  const sc=SNAP.scenarios;
+  document.getElementById("scenSpread").textContent=cs(
+    `Spread across regimes at $${nf(CAPEX)}B CapEx: ${nf(sc.spread_wafers*k)} wafers (${sc.spread_pct}%).`,
+    `在 $${nf(CAPEX)}B CapEx 下，各體制間落差：${nf(sc.spread_wafers*k)} 片（${sc.spread_pct}%）。`);
+}
+
+function sparkline(series,color){
+  const vals=series.map(p=>p.metric), mn=Math.min(...vals), mx=Math.max(...vals), sp=mx-mn||1;
+  const W=120,H=34,n=vals.length;
+  const pts=vals.map((v,i)=>`${(i/(n-1))*W},${H-((v-mn)/sp)*(H-6)-3}`).join(" ");
+  const dots=vals.map((v,i)=>`<circle cx="${(i/(n-1))*W}" cy="${H-((v-mn)/sp)*(H-6)-3}" r="2" fill="${color}"/>`).join("");
+  return `<svg class="spark" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}"><polyline points="${pts}" fill="none" stroke="${color}" stroke-width="1.6"/>${dots}</svg>`;
+}
+function renderDrift(){
+  const flags=SNAP.drift.flags;
+  if(!flags.length){document.getElementById("driftFlags").innerHTML=`<div class="note">${cs("No assumption is drifting persistently right now.","目前沒有持續漂移的假設。")}</div>`;return;}
+  document.getElementById("driftFlags").innerHTML=flags.map(f=>{
+    const col=f.direction==="up"?"var(--up)":"var(--down)";
+    const arr=f.direction==="up"?"▲":"▼";
+    return `<div class="driftcard ${f.direction}">
+      <div>
+        <div class="driftnm">${cs(f.name_en,f.name_zh)}</div>
+        <div class="driftmetric">${cs(f.metric_en,f.metric_zh)}</div>
+        <div class="driftchg"><span class="arr-${f.direction}">${arr} ${f.from_value} → ${f.to_value}</span> &nbsp;<b style="color:${col}">${f.pct_change>0?"+":""}${f.pct_change}%</b> <span style="color:var(--dim)">· ${f.from_date.slice(0,7)} → ${f.to_date.slice(0,7)}</span></div>
+        <div class="driftflag">⚑ ${cs(`Revised in one direction across ${f.run_len} versions — possible structural regime change forming`,`連續 ${f.run_len} 個版本同向修訂——可能正形成結構性體制變化`)}</div>
+      </div>
+      <div>${sparkline(f.series,col)}</div>
+    </div>`;
+  }).join("");
+}
+
+function renderSensitivity(){
+  const t=T[LANG], k=scale();
+  const rows=SNAP.sensitivity.rows, max=Math.max(...rows.map(r=>r.swing_pct));
+  document.getElementById("sensRows").innerHTML=rows.map(r=>`
+    <div class="sensrow">
+      <div class="sensnm">${cs(r.name_en,r.name_zh)}</div>
+      <div class="senstrack"><i style="width:${r.swing_pct/max*100}%"></i></div>
+      <div class="senspct">±${(r.swing_pct/2).toFixed(0)}%</div>
+    </div>`).join("");
+  const rs=SNAP.sensitivity.regime_swing;
+  document.getElementById("regimeSwing").innerHTML=t.regswing
+    .replace("{lo}",regimeName(rs.low_regime)).replace("{hi}",regimeName(rs.high_regime))
+    .replace("{w}",nf(rs.swing_wafers*k)).replace("{p}",rs.swing_pct);
+}
+
+function renderEvidence(){
+  document.getElementById("evList").innerHTML=SNAP.evidence.map(e=>{
+    const nodes=e.affects.map(a=>{const n=SNAP.nodes_index.find(x=>x.id===a);return n?cs(n.name_en,n.name_zh):a;}).join(", ");
+    return `<div class="ev">
+      <div class="evh"><span>${cs(e.source_en,e.source_zh)} · <span style="color:var(--gold)">${e.tier}</span></span><span>${e.date}</span></div>
+      <div class="evsnip">${cs(e.snippet_en,e.snippet_zh)}</div>
+      <div class="evlink">→ <b>${nodes}</b> · ${cs(e.direction_label_en||e.direction,e.direction_label_zh||e.direction)}</div>
+    </div>`;
+  }).join("");
+}
+
+function renderSources(){
+  document.getElementById("sources").innerHTML=SNAP.sources.map(s=>`<span class="srcpill"><b>${s.tier}</b>${cs(s.label_en,s.label_zh)}</span>`).join("");
+}
+
+// ── interactions ──
+document.getElementById("langBtn").addEventListener("click",()=>{LANG=LANG==="zh"?"en":"zh";localStorage.setItem("cwe_lang",LANG);render();});
+
+async function doRefresh(){
+  const t=T[LANG], st=document.getElementById("status");
+  const pw=prompt(t.pwPrompt);if(!pw)return;
+  st.textContent=t.refreshing;
+  try{
+    const r=await fetch("/cwengine/api/refresh",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({password:pw})});
+    const j=await r.json();
+    if(!j.ok){st.textContent=cs("✗ "+(j.error||"failed"),"✗ "+(j.error||"失敗"));return;}
+    st.textContent=cs(`✓ ${nf(j.wafers_year)} waf/yr · live capex ${j.live_capex_companies} cos`,`✓ ${nf(j.wafers_year)} 片/年 · 即時 capex ${j.live_capex_companies} 家`);
+    setTimeout(()=>location.reload(),900);
+  }catch(e){st.textContent="✗ "+e;}
+}
+document.getElementById("refreshBtn").addEventListener("click",doRefresh);
+
+async function doPropose(){
+  const t=T[LANG], st=document.getElementById("proposeStatus");
+  const text=document.getElementById("evText").value.trim();
+  if(!text){st.textContent=cs("paste some text first","請先貼上文字");return;}
+  const pw=prompt(t.propPwPrompt);if(!pw)return;
+  st.textContent=t.thinking;
+  try{
+    const r=await fetch("/cwengine/api/propose",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({password:pw,text})});
+    const j=await r.json();
+    if(!j.ok){st.textContent="✗ "+(j.error||"failed");return;}
+    st.textContent="✓ "+(j.proposal.engine==="claude"?"Claude":"rules");
+    const p=j.proposal, n=SNAP.nodes_index.find(x=>x.id===p.affects_node);
+    document.getElementById("propHead").textContent=t.proposed;
+    document.getElementById("propGrid").innerHTML=[
+      `<span class="metapill"><b>${cs("node","節點")}</b> ${n?cs(n.name_en,n.name_zh):p.affects_node}</span>`,
+      `<span class="metapill"><b>${cs("segment","區段")}</b> ${p.segment}</span>`,
+      `<span class="metapill"><b>${cs("direction","方向")}</b> ${p.direction}${p.magnitude_pct?` ${p.magnitude_pct>0?"+":""}${p.magnitude_pct}%`:""}</span>`,
+      `<span class="metapill"><b>${cs("confidence","信心")}</b> ${p.proposed_confidence}</span>`,
+      `<span class="metapill"><b>${cs("tier","分級")}</b> ${p.tier}</span>`,
+      p.regime_implication&&p.regime_implication!=="none"?`<span class="metapill" style="border-color:var(--gold)"><b>⚑ ${cs("regime","體制")}</b> ${regimeName(p.regime_implication)}</span>`:""
+    ].join("");
+    document.getElementById("propBody").textContent=cs(p.rationale_en,p.rationale_zh);
+    document.getElementById("propHil").textContent=cs(j.note_en,j.note_zh);
+    document.getElementById("proposalBox").classList.add("show");
+  }catch(e){st.textContent="✗ "+e;}
+}
+document.getElementById("proposeBtn").addEventListener("click",doPropose);
+
+render();
+</script>
+</body>
+</html>

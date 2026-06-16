@@ -226,6 +226,32 @@
               <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
             </div>
           </a>
+
+          <a class="card" href="/flows/">
+            <div class="kicker">06</div>
+            <h2>{{ t('flows_name') }}</h2>
+            <div class="desc">{{ t('flows_desc') }}</div>
+            <div class="foot">
+              <div class="stat">
+                {% if flows_score is not none %}<span class="score">{{ '%+.0f'|format(flows_score) }}<small>{{ t('flows_lbl') }}</small></span>{% endif %}
+                {% if flows_updated %}<span class="meta">{{ t('updated') }} · {{ flows_updated }}</span>{% endif %}
+              </div>
+              <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
+            </div>
+          </a>
+
+          <a class="card" href="/cwengine/">
+            <div class="kicker">07</div>
+            <h2>{{ t('cwe_name') }}</h2>
+            <div class="desc">{{ t('cwe_desc') }}</div>
+            <div class="foot">
+              <div class="stat">
+                {% if cwe_wpm %}<span class="score">{{ '{:,}'.format(cwe_wpm) }}<small>{{ t('cwe_lbl') }}</small></span>{% endif %}
+                {% if cwe_updated %}<span class="meta">{{ t('updated') }} · {{ cwe_updated }}</span>{% endif %}
+              </div>
+              <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
+            </div>
+          </a>
         </div>
       </div>
     </div>

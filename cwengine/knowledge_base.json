@@ -1,0 +1,311 @@
+{
+  "_meta": {
+    "schema_version": "0.1",
+    "as_of": "2026-06-16",
+    "title_en": "CapEx-to-Wafer Demand Inference Engine",
+    "title_zh": "CapEx → 晶圓需求推估引擎",
+    "subtitle_en": "Convert hyperscaler & AI-infra CapEx signals into implied leading-edge logic-wafer demand, 6–12 months ahead of direct customer orders. Assumptions are versioned, dated, regime-tagged data — never hardcoded constants.",
+    "subtitle_zh": "把雲端巨頭與 AI 基建的 CapEx 訊號，推估為領先客戶下單 6–12 個月的隱含先進製程邏輯晶圓需求。所有假設皆為帶版本、帶日期、帶體制標籤的資料，而非寫死的常數。",
+    "unit_note_en": "Wafer demand = 300mm leading-edge LOGIC wafer starts per year. HBM is memory (separate fab) and is tracked as a parallel intensity cross-check, not folded into the logic-wafer chain.",
+    "unit_note_zh": "晶圓需求 = 每年 300mm 先進製程「邏輯」晶圓投片量。HBM 屬記憶體（不同晶圓廠），以平行強度指標交叉驗證，不計入邏輯晶圓鏈。",
+    "domain_caveat_en": "Every numeric value below is a FLAGGED MOCK seeded by Claude for the foundry pricing team to correct. They are deliberately editable, dated and sourced — the platform's job is to make these shifting assumptions visible, not to assert them.",
+    "domain_caveat_zh": "以下每個數字都是 Claude 預填、標示為待校正的假設值，供晶圓代工定價團隊修正。它們刻意可編輯、帶日期與來源——平台的目的是讓這些會漂移的假設「可見」，而非主張其為真。"
+  },
+
+  "active_regime": "inference_rotating",
+  "default_capex_input": "global_ai_dc_2026",
+
+  "segments": [
+    {"id": "gpu_flagship",   "name_en": "Flagship GPU",        "name_zh": "旗艦 GPU",     "examples": "H100 / B200 / GB200 / Rubin"},
+    {"id": "gpu_mid",        "name_en": "Mid / volume GPU",    "name_zh": "中階 GPU",     "examples": "L40S / L4 / RTX-class"},
+    {"id": "asic_custom",    "name_en": "Custom ASIC",         "name_zh": "自研 ASIC",    "examples": "TPU / Trainium / MTIA / Maia"},
+    {"id": "inference_chip", "name_en": "Dedicated inference", "name_zh": "專用推論晶片",  "examples": "Inferentia / Groq / LPU-class"}
+  ],
+
+  "stages": [
+    {"n": 1, "node": "silicon_fraction",       "name_en": "CapEx → Silicon-addressable CapEx",        "name_zh": "CapEx → 可矽化 CapEx",        "desc_en": "Strip out land, power, cooling and networking; keep the accelerator-class silicon spend (logic + HBM + advanced package).", "desc_zh": "剝除土地、電力、散熱與網路，保留加速器級矽花費（邏輯 + HBM + 先進封裝）。"},
+    {"n": 2, "node": "segment_mix",            "name_en": "Silicon $ → Accelerator $ by segment",     "name_zh": "矽花費 $ → 各區段加速器 $",   "desc_en": "Split silicon $ across flagship GPU / mid GPU / custom ASIC / inference chip. This is where the training→inference rotation shows up first.", "desc_zh": "把矽花費拆分到旗艦 GPU／中階 GPU／自研 ASIC／推論晶片。訓練→推論的輪動最先在此顯現。"},
+    {"n": 3, "node": "segment_asp",            "name_en": "Accelerator $ → Unit volume",              "name_zh": "加速器 $ → 出貨單位",        "desc_en": "Divide each segment's $ by its ASP (which drifts every silicon generation) to get unit volume.", "desc_zh": "以各區段的 ASP（每一矽世代都會漂移）相除，得到出貨單位量。"},
+    {"n": 4, "node": "segment_die_mm2",        "name_en": "Units → Logic die area",                   "name_zh": "出貨單位 → 邏輯裸晶面積",     "desc_en": "Multiply units by logic die size (mm²) per chip class. HBM excluded — this is foundry logic silicon only.", "desc_zh": "出貨單位乘上各類晶片的邏輯裸晶面積（mm²）。排除 HBM——僅計晶圓廠邏輯矽。"},
+    {"n": 5, "node": "wafer_usable_area_mm2",  "name_en": "Die area → Wafer demand",                  "name_zh": "裸晶面積 → 晶圓需求",        "desc_en": "Convert total die area to wafer starts via usable 300mm area and per-node yield.", "desc_zh": "以 300mm 可用面積與各製程良率，將總裸晶面積換算為晶圓投片量。"}
+  ],
+
+  "regimes": [
+    {
+      "id": "training_led", "name_en": "Training-led", "name_zh": "訓練主導",
+      "era_en": "2023–24", "era_zh": "2023–24", "valid_from": "2023-01-01",
+      "inference_share": 0.30, "color": "#7c83ff",
+      "desc_en": "Demand dominated by frontier-model training: flagship-GPU heavy, large flagship dies, premium ASP, leading-edge node concentration.",
+      "desc_zh": "需求由前沿模型訓練主導：旗艦 GPU 為重、大尺寸旗艦裸晶、高 ASP、集中於最先進製程。"
+    },
+    {
+      "id": "inference_rotating", "name_en": "Inference-rotating", "name_zh": "推論輪動中",
+      "era_en": "2025+", "era_zh": "2025 起", "valid_from": "2025-01-01",
+      "inference_share": 0.55, "color": "#c8a86a",
+      "desc_en": "Training saturating, demand rotating to inference: rising custom-ASIC + inference-chip share, lower blended ASP, smaller dies, more mature-node mix, different HBM intensity. This regime did not exist a year ago.",
+      "desc_zh": "訓練趨於飽和、需求輪向推論：自研 ASIC 與推論晶片占比上升、混合 ASP 下降、裸晶變小、更偏成熟製程、HBM 強度改變。此體制一年前並不存在。"
+    },
+    {
+      "id": "inference_led", "name_en": "Inference-led (forward)", "name_zh": "推論主導（前瞻）",
+      "era_en": "2026+ proj.", "era_zh": "2026 起 預估", "valid_from": "2026-06-01",
+      "inference_share": 0.72, "color": "#5fb8a0",
+      "desc_en": "Projected regime where inference is the majority workload: custom silicon and inference chips dominate units, blended ASP and die area fall further, node mix shifts toward N5/N4 — same CapEx implies materially different wafer demand.",
+      "desc_zh": "預估體制，推論成為多數工作負載：自研矽與推論晶片主導出貨量，混合 ASP 與裸晶面積進一步下滑，製程結構偏向 N5/N4——相同 CapEx 推估出顯著不同的晶圓需求。"
+    }
+  ],
+
+  "capex_inputs": [
+    {"id": "global_ai_dc_2026",   "name_en": "Global AI data-center CapEx 2026E",        "name_zh": "全球 AI 資料中心 CapEx 2026E",   "value_usd_bn": 600, "tier": "T2", "source": "Aggregated hyperscaler guidance + neocloud/sovereign build-outs (seed)", "valid_from": "2026-04-30", "default": true},
+    {"id": "hyperscaler_big4_2026","name_en": "Big-4 hyperscaler CapEx 2026E",           "name_zh": "四大雲端巨頭 CapEx 2026E",        "value_usd_bn": 430, "tier": "T1", "source": "MSFT+GOOGL+AMZN+META FY26 capex guidance (seed)", "valid_from": "2026-04-30", "default": false},
+    {"id": "global_ai_dc_2025",   "name_en": "Global AI data-center CapEx 2025",         "name_zh": "全球 AI 資料中心 CapEx 2025",    "value_usd_bn": 430, "tier": "T2", "source": "Prior-year actual (seed)", "valid_from": "2026-02-15", "default": false},
+    {"id": "global_ai_dc_2027e",  "name_en": "Global AI data-center CapEx 2027E",        "name_zh": "全球 AI 資料中心 CapEx 2027E",   "value_usd_bn": 760, "tier": "T3", "source": "Forward analyst envelope (seed)", "valid_from": "2026-05-01", "default": false}
+  ],
+
+  "nodes": [
+    {
+      "id": "silicon_fraction", "stage": 1, "kind": "scalar", "unit": "fraction", "output_en": "Silicon-addressable share of CapEx", "output_zh": "可矽化的 CapEx 占比",
+      "name_en": "Silicon-addressable fraction of CapEx", "name_zh": "CapEx 中可矽化的比例",
+      "depends_on": [],
+      "versions": [
+        {"version": 1, "regime": "_all", "valid_from": "2023-06-01", "confidence": "medium",
+         "value": {"point": 0.38, "low": 0.30, "high": 0.45},
+         "rationale_en": "Of AI data-center CapEx, accelerator-class silicon (logic + HBM + advanced package) is ~38%; the balance is power, cooling, shell, land and networking.",
+         "rationale_zh": "AI 資料中心 CapEx 中，加速器級矽（邏輯 + HBM + 先進封裝）約 38%；其餘為電力、散熱、廠房、土地與網路。", "evidence_ids": []},
+        {"version": 2, "regime": "inference_rotating", "valid_from": "2025-06-01", "confidence": "medium",
+         "value": {"point": 0.40, "low": 0.33, "high": 0.47},
+         "rationale_en": "Rack-scale (GB200/GB300) designs concentrate more $ into compute trays, nudging the silicon share up versus 2-tier server-plus-network builds.",
+         "rationale_zh": "Rack-scale（GB200/GB300）設計把更多 $ 集中在運算抽屜，使矽占比較傳統「伺服器＋網路」架構略升。", "evidence_ids": ["ev_rackscale_silicon"]}
+      ]
+    },
+
+    {
+      "id": "segment_mix", "stage": 2, "kind": "mix", "unit": "share", "output_en": "Accelerator $ split across 4 segments", "output_zh": "加速器 $ 在 4 區段的分配",
+      "name_en": "Accelerator $ segment mix", "name_zh": "加速器 $ 區段組合",
+      "depends_on": ["silicon_fraction"],
+      "drift_metric_en": "Custom-ASIC + inference-chip share", "drift_metric_zh": "自研 ASIC + 推論晶片合計占比",
+      "drift_metric_segments": ["asic_custom", "inference_chip"],
+      "versions": [
+        {"version": 1, "regime": "training_led", "valid_from": "2023-06-01", "confidence": "medium",
+         "value": {"gpu_flagship": 0.62, "gpu_mid": 0.10, "asic_custom": 0.22, "inference_chip": 0.06},
+         "rationale_en": "Frontier training boom: flagship GPU dominates spend; custom ASIC still early (TPU v4/v5, first Trainium).",
+         "rationale_zh": "前沿訓練熱潮：旗艦 GPU 主導花費；自研 ASIC 仍處早期（TPU v4/v5、首代 Trainium）。", "evidence_ids": []},
+        {"version": 2, "regime": "inference_rotating", "valid_from": "2024-11-01", "confidence": "medium",
+         "value": {"gpu_flagship": 0.52, "gpu_mid": 0.10, "asic_custom": 0.28, "inference_chip": 0.10},
+         "rationale_en": "Custom-ASIC roadmaps ramp (TPU v6, Trainium2, MTIA) and inference workloads begin claiming dedicated silicon.",
+         "rationale_zh": "自研 ASIC 路線圖放量（TPU v6、Trainium2、MTIA），推論工作負載開始占用專用矽。", "evidence_ids": ["ev_asic_roadmap"]},
+        {"version": 3, "regime": "inference_rotating", "valid_from": "2025-09-01", "confidence": "medium",
+         "value": {"gpu_flagship": 0.46, "gpu_mid": 0.09, "asic_custom": 0.32, "inference_chip": 0.13},
+         "rationale_en": "Inference share of accelerator cycles crosses ~50% at lead hyperscalers; ASIC + inference share keeps climbing.",
+         "rationale_zh": "領先雲端業者的加速器運算週期中推論占比突破約 50%；ASIC + 推論占比持續上升。", "evidence_ids": ["ev_inference_majority"]},
+        {"version": 4, "regime": "inference_rotating", "valid_from": "2026-05-01", "confidence": "medium-high",
+         "value": {"gpu_flagship": 0.42, "gpu_mid": 0.10, "asic_custom": 0.33, "inference_chip": 0.15},
+         "rationale_en": "Q1'26 calls confirm custom-silicon acceleration (TPU v7, Trainium3, MTIA v2); flagship-GPU share continues to cede ground.",
+         "rationale_zh": "2026 Q1 法說確認自研矽加速（TPU v7、Trainium3、MTIA v2）；旗艦 GPU 占比持續讓出。", "evidence_ids": ["ev_asic_roadmap", "ev_inference_majority"]},
+        {"version": 5, "regime": "inference_led", "valid_from": "2026-06-01", "confidence": "low",
+         "value": {"gpu_flagship": 0.34, "gpu_mid": 0.10, "asic_custom": 0.36, "inference_chip": 0.20},
+         "rationale_en": "Projected inference-led mix: custom ASIC overtakes flagship GPU on $ share; dedicated inference doubles versus 2025.",
+         "rationale_zh": "預估推論主導組合：自研 ASIC 在 $ 占比上超越旗艦 GPU；專用推論較 2025 倍增。", "evidence_ids": []}
+      ]
+    },
+
+    {
+      "id": "segment_asp", "stage": 3, "kind": "per_segment_band", "unit": "usd", "output_en": "Average selling price per accelerator (incl. HBM + package)", "output_zh": "每顆加速器平均售價（含 HBM + 封裝）",
+      "name_en": "Per-segment ASP", "name_zh": "各區段 ASP",
+      "depends_on": ["segment_mix"],
+      "drift_metric_en": "Flagship-GPU ASP", "drift_metric_zh": "旗艦 GPU ASP",
+      "drift_metric_segments": ["gpu_flagship"],
+      "versions": [
+        {"version": 1, "regime": "_all", "valid_from": "2023-06-01", "confidence": "medium",
+         "value": {
+           "gpu_flagship":   {"point": 22000, "low": 18000, "high": 28000},
+           "gpu_mid":        {"point": 7500,  "low": 5500,  "high": 9500},
+           "asic_custom":    {"point": 8000,  "low": 6000,  "high": 10500},
+           "inference_chip": {"point": 4000,  "low": 2800,  "high": 5500}
+         },
+         "rationale_en": "Hopper-era blended ASPs; custom ASIC priced at internal-cost-plus, inference chips well below flagship.",
+         "rationale_zh": "Hopper 世代混合 ASP；自研 ASIC 以內部成本加成計價，推論晶片遠低於旗艦。", "evidence_ids": []},
+        {"version": 2, "regime": "inference_rotating", "valid_from": "2024-11-01", "confidence": "medium",
+         "value": {
+           "gpu_flagship":   {"point": 26000, "low": 21000, "high": 33000},
+           "gpu_mid":        {"point": 7200,  "low": 5300,  "high": 9200},
+           "asic_custom":    {"point": 8600,  "low": 6300,  "high": 11200},
+           "inference_chip": {"point": 3700,  "low": 2500,  "high": 5100}
+         },
+         "rationale_en": "Blackwell ASP steps up gen-over-gen; inference-chip ASP softens as competition enters.",
+         "rationale_zh": "Blackwell ASP 較上一世代上調；推論晶片 ASP 隨競爭進入而走軟。", "evidence_ids": ["ev_blackwell_asp", "ev_inference_asp_compression"]},
+        {"version": 3, "regime": "inference_rotating", "valid_from": "2026-05-01", "confidence": "medium",
+         "value": {
+           "gpu_flagship":   {"point": 30000, "low": 24000, "high": 38000},
+           "gpu_mid":        {"point": 7000,  "low": 5200,  "high": 9200},
+           "asic_custom":    {"point": 9000,  "low": 6500,  "high": 12000},
+           "inference_chip": {"point": 3400,  "low": 2200,  "high": 4700}
+         },
+         "rationale_en": "GB300-class flagship ASP up again; inference-chip ASP compression continues — the two segments diverge.",
+         "rationale_zh": "GB300 級旗艦 ASP 再上調；推論晶片 ASP 壓縮持續——兩區段背離。", "evidence_ids": ["ev_blackwell_asp", "ev_inference_asp_compression"]}
+      ]
+    },
+
+    {
+      "id": "segment_die_mm2", "stage": 4, "kind": "per_segment_band", "unit": "mm2", "output_en": "Logic die area per accelerator (HBM excluded)", "output_zh": "每顆加速器邏輯裸晶面積（不含 HBM）",
+      "name_en": "Per-segment logic die size", "name_zh": "各區段邏輯裸晶尺寸",
+      "depends_on": ["segment_asp"],
+      "versions": [
+        {"version": 1, "regime": "_all", "valid_from": "2023-06-01", "confidence": "medium",
+         "value": {
+           "gpu_flagship":   {"point": 814, "low": 750, "high": 870},
+           "gpu_mid":        {"point": 400, "low": 340, "high": 460},
+           "asic_custom":    {"point": 600, "low": 500, "high": 720},
+           "inference_chip": {"point": 200, "low": 150, "high": 270}
+         },
+         "rationale_en": "H100 reticle-class flagship (814 mm²); mid GPU and ASIC moderate; inference chips small.",
+         "rationale_zh": "H100 為光罩極限級旗艦（814 mm²）；中階 GPU 與 ASIC 中等；推論晶片偏小。", "evidence_ids": []},
+        {"version": 2, "regime": "inference_rotating", "valid_from": "2026-05-01", "confidence": "medium",
+         "value": {
+           "gpu_flagship":   {"point": 830, "low": 760, "high": 900},
+           "gpu_mid":        {"point": 390, "low": 330, "high": 450},
+           "asic_custom":    {"point": 610, "low": 510, "high": 740},
+           "inference_chip": {"point": 185, "low": 140, "high": 250}
+         },
+         "rationale_en": "Multi-die flagship keeps per-tile logic area near reticle; inference dies trend smaller as designs specialize.",
+         "rationale_zh": "多裸晶旗艦使每片邏輯面積維持接近光罩；推論裸晶隨設計專用化而趨小。", "evidence_ids": []}
+      ]
+    },
+
+    {
+      "id": "segment_node", "stage": 5, "kind": "per_segment_label", "unit": "node", "output_en": "Leading-edge node per segment", "output_zh": "各區段所屬先進製程",
+      "name_en": "Per-segment node mix", "name_zh": "各區段製程結構",
+      "depends_on": ["segment_die_mm2"],
+      "versions": [
+        {"version": 1, "regime": "_all", "valid_from": "2023-06-01", "confidence": "medium",
+         "value": {"gpu_flagship": "N3", "gpu_mid": "N5", "asic_custom": "N3/N4", "inference_chip": "N5/N6"},
+         "rationale_en": "Flagship on N3, ASIC split N3/N4, inference on more mature N5/N6.",
+         "rationale_zh": "旗艦於 N3、ASIC 分布 N3/N4、推論於較成熟之 N5/N6。", "evidence_ids": []},
+        {"version": 2, "regime": "inference_rotating", "valid_from": "2026-05-01", "confidence": "low",
+         "value": {"gpu_flagship": "N3→N2", "gpu_mid": "N5", "asic_custom": "N3", "inference_chip": "N5"},
+         "rationale_en": "Flagship transitioning N3→N2; ASIC consolidating on N3; inference standardizing on N5.",
+         "rationale_zh": "旗艦由 N3 轉進 N2；ASIC 集中於 N3；推論標準化於 N5。", "evidence_ids": []}
+      ]
+    },
+
+    {
+      "id": "segment_yield", "stage": 5, "kind": "per_segment_band", "unit": "fraction", "output_en": "Composite die yield per segment", "output_zh": "各區段綜合裸晶良率",
+      "name_en": "Per-segment yield", "name_zh": "各區段良率",
+      "depends_on": ["segment_node"],
+      "versions": [
+        {"version": 1, "regime": "_all", "valid_from": "2023-06-01", "confidence": "medium",
+         "value": {
+           "gpu_flagship":   {"point": 0.60, "low": 0.50, "high": 0.70},
+           "gpu_mid":        {"point": 0.75, "low": 0.68, "high": 0.82},
+           "asic_custom":    {"point": 0.65, "low": 0.55, "high": 0.75},
+           "inference_chip": {"point": 0.80, "low": 0.72, "high": 0.86}
+         },
+         "rationale_en": "Large flagship dies are defect-limited (lower yield); small inference dies yield high.",
+         "rationale_zh": "大尺寸旗艦裸晶受缺陷限制（良率較低）；小尺寸推論裸晶良率高。", "evidence_ids": []},
+        {"version": 2, "regime": "inference_rotating", "valid_from": "2026-02-10", "confidence": "medium",
+         "value": {
+           "gpu_flagship":   {"point": 0.64, "low": 0.54, "high": 0.73},
+           "gpu_mid":        {"point": 0.77, "low": 0.70, "high": 0.84},
+           "asic_custom":    {"point": 0.68, "low": 0.58, "high": 0.77},
+           "inference_chip": {"point": 0.82, "low": 0.74, "high": 0.88}
+         },
+         "rationale_en": "N3 defect density improving; large-die yields step up, lowering wafers needed per good die.",
+         "rationale_zh": "N3 缺陷密度改善；大裸晶良率提升，降低每顆良裸晶所需晶圓。", "evidence_ids": ["ev_n3_yield"]}
+      ]
+    },
+
+    {
+      "id": "wafer_usable_area_mm2", "stage": 5, "kind": "scalar", "unit": "mm2", "output_en": "Good die area available per 300mm wafer", "output_zh": "每片 300mm 晶圓可用良裸晶面積",
+      "name_en": "Usable area per 300mm wafer", "name_zh": "每片 300mm 晶圓可用面積",
+      "depends_on": [],
+      "versions": [
+        {"version": 1, "regime": "_all", "valid_from": "2023-06-01", "confidence": "high",
+         "value": {"point": 60000, "low": 56000, "high": 64000},
+         "rationale_en": "300mm gross area 70,686 mm² less edge exclusion + scribe lanes ≈ 60,000 mm² usable (pre-yield).",
+         "rationale_zh": "300mm 毛面積 70,686 mm² 扣除邊緣排除與切割道後，可用約 60,000 mm²（未計良率）。", "evidence_ids": []}
+      ]
+    },
+
+    {
+      "id": "segment_hbm_gb", "stage": 6, "kind": "per_segment_band", "unit": "gb", "output_en": "HBM content per accelerator (parallel cross-check, NOT in logic-wafer chain)", "output_zh": "每顆加速器 HBM 容量（平行交叉驗證，不計入邏輯晶圓鏈）",
+      "name_en": "Per-segment HBM intensity", "name_zh": "各區段 HBM 強度",
+      "depends_on": [],
+      "versions": [
+        {"version": 1, "regime": "_all", "valid_from": "2023-06-01", "confidence": "medium",
+         "value": {
+           "gpu_flagship":   {"point": 144, "low": 80,  "high": 192},
+           "gpu_mid":        {"point": 48,  "low": 24,  "high": 64},
+           "asic_custom":    {"point": 96,  "low": 48,  "high": 128},
+           "inference_chip": {"point": 24,  "low": 16,  "high": 48}
+         },
+         "rationale_en": "Hopper/early-Blackwell HBM stacks; inference chips memory-light.",
+         "rationale_zh": "Hopper／早期 Blackwell HBM 堆疊；推論晶片記憶體用量低。", "evidence_ids": []},
+        {"version": 2, "regime": "inference_rotating", "valid_from": "2026-05-01", "confidence": "medium",
+         "value": {
+           "gpu_flagship":   {"point": 264, "low": 192, "high": 384},
+           "gpu_mid":        {"point": 48,  "low": 24,  "high": 64},
+           "asic_custom":    {"point": 128, "low": 80,  "high": 192},
+           "inference_chip": {"point": 32,  "low": 16,  "high": 64}
+         },
+         "rationale_en": "HBM content per flagship rising sharply (GB300/Rubin); HBM tightness is a parallel constraint on shippable units.",
+         "rationale_zh": "每顆旗艦 HBM 容量大幅上升（GB300/Rubin）；HBM 緊張是可出貨單位的平行限制。", "evidence_ids": ["ev_hbm_intensity"]}
+      ]
+    }
+  ],
+
+  "evidence": [
+    {"id": "ev_asic_roadmap", "date": "2026-05-12", "tier": "T1",
+     "source_en": "Hyperscaler Q1'26 earnings calls", "source_zh": "雲端巨頭 2026 Q1 法說",
+     "snippet_en": "Multiple hyperscalers reaffirmed custom-silicon acceleration — TPU v7, Trainium3 and MTIA v2 ramping into 2026 production.",
+     "snippet_zh": "多家雲端巨頭重申自研矽加速——TPU v7、Trainium3、MTIA v2 於 2026 進入量產爬坡。",
+     "affects": ["segment_mix"], "direction": "mix_shift", "direction_label_en": "shift toward ASIC / inference", "direction_label_zh": "向 ASIC／推論移動",
+     "rationale_en": "Raise custom-ASIC + inference-chip share of the accelerator $ mix.", "rationale_zh": "提高加速器 $ 組合中自研 ASIC + 推論晶片占比。", "url": ""},
+    {"id": "ev_inference_majority", "date": "2026-04-30", "tier": "T2",
+     "source_en": "Operator commentary + sell-side workload surveys", "source_zh": "營運商評論 + 賣方工作負載調查",
+     "snippet_en": "Inference now exceeds 50% of accelerator compute cycles at two lead hyperscalers, up from ~35% a year ago.",
+     "snippet_zh": "推論於兩家領先雲端業者已超過加速器運算週期的 50%，較一年前約 35% 上升。",
+     "affects": ["segment_mix"], "direction": "mix_shift", "direction_label_en": "raise inference share", "direction_label_zh": "提高推論占比",
+     "rationale_en": "Supports the inference-rotating regime and a higher inference-chip share.", "rationale_zh": "支持推論輪動體制與更高的推論晶片占比。", "url": ""},
+    {"id": "ev_blackwell_asp", "date": "2026-05-20", "tier": "T2",
+     "source_en": "Channel ASP checks", "source_zh": "通路 ASP 查核",
+     "snippet_en": "GB300-class flagship system ASP guided higher gen-over-gen versus Hopper and early Blackwell.",
+     "snippet_zh": "GB300 級旗艦系統 ASP 指引較 Hopper 與早期 Blackwell 逐代上調。",
+     "affects": ["segment_asp"], "direction": "up", "direction_label_en": "flagship ASP up", "direction_label_zh": "旗艦 ASP 上升",
+     "rationale_en": "Higher flagship ASP lowers units per $ → fewer flagship wafers per dollar, but each is larger.", "rationale_zh": "旗艦 ASP 上升使每 $ 出貨單位下降 → 每 $ 旗艦晶圓變少，但單顆更大。", "url": ""},
+    {"id": "ev_inference_asp_compression", "date": "2026-03-15", "tier": "T3",
+     "source_en": "Sell-side note", "source_zh": "賣方研究",
+     "snippet_en": "Inference-chip ASPs compressing as new entrants (LPU/edge-class) intensify price competition.",
+     "snippet_zh": "新進者（LPU／邊緣級）加劇價格競爭，推論晶片 ASP 持續壓縮。",
+     "affects": ["segment_asp"], "direction": "down", "direction_label_en": "inference ASP down", "direction_label_zh": "推論 ASP 下降",
+     "rationale_en": "Lower inference ASP raises inference unit volume per $ → more (small) wafers.", "rationale_zh": "推論 ASP 下降使每 $ 推論出貨量上升 → 更多（小）晶圓。", "url": ""},
+    {"id": "ev_n3_yield", "date": "2026-02-10", "tier": "T2",
+     "source_en": "Foundry process update", "source_zh": "晶圓廠製程更新",
+     "snippet_en": "N3 defect density improved meaningfully; large-die yields stepping up through 2026.",
+     "snippet_zh": "N3 缺陷密度明顯改善；大裸晶良率於 2026 逐步提升。",
+     "affects": ["segment_yield"], "direction": "up", "direction_label_en": "yield up", "direction_label_zh": "良率上升",
+     "rationale_en": "Higher yield reduces wafers per good die — a deflationary pull on wafer demand at constant units.", "rationale_zh": "良率提高降低每顆良裸晶所需晶圓——在出貨量不變下對晶圓需求形成下拉。", "url": ""},
+    {"id": "ev_hbm_intensity", "date": "2026-01-22", "tier": "T2",
+     "source_en": "Memory supply-chain checks", "source_zh": "記憶體供應鏈查核",
+     "snippet_en": "Per-accelerator HBM content rising sharply; HBM capacity tightness may cap shippable flagship units.",
+     "snippet_zh": "每顆加速器 HBM 容量大幅上升；HBM 產能緊張可能限制可出貨旗艦單位。",
+     "affects": ["segment_hbm_gb"], "direction": "up", "direction_label_en": "HBM intensity up", "direction_label_zh": "HBM 強度上升",
+     "rationale_en": "Parallel constraint — if HBM caps units, logic-wafer demand is bounded above regardless of CapEx.", "rationale_zh": "平行限制——若 HBM 限制出貨單位，邏輯晶圓需求無論 CapEx 多寡都有上限。", "url": ""},
+    {"id": "ev_rackscale_silicon", "date": "2025-05-15", "tier": "T3",
+     "source_en": "Rack BOM analysis", "source_zh": "機櫃 BOM 分析",
+     "snippet_en": "GB200/GB300 rack-scale designs concentrate more system $ into compute trays, lifting the silicon-addressable share.",
+     "snippet_zh": "GB200/GB300 機櫃級設計把更多系統 $ 集中於運算抽屜，提高可矽化占比。",
+     "affects": ["silicon_fraction"], "direction": "up", "direction_label_en": "silicon share up", "direction_label_zh": "矽占比上升",
+     "rationale_en": "Higher silicon fraction raises accelerator $ for a given CapEx.", "rationale_zh": "矽占比提高使相同 CapEx 下加速器 $ 增加。", "url": ""}
+  ],
+
+  "drift_config": {
+    "min_run": 3,
+    "note_en": "An assumption revised ≥3 times in one direction is flagged as a possible structural regime change forming — the old assumption is breaking before consensus catches up.",
+    "note_zh": "一項假設若連續 ≥3 次往同方向修訂，將被標記為「可能正在形成的結構性體制變化」——舊假設在共識反應前已先行崩解。"
+  },
+
+  "sources": [
+    {"tier": "T1", "label_en": "Hyperscaler earnings calls & filings (primary)", "label_zh": "雲端巨頭法說與財報（一手）"},
+    {"tier": "T2", "label_en": "Operator commentary, channel checks, supply-chain surveys", "label_zh": "營運商評論、通路查核、供應鏈調查"},
+    {"tier": "T3", "label_en": "Sell-side notes & forward analyst envelopes", "label_zh": "賣方研究與前瞻分析師區間"}
+  ]
+}

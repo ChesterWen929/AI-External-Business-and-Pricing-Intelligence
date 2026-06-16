@@ -24,3 +24,7 @@ services:
         sync: false               # set in dashboard — AI commentary / briefs (optional; rules fallback otherwise)
       - key: AIBUBBLE_REFRESH_PASSWORD
         sync: false               # optional — AI Bubble refresh-button password (code default: aibubble2026)
+      - key: CAPFLOW_REFRESH_PASSWORD
+        sync: false               # optional — Capital Flow Radar refresh-button password (code default: capflow2026)
+      - key: CWENGINE_REFRESH_PASSWORD
+        sync: false               # optional — CapEx→Wafer Engine refresh + evidence-propose password (code default: cwengine2026)

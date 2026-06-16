@@ -51,6 +51,11 @@ from compute import refresh as compute_refresh
 from racks import racks_bp
 from racks import load_snapshot as racks_load_snapshot
 from racks import refresh as racks_refresh
+from flows import flows_bp
+from flows import load_snapshot as flows_load_snapshot
+from cwengine import cwengine_bp
+from cwengine import load_snapshot as cwengine_load_snapshot
+from cwengine import refresh as cwengine_refresh
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)s | %(message)s")
 log = logging.getLogger("macro-ai")
@@ -62,6 +67,8 @@ app.register_blueprint(econ_bp)
 app.register_blueprint(rival_bp)
 app.register_blueprint(compute_bp)
 app.register_blueprint(racks_bp)
+app.register_blueprint(flows_bp)
+app.register_blueprint(cwengine_bp)
 
 # ── secrets / auth (all from env; never hard-code real values) ──
 _DEFAULT_SECRET = "dev-insecure-change-me"
@@ -103,7 +110,15 @@ STRINGS = {
     "racks_desc":{"en": "Rack-scale system BOMs — GPUs/CPUs/HBM per rack and who supplies each part — fully sourced (T1/T2/T3).",
                   "zh": "Rack-scale 系統 BOM — 每櫃 GPU/CPU/HBM 數量與各零件供應商 — 全程附證據分級(T1/T2/T3)。"},
     "racks_lbl":{"en": "systems",                     "zh": "系統"},
+    "flows_name":{"en": "Capital Flow Radar",         "zh": "資金流向雷達"},
+    "flows_desc":{"en": "Money flow across cash, gold, crypto, bonds & equities → a read on where AI is heading. Five layers: live flow diagnosis + Claude scenarios.",
+                  "zh": "現金/黃金/加密/債券/股票的資金流向 → 推估 AI 走向。五層:即時流向診斷 + Claude 情境。"},
+    "flows_lbl":{"en": "marg. dir.",                  "zh": "邊際方向"},
     "events_lbl":{"en": "flow events",                "zh": "流向事件"},
+    "cwe_name": {"en": "CapEx → Wafer Engine",        "zh": "CapEx → 晶圓引擎"},
+    "cwe_desc": {"en": "Convert hyperscaler CapEx into implied leading-edge wafer demand — a versioned, regime-aware assumption graph with drift detection.",
+                 "zh": "把雲端巨頭 CapEx 推估為隱含先進製程晶圓需求 — 帶版本、體制感知的假設圖，附漂移偵測。"},
+    "cwe_lbl":  {"en": "wpm",                          "zh": "片/月"},
     "updated":   {"en": "Updated",                    "zh": "更新"},
     "indicators":{"en": "indicators",                 "zh": "指標"},
     "signout":   {"en": "Sign out",                   "zh": "登出"},
@@ -140,7 +155,7 @@ def require_login():
     if session.get("auth"):
         return None
     # Unauthenticated: API/JSON callers get 401, humans go to the login page.
-    if request.path.startswith(("/api/", "/econ/api/", "/aibubble/api/", "/rival/api/", "/compute/api/", "/racks/api/")):
+    if request.path.startswith(("/api/", "/econ/api/", "/aibubble/api/", "/rival/api/", "/compute/api/", "/racks/api/", "/flows/api/", "/cwengine/api/")):
         return jsonify({"error": "auth required"}), 401
     return redirect(url_for("login", next=request.path))
 
@@ -197,6 +212,14 @@ def portal():
         racks_snap = racks_load_snapshot()
     except Exception:
         racks_snap = None
+    try:
+        flows_snap = flows_load_snapshot()
+    except Exception:
+        flows_snap = None
+    try:
+        cwe_snap = cwengine_load_snapshot()
+    except Exception:
+        cwe_snap = None
     return render_template(
         "portal.html",
         econ_updated=econ_snap.get("date") if econ_snap else None,
@@ -211,6 +234,10 @@ def portal():
         compute_2030=((compute_snap.get("headline") or {}).get("grand_total_end_year_usd_bn")) if compute_snap else None,
         racks_updated=(racks_snap.get("as_of") if racks_snap else None),
         racks_count=((racks_snap.get("summary") or {}).get("n_systems")) if racks_snap else None,
+        flows_updated=(flows_snap.get("as_of") if flows_snap else None),
+        flows_score=((flows_snap.get("l3") or {}).get("marginal_direction") or {}).get("score") if flows_snap else None,
+        cwe_updated=(cwe_snap.get("as_of") if cwe_snap else None),
+        cwe_wpm=((cwe_snap.get("inference") or {}).get("wafers_per_month")) if cwe_snap else None,
     )
 
 
@@ -238,6 +265,10 @@ def _refresh_all_bg() -> None:
         racks_refresh()
     except Exception:
         log.exception("racks refresh failed")
+    try:
+        cwengine_refresh()
+    except Exception:
+        log.exception("cwengine refresh failed")
 
 
 @app.route("/cron/refresh")
