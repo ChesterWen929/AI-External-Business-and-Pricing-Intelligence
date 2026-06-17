@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Supply-Chain Earnings Radar · 供應鏈法說雷達</title>
+<style>
+  :root {
+    --bg: #0a0b0f; --panel: #14161d; --panel2: #1b1e27; --border: #262a35;
+    --fg: #ecedf2; --muted: #8b8f9e; --gold: #c8a86a; --accent: #7c83ff; --good: #4fb477;
+    --t1: #7c83ff; --t2: #b083f7; --t3: #6a6e80;
+    --bmo: #4fb477; --amc: #e07bb0; --intraday: #c8a86a; --warn: #c8a86a;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg);
+         font: 14px/1.5 "Inter", -apple-system, "PingFang TC", "Noto Sans TC", sans-serif; }
+  .top { display: flex; align-items: center; justify-content: space-between;
+         padding: 14px 24px; border-bottom: 1px solid var(--border); background: #0c0e13; position: sticky; top: 0; z-index: 20; }
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .gem { width: 14px; height: 14px; transform: rotate(45deg); border: 1px solid var(--gold); border-radius: 3px; }
+  .brand b { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+  .top a, .top button { color: var(--muted); font-size: 12px; text-decoration: none; letter-spacing: .5px;
+         background: none; border: none; cursor: pointer; font-family: inherit; }
+  .top a:hover, .top button:hover { color: var(--gold); }
+  .top .grp { display: flex; align-items: center; gap: 16px; }
+  header { padding: 22px 24px 6px; }
+  h1 { margin: 0 0 4px; font-size: 19px; font-weight: 600; }
+  h1 span { color: var(--muted); font-weight: 400; font-size: 14px; }
+  .sub { color: var(--muted); font-size: 12.5px; }
+  .banner { margin: 12px 24px 0; padding: 10px 14px; border-radius: 8px;
+            background: rgba(200,168,106,.10); border: 1px solid var(--warn); color: var(--gold); font-size: 13px; }
+  .toolbar { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; padding: 14px 24px; }
+  .toolbar .group { display: flex; gap: 6px; align-items: center; }
+  .toolbar label { color: var(--muted); font-size: 12px; margin-right: 4px; }
+  .chip { cursor: pointer; user-select: none; padding: 4px 10px; border-radius: 999px;
+          border: 1px solid var(--border); background: var(--panel2); color: var(--muted); font-size: 12px; }
+  .chip.on { color: var(--fg); border-color: var(--accent); background: rgba(124,131,255,.14); }
+  .stats { display: flex; gap: 18px; padding: 0 24px 8px; color: var(--muted); font-size: 12.5px; flex-wrap: wrap; }
+  .stats b { color: var(--fg); }
+  main { padding: 8px 24px 60px; max-width: 1080px; }
+  .day { margin-top: 22px; }
+  .day-head { display: flex; align-items: baseline; gap: 10px; position: sticky; top: 49px;
+              background: var(--bg); padding: 6px 0; border-bottom: 1px solid var(--border); z-index: 5; }
+  .day-date { font-size: 15px; font-weight: 600; }
+  .day-rel { font-size: 12px; color: var(--muted); }
+  .day-rel.today { color: var(--good); font-weight: 600; }
+  .day-rel.soon { color: var(--accent); }
+  .row { display: grid; grid-template-columns: 130px 1fr auto; gap: 12px; align-items: center;
+         padding: 10px 12px; margin-top: 8px; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; }
+  .row.est { border-style: dashed; opacity: .82; }
+  .co { font-weight: 600; }
+  .co .tk { color: var(--muted); font-weight: 400; font-size: 12px; margin-left: 6px; }
+  .meta { color: var(--muted); font-size: 12px; }
+  .badges { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+  .b { font-size: 11px; padding: 2px 7px; border-radius: 4px; border: 1px solid var(--border); white-space: nowrap; }
+  .b.tier-T1 { color: var(--t1); border-color: var(--t1); }
+  .b.tier-T2 { color: var(--t2); border-color: var(--t2); }
+  .b.tier-T3 { color: var(--t3); border-color: var(--t3); }
+  .b.bmo { color: var(--bmo); } .b.amc { color: var(--amc); } .b.intraday { color: var(--intraday); }
+  .b.est { color: var(--warn); border-color: var(--warn); }
+  .b.region { color: var(--muted); }
+  .empty { color: var(--muted); padding: 40px 0; text-align: center; }
+  .time { color: var(--muted); font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="brand"><span class="gem"></span><b>External Market Analysis</b></div>
+  <div class="grp">
+    <a href="/">← Portal</a>
+    <button id="refreshBtn">↻ 更新 Refresh</button>
+    <a href="/logout">登出 Sign out</a>
+  </div>
+</div>
+
+<header>
+  <h1>供應鏈法說雷達 <span>· Supply-Chain Earnings Radar</span></h1>
+  <div class="sub" id="subline">載入中… Loading…</div>
+</header>
+
+<div id="banner"></div>
+
+<div class="toolbar">
+  <div class="group"><label>分層 Tier</label>
+    <span class="chip on" data-tier="T1">T1</span>
+    <span class="chip on" data-tier="T2">T2</span>
+    <span class="chip on" data-tier="T3">T3</span>
+  </div>
+  <div class="group" id="region-group"><label>地區 Region</label></div>
+  <div class="group"><label>狀態</label>
+    <span class="chip on" data-flag="all">全部 All</span>
+    <span class="chip" data-flag="confirmed">僅已確認 Confirmed</span>
+  </div>
+</div>
+
+<div class="stats" id="stats"></div>
+<main id="timeline"><div class="empty">載入中…</div></main>
+
+<script>
+const SNAPSHOT = {{ snapshot|safe }};
+const TIMING_LABEL = { bmo: "盤前 BMO", amc: "盤後 AMC", intraday: "盤中 Intraday", unknown: "未知" };
+const state = { tiers: new Set(["T1","T2","T3"]), regions: new Set(), onlyConfirmed: false };
+const COMPANIES = SNAPSHOT.companies || {};
+
+function init() {
+  const regions = [...new Set(SNAPSHOT.events.map(e => e.region).filter(Boolean))].sort();
+  state.regions = new Set(regions);
+  const rg = document.getElementById("region-group");
+  for (const r of regions) {
+    const el = document.createElement("span");
+    el.className = "chip on"; el.dataset.region = r; el.textContent = r;
+    rg.appendChild(el);
+  }
+  document.querySelectorAll(".chip").forEach(c => c.addEventListener("click", onChip));
+
+  document.getElementById("subline").textContent =
+    `未來 ${SNAPSHOT.horizon_days} 天 · 來源 ${SNAPSHOT.source} · 更新 ${SNAPSHOT.generated_at} · 顯示時區 America/Los_Angeles (PT)`;
+
+  if (SNAPSHOT.estimated_data) {
+    document.getElementById("banner").innerHTML =
+      `<div class="banner">⚠ 目前為 <b>估計/種子日期</b>（伺服器未設定 Finnhub 金鑰時的占位資料）。設定 <code>FINNHUB_API_KEY</code> 後按「更新」即可換成真實法說日期。</div>`;
+  }
+  render();
+}
+
+function onChip(e) {
+  const el = e.currentTarget, d = el.dataset;
+  if (d.tier) { el.classList.toggle("on"); state.tiers[el.classList.contains("on")?"add":"delete"](d.tier); }
+  else if (d.region) { el.classList.toggle("on"); state.regions[el.classList.contains("on")?"add":"delete"](d.region); }
+  else if (d.flag) {
+    document.querySelectorAll("[data-flag]").forEach(c => c.classList.remove("on"));
+    el.classList.add("on"); state.onlyConfirmed = d.flag === "confirmed";
+  }
+  render();
+}
+
+function dayKey(iso) { return new Date(iso).toLocaleDateString("en-CA", { timeZone: "America/Los_Angeles" }); }
+function relLabel(key) {
+  const today = new Date().toLocaleDateString("en-CA", { timeZone: "America/Los_Angeles" });
+  const diff = Math.round((new Date(key) - new Date(today)) / 86400000);
+  if (diff === 0) return ["今天 Today", "today"];
+  if (diff === 1) return ["明天 Tomorrow", "soon"];
+  if (diff < 0) return [`${-diff} 天前`, ""];
+  if (diff <= 7) return [`${diff} 天後 · 本週`, "soon"];
+  return [`${diff} 天後`, ""];
+}
+
+function render() {
+  const evs = SNAPSHOT.events.filter(e =>
+    state.tiers.has(e.processing_tier) &&
+    state.regions.has(e.region) &&
+    (!state.onlyConfirmed || !e.estimated)
+  );
+  const byTier = { T1: 0, T2: 0, T3: 0 };
+  evs.forEach(e => byTier[e.processing_tier] = (byTier[e.processing_tier]||0)+1);
+  document.getElementById("stats").innerHTML =
+    `<span><b>${evs.length}</b> 場法說</span>
+     <span>T1 <b>${byTier.T1}</b></span><span>T2 <b>${byTier.T2}</b></span><span>T3 <b>${byTier.T3}</b></span>
+     <span>${evs.filter(e=>!e.estimated).length} 已確認 / ${evs.filter(e=>e.estimated).length} 估計</span>`;
+
+  const groups = {};
+  for (const e of evs) (groups[dayKey(e.datetime_local)] ||= []).push(e);
+  const keys = Object.keys(groups).sort();
+  const tl = document.getElementById("timeline");
+  if (!keys.length) { tl.innerHTML = `<div class="empty">此篩選條件下沒有法說 No earnings match the filter.</div>`; return; }
+
+  tl.innerHTML = keys.map(k => {
+    const [rel, cls] = relLabel(k);
+    const d = new Date(k + "T00:00:00");
+    const head = `<div class="day-head"><span class="day-date">${d.toLocaleDateString("zh-TW",{month:"long",day:"numeric",weekday:"short"})}</span><span class="day-rel ${cls}">${rel}</span></div>`;
+    const rows = groups[k].map(e => {
+      const c = COMPANIES[e.company_id] || {};
+      const t = new Date(e.datetime_local).toLocaleTimeString("en-US",{hour:"2-digit",minute:"2-digit",timeZone:"America/Los_Angeles"});
+      return `<div class="row ${e.estimated?'est':''}">
+        <div class="time">${t} PT</div>
+        <div><span class="co">${c.short_name || e.company_id}<span class="tk">${e.ticker}</span></span>
+             <div class="meta">${e.fiscal_quarter || ""} · ${(c.roles||[]).join(", ")}</div></div>
+        <div class="badges">
+          <span class="b tier-${e.processing_tier}">${e.processing_tier}</span>
+          <span class="b ${e.earnings_timing}">${TIMING_LABEL[e.earnings_timing]||e.earnings_timing}</span>
+          <span class="b region">${e.region||""}</span>
+          ${e.estimated?'<span class="b est">估計 EST</span>':''}
+        </div></div>`;
+    }).join("");
+    return `<div class="day">${head}${rows}</div>`;
+  }).join("");
+}
+
+document.getElementById("refreshBtn").addEventListener("click", async () => {
+  const pw = prompt("更新密碼 Refresh password（重新從 Finnhub 同步法說行事曆）：");
+  if (!pw) return;
+  const btn = document.getElementById("refreshBtn");
+  btn.textContent = "更新中… Refreshing…"; btn.disabled = true;
+  try {
+    const r = await fetch(`/earnings/api/refresh?password=${encodeURIComponent(pw)}`, { method: "POST" });
+    const j = await r.json();
+    if (!j.ok) { alert("更新失敗 Refresh failed: " + (j.error || r.status)); }
+    else { location.reload(); }
+  } catch (e) { alert("更新失敗 Refresh failed: " + e); }
+  finally { btn.textContent = "↻ 更新 Refresh"; btn.disabled = false; }
+});
+
+init();
+</script>
+</body>
+</html>

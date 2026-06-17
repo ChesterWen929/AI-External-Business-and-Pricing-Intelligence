@@ -28,3 +28,7 @@ services:
         sync: false               # optional — Capital Flow Radar refresh-button password (code default: capflow2026)
       - key: CWENGINE_REFRESH_PASSWORD
         sync: false               # optional — CapEx→Wafer Engine refresh + evidence-propose password (code default: cwengine2026)
+      - key: FINNHUB_API_KEY
+        sync: false               # Supply-Chain Earnings Radar — live earnings calendar (free key: https://finnhub.io). Unset → bundled snapshot only.
+      - key: EARNINGS_REFRESH_PASSWORD
+        sync: false               # optional — Earnings Radar refresh-button password (code default: earnings2026)

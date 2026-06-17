@@ -1,0 +1,2486 @@
+{
+  "_meta": {
+    "description": "T1 核心 30 家公司資料,供 AI 供應鏈法說觀測平台使用。對應 01_supply_chain_graph_schema.md。",
+    "version": "0.1",
+    "generated": "2026-06-16",
+    "IMPORTANT_FOR_CLAUDE_CODE": [
+      "ir_url 使用各公司官方網域的標準 IR 路徑,相對穩定但仍應在首次執行時以 HTTP 200 驗證;IR 頁面改版時需更新。",
+      "transcript_source / press_release_url 多為 placeholder 或 IR 根路徑,實際逐字稿/新聞稿的精確 URL 需在擷取階段動態探索(IR 頁通常列出當季財報連結)。",
+      "earnings_timing 為一般慣例(美股多 amc,台股法說多在台北時間下午),非保證;每季 re-sync 時以行事曆來源為準。",
+      "exchange_tz 為交易所所在時區,用於換算法說觸發時間。",
+      "consensus(市場預期)數字不存在本檔,需由財經 API 於分析時取得。"
+    ],
+    "counts": {
+      "T1": 30,
+      "T2": 34,
+      "T3": 9
+    },
+    "total": 73
+  },
+  "companies": [
+    {
+      "id": "tsmc",
+      "name": "Taiwan Semiconductor Manufacturing Company",
+      "short_name": "TSMC",
+      "tickers": [
+        "TSM",
+        "2330.TW"
+      ],
+      "primary_ticker": "TSM",
+      "region": "TW",
+      "exchange_tz": "Asia/Taipei",
+      "earnings_timing": "bmo",
+      "roles": [
+        "foundry"
+      ],
+      "supply_chain_tier": "T0",
+      "processing_tier": "T1",
+      "ir_sources": {
+        "ir_url": "https://investor.tsmc.com/english",
+        "transcript_source": "https://investor.tsmc.com/english/quarterly-results",
+        "press_release_url": "https://pr.tsmc.com/english/news",
+        "slides_url": "https://investor.tsmc.com/english/quarterly-results"
+      },
+      "connections": {
+        "customers": [
+          "nvidia",
+          "amd",
+          "apple",
+          "qualcomm",
+          "broadcom",
+          "marvell"
+        ],
+        "suppliers": [
+          "asml",
+          "applied_materials",
+          "lam_research",
+          "kla",
+          "tel"
+        ],
+        "competitors": [
+          "samsung",
+          "intel"
+        ]
+      },
+      "watch_themes": [
+        "capex",
+        "utilization",
+        "ai_demand",
+        "n2",
+        "cowos",
+        "gross_margin"
+      ],
+      "active": true
+    },
+    {
+      "id": "samsung",
+      "name": "Samsung Electronics",
+      "short_name": "Samsung",
+      "tickers": [
+        "005930.KS"
+      ],
+      "primary_ticker": "005930.KS",
+      "region": "KR",
+      "exchange_tz": "Asia/Seoul",
+      "earnings_timing": "bmo",
+      "roles": [
+        "foundry",
+        "memory",
+        "hbm"
+      ],
+      "supply_chain_tier": "T0",
+      "processing_tier": "T1",
+      "ir_sources": {
+        "ir_url": "https://www.samsung.com/global/ir/",
+        "transcript_source": "https://www.samsung.com/global/ir/financial-information/earnings-release/",
+        "press_release_url": "https://news.samsung.com/global/",
+        "slides_url": "https://www.samsung.com/global/ir/financial-information/earnings-release/"
+      },
+      "connections": {
+        "customers": [
+          "nvidia",
+          "apple"
+        ],
+        "suppliers": [
+          "asml",
+          "applied_materials",
+          "lam_research",
+          "tel"
+        ],
+        "competitors": [
+          "tsmc",
+          "intel",
+          "micron",
+          "sk_hynix"
+        ]
+      },
+      "watch_themes": [
+        "hbm",
+        "capex",
+        "memory_pricing",
+        "foundry"
+      ],
+      "active": true
+    },
+    {
+      "id": "intel",
+      "name": "Intel Corporation",
+      "short_name": "Intel",
+      "tickers": [
+        "INTC"
+      ],
+      "primary_ticker": "INTC",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "amc",
+      "roles": [
+        "idm",
+        "foundry"
+      ],
+      "supply_chain_tier": "T0",
+      "processing_tier": "T1",
+      "ir_sources": {
+        "ir_url": "https://www.intc.com/",
+        "transcript_source": "https://www.intc.com/news-events/events",
+        "press_release_url": "https://www.intc.com/news-events/press-releases",
+        "slides_url": "https://www.intc.com/financial-info/quarterly-results"
+      },
+      "connections": {
+        "customers": [
+          "microsoft",
+          "amazon",
+          "dell"
+        ],
+        "suppliers": [
+          "asml",
+          "applied_materials",
+          "lam_research",
+          "kla",
+          "tel"
+        ],
+        "competitors": [
+          "tsmc",
+          "samsung",
+          "amd",
+          "nvidia"
+        ]
+      },
+      "watch_themes": [
+        "foundry_progress",
+        "capex",
+        "18a",
+        "datacenter"
+      ],
+      "active": true
+    },
+    {
+      "id": "nvidia",
+      "name": "NVIDIA Corporation",
+      "short_name": "NVIDIA",
+      "tickers": [
+        "NVDA"
+      ],
+      "primary_ticker": "NVDA",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "amc",
+      "roles": [
+        "fabless"
+      ],
+      "supply_chain_tier": "T+1",
+      "processing_tier": "T1",
+      "ir_sources": {
+        "ir_url": "https://investor.nvidia.com/",
+        "transcript_source": "https://investor.nvidia.com/events-and-presentations/events-and-presentations/",
+        "press_release_url": "https://nvidianews.nvidia.com/news",
+        "slides_url": "https://investor.nvidia.com/financial-info/financial-reports/"
+      },
+      "connections": {
+        "customers": [
+          "microsoft",
+          "google",
+          "meta",
+          "amazon",
+          "oracle",
+          "dell",
+          "supermicro"
+        ],
+        "suppliers": [
+          "tsmc",
+          "sk_hynix",
+          "micron",
+          "samsung",
+          "ase"
+        ],
+        "competitors": [
+          "amd",
+          "broadcom"
+        ]
+      },
+      "watch_themes": [
+        "ai_demand",
+        "datacenter_rev",
+        "guidance",
+        "blackwell",
+        "gross_margin"
+      ],
+      "active": true
+    },
+    {
+      "id": "amd",
+      "name": "Advanced Micro Devices",
+      "short_name": "AMD",
+      "tickers": [
+        "AMD"
+      ],
+      "primary_ticker": "AMD",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "amc",
+      "roles": [
+        "fabless"
+      ],
+      "supply_chain_tier": "T+1",
+      "processing_tier": "T1",
+      "ir_sources": {
+        "ir_url": "https://ir.amd.com/",
+        "transcript_source": "https://ir.amd.com/news-events/events",
+        "press_release_url": "https://ir.amd.com/news-events/press-releases",
+        "slides_url": "https://ir.amd.com/financial-information/quarterly-results"
+      },
+      "connections": {
+        "customers": [
+          "microsoft",
+          "google",
+          "meta",
+          "amazon",
+          "oracle",
+          "dell",
+          "supermicro"
+        ],
+        "suppliers": [
+          "tsmc",
+          "sk_hynix",
+          "micron",
+          "ase"
+        ],
+        "competitors": [
+          "nvidia",
+          "intel"
+        ]
+      },
+      "watch_themes": [
+        "ai_gpu",
+        "datacenter",
+        "mi_series",
+        "guidance"
+      ],
+      "active": true
+    },
+    {
+      "id": "apple",
+      "name": "Apple Inc.",
+      "short_name": "Apple",
+      "tickers": [
+        "AAPL"
+      ],
+      "primary_ticker": "AAPL",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "amc",
+      "roles": [
+        "fabless"
+      ],
+      "supply_chain_tier": "T+2",
+      "processing_tier": "T1",
+      "ir_sources": {
+        "ir_url": "https://investor.apple.com/",
+        "transcript_source": "https://investor.apple.com/investor-relations/default.aspx",
+        "press_release_url": "https://www.apple.com/newsroom/",
+        "slides_url": "https://investor.apple.com/investor-relations/default.aspx"
+      },
+      "connections": {
+        "customers": [],
+        "suppliers": [
+          "tsmc",
+          "samsung",
+          "broadcom",
+          "qualcomm"
+        ],
+        "competitors": [
+          "samsung",
+          "qualcomm"
+        ]
+      },
+      "watch_themes": [
+        "iphone",
+        "silicon_roadmap",
+        "services",
+        "ai_features"
+      ],
+      "active": true
+    },
+    {
+      "id": "qualcomm",
+      "name": "Qualcomm Incorporated",
+      "short_name": "Qualcomm",
+      "tickers": [
+        "QCOM"
+      ],
+      "primary_ticker": "QCOM",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "amc",
+      "roles": [
+        "fabless"
+      ],
+      "supply_chain_tier": "T+1",
+      "processing_tier": "T1",
+      "ir_sources": {
+        "ir_url": "https://investor.qualcomm.com/",
+        "transcript_source": "https://investor.qualcomm.com/events-presentations",
+        "press_release_url": "https://www.qualcomm.com/news/releases",
+        "slides_url": "https://investor.qualcomm.com/financial-information/quarterly-results"
+      },
+      "connections": {
+        "customers": [
+          "apple",
+          "samsung"
+        ],
+        "suppliers": [
+          "tsmc",
+          "samsung"
+        ],
+        "competitors": [
+          "apple",
+          "broadcom"
+        ]
+      },
+      "watch_themes": [
+        "handset",
+        "auto",
+        "edge_ai",
+        "qct"
+      ],
+      "active": true
+    },
+    {
+      "id": "broadcom",
+      "name": "Broadcom Inc.",
+      "short_name": "Broadcom",
+      "tickers": [
+        "AVGO"
+      ],
+      "primary_ticker": "AVGO",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "amc",
+      "roles": [
+        "fabless",
+        "networking"
+      ],
+      "supply_chain_tier": "T+1",
+      "processing_tier": "T1",
+      "ir_sources": {
+        "ir_url": "https://investors.broadcom.com/",
+        "transcript_source": "https://investors.broadcom.com/events-and-presentations",
+        "press_release_url": "https://investors.broadcom.com/news-releases",
+        "slides_url": "https://investors.broadcom.com/financial-information/quarterly-results"
+      },
+      "connections": {
+        "customers": [
+          "google",
+          "meta",
+          "apple",
+          "microsoft"
+        ],
+        "suppliers": [
+          "tsmc"
+        ],
+        "competitors": [
+          "nvidia",
+          "marvell"
+        ]
+      },
+      "watch_themes": [
+        "custom_silicon",
+        "ai_networking",
+        "asic",
+        "vmware"
+      ],
+      "active": true
+    },
+    {
+      "id": "marvell",
+      "name": "Marvell Technology",
+      "short_name": "Marvell",
+      "tickers": [
+        "MRVL"
+      ],
+      "primary_ticker": "MRVL",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "amc",
+      "roles": [
+        "fabless",
+        "optical"
+      ],
+      "supply_chain_tier": "T+1",
+      "processing_tier": "T1",
+      "ir_sources": {
+        "ir_url": "https://investor.marvell.com/",
+        "transcript_source": "https://investor.marvell.com/events-and-presentations",
+        "press_release_url": "https://investor.marvell.com/news-releases",
+        "slides_url": "https://investor.marvell.com/financial-information/quarterly-results"
+      },
+      "connections": {
+        "customers": [
+          "amazon",
+          "google",
+          "microsoft"
+        ],
+        "suppliers": [
+          "tsmc"
+        ],
+        "competitors": [
+          "broadcom",
+          "nvidia"
+        ]
+      },
+      "watch_themes": [
+        "custom_silicon",
+        "optical_dsp",
+        "ai_datacenter"
+      ],
+      "active": true
+    },
+    {
+      "id": "micron",
+      "name": "Micron Technology",
+      "short_name": "Micron",
+      "tickers": [
+        "MU"
+      ],
+      "primary_ticker": "MU",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "amc",
+      "roles": [
+        "memory",
+        "hbm"
+      ],
+      "supply_chain_tier": "lateral",
+      "processing_tier": "T1",
+      "ir_sources": {
+        "ir_url": "https://investors.micron.com/",
+        "transcript_source": "https://investors.micron.com/events-and-presentations",
+        "press_release_url": "https://investors.micron.com/news-releases",
+        "slides_url": "https://investors.micron.com/financial-information/quarterly-results"
+      },
+      "connections": {
+        "customers": [
+          "nvidia",
+          "amd",
+          "dell",
+          "supermicro"
+        ],
+        "suppliers": [
+          "asml",
+          "applied_materials",
+          "lam_research"
+        ],
+        "competitors": [
+          "sk_hynix",
+          "samsung"
+        ]
+      },
+      "watch_themes": [
+        "hbm",
+        "dram_pricing",
+        "capex",
+        "ai_demand"
+      ],
+      "active": true
+    },
+    {
+      "id": "sk_hynix",
+      "name": "SK hynix Inc.",
+      "short_name": "SK Hynix",
+      "tickers": [
+        "000660.KS"
+      ],
+      "primary_ticker": "000660.KS",
+      "region": "KR",
+      "exchange_tz": "Asia/Seoul",
+      "earnings_timing": "bmo",
+      "roles": [
+        "memory",
+        "hbm"
+      ],
+      "supply_chain_tier": "lateral",
+      "processing_tier": "T1",
+      "ir_sources": {
+        "ir_url": "https://www.skhynix.com/ir/UI-FR-IR01/",
+        "transcript_source": "https://www.skhynix.com/ir/UI-FR-IR05/",
+        "press_release_url": "https://news.skhynix.com/",
+        "slides_url": "https://www.skhynix.com/ir/UI-FR-IR05/"
+      },
+      "connections": {
+        "customers": [
+          "nvidia",
+          "amd"
+        ],
+        "suppliers": [
+          "asml",
+          "applied_materials",
+          "lam_research",
+          "tel"
+        ],
+        "competitors": [
+          "micron",
+          "samsung"
+        ]
+      },
+      "watch_themes": [
+        "hbm",
+        "dram_pricing",
+        "ai_demand",
+        "capex"
+      ],
+      "active": true
+    },
+    {
+      "id": "asml",
+      "name": "ASML Holding N.V.",
+      "short_name": "ASML",
+      "tickers": [
+        "ASML",
+        "ASML.AS"
+      ],
+      "primary_ticker": "ASML",
+      "region": "EU",
+      "exchange_tz": "Europe/Amsterdam",
+      "earnings_timing": "bmo",
+      "roles": [
+        "equipment"
+      ],
+      "supply_chain_tier": "T-1",
+      "processing_tier": "T1",
+      "ir_sources": {
+        "ir_url": "https://www.asml.com/en/investors",
+        "transcript_source": "https://www.asml.com/en/investors/financial-results",
+        "press_release_url": "https://www.asml.com/en/news/press-releases",
+        "slides_url": "https://www.asml.com/en/investors/financial-results"
+      },
+      "connections": {
+        "customers": [
+          "tsmc",
+          "samsung",
+          "intel",
+          "micron",
+          "sk_hynix"
+        ],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [
+        "euv_orders",
+        "china_exposure",
+        "backlog",
+        "bookings"
+      ],
+      "active": true
+    },
+    {
+      "id": "applied_materials",
+      "name": "Applied Materials, Inc.",
+      "short_name": "Applied Materials",
+      "tickers": [
+        "AMAT"
+      ],
+      "primary_ticker": "AMAT",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "amc",
+      "roles": [
+        "equipment",
+        "materials"
+      ],
+      "supply_chain_tier": "T-1",
+      "processing_tier": "T1",
+      "ir_sources": {
+        "ir_url": "https://ir.appliedmaterials.com/",
+        "transcript_source": "https://ir.appliedmaterials.com/events-and-presentations",
+        "press_release_url": "https://ir.appliedmaterials.com/news-releases",
+        "slides_url": "https://ir.appliedmaterials.com/financial-information/quarterly-results"
+      },
+      "connections": {
+        "customers": [
+          "tsmc",
+          "samsung",
+          "intel",
+          "micron",
+          "sk_hynix"
+        ],
+        "suppliers": [],
+        "competitors": [
+          "lam_research",
+          "tel",
+          "kla"
+        ]
+      },
+      "watch_themes": [
+        "wfe_demand",
+        "leading_edge",
+        "china_exposure",
+        "backlog"
+      ],
+      "active": true
+    },
+    {
+      "id": "lam_research",
+      "name": "Lam Research Corporation",
+      "short_name": "Lam Research",
+      "tickers": [
+        "LRCX"
+      ],
+      "primary_ticker": "LRCX",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "amc",
+      "roles": [
+        "equipment"
+      ],
+      "supply_chain_tier": "T-1",
+      "processing_tier": "T1",
+      "ir_sources": {
+        "ir_url": "https://investor.lamresearch.com/",
+        "transcript_source": "https://investor.lamresearch.com/events-and-presentations",
+        "press_release_url": "https://investor.lamresearch.com/news-releases",
+        "slides_url": "https://investor.lamresearch.com/financial-information/quarterly-results"
+      },
+      "connections": {
+        "customers": [
+          "tsmc",
+          "samsung",
+          "intel",
+          "micron",
+          "sk_hynix"
+        ],
+        "suppliers": [],
+        "competitors": [
+          "applied_materials",
+          "tel",
+          "kla"
+        ]
+      },
+      "watch_themes": [
+        "etch_deposition",
+        "memory_wfe",
+        "china_exposure"
+      ],
+      "active": true
+    },
+    {
+      "id": "kla",
+      "name": "KLA Corporation",
+      "short_name": "KLA",
+      "tickers": [
+        "KLAC"
+      ],
+      "primary_ticker": "KLAC",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "amc",
+      "roles": [
+        "equipment"
+      ],
+      "supply_chain_tier": "T-1",
+      "processing_tier": "T1",
+      "ir_sources": {
+        "ir_url": "https://ir.kla.com/",
+        "transcript_source": "https://ir.kla.com/events-and-presentations",
+        "press_release_url": "https://ir.kla.com/news-releases",
+        "slides_url": "https://ir.kla.com/financial-information/quarterly-results"
+      },
+      "connections": {
+        "customers": [
+          "tsmc",
+          "samsung",
+          "intel",
+          "micron",
+          "sk_hynix"
+        ],
+        "suppliers": [],
+        "competitors": [
+          "applied_materials",
+          "lam_research"
+        ]
+      },
+      "watch_themes": [
+        "process_control",
+        "backlog",
+        "leading_edge"
+      ],
+      "active": true
+    },
+    {
+      "id": "tel",
+      "name": "Tokyo Electron Limited",
+      "short_name": "Tokyo Electron",
+      "tickers": [
+        "8035.T"
+      ],
+      "primary_ticker": "8035.T",
+      "region": "JP",
+      "exchange_tz": "Asia/Tokyo",
+      "earnings_timing": "amc",
+      "roles": [
+        "equipment"
+      ],
+      "supply_chain_tier": "T-1",
+      "processing_tier": "T1",
+      "ir_sources": {
+        "ir_url": "https://www.tel.com/ir/",
+        "transcript_source": "https://www.tel.com/ir/library/presentation/",
+        "press_release_url": "https://www.tel.com/news/",
+        "slides_url": "https://www.tel.com/ir/library/presentation/"
+      },
+      "connections": {
+        "customers": [
+          "tsmc",
+          "samsung",
+          "intel",
+          "micron",
+          "sk_hynix"
+        ],
+        "suppliers": [],
+        "competitors": [
+          "applied_materials",
+          "lam_research"
+        ]
+      },
+      "watch_themes": [
+        "wfe_demand",
+        "china_exposure"
+      ],
+      "active": true
+    },
+    {
+      "id": "microsoft",
+      "name": "Microsoft Corporation",
+      "short_name": "Microsoft",
+      "tickers": [
+        "MSFT"
+      ],
+      "primary_ticker": "MSFT",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "amc",
+      "roles": [
+        "hyperscaler"
+      ],
+      "supply_chain_tier": "T+2",
+      "processing_tier": "T1",
+      "ir_sources": {
+        "ir_url": "https://www.microsoft.com/en-us/investor",
+        "transcript_source": "https://www.microsoft.com/en-us/investor/earnings/",
+        "press_release_url": "https://news.microsoft.com/",
+        "slides_url": "https://www.microsoft.com/en-us/investor/earnings/"
+      },
+      "connections": {
+        "customers": [],
+        "suppliers": [
+          "nvidia",
+          "amd",
+          "broadcom",
+          "intel"
+        ],
+        "competitors": [
+          "google",
+          "amazon",
+          "oracle"
+        ]
+      },
+      "watch_themes": [
+        "azure_capex",
+        "ai_capex",
+        "azure_growth",
+        "copilot"
+      ],
+      "active": true
+    },
+    {
+      "id": "google",
+      "name": "Alphabet Inc.",
+      "short_name": "Alphabet/Google",
+      "tickers": [
+        "GOOGL",
+        "GOOG"
+      ],
+      "primary_ticker": "GOOGL",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "amc",
+      "roles": [
+        "hyperscaler"
+      ],
+      "supply_chain_tier": "T+2",
+      "processing_tier": "T1",
+      "ir_sources": {
+        "ir_url": "https://abc.xyz/investor/",
+        "transcript_source": "https://abc.xyz/investor/",
+        "press_release_url": "https://blog.google/",
+        "slides_url": "https://abc.xyz/investor/"
+      },
+      "connections": {
+        "customers": [],
+        "suppliers": [
+          "nvidia",
+          "broadcom",
+          "marvell"
+        ],
+        "competitors": [
+          "microsoft",
+          "amazon"
+        ]
+      },
+      "watch_themes": [
+        "cloud_capex",
+        "ai_capex",
+        "tpu",
+        "cloud_growth"
+      ],
+      "active": true
+    },
+    {
+      "id": "meta",
+      "name": "Meta Platforms, Inc.",
+      "short_name": "Meta",
+      "tickers": [
+        "META"
+      ],
+      "primary_ticker": "META",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "amc",
+      "roles": [
+        "hyperscaler"
+      ],
+      "supply_chain_tier": "T+2",
+      "processing_tier": "T1",
+      "ir_sources": {
+        "ir_url": "https://investor.atmeta.com/",
+        "transcript_source": "https://investor.atmeta.com/financials/",
+        "press_release_url": "https://investor.atmeta.com/investor-news/",
+        "slides_url": "https://investor.atmeta.com/financials/"
+      },
+      "connections": {
+        "customers": [],
+        "suppliers": [
+          "nvidia",
+          "amd",
+          "broadcom"
+        ],
+        "competitors": [
+          "google",
+          "microsoft"
+        ]
+      },
+      "watch_themes": [
+        "ai_capex",
+        "infra_spend",
+        "capex_guidance"
+      ],
+      "active": true
+    },
+    {
+      "id": "amazon",
+      "name": "Amazon.com, Inc.",
+      "short_name": "Amazon",
+      "tickers": [
+        "AMZN"
+      ],
+      "primary_ticker": "AMZN",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "amc",
+      "roles": [
+        "hyperscaler"
+      ],
+      "supply_chain_tier": "T+2",
+      "processing_tier": "T1",
+      "ir_sources": {
+        "ir_url": "https://ir.aboutamazon.com/",
+        "transcript_source": "https://ir.aboutamazon.com/quarterly-results/",
+        "press_release_url": "https://press.aboutamazon.com/",
+        "slides_url": "https://ir.aboutamazon.com/quarterly-results/"
+      },
+      "connections": {
+        "customers": [],
+        "suppliers": [
+          "nvidia",
+          "amd",
+          "marvell"
+        ],
+        "competitors": [
+          "microsoft",
+          "google",
+          "oracle"
+        ]
+      },
+      "watch_themes": [
+        "aws_capex",
+        "ai_capex",
+        "trainium",
+        "aws_growth"
+      ],
+      "active": true
+    },
+    {
+      "id": "oracle",
+      "name": "Oracle Corporation",
+      "short_name": "Oracle",
+      "tickers": [
+        "ORCL"
+      ],
+      "primary_ticker": "ORCL",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "amc",
+      "roles": [
+        "hyperscaler"
+      ],
+      "supply_chain_tier": "T+2",
+      "processing_tier": "T1",
+      "ir_sources": {
+        "ir_url": "https://investor.oracle.com/",
+        "transcript_source": "https://investor.oracle.com/events-and-presentations/",
+        "press_release_url": "https://www.oracle.com/news/",
+        "slides_url": "https://investor.oracle.com/financial-reporting/"
+      },
+      "connections": {
+        "customers": [],
+        "suppliers": [
+          "nvidia",
+          "amd"
+        ],
+        "competitors": [
+          "microsoft",
+          "amazon",
+          "google"
+        ]
+      },
+      "watch_themes": [
+        "oci_capex",
+        "rpo",
+        "cloud_growth",
+        "ai_demand"
+      ],
+      "active": true
+    },
+    {
+      "id": "dell",
+      "name": "Dell Technologies Inc.",
+      "short_name": "Dell",
+      "tickers": [
+        "DELL"
+      ],
+      "primary_ticker": "DELL",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "amc",
+      "roles": [
+        "oem_server"
+      ],
+      "supply_chain_tier": "T+3",
+      "processing_tier": "T1",
+      "ir_sources": {
+        "ir_url": "https://investors.delltechnologies.com/",
+        "transcript_source": "https://investors.delltechnologies.com/events-and-presentations",
+        "press_release_url": "https://investors.delltechnologies.com/news-releases",
+        "slides_url": "https://investors.delltechnologies.com/financial-information/quarterly-results"
+      },
+      "connections": {
+        "customers": [],
+        "suppliers": [
+          "nvidia",
+          "amd",
+          "intel",
+          "micron"
+        ],
+        "competitors": [
+          "supermicro"
+        ]
+      },
+      "watch_themes": [
+        "ai_server_backlog",
+        "isg",
+        "guidance"
+      ],
+      "active": true
+    },
+    {
+      "id": "supermicro",
+      "name": "Super Micro Computer, Inc.",
+      "short_name": "Super Micro",
+      "tickers": [
+        "SMCI"
+      ],
+      "primary_ticker": "SMCI",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "amc",
+      "roles": [
+        "oem_server"
+      ],
+      "supply_chain_tier": "T+3",
+      "processing_tier": "T1",
+      "ir_sources": {
+        "ir_url": "https://ir.supermicro.com/",
+        "transcript_source": "https://ir.supermicro.com/events-presentations",
+        "press_release_url": "https://ir.supermicro.com/news/news-details",
+        "slides_url": "https://ir.supermicro.com/financial-information"
+      },
+      "connections": {
+        "customers": [],
+        "suppliers": [
+          "nvidia",
+          "amd",
+          "intel"
+        ],
+        "competitors": [
+          "dell"
+        ]
+      },
+      "watch_themes": [
+        "ai_server",
+        "liquid_cooling",
+        "guidance",
+        "margins"
+      ],
+      "active": true
+    },
+    {
+      "id": "vertiv",
+      "name": "Vertiv Holdings Co",
+      "short_name": "Vertiv",
+      "tickers": [
+        "VRT"
+      ],
+      "primary_ticker": "VRT",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "bmo",
+      "roles": [
+        "cooling_thermal",
+        "power_equipment"
+      ],
+      "supply_chain_tier": "infra",
+      "processing_tier": "T1",
+      "ir_sources": {
+        "ir_url": "https://investors.vertiv.com/",
+        "transcript_source": "https://investors.vertiv.com/news-events/events",
+        "press_release_url": "https://investors.vertiv.com/news-events/press-releases",
+        "slides_url": "https://investors.vertiv.com/financials/quarterly-results"
+      },
+      "connections": {
+        "customers": [
+          "microsoft",
+          "google",
+          "meta",
+          "amazon",
+          "oracle"
+        ],
+        "suppliers": [],
+        "competitors": [
+          "eaton"
+        ]
+      },
+      "watch_themes": [
+        "datacenter_thermal",
+        "backlog",
+        "liquid_cooling",
+        "orders"
+      ],
+      "active": true
+    },
+    {
+      "id": "eaton",
+      "name": "Eaton Corporation plc",
+      "short_name": "Eaton",
+      "tickers": [
+        "ETN"
+      ],
+      "primary_ticker": "ETN",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "bmo",
+      "roles": [
+        "power_equipment"
+      ],
+      "supply_chain_tier": "infra",
+      "processing_tier": "T1",
+      "ir_sources": {
+        "ir_url": "https://www.eaton.com/us/en-us/company/investor-relations.html",
+        "transcript_source": "https://www.eaton.com/us/en-us/company/investor-relations/events-and-presentations.html",
+        "press_release_url": "https://www.eaton.com/us/en-us/company/news-insights.html",
+        "slides_url": "https://www.eaton.com/us/en-us/company/investor-relations/financial-results.html"
+      },
+      "connections": {
+        "customers": [
+          "microsoft",
+          "google",
+          "meta",
+          "amazon"
+        ],
+        "suppliers": [],
+        "competitors": [
+          "vertiv",
+          "ge_vernova"
+        ]
+      },
+      "watch_themes": [
+        "datacenter_electrical",
+        "backlog",
+        "electrical_orders"
+      ],
+      "active": true
+    },
+    {
+      "id": "constellation",
+      "name": "Constellation Energy Corporation",
+      "short_name": "Constellation",
+      "tickers": [
+        "CEG"
+      ],
+      "primary_ticker": "CEG",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "bmo",
+      "roles": [
+        "power_utility"
+      ],
+      "supply_chain_tier": "infra",
+      "processing_tier": "T1",
+      "ir_sources": {
+        "ir_url": "https://investors.constellationenergy.com/",
+        "transcript_source": "https://investors.constellationenergy.com/news-events/events",
+        "press_release_url": "https://investors.constellationenergy.com/news-events/press-releases",
+        "slides_url": "https://investors.constellationenergy.com/financials/quarterly-results"
+      },
+      "connections": {
+        "customers": [
+          "microsoft",
+          "google",
+          "meta",
+          "amazon"
+        ],
+        "suppliers": [],
+        "competitors": [
+          "vistra"
+        ]
+      },
+      "watch_themes": [
+        "datacenter_ppa",
+        "nuclear",
+        "power_demand",
+        "data_center_deals"
+      ],
+      "active": true
+    },
+    {
+      "id": "vistra",
+      "name": "Vistra Corp.",
+      "short_name": "Vistra",
+      "tickers": [
+        "VST"
+      ],
+      "primary_ticker": "VST",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "bmo",
+      "roles": [
+        "power_utility"
+      ],
+      "supply_chain_tier": "infra",
+      "processing_tier": "T1",
+      "ir_sources": {
+        "ir_url": "https://investor.vistracorp.com/",
+        "transcript_source": "https://investor.vistracorp.com/news-and-events/events",
+        "press_release_url": "https://investor.vistracorp.com/news-and-events/news",
+        "slides_url": "https://investor.vistracorp.com/financial-information/quarterly-results"
+      },
+      "connections": {
+        "customers": [
+          "microsoft",
+          "google",
+          "meta",
+          "amazon"
+        ],
+        "suppliers": [],
+        "competitors": [
+          "constellation"
+        ]
+      },
+      "watch_themes": [
+        "datacenter_demand",
+        "power_demand",
+        "nuclear"
+      ],
+      "active": true
+    },
+    {
+      "id": "ge_vernova",
+      "name": "GE Vernova Inc.",
+      "short_name": "GE Vernova",
+      "tickers": [
+        "GEV"
+      ],
+      "primary_ticker": "GEV",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "bmo",
+      "roles": [
+        "power_equipment"
+      ],
+      "supply_chain_tier": "infra",
+      "processing_tier": "T1",
+      "ir_sources": {
+        "ir_url": "https://www.gevernova.com/investors",
+        "transcript_source": "https://www.gevernova.com/investors/events-and-reports",
+        "press_release_url": "https://www.gevernova.com/news",
+        "slides_url": "https://www.gevernova.com/investors/events-and-reports"
+      },
+      "connections": {
+        "customers": [
+          "microsoft",
+          "google",
+          "meta",
+          "amazon"
+        ],
+        "suppliers": [],
+        "competitors": [
+          "eaton",
+          "vertiv"
+        ]
+      },
+      "watch_themes": [
+        "grid",
+        "gas_turbine",
+        "datacenter_power",
+        "orders"
+      ],
+      "active": true
+    },
+    {
+      "id": "delta_tw",
+      "name": "Delta Electronics, Inc.",
+      "short_name": "Delta 台達電",
+      "tickers": [
+        "2308.TW"
+      ],
+      "primary_ticker": "2308.TW",
+      "region": "TW",
+      "exchange_tz": "Asia/Taipei",
+      "earnings_timing": "intraday",
+      "roles": [
+        "power_equipment",
+        "cooling_thermal"
+      ],
+      "supply_chain_tier": "infra",
+      "processing_tier": "T1",
+      "ir_sources": {
+        "ir_url": "https://www.deltaww.com/en-US/Investor",
+        "transcript_source": "https://www.deltaww.com/en-US/Investor",
+        "press_release_url": "https://www.deltaww.com/en-US/news",
+        "slides_url": "https://www.deltaww.com/en-US/Investor"
+      },
+      "connections": {
+        "customers": [
+          "nvidia",
+          "microsoft",
+          "google",
+          "meta",
+          "amazon",
+          "supermicro"
+        ],
+        "suppliers": [],
+        "competitors": [
+          "vertiv"
+        ]
+      },
+      "watch_themes": [
+        "datacenter_power",
+        "thermal",
+        "power_supply",
+        "ai_demand"
+      ],
+      "active": true
+    },
+    {
+      "id": "ase",
+      "name": "ASE Technology Holding Co., Ltd.",
+      "short_name": "ASE 日月光",
+      "tickers": [
+        "3711.TW",
+        "ASX"
+      ],
+      "primary_ticker": "ASX",
+      "region": "TW",
+      "exchange_tz": "Asia/Taipei",
+      "earnings_timing": "intraday",
+      "roles": [
+        "osat"
+      ],
+      "supply_chain_tier": "lateral",
+      "processing_tier": "T1",
+      "ir_sources": {
+        "ir_url": "https://www.aseglobal.com/en/investor/",
+        "transcript_source": "https://www.aseglobal.com/en/investor/financial-information/",
+        "press_release_url": "https://www.aseglobal.com/en/news/",
+        "slides_url": "https://www.aseglobal.com/en/investor/financial-information/"
+      },
+      "connections": {
+        "customers": [
+          "nvidia",
+          "amd",
+          "broadcom",
+          "tsmc"
+        ],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [
+        "advanced_packaging",
+        "cowos",
+        "test",
+        "ai_demand",
+        "utilization"
+      ],
+      "active": true
+    },
+    {
+      "id": "amkor",
+      "name": "Amkor Technology, Inc.",
+      "short_name": "Amkor",
+      "tickers": [
+        "AMKR"
+      ],
+      "primary_ticker": "AMKR",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "amc",
+      "roles": [
+        "osat"
+      ],
+      "supply_chain_tier": "lateral",
+      "processing_tier": "T2",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "powertech",
+      "name": "Powertech Technology Inc. 力成",
+      "short_name": "Powertech 力成",
+      "tickers": [
+        "6239.TW"
+      ],
+      "primary_ticker": "6239.TW",
+      "region": "TW",
+      "exchange_tz": "Asia/Taipei",
+      "earnings_timing": "intraday",
+      "roles": [
+        "osat"
+      ],
+      "supply_chain_tier": "lateral",
+      "processing_tier": "T2",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "globalwafers",
+      "name": "GlobalWafers Co., Ltd. 環球晶",
+      "short_name": "GlobalWafers 環球晶",
+      "tickers": [
+        "6488.TW"
+      ],
+      "primary_ticker": "6488.TW",
+      "region": "TW",
+      "exchange_tz": "Asia/Taipei",
+      "earnings_timing": "intraday",
+      "roles": [
+        "materials"
+      ],
+      "supply_chain_tier": "T-2",
+      "processing_tier": "T2",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "sumco",
+      "name": "SUMCO Corporation",
+      "short_name": "SUMCO",
+      "tickers": [
+        "3436.T"
+      ],
+      "primary_ticker": "3436.T",
+      "region": "JP",
+      "exchange_tz": "Asia/Tokyo",
+      "earnings_timing": "amc",
+      "roles": [
+        "materials"
+      ],
+      "supply_chain_tier": "T-2",
+      "processing_tier": "T2",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "shin_etsu",
+      "name": "Shin-Etsu Chemical Co., Ltd. 信越",
+      "short_name": "Shin-Etsu 信越",
+      "tickers": [
+        "4063.T"
+      ],
+      "primary_ticker": "4063.T",
+      "region": "JP",
+      "exchange_tz": "Asia/Tokyo",
+      "earnings_timing": "amc",
+      "roles": [
+        "materials"
+      ],
+      "supply_chain_tier": "T-2",
+      "processing_tier": "T2",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "entegris",
+      "name": "Entegris, Inc.",
+      "short_name": "Entegris",
+      "tickers": [
+        "ENTG"
+      ],
+      "primary_ticker": "ENTG",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "amc",
+      "roles": [
+        "materials"
+      ],
+      "supply_chain_tier": "T-2",
+      "processing_tier": "T2",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "mks",
+      "name": "MKS Instruments, Inc.",
+      "short_name": "MKS",
+      "tickers": [
+        "MKSI"
+      ],
+      "primary_ticker": "MKSI",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "amc",
+      "roles": [
+        "equipment",
+        "materials"
+      ],
+      "supply_chain_tier": "T-1",
+      "processing_tier": "T2",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "ti",
+      "name": "Texas Instruments Incorporated",
+      "short_name": "Texas Instruments",
+      "tickers": [
+        "TXN"
+      ],
+      "primary_ticker": "TXN",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "amc",
+      "roles": [
+        "idm"
+      ],
+      "supply_chain_tier": "T+1",
+      "processing_tier": "T2",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "adi",
+      "name": "Analog Devices, Inc.",
+      "short_name": "Analog Devices",
+      "tickers": [
+        "ADI"
+      ],
+      "primary_ticker": "ADI",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "amc",
+      "roles": [
+        "idm"
+      ],
+      "supply_chain_tier": "T+1",
+      "processing_tier": "T2",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "microchip",
+      "name": "Microchip Technology Incorporated",
+      "short_name": "Microchip",
+      "tickers": [
+        "MCHP"
+      ],
+      "primary_ticker": "MCHP",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "amc",
+      "roles": [
+        "idm"
+      ],
+      "supply_chain_tier": "T+1",
+      "processing_tier": "T2",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "onsemi",
+      "name": "ON Semiconductor Corporation",
+      "short_name": "onsemi",
+      "tickers": [
+        "ON"
+      ],
+      "primary_ticker": "ON",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "amc",
+      "roles": [
+        "idm"
+      ],
+      "supply_chain_tier": "T+1",
+      "processing_tier": "T2",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "infineon",
+      "name": "Infineon Technologies AG",
+      "short_name": "Infineon",
+      "tickers": [
+        "IFX.DE"
+      ],
+      "primary_ticker": "IFX.DE",
+      "region": "EU",
+      "exchange_tz": "Europe/Amsterdam",
+      "earnings_timing": "bmo",
+      "roles": [
+        "idm"
+      ],
+      "supply_chain_tier": "T+1",
+      "processing_tier": "T2",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "stmicro",
+      "name": "STMicroelectronics N.V.",
+      "short_name": "STMicro",
+      "tickers": [
+        "STM"
+      ],
+      "primary_ticker": "STM",
+      "region": "EU",
+      "exchange_tz": "Europe/Amsterdam",
+      "earnings_timing": "bmo",
+      "roles": [
+        "idm"
+      ],
+      "supply_chain_tier": "T+1",
+      "processing_tier": "T2",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "nxp",
+      "name": "NXP Semiconductors N.V.",
+      "short_name": "NXP",
+      "tickers": [
+        "NXPI"
+      ],
+      "primary_ticker": "NXPI",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "amc",
+      "roles": [
+        "idm"
+      ],
+      "supply_chain_tier": "T+1",
+      "processing_tier": "T2",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "cadence",
+      "name": "Cadence Design Systems, Inc.",
+      "short_name": "Cadence",
+      "tickers": [
+        "CDNS"
+      ],
+      "primary_ticker": "CDNS",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "amc",
+      "roles": [
+        "eda"
+      ],
+      "supply_chain_tier": "T-1",
+      "processing_tier": "T2",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "synopsys",
+      "name": "Synopsys, Inc.",
+      "short_name": "Synopsys",
+      "tickers": [
+        "SNPS"
+      ],
+      "primary_ticker": "SNPS",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "amc",
+      "roles": [
+        "eda"
+      ],
+      "supply_chain_tier": "T-1",
+      "processing_tier": "T2",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "arista",
+      "name": "Arista Networks, Inc.",
+      "short_name": "Arista",
+      "tickers": [
+        "ANET"
+      ],
+      "primary_ticker": "ANET",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "amc",
+      "roles": [
+        "networking"
+      ],
+      "supply_chain_tier": "lateral",
+      "processing_tier": "T2",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "coherent",
+      "name": "Coherent Corp.",
+      "short_name": "Coherent",
+      "tickers": [
+        "COHR"
+      ],
+      "primary_ticker": "COHR",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "amc",
+      "roles": [
+        "optical"
+      ],
+      "supply_chain_tier": "lateral",
+      "processing_tier": "T2",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "lumentum",
+      "name": "Lumentum Holdings Inc.",
+      "short_name": "Lumentum",
+      "tickers": [
+        "LITE"
+      ],
+      "primary_ticker": "LITE",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "amc",
+      "roles": [
+        "optical"
+      ],
+      "supply_chain_tier": "lateral",
+      "processing_tier": "T2",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "credo",
+      "name": "Credo Technology Group Holding Ltd",
+      "short_name": "Credo",
+      "tickers": [
+        "CRDO"
+      ],
+      "primary_ticker": "CRDO",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "amc",
+      "roles": [
+        "optical",
+        "networking"
+      ],
+      "supply_chain_tier": "lateral",
+      "processing_tier": "T2",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "ciena",
+      "name": "Ciena Corporation",
+      "short_name": "Ciena",
+      "tickers": [
+        "CIEN"
+      ],
+      "primary_ticker": "CIEN",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "amc",
+      "roles": [
+        "networking",
+        "optical"
+      ],
+      "supply_chain_tier": "lateral",
+      "processing_tier": "T2",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "hon_hai",
+      "name": "Hon Hai Precision Industry Co., Ltd. 鴻海",
+      "short_name": "Hon Hai 鴻海",
+      "tickers": [
+        "2317.TW"
+      ],
+      "primary_ticker": "2317.TW",
+      "region": "TW",
+      "exchange_tz": "Asia/Taipei",
+      "earnings_timing": "intraday",
+      "roles": [
+        "oem_server"
+      ],
+      "supply_chain_tier": "T+3",
+      "processing_tier": "T2",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "wiwynn",
+      "name": "Wiwynn Corporation 緯穎",
+      "short_name": "Wiwynn 緯穎",
+      "tickers": [
+        "6669.TW"
+      ],
+      "primary_ticker": "6669.TW",
+      "region": "TW",
+      "exchange_tz": "Asia/Taipei",
+      "earnings_timing": "intraday",
+      "roles": [
+        "oem_server"
+      ],
+      "supply_chain_tier": "T+3",
+      "processing_tier": "T2",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "quanta",
+      "name": "Quanta Computer Inc. 廣達",
+      "short_name": "Quanta 廣達",
+      "tickers": [
+        "2382.TW"
+      ],
+      "primary_ticker": "2382.TW",
+      "region": "TW",
+      "exchange_tz": "Asia/Taipei",
+      "earnings_timing": "intraday",
+      "roles": [
+        "oem_server"
+      ],
+      "supply_chain_tier": "T+3",
+      "processing_tier": "T2",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "wistron",
+      "name": "Wistron Corporation 緯創",
+      "short_name": "Wistron 緯創",
+      "tickers": [
+        "3231.TW"
+      ],
+      "primary_ticker": "3231.TW",
+      "region": "TW",
+      "exchange_tz": "Asia/Taipei",
+      "earnings_timing": "intraday",
+      "roles": [
+        "oem_server"
+      ],
+      "supply_chain_tier": "T+3",
+      "processing_tier": "T2",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "hpe",
+      "name": "Hewlett Packard Enterprise Company",
+      "short_name": "HPE",
+      "tickers": [
+        "HPE"
+      ],
+      "primary_ticker": "HPE",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "amc",
+      "roles": [
+        "oem_server"
+      ],
+      "supply_chain_tier": "T+3",
+      "processing_tier": "T2",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "western_digital",
+      "name": "Western Digital Corporation",
+      "short_name": "Western Digital",
+      "tickers": [
+        "WDC"
+      ],
+      "primary_ticker": "WDC",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "amc",
+      "roles": [
+        "memory"
+      ],
+      "supply_chain_tier": "lateral",
+      "processing_tier": "T2",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "seagate",
+      "name": "Seagate Technology Holdings plc",
+      "short_name": "Seagate",
+      "tickers": [
+        "STX"
+      ],
+      "primary_ticker": "STX",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "amc",
+      "roles": [
+        "memory"
+      ],
+      "supply_chain_tier": "lateral",
+      "processing_tier": "T2",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "kioxia",
+      "name": "Kioxia Holdings Corporation",
+      "short_name": "Kioxia",
+      "tickers": [
+        "285A.T"
+      ],
+      "primary_ticker": "285A.T",
+      "region": "JP",
+      "exchange_tz": "Asia/Tokyo",
+      "earnings_timing": "amc",
+      "roles": [
+        "memory"
+      ],
+      "supply_chain_tier": "lateral",
+      "processing_tier": "T2",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "equinix",
+      "name": "Equinix, Inc.",
+      "short_name": "Equinix",
+      "tickers": [
+        "EQIX"
+      ],
+      "primary_ticker": "EQIX",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "amc",
+      "roles": [
+        "datacenter_reit"
+      ],
+      "supply_chain_tier": "infra",
+      "processing_tier": "T2",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "digital_realty",
+      "name": "Digital Realty Trust, Inc.",
+      "short_name": "Digital Realty",
+      "tickers": [
+        "DLR"
+      ],
+      "primary_ticker": "DLR",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "amc",
+      "roles": [
+        "datacenter_reit"
+      ],
+      "supply_chain_tier": "infra",
+      "processing_tier": "T2",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "schneider",
+      "name": "Schneider Electric SE",
+      "short_name": "Schneider",
+      "tickers": [
+        "SU.PA"
+      ],
+      "primary_ticker": "SU.PA",
+      "region": "EU",
+      "exchange_tz": "Europe/Amsterdam",
+      "earnings_timing": "bmo",
+      "roles": [
+        "power_equipment"
+      ],
+      "supply_chain_tier": "infra",
+      "processing_tier": "T2",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "auras",
+      "name": "Auras Technology Co., Ltd. 雙鴻",
+      "short_name": "Auras 雙鴻",
+      "tickers": [
+        "3324.TW"
+      ],
+      "primary_ticker": "3324.TW",
+      "region": "TW",
+      "exchange_tz": "Asia/Taipei",
+      "earnings_timing": "intraday",
+      "roles": [
+        "cooling_thermal"
+      ],
+      "supply_chain_tier": "infra",
+      "processing_tier": "T2",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "avc",
+      "name": "Asia Vital Components Co., Ltd. 奇鋐",
+      "short_name": "AVC 奇鋐",
+      "tickers": [
+        "3017.TW"
+      ],
+      "primary_ticker": "3017.TW",
+      "region": "TW",
+      "exchange_tz": "Asia/Taipei",
+      "earnings_timing": "intraday",
+      "roles": [
+        "cooling_thermal"
+      ],
+      "supply_chain_tier": "infra",
+      "processing_tier": "T2",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "jsr",
+      "name": "JSR Corporation",
+      "short_name": "JSR",
+      "tickers": [
+        "4185.T"
+      ],
+      "primary_ticker": "4185.T",
+      "region": "JP",
+      "exchange_tz": "Asia/Tokyo",
+      "earnings_timing": "amc",
+      "roles": [
+        "photoresist",
+        "materials"
+      ],
+      "supply_chain_tier": "T-2",
+      "processing_tier": "T3",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "tok",
+      "name": "Tokyo Ohka Kogyo Co., Ltd. 東京應化",
+      "short_name": "TOK 東京應化",
+      "tickers": [
+        "4186.T"
+      ],
+      "primary_ticker": "4186.T",
+      "region": "JP",
+      "exchange_tz": "Asia/Tokyo",
+      "earnings_timing": "amc",
+      "roles": [
+        "photoresist"
+      ],
+      "supply_chain_tier": "T-2",
+      "processing_tier": "T3",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "wolfspeed",
+      "name": "Wolfspeed, Inc.",
+      "short_name": "Wolfspeed",
+      "tickers": [
+        "WOLF"
+      ],
+      "primary_ticker": "WOLF",
+      "region": "US",
+      "exchange_tz": "America/New_York",
+      "earnings_timing": "amc",
+      "roles": [
+        "sic_gan"
+      ],
+      "supply_chain_tier": "T-2",
+      "processing_tier": "T3",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "unimicron",
+      "name": "Unimicron Technology Corp. 欣興",
+      "short_name": "Unimicron 欣興",
+      "tickers": [
+        "3037.TW"
+      ],
+      "primary_ticker": "3037.TW",
+      "region": "TW",
+      "exchange_tz": "Asia/Taipei",
+      "earnings_timing": "intraday",
+      "roles": [
+        "substrate"
+      ],
+      "supply_chain_tier": "T-1",
+      "processing_tier": "T3",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "kinsus",
+      "name": "Kinsus Interconnect Technology Corp. 景碩",
+      "short_name": "Kinsus 景碩",
+      "tickers": [
+        "3189.TW"
+      ],
+      "primary_ticker": "3189.TW",
+      "region": "TW",
+      "exchange_tz": "Asia/Taipei",
+      "earnings_timing": "intraday",
+      "roles": [
+        "substrate"
+      ],
+      "supply_chain_tier": "T-1",
+      "processing_tier": "T3",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "ibiden",
+      "name": "Ibiden Co., Ltd.",
+      "short_name": "Ibiden",
+      "tickers": [
+        "4062.T"
+      ],
+      "primary_ticker": "4062.T",
+      "region": "JP",
+      "exchange_tz": "Asia/Tokyo",
+      "earnings_timing": "amc",
+      "roles": [
+        "substrate"
+      ],
+      "supply_chain_tier": "T-1",
+      "processing_tier": "T3",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "shinko",
+      "name": "Shinko Electric Industries Co., Ltd.",
+      "short_name": "Shinko",
+      "tickers": [
+        "6967.T"
+      ],
+      "primary_ticker": "6967.T",
+      "region": "JP",
+      "exchange_tz": "Asia/Tokyo",
+      "earnings_timing": "amc",
+      "roles": [
+        "substrate"
+      ],
+      "supply_chain_tier": "T-1",
+      "processing_tier": "T3",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "nanya",
+      "name": "Nanya Technology Corporation 南亞科",
+      "short_name": "Nanya 南亞科",
+      "tickers": [
+        "2408.TW"
+      ],
+      "primary_ticker": "2408.TW",
+      "region": "TW",
+      "exchange_tz": "Asia/Taipei",
+      "earnings_timing": "intraday",
+      "roles": [
+        "memory"
+      ],
+      "supply_chain_tier": "lateral",
+      "processing_tier": "T3",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    },
+    {
+      "id": "winbond",
+      "name": "Winbond Electronics Corporation 華邦電",
+      "short_name": "Winbond 華邦電",
+      "tickers": [
+        "2344.TW"
+      ],
+      "primary_ticker": "2344.TW",
+      "region": "TW",
+      "exchange_tz": "Asia/Taipei",
+      "earnings_timing": "intraday",
+      "roles": [
+        "memory"
+      ],
+      "supply_chain_tier": "lateral",
+      "processing_tier": "T3",
+      "ir_sources": {},
+      "connections": {
+        "customers": [],
+        "suppliers": [],
+        "competitors": []
+      },
+      "watch_themes": [],
+      "active": true,
+      "_stub": true
+    }
+  ]
+}

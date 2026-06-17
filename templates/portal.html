@@ -252,6 +252,19 @@
               <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
             </div>
           </a>
+
+          <a class="card" href="/earnings/">
+            <div class="kicker">08</div>
+            <h2>{{ t('earn_name') }}</h2>
+            <div class="desc">{{ t('earn_desc') }}</div>
+            <div class="foot">
+              <div class="stat">
+                {% if earnings_count %}<span class="score">{{ earnings_count }}<small>{{ t('earn_lbl') }}</small></span>{% endif %}
+                {% if earnings_updated %}<span class="meta">{{ t('updated') }} · {{ earnings_updated }}</span>{% endif %}
+              </div>
+              <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
+            </div>
+          </a>
         </div>
       </div>
     </div>

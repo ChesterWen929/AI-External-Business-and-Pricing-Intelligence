@@ -1,0 +1,1035 @@
+{
+  "_meta": {
+    "description": "Auto-generated from companies.json connections + §4 high-weight edges. Re-run scripts/build_graph.py to regenerate.",
+    "node_count": 73,
+    "edge_count": 132
+  },
+  "nodes": [
+    {
+      "id": "adi"
+    },
+    {
+      "id": "amazon"
+    },
+    {
+      "id": "amd"
+    },
+    {
+      "id": "amkor"
+    },
+    {
+      "id": "apple"
+    },
+    {
+      "id": "applied_materials"
+    },
+    {
+      "id": "arista"
+    },
+    {
+      "id": "ase"
+    },
+    {
+      "id": "asml"
+    },
+    {
+      "id": "auras"
+    },
+    {
+      "id": "avc"
+    },
+    {
+      "id": "broadcom"
+    },
+    {
+      "id": "cadence"
+    },
+    {
+      "id": "ciena"
+    },
+    {
+      "id": "coherent"
+    },
+    {
+      "id": "constellation"
+    },
+    {
+      "id": "credo"
+    },
+    {
+      "id": "dell"
+    },
+    {
+      "id": "delta_tw"
+    },
+    {
+      "id": "digital_realty"
+    },
+    {
+      "id": "eaton"
+    },
+    {
+      "id": "entegris"
+    },
+    {
+      "id": "equinix"
+    },
+    {
+      "id": "ge_vernova"
+    },
+    {
+      "id": "globalwafers"
+    },
+    {
+      "id": "google"
+    },
+    {
+      "id": "hon_hai"
+    },
+    {
+      "id": "hpe"
+    },
+    {
+      "id": "ibiden"
+    },
+    {
+      "id": "infineon"
+    },
+    {
+      "id": "intel"
+    },
+    {
+      "id": "jsr"
+    },
+    {
+      "id": "kinsus"
+    },
+    {
+      "id": "kioxia"
+    },
+    {
+      "id": "kla"
+    },
+    {
+      "id": "lam_research"
+    },
+    {
+      "id": "lumentum"
+    },
+    {
+      "id": "marvell"
+    },
+    {
+      "id": "meta"
+    },
+    {
+      "id": "microchip"
+    },
+    {
+      "id": "micron"
+    },
+    {
+      "id": "microsoft"
+    },
+    {
+      "id": "mks"
+    },
+    {
+      "id": "nanya"
+    },
+    {
+      "id": "nvidia"
+    },
+    {
+      "id": "nxp"
+    },
+    {
+      "id": "onsemi"
+    },
+    {
+      "id": "oracle"
+    },
+    {
+      "id": "powertech"
+    },
+    {
+      "id": "qualcomm"
+    },
+    {
+      "id": "quanta"
+    },
+    {
+      "id": "samsung"
+    },
+    {
+      "id": "schneider"
+    },
+    {
+      "id": "seagate"
+    },
+    {
+      "id": "shin_etsu"
+    },
+    {
+      "id": "shinko"
+    },
+    {
+      "id": "sk_hynix"
+    },
+    {
+      "id": "stmicro"
+    },
+    {
+      "id": "sumco"
+    },
+    {
+      "id": "supermicro"
+    },
+    {
+      "id": "synopsys"
+    },
+    {
+      "id": "tel"
+    },
+    {
+      "id": "ti"
+    },
+    {
+      "id": "tok"
+    },
+    {
+      "id": "tsmc"
+    },
+    {
+      "id": "unimicron"
+    },
+    {
+      "id": "vertiv"
+    },
+    {
+      "id": "vistra"
+    },
+    {
+      "id": "western_digital"
+    },
+    {
+      "id": "winbond"
+    },
+    {
+      "id": "wistron"
+    },
+    {
+      "id": "wiwynn"
+    },
+    {
+      "id": "wolfspeed"
+    }
+  ],
+  "edges": [
+    {
+      "from": "amazon",
+      "to": "google",
+      "relation": "competes_with",
+      "strength": "medium"
+    },
+    {
+      "from": "amazon",
+      "to": "microsoft",
+      "relation": "competes_with",
+      "strength": "medium"
+    },
+    {
+      "from": "amazon",
+      "to": "oracle",
+      "relation": "competes_with",
+      "strength": "medium"
+    },
+    {
+      "from": "amd",
+      "to": "intel",
+      "relation": "competes_with",
+      "strength": "medium"
+    },
+    {
+      "from": "amd",
+      "to": "nvidia",
+      "relation": "competes_with",
+      "strength": "medium"
+    },
+    {
+      "from": "apple",
+      "to": "qualcomm",
+      "relation": "competes_with",
+      "strength": "medium"
+    },
+    {
+      "from": "apple",
+      "to": "samsung",
+      "relation": "competes_with",
+      "strength": "medium"
+    },
+    {
+      "from": "applied_materials",
+      "to": "kla",
+      "relation": "competes_with",
+      "strength": "medium"
+    },
+    {
+      "from": "applied_materials",
+      "to": "lam_research",
+      "relation": "competes_with",
+      "strength": "medium"
+    },
+    {
+      "from": "applied_materials",
+      "to": "tel",
+      "relation": "competes_with",
+      "strength": "medium"
+    },
+    {
+      "from": "broadcom",
+      "to": "marvell",
+      "relation": "competes_with",
+      "strength": "medium"
+    },
+    {
+      "from": "broadcom",
+      "to": "nvidia",
+      "relation": "competes_with",
+      "strength": "medium"
+    },
+    {
+      "from": "broadcom",
+      "to": "qualcomm",
+      "relation": "competes_with",
+      "strength": "medium"
+    },
+    {
+      "from": "constellation",
+      "to": "vistra",
+      "relation": "competes_with",
+      "strength": "medium"
+    },
+    {
+      "from": "dell",
+      "to": "supermicro",
+      "relation": "competes_with",
+      "strength": "medium"
+    },
+    {
+      "from": "delta_tw",
+      "to": "vertiv",
+      "relation": "competes_with",
+      "strength": "medium"
+    },
+    {
+      "from": "eaton",
+      "to": "ge_vernova",
+      "relation": "competes_with",
+      "strength": "medium"
+    },
+    {
+      "from": "eaton",
+      "to": "vertiv",
+      "relation": "competes_with",
+      "strength": "medium"
+    },
+    {
+      "from": "ge_vernova",
+      "to": "vertiv",
+      "relation": "competes_with",
+      "strength": "medium"
+    },
+    {
+      "from": "google",
+      "to": "meta",
+      "relation": "competes_with",
+      "strength": "medium"
+    },
+    {
+      "from": "google",
+      "to": "microsoft",
+      "relation": "competes_with",
+      "strength": "medium"
+    },
+    {
+      "from": "google",
+      "to": "oracle",
+      "relation": "competes_with",
+      "strength": "medium"
+    },
+    {
+      "from": "intel",
+      "to": "nvidia",
+      "relation": "competes_with",
+      "strength": "medium"
+    },
+    {
+      "from": "intel",
+      "to": "samsung",
+      "relation": "competes_with",
+      "strength": "medium"
+    },
+    {
+      "from": "intel",
+      "to": "tsmc",
+      "relation": "competes_with",
+      "strength": "medium"
+    },
+    {
+      "from": "kla",
+      "to": "lam_research",
+      "relation": "competes_with",
+      "strength": "medium"
+    },
+    {
+      "from": "lam_research",
+      "to": "tel",
+      "relation": "competes_with",
+      "strength": "medium"
+    },
+    {
+      "from": "marvell",
+      "to": "nvidia",
+      "relation": "competes_with",
+      "strength": "medium"
+    },
+    {
+      "from": "meta",
+      "to": "microsoft",
+      "relation": "competes_with",
+      "strength": "medium"
+    },
+    {
+      "from": "micron",
+      "to": "samsung",
+      "relation": "competes_with",
+      "strength": "medium"
+    },
+    {
+      "from": "micron",
+      "to": "sk_hynix",
+      "relation": "competes_with",
+      "strength": "medium"
+    },
+    {
+      "from": "microsoft",
+      "to": "oracle",
+      "relation": "competes_with",
+      "strength": "medium"
+    },
+    {
+      "from": "samsung",
+      "to": "sk_hynix",
+      "relation": "competes_with",
+      "strength": "medium"
+    },
+    {
+      "from": "samsung",
+      "to": "tsmc",
+      "relation": "competes_with",
+      "strength": "medium"
+    },
+    {
+      "from": "amd",
+      "to": "amazon",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "amd",
+      "to": "dell",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "amd",
+      "to": "google",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "amd",
+      "to": "meta",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "amd",
+      "to": "microsoft",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "amd",
+      "to": "oracle",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "amd",
+      "to": "supermicro",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "applied_materials",
+      "to": "intel",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "applied_materials",
+      "to": "micron",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "applied_materials",
+      "to": "samsung",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "applied_materials",
+      "to": "sk_hynix",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "applied_materials",
+      "to": "tsmc",
+      "relation": "supplies",
+      "strength": "high",
+      "note": "前段 WFE 主力"
+    },
+    {
+      "from": "ase",
+      "to": "amd",
+      "relation": "supplies",
+      "strength": "high",
+      "note": "先進封裝"
+    },
+    {
+      "from": "ase",
+      "to": "broadcom",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "ase",
+      "to": "nvidia",
+      "relation": "supplies",
+      "strength": "high",
+      "note": "CoWoS / 先進封裝"
+    },
+    {
+      "from": "ase",
+      "to": "tsmc",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "asml",
+      "to": "intel",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "asml",
+      "to": "micron",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "asml",
+      "to": "samsung",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "asml",
+      "to": "sk_hynix",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "asml",
+      "to": "tsmc",
+      "relation": "supplies",
+      "strength": "high",
+      "note": "EUV 設備獨家供應"
+    },
+    {
+      "from": "broadcom",
+      "to": "apple",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "broadcom",
+      "to": "google",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "broadcom",
+      "to": "meta",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "broadcom",
+      "to": "microsoft",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "constellation",
+      "to": "amazon",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "constellation",
+      "to": "google",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "constellation",
+      "to": "meta",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "constellation",
+      "to": "microsoft",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "delta_tw",
+      "to": "amazon",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "delta_tw",
+      "to": "google",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "delta_tw",
+      "to": "meta",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "delta_tw",
+      "to": "microsoft",
+      "relation": "supplies",
+      "strength": "high",
+      "note": "資料中心電源/散熱"
+    },
+    {
+      "from": "delta_tw",
+      "to": "nvidia",
+      "relation": "supplies",
+      "strength": "high",
+      "note": "AI 機櫃電源"
+    },
+    {
+      "from": "delta_tw",
+      "to": "supermicro",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "eaton",
+      "to": "amazon",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "eaton",
+      "to": "google",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "eaton",
+      "to": "meta",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "eaton",
+      "to": "microsoft",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "ge_vernova",
+      "to": "amazon",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "ge_vernova",
+      "to": "google",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "ge_vernova",
+      "to": "meta",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "ge_vernova",
+      "to": "microsoft",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "intel",
+      "to": "amazon",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "intel",
+      "to": "dell",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "intel",
+      "to": "microsoft",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "intel",
+      "to": "supermicro",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "kla",
+      "to": "intel",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "kla",
+      "to": "micron",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "kla",
+      "to": "samsung",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "kla",
+      "to": "sk_hynix",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "kla",
+      "to": "tsmc",
+      "relation": "supplies",
+      "strength": "high",
+      "note": "製程控制/量測"
+    },
+    {
+      "from": "lam_research",
+      "to": "intel",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "lam_research",
+      "to": "micron",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "lam_research",
+      "to": "samsung",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "lam_research",
+      "to": "sk_hynix",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "lam_research",
+      "to": "tsmc",
+      "relation": "supplies",
+      "strength": "high",
+      "note": "蝕刻/沉積主力"
+    },
+    {
+      "from": "marvell",
+      "to": "amazon",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "marvell",
+      "to": "google",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "marvell",
+      "to": "microsoft",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "micron",
+      "to": "amd",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "micron",
+      "to": "dell",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "micron",
+      "to": "nvidia",
+      "relation": "supplies",
+      "strength": "high",
+      "note": "HBM 供應"
+    },
+    {
+      "from": "micron",
+      "to": "supermicro",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "nvidia",
+      "to": "amazon",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "nvidia",
+      "to": "dell",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "nvidia",
+      "to": "google",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "nvidia",
+      "to": "meta",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "nvidia",
+      "to": "microsoft",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "nvidia",
+      "to": "oracle",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "nvidia",
+      "to": "supermicro",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "qualcomm",
+      "to": "apple",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "qualcomm",
+      "to": "samsung",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "samsung",
+      "to": "apple",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "samsung",
+      "to": "nvidia",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "samsung",
+      "to": "qualcomm",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "sk_hynix",
+      "to": "amd",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "sk_hynix",
+      "to": "nvidia",
+      "relation": "supplies",
+      "strength": "high",
+      "note": "HBM 主力供應"
+    },
+    {
+      "from": "tel",
+      "to": "intel",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "tel",
+      "to": "micron",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "tel",
+      "to": "samsung",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "tel",
+      "to": "sk_hynix",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "tel",
+      "to": "tsmc",
+      "relation": "supplies",
+      "strength": "high",
+      "note": "塗佈顯影/蝕刻"
+    },
+    {
+      "from": "tsmc",
+      "to": "amd",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "tsmc",
+      "to": "apple",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "tsmc",
+      "to": "broadcom",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "tsmc",
+      "to": "marvell",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "tsmc",
+      "to": "nvidia",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "tsmc",
+      "to": "qualcomm",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "vertiv",
+      "to": "amazon",
+      "relation": "supplies",
+      "strength": "high",
+      "note": "資料中心散熱/電力"
+    },
+    {
+      "from": "vertiv",
+      "to": "google",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "vertiv",
+      "to": "meta",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "vertiv",
+      "to": "microsoft",
+      "relation": "supplies",
+      "strength": "high",
+      "note": "資料中心散熱/電力"
+    },
+    {
+      "from": "vertiv",
+      "to": "oracle",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "vistra",
+      "to": "amazon",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "vistra",
+      "to": "google",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "vistra",
+      "to": "meta",
+      "relation": "supplies",
+      "strength": "medium"
+    },
+    {
+      "from": "vistra",
+      "to": "microsoft",
+      "relation": "supplies",
+      "strength": "medium"
+    }
+  ]
+}

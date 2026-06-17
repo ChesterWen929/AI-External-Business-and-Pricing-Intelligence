@@ -1,0 +1,1318 @@
+{
+  "as_of": "2026-06-17",
+  "generated_at": "2026-06-17 07:37 UTC",
+  "horizon_days": 90,
+  "display_tz": "America/Los_Angeles",
+  "source": "finnhub",
+  "estimated_data": false,
+  "event_count": 41,
+  "by_tier": {
+    "T1": 23,
+    "T2": 17,
+    "T3": 1
+  },
+  "coverage": {
+    "queried": 73,
+    "companies_with_events": 41,
+    "no_data_in_window": 7,
+    "access_misses": 25,
+    "misses": [
+      {
+        "company_id": "samsung",
+        "ticker": "005930.KS",
+        "reason": "403 Forbidden"
+      },
+      {
+        "company_id": "sk_hynix",
+        "ticker": "000660.KS",
+        "reason": "403 Forbidden"
+      },
+      {
+        "company_id": "tel",
+        "ticker": "8035.T",
+        "reason": "403 Forbidden"
+      },
+      {
+        "company_id": "delta_tw",
+        "ticker": "2308.TW",
+        "reason": "403 Forbidden"
+      },
+      {
+        "company_id": "powertech",
+        "ticker": "6239.TW",
+        "reason": "403 Forbidden"
+      },
+      {
+        "company_id": "globalwafers",
+        "ticker": "6488.TW",
+        "reason": "403 Forbidden"
+      },
+      {
+        "company_id": "sumco",
+        "ticker": "3436.T",
+        "reason": "403 Forbidden"
+      },
+      {
+        "company_id": "shin_etsu",
+        "ticker": "4063.T",
+        "reason": "403 Forbidden"
+      },
+      {
+        "company_id": "infineon",
+        "ticker": "IFX.DE",
+        "reason": "403 Forbidden"
+      },
+      {
+        "company_id": "hon_hai",
+        "ticker": "2317.TW",
+        "reason": "403 Forbidden"
+      },
+      {
+        "company_id": "wiwynn",
+        "ticker": "6669.TW",
+        "reason": "403 Forbidden"
+      },
+      {
+        "company_id": "quanta",
+        "ticker": "2382.TW",
+        "reason": "403 Forbidden"
+      },
+      {
+        "company_id": "wistron",
+        "ticker": "3231.TW",
+        "reason": "403 Forbidden"
+      },
+      {
+        "company_id": "kioxia",
+        "ticker": "285A.T",
+        "reason": "403 Forbidden"
+      },
+      {
+        "company_id": "schneider",
+        "ticker": "SU.PA",
+        "reason": "403 Forbidden"
+      },
+      {
+        "company_id": "auras",
+        "ticker": "3324.TW",
+        "reason": "403 Forbidden"
+      },
+      {
+        "company_id": "avc",
+        "ticker": "3017.TW",
+        "reason": "403 Forbidden"
+      },
+      {
+        "company_id": "jsr",
+        "ticker": "4185.T",
+        "reason": "403 Forbidden"
+      },
+      {
+        "company_id": "tok",
+        "ticker": "4186.T",
+        "reason": "403 Forbidden"
+      },
+      {
+        "company_id": "unimicron",
+        "ticker": "3037.TW",
+        "reason": "403 Forbidden"
+      },
+      {
+        "company_id": "kinsus",
+        "ticker": "3189.TW",
+        "reason": "403 Forbidden"
+      },
+      {
+        "company_id": "ibiden",
+        "ticker": "4062.T",
+        "reason": "403 Forbidden"
+      },
+      {
+        "company_id": "shinko",
+        "ticker": "6967.T",
+        "reason": "403 Forbidden"
+      },
+      {
+        "company_id": "nanya",
+        "ticker": "2408.TW",
+        "reason": "403 Forbidden"
+      },
+      {
+        "company_id": "winbond",
+        "ticker": "2344.TW",
+        "reason": "403 Forbidden"
+      }
+    ]
+  },
+  "events": [
+    {
+      "company_id": "micron",
+      "ticker": "MU",
+      "fiscal_quarter": "Q3 2026",
+      "datetime_utc": "2026-06-24T20:30:00Z",
+      "datetime_local": "2026-06-24T13:30:00-07:00",
+      "earnings_timing": "amc",
+      "processing_tier": "T1",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "asml",
+      "ticker": "ASML",
+      "fiscal_quarter": "Q2 2026",
+      "datetime_utc": "2026-07-15T06:00:00Z",
+      "datetime_local": "2026-07-14T23:00:00-07:00",
+      "earnings_timing": "bmo",
+      "processing_tier": "T1",
+      "region": "EU",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "tsmc",
+      "ticker": "TSM",
+      "fiscal_quarter": "Q2 2026",
+      "datetime_utc": "2026-07-15T08:30:00Z",
+      "datetime_local": "2026-07-15T01:30:00-07:00",
+      "earnings_timing": "amc",
+      "processing_tier": "T1",
+      "region": "TW",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "seagate",
+      "ticker": "STX",
+      "fiscal_quarter": "Q4 2026",
+      "datetime_utc": "2026-07-16T20:30:00Z",
+      "datetime_local": "2026-07-16T13:30:00-07:00",
+      "earnings_timing": "amc",
+      "processing_tier": "T2",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "ti",
+      "ticker": "TXN",
+      "fiscal_quarter": "Q2 2026",
+      "datetime_utc": "2026-07-20T20:30:00Z",
+      "datetime_local": "2026-07-20T13:30:00-07:00",
+      "earnings_timing": "amc",
+      "processing_tier": "T2",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "google",
+      "ticker": "GOOGL",
+      "fiscal_quarter": "Q2 2026",
+      "datetime_utc": "2026-07-21T20:30:00Z",
+      "datetime_local": "2026-07-21T13:30:00-07:00",
+      "earnings_timing": "amc",
+      "processing_tier": "T1",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "ge_vernova",
+      "ticker": "GEV",
+      "fiscal_quarter": "Q2 2026",
+      "datetime_utc": "2026-07-22T12:00:00Z",
+      "datetime_local": "2026-07-22T05:00:00-07:00",
+      "earnings_timing": "bmo",
+      "processing_tier": "T1",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "intel",
+      "ticker": "INTC",
+      "fiscal_quarter": "Q2 2026",
+      "datetime_utc": "2026-07-22T20:30:00Z",
+      "datetime_local": "2026-07-22T13:30:00-07:00",
+      "earnings_timing": "amc",
+      "processing_tier": "T1",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "digital_realty",
+      "ticker": "DLR",
+      "fiscal_quarter": "Q2 2026",
+      "datetime_utc": "2026-07-22T20:30:00Z",
+      "datetime_local": "2026-07-22T13:30:00-07:00",
+      "earnings_timing": "amc",
+      "processing_tier": "T2",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "stmicro",
+      "ticker": "STM",
+      "fiscal_quarter": "Q2 2026",
+      "datetime_utc": "2026-07-23T06:00:00Z",
+      "datetime_local": "2026-07-22T23:00:00-07:00",
+      "earnings_timing": "bmo",
+      "processing_tier": "T2",
+      "region": "EU",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "amkor",
+      "ticker": "AMKR",
+      "fiscal_quarter": "Q2 2026",
+      "datetime_utc": "2026-07-27T20:30:00Z",
+      "datetime_local": "2026-07-27T13:30:00-07:00",
+      "earnings_timing": "amc",
+      "processing_tier": "T2",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "cadence",
+      "ticker": "CDNS",
+      "fiscal_quarter": "Q2 2026",
+      "datetime_utc": "2026-07-27T20:30:00Z",
+      "datetime_local": "2026-07-27T13:30:00-07:00",
+      "earnings_timing": "amc",
+      "processing_tier": "T2",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "vertiv",
+      "ticker": "VRT",
+      "fiscal_quarter": "Q2 2026",
+      "datetime_utc": "2026-07-28T12:00:00Z",
+      "datetime_local": "2026-07-28T05:00:00-07:00",
+      "earnings_timing": "bmo",
+      "processing_tier": "T1",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "entegris",
+      "ticker": "ENTG",
+      "fiscal_quarter": "Q2 2026",
+      "datetime_utc": "2026-07-28T12:00:00Z",
+      "datetime_local": "2026-07-28T05:00:00-07:00",
+      "earnings_timing": "bmo",
+      "processing_tier": "T2",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "qualcomm",
+      "ticker": "QCOM",
+      "fiscal_quarter": "Q3 2026",
+      "datetime_utc": "2026-07-28T20:30:00Z",
+      "datetime_local": "2026-07-28T13:30:00-07:00",
+      "earnings_timing": "amc",
+      "processing_tier": "T1",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "lam_research",
+      "ticker": "LRCX",
+      "fiscal_quarter": "Q4 2026",
+      "datetime_utc": "2026-07-28T20:30:00Z",
+      "datetime_local": "2026-07-28T13:30:00-07:00",
+      "earnings_timing": "amc",
+      "processing_tier": "T1",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "microsoft",
+      "ticker": "MSFT",
+      "fiscal_quarter": "Q4 2026",
+      "datetime_utc": "2026-07-28T20:30:00Z",
+      "datetime_local": "2026-07-28T13:30:00-07:00",
+      "earnings_timing": "amc",
+      "processing_tier": "T1",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "meta",
+      "ticker": "META",
+      "fiscal_quarter": "Q2 2026",
+      "datetime_utc": "2026-07-28T20:30:00Z",
+      "datetime_local": "2026-07-28T13:30:00-07:00",
+      "earnings_timing": "amc",
+      "processing_tier": "T1",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "nxp",
+      "ticker": "NXPI",
+      "fiscal_quarter": "Q2 2026",
+      "datetime_utc": "2026-07-28T20:30:00Z",
+      "datetime_local": "2026-07-28T13:30:00-07:00",
+      "earnings_timing": "amc",
+      "processing_tier": "T2",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "western_digital",
+      "ticker": "WDC",
+      "fiscal_quarter": "Q4 2026",
+      "datetime_utc": "2026-07-28T20:30:00Z",
+      "datetime_local": "2026-07-28T13:30:00-07:00",
+      "earnings_timing": "amc",
+      "processing_tier": "T2",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "equinix",
+      "ticker": "EQIX",
+      "fiscal_quarter": "Q2 2026",
+      "datetime_utc": "2026-07-28T20:30:00Z",
+      "datetime_local": "2026-07-28T13:30:00-07:00",
+      "earnings_timing": "amc",
+      "processing_tier": "T2",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "ase",
+      "ticker": "ASX",
+      "fiscal_quarter": "Q2 2026",
+      "datetime_utc": "2026-07-29T06:00:00Z",
+      "datetime_local": "2026-07-28T23:00:00-07:00",
+      "earnings_timing": "intraday",
+      "processing_tier": "T1",
+      "region": "TW",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "apple",
+      "ticker": "AAPL",
+      "fiscal_quarter": "Q3 2026",
+      "datetime_utc": "2026-07-29T20:30:00Z",
+      "datetime_local": "2026-07-29T13:30:00-07:00",
+      "earnings_timing": "amc",
+      "processing_tier": "T1",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "kla",
+      "ticker": "KLAC",
+      "fiscal_quarter": "Q4 2026",
+      "datetime_utc": "2026-07-29T20:30:00Z",
+      "datetime_local": "2026-07-29T13:30:00-07:00",
+      "earnings_timing": "amc",
+      "processing_tier": "T1",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "amazon",
+      "ticker": "AMZN",
+      "fiscal_quarter": "Q2 2026",
+      "datetime_utc": "2026-07-29T20:30:00Z",
+      "datetime_local": "2026-07-29T13:30:00-07:00",
+      "earnings_timing": "amc",
+      "processing_tier": "T1",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "eaton",
+      "ticker": "ETN",
+      "fiscal_quarter": "Q2 2026",
+      "datetime_utc": "2026-08-03T12:00:00Z",
+      "datetime_local": "2026-08-03T05:00:00-07:00",
+      "earnings_timing": "bmo",
+      "processing_tier": "T1",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "onsemi",
+      "ticker": "ON",
+      "fiscal_quarter": "Q2 2026",
+      "datetime_utc": "2026-08-03T12:00:00Z",
+      "datetime_local": "2026-08-03T05:00:00-07:00",
+      "earnings_timing": "bmo",
+      "processing_tier": "T2",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "amd",
+      "ticker": "AMD",
+      "fiscal_quarter": "Q2 2026",
+      "datetime_utc": "2026-08-03T20:30:00Z",
+      "datetime_local": "2026-08-03T13:30:00-07:00",
+      "earnings_timing": "amc",
+      "processing_tier": "T1",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "supermicro",
+      "ticker": "SMCI",
+      "fiscal_quarter": "Q4 2026",
+      "datetime_utc": "2026-08-03T20:30:00Z",
+      "datetime_local": "2026-08-03T13:30:00-07:00",
+      "earnings_timing": "amc",
+      "processing_tier": "T1",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "arista",
+      "ticker": "ANET",
+      "fiscal_quarter": "Q2 2026",
+      "datetime_utc": "2026-08-03T20:30:00Z",
+      "datetime_local": "2026-08-03T13:30:00-07:00",
+      "earnings_timing": "amc",
+      "processing_tier": "T2",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "constellation",
+      "ticker": "CEG",
+      "fiscal_quarter": "Q2 2026",
+      "datetime_utc": "2026-08-04T12:00:00Z",
+      "datetime_local": "2026-08-04T05:00:00-07:00",
+      "earnings_timing": "bmo",
+      "processing_tier": "T1",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "mks",
+      "ticker": "MKSI",
+      "fiscal_quarter": "Q2 2026",
+      "datetime_utc": "2026-08-04T20:30:00Z",
+      "datetime_local": "2026-08-04T13:30:00-07:00",
+      "earnings_timing": "amc",
+      "processing_tier": "T2",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "vistra",
+      "ticker": "VST",
+      "fiscal_quarter": "Q2 2026",
+      "datetime_utc": "2026-08-05T12:00:00Z",
+      "datetime_local": "2026-08-05T05:00:00-07:00",
+      "earnings_timing": "bmo",
+      "processing_tier": "T1",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "microchip",
+      "ticker": "MCHP",
+      "fiscal_quarter": "Q1 2027",
+      "datetime_utc": "2026-08-05T20:30:00Z",
+      "datetime_local": "2026-08-05T13:30:00-07:00",
+      "earnings_timing": "amc",
+      "processing_tier": "T2",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "lumentum",
+      "ticker": "LITE",
+      "fiscal_quarter": "Q4 2026",
+      "datetime_utc": "2026-08-10T20:30:00Z",
+      "datetime_local": "2026-08-10T13:30:00-07:00",
+      "earnings_timing": "amc",
+      "processing_tier": "T2",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "coherent",
+      "ticker": "COHR",
+      "fiscal_quarter": "Q4 2026",
+      "datetime_utc": "2026-08-11T20:30:00Z",
+      "datetime_local": "2026-08-11T13:30:00-07:00",
+      "earnings_timing": "amc",
+      "processing_tier": "T2",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "applied_materials",
+      "ticker": "AMAT",
+      "fiscal_quarter": "Q3 2026",
+      "datetime_utc": "2026-08-13T20:30:00Z",
+      "datetime_local": "2026-08-13T13:30:00-07:00",
+      "earnings_timing": "amc",
+      "processing_tier": "T1",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "adi",
+      "ticker": "ADI",
+      "fiscal_quarter": "Q3 2026",
+      "datetime_utc": "2026-08-18T12:00:00Z",
+      "datetime_local": "2026-08-18T05:00:00-07:00",
+      "earnings_timing": "bmo",
+      "processing_tier": "T2",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "wolfspeed",
+      "ticker": "WOLF",
+      "fiscal_quarter": "Q4 2026",
+      "datetime_utc": "2026-08-24T20:30:00Z",
+      "datetime_local": "2026-08-24T13:30:00-07:00",
+      "earnings_timing": "amc",
+      "processing_tier": "T3",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "nvidia",
+      "ticker": "NVDA",
+      "fiscal_quarter": "Q2 2027",
+      "datetime_utc": "2026-08-25T20:30:00Z",
+      "datetime_local": "2026-08-25T13:30:00-07:00",
+      "earnings_timing": "amc",
+      "processing_tier": "T1",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "marvell",
+      "ticker": "MRVL",
+      "fiscal_quarter": "Q2 2027",
+      "datetime_utc": "2026-08-26T20:30:00Z",
+      "datetime_local": "2026-08-26T13:30:00-07:00",
+      "earnings_timing": "amc",
+      "processing_tier": "T1",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    }
+  ],
+  "companies": {
+    "tsmc": {
+      "short_name": "TSMC",
+      "roles": [
+        "foundry"
+      ],
+      "region": "TW",
+      "processing_tier": "T1",
+      "supply_chain_tier": "T0"
+    },
+    "samsung": {
+      "short_name": "Samsung",
+      "roles": [
+        "foundry",
+        "memory",
+        "hbm"
+      ],
+      "region": "KR",
+      "processing_tier": "T1",
+      "supply_chain_tier": "T0"
+    },
+    "intel": {
+      "short_name": "Intel",
+      "roles": [
+        "idm",
+        "foundry"
+      ],
+      "region": "US",
+      "processing_tier": "T1",
+      "supply_chain_tier": "T0"
+    },
+    "nvidia": {
+      "short_name": "NVIDIA",
+      "roles": [
+        "fabless"
+      ],
+      "region": "US",
+      "processing_tier": "T1",
+      "supply_chain_tier": "T+1"
+    },
+    "amd": {
+      "short_name": "AMD",
+      "roles": [
+        "fabless"
+      ],
+      "region": "US",
+      "processing_tier": "T1",
+      "supply_chain_tier": "T+1"
+    },
+    "apple": {
+      "short_name": "Apple",
+      "roles": [
+        "fabless"
+      ],
+      "region": "US",
+      "processing_tier": "T1",
+      "supply_chain_tier": "T+2"
+    },
+    "qualcomm": {
+      "short_name": "Qualcomm",
+      "roles": [
+        "fabless"
+      ],
+      "region": "US",
+      "processing_tier": "T1",
+      "supply_chain_tier": "T+1"
+    },
+    "broadcom": {
+      "short_name": "Broadcom",
+      "roles": [
+        "fabless",
+        "networking"
+      ],
+      "region": "US",
+      "processing_tier": "T1",
+      "supply_chain_tier": "T+1"
+    },
+    "marvell": {
+      "short_name": "Marvell",
+      "roles": [
+        "fabless",
+        "optical"
+      ],
+      "region": "US",
+      "processing_tier": "T1",
+      "supply_chain_tier": "T+1"
+    },
+    "micron": {
+      "short_name": "Micron",
+      "roles": [
+        "memory",
+        "hbm"
+      ],
+      "region": "US",
+      "processing_tier": "T1",
+      "supply_chain_tier": "lateral"
+    },
+    "sk_hynix": {
+      "short_name": "SK Hynix",
+      "roles": [
+        "memory",
+        "hbm"
+      ],
+      "region": "KR",
+      "processing_tier": "T1",
+      "supply_chain_tier": "lateral"
+    },
+    "asml": {
+      "short_name": "ASML",
+      "roles": [
+        "equipment"
+      ],
+      "region": "EU",
+      "processing_tier": "T1",
+      "supply_chain_tier": "T-1"
+    },
+    "applied_materials": {
+      "short_name": "Applied Materials",
+      "roles": [
+        "equipment",
+        "materials"
+      ],
+      "region": "US",
+      "processing_tier": "T1",
+      "supply_chain_tier": "T-1"
+    },
+    "lam_research": {
+      "short_name": "Lam Research",
+      "roles": [
+        "equipment"
+      ],
+      "region": "US",
+      "processing_tier": "T1",
+      "supply_chain_tier": "T-1"
+    },
+    "kla": {
+      "short_name": "KLA",
+      "roles": [
+        "equipment"
+      ],
+      "region": "US",
+      "processing_tier": "T1",
+      "supply_chain_tier": "T-1"
+    },
+    "tel": {
+      "short_name": "Tokyo Electron",
+      "roles": [
+        "equipment"
+      ],
+      "region": "JP",
+      "processing_tier": "T1",
+      "supply_chain_tier": "T-1"
+    },
+    "microsoft": {
+      "short_name": "Microsoft",
+      "roles": [
+        "hyperscaler"
+      ],
+      "region": "US",
+      "processing_tier": "T1",
+      "supply_chain_tier": "T+2"
+    },
+    "google": {
+      "short_name": "Alphabet/Google",
+      "roles": [
+        "hyperscaler"
+      ],
+      "region": "US",
+      "processing_tier": "T1",
+      "supply_chain_tier": "T+2"
+    },
+    "meta": {
+      "short_name": "Meta",
+      "roles": [
+        "hyperscaler"
+      ],
+      "region": "US",
+      "processing_tier": "T1",
+      "supply_chain_tier": "T+2"
+    },
+    "amazon": {
+      "short_name": "Amazon",
+      "roles": [
+        "hyperscaler"
+      ],
+      "region": "US",
+      "processing_tier": "T1",
+      "supply_chain_tier": "T+2"
+    },
+    "oracle": {
+      "short_name": "Oracle",
+      "roles": [
+        "hyperscaler"
+      ],
+      "region": "US",
+      "processing_tier": "T1",
+      "supply_chain_tier": "T+2"
+    },
+    "dell": {
+      "short_name": "Dell",
+      "roles": [
+        "oem_server"
+      ],
+      "region": "US",
+      "processing_tier": "T1",
+      "supply_chain_tier": "T+3"
+    },
+    "supermicro": {
+      "short_name": "Super Micro",
+      "roles": [
+        "oem_server"
+      ],
+      "region": "US",
+      "processing_tier": "T1",
+      "supply_chain_tier": "T+3"
+    },
+    "vertiv": {
+      "short_name": "Vertiv",
+      "roles": [
+        "cooling_thermal",
+        "power_equipment"
+      ],
+      "region": "US",
+      "processing_tier": "T1",
+      "supply_chain_tier": "infra"
+    },
+    "eaton": {
+      "short_name": "Eaton",
+      "roles": [
+        "power_equipment"
+      ],
+      "region": "US",
+      "processing_tier": "T1",
+      "supply_chain_tier": "infra"
+    },
+    "constellation": {
+      "short_name": "Constellation",
+      "roles": [
+        "power_utility"
+      ],
+      "region": "US",
+      "processing_tier": "T1",
+      "supply_chain_tier": "infra"
+    },
+    "vistra": {
+      "short_name": "Vistra",
+      "roles": [
+        "power_utility"
+      ],
+      "region": "US",
+      "processing_tier": "T1",
+      "supply_chain_tier": "infra"
+    },
+    "ge_vernova": {
+      "short_name": "GE Vernova",
+      "roles": [
+        "power_equipment"
+      ],
+      "region": "US",
+      "processing_tier": "T1",
+      "supply_chain_tier": "infra"
+    },
+    "delta_tw": {
+      "short_name": "Delta 台達電",
+      "roles": [
+        "power_equipment",
+        "cooling_thermal"
+      ],
+      "region": "TW",
+      "processing_tier": "T1",
+      "supply_chain_tier": "infra"
+    },
+    "ase": {
+      "short_name": "ASE 日月光",
+      "roles": [
+        "osat"
+      ],
+      "region": "TW",
+      "processing_tier": "T1",
+      "supply_chain_tier": "lateral"
+    },
+    "amkor": {
+      "short_name": "Amkor",
+      "roles": [
+        "osat"
+      ],
+      "region": "US",
+      "processing_tier": "T2",
+      "supply_chain_tier": "lateral"
+    },
+    "powertech": {
+      "short_name": "Powertech 力成",
+      "roles": [
+        "osat"
+      ],
+      "region": "TW",
+      "processing_tier": "T2",
+      "supply_chain_tier": "lateral"
+    },
+    "globalwafers": {
+      "short_name": "GlobalWafers 環球晶",
+      "roles": [
+        "materials"
+      ],
+      "region": "TW",
+      "processing_tier": "T2",
+      "supply_chain_tier": "T-2"
+    },
+    "sumco": {
+      "short_name": "SUMCO",
+      "roles": [
+        "materials"
+      ],
+      "region": "JP",
+      "processing_tier": "T2",
+      "supply_chain_tier": "T-2"
+    },
+    "shin_etsu": {
+      "short_name": "Shin-Etsu 信越",
+      "roles": [
+        "materials"
+      ],
+      "region": "JP",
+      "processing_tier": "T2",
+      "supply_chain_tier": "T-2"
+    },
+    "entegris": {
+      "short_name": "Entegris",
+      "roles": [
+        "materials"
+      ],
+      "region": "US",
+      "processing_tier": "T2",
+      "supply_chain_tier": "T-2"
+    },
+    "mks": {
+      "short_name": "MKS",
+      "roles": [
+        "equipment",
+        "materials"
+      ],
+      "region": "US",
+      "processing_tier": "T2",
+      "supply_chain_tier": "T-1"
+    },
+    "ti": {
+      "short_name": "Texas Instruments",
+      "roles": [
+        "idm"
+      ],
+      "region": "US",
+      "processing_tier": "T2",
+      "supply_chain_tier": "T+1"
+    },
+    "adi": {
+      "short_name": "Analog Devices",
+      "roles": [
+        "idm"
+      ],
+      "region": "US",
+      "processing_tier": "T2",
+      "supply_chain_tier": "T+1"
+    },
+    "microchip": {
+      "short_name": "Microchip",
+      "roles": [
+        "idm"
+      ],
+      "region": "US",
+      "processing_tier": "T2",
+      "supply_chain_tier": "T+1"
+    },
+    "onsemi": {
+      "short_name": "onsemi",
+      "roles": [
+        "idm"
+      ],
+      "region": "US",
+      "processing_tier": "T2",
+      "supply_chain_tier": "T+1"
+    },
+    "infineon": {
+      "short_name": "Infineon",
+      "roles": [
+        "idm"
+      ],
+      "region": "EU",
+      "processing_tier": "T2",
+      "supply_chain_tier": "T+1"
+    },
+    "stmicro": {
+      "short_name": "STMicro",
+      "roles": [
+        "idm"
+      ],
+      "region": "EU",
+      "processing_tier": "T2",
+      "supply_chain_tier": "T+1"
+    },
+    "nxp": {
+      "short_name": "NXP",
+      "roles": [
+        "idm"
+      ],
+      "region": "US",
+      "processing_tier": "T2",
+      "supply_chain_tier": "T+1"
+    },
+    "cadence": {
+      "short_name": "Cadence",
+      "roles": [
+        "eda"
+      ],
+      "region": "US",
+      "processing_tier": "T2",
+      "supply_chain_tier": "T-1"
+    },
+    "synopsys": {
+      "short_name": "Synopsys",
+      "roles": [
+        "eda"
+      ],
+      "region": "US",
+      "processing_tier": "T2",
+      "supply_chain_tier": "T-1"
+    },
+    "arista": {
+      "short_name": "Arista",
+      "roles": [
+        "networking"
+      ],
+      "region": "US",
+      "processing_tier": "T2",
+      "supply_chain_tier": "lateral"
+    },
+    "coherent": {
+      "short_name": "Coherent",
+      "roles": [
+        "optical"
+      ],
+      "region": "US",
+      "processing_tier": "T2",
+      "supply_chain_tier": "lateral"
+    },
+    "lumentum": {
+      "short_name": "Lumentum",
+      "roles": [
+        "optical"
+      ],
+      "region": "US",
+      "processing_tier": "T2",
+      "supply_chain_tier": "lateral"
+    },
+    "credo": {
+      "short_name": "Credo",
+      "roles": [
+        "optical",
+        "networking"
+      ],
+      "region": "US",
+      "processing_tier": "T2",
+      "supply_chain_tier": "lateral"
+    },
+    "ciena": {
+      "short_name": "Ciena",
+      "roles": [
+        "networking",
+        "optical"
+      ],
+      "region": "US",
+      "processing_tier": "T2",
+      "supply_chain_tier": "lateral"
+    },
+    "hon_hai": {
+      "short_name": "Hon Hai 鴻海",
+      "roles": [
+        "oem_server"
+      ],
+      "region": "TW",
+      "processing_tier": "T2",
+      "supply_chain_tier": "T+3"
+    },
+    "wiwynn": {
+      "short_name": "Wiwynn 緯穎",
+      "roles": [
+        "oem_server"
+      ],
+      "region": "TW",
+      "processing_tier": "T2",
+      "supply_chain_tier": "T+3"
+    },
+    "quanta": {
+      "short_name": "Quanta 廣達",
+      "roles": [
+        "oem_server"
+      ],
+      "region": "TW",
+      "processing_tier": "T2",
+      "supply_chain_tier": "T+3"
+    },
+    "wistron": {
+      "short_name": "Wistron 緯創",
+      "roles": [
+        "oem_server"
+      ],
+      "region": "TW",
+      "processing_tier": "T2",
+      "supply_chain_tier": "T+3"
+    },
+    "hpe": {
+      "short_name": "HPE",
+      "roles": [
+        "oem_server"
+      ],
+      "region": "US",
+      "processing_tier": "T2",
+      "supply_chain_tier": "T+3"
+    },
+    "western_digital": {
+      "short_name": "Western Digital",
+      "roles": [
+        "memory"
+      ],
+      "region": "US",
+      "processing_tier": "T2",
+      "supply_chain_tier": "lateral"
+    },
+    "seagate": {
+      "short_name": "Seagate",
+      "roles": [
+        "memory"
+      ],
+      "region": "US",
+      "processing_tier": "T2",
+      "supply_chain_tier": "lateral"
+    },
+    "kioxia": {
+      "short_name": "Kioxia",
+      "roles": [
+        "memory"
+      ],
+      "region": "JP",
+      "processing_tier": "T2",
+      "supply_chain_tier": "lateral"
+    },
+    "equinix": {
+      "short_name": "Equinix",
+      "roles": [
+        "datacenter_reit"
+      ],
+      "region": "US",
+      "processing_tier": "T2",
+      "supply_chain_tier": "infra"
+    },
+    "digital_realty": {
+      "short_name": "Digital Realty",
+      "roles": [
+        "datacenter_reit"
+      ],
+      "region": "US",
+      "processing_tier": "T2",
+      "supply_chain_tier": "infra"
+    },
+    "schneider": {
+      "short_name": "Schneider",
+      "roles": [
+        "power_equipment"
+      ],
+      "region": "EU",
+      "processing_tier": "T2",
+      "supply_chain_tier": "infra"
+    },
+    "auras": {
+      "short_name": "Auras 雙鴻",
+      "roles": [
+        "cooling_thermal"
+      ],
+      "region": "TW",
+      "processing_tier": "T2",
+      "supply_chain_tier": "infra"
+    },
+    "avc": {
+      "short_name": "AVC 奇鋐",
+      "roles": [
+        "cooling_thermal"
+      ],
+      "region": "TW",
+      "processing_tier": "T2",
+      "supply_chain_tier": "infra"
+    },
+    "jsr": {
+      "short_name": "JSR",
+      "roles": [
+        "photoresist",
+        "materials"
+      ],
+      "region": "JP",
+      "processing_tier": "T3",
+      "supply_chain_tier": "T-2"
+    },
+    "tok": {
+      "short_name": "TOK 東京應化",
+      "roles": [
+        "photoresist"
+      ],
+      "region": "JP",
+      "processing_tier": "T3",
+      "supply_chain_tier": "T-2"
+    },
+    "wolfspeed": {
+      "short_name": "Wolfspeed",
+      "roles": [
+        "sic_gan"
+      ],
+      "region": "US",
+      "processing_tier": "T3",
+      "supply_chain_tier": "T-2"
+    },
+    "unimicron": {
+      "short_name": "Unimicron 欣興",
+      "roles": [
+        "substrate"
+      ],
+      "region": "TW",
+      "processing_tier": "T3",
+      "supply_chain_tier": "T-1"
+    },
+    "kinsus": {
+      "short_name": "Kinsus 景碩",
+      "roles": [
+        "substrate"
+      ],
+      "region": "TW",
+      "processing_tier": "T3",
+      "supply_chain_tier": "T-1"
+    },
+    "ibiden": {
+      "short_name": "Ibiden",
+      "roles": [
+        "substrate"
+      ],
+      "region": "JP",
+      "processing_tier": "T3",
+      "supply_chain_tier": "T-1"
+    },
+    "shinko": {
+      "short_name": "Shinko",
+      "roles": [
+        "substrate"
+      ],
+      "region": "JP",
+      "processing_tier": "T3",
+      "supply_chain_tier": "T-1"
+    },
+    "nanya": {
+      "short_name": "Nanya 南亞科",
+      "roles": [
+        "memory"
+      ],
+      "region": "TW",
+      "processing_tier": "T3",
+      "supply_chain_tier": "lateral"
+    },
+    "winbond": {
+      "short_name": "Winbond 華邦電",
+      "roles": [
+        "memory"
+      ],
+      "region": "TW",
+      "processing_tier": "T3",
+      "supply_chain_tier": "lateral"
+    }
+  },
+  "universe": {
+    "total": 73,
+    "active": 73
+  }
+}

@@ -56,6 +56,9 @@ from flows import load_snapshot as flows_load_snapshot
 from cwengine import cwengine_bp
 from cwengine import load_snapshot as cwengine_load_snapshot
 from cwengine import refresh as cwengine_refresh
+from earnings import earnings_bp
+from earnings import load_snapshot as earnings_load_snapshot
+from earnings import refresh as earnings_refresh
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)s | %(message)s")
 log = logging.getLogger("macro-ai")
@@ -69,6 +72,7 @@ app.register_blueprint(compute_bp)
 app.register_blueprint(racks_bp)
 app.register_blueprint(flows_bp)
 app.register_blueprint(cwengine_bp)
+app.register_blueprint(earnings_bp)
 
 # ── secrets / auth (all from env; never hard-code real values) ──
 _DEFAULT_SECRET = "dev-insecure-change-me"
@@ -119,6 +123,10 @@ STRINGS = {
     "cwe_desc": {"en": "Convert hyperscaler CapEx into implied leading-edge wafer demand — a versioned, regime-aware assumption graph with drift detection.",
                  "zh": "把雲端巨頭 CapEx 推估為隱含先進製程晶圓需求 — 帶版本、體制感知的假設圖，附漂移偵測。"},
     "cwe_lbl":  {"en": "wpm",                          "zh": "片/月"},
+    "earn_name": {"en": "Supply-Chain Earnings Radar", "zh": "供應鏈法說雷達"},
+    "earn_desc": {"en": "Supply-chain-aware earnings calendar across the AI semi chain (equipment → foundry → design → hyperscalers → power/cooling). 73 companies, UTC-stored / PT-shown, tier-filtered.",
+                  "zh": "supply-chain-aware 法說行事曆，涵蓋 AI 半導體全鏈（設備→代工→設計→雲端→電力/散熱）。73 家公司，UTC 儲存 / PT 顯示，分層篩選。"},
+    "earn_lbl":  {"en": "upcoming",                    "zh": "場法說"},
     "updated":   {"en": "Updated",                    "zh": "更新"},
     "indicators":{"en": "indicators",                 "zh": "指標"},
     "signout":   {"en": "Sign out",                   "zh": "登出"},
@@ -155,7 +163,7 @@ def require_login():
     if session.get("auth"):
         return None
     # Unauthenticated: API/JSON callers get 401, humans go to the login page.
-    if request.path.startswith(("/api/", "/econ/api/", "/aibubble/api/", "/rival/api/", "/compute/api/", "/racks/api/", "/flows/api/", "/cwengine/api/")):
+    if request.path.startswith(("/api/", "/econ/api/", "/aibubble/api/", "/rival/api/", "/compute/api/", "/racks/api/", "/flows/api/", "/cwengine/api/", "/earnings/api/")):
         return jsonify({"error": "auth required"}), 401
     return redirect(url_for("login", next=request.path))
 
@@ -220,6 +228,10 @@ def portal():
         cwe_snap = cwengine_load_snapshot()
     except Exception:
         cwe_snap = None
+    try:
+        earnings_snap = earnings_load_snapshot()
+    except Exception:
+        earnings_snap = None
     return render_template(
         "portal.html",
         econ_updated=econ_snap.get("date") if econ_snap else None,
@@ -238,6 +250,8 @@ def portal():
         flows_score=((flows_snap.get("l3") or {}).get("marginal_direction") or {}).get("score") if flows_snap else None,
         cwe_updated=(cwe_snap.get("as_of") if cwe_snap else None),
         cwe_wpm=((cwe_snap.get("inference") or {}).get("wafers_per_month")) if cwe_snap else None,
+        earnings_updated=(earnings_snap.get("as_of") if earnings_snap else None),
+        earnings_count=(earnings_snap.get("event_count") if earnings_snap else None),
     )
 
 
@@ -269,6 +283,10 @@ def _refresh_all_bg() -> None:
         cwengine_refresh()
     except Exception:
         log.exception("cwengine refresh failed")
+    try:
+        earnings_refresh()
+    except Exception:
+        log.exception("earnings refresh failed")
 
 
 @app.route("/cron/refresh")
