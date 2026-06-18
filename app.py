@@ -59,6 +59,9 @@ from cwengine import refresh as cwengine_refresh
 from earnings import earnings_bp
 from earnings import load_snapshot as earnings_load_snapshot
 from earnings import refresh as earnings_refresh
+from pricing import pricing_bp
+from pricing import load_snapshot as pricing_load_snapshot
+# pricing refresh is manual-only (password-gated button), like flows — not wired into the weekly scheduler
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)s | %(message)s")
 log = logging.getLogger("macro-ai")
@@ -73,6 +76,7 @@ app.register_blueprint(racks_bp)
 app.register_blueprint(flows_bp)
 app.register_blueprint(cwengine_bp)
 app.register_blueprint(earnings_bp)
+app.register_blueprint(pricing_bp)
 
 # ── secrets / auth (all from env; never hard-code real values) ──
 _DEFAULT_SECRET = "dev-insecure-change-me"
@@ -127,6 +131,13 @@ STRINGS = {
     "earn_desc": {"en": "Supply-chain-aware earnings calendar across the AI semi chain (equipment → foundry → design → hyperscalers → power/cooling). 73 companies, UTC-stored / PT-shown, tier-filtered.",
                   "zh": "supply-chain-aware 法說行事曆，涵蓋 AI 半導體全鏈（設備→代工→設計→雲端→電力/散熱）。73 家公司，UTC 儲存 / PT 顯示，分層篩選。"},
     "earn_lbl":  {"en": "upcoming",                    "zh": "場法說"},
+    "pricing_name":{"en": "Pricing Power Radar",       "zh": "議價能力雷達"},
+    "pricing_desc":{"en": "Three-layer price stack — supplier cost → foundry ASP → customer ASP — scored into one CEO verdict: can we raise prices?",
+                    "zh": "三層價格堆疊 — 供應商成本 → 代工 ASP → 客戶 ASP — 收斂成一個 CEO 結論:現在能不能漲價?"},
+    "pricing_lbl":{"en": "/100",                       "zh": "/100"},
+    "v_defensible":{"en": "defensible",                "zh": "定價權"},
+    "v_neutral": {"en": "neutral",                     "zh": "中性"},
+    "v_squeezed":{"en": "squeezed",                    "zh": "受擠壓"},
     "updated":   {"en": "Updated",                    "zh": "更新"},
     "indicators":{"en": "indicators",                 "zh": "指標"},
     "signout":   {"en": "Sign out",                   "zh": "登出"},
@@ -163,7 +174,7 @@ def require_login():
     if session.get("auth"):
         return None
     # Unauthenticated: API/JSON callers get 401, humans go to the login page.
-    if request.path.startswith(("/api/", "/econ/api/", "/aibubble/api/", "/rival/api/", "/compute/api/", "/racks/api/", "/flows/api/", "/cwengine/api/", "/earnings/api/")):
+    if request.path.startswith(("/api/", "/econ/api/", "/aibubble/api/", "/rival/api/", "/compute/api/", "/racks/api/", "/flows/api/", "/cwengine/api/", "/earnings/api/", "/pricing/api/")):
         return jsonify({"error": "auth required"}), 401
     return redirect(url_for("login", next=request.path))
 
@@ -232,6 +243,10 @@ def portal():
         earnings_snap = earnings_load_snapshot()
     except Exception:
         earnings_snap = None
+    try:
+        pricing_snap = pricing_load_snapshot()
+    except Exception:
+        pricing_snap = None
     return render_template(
         "portal.html",
         econ_updated=econ_snap.get("date") if econ_snap else None,
@@ -252,6 +267,9 @@ def portal():
         cwe_wpm=((cwe_snap.get("inference") or {}).get("wafers_per_month")) if cwe_snap else None,
         earnings_updated=(earnings_snap.get("as_of") if earnings_snap else None),
         earnings_count=(earnings_snap.get("event_count") if earnings_snap else None),
+        pricing_updated=(pricing_snap.get("as_of") if pricing_snap else None),
+        pricing_score=((pricing_snap.get("pricing_power") or {}).get("score")) if pricing_snap else None,
+        pricing_verdict=(((pricing_snap.get("pricing_power") or {}).get("verdict_key"))) if pricing_snap else None,
     )
 
 

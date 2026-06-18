@@ -265,6 +265,19 @@
               <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
             </div>
           </a>
+
+          <a class="card" href="/pricing/">
+            <div class="kicker">09</div>
+            <h2>{{ t('pricing_name') }}</h2>
+            <div class="desc">{{ t('pricing_desc') }}</div>
+            <div class="foot">
+              <div class="stat">
+                {% if pricing_score is not none %}<span class="score">{{ '%.0f'|format(pricing_score) }}<small>{% if pricing_verdict %}{{ t('v_' ~ pricing_verdict) }}{% else %}{{ t('pricing_lbl') }}{% endif %}</small></span>{% endif %}
+                {% if pricing_updated %}<span class="meta">{{ t('updated') }} · {{ pricing_updated }}</span>{% endif %}
+              </div>
+              <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
+            </div>
+          </a>
         </div>
       </div>
     </div>
