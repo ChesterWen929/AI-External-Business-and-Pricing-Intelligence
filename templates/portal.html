@@ -278,6 +278,19 @@
               <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
             </div>
           </a>
+
+          <a class="card" href="/payback/">
+            <div class="kicker">10</div>
+            <h2>{{ t('payback_name') }}</h2>
+            <div class="desc">{{ t('payback_desc') }}</div>
+            <div class="foot">
+              <div class="stat">
+                {% if payback_coverage is not none %}<span class="score">{{ '%.2f'|format(payback_coverage) }}<small>{% if payback_verdict %}{{ t('v_' ~ payback_verdict) }}{% else %}{{ t('payback_lbl') }}{% endif %}</small></span>{% endif %}
+                {% if payback_updated %}<span class="meta">{{ t('updated') }} · {{ payback_updated }}</span>{% endif %}
+              </div>
+              <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
+            </div>
+          </a>
         </div>
       </div>
     </div>

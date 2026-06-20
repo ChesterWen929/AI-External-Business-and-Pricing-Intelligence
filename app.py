@@ -62,6 +62,9 @@ from earnings import refresh as earnings_refresh
 from pricing import pricing_bp
 from pricing import load_snapshot as pricing_load_snapshot
 # pricing refresh is manual-only (password-gated button), like flows — not wired into the weekly scheduler
+from payback import payback_bp
+from payback import load_snapshot as payback_load_snapshot
+# payback refresh is manual-only (password-gated button), like pricing — not wired into the weekly scheduler
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)s | %(message)s")
 log = logging.getLogger("macro-ai")
@@ -77,6 +80,7 @@ app.register_blueprint(flows_bp)
 app.register_blueprint(cwengine_bp)
 app.register_blueprint(earnings_bp)
 app.register_blueprint(pricing_bp)
+app.register_blueprint(payback_bp)
 
 # ── secrets / auth (all from env; never hard-code real values) ──
 _DEFAULT_SECRET = "dev-insecure-change-me"
@@ -138,6 +142,13 @@ STRINGS = {
     "v_defensible":{"en": "defensible",                "zh": "定價權"},
     "v_neutral": {"en": "neutral",                     "zh": "中性"},
     "v_squeezed":{"en": "squeezed",                    "zh": "受擠壓"},
+    "payback_name":{"en": "AI Capex Payback Radar",    "zh": "AI 資本支出回本雷達"},
+    "payback_desc":{"en": "Is the hyperscalers' AI capex paying off yet? Capex vs revenue for Google · Meta · Microsoft · Amazon, plus OpenAI & Anthropic from fragmentary data — one coverage ratio answers it.",
+                    "zh": "巨頭的 AI 資本支出回本了沒?Google · Meta · 微軟 · Amazon 的花錢 vs 賺錢,加上零碎情報拼出的 OpenAI 與 Anthropic — 一個覆蓋率回答。"},
+    "payback_lbl":{"en": "coverage",                   "zh": "覆蓋率"},
+    "v_monetizing":{"en": "monetizing",                "zh": "變現中"},
+    "v_investing":{"en": "investing",                  "zh": "投入期"},
+    "v_burning": {"en": "burning",                     "zh": "燒錢"},
     "updated":   {"en": "Updated",                    "zh": "更新"},
     "indicators":{"en": "indicators",                 "zh": "指標"},
     "signout":   {"en": "Sign out",                   "zh": "登出"},
@@ -174,7 +185,7 @@ def require_login():
     if session.get("auth"):
         return None
     # Unauthenticated: API/JSON callers get 401, humans go to the login page.
-    if request.path.startswith(("/api/", "/econ/api/", "/aibubble/api/", "/rival/api/", "/compute/api/", "/racks/api/", "/flows/api/", "/cwengine/api/", "/earnings/api/", "/pricing/api/")):
+    if request.path.startswith(("/api/", "/econ/api/", "/aibubble/api/", "/rival/api/", "/compute/api/", "/racks/api/", "/flows/api/", "/cwengine/api/", "/earnings/api/", "/pricing/api/", "/payback/api/")):
         return jsonify({"error": "auth required"}), 401
     return redirect(url_for("login", next=request.path))
 
@@ -247,6 +258,10 @@ def portal():
         pricing_snap = pricing_load_snapshot()
     except Exception:
         pricing_snap = None
+    try:
+        payback_snap = payback_load_snapshot()
+    except Exception:
+        payback_snap = None
     return render_template(
         "portal.html",
         econ_updated=econ_snap.get("date") if econ_snap else None,
@@ -270,6 +285,9 @@ def portal():
         pricing_updated=(pricing_snap.get("as_of") if pricing_snap else None),
         pricing_score=((pricing_snap.get("pricing_power") or {}).get("score")) if pricing_snap else None,
         pricing_verdict=(((pricing_snap.get("pricing_power") or {}).get("verdict_key"))) if pricing_snap else None,
+        payback_updated=(payback_snap.get("as_of") if payback_snap else None),
+        payback_coverage=((payback_snap.get("headline") or {}).get("coverage")) if payback_snap else None,
+        payback_verdict=((payback_snap.get("headline") or {}).get("verdict_key")) if payback_snap else None,
     )
 
 

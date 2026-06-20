@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Capex Payback Radar · AI 資本支出回本雷達</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0b0f; --panel:rgba(22,24,31,.72); --panel-hi:rgba(30,33,42,.9);
+    --line:rgba(255,255,255,.08); --line-hi:rgba(255,255,255,.16);
+    --ink:#ecedf2; --soft:#a6a9b8; --dim:#6a6e80; --gold:#c8a86a; --acc:#7c83ff;
+    --on:#43c08a; --off:#e0626e; --neu:#c8a86a; --warn:#e0a14a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:radial-gradient(1100px 560px at 82% -14%,rgba(124,131,255,.10),transparent 58%),radial-gradient(900px 520px at -8% 4%,rgba(200,168,106,.08),transparent 52%),var(--bg);
+       color:var(--ink);font-family:"Inter","PingFang TC","Noto Sans TC",-apple-system,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:22px 26px 60px}
+  .top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:8px}
+  .brand{display:flex;align-items:center;gap:11px}
+  .gem{width:16px;height:16px;transform:rotate(45deg);border:1px solid var(--gold);border-radius:4px;position:relative}
+  .gem::after{content:"";position:absolute;inset:4px;background:var(--gold);border-radius:2px;opacity:.85}
+  h1{font-family:"Noto Serif TC",serif;font-weight:600;font-size:22px;letter-spacing:.5px}
+  .tools{display:flex;align-items:center;gap:10px}
+  .btn{font-size:12px;padding:6px 12px;border-radius:8px;border:1px solid var(--line-hi);background:transparent;color:var(--soft);cursor:pointer;transition:.15s}
+  .btn:hover{color:var(--ink);border-color:var(--acc)}
+  .btn.go{border-color:var(--acc);color:var(--acc)}
+  .status{font-size:11.5px;color:var(--dim)}
+  .crumb{font-size:11px;color:var(--dim);letter-spacing:.4px;margin-bottom:18px}
+  .crumb a:hover{color:var(--gold)}
+  .demo{background:rgba(200,168,106,.10);border:1px solid rgba(200,168,106,.3);color:var(--gold);
+        font-size:12px;padding:9px 13px;border-radius:10px;margin-bottom:18px}
+  .sub{color:var(--dim);font-size:12.5px;line-height:1.6;margin-bottom:22px}
+
+  .grid{display:grid;gap:16px}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+  .panel h2{font-family:"Noto Serif TC",serif;font-size:15px;font-weight:600;letter-spacing:.5px;margin-bottom:4px}
+  .panel .note{font-size:11.5px;color:var(--dim);margin-bottom:14px;line-height:1.5}
+  .eyebrow{font-size:10.5px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);opacity:.85}
+
+  /* hero */
+  .hero{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:16px;margin-bottom:16px}
+  @media(max-width:780px){.hero{grid-template-columns:1fr}}
+  .big{font-variant-numeric:tabular-nums;font-weight:600;font-size:30px;letter-spacing:.5px}
+  .gauge{height:8px;border-radius:999px;background:linear-gradient(90deg,var(--off),var(--neu),var(--on));position:relative;margin:14px 0 8px}
+  .gauge .pin{position:absolute;top:-4px;width:3px;height:16px;background:#fff;border-radius:2px;box-shadow:0 0 8px rgba(255,255,255,.6)}
+  .scale{display:flex;justify-content:space-between;font-size:10px;color:var(--dim)}
+  .tag{display:inline-block;font-size:11px;font-weight:500;padding:2px 9px;border-radius:999px;letter-spacing:.4px}
+  .tag.monetizing{background:rgba(67,192,138,.15);color:var(--on)} .tag.burning{background:rgba(224,98,110,.15);color:var(--off)}
+  .tag.investing{background:rgba(200,168,106,.15);color:var(--neu)}
+  .kv{display:flex;justify-content:space-between;font-size:12.5px;padding:6px 0;border-top:1px solid var(--line)}
+  .kv .k{color:var(--soft)} .kv .v{font-variant-numeric:tabular-nums;font-weight:600}
+
+  /* scissors chart */
+  .chartwrap{position:relative}
+  svg.chart{width:100%;height:230px;display:block}
+  .legend{display:flex;gap:18px;font-size:11.5px;color:var(--soft);margin-top:8px;flex-wrap:wrap}
+  .legend i{display:inline-block;width:14px;height:3px;border-radius:2px;margin-right:6px;vertical-align:middle}
+
+  /* company cards */
+  .cos{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:780px){.cos{grid-template-columns:1fr}}
+  .co{background:var(--panel-hi);border:1px solid var(--line);border-radius:14px;padding:16px 17px}
+  .cohead{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:6px}
+  .coname{font-weight:600;font-size:15px} .coticker{font-size:11px;color:var(--dim);margin-left:6px}
+  .coscore{text-align:right;white-space:nowrap}
+  .coscore .s{font-variant-numeric:tabular-nums;font-weight:600;font-size:20px}
+  .covbar{height:6px;border-radius:999px;background:rgba(255,255,255,.06);margin:8px 0 4px;overflow:hidden}
+  .covbar i{display:block;height:100%;background:linear-gradient(90deg,var(--off),var(--neu),var(--on))}
+  .corow{display:flex;justify-content:space-between;gap:8px;font-size:12px;padding:5px 0;border-top:1px solid var(--line)}
+  .corow .k{color:var(--soft)} .corow .v{font-variant-numeric:tabular-nums;text-align:right}
+  .quote{font-size:11.5px;color:var(--soft);line-height:1.5;font-style:italic;margin-top:10px;padding-left:10px;border-left:2px solid var(--line-hi)}
+  .quote .who{font-style:normal;color:var(--dim);font-size:10.5px;display:block;margin-top:3px}
+  .conote{font-size:11px;color:var(--dim);line-height:1.5;margin-top:9px}
+
+  .badge{font-size:9px;letter-spacing:.4px;border:1px solid var(--line-hi);border-radius:4px;padding:0 4px;color:var(--dim);margin-left:6px;white-space:nowrap}
+  .badge.rep{color:var(--on);border-color:rgba(67,192,138,.4)}
+  .badge.gui{color:var(--gold);border-color:rgba(200,168,106,.4)}
+  .badge.ana{color:var(--acc);border-color:rgba(124,131,255,.4)}
+  .badge.est{color:var(--warn);border-color:rgba(224,161,74,.4)}
+  .badge.news{color:var(--off);border-color:rgba(224,98,110,.4)}
+  .badge.live{color:var(--acc);border-color:rgba(124,131,255,.4)}
+  .srcl{font-size:10px;color:var(--dim);margin-left:6px} .srcl:hover{color:var(--gold)}
+
+  /* alerts */
+  .alert{border-radius:11px;padding:11px 14px;font-size:12.5px;line-height:1.55;margin-bottom:9px;border:1px solid var(--line)}
+  .alert .lv{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;margin-bottom:4px;display:block}
+  .alert.squeeze{background:rgba(224,98,110,.08);border-color:rgba(224,98,110,.32)} .alert.squeeze .lv{color:var(--off)}
+  .alert.opportunity{background:rgba(67,192,138,.08);border-color:rgba(67,192,138,.32)} .alert.opportunity .lv{color:var(--on)}
+  .alert.strong{background:rgba(67,192,138,.08);border-color:rgba(67,192,138,.32)} .alert.strong .lv{color:var(--on)}
+  .alert.watch{background:rgba(224,161,74,.07);border-color:rgba(224,161,74,.28)} .alert.watch .lv{color:var(--warn)}
+
+  /* circularity */
+  .edge{display:flex;align-items:center;gap:10px;font-size:12.5px;padding:9px 0;border-top:1px solid var(--line)}
+  .edge .ar{color:var(--gold)} .edge .amt{font-variant-numeric:tabular-nums;font-weight:600;color:var(--ink);white-space:nowrap}
+  .edge .wh{color:var(--soft);flex:1;line-height:1.4}
+  .flow{font-weight:500;white-space:nowrap}
+
+  /* L4 / L5 */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:780px){.two{grid-template-columns:1fr}}
+  .body{font-size:13px;line-height:1.7;color:var(--ink)}
+  .leads li,.fals li{font-size:12.5px;line-height:1.6;color:var(--soft);margin:6px 0;list-style:none;padding-left:16px;position:relative}
+  .leads li::before,.fals li::before{content:"▸";position:absolute;left:0;color:var(--gold)}
+  .take{font-size:12.5px;line-height:1.6;color:var(--soft);padding:8px 0;border-top:1px solid var(--line)}
+  .take b{color:var(--ink);font-weight:600}
+  .scn{padding:11px 0;border-top:1px solid var(--line)}
+  .scnhead{display:flex;justify-content:space-between;gap:10px;font-size:13px}
+  .scnname{font-weight:500}
+  .scnprob{font-variant-numeric:tabular-nums;color:var(--gold);font-weight:600}
+  .bar{height:6px;border-radius:999px;background:rgba(255,255,255,.06);margin:7px 0 6px;overflow:hidden}
+  .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--acc),var(--gold))}
+  .scntrig{font-size:11.5px;color:var(--dim);line-height:1.5}
+  table.ew{width:100%;border-collapse:collapse;font-size:12.5px}
+  table.ew td{padding:7px 8px;border-top:1px solid var(--line)}
+  table.ew td.f{text-align:right;color:var(--gold);font-size:11px;white-space:nowrap}
+  .news a{display:block;font-size:12.5px;color:var(--soft);padding:7px 0;border-top:1px solid var(--line);line-height:1.4}
+  .news a:hover{color:var(--ink)} .news .src2{color:var(--dim);font-size:11px}
+  .foot{margin-top:24px;font-size:11px;color:var(--dim);line-height:1.7}
+  .disc{background:rgba(224,161,74,.06);border:1px solid rgba(224,161,74,.22);color:var(--soft);
+        font-size:11.5px;line-height:1.6;padding:11px 14px;border-radius:11px;margin-top:6px}
+  .legendtiers{font-size:10.5px;color:var(--dim);margin-top:10px;line-height:1.7}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand"><span class="gem"></span><h1 id="title"></h1></div>
+    <div class="tools">
+      <button class="btn" id="langBtn"></button>
+      <button class="btn go" id="refreshBtn"></button>
+      <span class="status" id="status"></span>
+    </div>
+  </div>
+  <div class="crumb"><a href="/">← <span id="crumbHome"></span></a> · <span id="asof"></span> · <span id="engine"></span></div>
+  <div id="demo" class="demo" style="display:none"></div>
+  <div class="sub" id="method"></div>
+
+  <!-- hero -->
+  <div class="hero">
+    <div class="panel">
+      <span class="eyebrow" id="h_head"></span>
+      <div class="big"><span id="covVal"></span> <span class="tag" id="headTag"></span></div>
+      <div class="gauge"><div class="pin" id="covPin"></div></div>
+      <div class="scale"><span id="sc_lo"></span><span>0.5</span><span id="sc_hi"></span></div>
+      <div class="note" style="margin:10px 0 0" id="headHint"></div>
+    </div>
+    <div class="panel">
+      <span class="eyebrow" id="h_spend"></span>
+      <div class="kv"><span class="k" id="ag_capex_l"></span><span class="v" id="ag_capex"></span></div>
+      <div class="kv"><span class="k" id="ag_aicapex_l"></span><span class="v" id="ag_aicapex"></span></div>
+      <div class="kv"><span class="k" id="ag_cloud_l"></span><span class="v" id="ag_cloud"></span></div>
+    </div>
+    <div class="panel">
+      <span class="eyebrow" id="h_earn"></span>
+      <div class="kv"><span class="k" id="ag_airev_l"></span><span class="v" id="ag_airev"></span></div>
+      <div class="kv"><span class="k" id="ag_gap_l"></span><span class="v" id="ag_gap"></span></div>
+      <div class="note" style="margin:10px 0 0" id="earnHint"></div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <!-- scissors chart -->
+    <div class="panel">
+      <h2 id="h_chart"></h2><div class="note" id="n_chart"></div>
+      <div class="chartwrap"><svg class="chart" id="chart" viewBox="0 0 720 230" preserveAspectRatio="none"></svg></div>
+      <div class="legend" id="chartLegend"></div>
+    </div>
+
+    <!-- public company cards -->
+    <div class="panel">
+      <h2 id="h_cos"></h2><div class="note" id="n_cos"></div>
+      <div class="cos" id="cos"></div>
+    </div>
+
+    <!-- alerts -->
+    <div class="panel">
+      <h2 id="h_alerts"></h2><div class="note" id="n_alerts"></div>
+      <div id="alerts"></div>
+    </div>
+
+    <!-- L4 read -->
+    <div class="two">
+      <div class="panel">
+        <h2 id="h_read"></h2>
+        <div class="body" id="paybackRead"></div>
+        <h2 style="margin-top:16px" id="h_circread"></h2>
+        <div class="body" id="circRead"></div>
+      </div>
+      <div class="panel">
+        <h2 id="h_takes"></h2>
+        <div id="takes"></div>
+        <div class="note" style="margin:14px 0 6px" id="h_leads"></div>
+        <ul class="leads" id="leads"></ul>
+      </div>
+    </div>
+
+    <!-- private labs -->
+    <div class="panel">
+      <h2 id="h_priv"></h2><div class="note" id="n_priv"></div>
+      <div class="cos" id="priv"></div>
+    </div>
+
+    <!-- circularity ledger -->
+    <div class="panel">
+      <h2 id="h_circ"></h2><div class="note" id="n_circ"></div>
+      <div id="circ"></div>
+    </div>
+
+    <!-- L5 scenarios + falsification + watch -->
+    <div class="two">
+      <div class="panel">
+        <h2 id="h_scn"></h2><div class="note" id="n_scn"></div>
+        <div id="scenarios"></div>
+      </div>
+      <div class="panel">
+        <h2 id="h_fals"></h2>
+        <ul class="fals" id="falsification"></ul>
+        <h2 style="margin-top:16px" id="h_watch"></h2>
+        <table class="ew"><tbody id="watch"></tbody></table>
+      </div>
+    </div>
+
+    <!-- news -->
+    <div class="panel" id="newsPanel" style="display:none">
+      <h2 id="h_news"></h2>
+      <div class="news" id="news"></div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <div class="disc" id="disclaimer"></div>
+    <div class="legendtiers" id="tierLegend"></div>
+    <div id="blindHead" style="margin-top:14px"></div>
+    <ul style="list-style:none;margin-top:6px" id="blind"></ul>
+  </div>
+</div>
+
+<script>
+const SNAP = {{ snapshot | safe }};
+let LANG = localStorage.getItem("payback_lang") || "en";
+
+const T = {
+  en:{home:"External Market Analysis", lang:"中文", refresh:"↻ Refresh",
+      pwPrompt:"Enter refresh password (default capex2026):", refreshing:"refreshing… live capex/revenue + Claude L4/L5",
+      done:"done, reloading…", fail:"refresh failed",
+      demo:"Seed/demo view — hit ↻ Refresh to pull live TTM capex & revenue from yfinance (and Claude L4/L5 if an API key is set). Cloud-segment, AI-share and private-lab figures stay curated.",
+      asof:"As of", engineRules:"engine: rules (no API key)", engineClaude:"engine: Claude Opus 4.8",
+      head:"Is the AI capex paying off yet?", scLo:"0 outspending", scHi:"1.0 covered",
+      headHint:"Coverage = AI-only revenue ÷ AI capex (the four combined). <1 = still spending more on AI than it earns from AI.",
+      spend:"The spend (TTM, $bn)", ag_capex:"Total capex", ag_aicapex:"AI capex (est. share)", ag_cloud:"Cloud segment revenue",
+      earn:"The return (TTM, $bn)", ag_airev:"AI-only revenue (est.)", ag_gap:"AI capex − AI revenue gap",
+      earnHint:"Cloud revenue is the hard floor; AI-only revenue is an estimate band. The gap is what's not yet earned back.",
+      chart:"Capex vs cloud revenue — the build vs the business", chartNote:"Quarterly, four hyperscalers combined. Cloud segment revenue (hard) still tops total capex — but the AI-only slice of revenue (below) is far under the AI slice of capex.",
+      cos:"Per company — who is converting?", cosNote:"Coverage = AI revenue ÷ AI capex. Total capex & revenue are live (yfinance TTM); AI share is management-guided; cloud revenue is reported; the AI-only band is our estimate.",
+      alerts:"Divergence alerts", alertsNote:"Deterministic flags from the numbers.",
+      read:"L4 · The read — paying off yet?", circread:"L4 · Circularity read",
+      takes:"L4 · Per-company take", leads:"Leading signals (move before reported AI revenue)",
+      priv:"Frontier labs — OpenAI & Anthropic (fragmentary)", privNote:"No filings. Every figure is press/our-estimate, directional only. Coverage here = revenue run-rate ÷ annual burn; runway = funding raised ÷ burn.",
+      circ:"Circularity ledger — AI dollars looping", circNote:"Tracked commitments/investments between Nvidia, the labs and the clouds. Some 'AI revenue' is the same dollars circulating.",
+      scn:"L5 · Scenarios", scnNote:"Probabilities from the current read; each with a concrete trigger.",
+      fals:"L5 · Falsification — what flips the verdict", watch:"L5 · Watch-list",
+      news:"News radar (fetched on refresh)", blind:"Blind spots", trigger:"Trigger",
+      capex:"capex", cloudrev:"cloud rev", airev:"AI-only rev",
+      r_capex:"Total capex", r_aicapex:"AI capex", r_cloud:"Cloud rev", r_cloudg:"Cloud growth",
+      r_airev:"AI-only rev", r_intensity:"Capex intensity", r_accel:"Capex vs rev growth", r_cover:"Coverage",
+      r_rev:"Revenue run-rate", r_burn:"Annual burn", r_runway:"Funded runway", r_fund:"Funding raised", r_val:"Valuation", r_compute:"Compute commitment",
+      yrs:"yrs",
+      disc:"⚠ 'AI capex' and 'AI revenue' are NOT reported line items. Total capex & revenue are real (yfinance TTM); the AI share of capex is management-guided; cloud segment revenue is reported; the AI-only revenue band is OUR estimate. Private-lab figures (OpenAI/Anthropic) are fragmentary press/estimates with no filings — directional only. This is external analysis, not company guidance."},
+  zh:{home:"外部市場分析", lang:"EN", refresh:"↻ 更新",
+      pwPrompt:"輸入更新密碼(預設 capex2026):", refreshing:"更新中…即時 capex/營收 + Claude L4/L5",
+      done:"完成,重新載入中…", fail:"更新失敗",
+      demo:"種子/示範視圖 — 按 ↻ 更新 從 yfinance 抓即時 TTM capex 與營收(若設了 API key 會跑 Claude L4/L5)。雲端分部、AI 佔比與私有實驗室數字維持策展。",
+      asof:"資料時點", engineRules:"引擎:規則(無 API key)", engineClaude:"引擎:Claude Opus 4.8",
+      head:"AI 資本支出回本了沒?", scLo:"0 入超", scHi:"1.0 覆蓋",
+      headHint:"覆蓋率 = AI-only 營收 ÷ AI capex(四家合計)。<1 = AI 花的仍多於 AI 賺的。",
+      spend:"花的錢(TTM,$十億)", ag_capex:"總 capex", ag_aicapex:"AI capex(估計佔比)", ag_cloud:"雲端分部營收",
+      earn:"賺的錢(TTM,$十億)", ag_airev:"AI-only 營收(估)", ag_gap:"AI capex − AI 營收 缺口",
+      earnHint:"雲端營收是硬底;AI-only 營收是估計帶。缺口就是尚未回本的部分。",
+      chart:"capex vs 雲端營收 — 建置 vs 本業", chartNote:"季度、四大巨頭合計。雲端分部營收(硬)仍高於總 capex — 但營收中的 AI-only 部分(更低)遠少於 capex 中的 AI 部分。",
+      cos:"逐家 — 誰在變現?", cosNote:"覆蓋率 = AI 營收 ÷ AI capex。總 capex 與營收為即時(yfinance TTM);AI 佔比為管理層口徑;雲端營收為財報;AI-only 帶為本平台估計。",
+      alerts:"背離警報", alertsNote:"由數字產生的確定性標記。",
+      read:"L4 · 判讀 — 回本了沒?", circread:"L4 · 循環性判讀",
+      takes:"L4 · 逐家結論", leads:"領先訊號(比報導 AI 營收先動)",
+      priv:"前沿實驗室 — OpenAI 與 Anthropic(零碎)", privNote:"無財報。每個數字皆為新聞/本平台估計,僅供方向。此處覆蓋率 = 營收 run-rate ÷ 年燒錢;跑道 = 募資 ÷ 燒錢。",
+      circ:"循環性帳本 — AI 資金轉圈", circNote:"Nvidia、實驗室與雲端之間的追蹤承諾/投資。部分「AI 營收」是同一批資金循環。",
+      scn:"L5 · 情境", scnNote:"機率來自當前判讀;每個情境附具體觸發條件。",
+      fals:"L5 · 證偽 — 什麼會翻轉結論", watch:"L5 · 觀察清單",
+      news:"新聞雷達(更新時抓取)", blind:"盲點", trigger:"觸發",
+      capex:"capex", cloudrev:"雲端營收", airev:"AI-only 營收",
+      r_capex:"總 capex", r_aicapex:"AI capex", r_cloud:"雲端營收", r_cloudg:"雲端成長",
+      r_airev:"AI-only 營收", r_intensity:"capex 強度", r_accel:"capex vs 營收成長", r_cover:"覆蓋率",
+      r_rev:"營收 run-rate", r_burn:"年燒錢", r_runway:"募資跑道", r_fund:"累計募資", r_val:"估值", r_compute:"算力承諾",
+      yrs:"年",
+      disc:"⚠「AI capex」與「AI 營收」皆非財報科目。總 capex 與營收為真實(yfinance TTM);capex 的 AI 佔比為管理層口徑;雲端分部營收為財報;AI-only 營收帶為本平台估計。私有實驗室數字(OpenAI/Anthropic)為零碎新聞/估計,無財報 — 僅供方向。本平台為對外分析,非公司指引。"}
+};
+
+const TIER = {
+  REPORTED:{c:"rep", en:"reported", zh:"財報"},
+  GUIDED:{c:"gui", en:"guided", zh:"口徑"},
+  ANALYST:{c:"ana", en:"analyst", zh:"分析師"},
+  OUR_EST:{c:"est", en:"our est.", zh:"本估"},
+  NEWS:{c:"news", en:"press", zh:"新聞"}
+};
+function tierBadge(tier){ const m=TIER[tier]; if(!m) return ""; return `<span class="badge ${m.c}">${LANG==="zh"?m.zh:m.en}</span>`; }
+function srcLink(url){ return url?`<a class="srcl" href="${url}" target="_blank" rel="noopener">↗</a>`:""; }
+function bn(v){ return (v===null||v===undefined)?"—":"$"+(Math.round(v*10)/10)+"B"; }
+function pct(v){ if(v===null||v===undefined) return "—"; return (v>0?"+":"")+v+"%"; }
+function L(o,base){ return (o && (o[base+"_"+LANG] ?? o[base+"_en"])) || ""; }
+
+function render(){
+  const t=T[LANG], s=SNAP, l3=s.l3, agg=l3.aggregate, hd=s.headline;
+  document.documentElement.lang = LANG==="zh"?"zh-Hant":"en";
+  document.getElementById("title").textContent = LANG==="zh"? s.title_zh : s.title_en;
+  document.getElementById("langBtn").textContent = t.lang;
+  document.getElementById("refreshBtn").textContent = t.refresh;
+  document.getElementById("crumbHome").textContent = t.home;
+  document.getElementById("asof").textContent = t.asof + " " + (s.as_of||"") + (s.generated_at? " · "+s.generated_at : "");
+  document.getElementById("engine").textContent = s.analysis_engine==="claude"? t.engineClaude : t.engineRules;
+  document.getElementById("method").textContent = LANG==="zh"? s.method_zh : s.method_en;
+  const demo=document.getElementById("demo");
+  if(s.is_demo){ demo.style.display="block"; demo.textContent=t.demo; } else { demo.style.display="none"; }
+
+  // hero
+  document.getElementById("h_head").textContent=t.head;
+  document.getElementById("covVal").textContent=(hd.coverage!=null?hd.coverage.toFixed(2):"—");
+  const tag=document.getElementById("headTag");
+  tag.textContent=LANG==="zh"?hd.verdict_zh:hd.verdict_en; tag.className="tag "+hd.verdict_key;
+  document.getElementById("covPin").style.left=Math.min(100,(hd.coverage||0)*100)+"%";
+  document.getElementById("sc_lo").textContent=t.scLo;
+  document.getElementById("sc_hi").textContent=t.scHi;
+  document.getElementById("headHint").textContent=t.headHint;
+
+  document.getElementById("h_spend").textContent=t.spend;
+  document.getElementById("ag_capex_l").textContent=t.ag_capex;  document.getElementById("ag_capex").textContent=bn(agg.total_capex_ttm);
+  document.getElementById("ag_aicapex_l").textContent=t.ag_aicapex; document.getElementById("ag_aicapex").textContent=bn(agg.total_ai_capex_ttm);
+  document.getElementById("ag_cloud_l").textContent=t.ag_cloud;  document.getElementById("ag_cloud").textContent=bn(agg.total_cloud_rev_ttm);
+
+  document.getElementById("h_earn").textContent=t.earn;
+  document.getElementById("ag_airev_l").textContent=t.ag_airev; document.getElementById("ag_airev").textContent=bn(agg.total_ai_rev_mid);
+  document.getElementById("ag_gap_l").textContent=t.ag_gap;
+  const gapEl=document.getElementById("ag_gap"); gapEl.textContent=bn(agg.gap_usd_bn); gapEl.style.color="var(--off)";
+  document.getElementById("earnHint").textContent=t.earnHint;
+
+  // scissors chart
+  document.getElementById("h_chart").textContent=t.chart;
+  document.getElementById("n_chart").textContent=t.chartNote;
+  drawChart(l3.scissors);
+  document.getElementById("chartLegend").innerHTML=
+    `<span><i style="background:var(--gold)"></i>${t.capex}</span>`+
+    `<span><i style="background:var(--on)"></i>${t.cloudrev}</span>`;
+
+  // public company cards
+  document.getElementById("h_cos").textContent=t.cos;
+  document.getElementById("n_cos").textContent=t.cosNote;
+  document.getElementById("cos").innerHTML=l3.companies.map(p=>{
+    const cov=p.coverage!=null?p.coverage:0;
+    const band=p.ai_rev_band||{};
+    const row=(k,v,extra="")=>`<div class="corow"><span class="k">${k}</span><span class="v">${v}${extra}</span></div>`;
+    return `<div class="co">
+      <div class="cohead">
+        <div><span class="coname">${LANG==="zh"?p.name_zh:p.name_en}</span><span class="coticker">${p.ticker||""}${p.live?tierBadgeLive():""}</span></div>
+        <div class="coscore"><span class="s">${p.score}</span><br><span class="tag ${p.verdict_key}">${p.verdict_key}</span></div>
+      </div>
+      <div class="covbar"><i style="width:${Math.min(100,cov*100)}%"></i></div>
+      ${row(t.r_cover, cov.toFixed(2))}
+      ${row(t.r_capex, bn(p.capex_ttm))}
+      ${row(t.r_aicapex, bn(p.ai_capex_ttm), tierBadge((p.ai_capex_share||{}).tier)+srcLink((p.ai_capex_share||{}).source_url))}
+      ${row(t.r_cloud+" ("+(LANG==="zh"?p.cloud_name_zh:p.cloud_name_en)+")", bn((p.cloud||{}).rev_ttm_usd_bn), tierBadge((p.cloud||{}).tier)+srcLink((p.cloud||{}).source_url))}
+      ${row(t.r_cloudg, pct(p.cloud_growth))}
+      ${row(t.r_airev, bn(band.low_usd_bn)+"–"+bn(band.high_usd_bn), tierBadge(band.tier)+srcLink(band.source_url))}
+      ${row(t.r_intensity, (p.capex_intensity!=null?p.capex_intensity+"%":"—"))}
+      ${row(t.r_accel, pct(p.capex_yoy)+" / "+pct(p.rev_yoy))}
+      <div class="quote">“${LANG==="zh"?(p.mgmt_quote||{}).zh:(p.mgmt_quote||{}).en}”<span class="who">— ${(p.mgmt_quote||{}).who||""} · ${(p.mgmt_quote||{}).date||""} ${srcLink((p.mgmt_quote||{}).source_url)}</span></div>
+      <div class="conote">${LANG==="zh"?p.note_zh:p.note_en}</div>
+    </div>`;
+  }).join("");
+
+  // alerts
+  document.getElementById("h_alerts").textContent=t.alerts;
+  document.getElementById("n_alerts").textContent=t.alertsNote;
+  document.getElementById("alerts").innerHTML=l3.alerts.map(a=>`
+    <div class="alert ${a.level}"><span class="lv">${a.level}</span>${LANG==="zh"?a.zh:a.en}</div>`).join("");
+
+  // L4
+  const l4=s.l4;
+  document.getElementById("h_read").textContent=t.read;
+  document.getElementById("paybackRead").textContent=LANG==="zh"?l4.payback_read.zh:l4.payback_read.en;
+  document.getElementById("h_circread").textContent=t.circread;
+  document.getElementById("circRead").textContent=LANG==="zh"?l4.circularity_read.zh:l4.circularity_read.en;
+  document.getElementById("h_takes").textContent=t.takes;
+  const nameById={}; l3.companies.concat(l3.private).forEach(p=>nameById[p.id]=LANG==="zh"?p.name_zh:p.name_en);
+  document.getElementById("takes").innerHTML=l4.company_takes.map(x=>
+    `<div class="take"><b>${nameById[x.id]||x.id} ·</b> ${LANG==="zh"?x.zh:x.en}</div>`).join("");
+  document.getElementById("h_leads").textContent=t.leads;
+  document.getElementById("leads").innerHTML=l4.leading_signals.map(x=>`<li>${LANG==="zh"?x.zh:x.en}</li>`).join("");
+
+  // private labs
+  document.getElementById("h_priv").textContent=t.priv;
+  document.getElementById("n_priv").textContent=t.privNote;
+  document.getElementById("priv").innerHTML=l3.private.map(p=>{
+    const cov=p.coverage!=null?p.coverage:0;
+    const f=(k)=>p[k]||{};
+    const row=(k,field,fmt)=>`<div class="corow"><span class="k">${k}</span><span class="v">${fmt(field.value)}${tierBadge(field.tier)}${srcLink(field.source_url)}</span></div>`;
+    return `<div class="co">
+      <div class="cohead">
+        <div><span class="coname">${LANG==="zh"?p.name_zh:p.name_en}</span></div>
+        <div class="coscore"><span class="s">${p.score}</span><br><span class="tag ${p.verdict_key}">${p.verdict_key}</span></div>
+      </div>
+      <div class="covbar"><i style="width:${Math.min(100,cov*100)}%"></i></div>
+      <div class="corow"><span class="k">${t.r_cover}</span><span class="v">${cov.toFixed(2)}</span></div>
+      ${row(t.r_rev, f("revenue_runrate"), bn)}
+      ${row(t.r_burn, f("annual_burn"), bn)}
+      <div class="corow"><span class="k">${t.r_runway}</span><span class="v">${p.runway_years!=null?p.runway_years+" "+t.yrs:"—"}</span></div>
+      ${row(t.r_fund, f("funding_raised"), bn)}
+      ${row(t.r_val, f("valuation"), bn)}
+      ${row(t.r_compute, f("compute_commitment"), bn)}
+      <div class="quote">“${LANG==="zh"?(p.mgmt_quote||{}).zh:(p.mgmt_quote||{}).en}”<span class="who">— ${(p.mgmt_quote||{}).who||""} · ${(p.mgmt_quote||{}).date||""} ${srcLink((p.mgmt_quote||{}).source_url)}</span></div>
+      <div class="conote">${LANG==="zh"?p.note_zh:p.note_en}</div>
+    </div>`;
+  }).join("");
+
+  // circularity ledger
+  document.getElementById("h_circ").textContent=t.circ+" · $"+l3.circularity.total_usd_bn+"B";
+  document.getElementById("n_circ").textContent=t.circNote;
+  document.getElementById("circ").innerHTML=l3.circularity.edges.map(e=>`
+    <div class="edge">
+      <span class="amt">${e.amount_usd_bn>0?("$"+e.amount_usd_bn+"B"):"—"}</span>
+      <span class="flow">${e.from} <span class="ar">→</span> ${e.to}</span>
+      <span class="wh">${LANG==="zh"?e.what_zh:e.what_en} ${tierBadge(e.tier)}${srcLink(e.source_url)}</span>
+    </div>`).join("");
+
+  // L5
+  const l5=s.l5;
+  document.getElementById("h_scn").textContent=t.scn;
+  document.getElementById("n_scn").textContent=t.scnNote;
+  document.getElementById("scenarios").innerHTML=l5.scenarios.map(sc=>`
+    <div class="scn">
+      <div class="scnhead"><span class="scnname">${LANG==="zh"?sc.name_zh:sc.name_en}</span><span class="scnprob">${sc.prob}%</span></div>
+      <div class="bar"><i style="width:${sc.prob}%"></i></div>
+      <div class="scntrig">${t.trigger}: ${LANG==="zh"?sc.trigger_zh:sc.trigger_en}</div>
+    </div>`).join("");
+  document.getElementById("h_fals").textContent=t.fals;
+  document.getElementById("falsification").innerHTML=l5.falsification.map(x=>`<li>${LANG==="zh"?x.zh:x.en}</li>`).join("");
+  document.getElementById("h_watch").textContent=t.watch;
+  document.getElementById("watch").innerHTML=l5.watch.map(x=>`<tr><td>${LANG==="zh"?x.zh:x.en}</td><td class="f">${x.freq}</td></tr>`).join("");
+
+  // news
+  if(s.news && s.news.length){
+    document.getElementById("newsPanel").style.display="block";
+    document.getElementById("h_news").textContent=t.news;
+    document.getElementById("news").innerHTML=s.news.slice(0,12).map(n=>`<a href="${n.url}" target="_blank" rel="noopener">${n.title} <span class="src2">${n.source?("· "+n.source):""} ${n.date||""}</span></a>`).join("");
+  }
+
+  // disclaimer + tier legend + blind spots
+  document.getElementById("disclaimer").textContent=t.disc;
+  const leg=s.tier_legend||{};
+  document.getElementById("tierLegend").innerHTML=Object.keys(leg).map(k=>`${tierBadge(k)} ${LANG==="zh"?leg[k].zh:leg[k].en}`).join(" &nbsp; ");
+  document.getElementById("blindHead").textContent=t.blind+":";
+  const blind=LANG==="zh"?s.blind_spots_zh:s.blind_spots_en;
+  document.getElementById("blind").innerHTML=(blind||[]).map(b=>`<li>· ${b}</li>`).join("");
+}
+
+function tierBadgeLive(){ return `<span class="badge live">${LANG==="zh"?"即時":"live"}</span>`; }
+
+function drawChart(series){
+  const svg=document.getElementById("chart");
+  const W=720,H=230,padL=44,padR=14,padT=14,padB=26;
+  const xs=(i)=> padL + (W-padL-padR)*(series.length<2?0.5:i/(series.length-1));
+  const maxV=Math.max(...series.map(d=>Math.max(d.capex,d.cloud_rev)))*1.1 || 1;
+  const ys=(v)=> H-padB - (H-padT-padB)*(v/maxV);
+  const line=(key,color,dash="")=>{
+    const pts=series.map((d,i)=>`${xs(i).toFixed(1)},${ys(d[key]).toFixed(1)}`).join(" ");
+    return `<polyline fill="none" stroke="${color}" stroke-width="2.5" ${dash?`stroke-dasharray="${dash}"`:""} points="${pts}"/>`+
+           series.map((d,i)=>`<circle cx="${xs(i).toFixed(1)}" cy="${ys(d[key]).toFixed(1)}" r="3" fill="${color}"/>`).join("");
+  };
+  let g="";
+  // y gridlines
+  for(let k=0;k<=3;k++){ const v=maxV*k/3, y=ys(v);
+    g+=`<line x1="${padL}" y1="${y.toFixed(1)}" x2="${W-padR}" y2="${y.toFixed(1)}" stroke="rgba(255,255,255,.06)"/>`;
+    g+=`<text x="6" y="${(y+3).toFixed(1)}" fill="#6a6e80" font-size="9">$${Math.round(v)}B</text>`;
+  }
+  // x labels
+  series.forEach((d,i)=>{ g+=`<text x="${xs(i).toFixed(1)}" y="${H-8}" fill="#6a6e80" font-size="9" text-anchor="middle">${d.q}</text>`; });
+  g+=line("cloud_rev","#43c08a");
+  g+=line("capex","#c8a86a");
+  svg.innerHTML=g;
+}
+
+document.getElementById("langBtn").addEventListener("click",()=>{
+  LANG=LANG==="zh"?"en":"zh"; localStorage.setItem("payback_lang",LANG); render();
+});
+async function doRefresh(){
+  const t=T[LANG];
+  const pw=prompt(t.pwPrompt); if(!pw) return;
+  const st=document.getElementById("status"); st.textContent=t.refreshing;
+  try{
+    const r=await fetch("/payback/api/refresh",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({password:pw})});
+    const j=await r.json();
+    if(!r.ok||!j.ok){ st.textContent=t.fail+(j.error?` (${j.error})`:""); return; }
+    st.textContent=`${t.done} (${j.engine}, ${j.live_companies} live, cov ${j.coverage})`;
+    setTimeout(()=>location.reload(),900);
+  }catch(e){ st.textContent=t.fail; }
+}
+document.getElementById("refreshBtn").addEventListener("click",doRefresh);
+render();
+</script>
+</body>
+</html>
