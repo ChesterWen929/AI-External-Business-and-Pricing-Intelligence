@@ -15,3 +15,6 @@ node_modules/
 
 # generated econ alert drafts (snapshots ARE committed as the deploy seed)
 data/econ/alerts/
+
+# generated static preview of the portal (render_portal_preview.py output)
+scripts/_preview/
