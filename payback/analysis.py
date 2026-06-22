@@ -143,7 +143,10 @@ def _claude(kb, l3):
     )
     msg = client.messages.create(
         model=MODEL,
-        max_tokens=4000,
+        # payback's L4/L5 JSON is larger than flows/pricing (6 companies + scenarios +
+        # company_takes); with adaptive thinking sharing the budget, 4000 truncated the
+        # JSON mid-string → silent rules fallback. 8000 gives headroom.
+        max_tokens=8000,
         thinking={"type": "adaptive"},
         system=[{"type": "text", "text": SYSTEM, "cache_control": {"type": "ephemeral"}}],
         output_config={"format": {"type": "json_schema", "schema": SCHEMA}, "effort": "medium"},

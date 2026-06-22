@@ -1,20 +1,20 @@
 {
-  "as_of": "2026-06-17",
-  "generated_at": "2026-06-17 07:37 UTC",
+  "as_of": "2026-06-22",
+  "generated_at": "2026-06-22 06:40 UTC",
   "horizon_days": 90,
   "display_tz": "America/Los_Angeles",
   "source": "finnhub",
   "estimated_data": false,
-  "event_count": 41,
+  "event_count": 48,
   "by_tier": {
-    "T1": 23,
-    "T2": 17,
+    "T1": 26,
+    "T2": 21,
     "T3": 1
   },
   "coverage": {
     "queried": 73,
-    "companies_with_events": 41,
-    "no_data_in_window": 7,
+    "companies_with_events": 48,
+    "no_data_in_window": 0,
     "access_misses": 25,
     "misses": [
       {
@@ -633,6 +633,90 @@
       "datetime_local": "2026-08-26T13:30:00-07:00",
       "earnings_timing": "amc",
       "processing_tier": "T1",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "credo",
+      "ticker": "CRDO",
+      "fiscal_quarter": "Q1 2027",
+      "datetime_utc": "2026-09-01T20:30:00Z",
+      "datetime_local": "2026-09-01T13:30:00-07:00",
+      "earnings_timing": "amc",
+      "processing_tier": "T2",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "hpe",
+      "ticker": "HPE",
+      "fiscal_quarter": "Q3 2026",
+      "datetime_utc": "2026-09-01T20:30:00Z",
+      "datetime_local": "2026-09-01T13:30:00-07:00",
+      "earnings_timing": "amc",
+      "processing_tier": "T2",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "ciena",
+      "ticker": "CIEN",
+      "fiscal_quarter": "Q3 2026",
+      "datetime_utc": "2026-09-02T12:00:00Z",
+      "datetime_local": "2026-09-02T05:00:00-07:00",
+      "earnings_timing": "bmo",
+      "processing_tier": "T2",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "broadcom",
+      "ticker": "AVGO",
+      "fiscal_quarter": "Q3 2026",
+      "datetime_utc": "2026-09-02T20:30:00Z",
+      "datetime_local": "2026-09-02T13:30:00-07:00",
+      "earnings_timing": "amc",
+      "processing_tier": "T1",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "dell",
+      "ticker": "DELL",
+      "fiscal_quarter": "Q2 2027",
+      "datetime_utc": "2026-09-03T20:30:00Z",
+      "datetime_local": "2026-09-03T13:30:00-07:00",
+      "earnings_timing": "amc",
+      "processing_tier": "T1",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "oracle",
+      "ticker": "ORCL",
+      "fiscal_quarter": "Q1 2027",
+      "datetime_utc": "2026-09-07T20:30:00Z",
+      "datetime_local": "2026-09-07T13:30:00-07:00",
+      "earnings_timing": "amc",
+      "processing_tier": "T1",
+      "region": "US",
+      "source": "finnhub",
+      "estimated": false
+    },
+    {
+      "company_id": "synopsys",
+      "ticker": "SNPS",
+      "fiscal_quarter": "Q3 2026",
+      "datetime_utc": "2026-09-07T20:30:00Z",
+      "datetime_local": "2026-09-07T13:30:00-07:00",
+      "earnings_timing": "amc",
+      "processing_tier": "T2",
       "region": "US",
       "source": "finnhub",
       "estimated": false
