@@ -125,6 +125,19 @@ def _fmt_l3(kb, l3):
             f"  [{p['id']}] {p['name_en']}: rev ${rr}B, burn ${bn}B, coverage {p['coverage']}, "
             f"runway {p['runway_years']}y, score {p['score']} → {p['verdict_key'].upper()}"
         )
+    dep = l3.get("depreciation", {}).get("aggregate")
+    if dep:
+        lines.append(
+            f"Depreciation engine (chip shocks on real D&A/PP&E): at-risk accelerator book "
+            f"${dep.get('total_at_risk_base_usd_bn')}B; one-time H100 impairment ${dep.get('total_impairment_one_time_usd_bn')}B; "
+            f"combined ANNUAL shock (useful-life reversal + stranded early-retirement) ${dep.get('total_combined_annual_usd_bn')}B "
+            f"= {dep.get('combined_pct_of_op_income')}% of combined operating income; most exposed {str(dep.get('most_exposed_id')).upper()} "
+            f"at {dep.get('most_exposed_pct_op_income')}% of its op income."
+        )
+    runways = [f"{p['id']} capex/OCF {p['runway']['capex_to_ocf_pct']}% (FCF ${p['runway']['fcf_ttm']}B, {p['runway']['status']})"
+               for p in l3["companies"] if p.get("runway")]
+    if runways:
+        lines.append("Burn intensity (public): " + "; ".join(runways))
     circ = l3["circularity"]
     lines.append(f"Circularity: {circ['count']} edges, ${circ['total_usd_bn']}B looping (Nvidia↔labs↔clouds).")
     lines.append("Deterministic alerts already raised: " + "; ".join(f"[{a['level']}] {a['en']}" for a in l3["alerts"]))

@@ -5,192 +5,745 @@
   "title_zh": "AI 資本支出回本雷達",
   "method_en": "Tracks the four hyperscalers (Alphabet · Meta · Microsoft · Amazon) plus the two frontier labs (OpenAI · Anthropic) on one question: is the AI capex paying off yet — who is converting spend into revenue, and who is just burning? 'AI capex' and 'AI revenue' are NOT reported line items, so the board mixes hard numbers with flagged estimates. Total capex & revenue are LIVE from yfinance (cash-flow statement + income statement, TTM). The AI share of capex is a management-GUIDED estimate. Cloud segment revenue (Azure / Google Cloud / AWS) is the REPORTED hard floor; an AI-only revenue band sits beside it as OUR_EST. For the private labs there are no filings — revenue run-rate, burn, funding and compute commitments are fragmentary news/our-estimates, clearly tagged and directional only. Per company: an AI-capex coverage ratio (AI revenue ÷ AI spend), a 0–100 payback score and a verdict (MONETIZING / INVESTING / BURNING). The circularity ledger flags AI dollars looping between the same names. Seed values render the board offline.",
   "method_zh": "用一個問題追蹤四大雲端巨頭(Alphabet · Meta · 微軟 · Amazon)加兩家前沿實驗室(OpenAI · Anthropic):AI 資本支出回本了沒 — 誰把投入轉成營收、誰只是在燒?「AI capex」與「AI 營收」皆非財報科目,故本看板硬數據與標記估計值並陳。總 capex 與總營收為 yfinance 即時值(現金流量表 + 損益表,TTM)。capex 中的 AI 佔比為管理層口徑(GUIDED)。雲端分部營收(Azure / Google Cloud / AWS)為 REPORTED 硬底;旁邊並列一條 AI-only 營收估計帶(OUR_EST)。私有實驗室無財報 — 營收 run-rate、年燒錢、募資與算力承諾皆為零碎新聞/本平台估計,明確標記、僅供方向參考。每家計算:AI 資本支出覆蓋率(AI 營收 ÷ AI 投入)、0–100 回本分數與結論(MONETIZING / INVESTING / BURNING)。循環性帳本標記在同一群名字之間轉圈的 AI 資金。種子值讓看板可離線渲染。",
-
   "tier_legend": {
-    "REPORTED": {"en": "Reported in filings", "zh": "財報揭露"},
-    "GUIDED":   {"en": "Management-guided", "zh": "管理層口徑"},
-    "ANALYST":  {"en": "Analyst estimate", "zh": "分析師估計"},
-    "OUR_EST":  {"en": "Our estimate", "zh": "本平台估計"},
-    "NEWS":     {"en": "Press / fragmentary", "zh": "新聞 / 零碎"}
+    "REPORTED": {
+      "en": "Reported in filings",
+      "zh": "財報揭露"
+    },
+    "GUIDED": {
+      "en": "Management-guided",
+      "zh": "管理層口徑"
+    },
+    "ANALYST": {
+      "en": "Analyst estimate",
+      "zh": "分析師估計"
+    },
+    "OUR_EST": {
+      "en": "Our estimate",
+      "zh": "本平台估計"
+    },
+    "NEWS": {
+      "en": "Press / fragmentary",
+      "zh": "新聞 / 零碎"
+    }
   },
-
-  "quarters": ["2024Q4", "2025Q1", "2025Q2", "2025Q3", "2025Q4", "2026Q1"],
-
+  "quarters": [
+    "2024Q4",
+    "2025Q1",
+    "2025Q2",
+    "2025Q3",
+    "2025Q4",
+    "2026Q1"
+  ],
   "companies": [
     {
       "id": "googl",
       "kind": "public",
-      "name_en": "Alphabet (Google)", "name_zh": "Alphabet(Google)",
+      "name_en": "Alphabet (Google)",
+      "name_zh": "Alphabet(Google)",
       "ticker": "GOOGL",
-      "cloud_name_en": "Google Cloud", "cloud_name_zh": "Google Cloud",
-      "fetch": {"ticker": "GOOGL"},
-      "seed": {
-        "capex_ttm_usd_bn": 75.0, "capex_ttm_prev_usd_bn": 58.0,
-        "revenue_ttm_usd_bn": 370.0, "revenue_ttm_prev_usd_bn": 330.0,
-        "stock": 195.0, "stock_chg_1m": 3.0, "as_of_q": "2026Q1"
+      "cloud_name_en": "Google Cloud",
+      "cloud_name_zh": "Google Cloud",
+      "fetch": {
+        "ticker": "GOOGL"
       },
-      "ai_capex_share": {"value": 55, "tier": "GUIDED", "source_en": "Mgmt: most of capex is servers & data centers for AI/Cloud (10-Q + calls)", "source_zh": "管理層:多數 capex 為 AI/Cloud 的伺服器與資料中心(10-Q + 法說)", "source_url": "https://news.google.com/search?q=Alphabet%20capex%20AI%20data%20center%202026"},
-      "cloud": {"rev_ttm_usd_bn": 52.0, "rev_yoy_pct": 30.0, "op_margin_pct": 17.0, "tier": "REPORTED", "source_en": "Google Cloud segment (10-Q)", "source_zh": "Google Cloud 分部(10-Q)", "source_url": "https://abc.xyz/investor/", "as_of_q": "2026Q1"},
-      "ai_rev_band": {"low_usd_bn": 8.0, "high_usd_bn": 14.0, "tier": "OUR_EST", "basis_en": "Gemini API + Vertex AI + AI-attributed Cloud uplift; ad AI uplift excluded (un-isolable).", "basis_zh": "Gemini API + Vertex AI + AI 可歸因的 Cloud 增量;廣告 AI 增益未計(無法隔離)。", "source_url": "https://news.google.com/search?q=Google%20Gemini%20Cloud%20AI%20revenue%202026"},
-      "mgmt_quote": {"en": "AI is driving Cloud growth and backlog; we are capacity-constrained and raising capex to meet demand.", "zh": "AI 正在帶動 Cloud 成長與在手訂單;我們產能受限,正提高 capex 以滿足需求。", "who": "Alphabet IR", "date": "2026Q1", "source_url": "https://abc.xyz/investor/"},
+      "seed": {
+        "capex_ttm_usd_bn": 75.0,
+        "capex_ttm_prev_usd_bn": 58.0,
+        "revenue_ttm_usd_bn": 370.0,
+        "revenue_ttm_prev_usd_bn": 330.0,
+        "stock": 195.0,
+        "stock_chg_1m": 3.0,
+        "as_of_q": "2026Q1"
+      },
+      "ai_capex_share": {
+        "value": 55,
+        "tier": "GUIDED",
+        "source_en": "Mgmt: most of capex is servers & data centers for AI/Cloud (10-Q + calls)",
+        "source_zh": "管理層:多數 capex 為 AI/Cloud 的伺服器與資料中心(10-Q + 法說)",
+        "source_url": "https://news.google.com/search?q=Alphabet%20capex%20AI%20data%20center%202026"
+      },
+      "cloud": {
+        "rev_ttm_usd_bn": 52.0,
+        "rev_yoy_pct": 30.0,
+        "op_margin_pct": 17.0,
+        "tier": "REPORTED",
+        "source_en": "Google Cloud segment (10-Q)",
+        "source_zh": "Google Cloud 分部(10-Q)",
+        "source_url": "https://abc.xyz/investor/",
+        "as_of_q": "2026Q1"
+      },
+      "ai_rev_band": {
+        "low_usd_bn": 8.0,
+        "high_usd_bn": 14.0,
+        "tier": "OUR_EST",
+        "basis_en": "Gemini API + Vertex AI + AI-attributed Cloud uplift; ad AI uplift excluded (un-isolable).",
+        "basis_zh": "Gemini API + Vertex AI + AI 可歸因的 Cloud 增量;廣告 AI 增益未計(無法隔離)。",
+        "source_url": "https://news.google.com/search?q=Google%20Gemini%20Cloud%20AI%20revenue%202026"
+      },
+      "mgmt_quote": {
+        "en": "AI is driving Cloud growth and backlog; we are capacity-constrained and raising capex to meet demand.",
+        "zh": "AI 正在帶動 Cloud 成長與在手訂單;我們產能受限,正提高 capex 以滿足需求。",
+        "who": "Alphabet IR",
+        "date": "2026Q1",
+        "source_url": "https://abc.xyz/investor/"
+      },
       "series": [
-        {"q": "2024Q4", "capex": 14.0, "cloud_rev": 12.0},
-        {"q": "2025Q1", "capex": 16.0, "cloud_rev": 12.8},
-        {"q": "2025Q2", "capex": 17.5, "cloud_rev": 13.5},
-        {"q": "2025Q3", "capex": 18.5, "cloud_rev": 14.0},
-        {"q": "2025Q4", "capex": 19.5, "cloud_rev": 14.5},
-        {"q": "2026Q1", "capex": 19.5, "cloud_rev": 15.5}
+        {
+          "q": "2024Q4",
+          "capex": 14.0,
+          "cloud_rev": 12.0
+        },
+        {
+          "q": "2025Q1",
+          "capex": 16.0,
+          "cloud_rev": 12.8
+        },
+        {
+          "q": "2025Q2",
+          "capex": 17.5,
+          "cloud_rev": 13.5
+        },
+        {
+          "q": "2025Q3",
+          "capex": 18.5,
+          "cloud_rev": 14.0
+        },
+        {
+          "q": "2025Q4",
+          "capex": 19.5,
+          "cloud_rev": 14.5
+        },
+        {
+          "q": "2026Q1",
+          "capex": 19.5,
+          "cloud_rev": 15.5
+        }
       ],
       "note_en": "Cloud is the fastest-growing big segment; AI demand shows up as Cloud backlog. Capex high but revenue base huge → intensity moderate.",
-      "note_zh": "Cloud 是成長最快的大分部;AI 需求以 Cloud 在手訂單呈現。capex 高但營收基數龐大 → 強度中等。"
+      "note_zh": "Cloud 是成長最快的大分部;AI 需求以 Cloud 在手訂單呈現。capex 高但營收基數龐大 → 強度中等。",
+      "financials": {
+        "dep_ttm_usd_bn": 23.3,
+        "op_income_ttm_usd_bn": 138.1,
+        "ppe_net_usd_bn": 296.5,
+        "cash_usd_bn": 126.8,
+        "fcf_ttm_usd_bn": 28.1,
+        "capex_ttm_usd_bn": 109.9,
+        "tier": "REPORTED",
+        "source_en": "Capital IQ quarterly export, TTM through CQ1 2026 (D&A/op income/PP&E/cash/FCF/capex)",
+        "source_zh": "Capital IQ 季報匯出，TTM 至 CQ1 2026（D&A/營益/PP&E/現金/FCF/capex）"
+      },
+      "dep": {
+        "useful_life_years": 6,
+        "reversal_life_years": 4,
+        "impairment_pct": 0.25,
+        "stranded_fraction": 0.3,
+        "remaining_life_years": 3.5,
+        "replacement_window_years": 1.5,
+        "tier": "OUR_EST",
+        "source_en": "Useful life from 10-K disclosures (2022-24 extensions to 5-6yr); at-risk %, impairment %, stranded fraction and replacement window are our estimates, switchable.",
+        "source_zh": "耐用年限取自 10-K 揭露（2022-24 延長至 5-6 年）；at-risk %、減損 %、擱淺比例與替換窗口為我方估計，可調。",
+        "compute_dep_share": 0.7,
+        "at_risk_pct_of_ppe": 0.05,
+        "note_en": "TPU-heavy fleet means less H100 write-down risk, but TPUs depreciate too; highest op income ($138B) absorbs shocks best.",
+        "note_zh": "TPU 為主的機隊使 H100 減損風險較低，但 TPU 同樣折舊；最高營益（$138B）最能吸收衝擊。"
+      }
     },
     {
       "id": "msft",
       "kind": "public",
-      "name_en": "Microsoft", "name_zh": "微軟",
+      "name_en": "Microsoft",
+      "name_zh": "微軟",
       "ticker": "MSFT",
-      "cloud_name_en": "Azure / Microsoft Cloud", "cloud_name_zh": "Azure / 微軟雲",
-      "fetch": {"ticker": "MSFT"},
-      "seed": {
-        "capex_ttm_usd_bn": 90.0, "capex_ttm_prev_usd_bn": 58.0,
-        "revenue_ttm_usd_bn": 290.0, "revenue_ttm_prev_usd_bn": 255.0,
-        "stock": 480.0, "stock_chg_1m": 2.0, "as_of_q": "2026Q1"
+      "cloud_name_en": "Azure / Microsoft Cloud",
+      "cloud_name_zh": "Azure / 微軟雲",
+      "fetch": {
+        "ticker": "MSFT"
       },
-      "ai_capex_share": {"value": 60, "tier": "GUIDED", "source_en": "Mgmt: capex tied to Azure AI demand; ~half finance leases for AI (10-Q + calls)", "source_zh": "管理層:capex 綁定 Azure AI 需求;約半數為 AI 融資租賃(10-Q + 法說)", "source_url": "https://news.google.com/search?q=Microsoft%20capex%20Azure%20AI%202026"},
-      "cloud": {"rev_ttm_usd_bn": 160.0, "rev_yoy_pct": 22.0, "op_margin_pct": 42.0, "tier": "REPORTED", "source_en": "Microsoft Cloud (Azure + M365 + Dynamics, 10-Q)", "source_zh": "微軟雲(Azure + M365 + Dynamics,10-Q)", "source_url": "https://www.microsoft.com/en-us/investor/", "as_of_q": "2026Q1"},
-      "ai_rev_band": {"low_usd_bn": 13.0, "high_usd_bn": 20.0, "tier": "OUR_EST", "basis_en": "Azure AI services run-rate + Copilot (M365/GitHub) seats; mgmt has guided an AI run-rate crossing ~$13B.", "basis_zh": "Azure AI 服務 run-rate + Copilot(M365/GitHub)席次;管理層曾口徑 AI run-rate 突破約 $13B。", "source_url": "https://news.google.com/search?q=Microsoft%20AI%20revenue%20run%20rate%20Copilot%20Azure%202026"},
-      "mgmt_quote": {"en": "Our AI business surpassed a multi-billion annual run-rate; Azure AI demand exceeds capacity into next year.", "zh": "我們的 AI 業務已突破數十億美元年化 run-rate;Azure AI 需求到明年都超過產能。", "who": "Microsoft IR", "date": "2026Q1", "source_url": "https://www.microsoft.com/en-us/investor/"},
+      "seed": {
+        "capex_ttm_usd_bn": 90.0,
+        "capex_ttm_prev_usd_bn": 58.0,
+        "revenue_ttm_usd_bn": 290.0,
+        "revenue_ttm_prev_usd_bn": 255.0,
+        "stock": 480.0,
+        "stock_chg_1m": 2.0,
+        "as_of_q": "2026Q1"
+      },
+      "ai_capex_share": {
+        "value": 60,
+        "tier": "GUIDED",
+        "source_en": "Mgmt: capex tied to Azure AI demand; ~half finance leases for AI (10-Q + calls)",
+        "source_zh": "管理層:capex 綁定 Azure AI 需求;約半數為 AI 融資租賃(10-Q + 法說)",
+        "source_url": "https://news.google.com/search?q=Microsoft%20capex%20Azure%20AI%202026"
+      },
+      "cloud": {
+        "rev_ttm_usd_bn": 160.0,
+        "rev_yoy_pct": 22.0,
+        "op_margin_pct": 42.0,
+        "tier": "REPORTED",
+        "source_en": "Microsoft Cloud (Azure + M365 + Dynamics, 10-Q)",
+        "source_zh": "微軟雲(Azure + M365 + Dynamics,10-Q)",
+        "source_url": "https://www.microsoft.com/en-us/investor/",
+        "as_of_q": "2026Q1"
+      },
+      "ai_rev_band": {
+        "low_usd_bn": 13.0,
+        "high_usd_bn": 20.0,
+        "tier": "OUR_EST",
+        "basis_en": "Azure AI services run-rate + Copilot (M365/GitHub) seats; mgmt has guided an AI run-rate crossing ~$13B.",
+        "basis_zh": "Azure AI 服務 run-rate + Copilot(M365/GitHub)席次;管理層曾口徑 AI run-rate 突破約 $13B。",
+        "source_url": "https://news.google.com/search?q=Microsoft%20AI%20revenue%20run%20rate%20Copilot%20Azure%202026"
+      },
+      "mgmt_quote": {
+        "en": "Our AI business surpassed a multi-billion annual run-rate; Azure AI demand exceeds capacity into next year.",
+        "zh": "我們的 AI 業務已突破數十億美元年化 run-rate;Azure AI 需求到明年都超過產能。",
+        "who": "Microsoft IR",
+        "date": "2026Q1",
+        "source_url": "https://www.microsoft.com/en-us/investor/"
+      },
       "series": [
-        {"q": "2024Q4", "capex": 16.0, "cloud_rev": 37.0},
-        {"q": "2025Q1", "capex": 18.0, "cloud_rev": 38.5},
-        {"q": "2025Q2", "capex": 20.0, "cloud_rev": 39.5},
-        {"q": "2025Q3", "capex": 22.0, "cloud_rev": 40.5},
-        {"q": "2025Q4", "capex": 23.0, "cloud_rev": 41.5},
-        {"q": "2026Q1", "capex": 25.0, "cloud_rev": 42.5}
+        {
+          "q": "2024Q4",
+          "capex": 16.0,
+          "cloud_rev": 37.0
+        },
+        {
+          "q": "2025Q1",
+          "capex": 18.0,
+          "cloud_rev": 38.5
+        },
+        {
+          "q": "2025Q2",
+          "capex": 20.0,
+          "cloud_rev": 39.5
+        },
+        {
+          "q": "2025Q3",
+          "capex": 22.0,
+          "cloud_rev": 40.5
+        },
+        {
+          "q": "2025Q4",
+          "capex": 23.0,
+          "cloud_rev": 41.5
+        },
+        {
+          "q": "2026Q1",
+          "capex": 25.0,
+          "cloud_rev": 42.5
+        }
       ],
       "note_en": "Highest capex acceleration of the four; Microsoft Cloud margin is rich, but AI-only revenue is still a fraction of AI capex.",
-      "note_zh": "四家中 capex 加速最猛;微軟雲毛利豐厚,但 AI-only 營收仍只是 AI capex 的一小部分。"
+      "note_zh": "四家中 capex 加速最猛;微軟雲毛利豐厚,但 AI-only 營收仍只是 AI capex 的一小部分。",
+      "financials": {
+        "dep_ttm_usd_bn": 32.9,
+        "op_income_ttm_usd_bn": 149.0,
+        "ppe_net_usd_bn": 307.6,
+        "cash_usd_bn": 78.2,
+        "fcf_ttm_usd_bn": 34.4,
+        "capex_ttm_usd_bn": 97.2,
+        "tier": "REPORTED",
+        "source_en": "Capital IQ quarterly export, TTM through CQ1 2026 (D&A/op income/PP&E/cash/FCF/capex)",
+        "source_zh": "Capital IQ 季報匯出，TTM 至 CQ1 2026（D&A/營益/PP&E/現金/FCF/capex）"
+      },
+      "dep": {
+        "useful_life_years": 6,
+        "reversal_life_years": 4,
+        "impairment_pct": 0.25,
+        "stranded_fraction": 0.3,
+        "remaining_life_years": 3.5,
+        "replacement_window_years": 1.5,
+        "tier": "OUR_EST",
+        "source_en": "Useful life from 10-K disclosures (2022-24 extensions to 5-6yr); at-risk %, impairment %, stranded fraction and replacement window are our estimates, switchable.",
+        "source_zh": "耐用年限取自 10-K 揭露（2022-24 延長至 5-6 年）；at-risk %、減損 %、擱淺比例與替換窗口為我方估計，可調。",
+        "compute_dep_share": 0.65,
+        "at_risk_pct_of_ppe": 0.11,
+        "note_en": "Large H100 base partly for OpenAI; useful-life was extended to 6yr in 2022-23, so a reversal is a real margin lever.",
+        "note_zh": "龐大 H100 基數部分供 OpenAI；2022-23 已將耐用年限延長至 6 年，故回調是真實的毛利槓桿。"
+      }
     },
     {
       "id": "amzn",
       "kind": "public",
-      "name_en": "Amazon", "name_zh": "Amazon",
+      "name_en": "Amazon",
+      "name_zh": "Amazon",
       "ticker": "AMZN",
-      "cloud_name_en": "AWS", "cloud_name_zh": "AWS",
-      "fetch": {"ticker": "AMZN"},
-      "seed": {
-        "capex_ttm_usd_bn": 100.0, "capex_ttm_prev_usd_bn": 70.0,
-        "revenue_ttm_usd_bn": 650.0, "revenue_ttm_prev_usd_bn": 600.0,
-        "stock": 220.0, "stock_chg_1m": 1.5, "as_of_q": "2026Q1"
+      "cloud_name_en": "AWS",
+      "cloud_name_zh": "AWS",
+      "fetch": {
+        "ticker": "AMZN"
       },
-      "ai_capex_share": {"value": 55, "tier": "GUIDED", "source_en": "Mgmt: majority of capex is AWS infrastructure, driven by AI/GenAI (10-Q + calls)", "source_zh": "管理層:多數 capex 為 AWS 基礎建設,由 AI/生成式 AI 驅動(10-Q + 法說)", "source_url": "https://news.google.com/search?q=Amazon%20AWS%20capex%20AI%202026"},
-      "cloud": {"rev_ttm_usd_bn": 115.0, "rev_yoy_pct": 19.0, "op_margin_pct": 35.0, "tier": "REPORTED", "source_en": "AWS segment (10-Q)", "source_zh": "AWS 分部(10-Q)", "source_url": "https://ir.aboutamazon.com/", "as_of_q": "2026Q1"},
-      "ai_rev_band": {"low_usd_bn": 10.0, "high_usd_bn": 18.0, "tier": "OUR_EST", "basis_en": "AWS AI/ML services (Bedrock, Trainium/Inferentia, SageMaker) run-rate; mgmt calls AI a multi-billion, triple-digit-growth business.", "basis_zh": "AWS AI/ML 服務(Bedrock、Trainium/Inferentia、SageMaker)run-rate;管理層稱 AI 為數十億美元、三位數成長的業務。", "source_url": "https://news.google.com/search?q=AWS%20AI%20revenue%20Bedrock%20Trainium%202026"},
-      "mgmt_quote": {"en": "AWS AI is a multi-billion-dollar business growing triple digits; we'd grow faster if we had more capacity.", "zh": "AWS 的 AI 是一門數十億美元、三位數成長的業務;若有更多產能,我們會成長更快。", "who": "Amazon IR", "date": "2026Q1", "source_url": "https://ir.aboutamazon.com/"},
+      "seed": {
+        "capex_ttm_usd_bn": 100.0,
+        "capex_ttm_prev_usd_bn": 70.0,
+        "revenue_ttm_usd_bn": 650.0,
+        "revenue_ttm_prev_usd_bn": 600.0,
+        "stock": 220.0,
+        "stock_chg_1m": 1.5,
+        "as_of_q": "2026Q1"
+      },
+      "ai_capex_share": {
+        "value": 55,
+        "tier": "GUIDED",
+        "source_en": "Mgmt: majority of capex is AWS infrastructure, driven by AI/GenAI (10-Q + calls)",
+        "source_zh": "管理層:多數 capex 為 AWS 基礎建設,由 AI/生成式 AI 驅動(10-Q + 法說)",
+        "source_url": "https://news.google.com/search?q=Amazon%20AWS%20capex%20AI%202026"
+      },
+      "cloud": {
+        "rev_ttm_usd_bn": 115.0,
+        "rev_yoy_pct": 19.0,
+        "op_margin_pct": 35.0,
+        "tier": "REPORTED",
+        "source_en": "AWS segment (10-Q)",
+        "source_zh": "AWS 分部(10-Q)",
+        "source_url": "https://ir.aboutamazon.com/",
+        "as_of_q": "2026Q1"
+      },
+      "ai_rev_band": {
+        "low_usd_bn": 10.0,
+        "high_usd_bn": 18.0,
+        "tier": "OUR_EST",
+        "basis_en": "AWS AI/ML services (Bedrock, Trainium/Inferentia, SageMaker) run-rate; mgmt calls AI a multi-billion, triple-digit-growth business.",
+        "basis_zh": "AWS AI/ML 服務(Bedrock、Trainium/Inferentia、SageMaker)run-rate;管理層稱 AI 為數十億美元、三位數成長的業務。",
+        "source_url": "https://news.google.com/search?q=AWS%20AI%20revenue%20Bedrock%20Trainium%202026"
+      },
+      "mgmt_quote": {
+        "en": "AWS AI is a multi-billion-dollar business growing triple digits; we'd grow faster if we had more capacity.",
+        "zh": "AWS 的 AI 是一門數十億美元、三位數成長的業務;若有更多產能,我們會成長更快。",
+        "who": "Amazon IR",
+        "date": "2026Q1",
+        "source_url": "https://ir.aboutamazon.com/"
+      },
       "series": [
-        {"q": "2024Q4", "capex": 18.0, "cloud_rev": 26.0},
-        {"q": "2025Q1", "capex": 21.0, "cloud_rev": 27.5},
-        {"q": "2025Q2", "capex": 24.0, "cloud_rev": 28.5},
-        {"q": "2025Q3", "capex": 26.0, "cloud_rev": 29.5},
-        {"q": "2025Q4", "capex": 27.0, "cloud_rev": 30.5},
-        {"q": "2026Q1", "capex": 28.0, "cloud_rev": 31.5}
+        {
+          "q": "2024Q4",
+          "capex": 18.0,
+          "cloud_rev": 26.0
+        },
+        {
+          "q": "2025Q1",
+          "capex": 21.0,
+          "cloud_rev": 27.5
+        },
+        {
+          "q": "2025Q2",
+          "capex": 24.0,
+          "cloud_rev": 28.5
+        },
+        {
+          "q": "2025Q3",
+          "capex": 26.0,
+          "cloud_rev": 29.5
+        },
+        {
+          "q": "2025Q4",
+          "capex": 27.0,
+          "cloud_rev": 30.5
+        },
+        {
+          "q": "2026Q1",
+          "capex": 28.0,
+          "cloud_rev": 31.5
+        }
       ],
       "note_en": "Largest absolute capex; AWS growth slower than Google Cloud but the revenue base (whole company) is enormous → low capex intensity.",
-      "note_zh": "絕對 capex 最大;AWS 成長慢於 Google Cloud,但營收基數(整家公司)龐大 → capex 強度低。"
+      "note_zh": "絕對 capex 最大;AWS 成長慢於 Google Cloud,但營收基數(整家公司)龐大 → capex 強度低。",
+      "financials": {
+        "dep_ttm_usd_bn": 70.4,
+        "op_income_ttm_usd_bn": 85.4,
+        "ppe_net_usd_bn": 486.2,
+        "cash_usd_bn": 143.1,
+        "fcf_ttm_usd_bn": 9.8,
+        "capex_ttm_usd_bn": 151.0,
+        "tier": "REPORTED",
+        "source_en": "Capital IQ quarterly export, TTM through CQ1 2026 (D&A/op income/PP&E/cash/FCF/capex)",
+        "source_zh": "Capital IQ 季報匯出，TTM 至 CQ1 2026（D&A/營益/PP&E/現金/FCF/capex）"
+      },
+      "dep": {
+        "useful_life_years": 6,
+        "reversal_life_years": 4,
+        "impairment_pct": 0.25,
+        "stranded_fraction": 0.3,
+        "remaining_life_years": 3.5,
+        "replacement_window_years": 1.5,
+        "tier": "OUR_EST",
+        "source_en": "Useful life from 10-K disclosures (2022-24 extensions to 5-6yr); at-risk %, impairment %, stranded fraction and replacement window are our estimates, switchable.",
+        "source_zh": "耐用年限取自 10-K 揭露（2022-24 延長至 5-6 年）；at-risk %、減損 %、擱淺比例與替換窗口為我方估計，可調。",
+        "compute_dep_share": 0.55,
+        "at_risk_pct_of_ppe": 0.08,
+        "note_en": "Trainium mix lowers H100 exposure, but fulfillment+AWS PP&E is huge ($486B); FCF already squeezed to ~$10B so any accel-dep bites hard.",
+        "note_zh": "Trainium 比重降低 H100 曝險，但履約+AWS PP&E 巨大（$486B）；FCF 已被壓到約 $10B，任何加速折舊都很痛。"
+      }
     },
     {
       "id": "meta",
       "kind": "public",
-      "name_en": "Meta", "name_zh": "Meta",
+      "name_en": "Meta",
+      "name_zh": "Meta",
       "ticker": "META",
-      "cloud_name_en": "Family of Apps (ad revenue)", "cloud_name_zh": "Family of Apps(廣告營收)",
-      "fetch": {"ticker": "META"},
-      "seed": {
-        "capex_ttm_usd_bn": 65.0, "capex_ttm_prev_usd_bn": 38.0,
-        "revenue_ttm_usd_bn": 175.0, "revenue_ttm_prev_usd_bn": 150.0,
-        "stock": 700.0, "stock_chg_1m": 1.0, "as_of_q": "2026Q1"
+      "cloud_name_en": "Family of Apps (ad revenue)",
+      "cloud_name_zh": "Family of Apps(廣告營收)",
+      "fetch": {
+        "ticker": "META"
       },
-      "ai_capex_share": {"value": 70, "tier": "GUIDED", "source_en": "Mgmt: capex dominated by AI infra (training + recommendation/ads inference) (10-Q + calls)", "source_zh": "管理層:capex 以 AI 基礎建設為主(訓練 + 推薦/廣告推論)(10-Q + 法說)", "source_url": "https://news.google.com/search?q=Meta%20capex%20AI%20infrastructure%202026"},
-      "cloud": {"rev_ttm_usd_bn": 172.0, "rev_yoy_pct": 18.0, "op_margin_pct": 42.0, "tier": "REPORTED", "source_en": "Family of Apps ad revenue (10-Q) — no cloud business; AI monetizes via ad efficiency", "source_zh": "Family of Apps 廣告營收(10-Q)— 無雲端業務;AI 透過廣告效率變現", "source_url": "https://investor.atmeta.com/", "as_of_q": "2026Q1"},
-      "ai_rev_band": {"low_usd_bn": 0.0, "high_usd_bn": 30.0, "tier": "OUR_EST", "basis_en": "Meta sells no AI product directly — AI shows up as ad-targeting & engagement uplift, NOT a clean line. Band is intentionally wide; treat as directional.", "basis_zh": "Meta 不直接賣 AI 產品 — AI 體現為廣告投放與互動的增益,非乾淨科目。此帶刻意拉寬,僅供方向參考。", "source_url": "https://news.google.com/search?q=Meta%20AI%20advertising%20revenue%20uplift%202026"},
-      "mgmt_quote": {"en": "AI is improving ad performance and engagement today; the bigger bets (AGI, Llama) are multi-year and not yet monetized directly.", "zh": "AI 今天已在改善廣告成效與互動;更大的賭注(AGI、Llama)是多年期,尚未直接變現。", "who": "Meta IR", "date": "2026Q1", "source_url": "https://investor.atmeta.com/"},
+      "seed": {
+        "capex_ttm_usd_bn": 65.0,
+        "capex_ttm_prev_usd_bn": 38.0,
+        "revenue_ttm_usd_bn": 175.0,
+        "revenue_ttm_prev_usd_bn": 150.0,
+        "stock": 700.0,
+        "stock_chg_1m": 1.0,
+        "as_of_q": "2026Q1"
+      },
+      "ai_capex_share": {
+        "value": 70,
+        "tier": "GUIDED",
+        "source_en": "Mgmt: capex dominated by AI infra (training + recommendation/ads inference) (10-Q + calls)",
+        "source_zh": "管理層:capex 以 AI 基礎建設為主(訓練 + 推薦/廣告推論)(10-Q + 法說)",
+        "source_url": "https://news.google.com/search?q=Meta%20capex%20AI%20infrastructure%202026"
+      },
+      "cloud": {
+        "rev_ttm_usd_bn": 172.0,
+        "rev_yoy_pct": 18.0,
+        "op_margin_pct": 42.0,
+        "tier": "REPORTED",
+        "source_en": "Family of Apps ad revenue (10-Q) — no cloud business; AI monetizes via ad efficiency",
+        "source_zh": "Family of Apps 廣告營收(10-Q)— 無雲端業務;AI 透過廣告效率變現",
+        "source_url": "https://investor.atmeta.com/",
+        "as_of_q": "2026Q1"
+      },
+      "ai_rev_band": {
+        "low_usd_bn": 0.0,
+        "high_usd_bn": 30.0,
+        "tier": "OUR_EST",
+        "basis_en": "Meta sells no AI product directly — AI shows up as ad-targeting & engagement uplift, NOT a clean line. Band is intentionally wide; treat as directional.",
+        "basis_zh": "Meta 不直接賣 AI 產品 — AI 體現為廣告投放與互動的增益,非乾淨科目。此帶刻意拉寬,僅供方向參考。",
+        "source_url": "https://news.google.com/search?q=Meta%20AI%20advertising%20revenue%20uplift%202026"
+      },
+      "mgmt_quote": {
+        "en": "AI is improving ad performance and engagement today; the bigger bets (AGI, Llama) are multi-year and not yet monetized directly.",
+        "zh": "AI 今天已在改善廣告成效與互動;更大的賭注(AGI、Llama)是多年期,尚未直接變現。",
+        "who": "Meta IR",
+        "date": "2026Q1",
+        "source_url": "https://investor.atmeta.com/"
+      },
       "series": [
-        {"q": "2024Q4", "capex": 12.0, "cloud_rev": 41.0},
-        {"q": "2025Q1", "capex": 14.0, "cloud_rev": 42.0},
-        {"q": "2025Q2", "capex": 15.5, "cloud_rev": 43.0},
-        {"q": "2025Q3", "capex": 17.0, "cloud_rev": 43.5},
-        {"q": "2025Q4", "capex": 18.0, "cloud_rev": 44.0},
-        {"q": "2026Q1", "capex": 19.0, "cloud_rev": 44.5}
+        {
+          "q": "2024Q4",
+          "capex": 12.0,
+          "cloud_rev": 41.0
+        },
+        {
+          "q": "2025Q1",
+          "capex": 14.0,
+          "cloud_rev": 42.0
+        },
+        {
+          "q": "2025Q2",
+          "capex": 15.5,
+          "cloud_rev": 43.0
+        },
+        {
+          "q": "2025Q3",
+          "capex": 17.0,
+          "cloud_rev": 43.5
+        },
+        {
+          "q": "2025Q4",
+          "capex": 18.0,
+          "cloud_rev": 44.0
+        },
+        {
+          "q": "2026Q1",
+          "capex": 19.0,
+          "cloud_rev": 44.5
+        }
       ],
       "note_en": "Only one of the four with no cloud to sell compute — AI capex must pay back through ad efficiency, the hardest to isolate. Highest capex intensity, fastest capex acceleration.",
-      "note_zh": "四家中唯一沒有雲端可賣算力 — AI capex 必須透過廣告效率回本,最難隔離。capex 強度最高、加速最快。"
+      "note_zh": "四家中唯一沒有雲端可賣算力 — AI capex 必須透過廣告效率回本,最難隔離。capex 強度最高、加速最快。",
+      "financials": {
+        "dep_ttm_usd_bn": 20.7,
+        "op_income_ttm_usd_bn": 88.6,
+        "ppe_net_usd_bn": 218.0,
+        "cash_usd_bn": 81.2,
+        "fcf_ttm_usd_bn": 25.6,
+        "capex_ttm_usd_bn": 75.7,
+        "tier": "REPORTED",
+        "source_en": "Capital IQ quarterly export, TTM through CQ1 2026 (D&A/op income/PP&E/cash/FCF/capex)",
+        "source_zh": "Capital IQ 季報匯出，TTM 至 CQ1 2026（D&A/營益/PP&E/現金/FCF/capex）"
+      },
+      "dep": {
+        "useful_life_years": 6,
+        "reversal_life_years": 4,
+        "impairment_pct": 0.25,
+        "stranded_fraction": 0.3,
+        "remaining_life_years": 3.5,
+        "replacement_window_years": 1.5,
+        "tier": "OUR_EST",
+        "source_en": "Useful life from 10-K disclosures (2022-24 extensions to 5-6yr); at-risk %, impairment %, stranded fraction and replacement window are our estimates, switchable.",
+        "source_zh": "耐用年限取自 10-K 揭露（2022-24 延長至 5-6 年）；at-risk %、減損 %、擱淺比例與替換窗口為我方估計，可調。",
+        "compute_dep_share": 0.75,
+        "at_risk_pct_of_ppe": 0.14,
+        "note_en": "Heaviest H100 buyer (350K+ class) and almost all PP&E is servers/DC → most exposed to impairment + stranding.",
+        "note_zh": "最大 H100 買家（35 萬顆級）且 PP&E 幾乎全為伺服器/資料中心 → 對減損+擱淺最敏感。"
+      }
     },
     {
       "id": "openai",
       "kind": "private",
-      "name_en": "OpenAI", "name_zh": "OpenAI",
+      "name_en": "OpenAI",
+      "name_zh": "OpenAI",
       "seed": {
-        "revenue_runrate_usd_bn": {"value": 20.0, "tier": "NEWS", "source_en": "Reported annualized revenue run-rate", "source_zh": "報導之年化營收 run-rate", "source_url": "https://news.google.com/search?q=OpenAI%20revenue%20run%20rate%202026"},
-        "revenue_yoy_pct": {"value": 130.0, "tier": "OUR_EST", "source_en": "Implied from prior-year run-rate", "source_zh": "由前一年 run-rate 推算", "source_url": "https://news.google.com/search?q=OpenAI%20revenue%20growth%202026"},
-        "annual_burn_usd_bn": {"value": 35.0, "tier": "OUR_EST", "source_en": "Est. cash burn incl. compute & training", "source_zh": "估計現金燒錢(含算力與訓練)", "source_url": "https://news.google.com/search?q=OpenAI%20cash%20burn%20losses%202026"},
-        "funding_raised_usd_bn": {"value": 60.0, "tier": "NEWS", "source_en": "Cumulative equity raised (incl. Microsoft & later rounds)", "source_zh": "累計募資(含微軟與後續輪)", "source_url": "https://news.google.com/search?q=OpenAI%20funding%20raised%20total%202026"},
-        "valuation_usd_bn": {"value": 400.0, "tier": "NEWS", "source_en": "Latest reported private valuation", "source_zh": "最新報導之私募估值", "source_url": "https://news.google.com/search?q=OpenAI%20valuation%202026"},
-        "compute_commitment_usd_bn": {"value": 300.0, "tier": "NEWS", "source_en": "Multi-year compute commitments (Microsoft/Oracle/others)", "source_zh": "多年期算力承諾(微軟/Oracle/其他)", "source_url": "https://news.google.com/search?q=OpenAI%20compute%20commitment%20Oracle%20300%20billion"}
+        "revenue_runrate_usd_bn": {
+          "value": 20.0,
+          "tier": "NEWS",
+          "source_en": "Reported annualized revenue run-rate",
+          "source_zh": "報導之年化營收 run-rate",
+          "source_url": "https://news.google.com/search?q=OpenAI%20revenue%20run%20rate%202026"
+        },
+        "revenue_yoy_pct": {
+          "value": 130.0,
+          "tier": "OUR_EST",
+          "source_en": "Implied from prior-year run-rate",
+          "source_zh": "由前一年 run-rate 推算",
+          "source_url": "https://news.google.com/search?q=OpenAI%20revenue%20growth%202026"
+        },
+        "annual_burn_usd_bn": {
+          "value": 35.0,
+          "tier": "OUR_EST",
+          "source_en": "Est. cash burn incl. compute & training",
+          "source_zh": "估計現金燒錢(含算力與訓練)",
+          "source_url": "https://news.google.com/search?q=OpenAI%20cash%20burn%20losses%202026"
+        },
+        "funding_raised_usd_bn": {
+          "value": 60.0,
+          "tier": "NEWS",
+          "source_en": "Cumulative equity raised (incl. Microsoft & later rounds)",
+          "source_zh": "累計募資(含微軟與後續輪)",
+          "source_url": "https://news.google.com/search?q=OpenAI%20funding%20raised%20total%202026"
+        },
+        "valuation_usd_bn": {
+          "value": 400.0,
+          "tier": "NEWS",
+          "source_en": "Latest reported private valuation",
+          "source_zh": "最新報導之私募估值",
+          "source_url": "https://news.google.com/search?q=OpenAI%20valuation%202026"
+        },
+        "compute_commitment_usd_bn": {
+          "value": 300.0,
+          "tier": "NEWS",
+          "source_en": "Multi-year compute commitments (Microsoft/Oracle/others)",
+          "source_zh": "多年期算力承諾(微軟/Oracle/其他)",
+          "source_url": "https://news.google.com/search?q=OpenAI%20compute%20commitment%20Oracle%20300%20billion"
+        }
       },
-      "mgmt_quote": {"en": "Revenue is growing fast but we are spending far more than we earn to scale compute; profitability is years out.", "zh": "營收快速成長,但我們為了擴張算力,花的遠多於賺的;獲利還要很多年。", "who": "Press synthesis", "date": "2026", "source_url": "https://news.google.com/search?q=OpenAI%20profitability%20spending%202026"},
+      "mgmt_quote": {
+        "en": "Revenue is growing fast but we are spending far more than we earn to scale compute; profitability is years out.",
+        "zh": "營收快速成長,但我們為了擴張算力,花的遠多於賺的;獲利還要很多年。",
+        "who": "Press synthesis",
+        "date": "2026",
+        "source_url": "https://news.google.com/search?q=OpenAI%20profitability%20spending%202026"
+      },
       "note_en": "No filings — every figure here is fragmentary press/our-estimate, directional only. Massive compute commitments are the headline risk.",
       "note_zh": "無財報 — 此處每個數字皆為零碎新聞/本平台估計,僅供方向參考。龐大算力承諾是最大風險。"
     },
     {
       "id": "anthropic",
       "kind": "private",
-      "name_en": "Anthropic", "name_zh": "Anthropic",
+      "name_en": "Anthropic",
+      "name_zh": "Anthropic",
       "seed": {
-        "revenue_runrate_usd_bn": {"value": 12.0, "tier": "NEWS", "source_en": "Reported annualized revenue run-rate", "source_zh": "報導之年化營收 run-rate", "source_url": "https://news.google.com/search?q=Anthropic%20revenue%20run%20rate%202026"},
-        "revenue_yoy_pct": {"value": 200.0, "tier": "OUR_EST", "source_en": "Implied from prior-year run-rate (fast ramp)", "source_zh": "由前一年 run-rate 推算(快速爬升)", "source_url": "https://news.google.com/search?q=Anthropic%20revenue%20growth%202026"},
-        "annual_burn_usd_bn": {"value": 18.0, "tier": "OUR_EST", "source_en": "Est. cash burn incl. compute & training", "source_zh": "估計現金燒錢(含算力與訓練)", "source_url": "https://news.google.com/search?q=Anthropic%20cash%20burn%20losses%202026"},
-        "funding_raised_usd_bn": {"value": 30.0, "tier": "NEWS", "source_en": "Cumulative equity raised (incl. Amazon & Google)", "source_zh": "累計募資(含 Amazon 與 Google)", "source_url": "https://news.google.com/search?q=Anthropic%20funding%20raised%20total%202026"},
-        "valuation_usd_bn": {"value": 200.0, "tier": "NEWS", "source_en": "Latest reported private valuation", "source_zh": "最新報導之私募估值", "source_url": "https://news.google.com/search?q=Anthropic%20valuation%202026"},
-        "compute_commitment_usd_bn": {"value": 150.0, "tier": "NEWS", "source_en": "Multi-year compute commitments (Amazon/Google cloud)", "source_zh": "多年期算力承諾(Amazon/Google 雲)", "source_url": "https://news.google.com/search?q=Anthropic%20compute%20commitment%20Amazon%20Google"}
+        "revenue_runrate_usd_bn": {
+          "value": 12.0,
+          "tier": "NEWS",
+          "source_en": "Reported annualized revenue run-rate",
+          "source_zh": "報導之年化營收 run-rate",
+          "source_url": "https://news.google.com/search?q=Anthropic%20revenue%20run%20rate%202026"
+        },
+        "revenue_yoy_pct": {
+          "value": 200.0,
+          "tier": "OUR_EST",
+          "source_en": "Implied from prior-year run-rate (fast ramp)",
+          "source_zh": "由前一年 run-rate 推算(快速爬升)",
+          "source_url": "https://news.google.com/search?q=Anthropic%20revenue%20growth%202026"
+        },
+        "annual_burn_usd_bn": {
+          "value": 18.0,
+          "tier": "OUR_EST",
+          "source_en": "Est. cash burn incl. compute & training",
+          "source_zh": "估計現金燒錢(含算力與訓練)",
+          "source_url": "https://news.google.com/search?q=Anthropic%20cash%20burn%20losses%202026"
+        },
+        "funding_raised_usd_bn": {
+          "value": 30.0,
+          "tier": "NEWS",
+          "source_en": "Cumulative equity raised (incl. Amazon & Google)",
+          "source_zh": "累計募資(含 Amazon 與 Google)",
+          "source_url": "https://news.google.com/search?q=Anthropic%20funding%20raised%20total%202026"
+        },
+        "valuation_usd_bn": {
+          "value": 200.0,
+          "tier": "NEWS",
+          "source_en": "Latest reported private valuation",
+          "source_zh": "最新報導之私募估值",
+          "source_url": "https://news.google.com/search?q=Anthropic%20valuation%202026"
+        },
+        "compute_commitment_usd_bn": {
+          "value": 150.0,
+          "tier": "NEWS",
+          "source_en": "Multi-year compute commitments (Amazon/Google cloud)",
+          "source_zh": "多年期算力承諾(Amazon/Google 雲)",
+          "source_url": "https://news.google.com/search?q=Anthropic%20compute%20commitment%20Amazon%20Google"
+        }
       },
-      "mgmt_quote": {"en": "Enterprise/API revenue is compounding faster than OpenAI's early curve, but burn is large and compute-bound; funded by Amazon & Google.", "zh": "企業/API 營收的複合成長快於 OpenAI 早期曲線,但燒錢大且受算力綁定;由 Amazon 與 Google 出資。", "who": "Press synthesis", "date": "2026", "source_url": "https://news.google.com/search?q=Anthropic%20enterprise%20revenue%20growth%202026"},
+      "mgmt_quote": {
+        "en": "Enterprise/API revenue is compounding faster than OpenAI's early curve, but burn is large and compute-bound; funded by Amazon & Google.",
+        "zh": "企業/API 營收的複合成長快於 OpenAI 早期曲線,但燒錢大且受算力綁定;由 Amazon 與 Google 出資。",
+        "who": "Press synthesis",
+        "date": "2026",
+        "source_url": "https://news.google.com/search?q=Anthropic%20enterprise%20revenue%20growth%202026"
+      },
       "note_en": "Faster revenue compounding and a leaner burn than OpenAI on these estimates, but the same compute-commitment dependency on its two cloud backers.",
       "note_zh": "依這些估計,營收複合成長快於 OpenAI、燒錢較精實,但同樣對兩家雲端金主有算力承諾依賴。"
     }
   ],
-
   "circularity_edges": [
-    {"from": "Nvidia", "to": "OpenAI", "amount_usd_bn": 100.0, "what_en": "Nvidia investment/commitment tied to OpenAI buildout", "what_zh": "Nvidia 對 OpenAI 建置的投資/承諾", "tier": "NEWS", "source_url": "https://news.google.com/search?q=Nvidia%20OpenAI%20investment%20100%20billion"},
-    {"from": "OpenAI", "to": "Oracle/CoreWeave", "amount_usd_bn": 300.0, "what_en": "OpenAI multi-year compute purchase commitments", "what_zh": "OpenAI 多年期算力採購承諾", "tier": "NEWS", "source_url": "https://news.google.com/search?q=OpenAI%20Oracle%20compute%20300%20billion"},
-    {"from": "Microsoft", "to": "OpenAI", "amount_usd_bn": 13.0, "what_en": "Microsoft cumulative investment in OpenAI", "what_zh": "微軟對 OpenAI 的累計投資", "tier": "NEWS", "source_url": "https://news.google.com/search?q=Microsoft%20OpenAI%20investment%2013%20billion"},
-    {"from": "Amazon", "to": "Anthropic", "amount_usd_bn": 8.0, "what_en": "Amazon investment in Anthropic (cloud credits + equity)", "what_zh": "Amazon 對 Anthropic 的投資(雲端額度 + 股權)", "tier": "NEWS", "source_url": "https://news.google.com/search?q=Amazon%20Anthropic%20investment%208%20billion"},
-    {"from": "Google", "to": "Anthropic", "amount_usd_bn": 3.0, "what_en": "Google investment in Anthropic", "what_zh": "Google 對 Anthropic 的投資", "tier": "NEWS", "source_url": "https://news.google.com/search?q=Google%20Anthropic%20investment"},
-    {"from": "OpenAI/Anthropic", "to": "Nvidia", "amount_usd_bn": 0.0, "what_en": "GPU purchases route compute dollars back to Nvidia — closing the loop", "what_zh": "GPU 採購把算力支出送回 Nvidia — 閉合循環", "tier": "OUR_EST", "source_url": "https://news.google.com/search?q=AI%20circular%20financing%20Nvidia%20OpenAI"}
+    {
+      "from": "Nvidia",
+      "to": "OpenAI",
+      "amount_usd_bn": 100.0,
+      "what_en": "Nvidia investment/commitment tied to OpenAI buildout",
+      "what_zh": "Nvidia 對 OpenAI 建置的投資/承諾",
+      "tier": "NEWS",
+      "source_url": "https://news.google.com/search?q=Nvidia%20OpenAI%20investment%20100%20billion"
+    },
+    {
+      "from": "OpenAI",
+      "to": "Oracle/CoreWeave",
+      "amount_usd_bn": 300.0,
+      "what_en": "OpenAI multi-year compute purchase commitments",
+      "what_zh": "OpenAI 多年期算力採購承諾",
+      "tier": "NEWS",
+      "source_url": "https://news.google.com/search?q=OpenAI%20Oracle%20compute%20300%20billion"
+    },
+    {
+      "from": "Microsoft",
+      "to": "OpenAI",
+      "amount_usd_bn": 13.0,
+      "what_en": "Microsoft cumulative investment in OpenAI",
+      "what_zh": "微軟對 OpenAI 的累計投資",
+      "tier": "NEWS",
+      "source_url": "https://news.google.com/search?q=Microsoft%20OpenAI%20investment%2013%20billion"
+    },
+    {
+      "from": "Amazon",
+      "to": "Anthropic",
+      "amount_usd_bn": 8.0,
+      "what_en": "Amazon investment in Anthropic (cloud credits + equity)",
+      "what_zh": "Amazon 對 Anthropic 的投資(雲端額度 + 股權)",
+      "tier": "NEWS",
+      "source_url": "https://news.google.com/search?q=Amazon%20Anthropic%20investment%208%20billion"
+    },
+    {
+      "from": "Google",
+      "to": "Anthropic",
+      "amount_usd_bn": 3.0,
+      "what_en": "Google investment in Anthropic",
+      "what_zh": "Google 對 Anthropic 的投資",
+      "tier": "NEWS",
+      "source_url": "https://news.google.com/search?q=Google%20Anthropic%20investment"
+    },
+    {
+      "from": "OpenAI/Anthropic",
+      "to": "Nvidia",
+      "amount_usd_bn": 0.0,
+      "what_en": "GPU purchases route compute dollars back to Nvidia — closing the loop",
+      "what_zh": "GPU 採購把算力支出送回 Nvidia — 閉合循環",
+      "tier": "OUR_EST",
+      "source_url": "https://news.google.com/search?q=AI%20circular%20financing%20Nvidia%20OpenAI"
+    }
   ],
-
   "scenarios_seed": [
-    {"id": "payoff",      "name_en": "AI revenue inflects",       "name_zh": "AI 營收拐點",        "trigger_en": "Cloud growth re-accelerates AND AI-only run-rate doubles while capex growth flattens — coverage climbs toward 0.5", "trigger_zh": "Cloud 成長再加速且 AI-only run-rate 翻倍,同時 capex 成長趨平 — 覆蓋率升向 0.5"},
-    {"id": "grind",       "name_en": "Long investment grind",     "name_zh": "長期投入期",          "trigger_en": "Capex keeps rising ~with revenue; coverage stuck ~0.2–0.3 for several more quarters", "trigger_zh": "capex 與營收同步續升;覆蓋率卡在約 0.2–0.3 再撐數季"},
-    {"id": "digestion",   "name_en": "Capex digestion / pause",   "name_zh": "capex 消化 / 暫停",   "trigger_en": "One or more hyperscalers guides capex flat/down as utilization questions surface", "trigger_zh": "一家以上巨頭因使用率疑慮而口徑 capex 持平/下修"},
-    {"id": "bust",        "name_en": "Circularity unwinds",       "name_zh": "循環性瓦解",          "trigger_en": "A frontier lab misses funding/revenue, compute commitments are renegotiated, the money loop contracts", "trigger_zh": "某前沿實驗室募資/營收不如預期,算力承諾被重談,資金循環收縮"}
+    {
+      "id": "payoff",
+      "name_en": "AI revenue inflects",
+      "name_zh": "AI 營收拐點",
+      "trigger_en": "Cloud growth re-accelerates AND AI-only run-rate doubles while capex growth flattens — coverage climbs toward 0.5",
+      "trigger_zh": "Cloud 成長再加速且 AI-only run-rate 翻倍,同時 capex 成長趨平 — 覆蓋率升向 0.5"
+    },
+    {
+      "id": "grind",
+      "name_en": "Long investment grind",
+      "name_zh": "長期投入期",
+      "trigger_en": "Capex keeps rising ~with revenue; coverage stuck ~0.2–0.3 for several more quarters",
+      "trigger_zh": "capex 與營收同步續升;覆蓋率卡在約 0.2–0.3 再撐數季"
+    },
+    {
+      "id": "digestion",
+      "name_en": "Capex digestion / pause",
+      "name_zh": "capex 消化 / 暫停",
+      "trigger_en": "One or more hyperscalers guides capex flat/down as utilization questions surface",
+      "trigger_zh": "一家以上巨頭因使用率疑慮而口徑 capex 持平/下修"
+    },
+    {
+      "id": "bust",
+      "name_en": "Circularity unwinds",
+      "name_zh": "循環性瓦解",
+      "trigger_en": "A frontier lab misses funding/revenue, compute commitments are renegotiated, the money loop contracts",
+      "trigger_zh": "某前沿實驗室募資/營收不如預期,算力承諾被重談,資金循環收縮"
+    }
   ],
-
   "falsification_seed": [
-    {"en": "A hyperscaler reports AI-only revenue ≥ its AI capex run-rate — the 'capex ahead of revenue' thesis breaks for that name.", "zh": "某巨頭揭露 AI-only 營收 ≥ 其 AI capex run-rate — 該公司「capex 領先營收」的論點破裂。"},
-    {"en": "Cloud growth re-accelerates above +35% YoY across two of the three clouds — INVESTING verdicts should move toward MONETIZING.", "zh": "三家雲端中有兩家 Cloud 成長重回 +35% 以上 YoY — INVESTING 結論應移向 MONETIZING。"},
-    {"en": "A frontier lab turns cash-flow positive — its BURNING verdict is wrong.", "zh": "某前沿實驗室轉為現金流為正 — 其 BURNING 結論即錯誤。"}
+    {
+      "en": "A hyperscaler reports AI-only revenue ≥ its AI capex run-rate — the 'capex ahead of revenue' thesis breaks for that name.",
+      "zh": "某巨頭揭露 AI-only 營收 ≥ 其 AI capex run-rate — 該公司「capex 領先營收」的論點破裂。"
+    },
+    {
+      "en": "Cloud growth re-accelerates above +35% YoY across two of the three clouds — INVESTING verdicts should move toward MONETIZING.",
+      "zh": "三家雲端中有兩家 Cloud 成長重回 +35% 以上 YoY — INVESTING 結論應移向 MONETIZING。"
+    },
+    {
+      "en": "A frontier lab turns cash-flow positive — its BURNING verdict is wrong.",
+      "zh": "某前沿實驗室轉為現金流為正 — 其 BURNING 結論即錯誤。"
+    }
   ],
-
   "watch_seed": [
-    {"en": "Quarterly capex guidance (the four hyperscalers)", "zh": "季度 capex 指引(四大巨頭)", "freq": "quarterly"},
-    {"en": "Cloud segment growth: Azure / Google Cloud / AWS", "zh": "雲端分部成長:Azure / Google Cloud / AWS", "freq": "quarterly"},
-    {"en": "Management AI run-rate disclosures (when given)", "zh": "管理層 AI run-rate 揭露(若有)", "freq": "quarterly"},
-    {"en": "Depreciation & expected useful-life changes (capex tail into margin)", "zh": "折舊與耐用年限變動(capex 尾巴壓毛利)", "freq": "quarterly"},
-    {"en": "Frontier-lab revenue run-rate & funding rounds (OpenAI / Anthropic)", "zh": "前沿實驗室營收 run-rate 與募資輪(OpenAI / Anthropic)", "freq": "monthly"},
-    {"en": "Compute-commitment & circular-financing news (Nvidia ↔ labs ↔ clouds)", "zh": "算力承諾與循環融資新聞(Nvidia ↔ 實驗室 ↔ 雲端)", "freq": "weekly"},
-    {"en": "Free cash flow vs capex — is the buildout still self-funded?", "zh": "自由現金流 vs capex — 建置是否仍自給自足?", "freq": "quarterly"}
+    {
+      "en": "Quarterly capex guidance (the four hyperscalers)",
+      "zh": "季度 capex 指引(四大巨頭)",
+      "freq": "quarterly"
+    },
+    {
+      "en": "Cloud segment growth: Azure / Google Cloud / AWS",
+      "zh": "雲端分部成長:Azure / Google Cloud / AWS",
+      "freq": "quarterly"
+    },
+    {
+      "en": "Management AI run-rate disclosures (when given)",
+      "zh": "管理層 AI run-rate 揭露(若有)",
+      "freq": "quarterly"
+    },
+    {
+      "en": "Depreciation & expected useful-life changes (capex tail into margin)",
+      "zh": "折舊與耐用年限變動(capex 尾巴壓毛利)",
+      "freq": "quarterly"
+    },
+    {
+      "en": "Frontier-lab revenue run-rate & funding rounds (OpenAI / Anthropic)",
+      "zh": "前沿實驗室營收 run-rate 與募資輪(OpenAI / Anthropic)",
+      "freq": "monthly"
+    },
+    {
+      "en": "Compute-commitment & circular-financing news (Nvidia ↔ labs ↔ clouds)",
+      "zh": "算力承諾與循環融資新聞(Nvidia ↔ 實驗室 ↔ 雲端)",
+      "freq": "weekly"
+    },
+    {
+      "en": "Free cash flow vs capex — is the buildout still self-funded?",
+      "zh": "自由現金流 vs capex — 建置是否仍自給自足?",
+      "freq": "quarterly"
+    }
   ],
-
   "blind_spots_en": [
     "'AI capex' is an estimate: companies report TOTAL capex, not an AI line. The AI share is management-guided, not audited.",
     "'AI revenue' is mostly un-isolable: cloud segment revenue is the hard floor; the AI-only band is OUR_EST. Meta's band is intentionally wide (AI monetizes via ad efficiency, not a product line).",
@@ -205,7 +758,6 @@
     "capex 會在數年內轉為折舊;今日的低覆蓋率若使用率上升會低估最終回報 — 但也掩蓋了 D&A 尾巴落地時的毛利壓力。",
     "循環融資意味部分「營收」是同一批資金在 Nvidia、實驗室與雲端之間轉圈 — 毛額會高估獨立的終端需求。"
   ],
-
   "news_queries": [
     "hyperscaler AI capex 2026 Microsoft Google Amazon Meta",
     "Microsoft Azure AI revenue run rate 2026",

@@ -18,7 +18,7 @@ circularity total. analysis.analyze() then writes the L4 CEO read & L5 scenarios
 """
 from __future__ import annotations
 
-from . import analysis
+from . import analysis, depreciation
 
 _VERDICT = {
     "monetizing": {"en": "MONETIZING — AI revenue covering the spend", "zh": "MONETIZING — AI 營收正在覆蓋投入"},
@@ -69,6 +69,35 @@ def private_score(coverage, rev_growth):
     cov = coverage if coverage is not None else 0.0
     rg = rev_growth if rev_growth is not None else 0.0
     return round(_clamp(35.0 + 35.0 * (cov - 0.5) + 0.05 * rg, 0.0, 100.0), 1)
+
+
+def _public_runway(fin, capex, ai_capex):
+    """"How hard must they keep burning?" for a profitable hyperscaler.
+
+    Not runway-to-zero (they print cash) but how much of their cash generation the
+    AI build consumes: capex ÷ operating cash flow, AI capex ÷ OCF, and the free
+    cash flow left after the build (self-funded headroom). If FCF is negative the
+    build is no longer self-funding and we add a cash-buffer-in-years read.
+    OCF is approximated as levered FCF + capex (FCF = OCF − capex).
+    """
+    fcf = fin.get("fcf_ttm_usd_bn")
+    cash = fin.get("cash_usd_bn")
+    if fcf is None or capex is None:
+        return None
+    ocf = round(fcf + capex, 1)
+    status = "self_funded" if fcf >= 20 else "tight" if fcf > 0 else "external"
+    out = {
+        "fcf_ttm": round(fcf, 1),
+        "cash": cash,
+        "ocf_ttm": ocf,
+        "capex_to_ocf_pct": round(capex / ocf * 100, 1) if ocf else None,
+        "ai_capex_to_ocf_pct": round(ai_capex / ocf * 100, 1) if ocf else None,
+        "self_funded_headroom_usd_bn": round(fcf, 1),
+        "status": status,
+    }
+    if status == "external" and cash:
+        out["cash_buffer_years"] = round(cash / abs(fcf), 1)
+    return out
 
 
 # --------------------------------------------------------------------------- #
@@ -128,8 +157,10 @@ def _compute_public(c, live):
 
     score = public_score(coverage, cloud_growth, intensity, capex_yoy, rev_yoy)
     key = _verdict_key(score)
+    runway = _public_runway(c.get("financials", {}), capex, ai_capex)
     return {
         "id": c["id"], "kind": "public",
+        "runway": runway,
         "name_en": c["name_en"], "name_zh": c["name_zh"], "ticker": c.get("ticker"),
         "cloud_name_en": c.get("cloud_name_en"), "cloud_name_zh": c.get("cloud_name_zh"),
         "capex_ttm": round(capex, 1), "revenue_ttm": round(rev, 1),
@@ -240,7 +271,7 @@ def _circularity(kb):
 # --------------------------------------------------------------------------- #
 # Deterministic alerts
 # --------------------------------------------------------------------------- #
-def _alerts(agg, publics, privates, circ):
+def _alerts(agg, publics, privates, circ, dep=None):
     out = []
     cov = agg["ai_coverage"]
     if cov is not None and cov < 0.5:
@@ -262,6 +293,23 @@ def _alerts(agg, publics, privates, circ):
         out.append({"level": "watch",
                     "en": f"Capex outrunning revenue: {fastest['name_en']} capex +{fastest['capex_yoy']}%/yr vs revenue +{fastest['rev_yoy']}%/yr — the depreciation tail will land on margins before the AI revenue does.",
                     "zh": f"capex 跑贏營收:{fastest['name_zh']} capex +{fastest['capex_yoy']}%/年 vs 營收 +{fastest['rev_yoy']}%/年 — 折舊尾巴會比 AI 營收更早壓上毛利。"})
+
+    # depreciation / chip-shock exposure (the earnings tail behind the capex)
+    if dep and dep.get("aggregate"):
+        da = dep["aggregate"]
+        me = next((r for r in dep["companies"] if r["id"] == da.get("most_exposed_id")), None)
+        if me and da.get("combined_pct_of_op_income"):
+            out.append({"level": "squeeze",
+                        "en": f"Depreciation tail: a useful-life reversal + stranded-chip retirement would add ≈ ${da['total_combined_annual_usd_bn']}B/yr of depreciation across the four ({da['combined_pct_of_op_income']}% of combined operating income), plus a ${da['total_impairment_one_time_usd_bn']}B one-time H100 write-down. Most exposed: {me['name_en']} at {da['most_exposed_pct_op_income']}% of its operating income.",
+                        "zh": f"折舊尾巴:耐用年限回調 + 擱淺晶片提前汰換,四家合計每年多 ≈ ${da['total_combined_annual_usd_bn']}B 折舊(占合計營益 {da['combined_pct_of_op_income']}%),另加一次性 H100 減損 ${da['total_impairment_one_time_usd_bn']}B。最敏感:{me['name_zh']},達其營益的 {da['most_exposed_pct_op_income']}%。"})
+
+    # public "how hard to keep burning" — build no longer self-funding
+    tight = [p for p in publics if (p.get("runway") or {}).get("status") in ("tight", "external")]
+    if tight:
+        names = ", ".join(f"{p['name_en']} ({p['runway']['capex_to_ocf_pct']}% of OCF)" for p in tight)
+        out.append({"level": "watch",
+                    "en": f"Burn intensity: capex is eating most of operating cash flow — {names}. Little free cash left to fund the AI build internally; further acceleration needs balance-sheet or debt.",
+                    "zh": f"燒錢強度:capex 吃掉大部分營運現金流 — {names}。內部自籌 AI 建置的自由現金所剩無幾;再加速須動用資產負債表或舉債。"})
 
     if circ["total_usd_bn"] > 100:
         out.append({"level": "watch",
@@ -291,7 +339,8 @@ def build_snapshot(kb, live=None, generated_at="", today=""):
     agg = _aggregate(publics)
     scissors = _scissors(kb, publics)
     circ = _circularity(kb)
-    alerts = _alerts(agg, publics, privates, circ)
+    dep = depreciation.build(kb.get("companies", []))
+    alerts = _alerts(agg, publics, privates, circ, dep)
 
     # headline = overall payment-progress verdict from aggregate coverage
     head_cov = agg["ai_coverage"] or 0.0
@@ -305,6 +354,7 @@ def build_snapshot(kb, live=None, generated_at="", today=""):
         "private": privates,
         "scissors": scissors,
         "circularity": circ,
+        "depreciation": dep,
         "alerts": alerts,
     }
 

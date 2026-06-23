@@ -123,6 +123,10 @@
   .disc{background:rgba(224,161,74,.06);border:1px solid rgba(224,161,74,.22);color:var(--soft);
         font-size:11.5px;line-height:1.6;padding:11px 14px;border-radius:11px;margin-top:6px}
   .legendtiers{font-size:10.5px;color:var(--dim);margin-top:10px;line-height:1.7}
+  input[type=range]{accent-color:var(--acc);margin-top:7px;width:100%;cursor:pointer}
+  .sliders{display:flex;gap:20px;flex-wrap:wrap;align-items:flex-end;margin-bottom:12px;padding:13px 15px;border:1px solid var(--line);border-radius:11px;background:rgba(124,131,255,.05)}
+  .sliders label{font-size:11px;color:var(--soft);flex:1;min-width:150px}
+  .sliders b{font-variant-numeric:tabular-nums}
 </style>
 </head>
 <body>
@@ -163,6 +167,16 @@
   </div>
 
   <div class="grid">
+    <!-- pending updates (draft → approve) -->
+    <div class="panel" id="pendingPanel" style="display:none;border-color:rgba(124,131,255,.35)">
+      <h2 id="h_pend"></h2><div class="note" id="n_pend"></div>
+      <div id="pendingList"></div>
+      <div style="margin-top:12px;display:flex;gap:12px;align-items:center">
+        <button class="btn go" id="applyBtn"></button>
+        <span class="status" id="applyStatus"></span>
+      </div>
+    </div>
+
     <!-- scissors chart -->
     <div class="panel">
       <h2 id="h_chart"></h2><div class="note" id="n_chart"></div>
@@ -174,6 +188,24 @@
     <div class="panel">
       <h2 id="h_cos"></h2><div class="note" id="n_cos"></div>
       <div class="cos" id="cos"></div>
+    </div>
+
+    <!-- depreciation engine -->
+    <div class="panel">
+      <h2 id="h_dep"></h2><div class="note" id="n_dep"></div>
+      <div class="sliders">
+        <label><span id="sl_imp_l"></span> · <b id="sl_imp_v" style="color:var(--warn)"></b><input type="range" id="sl_imp" min="0" max="50" step="5"></label>
+        <label><span id="sl_life_l"></span> · <b id="sl_life_v" style="color:var(--off)"></b><input type="range" id="sl_life" min="3" max="6" step="0.5"></label>
+        <label><span id="sl_str_l"></span> · <b id="sl_str_v" style="color:var(--off)"></b><input type="range" id="sl_str" min="0" max="60" step="5"></label>
+        <button class="btn" id="sl_reset"></button>
+      </div>
+      <div class="note" id="sl_hint" style="margin:-4px 0 12px"></div>
+      <div class="hero" style="grid-template-columns:1fr 1fr 1fr;margin-bottom:14px">
+        <div class="panel" style="padding:13px 15px"><span class="eyebrow" id="dep_atrisk_l"></span><div class="big" id="dep_atrisk" style="font-size:23px;margin-top:6px"></div></div>
+        <div class="panel" style="padding:13px 15px"><span class="eyebrow" id="dep_impair_l"></span><div class="big" id="dep_impair" style="font-size:23px;margin-top:6px;color:var(--warn)"></div></div>
+        <div class="panel" style="padding:13px 15px"><span class="eyebrow" id="dep_combined_l"></span><div class="big" id="dep_combined" style="font-size:23px;margin-top:6px;color:var(--off)"></div><div class="note" id="dep_exposed" style="margin:5px 0 0"></div></div>
+      </div>
+      <table class="ew"><tbody id="depCos"></tbody></table>
     </div>
 
     <!-- alerts -->
@@ -269,6 +301,16 @@ const T = {
       r_airev:"AI-only rev", r_intensity:"Capex intensity", r_accel:"Capex vs rev growth", r_cover:"Coverage",
       r_rev:"Revenue run-rate", r_burn:"Annual burn", r_runway:"Funded runway", r_fund:"Funding raised", r_val:"Valuation", r_compute:"Compute commitment",
       yrs:"yrs",
+      dep:"Depreciation engine — the earnings tail behind the capex",
+      depNote:"Capex hits cash now; the P&L hit lands later as depreciation. Three switchable shocks on the REAL reported D&A / PP&E: an H100 write-down (one-time), stranded-chip early retirement when power & land are capped (annual), and a useful-life reversal 6→4yr (annual). Each shown in $ and as % of operating income.",
+      dep_atrisk:"At-risk accelerator book", dep_impair:"H100 write-down (1×)", dep_combined:"Combined annual shock", dep_exposed:"Most exposed",
+      dep_co:"Company", dep_imp:"Impair 1×", dep_str:"Stranded /yr", dep_life:"Life 6→4 /yr", dep_comb:"Combined /yr",
+      r_capexocf:"Capex / op cash flow", r_headroom:"Free cash after build", st_self:"self-funded", st_tight:"tight", st_external:"external",
+      pend:"Pending updates — review before applying",
+      pendNote:"Drafted from the news since the last refresh. NOTHING changes the model until you approve it. The hard live totals (capex/revenue) are applied automatically; these are the curated estimate-layer assumptions that need your judgement.",
+      pend_apply:"✓ Apply selected", pend_review:"review manually", pend_applied:"applied", pend_wm:"last scan", pend_none:"No pending updates — hit ↻ Refresh to scan the latest news.",
+      sl_imp:"H100 write-down %", sl_life:"Useful life shortened to (yrs)", sl_str:"Stranded fraction %", sl_reset:"reset",
+      sl_hint:"Drag to stress-test the chip shocks — the table and totals recompute live (these are not saved).",
       disc:"⚠ 'AI capex' and 'AI revenue' are NOT reported line items. Total capex & revenue are real (yfinance TTM); the AI share of capex is management-guided; cloud segment revenue is reported; the AI-only revenue band is OUR estimate. Private-lab figures (OpenAI/Anthropic) are fragmentary press/estimates with no filings — directional only. This is external analysis, not company guidance."},
   zh:{home:"外部市場分析", lang:"EN", refresh:"↻ 更新",
       pwPrompt:"輸入更新密碼(預設 capex2026):", refreshing:"更新中…即時 capex/營收 + Claude L4/L5",
@@ -295,6 +337,16 @@ const T = {
       r_airev:"AI-only 營收", r_intensity:"capex 強度", r_accel:"capex vs 營收成長", r_cover:"覆蓋率",
       r_rev:"營收 run-rate", r_burn:"年燒錢", r_runway:"募資跑道", r_fund:"累計募資", r_val:"估值", r_compute:"算力承諾",
       yrs:"年",
+      dep:"折舊引擎 — capex 背後的盈餘尾巴",
+      depNote:"capex 現在吃現金;盈餘衝擊稍後以折舊到來。對真實揭露的 D&A / PP&E 套三種可調衝擊:H100 減損(一次性)、電力與土地受限下擱淺晶片提前汰換(年化)、耐用年限 6→4 年回調(年化)。各以 $ 及占營益 % 並陳。",
+      dep_atrisk:"風險加速器帳面", dep_impair:"H100 減損(1×)", dep_combined:"年化合計衝擊", dep_exposed:"最敏感",
+      dep_co:"公司", dep_imp:"減損 1×", dep_str:"擱淺/年", dep_life:"年限6→4/年", dep_comb:"合計/年",
+      r_capexocf:"capex / 營運現金流", r_headroom:"建置後自由現金", st_self:"自籌", st_tight:"吃緊", st_external:"需外部",
+      pend:"待核准更新 — 套用前請審閱",
+      pendNote:"由上次更新後的新聞草擬。核准前不會改動模型。即時硬數字(capex/營收)已自動套用;這裡是需要你判斷的策展估計層假設。",
+      pend_apply:"✓ 套用所選", pend_review:"人工檢視", pend_applied:"已套用", pend_wm:"上次掃描", pend_none:"無待核准更新 — 按 ↻ 更新 掃描最新新聞。",
+      sl_imp:"H100 減損 %", sl_life:"耐用年限縮短至 (年)", sl_str:"擱淺比例 %", sl_reset:"重置",
+      sl_hint:"拖動對三種晶片衝擊做壓力測試 — 表格與合計即時重算(不會存檔)。",
       disc:"⚠「AI capex」與「AI 營收」皆非財報科目。總 capex 與營收為真實(yfinance TTM);capex 的 AI 佔比為管理層口徑;雲端分部營收為財報;AI-only 營收帶為本平台估計。私有實驗室數字(OpenAI/Anthropic)為零碎新聞/估計,無財報 — 僅供方向。本平台為對外分析,非公司指引。"}
 };
 
@@ -345,6 +397,30 @@ function render(){
   const gapEl=document.getElementById("ag_gap"); gapEl.textContent=bn(agg.gap_usd_bn); gapEl.style.color="var(--off)";
   document.getElementById("earnHint").textContent=t.earnHint;
 
+  // pending updates (draft → approve)
+  const pend=s.pending_updates||[];
+  document.getElementById("h_pend").textContent=t.pend+(pend.length?` · ${pend.length}`:"")+(s.kb_version?` · KB v${s.kb_version}`:"");
+  document.getElementById("n_pend").textContent=t.pendNote+(s.update_watermark?` (${t.pend_wm}: ${s.update_watermark})`:"");
+  document.getElementById("applyBtn").textContent=t.pend_apply;
+  const pp=document.getElementById("pendingPanel");
+  if(pend.length){
+    pp.style.display="block";
+    document.getElementById("pendingList").innerHTML=pend.map(d=>{
+      const can=d.proposed!=null;
+      const change=can?`${fmtv(d.current,d.unit)} <span class="ar" style="color:var(--gold)">→</span> <b style="color:var(--acc)">${fmtv(d.proposed,d.unit)}</b>`
+                      :`<span style="color:var(--warn)">${t.pend_review}</span> <span class="src2">(${fmtv(d.current,d.unit)})</span>`;
+      const eng=`<span class="badge ${d.engine==='claude'?'ana':'est'}">${d.engine}</span>`;
+      return `<div class="corow" style="align-items:flex-start;gap:10px">
+        <span style="flex:0 0 20px;padding-top:2px"><input type="checkbox" class="pendChk" data-id="${d.field_id}" ${can?'':'disabled'}></span>
+        <span style="flex:1;text-align:left">
+          <b>${LANG==="zh"?d.entity_name_zh:d.entity_name_en}</b> · ${LANG==="zh"?d.field_label_zh:d.field_label_en} ${eng}
+          &nbsp; ${change}<br>
+          <span style="font-size:11.5px;color:var(--soft);line-height:1.5">${LANG==="zh"?d.rationale_zh:d.rationale_en} ${d.source_url?`<a class="srcl" href="${d.source_url}" target="_blank" rel="noopener">↗ ${(d.source_title||'').slice(0,60)}</a>`:''}</span>
+        </span>
+      </div>`;
+    }).join("");
+  } else { pp.style.display="none"; }
+
   // scissors chart
   document.getElementById("h_chart").textContent=t.chart;
   document.getElementById("n_chart").textContent=t.chartNote;
@@ -374,10 +450,33 @@ function render(){
       ${row(t.r_airev, bn(band.low_usd_bn)+"–"+bn(band.high_usd_bn), tierBadge(band.tier)+srcLink(band.source_url))}
       ${row(t.r_intensity, (p.capex_intensity!=null?p.capex_intensity+"%":"—"))}
       ${row(t.r_accel, pct(p.capex_yoy)+" / "+pct(p.rev_yoy))}
+      ${p.runway?row(t.r_capexocf, (p.runway.capex_to_ocf_pct!=null?p.runway.capex_to_ocf_pct+"%":"—")):""}
+      ${p.runway?row(t.r_headroom, bn(p.runway.self_funded_headroom_usd_bn)+" · "+statusLabel(p.runway.status)):""}
       <div class="quote">“${LANG==="zh"?(p.mgmt_quote||{}).zh:(p.mgmt_quote||{}).en}”<span class="who">— ${(p.mgmt_quote||{}).who||""} · ${(p.mgmt_quote||{}).date||""} ${srcLink((p.mgmt_quote||{}).source_url)}</span></div>
       <div class="conote">${LANG==="zh"?p.note_zh:p.note_en}</div>
     </div>`;
   }).join("");
+
+  // depreciation engine (interactive — sliders recompute client-side)
+  const dep=l3.depreciation||{aggregate:{},companies:[]};
+  document.getElementById("h_dep").textContent=t.dep;
+  document.getElementById("n_dep").textContent=t.depNote;
+  document.getElementById("dep_atrisk_l").textContent=t.dep_atrisk;
+  document.getElementById("dep_atrisk").textContent=bn((dep.aggregate||{}).total_at_risk_base_usd_bn);  // fixed (at-risk book)
+  document.getElementById("dep_impair_l").textContent=t.dep_impair;
+  document.getElementById("dep_combined_l").textContent=t.dep_combined;
+  document.getElementById("sl_imp_l").textContent=t.sl_imp;
+  document.getElementById("sl_life_l").textContent=t.sl_life;
+  document.getElementById("sl_str_l").textContent=t.sl_str;
+  document.getElementById("sl_reset").textContent=t.sl_reset;
+  document.getElementById("sl_hint").textContent=t.sl_hint;
+  if(!window._depInit && dep.companies.length){
+    depResetSliders();
+    ["sl_imp","sl_life","sl_str"].forEach(id=>document.getElementById(id).addEventListener("input",paintDep));
+    document.getElementById("sl_reset").addEventListener("click",()=>{ depResetSliders(); paintDep(); });
+    window._depInit=true;
+  }
+  paintDep();
 
   // alerts
   document.getElementById("h_alerts").textContent=t.alerts;
@@ -465,6 +564,81 @@ function render(){
 }
 
 function tierBadgeLive(){ return `<span class="badge live">${LANG==="zh"?"即時":"live"}</span>`; }
+function statusLabel(st){
+  const t=T[LANG], m={self_funded:t.st_self,tight:t.st_tight,external:t.st_external},
+        c={self_funded:"var(--on)",tight:"var(--warn)",external:"var(--off)"};
+  return `<span style="color:${c[st]||'var(--soft)'}">${m[st]||st}</span>`;
+}
+function fmtv(v,unit){
+  if(v===null||v===undefined) return "—";
+  if(unit==="%") return v+"%";
+  if(unit==="$bn") return "$"+v+"B";
+  if(unit==="yrs") return v+"yr";
+  return ""+v;  // frac and anything else
+}
+function depResetSliders(){
+  const a=((SNAP.l3||{}).depreciation||{}).companies?.[0]?.assumptions||{};
+  document.getElementById("sl_imp").value=Math.round((a.impairment_pct??0.25)*100);
+  document.getElementById("sl_life").value=a.reversal_life_years??4;
+  document.getElementById("sl_str").value=Math.round((a.stranded_fraction??0.30)*100);
+}
+// Re-runs the SAME formulas as payback/depreciation.py, client-side, so the sliders
+// stress-test the chip shocks live. Nothing is persisted (KB unchanged).
+function paintDep(){
+  const dep=(SNAP.l3||{}).depreciation;
+  if(!dep||!dep.companies||!dep.companies.length) return;
+  const t=T[LANG];
+  const impPct=(+document.getElementById("sl_imp").value)/100;
+  const revLife=+document.getElementById("sl_life").value;
+  const strFrac=(+document.getElementById("sl_str").value)/100;
+  const r1=x=>Math.round(x*10)/10;
+  document.getElementById("sl_imp_v").textContent=Math.round(impPct*100)+"%";
+  document.getElementById("sl_life_v").textContent=revLife+"yr";
+  document.getElementById("sl_str_v").textContent=Math.round(strFrac*100)+"%";
+  let totImp=0,totComb=0,totOp=0,most=null;
+  const rows=dep.companies.map(r=>{
+    const b=r.baseline||{}, a=r.assumptions||{};
+    const atRisk=b.at_risk_base_usd_bn||0, aiDep=b.ai_dep_ttm_usd_bn||0, op=b.op_income_ttm_usd_bn||0;
+    const retired=atRisk*strFrac;
+    // round per-company first, matching payback/depreciation.py, so live totals agree with the engine
+    const imp=r1(atRisk*impPct);
+    const strand=r1(Math.max(0, retired/(a.replacement_window_years||1.5) - retired/(a.remaining_life_years||3.5)));
+    const life=r1(Math.max(0, aiDep*((a.useful_life_years||6)/revLife - 1)));
+    const comb=r1(strand+life);
+    totImp+=imp; totComb+=comb; totOp+=op;
+    const exp=op? comb/op*100 : 0;
+    const row={name:(LANG==="zh"?r.name_zh:r.name_en), imp, strand, life, comb, op, exp};
+    if(!most||exp>most.exp) most=row;
+    return row;
+  });
+  document.getElementById("dep_impair").textContent=bn(r1(totImp));
+  document.getElementById("dep_combined").textContent=bn(r1(totComb))+(totOp?" · "+r1(totComb/totOp*100)+"%":"");
+  document.getElementById("dep_exposed").textContent=t.dep_exposed+": "+(most?most.name:"")+(most?" "+r1(most.exp)+(LANG==="zh"?"% 營益":"% op inc"):"");
+  const cell=(hit,op)=>`${bn(r1(hit))}<span class="src2"> ${op?r1(hit/op*100)+"%":""}</span>`;
+  document.getElementById("depCos").innerHTML=
+    `<tr><td style="color:var(--dim);font-size:11px">${t.dep_co}</td><td class="f" style="color:var(--dim)">${t.dep_imp}</td><td class="f" style="color:var(--dim)">${t.dep_str}</td><td class="f" style="color:var(--dim)">${t.dep_life}</td><td class="f" style="color:var(--dim)">${t.dep_comb}</td></tr>`+
+    rows.map(r=>`<tr>
+      <td>${r.name}</td>
+      <td class="f">${cell(r.imp,r.op)}</td>
+      <td class="f">${cell(r.strand,r.op)}</td>
+      <td class="f">${cell(r.life,r.op)}</td>
+      <td class="f" style="color:var(--off)">${cell(r.comb,r.op)}</td>
+    </tr>`).join("");
+}
+async function applyUpdates(){
+  const t=T[LANG], st=document.getElementById("applyStatus");
+  const ids=[...document.querySelectorAll(".pendChk:checked")].map(c=>c.dataset.id);
+  if(!ids.length){ st.textContent="✓ 0"; return; }
+  const pw=prompt(t.pwPrompt); if(!pw) return;
+  st.textContent="…";
+  try{
+    const r=await fetch("/payback/api/apply_updates",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({password:pw,approved:ids})});
+    const j=await r.json();
+    if(!r.ok||!j.ok){ st.textContent=t.fail+(j.error?` (${j.error})`:""); return; }
+    st.textContent=`${t.pend_applied}: ${j.applied.length} · KB v${j.kb_version}`;
+    setTimeout(()=>location.reload(),1000);
+  }catch(e){ st.textContent=t.fail; }
+}
 
 function drawChart(series){
   const svg=document.getElementById("chart");
@@ -506,6 +680,7 @@ async function doRefresh(){
   }catch(e){ st.textContent=t.fail; }
 }
 document.getElementById("refreshBtn").addEventListener("click",doRefresh);
+document.getElementById("applyBtn").addEventListener("click",applyUpdates);
 render();
 </script>
 </body>
