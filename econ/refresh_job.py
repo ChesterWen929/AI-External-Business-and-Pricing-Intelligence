@@ -29,6 +29,7 @@ from .indicators_config import INDICATORS
 from . import fred_client as fred
 from . import claude_client as claude_ai
 from . import validators as validators_mod
+from . import nowcast as nowcast_mod
 
 DATA_DIR = Path(__file__).parent.parent / "data" / "econ"
 SNAPSHOTS_DIR = DATA_DIR / "snapshots"
@@ -62,6 +63,24 @@ def _fmt_value(value: float, fmt: str) -> str:
     if fmt == "index":
         return f"{value:.1f}"
     return f"{value:,.2f}"
+
+
+def _estimate_next_release(frequency: str, last_obs_date: str) -> str | None:
+    """Fallback when FRED has no scheduled future date: project from frequency.
+
+    Releases lag their reference period, so we add roughly one period to the
+    latest observation date and nudge past today.
+    """
+    try:
+        d = date.fromisoformat(last_obs_date)
+    except Exception:
+        return None
+    step = {"Daily": 1, "Weekly": 7, "Monthly": 31, "Quarterly": 92}.get(frequency, 31)
+    today = date.today()
+    nxt = d + timedelta(days=step)
+    while nxt <= today:
+        nxt += timedelta(days=step)
+    return nxt.isoformat()
 
 
 # ── Multi-horizon change (week / month / quarter / year) ──────────────────────
@@ -305,7 +324,7 @@ async def run_weekly_refresh(anthropic_key: str, fred_key: str, gen_ai: bool = T
     print(f"\n{'='*60}\n  Econ weekly refresh @ {datetime.now().isoformat(timespec='seconds')}\n{'='*60}\n")
 
     # ── 1. Fetch all indicators ──
-    print(f"[1/5] Fetching {len(INDICATORS)} indicators from FRED…")
+    print(f"[1/6] Fetching {len(INDICATORS)} indicators from FRED…")
     indicators_data = []
     for ind in INDICATORS:
         try:
@@ -335,7 +354,7 @@ async def run_weekly_refresh(anthropic_key: str, fred_key: str, gen_ai: bool = T
     ai_cache: dict[str, dict] = {}
     if gen_ai and anthropic_key:
         high = [d for d in indicators_data if d["importance"] == "high"]
-        print(f"[2/5] Generating AI analysis for {len(high)} high-importance indicators (parallel batches of 3)…")
+        print(f"[2/6] Generating AI analysis for {len(high)} high-importance indicators (parallel batches of 3)…")
         BATCH = 3
         for i in range(0, len(high), BATCH):
             batch = high[i:i + BATCH]
@@ -347,12 +366,12 @@ async def run_weekly_refresh(anthropic_key: str, fred_key: str, gen_ai: bool = T
                 else:
                     print(f"  ✗ {d['series_id']:<15} {r['error']}")
     else:
-        print("[2/5] Skipped AI generation\n")
+        print("[2/6] Skipped AI generation\n")
 
     # ── 3. Run validators (anomaly + consistency, skip freshness in batch) ──
     validation_cache: dict[str, dict] = {}
     if anthropic_key:
-        print(f"\n[3/5] Running validators on {len(indicators_data)} indicators…")
+        print(f"\n[3/6] Running validators on {len(indicators_data)} indicators…")
         val_results = await asyncio.gather(*[
             validators_mod.validate_indicator(anthropic_key, d, d["observations"], skip_freshness=True)
             for d in indicators_data
@@ -364,15 +383,15 @@ async def run_weekly_refresh(anthropic_key: str, fred_key: str, gen_ai: bool = T
                    if validation_cache.get(d["series_id"], {}).get("trust_score", 100) < 80]
         print(f"  ✓ {len(validation_cache)} validated · {len(flagged)} flagged (trust<80)")
     else:
-        print("\n[3/5] Skipped validators (no ANTHROPIC_API_KEY)")
+        print("\n[3/6] Skipped validators (no ANTHROPIC_API_KEY)")
 
     # ── 4. Release calendar ──
-    print(f"\n[4/5] Fetching FRED release calendar…")
+    print(f"\n[4/6] Fetching FRED release calendar…")
     calendar = await _fetch_calendar(fred_key)
     print(f"  ✓ {len(calendar)} calendar entries")
 
     # ── 5. Scan for TSMC-negative & build alert ──
-    print(f"\n[5/5] Scanning TSMC sentiment…")
+    print(f"\n[5/6] Scanning TSMC sentiment…")
     negatives = []
     for d in indicators_data:
         sid = d["series_id"]
@@ -393,6 +412,59 @@ async def run_weekly_refresh(anthropic_key: str, fred_key: str, gen_ai: bool = T
             })
     print(f"  ⚠️  Found {len(negatives)} TSMC-negative indicators")
 
+    # ── 6. Nowcast upcoming releases (predict the next print before publication) ──
+    basis_label = "Claude + leading indicators" if (gen_ai and anthropic_key) else "rules fallback"
+    print(f"\n[6/6] Nowcasting upcoming releases ({basis_label})…")
+    nowcasts: list[dict] = []
+    try:
+        forecasts = await nowcast_mod.build_nowcasts(
+            indicators_data, anthropic_key=anthropic_key, gen_ai=gen_ai
+        )
+    except Exception as e:
+        forecasts = {}
+        print(f"  ✗ nowcast engine failed: {e}")
+    by_sid = {d["series_id"]: d for d in indicators_data}
+    for sid, fc in forecasts.items():
+        d = by_sid.get(sid)
+        if not d:
+            continue
+        # next scheduled release date (FRED) → frequency estimate fallback
+        try:
+            rel = await fred.get_next_release_date(fred_key, sid)
+        except Exception:
+            rel = None
+        if not rel:
+            rel = _estimate_next_release(d["frequency"], d["latest_date"])
+        # An official anchor (e.g. GDP ← GDPNow) predicts in the ANCHOR's unit
+        # (annualized growth %), not the target's level — format with the anchor's
+        # format and drop the level "last" so we don't compare % against $B.
+        disp_fmt = d["format"]
+        anchor_sid = fc.get("anchor_series")
+        unit_shift = bool(anchor_sid and anchor_sid in by_sid
+                          and by_sid[anchor_sid]["format"] != d["format"])
+        if anchor_sid and anchor_sid in by_sid:
+            disp_fmt = by_sid[anchor_sid]["format"]
+        fc["release_date"] = rel
+        fc["display_format"] = disp_fmt
+        fc["predicted_display"] = _fmt_value(fc["predicted_value"], disp_fmt)
+        fc["low_display"] = _fmt_value(fc["low"], disp_fmt)
+        fc["high_display"] = _fmt_value(fc["high"], disp_fmt)
+        fc["last_display"] = None if unit_shift else d["latest_display"]
+        fc["last_value"] = None if unit_shift else d["latest_value"]
+        d["forecast"] = fc
+        nowcasts.append({
+            "series_id": sid,
+            "name_en": d["name_en"], "name_zh": d["name_zh"],
+            "category": d["category"], "frequency": d["frequency"],
+            "format": fmt, "unit": d["unit"], "unit_zh": d["unit_zh"],
+            **fc,
+        })
+    nowcasts.sort(key=lambda n: (n.get("release_date") or "9999-99-99"))
+    n_official = sum(1 for n in nowcasts if n["basis"] == "official")
+    n_claude = sum(1 for n in nowcasts if n["basis"] == "claude")
+    n_rules = sum(1 for n in nowcasts if n["basis"] == "rules")
+    print(f"  ✓ {len(nowcasts)} nowcasts — {n_official} official · {n_claude} claude · {n_rules} rules")
+
     # ── Save snapshot ──
     snapshot = {
         "date": today,
@@ -404,6 +476,7 @@ async def run_weekly_refresh(anthropic_key: str, fred_key: str, gen_ai: bool = T
         "ai_cache": ai_cache,
         "validation": validation_cache,
         "calendar": calendar,
+        "nowcasts": nowcasts,
     }
     # also write observation series separately to keep snapshot lean
     snapshot["observations_by_series"] = {d["series_id"]: d["observations"] for d in indicators_data}

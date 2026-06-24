@@ -92,6 +92,62 @@ async def get_series_info(api_key: str, series_id: str) -> dict:
     return val
 
 
+async def _release_id_for(client: "httpx.AsyncClient", api_key: str, series_id: str) -> int | None:
+    r = await client.get(
+        f"{FRED_BASE}/series/release",
+        params={"series_id": series_id, "api_key": api_key, "file_type": "json"},
+    )
+    r.raise_for_status()
+    releases = r.json().get("releases", [])
+    return releases[0]["id"] if releases else None
+
+
+async def get_next_release_date(api_key: str, series_id: str) -> str | None:
+    """Next *scheduled* release date (YYYY-MM-DD) for a series, or None.
+
+    Tries FRED's forward-looking release/dates first; if FRED has no future date
+    scheduled, returns None so the caller can fall back to a frequency estimate.
+    """
+    from datetime import date as _date
+
+    cache_key = f"next_release:{series_id}"
+    now = time.time()
+    if cache_key in _cache:
+        ts, val = _cache[cache_key]
+        if now - ts < 3600 * 6:
+            return val
+
+    today = _date.today().isoformat()
+    val: str | None = None
+    try:
+        async with httpx.AsyncClient(timeout=20) as client:
+            release_id = await _release_id_for(client, api_key, series_id)
+            if release_id is not None:
+                r2 = await client.get(
+                    f"{FRED_BASE}/release/dates",
+                    params={
+                        "release_id": release_id,
+                        "api_key": api_key,
+                        "file_type": "json",
+                        "sort_order": "asc",
+                        "include_release_dates_with_no_data": "true",
+                        "realtime_start": today,
+                        "realtime_end": "9999-12-31",
+                        "limit": 60,
+                    },
+                )
+                r2.raise_for_status()
+                for rd in r2.json().get("release_dates", []):
+                    if rd["date"] > today:
+                        val = rd["date"]
+                        break
+    except Exception:
+        val = None
+
+    _cache[cache_key] = (time.time(), val)
+    return val
+
+
 async def get_release_dates(api_key: str, series_id: str, limit: int = 5) -> list[str]:
     """Return upcoming/recent release dates for a series."""
     cache_key = f"releases:{series_id}"

@@ -227,6 +227,15 @@ def api_calendar():
     return jsonify(calendar)
 
 
+@econ_bp.route("/api/nowcasts")
+def api_nowcasts():
+    """Predicted next-print of upcoming releases (official/claude/rules), release-date sorted."""
+    snap = _load_snapshot()
+    if not snap:
+        return jsonify([])
+    return jsonify(snap.get("nowcasts", []))
+
+
 @econ_bp.route("/api/alerts/latest")
 def api_latest_alert():
     latest = ALERTS_DIR / "latest-summary.json"
