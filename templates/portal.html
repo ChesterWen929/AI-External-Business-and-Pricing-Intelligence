@@ -134,6 +134,7 @@
   .row.n2 { grid-template-columns: repeat(2, 1fr); max-width: 588px; }
   .row.n3 { grid-template-columns: repeat(3, 1fr); max-width: 876px; }
   .row.n4 { grid-template-columns: repeat(4, 1fr); max-width: 1164px; }
+  .row.n5 { grid-template-columns: repeat(5, 1fr); max-width: 1164px; }
 
   /* ── cards ── */
   .card {
@@ -175,10 +176,10 @@
   /* ── responsive ── */
   @media (max-width: 980px) {
     .pyramid::before { display: none; }
-    .row.n1, .row.n2, .row.n3, .row.n4 { grid-template-columns: 1fr 1fr; max-width: 560px; }
+    .row.n1, .row.n2, .row.n3, .row.n4, .row.n5 { grid-template-columns: 1fr 1fr; max-width: 560px; }
   }
   @media (max-width: 560px) {
-    .row.n1, .row.n2, .row.n3, .row.n4 { grid-template-columns: 1fr; max-width: 360px; }
+    .row.n1, .row.n2, .row.n3, .row.n4, .row.n5 { grid-template-columns: 1fr; max-width: 360px; }
   }
 
   /* ── footer ── */
@@ -349,7 +350,7 @@
               <span class="tier-name">{{ t('tier4') }}</span>
               <span class="tier-sub">{{ t('tier4_sub') }}</span>
             </div>
-            <div class="row n4">
+            <div class="row n5">
               <a class="card" href="/racks/">
                 <div class="kicker">RACKS</div>
                 <h2>{{ t('racks_name') }}</h2>
@@ -358,6 +359,19 @@
                   <div class="stat">
                     {% if racks_count %}<span class="score">{{ racks_count }}<small>{{ t('racks_lbl') }}</small></span>{% endif %}
                     {% if racks_updated %}<span class="meta">{{ t('updated') }} · {{ racks_updated }}</span>{% endif %}
+                  </div>
+                  <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
+                </div>
+              </a>
+
+              <a class="card" href="/bottleneck/">
+                <div class="kicker">BOTTLENECK</div>
+                <h2>{{ t('bn_name') }}</h2>
+                <div class="desc">{{ t('bn_desc') }}</div>
+                <div class="foot">
+                  <div class="stat">
+                    {% if bottleneck_binding %}<span class="score" style="font-size:14px">{{ bottleneck_binding }}<small>{{ t('bn_lbl') }}</small></span>{% endif %}
+                    {% if bottleneck_updated %}<span class="meta">{{ t('updated') }} · {{ bottleneck_updated }}</span>{% endif %}
                   </div>
                   <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
                 </div>

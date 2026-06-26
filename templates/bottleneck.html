@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deliverable-Compute Bottleneck Radar · 可交付算力瓶頸雷達</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0b0f; --panel:rgba(22,24,31,.72); --panel-hi:rgba(30,33,42,.9);
+    --line:rgba(255,255,255,.08); --line-hi:rgba(255,255,255,.16);
+    --ink:#ecedf2; --soft:#a6a9b8; --dim:#6a6e80; --gold:#c8a86a; --acc:#7c83ff;
+    --on:#43c08a; --off:#e0626e; --neu:#c8a86a; --warn:#e0a14a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:radial-gradient(1100px 560px at 82% -14%,rgba(124,131,255,.10),transparent 58%),radial-gradient(900px 520px at -8% 4%,rgba(200,168,106,.08),transparent 52%),var(--bg);
+       color:var(--ink);font-family:"Inter","PingFang TC","Noto Sans TC",-apple-system,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:22px 26px 60px}
+  .top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:8px}
+  .brand{display:flex;align-items:center;gap:11px}
+  .gem{width:16px;height:16px;transform:rotate(45deg);border:1px solid var(--gold);border-radius:4px;position:relative}
+  .gem::after{content:"";position:absolute;inset:4px;background:var(--gold);border-radius:2px;opacity:.85}
+  h1{font-family:"Noto Serif TC",serif;font-weight:600;font-size:21px;letter-spacing:.5px}
+  .tools{display:flex;align-items:center;gap:10px}
+  .btn{font-size:12px;padding:6px 12px;border-radius:8px;border:1px solid var(--line-hi);background:transparent;color:var(--soft);cursor:pointer;transition:.15s}
+  .btn:hover{color:var(--ink);border-color:var(--acc)}
+  .btn.go{border-color:var(--acc);color:var(--acc)}
+  .status{font-size:11.5px;color:var(--dim)}
+  .crumb{font-size:11px;color:var(--dim);letter-spacing:.4px;margin-bottom:18px}
+  .crumb a:hover{color:var(--gold)}
+  .demo{background:rgba(200,168,106,.10);border:1px solid rgba(200,168,106,.3);color:var(--gold);
+        font-size:12px;padding:9px 13px;border-radius:10px;margin-bottom:18px}
+  .sub{color:var(--soft);font-size:13px;line-height:1.7;margin-bottom:22px;max-width:880px}
+
+  .grid{display:grid;gap:16px}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+  .panel h2{font-family:"Noto Serif TC",serif;font-size:15px;font-weight:600;letter-spacing:.5px;margin-bottom:4px}
+  .panel .note{font-size:11.5px;color:var(--dim);margin-bottom:14px;line-height:1.5}
+  .eyebrow{font-size:10.5px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);opacity:.85}
+
+  .hero{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:16px;margin-bottom:16px}
+  @media(max-width:780px){.hero{grid-template-columns:1fr}}
+  .big{font-variant-numeric:tabular-nums;font-weight:600;font-size:30px;letter-spacing:.5px;margin-top:6px}
+  .big small{font-size:14px;color:var(--dim);font-weight:400}
+  .bindtag{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;padding:3px 11px;border-radius:999px;
+           background:rgba(224,98,110,.14);color:var(--off);margin-top:8px}
+  .subnote{font-size:11.5px;color:var(--dim);line-height:1.55;margin-top:10px}
+  .verdict{font-size:12.5px;line-height:1.65;color:var(--soft);margin-top:10px}
+  .yesno{font-size:24px;font-weight:600;letter-spacing:.5px}
+  .yesno.no{color:var(--on)} .yesno.yes{color:var(--off)}
+
+  /* waterfall — min across links */
+  .links{display:flex;flex-direction:column;gap:9px}
+  .lrow{display:grid;grid-template-columns:150px 1fr 86px;align-items:center;gap:10px}
+  @media(max-width:640px){.lrow{grid-template-columns:120px 1fr 64px}}
+  .lname{font-size:12.5px;display:flex;align-items:center;gap:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .lname .ico{font-size:14px}
+  .ltrack{position:relative;height:22px;background:rgba(255,255,255,.04);border-radius:6px;overflow:hidden}
+  .lbar{position:absolute;top:0;left:0;bottom:0;border-radius:6px;background:linear-gradient(90deg,rgba(124,131,255,.55),rgba(124,131,255,.30))}
+  .lbar.binding{background:linear-gradient(90deg,var(--off),rgba(224,98,110,.45))}
+  .lbar.tsmc{background:linear-gradient(90deg,rgba(200,168,106,.6),rgba(200,168,106,.32))}
+  .lval{font-variant-numeric:tabular-nums;font-size:12px;text-align:right;white-space:nowrap}
+  .lval .hr{color:var(--on);font-size:11px} .lval .bd{color:var(--off);font-weight:600;font-size:11px}
+  .bindline{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--off);opacity:.7;z-index:2}
+
+  .badge{font-size:9px;letter-spacing:.4px;border:1px solid var(--line-hi);border-radius:4px;padding:0 4px;color:var(--dim);margin-left:6px}
+  .badge.t1{color:var(--on);border-color:rgba(67,192,138,.4)}
+  .badge.t2{color:var(--gold);border-color:rgba(200,168,106,.4)}
+  .badge.t3{color:var(--off);border-color:rgba(224,98,110,.4)}
+
+  /* derivation detail */
+  details{border-top:1px solid var(--line);padding:8px 0}
+  details summary{cursor:pointer;font-size:12.5px;color:var(--ink);display:flex;align-items:center;gap:8px;list-style:none}
+  details summary::-webkit-details-marker{display:none}
+  details summary .cap{margin-left:auto;font-variant-numeric:tabular-nums;color:var(--soft);font-size:12px}
+  details[open] summary{margin-bottom:8px}
+  .deriv{font-size:11.5px;color:var(--soft);line-height:1.5}
+  .dstep{display:flex;gap:8px;padding:4px 0;border-top:1px dashed rgba(255,255,255,.06)}
+  .dstep .op{color:var(--gold);font-variant-numeric:tabular-nums;min-width:54px}
+  .dstep .run{margin-left:auto;font-variant-numeric:tabular-nums;color:var(--dim);white-space:nowrap}
+  .dsrc{font-size:10.5px;color:var(--dim);margin-top:2px}
+
+  /* timeline migration */
+  .tl{display:flex;flex-direction:column;gap:8px}
+  .seg{display:grid;grid-template-columns:120px 1fr;gap:10px;align-items:center}
+  .seg .q{font-size:11.5px;color:var(--dim);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .seg .sbar{padding:7px 12px;border-radius:8px;font-size:12.5px;display:flex;align-items:center;gap:8px;border:1px solid var(--line)}
+  .seg .sbar.mem{background:rgba(224,98,110,.10);border-color:rgba(224,98,110,.3)}
+  .seg .sbar.tsmc{background:rgba(200,168,106,.10);border-color:rgba(200,168,106,.3)}
+  .seg .sbar.power{background:rgba(224,161,74,.10);border-color:rgba(224,161,74,.3)}
+
+  /* scenarios + sensitivity tables */
+  table.t{width:100%;border-collapse:collapse;font-size:12.5px}
+  table.t th{text-align:left;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--dim);font-weight:500;padding:6px 8px;border-bottom:1px solid var(--line-hi)}
+  table.t td{padding:9px 8px;border-top:1px solid var(--line);vertical-align:top;line-height:1.5}
+  table.t td.nm{color:var(--ink);font-weight:500}
+  table.t td.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .pill{font-size:10px;letter-spacing:.4px;padding:1px 7px;border-radius:999px}
+  .pill.moved{background:rgba(224,161,74,.14);color:var(--warn)}
+  .pill.same{background:rgba(106,110,128,.18);color:var(--dim)}
+  .up{color:var(--on)} .down{color:var(--off)}
+  .sbar2{height:7px;border-radius:999px;background:rgba(255,255,255,.06);overflow:hidden;margin-top:5px}
+  .sbar2 i{display:block;height:100%;background:linear-gradient(90deg,var(--acc),var(--off))}
+
+  .xlinks{display:flex;flex-wrap:wrap;gap:10px}
+  .xlink{font-size:12px;color:var(--soft);border:1px solid var(--line-hi);border-radius:10px;padding:9px 13px;line-height:1.4;transition:.15s;flex:1 1 240px}
+  .xlink:hover{border-color:var(--acc);color:var(--ink)}
+  .xlink b{color:var(--gold);font-weight:500}
+  .foot{margin-top:24px;font-size:11px;color:var(--dim);line-height:1.7}
+  .disc{background:rgba(224,161,74,.06);border:1px solid rgba(224,161,74,.22);color:var(--soft);
+        font-size:11.5px;line-height:1.6;padding:11px 14px;border-radius:11px;margin-top:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand"><span class="gem"></span><h1 id="title"></h1></div>
+    <div class="tools">
+      <button class="btn" id="langBtn"></button>
+      <button class="btn go" id="refreshBtn"></button>
+      <span class="status" id="status"></span>
+    </div>
+  </div>
+  <div class="crumb"><a href="/">← <span id="crumbHome"></span></a> · <span id="asof"></span> · <span id="cq"></span></div>
+  <div id="demo" class="demo" style="display:none"></div>
+  <div class="sub" id="subtitle"></div>
+
+  <div class="hero">
+    <div class="panel">
+      <span class="eyebrow" id="h_binding"></span>
+      <div class="bindtag"><span id="bindIco"></span><span id="bindName"></span></div>
+      <div class="big"><span id="deliv"></span> <small id="delivUnit"></small></div>
+      <div class="subnote" id="delivYr"></div>
+    </div>
+    <div class="panel">
+      <span class="eyebrow" id="h_tsmcq"></span>
+      <div class="yesno" id="tsmcYesNo"></div>
+      <div class="subnote" id="tsmcSub"></div>
+    </div>
+    <div class="panel">
+      <span class="eyebrow" id="h_ref"></span>
+      <div class="subnote" id="refBody" style="margin-top:8px"></div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="panel">
+      <h2 id="h_water"></h2><div class="note" id="n_water"></div>
+      <div class="links" id="links"></div>
+      <div class="verdict" id="verdict" style="margin-top:14px"></div>
+    </div>
+
+    <div class="panel">
+      <h2 id="h_deriv"></h2><div class="note" id="n_deriv"></div>
+      <div id="deriv"></div>
+    </div>
+
+    <div class="panel">
+      <h2 id="h_tl"></h2><div class="note" id="n_tl"></div>
+      <div class="tl" id="timeline"></div>
+    </div>
+
+    <div class="panel">
+      <h2 id="h_scn"></h2><div class="note" id="n_scn"></div>
+      <table class="t"><thead><tr>
+        <th id="th_scn"></th><th id="th_bind"></th><th id="th_delta"></th><th id="th_move"></th>
+      </tr></thead><tbody id="scenarios"></tbody></table>
+    </div>
+
+    <div class="panel">
+      <h2 id="h_sens"></h2><div class="note" id="n_sens"></div>
+      <div id="sensitivity"></div>
+    </div>
+
+    <div class="panel" id="evPanel" style="display:none">
+      <h2 id="h_ev"></h2>
+      <div id="evidence"></div>
+    </div>
+
+    <div class="panel">
+      <h2 id="h_links"></h2><div class="note" id="n_links"></div>
+      <div class="xlinks" id="xlinks"></div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <div class="disc" id="disclaimer"></div>
+  </div>
+</div>
+
+<script>
+const SNAP = {{ snapshot | safe }};
+let LANG = localStorage.getItem("bottleneck_lang") || "en";
+
+const T = {
+  en:{home:"External Market Analysis", lang:"中文", refresh:"↻ Refresh",
+      pwPrompt:"Enter refresh password (default bottleneck2026):", refreshing:"refreshing…", done:"done, reloading…", fail:"refresh failed",
+      demo:"Seed view — every number below is a flagged, dated, tier-graded seed for the capacity-planning team to correct. Hit ↻ Refresh to recompute (Phase 2 folds in live HBM/power context).",
+      asof:"As of", cq:"current quarter",
+      h_binding:"Binding constraint this quarter", deliv_unit:"EA/qtr", delivYr:n=>`≈ ${n} accelerator-equivalents per year`,
+      h_tsmcq:"Is TSMC the bottleneck?", tsmcNo:t=>`No — TSMC's tightest link (${t}) sits above the system bottleneck.`,
+      tsmcYes:"Yes — TSMC itself is the binding constraint.",
+      h_ref:"Reference unit",
+      h_water:"The weakest link sets deliverable compute", n_water:"Every link converted to one common unit (B200/GB200-class accelerator-equivalents per quarter); the MINIMUM is what actually ships (Liebig's law of the minimum). The red line marks the binding constraint.",
+      h_deriv:"How each link's capacity is derived", n_deriv:"Each link is a transparent base × factor chain — every factor dated, sourced and tier-graded. Click to expand.",
+      h_tl:"Bottleneck migration (2024→2027)", n_tl:"The binding link per quarter, compressed into segments. The constraint moves over time.",
+      h_scn:"Supply-side scenarios — does the binding link move?", n_scn:"Each scenario overrides one or more links' capacity; we re-take the minimum.",
+      th_scn:"Scenario", th_bind:"New binding link", th_delta:"Δ deliverable", th_move:"Moved?",
+      h_sens:"Sensitivity — which link moves deliverable most", n_sens:"Vary each link across its confidence band; rank by the swing in deliverable compute.",
+      h_ev:"Evidence", h_links:"Close the loop", n_links:"Where this sits in the rest of the platform.",
+      moved:"moved", same:"no change",
+      disc:"Not investment advice. This is a deliberately seeded, side-effect-free model: every factor is a dated, tier-graded assumption (T1 filing/spec · T2 authoritative estimate · T3 supply-chain signal), NOT asserted truth. The platform's job is to make the shifting assumptions visible and find the binding link — replace seeds with primary capacity guidance as it lands."},
+  zh:{home:"外部市場分析", lang:"EN", refresh:"↻ 刷新",
+      pwPrompt:"輸入刷新密碼（預設 bottleneck2026）：", refreshing:"刷新中…", done:"完成，重新載入…", fail:"刷新失敗",
+      demo:"種子視圖 — 以下每個數字都是帶日期、附來源、分級的待校正種子值，供產能規劃團隊修正。按 ↻ 刷新重算（Phase 2 將接入即時 HBM/電力情境）。",
+      asof:"資料日", cq:"當前季度",
+      h_binding:"本季綁定約束", deliv_unit:"等效加速器/季", delivYr:n=>`≈ 每年 ${n} 顆等效加速器`,
+      h_tsmcq:"台積電是瓶頸嗎？", tsmcNo:t=>`不是 — 台積電最緊環節（${t}）高於系統瓶頸。`,
+      tsmcYes:"是 — 台積電本身就是綁定約束。",
+      h_ref:"參考單位",
+      h_water:"最弱一環決定可交付算力", n_water:"每一環都換算成同一個共同單位（等效 B200/GB200 加速器／季），取最小值＝真正能出貨的量（Liebig 最小值定律）。紅線標出綁定約束。",
+      h_deriv:"每一環產能怎麼推導", n_deriv:"每環都是透明的 base × factor 鏈——每個因子帶日期、來源、分級。點開展開。",
+      h_tl:"瓶頸移轉（2024→2027）", n_tl:"逐季的綁定環節，壓縮成區段。約束會隨時間移動。",
+      h_scn:"供給端情境 — 綁定環節會移動嗎？", n_scn:"每個情境覆寫一或多環的產能，再取最小值。",
+      th_scn:"情境", th_bind:"新綁定環節", th_delta:"可交付變化", th_move:"是否移轉",
+      h_sens:"敏感度 — 哪一環最能左右可交付", n_sens:"把每環在信賴帶內變動，依可交付算力的擺幅排序。",
+      h_ev:"證據", h_links:"收回迴圈", n_links:"這張卡在平台其餘部分的位置。",
+      moved:"移轉", same:"不變",
+      disc:"非投資建議。這是刻意以種子填充、無副作用的模型：每個因子都是帶日期、分級的假設（T1 申報/規格 · T2 權威估計 · T3 供應鏈訊號），非主張為真。平台目的是讓會漂移的假設可見、找出綁定環節——請隨一手產能指引到位後替換種子。"},
+};
+
+const cat2cls = {memory:"binding", tsmc:"tsmc"};
+const tierCls = (t)=>({"T1":"t1","T2":"t2","T3":"t3"})[t]||"t2";
+const M = (n)=> (n/1e6).toFixed(2)+"M";
+const fmt = (n)=> n==null?"":n.toLocaleString("en-US");
+
+function render(){
+  const t=T[LANG], s=SNAP, th=s.thesis, inf=s.inference, m=s.meta;
+  document.documentElement.lang = LANG==="zh"?"zh-Hant":"en";
+  const L=(o,k)=>o?(o[k+"_"+LANG]??o[k+(LANG==="zh"?"_zh":"_en")]??""):"";
+  document.getElementById("title").textContent = LANG==="zh"?m.title_zh:m.title_en;
+  document.getElementById("langBtn").textContent=t.lang;
+  document.getElementById("refreshBtn").textContent=t.refresh;
+  document.getElementById("crumbHome").textContent=t.home;
+  document.getElementById("asof").textContent=t.asof+" "+s.as_of;
+  document.getElementById("cq").textContent=t.cq+" "+s.current_quarter;
+  document.getElementById("subtitle").textContent=LANG==="zh"?m.subtitle_zh:m.subtitle_en;
+  const demo=document.getElementById("demo");
+  if(s.is_demo){demo.style.display="block";demo.textContent=t.demo;}else demo.style.display="none";
+
+  // hero
+  document.getElementById("h_binding").textContent=t.h_binding;
+  document.getElementById("bindIco").textContent=(inf.ranked.find(r=>r.is_binding)||{}).icon||"";
+  document.getElementById("bindName").textContent=LANG==="zh"?th.binding_name_zh:th.binding_name_en;
+  document.getElementById("deliv").textContent=M(th.deliverable_ea_qtr);
+  document.getElementById("delivUnit").textContent=t.deliv_unit;
+  document.getElementById("delivYr").textContent=t.delivYr(M(th.deliverable_ea_year));
+  document.getElementById("h_tsmcq").textContent=t.h_tsmcq;
+  const yn=document.getElementById("tsmcYesNo");
+  yn.textContent=th.tsmc_is_bottleneck?(LANG==="zh"?"是":"YES"):(LANG==="zh"?"否":"NO");
+  yn.className="yesno "+(th.tsmc_is_bottleneck?"yes":"no");
+  const tbName=(inf.ranked.find(r=>r.id===th.tsmc_binding_link)||{});
+  document.getElementById("tsmcSub").textContent=th.tsmc_is_bottleneck?t.tsmcYes
+      :t.tsmcNo(LANG==="zh"?tbName.name_zh:tbName.name_en)+` (+${th.tsmc_headroom_pct}%)`;
+  document.getElementById("h_ref").textContent=t.h_ref;
+  const ra=s.reference_accelerator;
+  document.getElementById("refBody").innerHTML=`<b style="color:var(--ink)">${ra.name}</b> · ${ra.hbm_gb}GB HBM · ${ra.compute_dies} dies · ${ra.system_power_kw}kW<br><span style="color:var(--dim)">${LANG==="zh"?ra.note_zh:ra.note_en}</span>`;
+
+  // waterfall
+  document.getElementById("h_water").textContent=t.h_water;
+  document.getElementById("n_water").textContent=t.n_water;
+  const maxCap=Math.max(...inf.ranked.map(r=>r.capacity));
+  const bindCap=th.deliverable_ea_qtr;
+  document.getElementById("links").innerHTML=inf.ranked.map(r=>{
+    const cls=r.is_binding?"binding":(r.category==="tsmc"?"tsmc":"");
+    const w=(r.capacity/maxCap*100).toFixed(1);
+    const bindPos=(bindCap/maxCap*100).toFixed(1);
+    return `<div class="lrow">
+      <div class="lname"><span class="ico">${r.icon}</span>${LANG==="zh"?r.name_zh:r.name_en}</div>
+      <div class="ltrack"><div class="lbar ${cls}" style="width:${w}%"></div><div class="bindline" style="left:${bindPos}%"></div></div>
+      <div class="lval">${M(r.capacity)}<br>${r.is_binding?`<span class="bd">${LANG==="zh"?"綁定":"binding"}</span>`:`<span class="hr">+${r.headroom_pct}%</span>`}</div>
+    </div>`;}).join("");
+  document.getElementById("verdict").textContent=LANG==="zh"?th.verdict_zh:th.verdict_en;
+
+  // derivation
+  document.getElementById("h_deriv").textContent=t.h_deriv;
+  document.getElementById("n_deriv").textContent=t.n_deriv;
+  document.getElementById("deriv").innerHTML=s.links_meta.map(lm=>{
+    const band=inf.bands[lm.id];
+    const steps=band.steps.map(st=>`
+      <div class="dstep">
+        <span class="op">${st.op==="base"?"base":st.op==="x"?"× "+(st.value.point):"÷ "+(st.value.point)}</span>
+        <span>${LANG==="zh"?st.factor_zh:st.factor_en}<span class="badge ${tierCls(st.tier)}">${st.tier}</span><div class="dsrc">${LANG==="zh"?st.source_zh:st.source_en} · ${st.valid_from}</div></span>
+        <span class="run">${fmt(st.running_point)}</span>
+      </div>`).join("");
+    return `<details>
+      <summary><span>${lm.icon}</span> ${LANG==="zh"?lm.name_zh:lm.name_en}
+        <span class="badge ${lm.id===th.binding_link?'t3':'t2'}">${lm.id===th.binding_link?(LANG==="zh"?"綁定":"BINDING"):(LANG==="zh"?(lm.owner_zh||""):(lm.owner_en||""))}</span>
+        <span class="cap">${M(band.point)} <span style="color:var(--dim)">(${M(band.low)}–${M(band.high)})</span></span></summary>
+      <div class="deriv"><div style="color:var(--dim);margin-bottom:4px">${LANG==="zh"?lm.desc_zh:lm.desc_en}</div>${steps}</div>
+    </details>`;}).join("");
+
+  // timeline
+  document.getElementById("h_tl").textContent=t.h_tl;
+  document.getElementById("n_tl").textContent=t.n_tl;
+  document.getElementById("timeline").innerHTML=s.timeline.segments.map(seg=>{
+    const cls=seg.category==="memory"?"mem":seg.category==="tsmc"?"tsmc":seg.category==="power"?"power":"";
+    const range=seg.from===seg.to?seg.from:`${seg.from} → ${seg.to}`;
+    return `<div class="seg"><div class="q">${range}</div><div class="sbar ${cls}"><span>${seg.icon}</span> ${LANG==="zh"?seg.name_zh:seg.name_en}</div></div>`;
+  }).join("");
+
+  // scenarios
+  document.getElementById("h_scn").textContent=t.h_scn;
+  document.getElementById("n_scn").textContent=t.n_scn;
+  ["th_scn","th_bind","th_delta","th_move"].forEach(id=>document.getElementById(id).textContent=t[id]);
+  document.getElementById("scenarios").innerHTML=s.scenarios.rows.map(r=>`
+    <tr>
+      <td class="nm">${LANG==="zh"?r.name_zh:r.name_en}<br><span style="font-size:10.5px;color:var(--dim)">${LANG==="zh"?r.desc_zh:r.desc_en}</span></td>
+      <td>${LANG==="zh"?r.binding_name_zh:r.binding_name_en}</td>
+      <td class="r ${r.delta_pct>0?'up':r.delta_pct<0?'down':''}">${r.delta_pct>0?'+':''}${r.delta_pct}%</td>
+      <td><span class="pill ${r.moved?'moved':'same'}">${r.moved?t.moved:t.same}</span></td>
+    </tr>`).join("");
+
+  // sensitivity
+  document.getElementById("h_sens").textContent=t.h_sens;
+  document.getElementById("n_sens").textContent=t.n_sens;
+  const maxSwing=Math.max(...s.sensitivity.rows.map(r=>r.swing))||1;
+  document.getElementById("sensitivity").innerHTML=s.sensitivity.rows.map(r=>`
+    <div style="padding:8px 0;border-top:1px solid var(--line)">
+      <div style="display:flex;justify-content:space-between;font-size:12.5px">
+        <span>${r.icon} ${LANG==="zh"?r.name_zh:r.name_en}</span>
+        <span style="font-variant-numeric:tabular-nums;color:var(--soft)">±${r.swing_pct}% <span style="color:var(--dim)">(${M(r.deliverable_low)}–${M(r.deliverable_high)})</span></span>
+      </div>
+      <div class="sbar2"><i style="width:${(r.swing/maxSwing*100).toFixed(0)}%"></i></div>
+    </div>`).join("");
+
+  // evidence
+  if((s.evidence||[]).length){
+    document.getElementById("evPanel").style.display="block";
+    document.getElementById("h_ev").textContent=t.h_ev;
+    document.getElementById("evidence").innerHTML=s.evidence.map(e=>`
+      <div style="padding:8px 0;border-top:1px solid var(--line);font-size:12px;color:var(--soft);line-height:1.55">
+        ${L(e,"title")||L(e,"what")||L(e,"text")||JSON.stringify(e)}
+        ${e.tier?`<span class="badge ${tierCls(e.tier)}">${e.tier}</span>`:''}
+        ${e.source_url?` · <a href="${e.source_url}" target="_blank" rel="noopener" style="color:var(--gold)">↗</a>`:''}
+      </div>`).join("");
+  }
+
+  // cross-links
+  document.getElementById("h_links").textContent=t.h_links;
+  document.getElementById("n_links").textContent=t.n_links;
+  const xl=[
+    {href:"/cwengine/",en:"CapEx → Wafer Engine — the wafer demand this chain must deliver",zh:"CapEx → 晶圓引擎 — 這條鏈要交付的晶圓需求"},
+    {href:"/compute/",en:"AI Compute Demand Radar — the accelerator demand against this ceiling",zh:"AI 算力需求雷達 — 對照此天花板的加速器需求"},
+    {href:"/racks/",en:"AI Rack BOM Radar — the HBM/CoWoS content per system",zh:"AI 機櫃 BOM 雷達 — 每系統的 HBM/CoWoS 含量"},
+    {href:"/pricing/",en:"Pricing Power Radar — what scarcity does to foundry ASP",zh:"議價能力雷達 — 稀缺對代工 ASP 的影響"},
+  ];
+  document.getElementById("xlinks").innerHTML=xl.map(l=>{
+    const lab=LANG==="zh"?l.zh:l.en; const i=lab.indexOf("—");
+    return `<a class="xlink" href="${l.href}"><b>${i>0?lab.slice(0,i):lab}</b>${i>0?lab.slice(i):""}</a>`;}).join("");
+
+  document.getElementById("disclaimer").textContent=t.disc;
+}
+
+document.getElementById("langBtn").addEventListener("click",()=>{
+  LANG=LANG==="zh"?"en":"zh"; localStorage.setItem("bottleneck_lang",LANG); render();
+});
+document.getElementById("refreshBtn").addEventListener("click",async()=>{
+  const t=T[LANG]; const pw=prompt(t.pwPrompt); if(!pw)return;
+  const st=document.getElementById("status"); st.textContent=t.refreshing;
+  try{
+    const r=await fetch("/bottleneck/api/refresh",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({password:pw})});
+    const j=await r.json();
+    if(j.ok){st.textContent=t.done;setTimeout(()=>location.reload(),700);}
+    else st.textContent=t.fail+" ("+(j.error||r.status)+")";
+  }catch(e){st.textContent=t.fail;}
+});
+render();
+</script>
+</body>
+</html>

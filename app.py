@@ -73,6 +73,12 @@ from company import company_bp
 from company import load_snapshot as company_load_snapshot
 # company (single-company deep-dive) refresh is manual-only (password-gated), like
 # pricing/payback/scenario — NOT wired into the weekly scheduler (keep Opus cost on-demand).
+from bottleneck_radar import bottleneck_bp
+from bottleneck_radar import load_snapshot as bottleneck_load_snapshot
+# bottleneck (deliverable-compute bottleneck radar) is a pure seed-engine card; refresh is
+# manual-only (password-gated). NB: the package dir is bottleneck_radar/ NOT bottleneck/ —
+# a dir literally named "bottleneck" shadows pandas' optional bottleneck dependency and
+# breaks boot under gunicorn (repo root on sys.path). Keep this name.
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)s | %(message)s")
 log = logging.getLogger("macro-ai")
@@ -91,6 +97,7 @@ app.register_blueprint(pricing_bp)
 app.register_blueprint(payback_bp)
 app.register_blueprint(scenario_bp)
 app.register_blueprint(company_bp)
+app.register_blueprint(bottleneck_bp)
 
 # ── secrets / auth (all from env; never hard-code real values) ──
 _DEFAULT_SECRET = "dev-insecure-change-me"
@@ -121,6 +128,10 @@ STRINGS = {
     "econ_name": {"en": "US Economic Monitor",        "zh": "美國經濟指標"},
     "econ_desc": {"en": "FRED indicators with week / month / quarter / year change.",
                   "zh": "FRED 指標，含 週 / 月 / 季 / 年 變化切換。"},
+    "bn_name":   {"en": "Bottleneck Radar",           "zh": "瓶頸雷達"},
+    "bn_desc":   {"en": "TSMC capacity is necessary but not sufficient — deliverable compute is set by the WEAKEST link (wafer / CoWoS / HBM / substrate / power / cooling / optics). Every link in one common unit, then take the minimum.",
+                 "zh": "台積電產能是必要、但非充分 — 可交付算力由最弱一環決定（晶圓／CoWoS／HBM／載板／電力／散熱／光通訊）。每環換算成同一單位，再取最小值。"},
+    "bn_lbl":    {"en": "binding",                    "zh": "綁定約束"},
     "rival_name":{"en": "Rival Radar",                "zh": "競爭者雷達"},
     "rival_desc":{"en": "Foundry rivals & customer-flow intelligence — tiered evidence, primary sources.",
                   "zh": "晶圓代工競爭格局與客戶流向 — 證據分級、一手來源。"},
@@ -188,8 +199,8 @@ STRINGS = {
     "tier3_sub": {"en": "One arc, left to right: CapEx → silicon demand → leading-edge wafers → is it paying off yet?",
                   "zh": "一條主線,由左到右:資本支出 → 晶片需求 → 先進製程晶圓 → 回本了沒?"},
     "tier4":     {"en": "Supply Chain & Competitive Strategy", "zh": "供應鏈與產業策略"},
-    "tier4_sub": {"en": "The foundry supply chain itself — rack BOMs, the earnings calendar, pricing power and rivals.",
-                  "zh": "代工供應鏈本身 — 機櫃 BOM、法說行事曆、定價權與競爭者。"},
+    "tier4_sub": {"en": "The foundry supply chain itself — rack BOMs, the binding bottleneck, the earnings calendar, pricing power and rivals.",
+                  "zh": "代工供應鏈本身 — 機櫃 BOM、最弱環節瓶頸、法說行事曆、定價權與競爭者。"},
     "updated":   {"en": "Updated",                    "zh": "更新"},
     "indicators":{"en": "indicators",                 "zh": "指標"},
     "signout":   {"en": "Sign out",                   "zh": "登出"},
@@ -226,7 +237,7 @@ def require_login():
     if session.get("auth"):
         return None
     # Unauthenticated: API/JSON callers get 401, humans go to the login page.
-    if request.path.startswith(("/api/", "/econ/api/", "/aibubble/api/", "/rival/api/", "/compute/api/", "/racks/api/", "/flows/api/", "/cwengine/api/", "/earnings/api/", "/pricing/api/", "/payback/api/", "/scenario/api/")) or (request.path.startswith("/company/") and "/api/" in request.path):
+    if request.path.startswith(("/api/", "/econ/api/", "/aibubble/api/", "/rival/api/", "/compute/api/", "/racks/api/", "/flows/api/", "/cwengine/api/", "/earnings/api/", "/pricing/api/", "/payback/api/", "/scenario/api/", "/bottleneck/api/")) or (request.path.startswith("/company/") and "/api/" in request.path):
         return jsonify({"error": "auth required"}), 401
     return redirect(url_for("login", next=request.path))
 
@@ -311,6 +322,10 @@ def portal():
         company_snap = company_load_snapshot("amazon")
     except Exception:
         company_snap = None
+    try:
+        bottleneck_snap = bottleneck_load_snapshot()
+    except Exception:
+        bottleneck_snap = None
     return render_template(
         "portal.html",
         econ_updated=econ_snap.get("date") if econ_snap else None,
@@ -346,6 +361,9 @@ def portal():
         company_verdict=((company_snap.get("headline") or {}).get("verdict_key")) if company_snap else None,
         company_benefit=((company_snap.get("headline") or {}).get("ai_benefit_usd_bn")) if company_snap else None,
         company_name=(((company_snap.get("company") or {}).get("name_zh" if ui_lang() == "zh" else "name_en")) if company_snap else None),
+        bottleneck_updated=(bottleneck_snap.get("as_of") if bottleneck_snap else None),
+        bottleneck_binding=(((bottleneck_snap.get("thesis") or {}).get("binding_name_zh" if ui_lang() == "zh" else "binding_name_en")) if bottleneck_snap else None),
+        bottleneck_deliv=(((bottleneck_snap.get("thesis") or {}).get("deliverable_ea_qtr")) if bottleneck_snap else None),
     )
 
 

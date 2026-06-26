@@ -1,0 +1,1428 @@
+{
+  "is_demo": true,
+  "as_of": "2026-06-17",
+  "current_quarter": "2026Q2",
+  "generated_at": "2026-06-26 22:41 UTC",
+  "meta": {
+    "schema_version": "0.1",
+    "as_of": "2026-06-17",
+    "current_quarter": "2026Q2",
+    "title_en": "Deliverable-Compute Bottleneck Radar",
+    "title_zh": "AI 算力交付瓶頸雷達",
+    "subtitle_en": "TSMC AI capacity is necessary but NOT sufficient. Real deliverable compute is set by the WEAKEST link across the whole chain — front-end wafer, CoWoS/SoIC packaging, HBM, ABF substrate, grid power, cooling/water, optics. Every link is converted to one common unit (B200/GB200-class accelerator-equivalents per quarter), then we take the minimum. The question this board answers: is TSMC the binding constraint? If not, which link is, by how much, and when does the bottleneck migrate?",
+    "subtitle_zh": "台積電 AI 產能是必要、但非充分條件。真正可交付的算力由整條鏈的「最弱一環」決定——前段晶圓、CoWoS/SoIC 封裝、HBM、ABF 基板、電網電力、散熱/水、光通訊。每一環都換算成同一個共同單位（等效 B200/GB200-class 加速器／季），再取最小值。本平台回答：台積電是不是綁定約束？若不是，最弱的是哪一環、差多少、瓶頸何時移轉？",
+    "unit_en": "Common unit = B200/GB200-class accelerator-equivalents per quarter (EA/qtr). Deliverable compute = MIN across links (Liebig's law of the minimum / theory of constraints).",
+    "unit_zh": "共同單位 = 等效 B200/GB200-class 加速器／季（EA/qtr）。可交付算力 = 各環節取最小值（Liebig 最小值定律／約束理論）。",
+    "domain_caveat_en": "Every number below is a FLAGGED SEED value pre-filled by Claude for the foundry capacity-planning team to correct. They are deliberately dated, sourced and tier-graded — the platform's job is to make these shifting assumptions visible and to find the binding link, not to assert the numbers as truth. Replace seeds with primary capacity guidance (TSMC CoWoS, SK Hynix/Micron HBM bit growth, grid interconnection queues) as it lands.",
+    "domain_caveat_zh": "以下每個數字都是 Claude 預填、標示為待校正的種子假設值，供晶圓代工產能規劃團隊修正。它們刻意帶日期、來源與證據分級——平台的目的是讓這些會漂移的假設「可見」並找出綁定環節，而非主張其為真。請隨一手產能指引（TSMC CoWoS、SK Hynix／Micron HBM bit 成長、電網併網排隊）到位後替換種子值。"
+  },
+  "reference_accelerator": {
+    "name": "B200 / GB200-class",
+    "hbm_gb": 192,
+    "compute_dies": 2,
+    "system_power_kw": 1.5,
+    "optics_per_unit": 3.4,
+    "note_en": "One reference unit ≈ a single Blackwell-generation accelerator package (2 reticle-class logic dies + 8 HBM3E stacks, 192 GB), drawing ~1.5 kW at the system level after rack overhead and PUE.",
+    "note_zh": "一個參考單位 ≈ 一顆 Blackwell 世代加速器封裝（2 顆 reticle 級邏輯裸晶 + 8 顆 HBM3E、共 192 GB），計入機櫃額外負載與 PUE 後系統級耗電約 1.5 kW。"
+  },
+  "links_meta": [
+    {
+      "id": "tsmc_wafer",
+      "category": "tsmc",
+      "icon": "🔲",
+      "name_en": "TSMC front-end wafer (N3/N4/N5 logic)",
+      "name_zh": "台積電前段晶圓（N3/N4/N5 邏輯）",
+      "owner_en": "TSMC",
+      "owner_zh": "台積電",
+      "desc_en": "Leading-edge logic wafer starts ALLOCATED to flagship AI accelerator dies. Total fab capacity is far larger, but most N3/N5 serves mobile/HPC/other — only a slice is flagship-GPU dies. This link is rarely the binding one.",
+      "desc_zh": "配置給旗艦 AI 加速器裸晶的先進製程邏輯晶圓投片。整體晶圓廠產能遠大於此，但多數 N3/N5 供行動／HPC／其他——僅一部分是旗艦 GPU 裸晶。此環節極少是綁定約束。",
+      "native_unit_en": "leading-edge wafers/month (AI-allocated)",
+      "native_unit_zh": "先進製程晶圓/月（AI 配額）",
+      "derivation": [
+        {
+          "op": "base",
+          "factor_en": "AI-allocated leading-edge wafer starts",
+          "factor_zh": "AI 配額先進製程投片量",
+          "unit_en": "kwpm × 3 → wafers/qtr",
+          "unit_zh": "kwpm × 3 → 片/季",
+          "value": {
+            "point": 93000,
+            "low": 84000,
+            "high": 102000
+          },
+          "tier": "T2",
+          "source_en": "Seed: ~31 kwpm of N4/N5 mapped to flagship-GPU dies (TSMC capacity mix, est.)",
+          "source_zh": "種子：約 31 kwpm 的 N4/N5 對應旗艦 GPU 裸晶（TSMC 產能結構，估）",
+          "valid_from": "2026-04-30"
+        },
+        {
+          "op": "x",
+          "factor_en": "Good flagship dies per 300mm wafer",
+          "factor_zh": "每片 300mm 晶圓良裸晶數",
+          "unit_en": "dies/wafer",
+          "unit_zh": "裸晶/片",
+          "value": {
+            "point": 62,
+            "low": 58,
+            "high": 66
+          },
+          "tier": "T2",
+          "source_en": "Seed: ~800mm² reticle-class die, gross-die minus edge loss",
+          "source_zh": "種子：約 800mm² reticle 級裸晶，扣除邊緣損耗",
+          "valid_from": "2026-04-30"
+        },
+        {
+          "op": "/",
+          "factor_en": "Compute dies per accelerator",
+          "factor_zh": "每加速器運算裸晶數",
+          "unit_en": "dies/accel",
+          "unit_zh": "裸晶/加速器",
+          "value": {
+            "point": 2,
+            "low": 2,
+            "high": 2
+          },
+          "tier": "T1",
+          "source_en": "B200 = 2 reticle-class dies per package",
+          "source_zh": "B200 = 每封裝 2 顆 reticle 級裸晶",
+          "valid_from": "2026-04-30"
+        },
+        {
+          "op": "x",
+          "factor_en": "Final wafer-test yield",
+          "factor_zh": "最終晶圓測試良率",
+          "unit_en": "fraction",
+          "unit_zh": "比例",
+          "value": {
+            "point": 0.955,
+            "low": 0.93,
+            "high": 0.97
+          },
+          "tier": "T2",
+          "source_en": "Seed: mature N4/N5 die yield",
+          "source_zh": "種子：成熟 N4/N5 裸晶良率",
+          "valid_from": "2026-04-30"
+        }
+      ]
+    },
+    {
+      "id": "tsmc_cowos",
+      "category": "tsmc",
+      "icon": "🧩",
+      "name_en": "TSMC CoWoS / SoIC advanced packaging",
+      "name_zh": "台積電 CoWoS / SoIC 先進封裝",
+      "owner_en": "TSMC",
+      "owner_zh": "台積電",
+      "desc_en": "2.5D/3D interposer packaging that fuses logic dies + HBM stacks. The well-known 2024–25 AI bottleneck; capacity is expanding fast but stays tight relative to demand.",
+      "desc_zh": "把邏輯裸晶與 HBM 堆疊整合的 2.5D/3D 中介層封裝。眾所周知的 2024–25 AI 瓶頸；產能快速擴張但相對需求仍偏緊。",
+      "native_unit_en": "CoWoS interposer wafers/month",
+      "native_unit_zh": "CoWoS 中介層晶圓/月",
+      "derivation": [
+        {
+          "op": "base",
+          "factor_en": "CoWoS-S/L interposer capacity",
+          "factor_zh": "CoWoS-S/L 中介層產能",
+          "unit_en": "kwpm × 3 → wafers/qtr",
+          "unit_zh": "kwpm × 3 → 片/季",
+          "value": {
+            "point": 240000,
+            "low": 222000,
+            "high": 258000
+          },
+          "tier": "T1",
+          "source_en": "Seed: ~80 kwpm CoWoS exiting 2026Q2 (TSMC capacity guidance, est.) — same ramp /compute models as ~150 kwpm by 2026 exit; this is the mid-year point.",
+          "source_zh": "種子：2026Q2 出口約 80 kwpm CoWoS（TSMC 產能指引，估）— 與 /compute 模型的「2026 出口約 150 kwpm」同一條斜坡，此為年中點。",
+          "valid_from": "2026-04-30"
+        },
+        {
+          "op": "x",
+          "factor_en": "Accelerator packages per interposer wafer",
+          "factor_zh": "每片中介層晶圓可出封裝數",
+          "unit_en": "packages/wafer",
+          "unit_zh": "封裝/片",
+          "value": {
+            "point": 8.6,
+            "low": 7.8,
+            "high": 9.2
+          },
+          "tier": "T2",
+          "source_en": "Seed: ~3.3× reticle interposer, net of dicing",
+          "source_zh": "種子：約 3.3× reticle 中介層，扣除切割",
+          "valid_from": "2026-04-30"
+        },
+        {
+          "op": "x",
+          "factor_en": "Packaging assembly yield",
+          "factor_zh": "封裝組裝良率",
+          "unit_en": "fraction",
+          "unit_zh": "比例",
+          "value": {
+            "point": 0.92,
+            "low": 0.88,
+            "high": 0.95
+          },
+          "tier": "T2",
+          "source_en": "Seed: CoWoS assembly yield",
+          "source_zh": "種子：CoWoS 組裝良率",
+          "valid_from": "2026-04-30"
+        }
+      ]
+    },
+    {
+      "id": "hbm",
+      "category": "memory",
+      "icon": "📚",
+      "name_en": "HBM supply (HBM3E / HBM4)",
+      "name_zh": "HBM 供給（HBM3E / HBM4）",
+      "owner_en": "SK Hynix · Samsung · Micron",
+      "owner_zh": "SK 海力士 · 三星 · 美光",
+      "desc_en": "High-bandwidth memory bits from the three makers, allocated to flagship accelerators. Separate fabs from logic; the HBM3E→HBM4 transition re-tightens supply through 2026.",
+      "desc_zh": "三大廠的高頻寬記憶體 bit 供給，配置給旗艦加速器。晶圓廠與邏輯不同；HBM3E→HBM4 轉換使 2026 全年供給再度收緊。",
+      "native_unit_en": "HBM bit supply (GB/qtr)",
+      "native_unit_zh": "HBM bit 供給（GB/季）",
+      "derivation": [
+        {
+          "op": "base",
+          "factor_en": "Industry HBM bit supply",
+          "factor_zh": "產業 HBM bit 供給",
+          "unit_en": "GB/qtr",
+          "unit_zh": "GB/季",
+          "value": {
+            "point": 440000000,
+            "low": 400000000,
+            "high": 475000000
+          },
+          "tier": "T2",
+          "source_en": "Seed: SK Hynix + Samsung + Micron combined HBM3E/4 bit output (est.)",
+          "source_zh": "種子：SK 海力士＋三星＋美光合計 HBM3E/4 bit 產出（估）",
+          "valid_from": "2026-04-30"
+        },
+        {
+          "op": "x",
+          "factor_en": "Share allocated to flagship accelerators",
+          "factor_zh": "配置給旗艦加速器之比例",
+          "unit_en": "fraction",
+          "unit_zh": "比例",
+          "value": {
+            "point": 0.75,
+            "low": 0.7,
+            "high": 0.8
+          },
+          "tier": "T2",
+          "source_en": "Seed: rest goes to mid-range/other HPC",
+          "source_zh": "種子：其餘供中階／其他 HPC",
+          "valid_from": "2026-04-30"
+        },
+        {
+          "op": "/",
+          "factor_en": "HBM capacity per accelerator",
+          "factor_zh": "每加速器 HBM 容量",
+          "unit_en": "GB/accel",
+          "unit_zh": "GB/加速器",
+          "value": {
+            "point": 192,
+            "low": 192,
+            "high": 192
+          },
+          "tier": "T1",
+          "source_en": "B200 = 8× HBM3E stacks = 192 GB",
+          "source_zh": "B200 = 8 顆 HBM3E 堆疊 = 192 GB",
+          "valid_from": "2026-04-30"
+        }
+      ]
+    },
+    {
+      "id": "substrate",
+      "category": "substrate",
+      "icon": "🟫",
+      "name_en": "ABF substrate",
+      "name_zh": "ABF 載板",
+      "owner_en": "Ibiden · Unimicron · Shinko · AT&S",
+      "owner_zh": "Ibiden · 欣興 · Shinko · AT&S",
+      "desc_en": "Large-body high-layer-count ABF substrates that carry the package. Periodically tight but generally trails CoWoS/HBM as a constraint.",
+      "desc_zh": "承載封裝的大尺寸高層數 ABF 載板。間歇偏緊，但作為約束一般落後於 CoWoS/HBM。",
+      "native_unit_en": "accelerator-grade substrates/qtr",
+      "native_unit_zh": "加速器級載板/季",
+      "derivation": [
+        {
+          "op": "base",
+          "factor_en": "Accelerator-class ABF substrate capacity",
+          "factor_zh": "加速器級 ABF 載板產能",
+          "unit_en": "units/qtr",
+          "unit_zh": "片/季",
+          "value": {
+            "point": 2470000,
+            "low": 2250000,
+            "high": 2680000
+          },
+          "tier": "T2",
+          "source_en": "Seed: large-body high-layer ABF allocated to AI accelerators",
+          "source_zh": "種子：配置給 AI 加速器之大尺寸高層 ABF",
+          "valid_from": "2026-04-30"
+        },
+        {
+          "op": "x",
+          "factor_en": "Accelerator-grade yield/util",
+          "factor_zh": "加速器級良率/稼動",
+          "unit_en": "fraction",
+          "unit_zh": "比例",
+          "value": {
+            "point": 0.952,
+            "low": 0.92,
+            "high": 0.97
+          },
+          "tier": "T2",
+          "source_en": "Seed: high-layer ABF yield",
+          "source_zh": "種子：高層 ABF 良率",
+          "valid_from": "2026-04-30"
+        }
+      ]
+    },
+    {
+      "id": "power",
+      "category": "power",
+      "icon": "⚡",
+      "name_en": "Data-center grid power",
+      "name_zh": "資料中心電網電力",
+      "owner_en": "Utilities · grid interconnection",
+      "owner_zh": "電力公司 · 電網併網",
+      "desc_en": "Net-new data-center power energized per quarter, divided by full system power per accelerator (incl. rack overhead and PUE). Grid interconnection queues grow slowly — this link crosses over to become the binding constraint in late 2026.",
+      "desc_zh": "每季新併網的資料中心電力，除以每加速器的完整系統耗電（含機櫃額外負載與 PUE）。電網併網排隊成長緩慢——此環節在 2026 下半年跨越成為綁定約束。",
+      "native_unit_en": "net-new DC power (GW/qtr)",
+      "native_unit_zh": "新增資料中心電力（GW/季）",
+      "derivation": [
+        {
+          "op": "base",
+          "factor_en": "Net-new AI data-center power energized",
+          "factor_zh": "新併網 AI 資料中心電力",
+          "unit_en": "GW/qtr × 1e6 → kW/qtr",
+          "unit_zh": "GW/季 × 1e6 → kW/季",
+          "value": {
+            "point": 2925000,
+            "low": 2550000,
+            "high": 3300000
+          },
+          "tier": "T3",
+          "source_en": "Seed: ~2.9 GW/qtr incremental AI-DC power (grid build-out, est.)",
+          "source_zh": "種子：約 2.9 GW/季 新增 AI-DC 電力（電網建設，估）",
+          "valid_from": "2026-04-30"
+        },
+        {
+          "op": "/",
+          "factor_en": "System power per accelerator (incl. PUE)",
+          "factor_zh": "每加速器系統耗電（含 PUE）",
+          "unit_en": "kW/accel",
+          "unit_zh": "kW/加速器",
+          "value": {
+            "point": 1.5,
+            "low": 1.35,
+            "high": 1.7
+          },
+          "tier": "T2",
+          "source_en": "Seed: ~1.0 kW chip × rack overhead × PUE ≈ 1.5 kW",
+          "source_zh": "種子：約 1.0 kW 晶片 × 機櫃額外 × PUE ≈ 1.5 kW",
+          "valid_from": "2026-04-30"
+        }
+      ]
+    },
+    {
+      "id": "cooling_water",
+      "category": "cooling",
+      "icon": "💧",
+      "name_en": "Cooling & water",
+      "name_zh": "散熱與水",
+      "owner_en": "CDU/liquid-cooling vendors · water utilities",
+      "owner_zh": "CDU/液冷廠商 · 自來水",
+      "desc_en": "Liquid-cooling loop (CDU) capacity gated by water availability for direct-to-chip / immersion at the data center plus fab water draw. Scales with deployment; intermittently regional-tight.",
+      "desc_zh": "由直接接觸晶片／浸沒散熱所需水源（含晶圓廠用水）所限制的液冷迴路（CDU）產能。隨部署擴張；區域性間歇偏緊。",
+      "native_unit_en": "liquid-cooled accelerator slots/qtr",
+      "native_unit_zh": "液冷加速器槽位/季",
+      "derivation": [
+        {
+          "op": "base",
+          "factor_en": "Liquid-cooling loop (CDU) capacity",
+          "factor_zh": "液冷迴路（CDU）產能",
+          "unit_en": "accel-slots/qtr",
+          "unit_zh": "加速器槽位/季",
+          "value": {
+            "point": 2700000,
+            "low": 2450000,
+            "high": 2950000
+          },
+          "tier": "T3",
+          "source_en": "Seed: CDU + manifold supply for direct-to-chip cooling",
+          "source_zh": "種子：直接接觸晶片散熱之 CDU + 分歧管供給",
+          "valid_from": "2026-04-30"
+        },
+        {
+          "op": "x",
+          "factor_en": "Water-availability factor",
+          "factor_zh": "水源可用係數",
+          "unit_en": "fraction",
+          "unit_zh": "比例",
+          "value": {
+            "point": 0.944,
+            "low": 0.88,
+            "high": 0.98
+          },
+          "tier": "T3",
+          "source_en": "Seed: regional water-draw derate",
+          "source_zh": "種子：區域取水折減",
+          "valid_from": "2026-04-30"
+        }
+      ]
+    },
+    {
+      "id": "networking",
+      "category": "network",
+      "icon": "🕸️",
+      "name_en": "Networking & optics",
+      "name_zh": "網路與光通訊",
+      "owner_en": "Optical-transceiver & switch-ASIC vendors",
+      "owner_zh": "光模組與交換器 ASIC 廠商",
+      "desc_en": "Optical transceivers (800G/1.6T) and switch-ASIC ports per accelerator for the back-end scale-out fabric. Grows with deployment; becomes the next-in-line constraint once the top links ease.",
+      "desc_zh": "後端 scale-out 網狀架構中每加速器所需的光模組（800G/1.6T）與交換器 ASIC 連接埠。隨部署成長；當上層環節紓解後成為下一順位約束。",
+      "native_unit_en": "optical transceivers/qtr",
+      "native_unit_zh": "光模組/季",
+      "derivation": [
+        {
+          "op": "base",
+          "factor_en": "Optical-transceiver supply (800G/1.6T)",
+          "factor_zh": "光模組供給（800G/1.6T）",
+          "unit_en": "units/qtr",
+          "unit_zh": "顆/季",
+          "value": {
+            "point": 8800000,
+            "low": 7900000,
+            "high": 9600000
+          },
+          "tier": "T2",
+          "source_en": "Seed: industry 800G/1.6T transceiver output (est.)",
+          "source_zh": "種子：產業 800G/1.6T 光模組產出（估）",
+          "valid_from": "2026-04-30"
+        },
+        {
+          "op": "x",
+          "factor_en": "Share allocated to AI back-end fabric",
+          "factor_zh": "配置給 AI 後端網狀之比例",
+          "unit_en": "fraction",
+          "unit_zh": "比例",
+          "value": {
+            "point": 0.85,
+            "low": 0.8,
+            "high": 0.9
+          },
+          "tier": "T3",
+          "source_en": "Seed: rest serves front-end/telecom",
+          "source_zh": "種子：其餘供前端／電信",
+          "valid_from": "2026-04-30"
+        },
+        {
+          "op": "/",
+          "factor_en": "Optics per accelerator",
+          "factor_zh": "每加速器光模組數",
+          "unit_en": "optics/accel",
+          "unit_zh": "光模組/加速器",
+          "value": {
+            "point": 3.4,
+            "low": 3.0,
+            "high": 3.8
+          },
+          "tier": "T2",
+          "source_en": "Seed: scale-out + scale-up optics per GPU",
+          "source_zh": "種子：每 GPU 之 scale-out + scale-up 光口",
+          "valid_from": "2026-04-30"
+        }
+      ]
+    }
+  ],
+  "inference": {
+    "capacities": {
+      "tsmc_wafer": 2753265,
+      "tsmc_cowos": 1898880,
+      "hbm": 1718750,
+      "substrate": 2351440,
+      "power": 1950000,
+      "cooling_water": 2548800,
+      "networking": 2200000
+    },
+    "bands": {
+      "tsmc_wafer": {
+        "point": 2753265,
+        "low": 2265480,
+        "high": 3265020,
+        "steps": [
+          {
+            "op": "base",
+            "factor_en": "AI-allocated leading-edge wafer starts",
+            "factor_zh": "AI 配額先進製程投片量",
+            "unit_en": "kwpm × 3 → wafers/qtr",
+            "unit_zh": "kwpm × 3 → 片/季",
+            "tier": "T2",
+            "source_en": "Seed: ~31 kwpm of N4/N5 mapped to flagship-GPU dies (TSMC capacity mix, est.)",
+            "source_zh": "種子：約 31 kwpm 的 N4/N5 對應旗艦 GPU 裸晶（TSMC 產能結構，估）",
+            "valid_from": "2026-04-30",
+            "value": {
+              "point": 93000,
+              "low": 84000,
+              "high": 102000
+            },
+            "running_point": 93000
+          },
+          {
+            "op": "x",
+            "factor_en": "Good flagship dies per 300mm wafer",
+            "factor_zh": "每片 300mm 晶圓良裸晶數",
+            "unit_en": "dies/wafer",
+            "unit_zh": "裸晶/片",
+            "tier": "T2",
+            "source_en": "Seed: ~800mm² reticle-class die, gross-die minus edge loss",
+            "source_zh": "種子：約 800mm² reticle 級裸晶，扣除邊緣損耗",
+            "valid_from": "2026-04-30",
+            "value": {
+              "point": 62,
+              "low": 58,
+              "high": 66
+            },
+            "running_point": 5766000
+          },
+          {
+            "op": "/",
+            "factor_en": "Compute dies per accelerator",
+            "factor_zh": "每加速器運算裸晶數",
+            "unit_en": "dies/accel",
+            "unit_zh": "裸晶/加速器",
+            "tier": "T1",
+            "source_en": "B200 = 2 reticle-class dies per package",
+            "source_zh": "B200 = 每封裝 2 顆 reticle 級裸晶",
+            "valid_from": "2026-04-30",
+            "value": {
+              "point": 2,
+              "low": 2,
+              "high": 2
+            },
+            "running_point": 2883000
+          },
+          {
+            "op": "x",
+            "factor_en": "Final wafer-test yield",
+            "factor_zh": "最終晶圓測試良率",
+            "unit_en": "fraction",
+            "unit_zh": "比例",
+            "tier": "T2",
+            "source_en": "Seed: mature N4/N5 die yield",
+            "source_zh": "種子：成熟 N4/N5 裸晶良率",
+            "valid_from": "2026-04-30",
+            "value": {
+              "point": 0.955,
+              "low": 0.93,
+              "high": 0.97
+            },
+            "running_point": 2753265
+          }
+        ]
+      },
+      "tsmc_cowos": {
+        "point": 1898880,
+        "low": 1523808,
+        "high": 2254920,
+        "steps": [
+          {
+            "op": "base",
+            "factor_en": "CoWoS-S/L interposer capacity",
+            "factor_zh": "CoWoS-S/L 中介層產能",
+            "unit_en": "kwpm × 3 → wafers/qtr",
+            "unit_zh": "kwpm × 3 → 片/季",
+            "tier": "T1",
+            "source_en": "Seed: ~80 kwpm CoWoS exiting 2026Q2 (TSMC capacity guidance, est.) — same ramp /compute models as ~150 kwpm by 2026 exit; this is the mid-year point.",
+            "source_zh": "種子：2026Q2 出口約 80 kwpm CoWoS（TSMC 產能指引，估）— 與 /compute 模型的「2026 出口約 150 kwpm」同一條斜坡，此為年中點。",
+            "valid_from": "2026-04-30",
+            "value": {
+              "point": 240000,
+              "low": 222000,
+              "high": 258000
+            },
+            "running_point": 240000
+          },
+          {
+            "op": "x",
+            "factor_en": "Accelerator packages per interposer wafer",
+            "factor_zh": "每片中介層晶圓可出封裝數",
+            "unit_en": "packages/wafer",
+            "unit_zh": "封裝/片",
+            "tier": "T2",
+            "source_en": "Seed: ~3.3× reticle interposer, net of dicing",
+            "source_zh": "種子：約 3.3× reticle 中介層，扣除切割",
+            "valid_from": "2026-04-30",
+            "value": {
+              "point": 8.6,
+              "low": 7.8,
+              "high": 9.2
+            },
+            "running_point": 2064000
+          },
+          {
+            "op": "x",
+            "factor_en": "Packaging assembly yield",
+            "factor_zh": "封裝組裝良率",
+            "unit_en": "fraction",
+            "unit_zh": "比例",
+            "tier": "T2",
+            "source_en": "Seed: CoWoS assembly yield",
+            "source_zh": "種子：CoWoS 組裝良率",
+            "valid_from": "2026-04-30",
+            "value": {
+              "point": 0.92,
+              "low": 0.88,
+              "high": 0.95
+            },
+            "running_point": 1898880
+          }
+        ]
+      },
+      "hbm": {
+        "point": 1718750,
+        "low": 1458333,
+        "high": 1979167,
+        "steps": [
+          {
+            "op": "base",
+            "factor_en": "Industry HBM bit supply",
+            "factor_zh": "產業 HBM bit 供給",
+            "unit_en": "GB/qtr",
+            "unit_zh": "GB/季",
+            "tier": "T2",
+            "source_en": "Seed: SK Hynix + Samsung + Micron combined HBM3E/4 bit output (est.)",
+            "source_zh": "種子：SK 海力士＋三星＋美光合計 HBM3E/4 bit 產出（估）",
+            "valid_from": "2026-04-30",
+            "value": {
+              "point": 440000000,
+              "low": 400000000,
+              "high": 475000000
+            },
+            "running_point": 440000000
+          },
+          {
+            "op": "x",
+            "factor_en": "Share allocated to flagship accelerators",
+            "factor_zh": "配置給旗艦加速器之比例",
+            "unit_en": "fraction",
+            "unit_zh": "比例",
+            "tier": "T2",
+            "source_en": "Seed: rest goes to mid-range/other HPC",
+            "source_zh": "種子：其餘供中階／其他 HPC",
+            "valid_from": "2026-04-30",
+            "value": {
+              "point": 0.75,
+              "low": 0.7,
+              "high": 0.8
+            },
+            "running_point": 330000000
+          },
+          {
+            "op": "/",
+            "factor_en": "HBM capacity per accelerator",
+            "factor_zh": "每加速器 HBM 容量",
+            "unit_en": "GB/accel",
+            "unit_zh": "GB/加速器",
+            "tier": "T1",
+            "source_en": "B200 = 8× HBM3E stacks = 192 GB",
+            "source_zh": "B200 = 8 顆 HBM3E 堆疊 = 192 GB",
+            "valid_from": "2026-04-30",
+            "value": {
+              "point": 192,
+              "low": 192,
+              "high": 192
+            },
+            "running_point": 1718750
+          }
+        ]
+      },
+      "substrate": {
+        "point": 2351440,
+        "low": 2070000,
+        "high": 2599600,
+        "steps": [
+          {
+            "op": "base",
+            "factor_en": "Accelerator-class ABF substrate capacity",
+            "factor_zh": "加速器級 ABF 載板產能",
+            "unit_en": "units/qtr",
+            "unit_zh": "片/季",
+            "tier": "T2",
+            "source_en": "Seed: large-body high-layer ABF allocated to AI accelerators",
+            "source_zh": "種子：配置給 AI 加速器之大尺寸高層 ABF",
+            "valid_from": "2026-04-30",
+            "value": {
+              "point": 2470000,
+              "low": 2250000,
+              "high": 2680000
+            },
+            "running_point": 2470000
+          },
+          {
+            "op": "x",
+            "factor_en": "Accelerator-grade yield/util",
+            "factor_zh": "加速器級良率/稼動",
+            "unit_en": "fraction",
+            "unit_zh": "比例",
+            "tier": "T2",
+            "source_en": "Seed: high-layer ABF yield",
+            "source_zh": "種子：高層 ABF 良率",
+            "valid_from": "2026-04-30",
+            "value": {
+              "point": 0.952,
+              "low": 0.92,
+              "high": 0.97
+            },
+            "running_point": 2351440
+          }
+        ]
+      },
+      "power": {
+        "point": 1950000,
+        "low": 1500000,
+        "high": 2444444,
+        "steps": [
+          {
+            "op": "base",
+            "factor_en": "Net-new AI data-center power energized",
+            "factor_zh": "新併網 AI 資料中心電力",
+            "unit_en": "GW/qtr × 1e6 → kW/qtr",
+            "unit_zh": "GW/季 × 1e6 → kW/季",
+            "tier": "T3",
+            "source_en": "Seed: ~2.9 GW/qtr incremental AI-DC power (grid build-out, est.)",
+            "source_zh": "種子：約 2.9 GW/季 新增 AI-DC 電力（電網建設，估）",
+            "valid_from": "2026-04-30",
+            "value": {
+              "point": 2925000,
+              "low": 2550000,
+              "high": 3300000
+            },
+            "running_point": 2925000
+          },
+          {
+            "op": "/",
+            "factor_en": "System power per accelerator (incl. PUE)",
+            "factor_zh": "每加速器系統耗電（含 PUE）",
+            "unit_en": "kW/accel",
+            "unit_zh": "kW/加速器",
+            "tier": "T2",
+            "source_en": "Seed: ~1.0 kW chip × rack overhead × PUE ≈ 1.5 kW",
+            "source_zh": "種子：約 1.0 kW 晶片 × 機櫃額外 × PUE ≈ 1.5 kW",
+            "valid_from": "2026-04-30",
+            "value": {
+              "point": 1.5,
+              "low": 1.35,
+              "high": 1.7
+            },
+            "running_point": 1950000
+          }
+        ]
+      },
+      "cooling_water": {
+        "point": 2548800,
+        "low": 2156000,
+        "high": 2891000,
+        "steps": [
+          {
+            "op": "base",
+            "factor_en": "Liquid-cooling loop (CDU) capacity",
+            "factor_zh": "液冷迴路（CDU）產能",
+            "unit_en": "accel-slots/qtr",
+            "unit_zh": "加速器槽位/季",
+            "tier": "T3",
+            "source_en": "Seed: CDU + manifold supply for direct-to-chip cooling",
+            "source_zh": "種子：直接接觸晶片散熱之 CDU + 分歧管供給",
+            "valid_from": "2026-04-30",
+            "value": {
+              "point": 2700000,
+              "low": 2450000,
+              "high": 2950000
+            },
+            "running_point": 2700000
+          },
+          {
+            "op": "x",
+            "factor_en": "Water-availability factor",
+            "factor_zh": "水源可用係數",
+            "unit_en": "fraction",
+            "unit_zh": "比例",
+            "tier": "T3",
+            "source_en": "Seed: regional water-draw derate",
+            "source_zh": "種子：區域取水折減",
+            "valid_from": "2026-04-30",
+            "value": {
+              "point": 0.944,
+              "low": 0.88,
+              "high": 0.98
+            },
+            "running_point": 2548800
+          }
+        ]
+      },
+      "networking": {
+        "point": 2200000,
+        "low": 1663158,
+        "high": 2880000,
+        "steps": [
+          {
+            "op": "base",
+            "factor_en": "Optical-transceiver supply (800G/1.6T)",
+            "factor_zh": "光模組供給（800G/1.6T）",
+            "unit_en": "units/qtr",
+            "unit_zh": "顆/季",
+            "tier": "T2",
+            "source_en": "Seed: industry 800G/1.6T transceiver output (est.)",
+            "source_zh": "種子：產業 800G/1.6T 光模組產出（估）",
+            "valid_from": "2026-04-30",
+            "value": {
+              "point": 8800000,
+              "low": 7900000,
+              "high": 9600000
+            },
+            "running_point": 8800000
+          },
+          {
+            "op": "x",
+            "factor_en": "Share allocated to AI back-end fabric",
+            "factor_zh": "配置給 AI 後端網狀之比例",
+            "unit_en": "fraction",
+            "unit_zh": "比例",
+            "tier": "T3",
+            "source_en": "Seed: rest serves front-end/telecom",
+            "source_zh": "種子：其餘供前端／電信",
+            "valid_from": "2026-04-30",
+            "value": {
+              "point": 0.85,
+              "low": 0.8,
+              "high": 0.9
+            },
+            "running_point": 7480000
+          },
+          {
+            "op": "/",
+            "factor_en": "Optics per accelerator",
+            "factor_zh": "每加速器光模組數",
+            "unit_en": "optics/accel",
+            "unit_zh": "光模組/加速器",
+            "tier": "T2",
+            "source_en": "Seed: scale-out + scale-up optics per GPU",
+            "source_zh": "種子：每 GPU 之 scale-out + scale-up 光口",
+            "valid_from": "2026-04-30",
+            "value": {
+              "point": 3.4,
+              "low": 3.0,
+              "high": 3.8
+            },
+            "running_point": 2200000
+          }
+        ]
+      }
+    },
+    "binding_link": "hbm",
+    "binding_name_en": "HBM supply (HBM3E / HBM4)",
+    "binding_name_zh": "HBM 供給（HBM3E / HBM4）",
+    "deliverable_ea_qtr": 1718750,
+    "deliverable_ea_year": 6875000,
+    "deliverable_low_qtr": 1458333,
+    "deliverable_high_qtr": 1979167,
+    "ranked": [
+      {
+        "id": "hbm",
+        "name_en": "HBM supply (HBM3E / HBM4)",
+        "name_zh": "HBM 供給（HBM3E / HBM4）",
+        "category": "memory",
+        "icon": "📚",
+        "owner_en": "SK Hynix · Samsung · Micron",
+        "owner_zh": "SK 海力士 · 三星 · 美光",
+        "capacity": 1718750,
+        "is_binding": true,
+        "headroom_pct": 0.0
+      },
+      {
+        "id": "tsmc_cowos",
+        "name_en": "TSMC CoWoS / SoIC advanced packaging",
+        "name_zh": "台積電 CoWoS / SoIC 先進封裝",
+        "category": "tsmc",
+        "icon": "🧩",
+        "owner_en": "TSMC",
+        "owner_zh": "台積電",
+        "capacity": 1898880,
+        "is_binding": false,
+        "headroom_pct": 10.5
+      },
+      {
+        "id": "power",
+        "name_en": "Data-center grid power",
+        "name_zh": "資料中心電網電力",
+        "category": "power",
+        "icon": "⚡",
+        "owner_en": "Utilities · grid interconnection",
+        "owner_zh": "電力公司 · 電網併網",
+        "capacity": 1950000,
+        "is_binding": false,
+        "headroom_pct": 13.5
+      },
+      {
+        "id": "networking",
+        "name_en": "Networking & optics",
+        "name_zh": "網路與光通訊",
+        "category": "network",
+        "icon": "🕸️",
+        "owner_en": "Optical-transceiver & switch-ASIC vendors",
+        "owner_zh": "光模組與交換器 ASIC 廠商",
+        "capacity": 2200000,
+        "is_binding": false,
+        "headroom_pct": 28.0
+      },
+      {
+        "id": "substrate",
+        "name_en": "ABF substrate",
+        "name_zh": "ABF 載板",
+        "category": "substrate",
+        "icon": "🟫",
+        "owner_en": "Ibiden · Unimicron · Shinko · AT&S",
+        "owner_zh": "Ibiden · 欣興 · Shinko · AT&S",
+        "capacity": 2351440,
+        "is_binding": false,
+        "headroom_pct": 36.8
+      },
+      {
+        "id": "cooling_water",
+        "name_en": "Cooling & water",
+        "name_zh": "散熱與水",
+        "category": "cooling",
+        "icon": "💧",
+        "owner_en": "CDU/liquid-cooling vendors · water utilities",
+        "owner_zh": "CDU/液冷廠商 · 自來水",
+        "capacity": 2548800,
+        "is_binding": false,
+        "headroom_pct": 48.3
+      },
+      {
+        "id": "tsmc_wafer",
+        "name_en": "TSMC front-end wafer (N3/N4/N5 logic)",
+        "name_zh": "台積電前段晶圓（N3/N4/N5 邏輯）",
+        "category": "tsmc",
+        "icon": "🔲",
+        "owner_en": "TSMC",
+        "owner_zh": "台積電",
+        "capacity": 2753265,
+        "is_binding": false,
+        "headroom_pct": 60.2
+      }
+    ]
+  },
+  "thesis": {
+    "binding_link": "hbm",
+    "binding_name_en": "HBM supply (HBM3E / HBM4)",
+    "binding_name_zh": "HBM 供給（HBM3E / HBM4）",
+    "binding_category": "memory",
+    "deliverable_ea_qtr": 1718750,
+    "deliverable_ea_year": 6875000,
+    "tsmc_is_bottleneck": false,
+    "tsmc_binding_link": "tsmc_cowos",
+    "tsmc_min_ea_qtr": 1898880,
+    "tsmc_headroom_pct": 10.5,
+    "verdict_en": "TSMC capacity is sufficient — its tightest link (TSMC CoWoS / SoIC advanced packaging) sits ~10% ABOVE the system bottleneck, which is HBM supply (HBM3E / HBM4). Adding TSMC capacity alone would not raise deliverable compute.",
+    "verdict_zh": "台積電產能充足——其最緊環節（台積電 CoWoS / SoIC 先進封裝）較系統瓶頸高約 10%，真正的瓶頸是 HBM 供給（HBM3E / HBM4）。單獨增加台積電產能並不會提高可交付算力。"
+  },
+  "timeline": {
+    "rows": [
+      {
+        "q": "2024Q1",
+        "caps": {
+          "tsmc_wafer": 1500000,
+          "tsmc_cowos": 700000,
+          "hbm": 820000,
+          "substrate": 1100000,
+          "power": 1400000,
+          "cooling_water": 1300000,
+          "networking": 1250000
+        },
+        "binding": "tsmc_cowos",
+        "deliverable": 700000
+      },
+      {
+        "q": "2024Q2",
+        "caps": {
+          "tsmc_wafer": 1650000,
+          "tsmc_cowos": 820000,
+          "hbm": 900000,
+          "substrate": 1250000,
+          "power": 1500000,
+          "cooling_water": 1450000,
+          "networking": 1400000
+        },
+        "binding": "tsmc_cowos",
+        "deliverable": 820000
+      },
+      {
+        "q": "2024Q3",
+        "caps": {
+          "tsmc_wafer": 1800000,
+          "tsmc_cowos": 980000,
+          "hbm": 1050000,
+          "substrate": 1400000,
+          "power": 1620000,
+          "cooling_water": 1600000,
+          "networking": 1550000
+        },
+        "binding": "tsmc_cowos",
+        "deliverable": 980000
+      },
+      {
+        "q": "2024Q4",
+        "caps": {
+          "tsmc_wafer": 1950000,
+          "tsmc_cowos": 1150000,
+          "hbm": 1200000,
+          "substrate": 1550000,
+          "power": 1720000,
+          "cooling_water": 1750000,
+          "networking": 1700000
+        },
+        "binding": "tsmc_cowos",
+        "deliverable": 1150000
+      },
+      {
+        "q": "2025Q1",
+        "caps": {
+          "tsmc_wafer": 2100000,
+          "tsmc_cowos": 1320000,
+          "hbm": 1380000,
+          "substrate": 1700000,
+          "power": 1800000,
+          "cooling_water": 1900000,
+          "networking": 1820000
+        },
+        "binding": "tsmc_cowos",
+        "deliverable": 1320000
+      },
+      {
+        "q": "2025Q2",
+        "caps": {
+          "tsmc_wafer": 2250000,
+          "tsmc_cowos": 1480000,
+          "hbm": 1520000,
+          "substrate": 1850000,
+          "power": 1850000,
+          "cooling_water": 2050000,
+          "networking": 1920000
+        },
+        "binding": "tsmc_cowos",
+        "deliverable": 1480000
+      },
+      {
+        "q": "2025Q3",
+        "caps": {
+          "tsmc_wafer": 2400000,
+          "tsmc_cowos": 1620000,
+          "hbm": 1560000,
+          "substrate": 2000000,
+          "power": 1880000,
+          "cooling_water": 2200000,
+          "networking": 1990000
+        },
+        "binding": "hbm",
+        "deliverable": 1560000
+      },
+      {
+        "q": "2025Q4",
+        "caps": {
+          "tsmc_wafer": 2500000,
+          "tsmc_cowos": 1700000,
+          "hbm": 1600000,
+          "substrate": 2100000,
+          "power": 1890000,
+          "cooling_water": 2300000,
+          "networking": 2020000
+        },
+        "binding": "hbm",
+        "deliverable": 1600000
+      },
+      {
+        "q": "2026Q1",
+        "caps": {
+          "tsmc_wafer": 2600000,
+          "tsmc_cowos": 1750000,
+          "hbm": 1620000,
+          "substrate": 2200000,
+          "power": 1900000,
+          "cooling_water": 2400000,
+          "networking": 2050000
+        },
+        "binding": "hbm",
+        "deliverable": 1620000
+      },
+      {
+        "q": "2026Q2",
+        "caps": {
+          "tsmc_wafer": 2750000,
+          "tsmc_cowos": 1900000,
+          "hbm": 1720000,
+          "substrate": 2350000,
+          "power": 1950000,
+          "cooling_water": 2550000,
+          "networking": 2200000
+        },
+        "binding": "hbm",
+        "deliverable": 1720000
+      },
+      {
+        "q": "2026Q3",
+        "caps": {
+          "tsmc_wafer": 2900000,
+          "tsmc_cowos": 2100000,
+          "hbm": 1880000,
+          "substrate": 2500000,
+          "power": 2000000,
+          "cooling_water": 2700000,
+          "networking": 2400000
+        },
+        "binding": "hbm",
+        "deliverable": 1880000
+      },
+      {
+        "q": "2026Q4",
+        "caps": {
+          "tsmc_wafer": 3050000,
+          "tsmc_cowos": 2300000,
+          "hbm": 2080000,
+          "substrate": 2650000,
+          "power": 2050000,
+          "cooling_water": 2850000,
+          "networking": 2600000
+        },
+        "binding": "power",
+        "deliverable": 2050000
+      },
+      {
+        "q": "2027Q1",
+        "caps": {
+          "tsmc_wafer": 3200000,
+          "tsmc_cowos": 2500000,
+          "hbm": 2320000,
+          "substrate": 2800000,
+          "power": 2080000,
+          "cooling_water": 3000000,
+          "networking": 2800000
+        },
+        "binding": "power",
+        "deliverable": 2080000
+      },
+      {
+        "q": "2027Q2",
+        "caps": {
+          "tsmc_wafer": 3400000,
+          "tsmc_cowos": 2750000,
+          "hbm": 2600000,
+          "substrate": 2950000,
+          "power": 2120000,
+          "cooling_water": 3150000,
+          "networking": 3000000
+        },
+        "binding": "power",
+        "deliverable": 2120000
+      },
+      {
+        "q": "2027Q3",
+        "caps": {
+          "tsmc_wafer": 3600000,
+          "tsmc_cowos": 3000000,
+          "hbm": 2900000,
+          "substrate": 3100000,
+          "power": 2160000,
+          "cooling_water": 3300000,
+          "networking": 3200000
+        },
+        "binding": "power",
+        "deliverable": 2160000
+      },
+      {
+        "q": "2027Q4",
+        "caps": {
+          "tsmc_wafer": 3800000,
+          "tsmc_cowos": 3250000,
+          "hbm": 3200000,
+          "substrate": 3250000,
+          "power": 2200000,
+          "cooling_water": 3450000,
+          "networking": 3400000
+        },
+        "binding": "power",
+        "deliverable": 2200000
+      }
+    ],
+    "segments": [
+      {
+        "binding": "tsmc_cowos",
+        "name_en": "TSMC CoWoS / SoIC advanced packaging",
+        "name_zh": "台積電 CoWoS / SoIC 先進封裝",
+        "category": "tsmc",
+        "icon": "🧩",
+        "from": "2024Q1",
+        "to": "2025Q2"
+      },
+      {
+        "binding": "hbm",
+        "name_en": "HBM supply (HBM3E / HBM4)",
+        "name_zh": "HBM 供給（HBM3E / HBM4）",
+        "category": "memory",
+        "icon": "📚",
+        "from": "2025Q3",
+        "to": "2026Q3"
+      },
+      {
+        "binding": "power",
+        "name_en": "Data-center grid power",
+        "name_zh": "資料中心電網電力",
+        "category": "power",
+        "icon": "⚡",
+        "from": "2026Q4",
+        "to": "2027Q4"
+      }
+    ]
+  },
+  "scenarios": {
+    "base_binding": "hbm",
+    "rows": [
+      {
+        "id": "baseline",
+        "name_en": "Baseline (seed)",
+        "name_zh": "基準（種子）",
+        "desc_en": "Current seed assumptions, no overrides.",
+        "desc_zh": "目前種子假設，無調整。",
+        "overrides": {},
+        "binding": "hbm",
+        "binding_name_en": "HBM supply (HBM3E / HBM4)",
+        "binding_name_zh": "HBM 供給（HBM3E / HBM4）",
+        "binding_category": "memory",
+        "deliverable_ea_qtr": 1718750,
+        "delta_pct": 0.0,
+        "moved": false
+      },
+      {
+        "id": "hbm4_ramp",
+        "name_en": "HBM4 ramp (2H26)",
+        "name_zh": "HBM4 放量（2H26）",
+        "desc_en": "HBM4 yields lift bit supply +30%. Watch the bottleneck move OFF memory and onto TSMC packaging.",
+        "desc_zh": "HBM4 良率拉升 bit 供給 +30%。觀察瓶頸從記憶體移轉到台積電封裝。",
+        "overrides": {
+          "hbm": 1.3
+        },
+        "binding": "tsmc_cowos",
+        "binding_name_en": "TSMC CoWoS / SoIC advanced packaging",
+        "binding_name_zh": "台積電 CoWoS / SoIC 先進封裝",
+        "binding_category": "tsmc",
+        "deliverable_ea_qtr": 1898880,
+        "delta_pct": 10.5,
+        "moved": true
+      },
+      {
+        "id": "cowos_expansion",
+        "name_en": "CoWoS expansion only",
+        "name_zh": "僅 CoWoS 擴產",
+        "desc_en": "CoWoS +25% in isolation — illustrates that expanding a NON-binding link does nothing for deliverable compute (HBM still binds).",
+        "desc_zh": "單獨擴 CoWoS +25%——說明擴張「非綁定」環節對可交付算力毫無幫助（HBM 仍綁定）。",
+        "overrides": {
+          "tsmc_cowos": 1.25
+        },
+        "binding": "hbm",
+        "binding_name_en": "HBM supply (HBM3E / HBM4)",
+        "binding_name_zh": "HBM 供給（HBM3E / HBM4）",
+        "binding_category": "memory",
+        "deliverable_ea_qtr": 1718750,
+        "delta_pct": 0.0,
+        "moved": false
+      },
+      {
+        "id": "grid_delay",
+        "name_en": "Grid interconnection delay",
+        "name_zh": "電網併網延遲",
+        "desc_en": "Power -20% from interconnection-queue slippage — power snaps to binding even though chips are available.",
+        "desc_zh": "併網排隊延宕使電力 -20%——即使晶片充足，電力立即成為綁定約束。",
+        "overrides": {
+          "power": 0.8
+        },
+        "binding": "power",
+        "binding_name_en": "Data-center grid power",
+        "binding_name_zh": "資料中心電網電力",
+        "binding_category": "power",
+        "deliverable_ea_qtr": 1560000,
+        "delta_pct": -9.2,
+        "moved": true
+      },
+      {
+        "id": "dual_squeeze",
+        "name_en": "HBM4 ramp + grid delay",
+        "name_zh": "HBM4 放量 + 電網延遲",
+        "desc_en": "Memory eases while power slips — the bottleneck jumps from HBM straight to grid power.",
+        "desc_zh": "記憶體紓解、電力延宕——瓶頸從 HBM 直接跳到電網電力。",
+        "overrides": {
+          "hbm": 1.3,
+          "power": 0.8
+        },
+        "binding": "power",
+        "binding_name_en": "Data-center grid power",
+        "binding_name_zh": "資料中心電網電力",
+        "binding_category": "power",
+        "deliverable_ea_qtr": 1560000,
+        "delta_pct": -9.2,
+        "moved": true
+      },
+      {
+        "id": "all_ease",
+        "name_en": "Top-3 links all ease",
+        "name_zh": "前三大環節同時紓解",
+        "desc_en": "HBM +30%, CoWoS +25%, power +20% together — deliverable rises but exposes the NEXT constraint (optics). There is always a weakest link.",
+        "desc_zh": "HBM +30%、CoWoS +25%、電力 +20% 同時放鬆——可交付量上升，但暴露出下一個約束（光通訊）。永遠有最弱一環。",
+        "overrides": {
+          "hbm": 1.3,
+          "tsmc_cowos": 1.25,
+          "power": 1.2
+        },
+        "binding": "networking",
+        "binding_name_en": "Networking & optics",
+        "binding_name_zh": "網路與光通訊",
+        "binding_category": "network",
+        "deliverable_ea_qtr": 2200000,
+        "delta_pct": 28.0,
+        "moved": true
+      }
+    ]
+  },
+  "sensitivity": {
+    "rows": [
+      {
+        "id": "hbm",
+        "name_en": "HBM supply (HBM3E / HBM4)",
+        "name_zh": "HBM 供給（HBM3E / HBM4）",
+        "category": "memory",
+        "icon": "📚",
+        "deliverable_low": 1458333,
+        "deliverable_high": 1898880,
+        "swing": 440547,
+        "swing_pct": 25.6
+      },
+      {
+        "id": "power",
+        "name_en": "Data-center grid power",
+        "name_zh": "資料中心電網電力",
+        "category": "power",
+        "icon": "⚡",
+        "deliverable_low": 1500000,
+        "deliverable_high": 1718750,
+        "swing": 218750,
+        "swing_pct": 12.7
+      },
+      {
+        "id": "tsmc_cowos",
+        "name_en": "TSMC CoWoS / SoIC advanced packaging",
+        "name_zh": "台積電 CoWoS / SoIC 先進封裝",
+        "category": "tsmc",
+        "icon": "🧩",
+        "deliverable_low": 1523808,
+        "deliverable_high": 1718750,
+        "swing": 194942,
+        "swing_pct": 11.3
+      },
+      {
+        "id": "networking",
+        "name_en": "Networking & optics",
+        "name_zh": "網路與光通訊",
+        "category": "network",
+        "icon": "🕸️",
+        "deliverable_low": 1663158,
+        "deliverable_high": 1718750,
+        "swing": 55592,
+        "swing_pct": 3.2
+      },
+      {
+        "id": "tsmc_wafer",
+        "name_en": "TSMC front-end wafer (N3/N4/N5 logic)",
+        "name_zh": "台積電前段晶圓（N3/N4/N5 邏輯）",
+        "category": "tsmc",
+        "icon": "🔲",
+        "deliverable_low": 1718750,
+        "deliverable_high": 1718750,
+        "swing": 0,
+        "swing_pct": 0.0
+      },
+      {
+        "id": "substrate",
+        "name_en": "ABF substrate",
+        "name_zh": "ABF 載板",
+        "category": "substrate",
+        "icon": "🟫",
+        "deliverable_low": 1718750,
+        "deliverable_high": 1718750,
+        "swing": 0,
+        "swing_pct": 0.0
+      },
+      {
+        "id": "cooling_water",
+        "name_en": "Cooling & water",
+        "name_zh": "散熱與水",
+        "category": "cooling",
+        "icon": "💧",
+        "deliverable_low": 1718750,
+        "deliverable_high": 1718750,
+        "swing": 0,
+        "swing_pct": 0.0
+      }
+    ],
+    "base_deliverable": 1718750
+  },
+  "evidence": [
+    {
+      "id": "ev_cowos_capacity",
+      "date": "2026-04-30",
+      "tier": "T1",
+      "link": "tsmc_cowos",
+      "source_en": "TSMC CoWoS capacity guidance (seed placeholder for primary)",
+      "source_zh": "TSMC CoWoS 產能指引（種子，待一手替換）",
+      "snippet_en": "CoWoS capacity exiting 2026Q2 ~80 kwpm, still sold out.",
+      "snippet_zh": "2026Q2 出口 CoWoS 產能約 80 kwpm，仍供不應求。"
+    },
+    {
+      "id": "ev_hbm_bits",
+      "date": "2026-04-30",
+      "tier": "T2",
+      "link": "hbm",
+      "source_en": "SK Hynix / Micron HBM bit-growth commentary (seed placeholder)",
+      "source_zh": "SK 海力士／美光 HBM bit 成長說明（種子）",
+      "snippet_en": "HBM3E→HBM4 transition keeps flagship-allocated bits tight through 2026.",
+      "snippet_zh": "HBM3E→HBM4 轉換使旗艦配額 bit 於 2026 全年維持偏緊。"
+    },
+    {
+      "id": "ev_grid_queue",
+      "date": "2026-04-30",
+      "tier": "T3",
+      "link": "power",
+      "source_en": "Grid interconnection-queue reports (seed placeholder)",
+      "source_zh": "電網併網排隊報告（種子）",
+      "snippet_en": "Net-new energized DC power grows ~2.9 GW/qtr; queue slippage is the swing risk into 2027.",
+      "snippet_zh": "新併網 DC 電力約 +2.9 GW/季；排隊延宕是進入 2027 的擺盪風險。"
+    }
+  ],
+  "quarters": [
+    "2024Q1",
+    "2024Q2",
+    "2024Q3",
+    "2024Q4",
+    "2025Q1",
+    "2025Q2",
+    "2025Q3",
+    "2025Q4",
+    "2026Q1",
+    "2026Q2",
+    "2026Q3",
+    "2026Q4",
+    "2027Q1",
+    "2027Q2",
+    "2027Q3",
+    "2027Q4"
+  ]
+}
