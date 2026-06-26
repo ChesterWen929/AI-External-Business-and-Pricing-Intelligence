@@ -85,6 +85,8 @@
   .badge.t3{color:var(--off);border-color:rgba(224,98,110,.4)}
   .badge.est{color:var(--warn);border-color:rgba(224,161,74,.4)}
   .badge.live{color:var(--acc);border-color:rgba(124,131,255,.4)}
+  .badge.eq{color:var(--dim);border-color:rgba(124,131,255,.25);font-style:italic}
+  .badge.calib{color:var(--warn);border-color:rgba(224,161,74,.45)}
   .src{font-size:10.5px;color:var(--dim);margin-top:3px}
   .src a:hover{color:var(--gold)}
 
@@ -245,7 +247,10 @@ const T = {
       fals:"L5 · Falsification — what flips the verdict", watch:"L5 · Watch-list",
       news:"News radar (fetched on refresh)", blind:"Blind spots", trigger:"Trigger",
       disc:"⚠ Real per-customer wafer prices are confidential. Leading-edge & memory rows are tier-graded ESTIMATES; equity rows are directional market PROXIES, not literal transaction prices. This is external price intelligence, not TSMC's price book.",
-      live:"live", est:"est"},
+      live:"live", est:"est", calib:"calibrate", eq:"equity",
+      partialNote:s=>`⚠ Partial refresh — ${s} did not update and is showing its seed; treat the cost layer as stale until refetched.`,
+      sentNote:"Equity proxies are sentiment-damped (×0.25, capped ±4%) before they touch the score. The raw stock move is shown as a separate market-sentiment reference and is NOT in the bargaining momentum/score.",
+      sentLbl:"mkt sentiment (raw equity, not in score)"},
   zh:{home:"外部市場分析", lang:"EN", refresh:"↻ 更新",
       pwPrompt:"輸入更新密碼(預設 pricing2026):", refreshing:"更新中…即時代理 + Claude L4/L5",
       done:"完成,重新載入中…", fail:"更新失敗",
@@ -265,7 +270,10 @@ const T = {
       fals:"L5 · 證偽 — 什麼會翻轉結論", watch:"L5 · 觀察清單",
       news:"新聞雷達(更新時抓取)", blind:"盲點", trigger:"觸發",
       disc:"⚠ 真實逐客戶晶圓報價屬機密。先進製程與記憶體列為分級「估計值」;股價列為方向性的市場「代理」,非字面成交價。本平台為對外價格情報,非台積電價目表。",
-      live:"即時", est:"估"}
+      live:"即時", est:"估", calib:"待校準", eq:"股價",
+      partialNote:s=>`⚠ 部分更新 — ${s} 未更新,仍顯示種子值;在重新抓取前,成本層視為過期。`,
+      sentNote:"股價代理在進入分數前已做情緒衰減(×0.25,上限 ±4%)。原始股價變動另列為市場情緒參考,不計入議價動能/分數。",
+      sentLbl:"市場情緒(原始股價,不計入分數)"}
 };
 
 function L(o,base){ return (o && (o[base+"_"+LANG] ?? o[base+"_en"])) || ""; }
@@ -290,7 +298,10 @@ function render(){
   document.getElementById("engine").textContent = s.analysis_engine==="claude"? t.engineClaude : t.engineRules;
   document.getElementById("method").textContent = LANG==="zh"? s.method_zh : s.method_en;
   const demo=document.getElementById("demo");
-  if(s.is_demo){ demo.style.display="block"; demo.textContent=t.demo; } else { demo.style.display="none"; }
+  if(s.is_demo){ demo.style.display="block"; demo.textContent=t.demo; }
+  else if(s.source==="partial" && (s.stale_fetch_ids||[]).length){
+    demo.style.display="block"; demo.textContent=t.partialNote(s.stale_fetch_ids.join(", "));
+  } else { demo.style.display="none"; }
 
   const l3=s.l3, pp=s.pricing_power, tr=l3.transmission, mg=l3.margin;
 
@@ -327,10 +338,12 @@ function render(){
   const layers=l3.layers, stackEl=document.getElementById("stack");
   let html="";
   layers.forEach((ly,i)=>{
+    const sent=(ly.market_sentiment!==null&&ly.market_sentiment!==undefined)
+      ? `<div class="lbrole" style="opacity:.8" title="${t.sentNote}">${t.sentLbl}: ${fmtPct(ly.market_sentiment)}</div>` : "";
     html+=`<div class="layerbar">
       <div class="lbhead">
         <div><div class="lbname">${LANG==="zh"?ly.name_zh:ly.name_en} <span class="dot ${ly.signal}"></span></div>
-        <div class="lbrole">${LANG==="zh"?ly.role_zh:ly.role_en}</div></div>
+        <div class="lbrole">${LANG==="zh"?ly.role_zh:ly.role_en}</div>${sent}</div>
         <div class="lbmom chg ${chgClass(ly.momentum)}">${fmtPct(ly.momentum)}</div>
       </div></div>`;
     if(i===0) html+=`<div class="passthru"><span class="ar">↓</span> <span>${t.tr_uf}</span> <span class="pt">${fmtPT(tr.up_to_fab)}</span></div>`;
@@ -365,14 +378,21 @@ function render(){
       const tier=(it.tier||"").toLowerCase();
       const badges=`<span class="badge ${tier}">${it.tier}</span>`
         + (it.is_estimate?`<span class="badge est">${t.est}</span>`:"")
-        + (it.live?`<span class="badge live">${t.live}</span>`:"");
+        + (it.momentum_kind==="equity"?`<span class="badge eq" title="${t.sentNote}">${t.eq}</span>`:"")
+        + (it.needs_calibration?`<span class="badge calib">⚑ ${t.calib}</span>`:"")
+        + (it.live?`<span class="badge live">${t.live}${it.freq?(" · "+it.freq):""}</span>`:"");
+      const fn=LANG==="zh"?it.freshness_note_zh:it.freshness_note_en;
       const src=it.source_url
         ? `<div class="src"><a href="${it.source_url}" target="_blank" rel="noopener">${LANG==="zh"?it.source_zh:it.source_en} ↗</a></div>`
         : `<div class="src">${LANG==="zh"?it.source_zh:it.source_en}</div>`;
+      const fnEl=fn?`<div class="src" style="color:var(--gold)">${fn}</div>`:"";
+      // equity rows: show the raw move + the damped value that actually hit the score
+      const dampNote=(it.momentum_kind==="equity"&&it.score_chg_1m!==undefined&&it.score_chg_1m!==null&&it.score_chg_1m!==it.chg_1m)
+        ? `<span class="src2" title="${t.sentNote}"> → ${fmtPct(it.score_chg_1m)} in score</span>` : "";
       return `<tr>
-        <td class="nm">${LANG==="zh"?it.name_zh:it.name_en}${badges}${src}</td>
+        <td class="nm">${LANG==="zh"?it.name_zh:it.name_en}${badges}${src}${fnEl}</td>
         <td class="val">${fmtVal(it.value,it.unit)}</td>
-        <td class="chg ${chgClass(it.chg_1m)}">${fmtPct(it.chg_1m)}<span class="dot ${it.signal}"></span></td>
+        <td class="chg ${chgClass(it.chg_1m)}">${fmtPct(it.chg_1m)}${dampNote}<span class="dot ${it.signal}"></span></td>
       </tr>`;
     }).join("");
     return `<div class="layerblock">

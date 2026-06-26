@@ -112,12 +112,17 @@ def fetch_stocks(tickers, log=None):
             price = info.get("currentPrice") or fast.get("last_price")
             prev = info.get("previousClose") or fast.get("previous_close")
             mcap = info.get("marketCap") or fast.get("market_cap")
+            # Currency varies by listing (USD / TWD / KRW / JPY / EUR ...). We do
+            # NOT FX-convert; keep the native value and tag it so a TWD market cap
+            # is never read as USD. market_cap_bn is in `currency`, not USD.
+            cur = info.get("currency") or fast.get("currency")
             chg = None
             if price and prev:
                 chg = round((price / prev - 1) * 100, 2)
             return {
                 "price": round(float(price), 2) if price else None,
                 "change_pct": chg,
+                "currency": cur,
                 "market_cap_bn": round(float(mcap) / 1e9, 1) if mcap else None,
             }
         row = _safe(_one)

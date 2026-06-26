@@ -1,23 +1,31 @@
 {
-  "generated_at": "2026-06-22 06:42 UTC",
-  "as_of": "2026-06-21",
-  "source": "live",
+  "generated_at": "2026-06-25 08:16 UTC",
+  "as_of": "2026-06-25",
+  "source": "partial",
+  "stale_fetch_ids": [
+    "ppi_semi"
+  ],
   "is_demo": false,
   "title_en": "Pricing Power Radar",
   "title_zh": "議價能力雷達",
   "method_en": "A three-layer price stack read for a foundry CEO: (L1) upstream supplier input cost → (L2) foundry wafer/packaging ASP → (L3) downstream customer end-product ASP. Real transaction prices are mostly confidential, so each tracked price is either a LIVE market proxy (stock/PPI/commodity via yfinance + keyless FRED — clearly labelled) or a CURATED price estimate with a tier (T1 filings · T2 analyst/channel · T3 news/rumor) and an is-estimate flag. The engine computes each layer's momentum, the cost→ASP→end-market pass-through, a 0–100 pricing-power score and a CEO verdict; Claude (Opus 4.8, rules fallback) writes the read, scenarios and divergence alerts. Seed values render the board offline.",
   "method_zh": "給代工 CEO 的三層價格堆疊判讀:(L1)上游供應商投入成本 →(L2)代工 wafer／封裝 ASP →(L3)下游客戶終端 ASP。真實成交價多屬機密,故每筆價格非即時市場代理(股票/PPI/原物料,經 yfinance + 免 key FRED,明確標示),即為策展估計值並附證據等級(T1 財報官方 · T2 分析師/通路 · T3 新聞/傳聞)與「估計值」旗標。引擎計算各層動能、成本→ASP→終端的轉嫁率、0–100 議價能力分數與 CEO 結論;Claude(Opus 4.8,無 key 走規則)撰寫判讀、情境與背離警報。種子值讓看板可離線渲染。",
   "pricing_power": {
-    "score": 21.2,
-    "verdict_key": "squeezed",
-    "verdict_en": "SQUEEZED — margin under pressure",
-    "verdict_zh": "SQUEEZED — 毛利受壓"
+    "score": 67.0,
+    "verdict_key": "defensible",
+    "verdict_en": "DEFENSIBLE — pricing power intact",
+    "verdict_zh": "DEFENSIBLE — 定價權穩固"
   },
   "l3": {
     "stack": {
-      "upstream": 14.62,
-      "foundry": 6.77,
-      "downstream": 6.1
+      "upstream": 2.0,
+      "foundry": 3.54,
+      "downstream": 2.57
+    },
+    "market_sentiment": {
+      "upstream": 41.14,
+      "foundry": 17.98,
+      "downstream": 9.28
     },
     "layers": [
       {
@@ -27,7 +35,8 @@
         "name_zh": "上游供應商成本",
         "role_en": "What it costs TSMC to make a wafer — silicon, substrates, chemicals, tools. Rising = cost pressure.",
         "role_zh": "台積電製造一片晶圓的投入 — 矽晶圓、載板、特化、設備。上升 = 成本壓力。",
-        "momentum": 14.62,
+        "momentum": 2.0,
+        "market_sentiment": 41.14,
         "signal": "off",
         "items": [
           {
@@ -40,16 +49,22 @@
             "unit": "$",
             "metric": "proxy",
             "direction": "cost",
+            "momentum_kind": "equity",
+            "score_chg_1m": 4.0,
+            "freq": null,
+            "freshness_note_en": null,
+            "freshness_note_zh": null,
             "tier": "T1",
             "is_estimate": false,
+            "needs_calibration": false,
             "weight": 1.2,
             "live": true,
             "signal": "off",
             "source_en": "Equity proxy — yfinance",
             "source_zh": "股價代理 — yfinance",
             "source_url": "https://finance.yahoo.com/quote/ASML",
-            "note_en": "Lithography tool pricing power feeds straight into per-wafer depreciation cost.",
-            "note_zh": "微影設備的定價權直接灌入每片晶圓的折舊成本。"
+            "note_en": "Lithography tool pricing power feeds straight into per-wafer depreciation cost. Equity proxy — sentiment-damped in the cost momentum.",
+            "note_zh": "微影設備的定價權直接灌入每片晶圓的折舊成本。股價代理 — 在成本動能中已做情緒衰減。"
           },
           {
             "id": "amat_proxy",
@@ -61,16 +76,22 @@
             "unit": "$",
             "metric": "proxy",
             "direction": "cost",
+            "momentum_kind": "equity",
+            "score_chg_1m": 4.0,
+            "freq": null,
+            "freshness_note_en": null,
+            "freshness_note_zh": null,
             "tier": "T1",
             "is_estimate": false,
+            "needs_calibration": false,
             "weight": 1.0,
             "live": true,
             "signal": "off",
             "source_en": "Equity proxy — yfinance",
             "source_zh": "股價代理 — yfinance",
             "source_url": "https://finance.yahoo.com/quote/AMAT",
-            "note_en": "Deposition/etch tool demand & pricing — a read on equipment cost inflation.",
-            "note_zh": "沉積/蝕刻設備需求與報價 — 設備成本通膨的判讀。"
+            "note_en": "Deposition/etch tool demand & pricing — a read on equipment cost inflation. Equity proxy — sentiment-damped in the cost momentum.",
+            "note_zh": "沉積/蝕刻設備需求與報價 — 設備成本通膨的判讀。股價代理 — 在成本動能中已做情緒衰減。"
           },
           {
             "id": "copper_proxy",
@@ -82,8 +103,14 @@
             "unit": "$/lb",
             "metric": "proxy",
             "direction": "cost",
+            "momentum_kind": "index",
+            "score_chg_1m": 0.95,
+            "freq": null,
+            "freshness_note_en": null,
+            "freshness_note_zh": null,
             "tier": "T1",
             "is_estimate": false,
+            "needs_calibration": false,
             "weight": 0.6,
             "live": true,
             "signal": "off",
@@ -103,8 +130,14 @@
             "unit": "idx",
             "metric": "proxy",
             "direction": "cost",
+            "momentum_kind": "index",
+            "score_chg_1m": 0.4,
+            "freq": null,
+            "freshness_note_en": null,
+            "freshness_note_zh": null,
             "tier": "T1",
             "is_estimate": false,
+            "needs_calibration": false,
             "weight": 1.0,
             "live": false,
             "signal": "off",
@@ -118,22 +151,28 @@
             "id": "silicon_wafer",
             "name_en": "300mm silicon wafer contract",
             "name_zh": "300mm 矽晶圓合約價",
-            "value": 100.0,
-            "chg_1w": 0.2,
-            "chg_1m": 1.0,
+            "value": 101.8,
+            "chg_1w": 0.3,
+            "chg_1m": 1.8,
             "unit": "idx",
             "metric": "price",
             "direction": "cost",
+            "momentum_kind": "index",
+            "score_chg_1m": 1.8,
+            "freq": null,
+            "freshness_note_en": null,
+            "freshness_note_zh": null,
             "tier": "T2",
             "is_estimate": true,
+            "needs_calibration": true,
             "weight": 1.2,
             "live": false,
             "signal": "off",
             "source_en": "SUMCO / Shin-Etsu disclosures + TrendForce (est.)",
             "source_zh": "SUMCO / 信越揭露 + TrendForce(估計)",
             "source_url": "https://www.trendforce.com/",
-            "note_en": "Blank-wafer contract pricing; indexed (100 = baseline). Confidential — estimate.",
-            "note_zh": "空白晶圓合約價;指數化(100=基準)。屬機密 — 估計值。"
+            "note_en": "Blank-wafer contract pricing; indexed (100 = baseline). News flags a 2026 turning point in wafer price increases — seed nudged to +1.8%/m. ⚑ needs human calibration. Confidential — estimate.",
+            "note_zh": "空白晶圓合約價;指數化(100=基準)。新聞指 2026 為晶圓漲價轉折 — 種子上調至 +1.8%/月。⚑ 需人工校準。屬機密 — 估計值。"
           },
           {
             "id": "abf_substrate",
@@ -145,8 +184,14 @@
             "unit": "idx",
             "metric": "price",
             "direction": "cost",
+            "momentum_kind": "index",
+            "score_chg_1m": 0.5,
+            "freq": null,
+            "freshness_note_en": null,
+            "freshness_note_zh": null,
             "tier": "T2",
             "is_estimate": true,
+            "needs_calibration": false,
             "weight": 0.8,
             "live": false,
             "signal": "off",
@@ -166,8 +211,14 @@
             "unit": "idx",
             "metric": "price",
             "direction": "cost",
+            "momentum_kind": "index",
+            "score_chg_1m": 0.8,
+            "freq": null,
+            "freshness_note_en": null,
+            "freshness_note_zh": null,
             "tier": "T3",
             "is_estimate": true,
+            "needs_calibration": false,
             "weight": 0.6,
             "live": false,
             "signal": "off",
@@ -186,7 +237,8 @@
         "name_zh": "代工 wafer / 封裝 ASP",
         "role_en": "What TSMC (and rivals) charge per wafer & for advanced packaging. Rising = revenue / pricing power.",
         "role_zh": "台積電(與對手)每片 wafer 與先進封裝的報價。上升 = 營收 / 定價權。",
-        "momentum": 6.77,
+        "momentum": 3.54,
+        "market_sentiment": 17.98,
         "signal": "on",
         "items": [
           {
@@ -199,37 +251,49 @@
             "unit": "$",
             "metric": "proxy",
             "direction": "revenue",
+            "momentum_kind": "equity",
+            "score_chg_1m": 4.0,
+            "freq": null,
+            "freshness_note_en": null,
+            "freshness_note_zh": null,
             "tier": "T1",
             "is_estimate": false,
+            "needs_calibration": false,
             "weight": 1.5,
             "live": true,
             "signal": "on",
             "source_en": "Equity proxy — yfinance",
             "source_zh": "股價代理 — yfinance",
             "source_url": "https://finance.yahoo.com/quote/TSM",
-            "note_en": "Market's read on TSMC blended ASP, mix and pricing power.",
-            "note_zh": "市場對台積電綜合 ASP、產品組合與定價權的判讀。"
+            "note_en": "Market's read on TSMC blended ASP, mix and pricing power. Equity proxy — sentiment-damped in the ASP momentum.",
+            "note_zh": "市場對台積電綜合 ASP、產品組合與定價權的判讀。股價代理 — 在 ASP 動能中已做情緒衰減。"
           },
           {
             "id": "n3_asp",
             "name_en": "N3 wafer price (per wafer)",
             "name_zh": "N3 wafer 報價(每片)",
-            "value": 18500.0,
+            "value": 18900.0,
             "chg_1w": 0.0,
-            "chg_1m": 3.0,
+            "chg_1m": 4.5,
             "unit": "$/wfr",
             "metric": "price",
             "direction": "revenue",
+            "momentum_kind": "index",
+            "score_chg_1m": 4.5,
+            "freq": null,
+            "freshness_note_en": null,
+            "freshness_note_zh": null,
             "tier": "T2",
             "is_estimate": true,
+            "needs_calibration": true,
             "weight": 1.5,
             "live": false,
             "signal": "on",
             "source_en": "Analyst/channel estimates + 2026 hike reports (T2)",
             "source_zh": "分析師/通路估計 + 2026 漲價報導(T2)",
             "source_url": "https://news.google.com/search?q=TSMC%20N3%20wafer%20price%20increase%202026",
-            "note_en": "Reported ~3% leading-edge price hike into 2026. Exact price confidential.",
-            "note_zh": "報導 2026 先進製程約 +3% 漲價。實際報價屬機密。"
+            "note_en": "Reports point to up to +15% N3 hike across 2H26 (≈+2–4%/m phased); seed nudged to +4.5%/m to track the news. ⚑ needs human calibration vs actual contract resets. Exact price confidential.",
+            "note_zh": "報導指向 2H26 N3 累計漲幅 up to +15%(分階段約 +2–4%/月);種子上調至 +4.5%/月以追蹤新聞。⚑ 需人工依實際合約重訂校準。實際報價屬機密。"
           },
           {
             "id": "n5_asp",
@@ -241,8 +305,14 @@
             "unit": "$/wfr",
             "metric": "price",
             "direction": "revenue",
+            "momentum_kind": "index",
+            "score_chg_1m": 1.5,
+            "freq": null,
+            "freshness_note_en": null,
+            "freshness_note_zh": null,
             "tier": "T2",
             "is_estimate": true,
+            "needs_calibration": false,
             "weight": 1.0,
             "live": false,
             "signal": "on",
@@ -256,22 +326,28 @@
             "id": "cowos_asp",
             "name_en": "CoWoS advanced packaging price",
             "name_zh": "CoWoS 先進封裝報價",
-            "value": 100.0,
+            "value": 105.0,
             "chg_1w": 0.5,
             "chg_1m": 5.0,
             "unit": "idx",
             "metric": "price",
             "direction": "revenue",
+            "momentum_kind": "index",
+            "score_chg_1m": 5.0,
+            "freq": null,
+            "freshness_note_en": null,
+            "freshness_note_zh": null,
             "tier": "T2",
             "is_estimate": true,
+            "needs_calibration": true,
             "weight": 1.2,
             "live": false,
             "signal": "on",
             "source_en": "Channel/analyst — capacity-tight repricing (T2)",
             "source_zh": "通路/分析師 — 產能緊缺重訂價(T2)",
             "source_url": "https://news.google.com/search?q=CoWoS%20price%20capacity%202026",
-            "note_en": "Tightest bottleneck in the AI chain → strongest foundry pricing power.",
-            "note_zh": "AI 供應鏈最緊的瓶頸 → 代工定價權最強之處。"
+            "note_en": "Tightest bottleneck in the AI chain → strongest foundry pricing power. News: CoWoS ASP nearing 7nm, key profit driver. ⚑ needs human calibration.",
+            "note_zh": "AI 供應鏈最緊的瓶頸 → 代工定價權最強之處。新聞:CoWoS ASP 逼近 7nm、關鍵獲利引擎。⚑ 需人工校準。"
           },
           {
             "id": "umc_28",
@@ -283,8 +359,14 @@
             "unit": "$/wfr",
             "metric": "price",
             "direction": "revenue",
+            "momentum_kind": "index",
+            "score_chg_1m": 0.5,
+            "freq": null,
+            "freshness_note_en": null,
+            "freshness_note_zh": null,
             "tier": "T2",
             "is_estimate": true,
+            "needs_calibration": false,
             "weight": 0.6,
             "live": false,
             "signal": "on",
@@ -304,8 +386,14 @@
             "unit": "$/wfr",
             "metric": "price",
             "direction": "revenue",
+            "momentum_kind": "index",
+            "score_chg_1m": -2.0,
+            "freq": null,
+            "freshness_note_en": null,
+            "freshness_note_zh": null,
             "tier": "T3",
             "is_estimate": true,
+            "needs_calibration": false,
             "weight": 0.0,
             "live": false,
             "signal": "off",
@@ -325,8 +413,14 @@
             "unit": "$/wfr",
             "metric": "price",
             "direction": "revenue",
+            "momentum_kind": "index",
+            "score_chg_1m": 0.0,
+            "freq": null,
+            "freshness_note_en": null,
+            "freshness_note_zh": null,
             "tier": "T3",
             "is_estimate": true,
+            "needs_calibration": false,
             "weight": 0.0,
             "live": false,
             "signal": "neutral",
@@ -345,7 +439,8 @@
         "name_zh": "下游客戶終端 ASP",
         "role_en": "What TSMC's customers charge for the finished chips/products. Rising = end-market strength & room to raise.",
         "role_zh": "台積電客戶的成品晶片/產品售價。上升 = 終端強勁、有漲價空間。",
-        "momentum": 6.1,
+        "momentum": 2.57,
+        "market_sentiment": 9.28,
         "signal": "on",
         "items": [
           {
@@ -358,16 +453,22 @@
             "unit": "$",
             "metric": "proxy",
             "direction": "demand",
+            "momentum_kind": "equity",
+            "score_chg_1m": -1.1,
+            "freq": null,
+            "freshness_note_en": null,
+            "freshness_note_zh": null,
             "tier": "T1",
             "is_estimate": false,
+            "needs_calibration": false,
             "weight": 1.5,
             "live": true,
             "signal": "off",
             "source_en": "Equity proxy — yfinance",
             "source_zh": "股價代理 — yfinance",
             "source_url": "https://finance.yahoo.com/quote/NVDA",
-            "note_en": "TSMC's #1 leading-edge customer; their ASP power = TSMC's room to raise.",
-            "note_zh": "台積電最大先進製程客戶;其 ASP 議價力 = 台積電的漲價空間。"
+            "note_en": "TSMC's #1 leading-edge customer; their ASP power = TSMC's room to raise. Equity proxy — sentiment-damped in the demand momentum.",
+            "note_zh": "台積電最大先進製程客戶;其 ASP 議價力 = 台積電的漲價空間。股價代理 — 在需求動能中已做情緒衰減。"
           },
           {
             "id": "amd_proxy",
@@ -379,16 +480,22 @@
             "unit": "$",
             "metric": "proxy",
             "direction": "demand",
+            "momentum_kind": "equity",
+            "score_chg_1m": 4.0,
+            "freq": null,
+            "freshness_note_en": null,
+            "freshness_note_zh": null,
             "tier": "T1",
             "is_estimate": false,
+            "needs_calibration": false,
             "weight": 1.0,
             "live": true,
             "signal": "on",
             "source_en": "Equity proxy — yfinance",
             "source_zh": "股價代理 — yfinance",
             "source_url": "https://finance.yahoo.com/quote/AMD",
-            "note_en": "Second AI-accelerator buyer; widens TSMC's customer pricing base.",
-            "note_zh": "第二大 AI 加速器買方;擴大台積電客戶議價基礎。"
+            "note_en": "Second AI-accelerator buyer; widens TSMC's customer pricing base. Equity proxy — sentiment-damped in the demand momentum.",
+            "note_zh": "第二大 AI 加速器買方;擴大台積電客戶議價基礎。股價代理 — 在需求動能中已做情緒衰減。"
           },
           {
             "id": "hbm_price",
@@ -400,8 +507,14 @@
             "unit": "idx",
             "metric": "price",
             "direction": "demand",
+            "momentum_kind": "index",
+            "score_chg_1m": 6.0,
+            "freq": null,
+            "freshness_note_en": null,
+            "freshness_note_zh": null,
             "tier": "T2",
             "is_estimate": true,
+            "needs_calibration": false,
             "weight": 1.2,
             "live": false,
             "signal": "on",
@@ -421,8 +534,14 @@
             "unit": "idx",
             "metric": "price",
             "direction": "demand",
+            "momentum_kind": "index",
+            "score_chg_1m": 3.0,
+            "freq": null,
+            "freshness_note_en": null,
+            "freshness_note_zh": null,
             "tier": "T2",
             "is_estimate": true,
+            "needs_calibration": false,
             "weight": 0.8,
             "live": false,
             "signal": "on",
@@ -442,8 +561,14 @@
             "unit": "idx",
             "metric": "price",
             "direction": "demand",
+            "momentum_kind": "index",
+            "score_chg_1m": 2.0,
+            "freq": null,
+            "freshness_note_en": null,
+            "freshness_note_zh": null,
             "tier": "T2",
             "is_estimate": true,
+            "needs_calibration": false,
             "weight": 0.6,
             "live": false,
             "signal": "on",
@@ -463,8 +588,14 @@
             "unit": "idx",
             "metric": "price",
             "direction": "demand",
+            "momentum_kind": "index",
+            "score_chg_1m": 2.5,
+            "freq": null,
+            "freshness_note_en": null,
+            "freshness_note_zh": null,
             "tier": "T3",
             "is_estimate": true,
+            "needs_calibration": false,
             "weight": 0.8,
             "live": false,
             "signal": "on",
@@ -478,172 +609,167 @@
       }
     ],
     "pricing_power": {
-      "score": 21.2,
-      "verdict_key": "squeezed",
-      "verdict_en": "SQUEEZED — margin under pressure",
-      "verdict_zh": "SQUEEZED — 毛利受壓"
+      "score": 67.0,
+      "verdict_key": "defensible",
+      "verdict_en": "DEFENSIBLE — pricing power intact",
+      "verdict_zh": "DEFENSIBLE — 定價權穩固"
     },
     "transmission": {
-      "up_to_fab": 46,
-      "fab_to_down": 90
+      "up_to_fab": 177,
+      "fab_to_down": 73
     },
     "margin": {
-      "fab_delta": -7.85,
-      "chain_delta": -0.67
+      "fab_delta": 1.54,
+      "chain_delta": -0.97
     },
     "alerts": [
       {
-        "level": "squeeze",
-        "en": "Cost squeeze: upstream cost +14.62%/m but foundry ASP only +6.77%/m — margin compressing.",
-        "zh": "成本擠壓:上游成本月漲 +14.62% 但代工 ASP 僅 +6.77% — 毛利正被壓縮。"
-      },
-      {
         "level": "watch",
-        "en": "HBM watch: HBM3E +6.0%/m far outpaces N3 ASP +3.0%/m — memory cost eats customer budgets; watch the spillover onto leading-edge negotiations.",
-        "zh": "HBM 警戒:HBM3E +6.0%/月 遠快於 N3 ASP +3.0%/月 — 記憶體成本侵蝕客戶預算;留意對先進製程議價的外溢。"
+        "en": "No sharp divergence across the stack this read — cost, foundry ASP and demand are moving roughly together.",
+        "zh": "本次判讀價格堆疊無明顯背離 — 成本、代工 ASP 與需求大致同步。"
       }
     ]
   },
   "l4": {
     "pricing_power_read": {
-      "en": "Verdict: SQUEEZED, score 21.2/100. We cannot push a broad hike right now. Upstream cost is running +14.62%/m while our ASP is only +6.77%/m — a foundry−cost margin delta of -7.85. Tool-vendor proxies (AMAT +51.9%, ASML +32.2%) are driving equipment cost faster than we recover it. Leading-edge (N3 +3.0%) ASP is rising but nowhere near cost inflation. Selective premium hikes on CoWoS and N3 are defensible; a blanket increase is not. Hold the line on advanced packaging, protect mature-node share.",
-      "zh": "結論：受擠壓，評分21.2/100。當前無法全面漲價。上游成本月增14.62%，我方ASP僅增6.77%，晶圓−成本利差-7.85。設備代理（AMAT +51.9%、ASML +32.2%）推升成本遠快於回收。先進製程N3僅+3.0%，遠追不上成本通膨。CoWoS與N3的選擇性溢價可守，全面調漲不可行。守住先進封裝定價，保護成熟製程市佔。"
+      "en": "Score 67.0/100 — DEFENSIBLE. Foundry ASP (+3.54%/m) is running ahead of input cost (+2.0%/m), a margin delta of 1.54. With downstream demand at +2.57%/m, there is room to push leading-edge & CoWoS pricing. You can raise — lead with the capacity-constrained nodes.",
+      "zh": "分數 67.0/100 — DEFENSIBLE。代工 ASP(+3.54%/月)領先投入成本(+2.0%/月),毛利差 1.54。下游需求 +2.57%/月,先進製程與 CoWoS 有漲價空間。可以漲 — 從產能受限節點先漲。"
     },
     "transmission_read": {
-      "en": "Upstream→foundry pass-through is 46% — we are absorbing more than half of cost inflation, the core of the squeeze. Foundry→downstream is 90%: customers' end-ASP (+6.1%) is rising slightly slower than ours (+6.77%), so we are marginally ahead of the end market (delta -0.67) — limited headroom to push further. Net: cost is eating us from below while the customer floor offers little relief.",
-      "zh": "上游→晶圓傳導僅46%，我方吸收逾半成本通膨，這是擠壓核心。晶圓→下游為90%：客戶終端ASP（+6.1%）略慢於我方（+6.77%），代表我們稍微領先終端市場（利差-0.67），向上加價空間有限。整體而言，成本由下侵蝕，而客戶端缺乏緩衝餘地。"
+      "en": "Upstream→foundry pass-through 177% (>100% — expanding margin, more than passing cost through). Foundry→downstream 73% (<100% — you are ahead of the end market).",
+      "zh": "上游→代工轉嫁 177% (>100% — 擴張毛利,漲幅超過成本轉嫁)。代工→下游 73% (<100% — 你領先終端市場)。"
     },
     "layers": {
       "upstream": {
-        "en": "Equipment-cost proxies surging (AMAT +51.9%, ASML +32.2%) while raw materials stay tame (copper +0.95%, silicon +1.0%) — capex-driven cost spike, not commodity-driven.",
-        "zh": "設備成本代理飆升（AMAT +51.9%、ASML +32.2%），原物料溫和（銅+0.95%、矽晶圓+1.0%）——成本衝擊源於資本支出，非大宗商品。"
+        "en": "Supplier cost +2.0%/m — equipment/silicon/substrate inflation feeds per-wafer cost.",
+        "zh": "供應商成本 +2.0%/月 — 設備/矽晶圓/載板通膨灌入每片成本。"
       },
       "foundry": {
-        "en": "Our ASP +6.77% is led by CoWoS (+5.0%) and N3 (+3.0%) but fails to track cost — margin compressing now, defend selectively.",
-        "zh": "我方ASP +6.77%由CoWoS（+5.0%）與N3（+3.0%）帶動，但追不上成本——當前利潤壓縮，須選擇性防守。"
+        "en": "Foundry ASP +3.54%/m — led by capacity-tight CoWoS & N3 leading-edge.",
+        "zh": "代工 ASP +3.54%/月 — 由產能緊缺的 CoWoS 與 N3 先進製程帶動。"
       },
       "downstream": {
-        "en": "Split signal: AMD demand proxy +29.78% but NVIDIA -4.39%; HBM3E +6.0% is diverting customer budgets toward memory and away from logic ASP.",
-        "zh": "訊號分歧：AMD需求代理+29.78%、NVIDIA -4.39%；HBM3E +6.0%正將客戶預算導向記憶體，排擠邏輯ASP。"
+        "en": "Customer end-ASP +2.57%/m — AI accelerator & HBM demand sets the room to raise.",
+        "zh": "客戶終端 ASP +2.57%/月 — AI 加速器與 HBM 需求決定漲價空間。"
       }
     },
     "leading_signals": [
       {
-        "en": "CoWoS advanced-packaging lead-times and booking slots — tighten before ASP prints.",
-        "zh": "CoWoS先進封裝交期與訂單檔期——在ASP反映前先收緊。"
+        "en": "CoWoS lead-times & booked capacity — the tightest bottleneck reprices first.",
+        "zh": "CoWoS 交期與已訂產能 — 最緊瓶頸最先重訂價。"
       },
       {
-        "en": "HBM3E contract resets (+6.0%/m) — memory cost spillover onto leading-edge logic negotiations.",
-        "zh": "HBM3E合約重訂（+6.0%/月）——記憶體成本外溢至先進邏輯製程談判。"
+        "en": "HBM3E contract resets — a co-input cost that crowds out wafer budget.",
+        "zh": "HBM3E 合約重訂 — 排擠晶圓預算的共同投入成本。"
       },
       {
-        "en": "Hyperscaler / NVIDIA-AMD capex guides — forward wafer demand 1-2 quarters ahead.",
-        "zh": "超大規模業者與NVIDIA/AMD資本支出指引——領先1–2季的晶圓需求。"
+        "en": "Customer (NVDA/AMD) capex & ASP guides — demand-side room to raise.",
+        "zh": "客戶(NVDA/AMD)capex 與 ASP 指引 — 需求端的漲價空間。"
       },
       {
-        "en": "AMAT/ASML equipment pricing and backlog — upstream cost floor leading indicator.",
-        "zh": "AMAT/ASML設備報價與在手訂單——上游成本底部領先指標。"
+        "en": "Silicon-wafer & substrate contract resets — upstream cost lead.",
+        "zh": "矽晶圓與載板合約重訂 — 上游成本先行。"
       },
       {
-        "en": "Samsung/Intel/China mature-node quotes — early signal of 28nm price-war pressure.",
-        "zh": "三星/英特爾/中國成熟製程報價——28nm價格戰壓力早期訊號。"
+        "en": "Samsung/Intel discounting — the cap on your leading-edge hikes.",
+        "zh": "三星/Intel 折讓 — 你先進製程漲幅的天花板。"
       }
     ]
   },
   "l5": {
     "scenarios": [
       {
-        "name_en": "Cost squeeze persists",
-        "name_zh": "成本擠壓延續",
-        "prob": 45,
-        "trigger_en": "Upstream cost stays >+10%/m while foundry ASP <+8%/m; up→fab pass-through stays <60%.",
-        "trigger_zh": "上游成本維持>+10%/月而晶圓ASP<+8%/月；上游→晶圓傳導維持<60%。"
+        "name_en": "Pricing power holds",
+        "name_zh": "定價權延續",
+        "prob": 48,
+        "trigger_en": "N3/CoWoS ASP hikes ≥ upstream cost while NVDA/HBM demand stays strong",
+        "trigger_zh": "N3/CoWoS ASP 漲幅 ≥ 上游成本,且 NVDA/HBM 需求續強"
+      },
+      {
+        "name_en": "Cost squeeze",
+        "name_zh": "成本擠壓",
+        "prob": 14,
+        "trigger_en": "Silicon/equipment/HBM cost +>2%/m but foundry ASP can't follow",
+        "trigger_zh": "矽晶圓/設備/HBM 成本月漲 >2% 但代工 ASP 跟不上"
       },
       {
         "name_en": "Pass-through war",
-        "name_zh": "傳導拉鋸戰",
-        "prob": 25,
-        "trigger_en": "Downstream ASP momentum drops below +4%/m and NVIDIA proxy stays negative two months.",
-        "trigger_zh": "下游ASP動能跌破+4%/月，且NVIDIA代理連兩月為負。"
-      },
-      {
-        "name_en": "Pricing power recovers",
-        "name_zh": "定價力回升",
-        "prob": 20,
-        "trigger_en": "N3/CoWoS ASP reaccelerates to ≥+6%/m with up→fab pass-through climbing back above 80%.",
-        "trigger_zh": "N3/CoWoS ASP重新加速至≥+6%/月，且上游→晶圓傳導回升至80%以上。"
+        "name_zh": "轉嫁戰",
+        "prob": 23,
+        "trigger_en": "Customers resist hikes, downstream ASP slows, up→fab pass-through <100%",
+        "trigger_zh": "客戶抵制漲價、下游 ASP 放緩,上游→代工轉嫁率 <100%"
       },
       {
         "name_en": "Mature-node price war",
         "name_zh": "成熟製程價格戰",
-        "prob": 10,
-        "trigger_en": "28nm/mature ASP turns negative (<0%/m) as Samsung/Intel/China discount.",
-        "trigger_zh": "28nm/成熟製程ASP轉負（<0%/月），因三星/英特爾/中國降價。"
+        "prob": 15,
+        "trigger_en": "Samsung/Intel/China discounting widens, 28nm & mature ASP turns down",
+        "trigger_zh": "三星/Intel/中國折讓擴大,28nm 與成熟製程 ASP 轉跌"
       }
     ],
     "falsification": [
       {
-        "en": "Up→fab pass-through recovers above 100% AND foundry−cost delta turns positive — squeeze verdict flips to NEUTRAL/DEFENSIBLE.",
-        "zh": "上游→晶圓傳導回升至100%以上且晶圓−成本利差轉正——擠壓結論翻為中性/可守。"
+        "en": "TSMC blended ASP guidance cut while CoWoS still tight — pricing power is narrower than the bottleneck implies.",
+        "zh": "台積電綜合 ASP 指引下修但 CoWoS 仍緊 — 定價權比瓶頸所暗示的更窄。"
       },
       {
-        "en": "Equipment-cost proxies (AMAT/ASML) normalize below +5%/m, removing the cost-spike driver.",
-        "zh": "設備成本代理（AMAT/ASML）回落至+5%/月以下，消除成本衝擊主因。"
+        "en": "Upstream cost +>2%/m for 2 months with N3/N5 ASP flat — the verdict must flip to SQUEEZED.",
+        "zh": "上游成本連 2 個月月漲 >2% 而 N3/N5 ASP 持平 — 結論須翻為 SQUEEZED。"
       },
       {
-        "en": "Foundry−downstream delta turns sharply negative — customers raising far faster than us, opening clear hike room.",
-        "zh": "晶圓−下游利差大幅轉負——客戶漲價遠快於我方，開啟明確加價空間。"
+        "en": "A major customer (NVDA/AAPL) publicly pushes back on wafer pricing — room-to-raise thesis breaks.",
+        "zh": "重要客戶(NVDA/AAPL)公開抵制晶圓報價 — 漲價空間論點破裂。"
       }
     ],
     "watch": [
       {
-        "en": "CoWoS lead-times & booking slots",
-        "zh": "CoWoS交期與訂單檔期",
+        "en": "CoWoS capacity & price (tightest bottleneck)",
+        "zh": "CoWoS 產能與價格(最緊瓶頸)",
         "freq": "weekly"
       },
       {
-        "en": "HBM3E / DDR5 contract price resets",
-        "zh": "HBM3E/DDR5合約價重訂",
+        "en": "HBM3E contract price (customer co-input cost)",
+        "zh": "HBM3E 合約價(客戶共同投入成本)",
         "freq": "weekly"
       },
       {
-        "en": "AMAT/ASML equipment pricing & backlog",
-        "zh": "AMAT/ASML設備報價與在手訂單",
+        "en": "N3/N5 leading-edge ASP & hike reports",
+        "zh": "N3/N5 先進製程 ASP 與漲價報導",
+        "freq": "weekly"
+      },
+      {
+        "en": "Silicon-wafer & substrate cost (SUMCO/Unimicron)",
+        "zh": "矽晶圓與載板成本(SUMCO/欣興)",
         "freq": "monthly"
       },
       {
-        "en": "NVIDIA & AMD demand/ASP proxies",
-        "zh": "NVIDIA與AMD需求/ASP代理",
+        "en": "Samsung/Intel mature & leading-node discounting",
+        "zh": "三星/Intel 成熟與先進節點折讓",
         "freq": "weekly"
       },
       {
-        "en": "Up→fab pass-through ratio recompute",
-        "zh": "上游→晶圓傳導率重算",
-        "freq": "monthly"
-      },
-      {
-        "en": "Mature-node (28nm) quotes vs Samsung/Intel/China",
-        "zh": "成熟製程(28nm)報價對比三星/英特爾/中國",
+        "en": "NVDA/AMD demand & end-product ASP",
+        "zh": "NVDA/AMD 需求與終端 ASP",
         "freq": "weekly"
       },
       {
-        "en": "300mm silicon & ABF substrate contract prices",
-        "zh": "300mm矽晶圓與ABF載板合約價",
-        "freq": "monthly"
+        "en": "NTD/USD FX (translates into TSMC ASP)",
+        "zh": "新台幣/美元匯率(換算進台積電 ASP)",
+        "freq": "weekly"
       }
     ]
   },
-  "analysis_engine": "claude",
+  "analysis_engine": "rules",
   "blind_spots_en": [
     "Real per-customer wafer prices are confidential — leading-edge ASP rows are tier-T2/T3 ESTIMATES, not TSMC's price book.",
-    "Equity proxies (TSM/NVDA/ASML) track sentiment & mix, not the literal transaction price; treat as directional.",
+    "Equity proxies (TSM/NVDA/ASML/AMAT/AMD) track sentiment & mix, not the literal transaction price — their 1m move is sentiment-damped (×0.25, capped ±4%) before it can touch the bargaining score, and their raw move is rolled into a separate market-sentiment reference that does NOT enter the score; treat as directional only.",
     "Memory rows blend contract & spot; TrendForce indices lag real deals by days–weeks.",
     "FX (NTD/USD) and product-mix shift move reported ASP independently of list price — not isolated here.",
     "Competitor rows (Samsung/Intel) are reference-only and excluded from the momentum aggregate."
   ],
   "blind_spots_zh": [
     "真實逐客戶晶圓報價屬機密 — 先進製程 ASP 列為 T2/T3 估計值,非台積電價目表。",
-    "股價代理(TSM/NVDA/ASML)反映情緒與組合,非字面成交價;僅供方向參考。",
+    "股價代理(TSM/NVDA/ASML/AMAT/AMD)反映情緒與組合,非字面成交價 — 其月變動先做情緒衰減(×0.25,上限 ±4%)才能影響議價分數,原始變動另彙總成不進分數的市場情緒參考;僅供方向參考。",
     "記憶體列混合合約與現貨;TrendForce 指數落後實際成交數日至數週。",
     "匯率(新台幣/美元)與產品組合變動會獨立於牌價牽動報導 ASP — 此處未隔離。",
     "競爭者列(三星/Intel)僅供參考,未計入動能彙總。"

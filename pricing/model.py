@@ -77,27 +77,59 @@ def _passthrough(num, den):
     return round(num / den * 100)
 
 
+def _damp_equity(chg_1m, damp, cap):
+    """Sentiment-damp an equity proxy's 1m move before it touches the score:
+    scale by `damp`, then hard-cap to ±`cap`. Keeps stock noise out of the
+    bargaining momentum while still letting direction nudge it."""
+    if chg_1m is None:
+        return None
+    return _clamp(chg_1m * damp, -cap, cap)
+
+
 def build_snapshot(kb, live=None, generated_at="", today=""):
     merged = _merge_items(kb, live)
     items_by_id = {it["id"]: it for it in kb.get("items", [])}
 
+    mcfg = kb.get("momentum", {})
+    damp = float(mcfg.get("equity_damp", 0.25))
+    cap = float(mcfg.get("equity_cap", 4.0))
+
     # ── per-item rows + per-layer momentum ──
+    # Two aggregates per layer:
+    #   • bargaining momentum (drives the score): equity proxies are sentiment-
+    #     damped/capped so the verdict tracks real wafer/price-index moves, not
+    #     stock volatility.
+    #   • market_sentiment (reference only, NOT in the score): the raw, undamped
+    #     equity moves, so the stock signal is still visible but never decides.
     rows_by_layer = {ly["id"]: [] for ly in kb.get("layers", [])}
     num = {ly["id"]: 0.0 for ly in kb.get("layers", [])}
     wsum = {ly["id"]: 0.0 for ly in kb.get("layers", [])}
+    sent_num = {ly["id"]: 0.0 for ly in kb.get("layers", [])}
+    sent_wsum = {ly["id"]: 0.0 for ly in kb.get("layers", [])}
 
     for it in kb.get("items", []):
         m = merged.get(it["id"], {})
         chg_1m = m.get("chg_1m")
         w = float(it.get("weight", 0.0))
-        if w > 0 and chg_1m is not None:
-            num[it["layer"]] += w * chg_1m
+        is_equity = it.get("momentum_kind") == "equity"
+        # value that feeds the bargaining score (equity → damped & capped)
+        score_chg = _damp_equity(chg_1m, damp, cap) if is_equity else chg_1m
+        if w > 0 and score_chg is not None:
+            num[it["layer"]] += w * score_chg
             wsum[it["layer"]] += w
+        if w > 0 and is_equity and chg_1m is not None:
+            sent_num[it["layer"]] += w * chg_1m
+            sent_wsum[it["layer"]] += w
         rows_by_layer[it["layer"]].append({
             "id": it["id"], "name_en": it["name_en"], "name_zh": it["name_zh"],
             "value": m.get("value"), "chg_1w": m.get("chg_1w"), "chg_1m": chg_1m,
             "unit": it.get("unit", ""), "metric": it.get("metric"), "direction": it.get("direction"),
+            "momentum_kind": "equity" if is_equity else "index",
+            "score_chg_1m": _sig_round(score_chg) if is_equity else chg_1m,
+            "freq": m.get("freq"),
+            "freshness_note_en": m.get("note_en"), "freshness_note_zh": m.get("note_zh"),
             "tier": it.get("tier"), "is_estimate": bool(it.get("is_estimate")),
+            "needs_calibration": bool(it.get("needs_calibration")),
             "weight": w, "live": m.get("live", False),
             "signal": _item_signal(it.get("direction"), chg_1m),
             "source_en": it.get("source_en", ""), "source_zh": it.get("source_zh", ""),
@@ -106,6 +138,8 @@ def build_snapshot(kb, live=None, generated_at="", today=""):
         })
 
     momentum = {lid: (round(num[lid] / wsum[lid], 2) if wsum[lid] else 0.0) for lid in num}
+    market_sentiment = {lid: (round(sent_num[lid] / sent_wsum[lid], 2) if sent_wsum[lid] else None)
+                        for lid in sent_num}
     u = momentum.get("up", 0.0)
     f = momentum.get("fab", 0.0)
     d = momentum.get("down", 0.0)
@@ -118,6 +152,7 @@ def build_snapshot(kb, live=None, generated_at="", today=""):
             "name_en": ly["name_en"], "name_zh": ly["name_zh"],
             "role_en": ly["role_en"], "role_zh": ly["role_zh"],
             "momentum": momentum.get(lid, 0.0),
+            "market_sentiment": market_sentiment.get(lid),
             "signal": _layer_signal(lid, momentum.get(lid, 0.0)),
             "items": rows_by_layer[lid],
         })
@@ -146,6 +181,9 @@ def build_snapshot(kb, live=None, generated_at="", today=""):
 
     l3 = {
         "stack": {"upstream": u, "foundry": f, "downstream": d},
+        "market_sentiment": {"upstream": market_sentiment.get("up"),
+                             "foundry": market_sentiment.get("fab"),
+                             "downstream": market_sentiment.get("down")},
         "layers": layers,
         "pricing_power": pricing_power,
         "transmission": transmission,
@@ -155,10 +193,26 @@ def build_snapshot(kb, live=None, generated_at="", today=""):
 
     analysis_out = analysis.analyze(kb, l3)
 
+    # ── source freshness — live / partial / seed (per-item `live` flag already set) ──
+    # A refresh that pulled at least one proxy but where some fetchable items fell
+    # back to seed (e.g. FRED PPI fetch failed) is PARTIAL, not "live".
+    fetchable = [it for it in kb.get("items", []) if it.get("fetch")]
+    fetched_ok = [it for it in fetchable if merged.get(it["id"], {}).get("live")]
+    stale_ids = [it["id"] for it in fetchable if not merged.get(it["id"], {}).get("live")]
+    if not live:
+        source = "seed"
+    elif fetched_ok and stale_ids:
+        source = "partial"
+    elif fetched_ok:
+        source = "live"
+    else:
+        source = "seed"
+
     return {
         "generated_at": generated_at,
         "as_of": today or kb.get("as_of_curated", ""),
-        "source": "live" if live else "seed",
+        "source": source,
+        "stale_fetch_ids": stale_ids if live else [],
         "is_demo": live is None,
         "title_en": kb.get("title_en", "Pricing Power Radar"),
         "title_zh": kb.get("title_zh", "議價能力雷達"),

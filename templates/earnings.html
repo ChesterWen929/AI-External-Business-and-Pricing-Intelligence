@@ -61,6 +61,29 @@
   .b.region { color: var(--muted); }
   .empty { color: var(--muted); padding: 40px 0; text-align: center; }
   .time { color: var(--muted); font-size: 12px; }
+  /* H6: supply-chain signal propagation */
+  .sig-wrap { margin: 18px 24px 0; max-width: 1080px; border: 1px solid var(--border);
+              border-radius: 8px; background: var(--panel); }
+  .sig-head { display: flex; align-items: center; gap: 10px; padding: 12px 14px; cursor: pointer; }
+  .sig-head h2 { margin: 0; font-size: 14px; font-weight: 600; }
+  .sig-head .cnt { color: var(--muted); font-size: 12px; }
+  .sig-head .caret { margin-left: auto; color: var(--muted); font-size: 12px; transition: transform .15s; }
+  .sig-wrap.open .caret { transform: rotate(90deg); }
+  .sig-body { display: none; padding: 0 14px 14px; }
+  .sig-wrap.open .sig-body { display: block; }
+  .sig-note { color: var(--muted); font-size: 12px; margin: 0 0 10px; }
+  .sig { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center;
+         padding: 8px 10px; margin-top: 6px; background: var(--panel2);
+         border: 1px solid var(--border); border-left-width: 3px; border-radius: 6px; }
+  .sig.high { border-left-color: var(--t1); }
+  .sig.medium { border-left-color: var(--t2); }
+  .sig .flow { font-weight: 600; }
+  .sig .flow .arrow { color: var(--muted); font-weight: 400; margin: 0 6px; }
+  .sig .why { color: var(--muted); font-size: 12px; }
+  .sig .ix { font-size: 11px; padding: 2px 7px; border-radius: 4px; border: 1px solid var(--border); white-space: nowrap; }
+  .sig .ix.high { color: var(--t1); border-color: var(--t1); }
+  .sig .ix.medium { color: var(--t2); border-color: var(--t2); }
+  .sig .rel { font-size: 11px; color: var(--muted); margin-left: 8px; font-weight: 400; }
 </style>
 </head>
 <body>
@@ -94,6 +117,20 @@
 </div>
 
 <div class="stats" id="stats"></div>
+
+<div class="sig-wrap" id="sigWrap" style="display:none">
+  <div class="sig-head" id="sigHead">
+    <h2>供應鏈訊號傳導 <span style="color:var(--muted);font-weight:400">· Supply-Chain Signal Propagation</span></h2>
+    <span class="cnt" id="sigCount"></span>
+    <span class="caret">▶</span>
+  </div>
+  <div class="sig-body">
+    <p class="sig-note">即將到來的重要法說（T1／high-強度連結）會對其供應鏈相鄰節點（上下游／競爭）發出「關注訊號」。
+       Upcoming high-importance prints radiate watch signals to their graph neighbours.</p>
+    <div id="sigList"></div>
+  </div>
+</div>
+
 <main id="timeline"><div class="empty">載入中…</div></main>
 
 <script>
@@ -118,9 +155,35 @@ function init() {
 
   if (SNAPSHOT.estimated_data) {
     document.getElementById("banner").innerHTML =
-      `<div class="banner">⚠ 目前為 <b>估計/種子日期</b>（伺服器未設定 Finnhub 金鑰時的占位資料）。設定 <code>FINNHUB_API_KEY</code> 後按「更新」即可換成真實法說日期。</div>`;
+      `<div class="banner">⚠ 目前為 <b>估計/種子日期</b>（伺服器未設定 Finnhub 金鑰時的占位資料，含 Finnhub 免費版拒絕的非美上市公司）。設定 <code>FINNHUB_API_KEY</code> 後按「更新」即可換成真實法說日期。</div>`;
   }
+  document.getElementById("sigHead").addEventListener("click", () =>
+    document.getElementById("sigWrap").classList.toggle("open"));
+  renderSignals();
   render();
+}
+
+const SIG_SHOWN = 40;  // cap the list so a dense graph stays readable
+function renderSignals() {
+  const sigs = SNAPSHOT.signals || [];
+  const wrap = document.getElementById("sigWrap");
+  if (!sigs.length) { wrap.style.display = "none"; return; }
+  wrap.style.display = "";
+  const high = sigs.filter(s => s.intensity === "high").length;
+  document.getElementById("sigCount").textContent =
+    `${sigs.length} 條傳導 · ${high} 高強度`;
+  document.getElementById("sigList").innerHTML = sigs.slice(0, SIG_SHOWN).map(s => {
+    const ixLabel = s.intensity === "high" ? "高 HIGH" : "中 MED";
+    const relLabel = s.relation === "competes_with" ? "競爭 competes" : "供應 supplies";
+    return `<div class="sig ${s.intensity}">
+      <span class="ix ${s.intensity}">${ixLabel}</span>
+      <div><span class="flow">${s.source_name}<span class="arrow">→</span>${s.target_name}</span>
+           <span class="rel">${relLabel}</span>
+           <div class="why">${s.reason_zh}</div></div>
+      <span class="time">${(s.source_date_local||"").slice(5,10)}</span>
+    </div>`;
+  }).join("") + (sigs.length > SIG_SHOWN
+    ? `<p class="sig-note" style="margin-top:10px">… 另有 ${sigs.length - SIG_SHOWN} 條（依強度排序，僅顯示前 ${SIG_SHOWN} 條）。</p>` : "");
 }
 
 function onChip(e) {

@@ -11,6 +11,8 @@ Then calls analysis.analyze() for L4/L5 (Claude, or rules fallback).
 """
 from __future__ import annotations
 
+import math
+
 from . import analysis
 
 
@@ -22,6 +24,23 @@ def _sign(x, eps=1e-9):
     if x < -eps:
         return -1.0
     return 0.0
+
+
+# Magnitude scaling: map a change into a signed strength in (−1, 1) via tanh, so a
+# tiny wiggle barely counts and a violent move saturates near ±1. Two scales:
+# `_PCT_K` for %-change indicators (≈5% → 0.76 strength), `_LEVEL_K` for point-
+# change (is_level) indicators where moves live on a smaller numeric scale
+# (e.g. VIX a few pts, yields ~0.1–0.5 pt).
+_PCT_K = 5.0
+_LEVEL_K = 1.5
+
+
+def _strength(chg, is_level=False):
+    """Signed magnitude-aware weight in (−1, 1) for a single change reading."""
+    if chg is None:
+        return 0.0
+    k = _LEVEL_K if is_level else _PCT_K
+    return math.tanh(chg / k)
 
 
 def _merge_metrics(kb, live):
@@ -43,9 +62,14 @@ def _merge_metrics(kb, live):
     return out
 
 
-def _tilt(direction, chg_1m):
-    """Per-indicator contribution to RISK APPETITE in roughly [−1, +1]."""
-    s = _sign(chg_1m)
+def _tilt(direction, chg_1m, is_level=False):
+    """Per-indicator contribution to RISK APPETITE in roughly [−1, +1].
+
+    Magnitude-aware: a small move barely registers, a violent move saturates,
+    so +28% no longer counts the same as +0.01%. Direction maps the signed
+    strength onto risk appetite (risk_off & gold inverted; gold half-weighted).
+    """
+    s = _strength(chg_1m, is_level=is_level)
     if direction == "risk_on":
         return s
     if direction == "risk_off":
@@ -81,6 +105,14 @@ def _dir_of(kb, iid):
     return "risk_on"
 
 
+def _is_level_of(kb, iid):
+    """True for point-change indicators (VIX / yields); derived series are %."""
+    for ind in kb.get("indicators", []):
+        if ind["id"] == iid:
+            return bool(ind.get("is_level"))
+    return False
+
+
 def build_snapshot(kb, live=None, generated_at="", today=""):
     metrics = _merge_metrics(kb, live)
 
@@ -103,8 +135,13 @@ def build_snapshot(kb, live=None, generated_at="", today=""):
     breadth = round((chg("rsp") or 0) - (chg("spx") or 0), 2)
     ai_rel = round((chg("semis") or 0) - (chg("spx") or 0), 2)
 
+    # Sanity band for net liquidity ($B): historically ~$4–8T, so flag anything
+    # outside ~$3–9T as a likely unit/scale bug (e.g. a TGA stuck in millions).
+    # When out of band we mark it so analysis.py can keep it out of the narrative.
+    nl_sane = net_liq_val is not None and 3000.0 <= net_liq_val <= 9000.0
     derived = {
-        "net_liquidity": {"value": net_liq_val, "chg_1m": net_liq_chg_pct, "chg_bn": net_liq_chg_bn},
+        "net_liquidity": {"value": net_liq_val, "chg_1m": net_liq_chg_pct,
+                          "chg_bn": net_liq_chg_bn, "sane": nl_sane},
         "breadth": {"value": breadth},
         "ai_rel": {"value": ai_rel},
     }
@@ -116,12 +153,14 @@ def build_snapshot(kb, live=None, generated_at="", today=""):
         rows, tilts = [], []
         for ind in inds:
             m = metrics.get(ind["id"], {})
-            t = _tilt(ind.get("rising_means"), m.get("chg_1m"))
+            is_level = bool(ind.get("is_level"))
+            t = _tilt(ind.get("rising_means"), m.get("chg_1m"), is_level=is_level)
             tilts.append(t)
             rows.append({
                 "id": ind["id"], "name_en": ind["name_en"], "name_zh": ind["name_zh"],
                 "value": m.get("value"), "chg_1w": m.get("chg_1w"), "chg_1m": m.get("chg_1m"),
                 "unit": ind.get("unit", ""), "live": m.get("live", False),
+                "is_level": is_level,
                 "signal": _signal_label(t),
                 "rising_en": ind.get("rising_en", ""), "rising_zh": ind.get("rising_zh", ""),
             })
@@ -134,14 +173,22 @@ def build_snapshot(kb, live=None, generated_at="", today=""):
             "tilt": round(res_tilt, 2), "indicators": rows,
         })
 
+    # ── one tilt per id, shared by every roll-up so a displayed chg_1m always
+    #    reproduces the score it feeds (reservoir rows, lenses, marginal, R/I) ──
+    def tilt_of(iid):
+        if iid in derived:
+            # derived series carry % changes (net_liquidity.chg_1m) or rel% levels
+            # (breadth/ai_rel value) — never is_level point moves
+            d = derived[iid]
+            v = d.get("chg_1m")
+            if v is None:
+                v = d.get("value")
+            return _tilt(_dir_of(kb, iid), v)
+        return _tilt(_dir_of(kb, iid), chg(iid), is_level=_is_level_of(kb, iid))
+
     # ── lens roll-ups ──
     def lens_score(ids):
-        ts = []
-        for iid in ids:
-            if iid in derived:
-                ts.append(_tilt(_dir_of(kb, iid), derived[iid].get("chg_1m") or derived[iid].get("value")))
-            else:
-                ts.append(_tilt(_dir_of(kb, iid), chg(iid)))
+        ts = [tilt_of(iid) for iid in ids]
         return round(sum(ts) / len(ts), 2) if ts else 0.0
 
     liq_s, price_s, pos_s = lens_score(_LIQUIDITY_LENS), lens_score(_PRICE_LENS), lens_score(_POSITIONING_LENS)
@@ -155,12 +202,7 @@ def build_snapshot(kb, live=None, generated_at="", today=""):
     }
 
     # ── marginal capital direction (−100..+100) ──
-    app_tilts = []
-    for iid in _APPETITE:
-        if iid in derived:
-            app_tilts.append(_tilt(_dir_of(kb, iid), derived[iid].get("chg_1m") or 0))
-        else:
-            app_tilts.append(_tilt(_dir_of(kb, iid), chg(iid)))
+    app_tilts = [tilt_of(iid) for iid in _APPETITE]
     marginal = round(100 * (sum(app_tilts) / len(app_tilts)), 1) if app_tilts else 0.0
     marg_label_en = "Risk-on" if marginal > 25 else "Risk-off" if marginal < -25 else "Mixed / two-way"
     marg_label_zh = "Risk-on 進場" if marginal > 25 else "Risk-off 撤離" if marginal < -25 else "分歧 / 雙向"
@@ -170,7 +212,7 @@ def build_snapshot(kb, live=None, generated_at="", today=""):
     # (a risk_off indicator falling → positive appetite), so the mean tilt of
     # each proxy set IS that cohort's appetite — no further inversion.
     def appetite(ids):
-        ts = [_tilt(_dir_of(kb, i), chg(i)) for i in ids]
+        ts = [tilt_of(i) for i in ids]
         return round((sum(ts) / len(ts) if ts else 0.0) * 100, 1)
     retail = appetite(kb.get("retail_proxies", []))
     inst = appetite(kb.get("institution_proxies", []))
@@ -182,12 +224,7 @@ def build_snapshot(kb, live=None, generated_at="", today=""):
     }
 
     # ── AI continuation signal (0..100) ──
-    ai_tilts = []
-    for iid in kb.get("ai_signal_inputs", []):
-        if iid in derived:
-            ai_tilts.append(_tilt(_dir_of(kb, iid), derived[iid].get("chg_1m") or derived[iid].get("value")))
-        else:
-            ai_tilts.append(_tilt(_dir_of(kb, iid), chg(iid)))
+    ai_tilts = [tilt_of(iid) for iid in kb.get("ai_signal_inputs", [])]
     ai_raw = sum(ai_tilts) / len(ai_tilts) if ai_tilts else 0.0
     ai_score = round((ai_raw + 1) * 50, 1)  # map [−1,1] → [0,100]
     ai_label_en = "Supportive" if ai_score >= 60 else "Fragile" if ai_score <= 40 else "Mixed"

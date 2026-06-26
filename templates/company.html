@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Company Deep-Dive · 個股深掘</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0b0f; --panel:rgba(22,24,31,.72); --panel-hi:rgba(30,33,42,.9);
+    --line:rgba(255,255,255,.08); --line-hi:rgba(255,255,255,.16);
+    --ink:#ecedf2; --soft:#a6a9b8; --dim:#6a6e80; --gold:#c8a86a; --acc:#7c83ff;
+    --on:#43c08a; --off:#e0626e; --neu:#c8a86a; --warn:#e0a14a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:radial-gradient(1100px 560px at 82% -14%,rgba(124,131,255,.10),transparent 58%),radial-gradient(900px 520px at -8% 4%,rgba(200,168,106,.08),transparent 52%),var(--bg);
+       color:var(--ink);font-family:"Inter","PingFang TC","Noto Sans TC",-apple-system,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:22px 26px 60px}
+  .top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:8px}
+  .brand{display:flex;align-items:center;gap:11px}
+  .gem{width:16px;height:16px;transform:rotate(45deg);border:1px solid var(--gold);border-radius:4px;position:relative}
+  .gem::after{content:"";position:absolute;inset:4px;background:var(--gold);border-radius:2px;opacity:.85}
+  h1{font-family:"Noto Serif TC",serif;font-weight:600;font-size:22px;letter-spacing:.5px}
+  .tools{display:flex;align-items:center;gap:10px}
+  .btn{font-size:12px;padding:6px 12px;border-radius:8px;border:1px solid var(--line-hi);background:transparent;color:var(--soft);cursor:pointer;transition:.15s}
+  .btn:hover{color:var(--ink);border-color:var(--acc)}
+  .btn.go{border-color:var(--acc);color:var(--acc)}
+  .status{font-size:11.5px;color:var(--dim)}
+  .crumb{font-size:11px;color:var(--dim);letter-spacing:.4px;margin-bottom:18px}
+  .crumb a:hover{color:var(--gold)}
+  .demo{background:rgba(200,168,106,.10);border:1px solid rgba(200,168,106,.3);color:var(--gold);
+        font-size:12px;padding:9px 13px;border-radius:10px;margin-bottom:18px}
+  .sub{color:var(--soft);font-size:13px;line-height:1.7;margin-bottom:22px;max-width:880px}
+
+  .grid{display:grid;gap:16px}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+  .panel h2{font-family:"Noto Serif TC",serif;font-size:15px;font-weight:600;letter-spacing:.5px;margin-bottom:4px}
+  .panel .note{font-size:11.5px;color:var(--dim);margin-bottom:14px;line-height:1.5}
+  .eyebrow{font-size:10.5px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);opacity:.85}
+
+  /* hero */
+  .hero{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:16px;margin-bottom:16px}
+  @media(max-width:780px){.hero{grid-template-columns:1fr}}
+  .big{font-variant-numeric:tabular-nums;font-weight:600;font-size:30px;letter-spacing:.5px;margin-top:6px}
+  .big small{font-size:15px;color:var(--dim);font-weight:400}
+  .gauge{height:8px;border-radius:999px;background:linear-gradient(90deg,var(--off),var(--neu),var(--on));position:relative;margin:14px 0 8px}
+  .gauge .pin{position:absolute;top:-4px;width:3px;height:16px;background:#fff;border-radius:2px;box-shadow:0 0 8px rgba(255,255,255,.6)}
+  .scale{display:flex;justify-content:space-between;font-size:10px;color:var(--dim)}
+  .tag{display:inline-block;font-size:11px;font-weight:500;padding:2px 9px;border-radius:999px;letter-spacing:.4px;margin-left:6px;vertical-align:middle}
+  .tag.raising{background:rgba(67,192,138,.15);color:var(--on)}
+  .tag.eroding{background:rgba(224,98,110,.15);color:var(--off)}
+  .tag.holding{background:rgba(200,168,106,.15);color:var(--neu)}
+  .subnote{font-size:11.5px;color:var(--dim);line-height:1.55;margin-top:10px}
+
+  /* lever bars (pillar A) */
+  .lever{padding:12px 0;border-top:1px solid var(--line)}
+  .lever:first-child{border-top:none}
+  .lvhead{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+  .lvname{font-weight:600;font-size:13.5px}
+  .lvstr{font-variant-numeric:tabular-nums;font-size:13px;font-weight:600;color:var(--gold);white-space:nowrap}
+  .bar{height:6px;border-radius:999px;background:rgba(255,255,255,.06);margin:8px 0 7px;overflow:hidden}
+  .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--acc),var(--gold))}
+  .lvmech{font-size:12px;line-height:1.6;color:var(--soft)}
+  .lvobs{font-size:11px;color:var(--dim);margin-top:5px;line-height:1.5}
+  .lvobs a:hover{color:var(--gold)}
+  .badge{font-size:9px;letter-spacing:.4px;border:1px solid var(--line-hi);border-radius:4px;padding:0 4px;color:var(--dim);margin-left:6px;vertical-align:middle}
+  .badge.t1{color:var(--on);border-color:rgba(67,192,138,.4)}
+  .badge.t2{color:var(--gold);border-color:rgba(200,168,106,.4)}
+  .badge.t3{color:var(--off);border-color:rgba(224,98,110,.4)}
+  .badge.est{color:var(--warn);border-color:rgba(224,161,74,.4)}
+  .badge.crit{color:var(--off);border-color:rgba(224,98,110,.45)}
+  .badge.high{color:var(--gold);border-color:rgba(200,168,106,.4)}
+
+  /* tables */
+  table.t{width:100%;border-collapse:collapse;font-size:12.5px}
+  table.t th{text-align:left;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--dim);font-weight:500;padding:6px 8px;border-bottom:1px solid var(--line-hi)}
+  table.t td{padding:9px 8px;border-top:1px solid var(--line);vertical-align:top;line-height:1.5}
+  table.t td.nm{color:var(--ink);font-weight:500;white-space:nowrap}
+  table.t td.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  table.t a:hover{color:var(--gold)}
+
+  /* benefit estimate cards */
+  .ben{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+  @media(max-width:780px){.ben{grid-template-columns:1fr}}
+  .bcard{background:var(--panel-hi);border:1px solid var(--line);border-radius:12px;padding:13px 15px}
+  .bval{font-variant-numeric:tabular-nums;font-weight:600;font-size:24px;color:var(--ink)}
+  .bval small{font-size:12px;color:var(--gold);font-weight:500}
+  .bmeth{font-size:12px;font-weight:500;color:var(--ink);margin:6px 0 4px;line-height:1.4}
+  .bbasis{font-size:11px;color:var(--soft);line-height:1.55}
+  .conf{font-size:10px;letter-spacing:.6px;text-transform:uppercase;padding:1px 7px;border-radius:999px;margin-left:6px}
+  .conf.medium{background:rgba(200,168,106,.14);color:var(--neu)}
+  .conf.low{background:rgba(224,98,110,.12);color:var(--off)}
+  .conf.high{background:rgba(67,192,138,.14);color:var(--on)}
+
+  /* chain dependency dots */
+  .dep{display:inline-block;font-size:10px;letter-spacing:.5px;text-transform:uppercase;padding:1px 7px;border-radius:999px}
+  .dep.critical{background:rgba(224,98,110,.14);color:var(--off)}
+  .dep.high{background:rgba(200,168,106,.14);color:var(--neu)}
+
+  /* alerts */
+  .alert{border-radius:11px;padding:11px 14px;font-size:12.5px;line-height:1.55;margin-bottom:9px;border:1px solid var(--line)}
+  .alert .lv{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;margin-bottom:4px;display:block}
+  .alert.strong{background:rgba(67,192,138,.08);border-color:rgba(67,192,138,.32)} .alert.strong .lv{color:var(--on)}
+  .alert.exposure{background:rgba(124,131,255,.08);border-color:rgba(124,131,255,.32)} .alert.exposure .lv{color:var(--acc)}
+  .alert.watch{background:rgba(224,161,74,.07);border-color:rgba(224,161,74,.28)} .alert.watch .lv{color:var(--warn)}
+
+  /* L4 / L5 */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:780px){.two{grid-template-columns:1fr}}
+  .body{font-size:13px;line-height:1.75;color:var(--ink)}
+  .pread{padding:10px 0;border-top:1px solid var(--line)}
+  .pread:first-child{border-top:none}
+  .pread .lbl{font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);opacity:.85;display:block;margin-bottom:5px}
+  .pread .txt{font-size:12.5px;line-height:1.65;color:var(--soft)}
+  .thesisbox{background:linear-gradient(180deg,rgba(124,131,255,.07),rgba(200,168,106,.04));border:1px solid var(--line-hi);
+             border-radius:14px;padding:16px 18px;font-size:13.5px;line-height:1.8;color:var(--ink);margin-bottom:16px}
+  .fals li{font-size:12.5px;line-height:1.6;color:var(--soft);margin:6px 0;list-style:none;padding-left:16px;position:relative}
+  .fals li::before{content:"▸";position:absolute;left:0;color:var(--gold)}
+  .scn{padding:11px 0;border-top:1px solid var(--line)}
+  .scnhead{display:flex;justify-content:space-between;gap:10px;font-size:13px}
+  .scnname{font-weight:500}
+  .scnprob{font-variant-numeric:tabular-nums;color:var(--gold);font-weight:600}
+  .scntrig{font-size:11.5px;color:var(--dim);line-height:1.5;margin-top:5px}
+  table.ew{width:100%;border-collapse:collapse;font-size:12.5px}
+  table.ew td{padding:7px 8px;border-top:1px solid var(--line)}
+  table.ew td.f{text-align:right;color:var(--gold);font-size:11px;white-space:nowrap}
+  .xlinks{display:flex;flex-wrap:wrap;gap:10px}
+  .xlink{font-size:12px;color:var(--soft);border:1px solid var(--line-hi);border-radius:10px;padding:9px 13px;line-height:1.4;transition:.15s;flex:1 1 240px}
+  .xlink:hover{border-color:var(--acc);color:var(--ink)}
+  .xlink b{color:var(--gold);font-weight:500}
+  .news a{display:block;font-size:12.5px;color:var(--soft);padding:7px 0;border-top:1px solid var(--line);line-height:1.4}
+  .news a:hover{color:var(--ink)} .news .src2{color:var(--dim);font-size:11px}
+  .foot{margin-top:24px;font-size:11px;color:var(--dim);line-height:1.7}
+  .disc{background:rgba(224,161,74,.06);border:1px solid rgba(224,161,74,.22);color:var(--soft);
+        font-size:11.5px;line-height:1.6;padding:11px 14px;border-radius:11px;margin-top:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand"><span class="gem"></span><h1 id="title"></h1></div>
+    <div class="tools">
+      <button class="btn" id="langBtn"></button>
+      <button class="btn go" id="refreshBtn"></button>
+      <span class="status" id="status"></span>
+    </div>
+  </div>
+  <div class="crumb"><a href="/">← <span id="crumbHome"></span></a> · <span id="asof"></span> · <span id="engine"></span> · <span id="src"></span></div>
+  <div id="demo" class="demo" style="display:none"></div>
+  <div class="sub" id="thesis"></div>
+
+  <!-- hero: the 3 headline answers -->
+  <div class="hero">
+    <div class="panel">
+      <span class="eyebrow" id="h_pp"></span>
+      <div class="big"><span id="ppScore"></span><small>/100</small> <span class="tag" id="ppTag"></span></div>
+      <div class="gauge"><div class="pin" id="ppPin"></div></div>
+      <div class="scale"><span id="sc_lo"></span><span>60</span><span id="sc_hi"></span></div>
+      <div class="subnote" id="ppNote"></div>
+    </div>
+    <div class="panel">
+      <span class="eyebrow" id="h_ben"></span>
+      <div class="big">≈ $<span id="benVal"></span><small>B</small></div>
+      <div class="subnote" id="benNote"></div>
+    </div>
+    <div class="panel">
+      <span class="eyebrow" id="h_tsmc"></span>
+      <div class="big"><span id="tsmcVal"></span><small>%</small></div>
+      <div class="subnote" id="tsmcNote"></div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <!-- integrated thesis (L4) -->
+    <div class="thesisbox" id="integrated"></div>
+
+    <!-- Pillar A: pricing levers -->
+    <div class="panel">
+      <h2 id="h_A"></h2><div class="note" id="n_A"></div>
+      <div id="levers"></div>
+      <div class="pread" style="margin-top:6px"><span class="lbl" id="readA_l"></span><div class="txt" id="readA"></div></div>
+    </div>
+
+    <!-- alerts -->
+    <div class="panel">
+      <h2 id="h_alerts"></h2>
+      <div id="alerts"></div>
+    </div>
+
+    <!-- Pillar B: data sources -->
+    <div class="panel">
+      <h2 id="h_B"></h2><div class="note" id="n_B"></div>
+      <table class="t"><thead><tr>
+        <th id="th_src"></th><th id="th_what"></th><th id="th_tier"></th><th id="th_cad"></th><th id="th_acc"></th>
+      </tr></thead><tbody id="sources"></tbody></table>
+      <div class="pread" style="margin-top:10px"><span class="lbl" id="readB_l"></span><div class="txt" id="readB"></div></div>
+    </div>
+
+    <!-- Pillar C: AI benefit -->
+    <div class="panel">
+      <h2 id="h_C"></h2><div class="note" id="n_C"></div>
+      <div class="ben" id="benefit"></div>
+      <div class="pread" style="margin-top:12px"><span class="lbl" id="readC_l"></span><div class="txt" id="readC"></div></div>
+    </div>
+
+    <!-- Pillar D: silicon / TSMC -->
+    <div class="panel">
+      <h2 id="h_D"></h2><div class="note" id="n_D"></div>
+      <table class="t"><thead><tr>
+        <th id="th_acc2"></th><th id="th_des"></th><th id="th_node"></th><th id="th_pkg"></th><th id="th_fab"></th><th id="th_dep"></th>
+      </tr></thead><tbody id="chain"></tbody></table>
+      <div class="thesisbox" style="margin-top:14px" id="tsmcRead"></div>
+      <div class="pread"><span class="lbl" id="readD_l"></span><div class="txt" id="readD"></div></div>
+      <div class="pread"><span class="lbl" id="impl_l"></span><div class="txt" id="impl"></div></div>
+    </div>
+
+    <!-- L5: scenarios + falsification + watch -->
+    <div class="two">
+      <div class="panel">
+        <h2 id="h_scn"></h2><div class="note" id="n_scn"></div>
+        <div id="scenarios"></div>
+      </div>
+      <div class="panel">
+        <h2 id="h_fals"></h2>
+        <ul class="fals" id="falsification"></ul>
+        <h2 style="margin-top:16px" id="h_watch"></h2>
+        <table class="ew"><tbody id="watch"></tbody></table>
+      </div>
+    </div>
+
+    <!-- cross-links -->
+    <div class="panel">
+      <h2 id="h_links"></h2><div class="note" id="n_links"></div>
+      <div class="xlinks" id="xlinks"></div>
+    </div>
+
+    <!-- news -->
+    <div class="panel" id="newsPanel" style="display:none">
+      <h2 id="h_news"></h2>
+      <div class="news" id="news"></div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <div class="disc" id="disclaimer"></div>
+    <div id="blindHead" style="margin-top:14px"></div>
+    <ul style="list-style:none;margin-top:6px" id="blind"></ul>
+  </div>
+</div>
+
+<script>
+const SNAP = {{ snapshot | safe }};
+let LANG = localStorage.getItem("company_lang") || "en";
+
+const T = {
+  en:{home:"External Market Analysis", lang:"中文", refresh:"↻ Refresh",
+      pwPrompt:"Enter refresh password (default companylens2026):",
+      refreshing:"refreshing… live proxies + Claude L4/L5", done:"done, reloading…", fail:"refresh failed",
+      demo:"Seed/demo view — hit ↻ Refresh to pull live proxies (and Claude L4/L5 if an API key is set).",
+      asof:"As of", engineRules:"engine: rules (no API key)", engineClaude:"engine: Claude Opus 4.8",
+      srcSeed:"source: seed", srcLive:"source: live", srcPartial:"source: partial",
+      h_pp:"① Compute pricing power", scLo:"0 eroding", scHi:"100 raising",
+      ppNote:"List prices fall every year — this scores the REALIZED price-per-compute levers.",
+      h_ben:"③ AI benefit (est.)", benNote:"Labeled estimate — AWS discloses no AI-only line.",
+      h_tsmc:"④ TSMC exposure", tsmcNote:"Share of the AI compute beneath this benefit that is TSMC-fabbed.",
+      h_A:"① How AWS raises the price of compute", n_A:"Six realized-price levers, scored by current strength (0–100). List price ≠ realized price.",
+      readA_l:"CEO read", h_alerts:"Signals", h_B:"② What to watch it with",
+      n_B:"The data-source dictionary — where each lever above is actually observable.",
+      th_src:"Source", th_what:"What it shows", th_tier:"Tier", th_cad:"Cadence", th_acc:"Access",
+      readB_l:"CEO read", h_C:"③ How much Amazon makes from AI",
+      n_C:"Multi-method estimates with confidence — no figure here is a reported number.",
+      readC_l:"CEO read", h_D:"④ The chip & TSMC link",
+      n_D:"Every accelerator behind the benefit → node → CoWoS → fab. This is where it lands on TSMC.",
+      th_acc2:"Accelerator", th_des:"Designer", th_node:"Node", th_pkg:"Packaging", th_fab:"Fab", th_dep:"Dependency",
+      readD_l:"CEO read", impl_l:"So what for TSMC",
+      h_scn:"Scenarios (next 4–6 quarters)", n_scn:"Probabilities sum to 100.",
+      h_fals:"What would break the thesis", h_watch:"Watch-list",
+      h_links:"Close the loop", n_links:"Where this company sits in the rest of the platform.",
+      h_news:"Live headlines", blind:"Blind spots & honesty notes",
+      disc:"Not investment advice. AWS does not disclose AI-only revenue or confidential contract prices; every dollar figure here is a labeled estimate, and node/packaging assignments are from press & industry reporting. Live equity proxies are sentiment context and are deliberately kept OUT of the pricing-power score."},
+  zh:{home:"外部市場分析", lang:"EN", refresh:"↻ 刷新",
+      pwPrompt:"輸入刷新密碼（預設 companylens2026）：",
+      refreshing:"刷新中… 即時 proxy + Claude L4/L5", done:"完成，重新載入…", fail:"刷新失敗",
+      demo:"種子／展示視圖 — 按 ↻ 刷新以抓取即時 proxy（若設了 API key 則含 Claude L4/L5）。",
+      asof:"資料日", engineRules:"引擎：規則（無 API key）", engineClaude:"引擎：Claude Opus 4.8",
+      srcSeed:"來源：種子", srcLive:"來源：即時", srcPartial:"來源：部分即時",
+      h_pp:"① 算力定價權", scLo:"0 受壓", scHi:"100 漲價中",
+      ppNote:"牌價年年下跌 — 此處評的是「已實現單位算力價格」槓桿。",
+      h_ben:"③ AI 利益（估計）", benNote:"標註過的估計值 — AWS 無純 AI 揭露項。",
+      h_tsmc:"④ 台積電曝險", tsmcNote:"撐起此利益的 AI 算力中，由台積電製造的比例。",
+      h_A:"① AWS 怎麼提高算力售價", n_A:"六條已實現價格槓桿，依當前強度評分（0–100）。牌價 ≠ 已實現價格。",
+      readA_l:"CEO 解讀", h_alerts:"訊號", h_B:"② 用什麼資料來源觀察",
+      n_B:"資料來源字典 — 上面每條槓桿實際能在哪裡觀測。",
+      th_src:"來源", th_what:"能看到什麼", th_tier:"分級", th_cad:"頻率", th_acc:"取得",
+      readB_l:"CEO 解讀", h_C:"③ Amazon 從 AI 賺多少",
+      n_C:"多方法估計＋信賴度 — 此處沒有任何數字是揭露數字。",
+      readC_l:"CEO 解讀", h_D:"④ 晶片與台積電的連結",
+      n_D:"利益背後每顆加速器 → 節點 → CoWoS → 製造。這就是它落到台積電的地方。",
+      th_acc2:"加速器", th_des:"設計者", th_node:"節點", th_pkg:"封裝", th_fab:"製造", th_dep:"依賴",
+      readD_l:"CEO 解讀", impl_l:"對台積電的意涵",
+      h_scn:"情境（未來 4–6 季）", n_scn:"機率加總 100。",
+      h_fals:"什麼會推翻論點", h_watch:"觀察清單",
+      h_links:"收回迴圈", n_links:"這家公司在平台其餘部分的位置。",
+      h_news:"即時頭條", blind:"盲點與誠實註記",
+      disc:"非投資建議。AWS 不揭露純 AI 營收或機密合約價格；此處每個金額皆為標註過的估計值，節點／封裝對應來自媒體與產業報導。即時股價 proxy 為情緒情境，刻意排除於定價權分數之外。"},
+};
+
+const tierClass = (t)=>({"T1":"t1","T2":"t2","T3":"t3"})[t]||"t2";
+const pick = (o,base)=> (o&&(o[base+"_"+LANG] ?? o[base+(LANG==="zh"?"_zh":"_en")])) ?? "";
+const bi = (o)=> o ? (o[LANG]||o.en||"") : "";
+
+function render(){
+  const t = T[LANG], s = SNAP, h = s.headline||{}, P = s.pillars||{};
+  document.documentElement.lang = LANG==="zh"?"zh-Hant":"en";
+  const co = s.company||{};
+  const name = LANG==="zh"?co.name_zh:co.name_en;
+  document.getElementById("title").textContent = (LANG==="zh"?"個股深掘 · ":"Company Deep-Dive · ")+name;
+  document.getElementById("langBtn").textContent = t.lang;
+  document.getElementById("refreshBtn").textContent = t.refresh;
+  document.getElementById("crumbHome").textContent = t.home;
+  document.getElementById("asof").textContent = t.asof+" "+(s.as_of||"");
+  document.getElementById("engine").textContent = s.analysis_engine==="claude"?t.engineClaude:t.engineRules;
+  document.getElementById("src").textContent = {seed:t.srcSeed,live:t.srcLive,partial:t.srcPartial}[s.source]||"";
+  document.getElementById("thesis").textContent = LANG==="zh"?s.thesis_zh:s.thesis_en;
+  const demo=document.getElementById("demo");
+  if(s.is_demo){demo.style.display="block";demo.textContent=t.demo;}else{demo.style.display="none";}
+
+  // hero
+  document.getElementById("h_pp").textContent=t.h_pp;
+  document.getElementById("ppScore").textContent=(h.compute_pricing_score??"").toFixed?h.compute_pricing_score.toFixed(0):h.compute_pricing_score;
+  const tag=document.getElementById("ppTag"); tag.className="tag "+h.verdict_key;
+  tag.textContent=LANG==="zh"?h.verdict_zh:h.verdict_en;
+  document.getElementById("ppPin").style.left=Math.max(0,Math.min(100,h.compute_pricing_score))+"%";
+  document.getElementById("sc_lo").textContent=t.scLo; document.getElementById("sc_hi").textContent=t.scHi;
+  document.getElementById("ppNote").textContent=t.ppNote;
+  document.getElementById("h_ben").textContent=t.h_ben;
+  document.getElementById("benVal").textContent=h.ai_benefit_usd_bn;
+  document.getElementById("benNote").textContent=(LANG==="zh"?"口徑：":"metric: ")+(h.ai_benefit_metric||"")+" · "+t.benNote;
+  document.getElementById("h_tsmc").textContent=t.h_tsmc;
+  document.getElementById("tsmcVal").textContent="~"+h.tsmc_exposure_pct;
+  document.getElementById("tsmcNote").textContent=t.tsmcNote;
+
+  // integrated thesis
+  document.getElementById("integrated").textContent=bi(s.l4.integrated_thesis);
+
+  // Pillar A — levers
+  document.getElementById("h_A").textContent=t.h_A; document.getElementById("n_A").textContent=t.n_A;
+  document.getElementById("levers").innerHTML=(P.pricing.levers||[]).map(lv=>`
+    <div class="lever">
+      <div class="lvhead">
+        <span class="lvname">${pick(lv,"name")}<span class="badge ${tierClass(lv.tier)}">${lv.tier}</span>${lv.is_estimate?'<span class="badge est">EST</span>':''}</span>
+        <span class="lvstr">${lv.strength.toFixed(0)}</span>
+      </div>
+      <div class="bar"><i style="width:${lv.strength}%"></i></div>
+      <div class="lvmech">${pick(lv,"mechanism")}</div>
+      <div class="lvobs">🔍 ${pick(lv,"observability")}${lv.source_url?` · <a href="${lv.source_url}" target="_blank" rel="noopener">${pick(lv,"source")} ↗</a>`:''}</div>
+    </div>`).join("");
+  document.getElementById("readA_l").textContent=t.readA_l;
+  document.getElementById("readA").textContent=bi(s.l4.pillars.pricing);
+
+  // alerts
+  document.getElementById("h_alerts").textContent=t.h_alerts;
+  document.getElementById("alerts").innerHTML=(s.l3.alerts||[]).map(a=>`
+    <div class="alert ${a.level}"><span class="lv">${a.level}</span>${LANG==="zh"?a.zh:a.en}</div>`).join("");
+
+  // Pillar B — sources
+  document.getElementById("h_B").textContent=t.h_B; document.getElementById("n_B").textContent=t.n_B;
+  ["th_src","th_what","th_tier","th_cad","th_acc"].forEach(id=>document.getElementById(id).textContent=t[id]);
+  document.getElementById("sources").innerHTML=(P.sources.items||[]).map(d=>`
+    <tr>
+      <td class="nm">${d.url?`<a href="${d.url}" target="_blank" rel="noopener">${pick(d,"name")} ↗</a>`:pick(d,"name")}</td>
+      <td>${pick(d,"what")}</td>
+      <td><span class="badge ${tierClass(d.tier)}">${d.tier}</span></td>
+      <td>${d.cadence||""}</td>
+      <td>${pick(d,"access")}</td>
+    </tr>`).join("");
+  document.getElementById("readB_l").textContent=t.readB_l;
+  document.getElementById("readB").textContent=bi(s.l4.pillars.sources);
+
+  // Pillar C — benefit
+  document.getElementById("h_C").textContent=t.h_C; document.getElementById("n_C").textContent=t.n_C;
+  document.getElementById("benefit").innerHTML=(P.benefit.estimates||[]).map(e=>`
+    <div class="bcard">
+      <div class="bval">$${e.value_usd_bn}<small>B</small><span class="conf ${e.confidence}">${e.confidence}</span></div>
+      <div class="bmeth">${pick(e,"method")}<span class="badge ${tierClass(e.tier)}">${e.tier}</span></div>
+      <div class="bbasis">${pick(e,"basis")}</div>
+    </div>`).join("");
+  document.getElementById("readC_l").textContent=t.readC_l;
+  document.getElementById("readC").textContent=bi(s.l4.pillars.benefit);
+
+  // Pillar D — silicon chain
+  document.getElementById("h_D").textContent=t.h_D; document.getElementById("n_D").textContent=t.n_D;
+  ["th_acc2","th_des","th_node","th_pkg","th_fab","th_dep"].forEach(id=>document.getElementById(id).textContent=t[id]);
+  document.getElementById("chain").innerHTML=(P.silicon.chain||[]).map(c=>`
+    <tr>
+      <td class="nm">${pick(c,"accelerator")}${c.is_estimate?'<span class="badge est">EST</span>':''}<br><span style="font-size:10.5px;color:var(--dim)">${pick(c,"role")}</span></td>
+      <td>${c.designer}</td>
+      <td>${c.node}</td>
+      <td>${c.packaging}</td>
+      <td>${c.fab}</td>
+      <td><span class="dep ${c.dependency}">${c.dependency}</span></td>
+    </tr>`).join("");
+  document.getElementById("tsmcRead").textContent=LANG==="zh"?P.silicon.tsmc_read_zh:P.silicon.tsmc_read_en;
+  document.getElementById("readD_l").textContent=t.readD_l;
+  document.getElementById("readD").textContent=bi(s.l4.pillars.silicon);
+  document.getElementById("impl_l").textContent=t.impl_l;
+  document.getElementById("impl").textContent=bi(s.l4.tsmc_implication);
+
+  // L5
+  document.getElementById("h_scn").textContent=t.h_scn; document.getElementById("n_scn").textContent=t.n_scn;
+  document.getElementById("scenarios").innerHTML=(s.l5.scenarios||[]).map(sc=>`
+    <div class="scn">
+      <div class="scnhead"><span class="scnname">${LANG==="zh"?sc.name_zh:sc.name_en}</span><span class="scnprob">${sc.prob}%</span></div>
+      <div class="bar"><i style="width:${sc.prob}%"></i></div>
+      <div class="scntrig">${LANG==="zh"?sc.trigger_zh:sc.trigger_en}</div>
+    </div>`).join("");
+  document.getElementById("h_fals").textContent=t.h_fals;
+  document.getElementById("falsification").innerHTML=(s.l5.falsification||[]).map(f=>`<li>${LANG==="zh"?f.zh:f.en}</li>`).join("");
+  document.getElementById("h_watch").textContent=t.h_watch;
+  document.getElementById("watch").innerHTML=(s.l5.watch||[]).map(w=>`
+    <tr><td>${LANG==="zh"?w.zh:w.en}</td><td class="f">${w.freq||""}</td></tr>`).join("");
+
+  // cross-links
+  document.getElementById("h_links").textContent=t.h_links; document.getElementById("n_links").textContent=t.n_links;
+  document.getElementById("xlinks").innerHTML=(s.cross_links||[]).map(l=>{
+    const lab=LANG==="zh"?l.label_zh:l.label_en; const i=lab.indexOf("—");
+    const head=i>0?lab.slice(0,i):lab; const rest=i>0?lab.slice(i):"";
+    return `<a class="xlink" href="${l.href}"><b>${head}</b>${rest}</a>`;}).join("");
+
+  // news
+  const news=s.news||[];
+  if(news.length){
+    document.getElementById("newsPanel").style.display="block";
+    document.getElementById("h_news").textContent=t.h_news;
+    document.getElementById("news").innerHTML=news.slice(0,8).map(n=>`
+      <a href="${n.url}" target="_blank" rel="noopener">${n.title} <span class="src2">— ${n.source||""} ${n.date||""}</span></a>`).join("");
+  }
+
+  // foot
+  document.getElementById("disclaimer").textContent=t.disc;
+  document.getElementById("blindHead").textContent=t.blind;
+  const blind=LANG==="zh"?s.blind_spots_zh:s.blind_spots_en;
+  document.getElementById("blind").innerHTML=(blind||[]).map(b=>`<li style="padding-left:14px;position:relative;margin:5px 0;color:var(--soft);font-size:11.5px;line-height:1.55">· ${b}</li>`).join("");
+}
+
+document.getElementById("langBtn").addEventListener("click",()=>{
+  LANG=LANG==="zh"?"en":"zh"; localStorage.setItem("company_lang",LANG); render();
+});
+document.getElementById("refreshBtn").addEventListener("click",async()=>{
+  const t=T[LANG]; const pw=prompt(t.pwPrompt); if(!pw)return;
+  const st=document.getElementById("status"); st.textContent=t.refreshing;
+  try{
+    const slug=SNAP.slug||"amazon";
+    const r=await fetch(`/company/${slug}/api/refresh`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({password:pw})});
+    const j=await r.json();
+    if(j.ok){st.textContent=t.done; setTimeout(()=>location.reload(),700);}
+    else{st.textContent=t.fail+" ("+(j.error||r.status)+")";}
+  }catch(e){st.textContent=t.fail;}
+});
+render();
+</script>
+</body>
+</html>

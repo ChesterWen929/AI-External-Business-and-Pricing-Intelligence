@@ -255,6 +255,10 @@ DC_EXPANSION_KEYWORDS = [
 ]
 
 # 循環交易追蹤：已揭露的大型循環結構（供應商融資 / 股權換算力）種子台帳。
+# 與 /payback 的 circularity_edges 共用 3 條邊，值需保持一致（避免兩卡漂移）：
+#   輝達→OpenAI $100B、甲骨文↔OpenAI $300B（Stargate）、微軟→OpenAI $13B。
+# 兩卡「總額」不同（aibubble ~$529B vs payback $424B）是刻意的：各自納入不同的額外邊，
+# 故為「異質、不可相加」——兩卡皆已如此註明，不要合併兩本台帳。
 CIRCULAR_DEALS_SEED = [
     {"date": "2025-09", "parties_zh": "輝達 → OpenAI",
      "structure_zh": "最高 $100B 分階段投資，與算力部署里程碑掛鉤——被投方再採購輝達晶片",
@@ -301,9 +305,11 @@ HN_PROD_KEYWORDS = [
 # $6000 億問題（Sequoia 框架）即時版：
 # 隱含必要收入 = 年化 CapEx × 2（資料中心總成本 + 50% 毛利結構的粗估），
 # 對照「目前 AI 終端收入」估計值（公開報導約數，可隨時調整）。
+# OpenAI/Anthropic 年化營收 run-rate 與 /payback 對齊（單一口徑、避免兩卡漂移）：
+# OpenAI $20B、Anthropic $12B（NEWS，2026Q1）。逐家詳情見 /payback。
 AI_REVENUE_ESTIMATES = [
-    {"zh": "OpenAI（年化營收，2026 報導）",        "value_b": 30},
-    {"zh": "Anthropic（年化營收，2026 報導）",     "value_b": 10},
+    {"zh": "OpenAI（年化營收 run-rate，對齊 /payback）",    "value_b": 20},
+    {"zh": "Anthropic（年化營收 run-rate，對齊 /payback）", "value_b": 12},
     {"zh": "微軟/谷歌/Meta AI 歸屬收入（估）",     "value_b": 40},
     {"zh": "其他 AI 應用與 API（估）",             "value_b": 15},
 ]

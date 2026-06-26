@@ -52,13 +52,35 @@ def fetch_yfinance(ticker):
     hist = tk.history(period="3mo", interval="1d")
     if hist is None or hist.empty:
         return None
-    closes = [float(x) for x in hist["Close"].tolist() if x == x]  # drop NaN
-    if not closes:
+    # Build a (date, close) series so we anchor the 1w/1m moves on REAL calendar
+    # dates (7 / 30 days back), not a fixed −6/−22 bar offset that drifts on
+    # holidays & halts. _close_on_or_before picks the last trading day ≤ target.
+    series = []
+    for ts, px in zip(hist.index, hist["Close"].tolist()):
+        if px != px:  # drop NaN
+            continue
+        d = _safe(lambda: ts.date())  # pandas Timestamp → date
+        if d is not None:
+            series.append((d, float(px)))
+    if not series:
         return None
-    value = round(closes[-1], 2)
-    wk = closes[-6] if len(closes) > 6 else closes[0]
-    mo = closes[-22] if len(closes) > 22 else closes[0]
+    value = round(series[-1][1], 2)
+    last_d = series[-1][0]
+    wk = _close_on_or_before(series, last_d.toordinal() - 7)
+    mo = _close_on_or_before(series, last_d.toordinal() - 30)
     return {"value": value, "chg_1w": _pct(value, wk), "chg_1m": _pct(value, mo), "live": True}
+
+
+def _close_on_or_before(series, target_ord):
+    """Last close on/before an ordinal date (holiday/halt-safe). series is
+    (date, close) oldest→newest."""
+    best = series[0][1]
+    for d, px in series:
+        if d.toordinal() <= target_ord:
+            best = px
+        else:
+            break
+    return best
 
 
 # --------------------------------------------------------------------------- #
@@ -88,9 +110,20 @@ def fetch_fred(series):
     if not obs:
         return None
     value = round(obs[-1][1], 2)
-    wk = _nearest_back(obs, 31)   # PPI is monthly; ~1m back for "1w" slot
-    mo = _nearest_back(obs, 62)   # ~2m back for the "1m" slot
-    return {"value": value, "chg_1w": _pct(value, wk), "chg_1m": _pct(value, mo), "live": True}
+    # PPI is MONTHLY — there is no true 7-day move. We expose the last 1-month
+    # change in BOTH the 1w and 1m slots and flag the cadence so the UI/analyst
+    # never reads the "1w" column as a real weekly print.
+    prev_m = _nearest_back(obs, 31)   # ~1 month back (one observation)
+    chg_m = _pct(value, prev_m)
+    return {
+        "value": value,
+        "chg_1w": chg_m, "chg_1m": chg_m,
+        "live": True,
+        "freq": "monthly",
+        "note_en": "FRED PPI is monthly — the 1w column repeats the latest 1-month change (no true weekly print).",
+        "note_zh": "FRED PPI 為月頻 — 1週欄位重複最新的月變動(無真實週數據)。",
+        "last_obs": obs[-1][0],
+    }
 
 
 def _nearest_back(obs, days):

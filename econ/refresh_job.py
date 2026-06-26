@@ -45,10 +45,15 @@ _refresh_lock = threading.Lock()
 _refresh_running = False
 
 
-def _fmt_value(value: float, fmt: str) -> str:
+def _fmt_value(value: float, fmt: str, native_unit: str | None = None, unit: str | None = None) -> str:
     if fmt == "percent":
         return f"{value:.2f}%"
     if fmt == "billions":
+        # native_unit distinguishes how FRED reports the raw value:
+        #   "billions" — value is already in $B (e.g. GDPC1 24,153 = $24.15T)
+        #   "millions" (default) — value is in $M, ÷1000 to reach $B (e.g. WALCL)
+        if native_unit == "billions":
+            return f"${value/1000:.2f}T" if abs(value) >= 1000 else f"${value:.1f}B"
         return f"${value/1000:.2f}B" if abs(value) > 1000 else f"${value:.1f}M"
     if fmt == "thousands":
         # FRED value is already expressed in thousands (e.g. PAYEMS 159,001 = 159M persons)
@@ -61,6 +66,10 @@ def _fmt_value(value: float, fmt: str) -> str:
             return f"{value/1_000:,.0f}K"
         return f"{value:,.0f}"
     if fmt == "index":
+        # Some "index" series are actually priced units ($/barrel, $/hour) — prefix
+        # "$" so the magnitude carries its dollar context in the headline display.
+        if unit and unit.lstrip().startswith("$"):
+            return f"${value:,.2f}"
         return f"{value:.1f}"
     return f"{value:,.2f}"
 
@@ -339,7 +348,7 @@ async def run_weekly_refresh(anthropic_key: str, fred_key: str, gen_ai: bool = T
                 **ind,
                 "latest_date": latest["date"],
                 "latest_value": latest["value"],
-                "latest_display": _fmt_value(latest["value"], ind["format"]),
+                "latest_display": _fmt_value(latest["value"], ind["format"], ind.get("native_unit"), ind.get("unit")),
                 "prev_value": prev["value"] if prev else None,
                 "delta": delta,
                 "pct_change": pct,
@@ -439,16 +448,18 @@ async def run_weekly_refresh(anthropic_key: str, fred_key: str, gen_ai: bool = T
         # (annualized growth %), not the target's level — format with the anchor's
         # format and drop the level "last" so we don't compare % against $B.
         disp_fmt = d["format"]
+        disp_src = d  # source of native_unit/unit context for the display format
         anchor_sid = fc.get("anchor_series")
         unit_shift = bool(anchor_sid and anchor_sid in by_sid
                           and by_sid[anchor_sid]["format"] != d["format"])
         if anchor_sid and anchor_sid in by_sid:
             disp_fmt = by_sid[anchor_sid]["format"]
+            disp_src = by_sid[anchor_sid]
         fc["release_date"] = rel
         fc["display_format"] = disp_fmt
-        fc["predicted_display"] = _fmt_value(fc["predicted_value"], disp_fmt)
-        fc["low_display"] = _fmt_value(fc["low"], disp_fmt)
-        fc["high_display"] = _fmt_value(fc["high"], disp_fmt)
+        fc["predicted_display"] = _fmt_value(fc["predicted_value"], disp_fmt, disp_src.get("native_unit"), disp_src.get("unit"))
+        fc["low_display"] = _fmt_value(fc["low"], disp_fmt, disp_src.get("native_unit"), disp_src.get("unit"))
+        fc["high_display"] = _fmt_value(fc["high"], disp_fmt, disp_src.get("native_unit"), disp_src.get("unit"))
         fc["last_display"] = None if unit_shift else d["latest_display"]
         fc["last_value"] = None if unit_shift else d["latest_value"]
         d["forecast"] = fc
@@ -456,7 +467,7 @@ async def run_weekly_refresh(anthropic_key: str, fred_key: str, gen_ai: bool = T
             "series_id": sid,
             "name_en": d["name_en"], "name_zh": d["name_zh"],
             "category": d["category"], "frequency": d["frequency"],
-            "format": fmt, "unit": d["unit"], "unit_zh": d["unit_zh"],
+            "format": disp_fmt, "unit": d["unit"], "unit_zh": d["unit_zh"],
             **fc,
         })
     nowcasts.sort(key=lambda n: (n.get("release_date") or "9999-99-99"))

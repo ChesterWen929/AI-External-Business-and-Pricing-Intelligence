@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scenario Radar · 情境雷達</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0b0f; --panel:rgba(22,24,31,.72); --panel-hi:rgba(30,33,42,.9);
+    --line:rgba(255,255,255,.08); --line-hi:rgba(255,255,255,.16);
+    --ink:#ecedf2; --soft:#a6a9b8; --dim:#6a6e80; --gold:#c8a86a; --acc:#7c83ff;
+    --on:#43c08a; --off:#e0626e; --neu:#c8a86a; --warn:#e0a93f;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:radial-gradient(1100px 560px at 82% -14%,rgba(124,131,255,.10),transparent 58%),radial-gradient(900px 520px at -8% 4%,rgba(200,168,106,.08),transparent 52%),var(--bg);
+       color:var(--ink);font-family:"Inter","PingFang TC","Noto Sans TC",-apple-system,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:22px 26px 60px}
+  .top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:8px}
+  .brand{display:flex;align-items:center;gap:11px}
+  .gem{width:16px;height:16px;transform:rotate(45deg);border:1px solid var(--gold);border-radius:4px;position:relative}
+  .gem::after{content:"";position:absolute;inset:4px;background:var(--gold);border-radius:2px;opacity:.85}
+  h1{font-family:"Noto Serif TC",serif;font-weight:600;font-size:22px;letter-spacing:.5px}
+  .tools{display:flex;align-items:center;gap:10px}
+  .btn{font-size:12px;padding:6px 12px;border-radius:8px;border:1px solid var(--line-hi);background:transparent;color:var(--soft);cursor:pointer;transition:.15s}
+  .btn:hover{color:var(--ink);border-color:var(--acc)}
+  .btn.go{border-color:var(--acc);color:var(--acc)}
+  .status{font-size:11.5px;color:var(--dim)}
+  .crumb{font-size:11px;color:var(--dim);letter-spacing:.4px;margin-bottom:14px}
+  .crumb a:hover{color:var(--gold)}
+
+  /* disclaimer bar — always visible */
+  .disc{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:space-between;
+        background:rgba(200,168,106,.08);border:1px solid rgba(200,168,106,.25);color:var(--gold);
+        font-size:11.5px;padding:8px 13px;border-radius:10px;margin-bottom:16px}
+  .badges{display:flex;gap:7px}
+  .badge{font-size:10px;letter-spacing:.4px;border:1px solid var(--line-hi);border-radius:999px;padding:2px 9px;color:var(--soft);text-transform:uppercase}
+  .badge.live{color:var(--on);border-color:rgba(67,192,138,.4)} .badge.seed{color:var(--neu);border-color:rgba(200,168,106,.4)}
+  .badge.claude{color:var(--acc);border-color:rgba(124,131,255,.4)} .badge.rules{color:var(--soft)}
+
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin-bottom:16px}
+  .panel h2{font-family:"Noto Serif TC",serif;font-size:15px;font-weight:600;letter-spacing:.5px;margin-bottom:4px}
+  .panel .note{font-size:11.5px;color:var(--dim);margin-bottom:14px;line-height:1.5}
+  .eyebrow{font-size:10.5px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);opacity:.85}
+  .grid{display:grid;gap:16px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:780px){.two{grid-template-columns:1fr}}
+  .tag{display:inline-block;font-size:11px;font-weight:500;padding:2px 9px;border-radius:999px;letter-spacing:.4px}
+  .tag.on{background:rgba(67,192,138,.15);color:var(--on)} .tag.off{background:rgba(224,98,110,.15);color:var(--off)}
+  .tag.neu{background:rgba(200,168,106,.15);color:var(--neu)} .tag.acc{background:rgba(124,131,255,.15);color:var(--acc)}
+  .tag.warn{background:rgba(224,169,63,.15);color:var(--warn)}
+
+  /* hero */
+  .hero{display:grid;grid-template-columns:200px 1fr;gap:22px;align-items:center}
+  @media(max-width:680px){.hero{grid-template-columns:1fr;justify-items:center;text-align:center}}
+  .donut{position:relative;width:170px;height:170px}
+  .donut .lbl{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .donut .pct{font-variant-numeric:tabular-nums;font-weight:600;font-size:40px;line-height:1}
+  .donut .pl{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);margin-top:4px}
+  .heroname{font-family:"Noto Serif TC",serif;font-size:24px;font-weight:600;margin-bottom:4px}
+  .heronar{font-size:13px;line-height:1.65;color:var(--soft);margin:8px 0 12px}
+  .herorow{display:flex;gap:8px;flex-wrap:wrap}
+  .warnbar{margin-top:12px;background:rgba(224,169,63,.10);border:1px solid rgba(224,169,63,.35);color:var(--warn);font-size:12px;padding:9px 12px;border-radius:10px;display:none}
+
+  /* divergence */
+  .cohwrap{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+  .cohbar{flex:1;height:8px;border-radius:999px;background:linear-gradient(90deg,var(--off),var(--neu),var(--on));position:relative}
+  .cohbar .pin{position:absolute;top:-4px;width:3px;height:16px;background:#fff;border-radius:2px;box-shadow:0 0 8px rgba(255,255,255,.6)}
+  .divcard{border:1px solid var(--line);border-left-width:3px;border-radius:10px;padding:11px 13px;margin-bottom:9px;background:var(--panel-hi)}
+  .divcard.high{border-left-color:var(--off)} .divcard.medium{border-left-color:var(--warn)} .divcard.low{border-left-color:var(--dim)}
+  .divtop{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:5px}
+  .divtxt{font-size:12.5px;line-height:1.55;color:var(--ink)}
+  .chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}
+  .chip{font-size:10px;color:var(--soft);border:1px solid var(--line);border-radius:6px;padding:1px 7px}
+  .chip:hover{border-color:var(--acc);color:var(--acc)}
+
+  /* scenario bars */
+  .scn{padding:12px 0;border-top:1px solid var(--line);cursor:pointer}
+  .scn:first-child{border-top:none}
+  .scnhead{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+  .scnname{font-weight:500;font-size:13.5px}
+  .scnname .hz{font-size:10px;color:var(--dim);border:1px solid var(--line);border-radius:5px;padding:0 5px;margin-left:7px;text-transform:uppercase;letter-spacing:.4px}
+  .scnright{display:flex;gap:9px;align-items:baseline}
+  .scnprob{font-variant-numeric:tabular-nums;color:var(--gold);font-weight:600;font-size:15px}
+  .drift{font-size:10.5px;font-variant-numeric:tabular-nums} .drift.up{color:var(--on)} .drift.down{color:var(--off)} .drift.flat{color:var(--dim)}
+  .bar{height:7px;border-radius:999px;background:rgba(255,255,255,.06);margin:8px 0 0;overflow:hidden}
+  .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--acc),var(--gold))}
+  .scn.base .bar i{background:linear-gradient(90deg,var(--gold),var(--gold-soft,#d8c199))}
+  .scn.base .scnname{color:var(--gold)}
+  .detail{display:none;margin-top:12px;padding:12px 14px;background:var(--panel-hi);border:1px solid var(--line);border-radius:12px}
+  .detail.open{display:block}
+  .detail .nar{font-size:12.5px;line-height:1.65;color:var(--ink);margin-bottom:10px}
+  .mp{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;margin:8px 0}
+  @media(max-width:600px){.mp{grid-template-columns:1fr}}
+  .mp div{font-size:11.5px;color:var(--soft);line-height:1.4} .mp b{color:var(--ink);font-weight:500}
+  .foundry{border-left:2px solid var(--gold);padding:7px 11px;margin:9px 0;background:rgba(200,168,106,.06);font-size:12px;line-height:1.55;border-radius:0 8px 8px 0}
+  .attr{margin-top:8px} .attrrow{display:flex;align-items:center;gap:8px;font-size:11.5px;padding:4px 0}
+  .attrbar{flex:1;height:6px;border-radius:999px;background:rgba(255,255,255,.05);position:relative;overflow:hidden}
+  .attrbar i{position:absolute;top:0;height:100%;left:50%} .attrbar i.up{background:var(--on)} .attrbar i.down{background:var(--off);transform:translateX(-100%)}
+  .alist{font-size:11.5px;color:var(--soft);line-height:1.5;margin:6px 0;padding-left:15px;position:relative;list-style:none}
+  .alist li{position:relative;padding-left:14px;margin:3px 0} .alist li::before{content:"▸";position:absolute;left:0;color:var(--gold)}
+
+  /* driver table */
+  table.dt{width:100%;border-collapse:collapse;font-size:12px}
+  table.dt td{padding:7px 8px;border-top:1px solid var(--line);vertical-align:middle}
+  table.dt .nm{color:var(--ink)} table.dt .src a:hover{color:var(--acc)}
+  .dbar{width:90px;height:6px;border-radius:999px;background:rgba(255,255,255,.06);position:relative}
+  .dbar .mid{position:absolute;left:50%;top:-2px;width:1px;height:10px;background:var(--line-hi)}
+  .dbar i{position:absolute;top:0;height:100%;left:50%} .dbar i.pos{background:var(--on)} .dbar i.neg{background:var(--off);transform:translateX(-100%)}
+  .sb{font-size:9px;border-radius:4px;padding:0 5px;border:1px solid var(--line)}
+  .sb.live{color:var(--on);border-color:rgba(67,192,138,.4)} .sb.seed{color:var(--neu);border-color:rgba(200,168,106,.35)} .sb.unav{color:var(--dim)}
+
+  ul.plain{list-style:none} ul.plain li{font-size:12.5px;line-height:1.6;color:var(--soft);margin:6px 0;padding-left:16px;position:relative}
+  ul.plain li::before{content:"▸";position:absolute;left:0;color:var(--gold)}
+  table.ew{width:100%;border-collapse:collapse;font-size:12.5px}
+  table.ew td{padding:7px 8px;border-top:1px solid var(--line)}
+  table.ew td.f{text-align:right;color:var(--gold);font-size:11px;white-space:nowrap}
+  .cc{font-size:12.5px;color:var(--soft);padding:7px 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:10px}
+  .cc .p{font-variant-numeric:tabular-nums;color:var(--dim)}
+  .foot{margin-top:24px;font-size:11px;color:var(--dim);line-height:1.7}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand"><span class="gem"></span><h1 id="title"></h1></div>
+    <div class="tools">
+      <button class="btn" id="langBtn"></button>
+      <button class="btn go" id="refreshBtn"></button>
+      <span class="status" id="status"></span>
+    </div>
+  </div>
+  <div class="crumb"><a href="/">← <span id="crumbHome"></span></a> · <span id="asof"></span></div>
+
+  <!-- disclaimer bar -->
+  <div class="disc">
+    <span id="disclaimer"></span>
+    <span class="badges">
+      <span class="badge" id="engineBadge"></span>
+      <span class="badge" id="sourceBadge"></span>
+      <span class="badge" id="covBadge"></span>
+    </span>
+  </div>
+
+  <!-- hero verdict -->
+  <div class="panel">
+    <span class="eyebrow" id="h_hero"></span>
+    <div class="hero" style="margin-top:12px">
+      <div class="donut" id="donut">
+        <svg viewBox="0 0 36 36" width="170" height="170">
+          <path d="M18 2.5 a 15.5 15.5 0 0 1 0 31 a 15.5 15.5 0 0 1 0 -31" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="3"></path>
+          <path id="donutArc" d="M18 2.5 a 15.5 15.5 0 0 1 0 31 a 15.5 15.5 0 0 1 0 -31" fill="none" stroke="var(--gold)" stroke-width="3" stroke-linecap="round" stroke-dasharray="0 100"></path>
+        </svg>
+        <div class="lbl"><span class="pct" id="basePct"></span><span class="pl" id="baseProbLbl"></span></div>
+      </div>
+      <div>
+        <div class="heroname" id="baseName"></div>
+        <div class="herorow">
+          <span class="tag" id="regimeTag"></span>
+          <span class="tag" id="confTag"></span>
+          <span class="tag" id="signalTag"></span>
+          <span class="tag neu" id="cohTag"></span>
+          <span class="tag" id="divTag"></span>
+        </div>
+        <div class="heronar" id="baseNar"></div>
+        <div class="warnbar" id="warnbar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- divergence panel -->
+  <div class="panel">
+    <h2 id="h_div"></h2><div class="note" id="n_div"></div>
+    <div class="cohwrap">
+      <span style="font-size:11.5px;color:var(--soft)" id="cohLbl"></span>
+      <div class="cohbar"><div class="pin" id="cohPin"></div></div>
+      <span style="font-variant-numeric:tabular-nums;font-weight:600" id="cohVal"></span>
+    </div>
+    <div id="divList"></div>
+  </div>
+
+  <!-- scenario probability ranking + drill-down -->
+  <div class="panel">
+    <h2 id="h_scn"></h2><div class="note" id="n_scn"></div>
+    <div id="scenarios"></div>
+  </div>
+
+  <!-- expected market path (base case) -->
+  <div class="panel">
+    <h2 id="h_emp"></h2><div class="note" id="n_emp"></div>
+    <div class="mp" id="emp"></div>
+    <div class="foundry" id="empTail"></div>
+  </div>
+
+  <div class="two">
+    <!-- driver transparency -->
+    <div class="panel">
+      <h2 id="h_drv"></h2><div class="note" id="n_drv"></div>
+      <table class="dt"><tbody id="drivers"></tbody></table>
+      <div class="note" style="margin-top:10px;margin-bottom:0" id="covFoot"></div>
+    </div>
+    <!-- reflexive cross-check -->
+    <div class="panel">
+      <h2 id="h_cc"></h2><div class="note" id="n_cc"></div>
+      <div id="crosschecks"></div>
+    </div>
+  </div>
+
+  <!-- L5 decision -->
+  <div class="two">
+    <div class="panel">
+      <h2 id="h_watch"></h2>
+      <ul class="plain" id="watch"></ul>
+      <h2 style="margin-top:16px" id="h_fals"></h2>
+      <ul class="plain" id="falsification"></ul>
+    </div>
+    <div class="panel">
+      <h2 id="h_ew"></h2>
+      <table class="ew"><tbody id="earlyWarn"></tbody></table>
+      <h2 style="margin-top:16px" id="h_sens"></h2>
+      <ul class="plain" id="sensitivity"></ul>
+    </div>
+  </div>
+
+  <div class="foot">
+    <div id="blindHead"></div>
+    <ul style="list-style:none;margin-top:6px" id="blind"></ul>
+    <div style="margin-top:12px" id="methodFoot"></div>
+  </div>
+</div>
+
+<script>
+const SNAP = {{ snapshot | safe }};
+let LANG = localStorage.getItem("scenario_lang") || "en";
+const REGIME = {
+  risk_on:["on","Risk-on","偏多"], melt_up:["acc","Melt-up","噴出"], topping:["warn","Topping","見頂"],
+  risk_off:["off","Risk-off","偏空"], air_pocket:["off","Air-pocket","空窗"], mixed:["neu","Mixed","分歧"]
+};
+const T = {
+  en:{home:"External Market Analysis", lang:"中文", refresh:"↻ Refresh",
+      pwPrompt:"Enter refresh password (default scenario2026):", refreshing:"refreshing… reading the pyramid + Claude L4/L5",
+      done:"done, reloading…", fail:"refresh failed", asof:"As of",
+      eClaude:"engine: Claude Opus 4.8", eRules:"engine: rules (no key)",
+      hero:"Base case — most likely next state", probLbl:"probability",
+      conf:"confidence", coh:"coherence", divs:"divergences",
+      confTip:"How much live evidence backs the precise probabilities (driven by coverage) — NOT a judgement on the divergence signal.",
+      signal:"signal", signalTip:"Strength of the cross-platform divergence engine — a high-value read, reported separately from confidence.",
+      sigStrong:"strong", sigModerate:"moderate", sigQuiet:"quiet",
+      warn:"Coverage is low — the distribution has shrunk back toward the prior. Treat the precise probabilities with caution.",
+      hdiv:"Cross-platform divergence", ndiv:"Where the platforms disagree — the highest-value signal. Coherence = how much they agree on direction.",
+      cohLbl:"platforms agree ↔ conflict",
+      hscn:"Scenario probabilities", nscn:"Model-assisted, summing to 100. Click a scenario to see why. Drift = change vs the last refresh.",
+      hemp:"Expected market path — base case", nemp:"How each asset class would likely behave under the base case.",
+      hdrv:"Drivers — live vs seed", ndrv:"The 10 drivers read from the pyramid below; value in [-1,+1], +1 = risk-on / AI-favorable.",
+      hcc:"Cross-check — Capital Flow Radar's own read", ncc:"flows' self-distribution, mapped to our scenarios. Shown as a neighbor's opinion — NOT weighted into our numbers.",
+      hwatch:"Watch now", hfals:"Falsification — what breaks the base case",
+      hew:"Early-warning — ordered by what fires first", hsens:"Sensitivity — what would move the probabilities",
+      blind:"Honesty & blind spots", why:"Why this probability", trig:"Triggers", fals:"Falsifiers",
+      eq:"Equities", rt:"Rates", cr:"Credit", ai:"AI / semis", drift0:"new"},
+  zh:{home:"外部市場分析", lang:"EN", refresh:"↻ 更新",
+      pwPrompt:"輸入更新密碼(預設 scenario2026):", refreshing:"更新中…讀取整座金字塔 + Claude L4/L5",
+      done:"完成,重新載入中…", fail:"更新失敗", asof:"資料時點",
+      eClaude:"引擎:Claude Opus 4.8", eRules:"引擎:規則(無 key)",
+      hero:"Base case — 下一個最可能的狀態", probLbl:"機率",
+      conf:"信心", coh:"自洽度", divs:"項背離",
+      confTip:"有多少即時證據支撐這組精確機率(由覆蓋率決定) — 並非對背離訊號強弱的評價。",
+      signal:"訊號", signalTip:"跨平台背離引擎的強度 — 高價值判讀,與信心分開呈現。",
+      sigStrong:"強", sigModerate:"中", sigQuiet:"靜",
+      warn:"覆蓋率偏低 — 分布已向先驗收斂。請對精確機率保留。",
+      hdiv:"跨平台背離", ndiv:"平台彼此不一致之處 — 最有價值的訊號。自洽度 = 各平台方向有多一致。",
+      cohLbl:"平台一致 ↔ 打架",
+      hscn:"情境機率", nscn:"Model-assisted,加總 100。點任一情境看原因。Drift = 對上次更新的變化。",
+      hemp:"預期市場路徑 — base case", nemp:"base case 下各資產類別大致會怎麼走。",
+      hdrv:"Driver — 即時 vs 種子", ndrv:"從下方金字塔讀到的 10 個 driver;值 ∈ [-1,+1],+1 = risk-on / 對 AI 有利。",
+      hcc:"對賬 — 資金流向雷達自身判讀", ncc:"flows 的自身分布,映射到本平台情境。當作鄰居意見呈現 — 未計入本平台數字。",
+      hwatch:"現在要盯", hfals:"證偽 — 什麼會推翻 base case",
+      hew:"早期預警 — 依誰最先亮排序", hsens:"敏感度 — 什麼會移動機率",
+      blind:"誠實聲明與盲點", why:"為什麼是這個機率", trig:"觸發", fals:"證偽條件",
+      eq:"股票", rt:"利率", cr:"信用", ai:"AI / 半導體", drift0:"新"}
+};
+const PLAT_HREF = {econ:"/econ/",aibubble:"/aibubble/",flows:"/flows/",payback:"/payback/",pricing:"/pricing/",
+  compute:"/compute/",cwengine:"/cwengine/",racks:"/racks/",earnings:"/earnings/",rival:"/rival/"};
+function Lz(o,base){ return (o && (o[LANG] ?? o.en ?? o[base+"_"+LANG] ?? o[base+"_en"])) || ""; }
+function bi(o){ return o? (LANG==="zh"? o.zh : o.en) : ""; }
+
+function render(){
+  const t = T[LANG], s = SNAP, l3 = s.l3, h = s.headline;
+  document.documentElement.lang = LANG==="zh"?"zh-Hant":"en";
+  document.getElementById("title").textContent = LANG==="zh"? s.title_zh : s.title_en;
+  document.getElementById("langBtn").textContent = t.lang;
+  document.getElementById("refreshBtn").textContent = t.refresh;
+  document.getElementById("crumbHome").textContent = t.home;
+  document.getElementById("asof").textContent = t.asof+" "+(s.as_of||"")+(s.generated_at?" · "+s.generated_at:"");
+
+  // disclaimer + badges
+  document.getElementById("disclaimer").textContent = LANG==="zh"? s.disclaimer_zh : s.disclaimer_en;
+  const eb = document.getElementById("engineBadge");
+  eb.textContent = s.analysis_engine==="claude"? "Claude" : "Rules";
+  eb.className = "badge " + (s.analysis_engine==="claude"?"claude":"rules");
+  eb.title = s.analysis_engine==="claude"? t.eClaude : t.eRules;
+  const sb = document.getElementById("sourceBadge");
+  sb.textContent = s.source==="live"? "LIVE" : "SEED"; sb.className = "badge " + (s.source==="live"?"live":"seed");
+  document.getElementById("covBadge").textContent = h.coverage_label;
+
+  // hero
+  document.getElementById("h_hero").textContent = t.hero;
+  document.getElementById("basePct").textContent = h.base_prob + "%";
+  document.getElementById("baseProbLbl").textContent = t.probLbl;
+  document.getElementById("baseName").textContent = bi(h.base_label);
+  document.getElementById("baseNar").textContent = bi(h.base_narrative);
+  document.getElementById("donutArc").setAttribute("stroke-dasharray", h.base_prob + " " + (100-h.base_prob));
+  const rg = REGIME[h.regime_key] || REGIME.mixed;
+  const rt = document.getElementById("regimeTag"); rt.className = "tag "+rg[0]; rt.textContent = LANG==="zh"?rg[2]:rg[1];
+  const cf = document.getElementById("confTag");
+  cf.className = "tag " + (h.confidence==="high"?"on":h.confidence==="low"?"off":"neu");
+  cf.textContent = t.conf+": "+h.confidence;
+  cf.title = t.confTip;
+  // signal strength — divergence-engine loudness, a SEPARATE axis from confidence (M18)
+  const sg = document.getElementById("signalTag");
+  const ss = h.signal_strength || "quiet";
+  sg.className = "tag " + (ss==="strong"?"warn":ss==="moderate"?"acc":"neu");
+  sg.textContent = t.signal+": "+(ss==="strong"?t.sigStrong:ss==="moderate"?t.sigModerate:t.sigQuiet);
+  sg.title = t.signalTip;
+  document.getElementById("cohTag").textContent = t.coh+" "+h.coherence_score;
+  const dt = document.getElementById("divTag");
+  dt.className = "tag " + (h.divergence_count>0?"warn":"neu");
+  dt.textContent = h.divergence_count + " " + t.divs;
+  const wb = document.getElementById("warnbar");
+  if(h.coverage < 0.5){ wb.style.display="block"; wb.textContent = t.warn; }
+
+  // divergence panel
+  document.getElementById("h_div").textContent = t.hdiv;
+  document.getElementById("n_div").textContent = t.ndiv;
+  document.getElementById("cohLbl").textContent = t.cohLbl;
+  document.getElementById("cohVal").textContent = h.coherence_score;
+  document.getElementById("cohPin").style.left = h.coherence_score + "%";
+  document.getElementById("divList").innerHTML = (l3.divergences||[]).map(d=>`
+    <div class="divcard ${d.severity}">
+      <div class="divtop"><span class="tag ${d.severity==='high'?'off':d.severity==='medium'?'warn':'neu'}">${d.severity}</span></div>
+      <div class="divtxt">${LANG==="zh"?d.zh:d.en}</div>
+      <div class="chips">${(d.platforms||[]).map(p=>`<a class="chip" href="${PLAT_HREF[p]||'#'}">${p}</a>`).join("")}</div>
+    </div>`).join("") || `<div class="note" style="margin:0">—</div>`;
+
+  // scenarios
+  document.getElementById("h_scn").textContent = t.hscn;
+  document.getElementById("n_scn").textContent = t.nscn;
+  const sorted = [...l3.scenarios].sort((a,b)=>b.prob-a.prob);
+  document.getElementById("scenarios").innerHTML = sorted.map((sc,idx)=>{
+    const isBase = sc.id===h.base_id;
+    let driftHtml = "";
+    if(sc.drift===null||sc.drift===undefined){ driftHtml = `<span class="drift flat">${t.drift0}</span>`; }
+    else { const cl = sc.drift>0?"up":sc.drift<0?"down":"flat"; driftHtml = `<span class="drift ${cl}">${sc.drift>0?"+":""}${sc.drift}pt</span>`; }
+    const attr = (sc.attribution||[]).map(a=>{
+      const w = Math.min(Math.abs(a.contribution)*4, 48);
+      return `<div class="attrrow"><span class="sb ${a.source==='live'?'live':a.source==='seed'?'seed':'unav'}">${a.source}</span>
+        <span style="flex-basis:130px;color:var(--soft)">${LANG==="zh"?a.name_zh:a.name_en}</span>
+        <span class="attrbar"><i class="${a.direction}" style="width:${w}%"></i></span>
+        <span style="color:${a.direction==='up'?'var(--on)':'var(--off)'};font-variant-numeric:tabular-nums">${a.contribution>0?"+":""}${a.contribution}</span></div>`;
+    }).join("");
+    const mp = sc.market_path;
+    return `<div class="scn ${isBase?'base':''}" data-i="${idx}">
+      <div class="scnhead">
+        <span class="scnname">${LANG==="zh"?sc.name_zh:sc.name_en}<span class="hz">${sc.horizon}</span></span>
+        <span class="scnright">${driftHtml}<span class="scnprob">${sc.prob}%</span></span>
+      </div>
+      <div class="bar"><i style="width:${sc.prob}%"></i></div>
+      <div class="detail" id="det${idx}">
+        <div class="nar">${LANG==="zh"?sc.narrative.zh:sc.narrative.en}</div>
+        <div class="mp">
+          <div><b>${t.eq}:</b> ${LANG==="zh"?mp.equities_zh:mp.equities_en}</div>
+          <div><b>${t.rt}:</b> ${LANG==="zh"?mp.rates_zh:mp.rates_en}</div>
+          <div><b>${t.cr}:</b> ${LANG==="zh"?mp.credit_zh:mp.credit_en}</div>
+          <div><b>${t.ai}:</b> ${LANG==="zh"?mp.ai_semis_zh:mp.ai_semis_en}</div>
+        </div>
+        <div class="foundry">${LANG==="zh"?sc.foundry_read.zh:sc.foundry_read.en}</div>
+        <div style="font-size:11px;color:var(--gold);letter-spacing:.5px;text-transform:uppercase;margin:10px 0 2px">${t.why}</div>
+        <div class="attr">${attr||'<div class="note" style="margin:0">—</div>'}</div>
+        <ul class="alist">${(LANG==="zh"?sc.triggers.zh:sc.triggers.en).map(x=>`<li>${x}</li>`).join("")}</ul>
+      </div>
+    </div>`;
+  }).join("");
+  document.querySelectorAll(".scn").forEach(el=>el.addEventListener("click",()=>{
+    document.getElementById("det"+el.dataset.i).classList.toggle("open");
+  }));
+
+  // expected market path
+  document.getElementById("h_emp").textContent = t.hemp;
+  document.getElementById("n_emp").textContent = t.nemp;
+  const emp = s.l4.expected_market_path||{};
+  document.getElementById("emp").innerHTML = [["eq","equities"],["rt","rates"],["cr","credit"],["ai","ai_semis"]]
+    .map(([k,f])=>`<div><b>${t[k]}:</b> ${LANG==="zh"?emp[f+"_zh"]:emp[f+"_en"]||""}</div>`).join("");
+  const tail = s.l4.tail_risk||{};
+  document.getElementById("empTail").textContent = (LANG==="zh"?"⚠ 尾部風險:":"⚠ Tail risk: ")+(LANG==="zh"?tail.why_zh:tail.why_en);
+
+  // drivers
+  document.getElementById("h_drv").textContent = t.hdrv;
+  document.getElementById("n_drv").textContent = t.ndrv;
+  document.getElementById("drivers").innerHTML = (l3.drivers||[]).map(d=>{
+    const w = Math.min(Math.abs(d.value)*50, 50), pos = d.value>=0;
+    const href = PLAT_HREF[d.source_platform]||"#";
+    const sbl = d.source==="live"?"live":d.source==="seed"?"seed":"unav";
+    return `<tr>
+      <td class="nm">${LANG==="zh"?d.name_zh:d.name_en}</td>
+      <td><div class="dbar"><span class="mid"></span><i class="${pos?'pos':'neg'}" style="width:${w}%"></i></div></td>
+      <td style="font-variant-numeric:tabular-nums;text-align:right">${d.value>0?"+":""}${d.value.toFixed(2)}</td>
+      <td class="src"><a href="${href}">${d.source_platform}</a></td>
+      <td><span class="sb ${sbl}">${d.source}</span></td>
+    </tr>`;
+  }).join("");
+  const cov = l3.coverage;
+  document.getElementById("covFoot").textContent =
+    (LANG==="zh"?`即時 ${cov.live_count} / 種子 ${cov.seed_count} / 無資料 ${cov.unavailable.length},coverage = ${Math.round(cov.coverage*100)}%`
+               :`live ${cov.live_count} / seed ${cov.seed_count} / unavailable ${cov.unavailable.length}, coverage = ${Math.round(cov.coverage*100)}%`);
+
+  // cross-checks
+  document.getElementById("h_cc").textContent = t.hcc;
+  document.getElementById("n_cc").textContent = t.ncc;
+  const cc = (l3.cross_checks||{});
+  const ccItems = (cc.flows_scenarios||[]);
+  document.getElementById("crosschecks").innerHTML = (ccItems.length?ccItems.map(x=>
+    `<div class="cc"><span>${LANG==="zh"?x.name_zh:x.name_en}</span><span class="p">${x.prob!=null?x.prob+"%":"—"}</span></div>`).join("")
+    : `<div class="note" style="margin:0">—</div>`) + `<div class="note" style="margin-top:10px;margin-bottom:0">${LANG==="zh"?cc.note_zh:cc.note_en}</div>`;
+
+  // L5
+  const l5 = s.l5;
+  document.getElementById("h_watch").textContent = t.hwatch;
+  document.getElementById("watch").innerHTML = (l5.watch||[]).map(x=>`<li>${LANG==="zh"?x.zh:x.en}</li>`).join("");
+  document.getElementById("h_fals").textContent = t.hfals;
+  document.getElementById("falsification").innerHTML = (l5.falsification||[]).map(x=>`<li>${LANG==="zh"?x.zh:x.en}</li>`).join("");
+  document.getElementById("h_ew").textContent = t.hew;
+  document.getElementById("earlyWarn").innerHTML = (l5.early_warning||[]).map(x=>{
+    const href = PLAT_HREF[x.source_platform]||"#";
+    return `<tr><td>${LANG==="zh"?x.zh:x.en}<br><a href="${href}" style="font-size:10.5px;color:var(--dim)">→ ${x.source_platform}</a></td><td class="f">${x.freq}</td></tr>`;
+  }).join("");
+  document.getElementById("h_sens").textContent = t.hsens;
+  document.getElementById("sensitivity").innerHTML = (l5.sensitivity||[]).map(x=>
+    `<li>${LANG==="zh"?x.if_zh:x.if_en} → ${LANG==="zh"?x.moves_zh:x.moves_en}</li>`).join("");
+
+  // footer
+  document.getElementById("blindHead").textContent = t.blind + ":";
+  const blind = LANG==="zh"? s.blind_spots_zh : s.blind_spots_en;
+  document.getElementById("blind").innerHTML = (blind||[]).map(b=>`<li style="font-size:11.5px;color:var(--dim);line-height:1.6;margin:5px 0;padding-left:14px;position:relative">· ${b}</li>`).join("");
+  document.getElementById("methodFoot").textContent = LANG==="zh"? s.method_zh : s.method_en;
+}
+
+document.getElementById("langBtn").addEventListener("click",()=>{
+  LANG = LANG==="zh"?"en":"zh"; localStorage.setItem("scenario_lang",LANG); render();
+});
+async function doRefresh(){
+  const t = T[LANG];
+  const pw = prompt(t.pwPrompt); if(!pw) return;
+  const st = document.getElementById("status"); st.textContent = t.refreshing;
+  try{
+    const r = await fetch("/scenario/api/refresh",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({password:pw})});
+    const j = await r.json();
+    if(!r.ok || !j.ok){ st.textContent = t.fail + (j.error?` (${j.error})`:""); return; }
+    st.textContent = `${t.done} (${j.engine}, ${j.base_id} ${j.base_prob}%)`;
+    setTimeout(()=>location.reload(),900);
+  }catch(e){ st.textContent = t.fail; }
+}
+document.getElementById("refreshBtn").addEventListener("click",doRefresh);
+render();
+</script>
+</body>
+</html>

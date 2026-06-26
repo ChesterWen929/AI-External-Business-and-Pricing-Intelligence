@@ -234,6 +234,7 @@
    "hq_zh": "美國加州聖塔克拉拉",
    "ticker": "INTC",
    "market_share_pct": 0.5,
+   "share_estimated": true,
    "strategy_en": "Intel attacks TSMC as the only US-owned leading-edge alternative: 18A (first node combining gate-all-around RibbonFET with PowerVia backside power) is now in volume production in Arizona, and Intel is converting geopolitical pressure — a ~10% US government equity stake, Nvidia's $5B investment and Washington's \"don't depend on Taiwan\" framing — into second-source deals with Microsoft, Amazon, the DoD and now Apple. The 14A node with High-NA EUV is positioned as the head-on challenger to TSMC A14 in 2028, but management will only build 14A capacity against firm external commitments, expected to land from H2 2026. Meanwhile Intel still hedges its own products by outsourcing Nova Lake compute tiles to TSMC N2, underlining that the threat is strategic and political more than near-term volume.",
    "strategy_zh": "英特爾以「唯一美國本土先進製程」為核心訴求進攻台積電：18A（全球首個同時導入RibbonFET環繞閘極與PowerVia背面供電的節點）已在亞利桑那量產，並把地緣政治壓力——美國政府約10%持股、輝達50億美元入股、華府「不能依賴台灣」的論述——轉化為微軟、亞馬遜、美國國防部乃至蘋果的第二供應來源訂單。14A搭配High-NA EUV瞄準2028年與台積電A14正面對決，但管理層堅持有外部客戶承諾才擴建14A產能（預期2026下半年起落定）。同時英特爾自家Nova Lake運算晶粒仍委由台積電N2代工，顯示其威脅目前偏戰略與政治面，而非短期出貨量。",
    "threat": {
@@ -477,7 +478,7 @@
    "hq_en": "Shanghai, China",
    "hq_zh": "中國上海",
    "ticker": "0981.HK",
-   "market_share_pct": 5.4,
+   "market_share_pct": 5.2,
    "strategy_en": "SMIC attacks TSMC on two fronts: at the trailing edge it leverages China's domestic-substitution policy and 20-40% price discounts to pull mature-node orders (PMIC, CIS, MCU, driver ICs) away from TSMC, UMC, VIS and GlobalFoundries; at the leading edge it uses DUV multi-patterning to build a de-Americanized 7nm/5nm pipeline that captures Huawei, Alibaba and Chinese AI-accelerator orders TSMC is legally barred from serving. Beijing is reportedly funding a fivefold expansion of 7nm/5nm-class output within two years, accepting low yields and operating losses as the cost of strategic autonomy.",
    "strategy_zh": "中芯國際從兩面進攻台積電：在成熟製程端，挾中國國產替代政策與最高 20-40% 的降價，把電源管理、CIS、MCU、驅動 IC 等訂單從台積電、聯電、世界先進與格羅方德手中搶走；在先進製程端，以 DUV 多重曝光打造「去美化」的 7 奈米／5 奈米產線，承接台積電依法無法服務的華為、阿里巴巴等中國 AI 晶片訂單。北京更傳出計畫兩年內將 7／5 奈米級產能擴大五倍，以低良率與營運虧損換取戰略自主。",
    "threat": {
@@ -891,7 +892,7 @@
    "hq_en": "Malta, New York, USA",
    "hq_zh": "美國紐約州馬爾他",
    "ticker": "GFS",
-   "market_share_pct": 3.9,
+   "market_share_pct": 3.8,
    "strategy_en": "GlobalFoundries abandoned the leading-edge race in 2018 and instead attacks TSMC at the specialty layer: differentiated FD-SOI (22FDX), RF SOI, monolithic silicon photonics (GF Fotonix/SCALE), GaN and eMRAM platforms aimed at AI data-center connectivity, automotive, smartphone RF and aerospace/defense sockets. Its core weapon is geopolitics — as the only US-headquartered top-5 foundry with DoD Trusted Foundry status, CHIPS funding, a $16B US expansion backed by Apple, SpaceX, AMD, Qualcomm, NXP and GM, and now a US-government-funded quantum foundry, it monetizes a 'secure, US/EU-made' premium that TSMC's Arizona fabs only partially neutralize. Long-term agreements and sole-sourced design wins (95% of its 500+ photonics wins in 2025) make its sockets sticky rather than price-competitive.",
    "strategy_zh": "格羅方德2018年退出先進製程競賽後，改以差異化特殊製程攻擊台積電：22FDX FD-SOI、RF SOI、單晶片矽光子（GF Fotonix／SCALE）、GaN與eMRAM平台，鎖定AI資料中心光連接、車用、手機射頻與航太國防插槽。其核心武器是地緣政治——作為唯一美國總部的前五大晶圓代工廠，擁有國防部信任晶圓廠認證、CHIPS補助、由蘋果、SpaceX、超微、高通、恩智浦與通用汽車背書的160億美元美國擴產，以及美國政府出資的量子晶圓廠，靠「美歐安全製造」溢價搶單，台積電亞利桑那廠僅能部分抵銷。長約與獨家設計案（2025年500多個矽光子設計案中95%為獨家）使其插槽黏性極高。",
    "threat": {
@@ -1137,7 +1138,7 @@
    "hq_en": "Hsinchu, Taiwan",
    "hq_zh": "台灣新竹",
    "ticker": "2303.TW",
-   "market_share_pct": 4.3,
+   "market_share_pct": 4.2,
    "strategy_en": "UMC has explicitly abandoned the leading-edge race and instead attacks TSMC's mature and specialty-node franchise (22/28nm display drivers, RF-SOI, BCD power, embedded memory) with lower-cost capacity and deep customer co-development. Its geographic spread — Singapore Fab12i P3 ramping in 2026, the USJC fab in Japan, and 12nm FinFET being installed inside Intel's Arizona fabs — lets it pitch a 'non-Taiwan, non-China' supply story against both TSMC's Taiwan concentration and Chinese price-cutters. The Intel 12nm tie-up gives UMC US-made FinFET capacity without the capex, aimed squarely at customers who would otherwise default to TSMC N12/N16.",
    "strategy_zh": "聯電已明確放棄先進製程競賽，轉而以低成本產能與深度客戶共同開發，搶攻台積電的成熟與特殊製程版圖（22/28奈米顯示驅動IC、RF-SOI、BCD電源、嵌入式記憶體）。其地理布局——新加坡Fab12i P3於2026年量產、日本USJC廠，以及在英特爾亞利桑那廠導入的12奈米FinFET——讓聯電能以「非台灣、非中國」的供應故事，同時對抗台積電的台灣集中度與中國同業的殺價競爭。與英特爾的12奈米合作使聯電不需自行投入巨額資本支出即可取得美國製FinFET產能，直接瞄準原本只能選擇台積電N12/N16的客戶。",
    "threat": {
@@ -3038,6 +3039,8 @@
     "company": "Samsung",
     "year": "2026",
     "usd_b": 73.2,
+    "caliber_en": "Capex + R&D, whole DS division — NOT comparable to the others' pure capex",
+    "caliber_zh": "資本支出＋研發、整個DS部門 — 與其他三家純資本支出口徑不可比",
     "note_en": "Plan, NOT a capex-only guidance: Samsung said it will invest over KRW 110T in 2026 in capex PLUS R&D combined (vs KRW 90.4T in 2025, +22%), the large majority for the DS semiconductor division (Pyeongtaek P4/P5, Taylor TX, HBM4, advanced packaging); ~US$73B at prevailing rates. Samsung does not publish annual capex-only guidance. Source: The Elec, Mar 2026. T3 citing company statement.",
     "note_zh": "計畫值，非單純資本支出財測：三星宣布2026年資本支出加研發合計投資逾110兆韓元（2025年為90.4兆韓元，年增22%），絕大部分投入DS半導體部門（平澤P4/P5、德州泰勒廠、HBM4、先進封裝），約合730億美元。三星不公布年度資本支出單獨財測。來源：The Elec，2026年3月。T3（引述公司聲明）。"
    },
@@ -3294,7 +3297,7 @@
    },
    {
     "key": "smic",
-    "total": 6.1,
+    "total": 6.0,
     "one_liner_zh": "出口管制把中國 AI 需求整塊推向中芯：算能與華為昇騰 7 奈米訂單已是既成事實，且受地緣保護不可逆",
     "one_liner_en": "Export controls hand SMIC China's entire AI demand: Sophgo and Huawei Ascend 7nm orders are fait accompli, geopolitically locked in"
    },
@@ -3312,7 +3315,7 @@
    },
    {
     "key": "umc",
-    "total": 4.1,
+    "total": 4.0,
     "one_liner_zh": "與英特爾合作 12 奈米並以特殊製程價格戰防守，蠶食成熟節點毛利而非先進製程",
     "one_liner_en": "Intel 12nm partnership plus specialty-node price competition erodes mature-node margins rather than challenging the leading edge"
    },

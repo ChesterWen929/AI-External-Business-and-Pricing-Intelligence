@@ -62,6 +62,21 @@ def _num(v, nd=2):
     return round(v, nd)
 
 
+def _fast_get(info, *keys):
+    """Read a value off yfinance fast_info, which exposes both snake_case and
+    camelCase aliases inconsistently across versions and via either item or
+    attribute access. Returns the first finite value found, else None."""
+    for k in keys:
+        try:
+            v = info[k]
+        except (KeyError, TypeError):
+            v = getattr(info, k, None)
+        n = _num(v)
+        if n is not None:
+            return n
+    return None
+
+
 def refresh_market(data_dir):
     import yfinance as yf
 
@@ -74,6 +89,13 @@ def refresh_market(data_dir):
             if price is None:
                 raise ValueError("no price")
             prev = _num(info["previous_close"]) or price
+            # fast_info key name is unstable across yfinance versions; try the
+            # known aliases, then fall back to shares-outstanding x price.
+            mcap = _fast_get(info, "market_cap", "marketCap")
+            if mcap is None:
+                shares = _fast_get(info, "shares", "shares_outstanding", "sharesOutstanding")
+                if shares is not None:
+                    mcap = shares * price
             row = {
                 "ticker": ticker,
                 "name_en": names["name_en"],
@@ -81,7 +103,7 @@ def refresh_market(data_dir):
                 "price": price,
                 "currency": str(getattr(info, "currency", "") or info.get("currency", "")),
                 "change_pct": _num((price - prev) / prev * 100) if prev else 0.0,
-                "market_cap": int(_num(info.get("market_cap"), 0) or 0),
+                "market_cap": int(mcap) if mcap is not None else None,
                 "ytd_pct": None,
             }
             try:

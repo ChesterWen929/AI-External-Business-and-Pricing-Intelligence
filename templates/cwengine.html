@@ -179,6 +179,7 @@
     <h2 id="v1h"></h2>
     <div class="note" id="v1note"></div>
     <div id="capexChips" class="chips"></div>
+    <div class="note" id="capexNote" style="margin:-6px 0 14px;font-size:11px"></div>
     <div class="hero">
       <div>
         <div id="regimeBadge" class="rbadge"></div>
@@ -207,6 +208,7 @@
       </tr></thead>
       <tbody id="segTable"></tbody>
     </table>
+    <div class="note" id="segNote" style="margin:8px 0 0;font-size:10.5px"></div>
   </div>
 
   <!-- VIEW 2 — TRACEABILITY WATERFALL -->
@@ -284,8 +286,11 @@ const T = {
       v1:"01 · Inference result",v1h:"Implied leading-edge logic-wafer demand",
       v1n:"Given the selected CapEx + active regime → implied annual 300mm leading-edge LOGIC wafer starts, with a confidence band (not a single false-precise number).",
       capexLbl:"CapEx input",band:"Confidence band (independent ±)",
+      capexNote:"Chain is driven by FORWARD guidance (e.g. $600B 2026E), not trailing actuals — deliberately so: this is a 6–12-month-ahead signal.",
+      capexNoteLive:"Live cross-check: trailing-twelve-month capex across {n} hyperscalers ≈ ${ttm}B (yfinance). The ~{gap}% gap vs the $600B 2026E guidance is the forward-vs-backward difference, not an error — TTM is what was already spent, guidance is what is planned.",
       seg:"Segment",share:"Mix",dollars:"$B",asp:"ASP",units:"Units(M)",die:"Die mm²",node:"Node",yield:"Yield",waf:"Wafers/yr",
       siK:"Accelerator silicon",unK:"Accelerators",hbK:"HBM (parallel)",perYr:"wafers / yr",wpm:"≈ {x} wafers / month",
+      segNote:"Node column is a leading-edge LABEL only (low confidence) — it does not enter the yield or die-area math. HBM (PB) is a parallel intensity cross-check on a separate memory fab — it is NOT folded into the logic-wafer chain.",
       env:"Outer envelope (all assumptions at extremes together): {lo} – {hi}",
       v2:"02 · Traceability",v2h:"Waterfall — every number to its assumption",v2n:"Click a stage to see the assumption node behind it: value, version, valid-from date, confidence and the evidence that justifies it.",
       v3:"03 · Scenario comparison",v3h:"Same CapEx, different regime → different wafer demand",v3n:"The governing insight: the training→inference rotation re-routes the chain. The bars share one CapEx; only the regime's assumption set changes.",
@@ -301,8 +306,11 @@ const T = {
       v1:"01 · 推估結果",v1h:"隱含的先進製程邏輯晶圓需求",
       v1n:"在所選 CapEx ＋ 當前體制下 → 隱含的每年 300mm 先進製程「邏輯」晶圓投片量，附信賴區間（而非單一假精確數字）。",
       capexLbl:"CapEx 輸入",band:"信賴區間（獨立 ±）",
+      capexNote:"本鏈以「前瞻指引」驅動（如 $600B 2026E），而非後視實績——這是刻意設計：本平台是領先下單 6–12 個月的訊號。",
+      capexNoteLive:"即時交叉驗證：{n} 家雲端巨頭近十二個月（TTM）capex 合計約 ${ttm}B（yfinance）。與 $600B 2026E 指引約 {gap}% 的落差是「前瞻 vs 後視」的差異，非錯誤——TTM 是已花掉的、指引是計畫要花的。",
       seg:"區段",share:"組合",dollars:"$B",asp:"ASP",units:"單位(M)",die:"裸晶 mm²",node:"製程",yield:"良率",waf:"晶圓/年",
       siK:"加速器矽",unK:"加速器",hbK:"HBM（平行）",perYr:"片 / 年",wpm:"≈ {x} 片 / 月",
+      segNote:"「製程」欄僅為先進製程「標籤」（低信心）——不進入良率或裸晶面積計算。HBM（PB）為獨立記憶體晶圓廠的平行強度交叉驗證——「不」計入邏輯晶圓鏈。",
       env:"外包絡（所有假設同時取極端）：{lo} – {hi}",
       v2:"02 · 可追溯性",v2h:"瀑布圖——每個數字回到其假設",v2n:"點任一階段，檢視其背後的假設節點：數值、版本、生效日、信心度，以及佐證其值的證據。",
       v3:"03 · 情境比較",v3h:"相同 CapEx、不同體制 → 不同晶圓需求",v3n:"核心洞見：訓練→推論的輪動會改變整條鏈的路由。各長條共用同一 CapEx，只有體制的假設集改變。",
@@ -367,6 +375,15 @@ function renderCapexChips(){
   box.innerHTML=`<span style="font-size:11px;color:var(--dim);align-self:center;margin-right:4px">${t.capexLbl}:</span>`+
     SNAP.capex_inputs.map(c=>`<button class="chip ${c.value_usd_bn===CAPEX?'on':''}" data-cap="${c.value_usd_bn}">${cs(c.name_en,c.name_zh)} <small>$${nf(c.value_usd_bn)}B · ${c.tier}</small></button>`).join("");
   box.querySelectorAll(".chip").forEach(b=>b.addEventListener("click",()=>{CAPEX=Number(b.dataset.cap);renderCapexChips();renderInference();renderWaterfall();renderScenarios();}));
+  // M15: forward-guidance vs trailing-TTM note (+ live cross-check when present)
+  const ne=document.getElementById("capexNote");
+  let txt=t.capexNote;
+  const ctx=SNAP.live_capex_context||{};
+  if(ctx.total_ttm_usd_bn){
+    const gap=Math.round((DEFAULT_CAPEX-ctx.total_ttm_usd_bn)/DEFAULT_CAPEX*100);
+    txt=t.capexNoteLive.replace("{n}",ctx.n||"").replace("{ttm}",nf(ctx.total_ttm_usd_bn)).replace("{gap}",gap);
+  }
+  ne.textContent=txt;
 }
 
 function bandClass(c){return "tag tag-"+(c||"medium").replace("-","-");}
@@ -426,6 +443,7 @@ function renderInference(){
       <td>${(g.yield*100).toFixed(0)}%</td>
       <td><b>${nf(g.wafers_year*k)}</b><br><span class="segex">${Math.round(g.wafers_share*100)}%</span></td>
     </tr>`).join("");
+  document.getElementById("segNote").textContent=t.segNote;  // L4: node = label only; HBM = parallel cross-check
 }
 
 function renderWaterfall(){

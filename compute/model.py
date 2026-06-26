@@ -46,21 +46,37 @@ def hyperscaler_capex_path(a, live=None):
     mixing them would understate forward years and make the '2026E' KPI mislead.
     Capex updates manually in assumptions.json as new guidance lands; live data
     drives the bottom-up vendor lens instead. We still surface live TTM capex as
-    context (not substituted into the path)."""
-    block = a["hyperscaler_capex_usd_bn"]["by_company"]
-    tmap = a["hyperscaler_capex_usd_bn"].get("yfinance_ticker_map", {})
+    context (not substituted into the path).
+
+    Out-years (where by_company carries no guidance) fall back to the explicit
+    `extrapolated_total` block and are flagged so the front-end can label them
+    'extrapolated' rather than silently summing to 0."""
+    hblock = a["hyperscaler_capex_usd_bn"]
+    block = hblock["by_company"]
+    extrap = hblock.get("extrapolated_total", {})
+    tmap = hblock.get("yfinance_ticker_map", {})
     years = _years(a)
     out = {}
+    extrapolated = {}  # year -> bool (True if the value came from extrapolated_total)
     for y in years:
-        total = sum(by_year[str(y)] for by_year in block.values() if str(y) in by_year)
-        out[str(y)] = round(total, 1)
+        sy = str(y)
+        cols = [by_year[sy] for by_year in block.values() if sy in by_year]
+        if cols:
+            out[sy] = round(sum(cols), 1)
+            extrapolated[sy] = False
+        elif sy in extrap and not str(sy).startswith("_"):
+            out[sy] = round(float(extrap[sy]), 1)
+            extrapolated[sy] = True
+        else:
+            out[sy] = None  # genuinely unknown -> N/A, never a silent 0
+            extrapolated[sy] = False
     context = {}
     if live:
         for tick, name in tmap.items():
             lv = (live.get(tick) or {}).get("capex_ttm_usd_bn")
             if lv:
                 context[name] = round(lv, 1)
-    return out, context
+    return out, context, extrapolated
 
 
 def global_dc_capex_path(a):
@@ -126,12 +142,16 @@ def bottomup(a, live=None):
             "anchor_usd_bn": round(val, 1), "estimate_usd_bn": scaled,
             "live_scaled": live_used, "live_source": live_source,
             "confidence": ln.get("confidence", "medium"),
+            "caliber": ln.get("caliber"),
         })
     total = round(sum(cat_tot.values()), 1)
+    blk = a["bottomup_vendor_anchors_usd_bn"]
     return {
         "lines": out_lines,
         "by_category_usd_bn": {k: round(v, 1) for k, v in cat_tot.items()},
         "total_usd_bn": total,
+        "caliber_note_zh": blk.get("caliber_note_zh"),
+        "caliber_note_en": blk.get("caliber_note_en"),
     }
 
 
@@ -263,6 +283,35 @@ def edge_and_total(a, td):
 
 
 # --------------------------------------------------------------------------- #
+# EDGAR capex sanity (M6): companyfacts' generic PP&E-purchase concept is an
+# unreliable proxy for asset-light fabless designers — it captures office/lab
+# PP&E, not their economic "AI investment", and routinely prints absurdly low
+# vs revenue (e.g. NVDA/AVGO/MRVL). Rather than show a misleading official-looking
+# number, we BLANK the capex cell when capex/revenue is implausibly low and flag
+# why. Capital-intensive operators (hyperscalers, IDM foundries) are unaffected.
+# --------------------------------------------------------------------------- #
+def _sanitize_edgar_capex(edgar, min_capex_to_revenue=0.06):
+    if not edgar:
+        return edgar or {}
+    out = {}
+    for tk, row in edgar.items():
+        row = dict(row)
+        cap = row.get("annual_capex_usd_bn")
+        rev = row.get("annual_revenue_usd_bn")
+        if cap is not None and rev and rev > 0 and (cap / rev) < min_capex_to_revenue:
+            # implausibly low PP&E-purchase proxy -> suppress rather than mislead
+            row["annual_capex_usd_bn"] = None
+            row["capex_suppressed"] = True
+            row["capex_suppressed_reason"] = (
+                "companyfacts PP&E-purchase concept understates capex for "
+                "asset-light fabless designers; suppressed to avoid a misleading "
+                "official-looking figure."
+            )
+        out[tk] = row
+    return out
+
+
+# --------------------------------------------------------------------------- #
 # Top-level assembly
 # --------------------------------------------------------------------------- #
 def build_snapshot(a, live=None, generated_at=None, macro=None, edgar=None):
@@ -273,7 +322,7 @@ def build_snapshot(a, live=None, generated_at=None, macro=None, edgar=None):
     td = topdown(a)
     bu = bottomup(a, live)
     scen = scenario_paths(a)
-    hcap, hcapex_ctx = hyperscaler_capex_path(a, live)
+    hcap, hcapex_ctx, hcap_extrap = hyperscaler_capex_path(a, live)
     gdc = global_dc_capex_path(a)
 
     td_by_year = {r["year"]: r for r in td}
@@ -356,6 +405,8 @@ def build_snapshot(a, live=None, generated_at=None, macro=None, edgar=None):
             "topdown_mid_usd_bn": td_mid,
             "topdown_band_usd_bn": td_by_year[by]["total_usd_bn"],
             "analyst_mid_usd_bn": an["mid"] if an else None,
+            "analyst_n": an["n"] if an else 0,
+            "calibration_caveat": bool(a["silicon_conversion_band"].get("calibration_caveat")),
             "blended_central_usd_bn": blended,
             "current_runrate": {
                 "year": cur_year,
@@ -369,11 +420,12 @@ def build_snapshot(a, live=None, generated_at=None, macro=None, edgar=None):
         "buyer": buyer_b,
         "edge_total": edge_t,
         "hyperscaler_capex_usd_bn": hcap,
+        "hyperscaler_capex_extrapolated": hcap_extrap,
         "global_dc_capex_usd_bn": gdc,
         "power": power_cross_check(a),
         "supply": a.get("supply_anchors", {}),
         "macro": macro or {},
-        "edgar_official": edgar or {},
+        "edgar_official": _sanitize_edgar_capex(edgar or {}),
         "sources": _collect_sources(a),
     }
 

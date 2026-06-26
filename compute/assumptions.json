@@ -12,9 +12,9 @@
   },
 
   "hyperscaler_capex_usd_bn": {
-    "_source": "Company FY2025 reports + 2026 guidance; visualcapitalist/valueaddvc/CNBC/Futurum compilations (as_of 2026-02)",
-    "_confidence": "high (2024-25 actuals) / medium (2026 guide)",
-    "_note": "Spine of the top-down model. yfinance live capex (TTM) can override 2025/2026 at refresh time; see data_sources.py.",
+    "_source": "Company FY2025 reports + 2026 guidance; visualcapitalist/valueaddvc/CNBC/Futurum compilations (as_of 2026-02). 2027-2030 = extrapolation (no firm guidance issued that far out).",
+    "_confidence": "high (2024-25 actuals) / medium (2026 guide) / low (2027-30 extrapolation)",
+    "_note": "Spine of the top-down model. yfinance live capex (TTM) is shown as context, NOT substituted into the path; see data_sources.py. by_company carries actual/guided years; out-year extrapolation is held separately in extrapolated_total so it is never mistaken for company guidance.",
     "yfinance_ticker_map": {"MSFT": "Microsoft", "GOOGL": "Alphabet", "AMZN": "Amazon", "META": "Meta", "ORCL": "Oracle"},
     "by_company": {
       "Microsoft": {"2024": 55.0, "2025": 90.0, "2026": 115.0},
@@ -22,14 +22,17 @@
       "Amazon":    {"2024": 83.0, "2025": 125.0, "2026": 200.0},
       "Meta":      {"2024": 39.0, "2025": 72.0, "2026": 125.0},
       "Oracle":    {"2024": 13.0, "2025": 25.0, "2026": 40.0}
+    },
+    "extrapolated_total": {
+      "_note": "Out-year totals where no firm company guidance exists. Extrapolated from the 2026 guided sum (~$660B) at a decelerating growth rate (consistent with the global path slowing toward 2030). Flagged 'extrapolated' in the snapshot so the KPI never silently shows 0 for 2027-2030.",
+      "2027": 800.0, "2028": 910.0, "2029": 990.0, "2030": 1050.0
     }
   },
 
   "global_dc_capex_usd_bn": {
-    "_source": "Hyperscaler spine grossed up for colo/enterprise/sovereign/neocloud (CoreWeave etc.). Cross-checked vs Dell'Oro / IDC DC capex prints.",
+    "_source": "Independent anchor: Dell'Oro / IDC global DC capex prints (colo + enterprise + sovereign + neocloud + hyperscaler). NOT derived from the top-hyperscaler sum.",
     "_confidence": "medium",
-    "_note": "global = top hyperscaler sum × gross_up. We store an explicit path AND a gross_up factor so the two can be reconciled.",
-    "gross_up_factor_over_top_hyperscalers": 1.30,
+    "_note": "INDEPENDENT global anchor path, not a gross-up of the hyperscaler spine. The implied ratio global/(top-hyperscaler sum) is ~1.2-1.9 and drifts year to year, so a single gross-up factor would be misleading — we keep this as its own sourced path. (Earlier versions carried a 1.30 gross_up_factor that the model never used; removed to avoid implying a derivation that does not exist.)",
     "path": {"2024": 455, "2025": 580, "2026": 800, "2027": 960, "2028": 1090, "2029": 1180, "2030": 1250}
   },
 
@@ -42,7 +45,8 @@
   "silicon_conversion_band": {
     "_source": "Calibrated so 2025 mid reconciles with observed merchant vendor revenue (~$200B) and Omdia 2025 TAM ($207B). Represents fraction of AI-DC capex realized as compute accelerator + CPU silicon/system value.",
     "_confidence": "medium",
-    "_note": "The single biggest swing factor. Shown as a band, not a point, on purpose.",
+    "_note": "The single biggest swing factor. Shown as a band, not a point, on purpose. CALIBRATION CAVEAT: the mid coefficient is back-solved (reverse-calibrated) to hit the single Omdia 2025 point — it is NOT an independent estimate, so the 2025 top-down-vs-analyst 'agreement' is partly by construction, not a true cross-validation.",
+    "calibration_caveat": true,
     "low": 0.50,
     "mid": 0.63,
     "high": 0.78
@@ -66,9 +70,9 @@
   "asp_usd": {
     "_source": "Blended ASPs across product mix. GPU = H100/H200/B200/GB200 blend (system-attached, incl HBM). ASIC = TPU/Trainium/MTIA/custom blend. CPU = server CPU blend.",
     "_confidence": "low-medium",
-    "_note": "Used to convert $ -> unit counts. Mild annual drift. Units come out in MILLIONS of accelerators/CPUs.",
-    "gpu_accelerator": {"base": 26000, "annual_change": 0.0},
-    "asic_accelerator": {"base": 6500, "annual_change": 0.0},
+    "_note": "Used to convert $ -> unit counts. Mild annual drift applied so unit counts are not a pure mirror of $ (was previously 0 for GPU/ASIC). GPU rises slightly as the blend shifts to rack-scale GB200/system-attached SKUs; ASIC drifts gently down on volume/process maturity; CPU down on commoditization. Units come out in MILLIONS of accelerators/CPUs.",
+    "gpu_accelerator": {"base": 26000, "annual_change": 0.02},
+    "asic_accelerator": {"base": 6500, "annual_change": -0.01},
     "server_cpu": {"base": 1300, "annual_change": -0.01}
   },
 
@@ -77,8 +81,10 @@
     "_confidence": "high (merchant revenue) / low (internal custom ASIC deployed value)",
     "_note": "These are ANNUALIZED run-rates representing calendar ~2026. live_scale: at refresh we scale each anchor by (live_TTM_revenue / anchor_ttm_at_capture). anchor_ttm is each company's TOTAL revenue TTM measured at capture (2026-06-13 via yfinance), so the first refresh is neutral (ratio~1.0) and only a NEW earnings print moves the estimate. Total-company revenue is a freshness proxy for the segment line.",
     "as_of": "2026-06-13",
+    "caliber_note_zh": "口徑:這些是『前瞻年化 run-rate』(最新一季 ×4 或前瞻指引),代表日曆 ~2026,刻意領先官方『已截止財年』申報。故 NVDA 資料中心錨點 $249B(單一分部年化)會高於 SEC EDGAR 全公司年報 $215.9B(截至 FY26 1 月)——前者是前瞻分部 run-rate、後者是已截止全公司財年,兩者口徑不同、不可直接相減。",
+    "caliber_note_en": "Caliber: these are FORWARD ANNUALIZED run-rates (latest quarter ×4 or forward guide) representing calendar ~2026, deliberately ahead of official CLOSED-fiscal-year filings. So the NVDA Data Center anchor $249B (single-segment annualized) sits ABOVE the SEC EDGAR full-company FY26 (ended Jan) revenue of $215.9B — the former is a forward segment run-rate, the latter a closed full-company fiscal year; different calibers, not directly subtractable.",
     "lines": {
-      "nvidia_datacenter":   {"value": 249.0, "ticker": "NVDA", "anchor_ttm": 253.5, "category": "gpu", "confidence": "high"},
+      "nvidia_datacenter":   {"value": 249.0, "ticker": "NVDA", "anchor_ttm": 253.5, "category": "gpu", "confidence": "high", "caliber": "forward_runrate", "_note": "Forward annualized DC-segment run-rate (Q4FY26 $62.3B/q ×4). Exceeds full-company closed-FY EDGAR revenue by design — see caliber_note."},
       "amd_instinct_gpu":    {"value": 11.0,  "ticker": "AMD",  "anchor_ttm": 37.5,  "category": "gpu", "confidence": "medium"},
       "broadcom_ai_semi":    {"value": 45.0,  "ticker": "AVGO", "anchor_ttm": 75.5,  "category": "asic", "confidence": "high"},
       "marvell_custom_dc":   {"value": 8.0,   "ticker": "MRVL", "anchor_ttm": 8.7,   "category": "asic", "confidence": "medium"},
@@ -117,7 +123,7 @@
   },
 
   "supply_anchors": {
-    "_source": "TSMC earnings 2025: HPC >60% of revenue (Q1'25); CoWoS advanced-packaging capacity ~35k wpm (2024) -> ~70k (end-2025) -> ~150k (2026); tight through 2027. Advanced packaging is the binding supply constraint on AI accelerator units.",
+    "_source": "TSMC earnings 2025: HPC >60% of revenue (Q1'25); CoWoS advanced-packaging capacity ~35k wpm (2024) -> ~70k (end-2025) -> ~150k (2026 exit-rate); tight through 2027. The per-year value here is the year EXIT-rate, so it ramps within the year (~80k mid-2026 / Q2 exit, cf. /bottleneck's tsmc_cowos seed, then ~150k by end-2026 — same ramp, different point). Advanced packaging is the binding supply constraint on AI accelerator units.",
     "_confidence": "high",
     "url": "https://longyield.substack.com/p/tsmc-at-the-center-of-the-ai-boom",
     "cowos_wpm": {"2024": 35000, "2025": 70000, "2026": 150000}

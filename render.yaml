@@ -34,3 +34,7 @@ services:
         sync: false               # optional — Earnings Radar refresh-button password (code default: earnings2026)
       - key: PRICING_REFRESH_PASSWORD
         sync: false               # optional — Pricing Power Radar refresh-button password (code default: pricing2026)
+      - key: PAYBACK_REFRESH_PASSWORD
+        sync: false               # optional — AI Capex Payback Radar refresh-button password (code default: capex2026)
+      - key: SCENARIO_REFRESH_PASSWORD
+        sync: false               # optional — Scenario Radar refresh-button password (code default: scenario2026)

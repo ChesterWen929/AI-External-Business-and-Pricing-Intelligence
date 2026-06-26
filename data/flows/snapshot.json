@@ -19,7 +19,7 @@
         "role_zh": "場邊乾火藥;風險資產的邊際燃料。",
         "group": "safe",
         "signal": "neutral",
-        "tilt": 0.0,
+        "tilt": 0.06,
         "indicators": [
           {
             "id": "walcl",
@@ -30,7 +30,8 @@
             "chg_1m": 0.12,
             "unit": "$B",
             "live": true,
-            "signal": "risk_on",
+            "is_level": false,
+            "signal": "neutral",
             "rising_en": "Liquidity injection",
             "rising_zh": "流動性注入"
           },
@@ -43,6 +44,7 @@
             "chg_1m": -96.52,
             "unit": "$B",
             "live": true,
+            "is_level": false,
             "signal": "risk_on",
             "rising_en": "Cash parked at Fed (drains net liquidity)",
             "rising_zh": "資金停在 Fed(抽乾淨流動性)"
@@ -51,11 +53,12 @@
             "id": "tga",
             "name_en": "Treasury account (TGA)",
             "name_zh": "財政部帳戶 (TGA)",
-            "value": 880713.0,
+            "value": 880.71,
             "chg_1w": 6.35,
             "chg_1m": 5.02,
             "unit": "$B",
             "live": true,
+            "is_level": false,
             "signal": "risk_off",
             "rising_en": "Treasury draining cash from markets",
             "rising_zh": "財政部從市場抽走現金"
@@ -69,7 +72,8 @@
             "chg_1m": -0.03,
             "unit": "$B",
             "live": true,
-            "signal": "risk_off",
+            "is_level": false,
+            "signal": "neutral",
             "rising_en": "Money growth supports risk",
             "rising_zh": "貨幣成長支撐風險"
           }
@@ -84,8 +88,8 @@
         "role_en": "Gravity for all risk assets; rates set the discount rate.",
         "role_zh": "所有風險資產的地心引力;利率決定折現率。",
         "group": "safe",
-        "signal": "risk_on",
-        "tilt": 0.2,
+        "signal": "neutral",
+        "tilt": -0.08,
         "indicators": [
           {
             "id": "tlt",
@@ -96,6 +100,7 @@
             "chg_1m": 4.9,
             "unit": "",
             "live": true,
+            "is_level": false,
             "signal": "risk_off",
             "rising_en": "Flight to safety / falling rates",
             "rising_zh": "避險/利率下降"
@@ -109,6 +114,7 @@
             "chg_1m": 1.35,
             "unit": "",
             "live": true,
+            "is_level": false,
             "signal": "risk_on",
             "rising_en": "Credit risk appetite intact",
             "rising_zh": "信用風險偏好仍在"
@@ -122,7 +128,8 @@
             "chg_1m": 0.13,
             "unit": "%",
             "live": true,
-            "signal": "risk_off",
+            "is_level": true,
+            "signal": "neutral",
             "rising_en": "Higher discount rate — headwind for gold & AI valuations",
             "rising_zh": "折現率上升 — 黃金與 AI 估值逆風"
           },
@@ -135,7 +142,8 @@
             "chg_1m": -0.1,
             "unit": "%",
             "live": true,
-            "signal": "risk_on",
+            "is_level": true,
+            "signal": "neutral",
             "rising_en": "Higher risk-free rate",
             "rising_zh": "無風險利率上升"
           },
@@ -148,7 +156,8 @@
             "chg_1m": -0.17,
             "unit": "%",
             "live": true,
-            "signal": "risk_on",
+            "is_level": true,
+            "signal": "neutral",
             "rising_en": "Credit stress — early risk-off warning",
             "rising_zh": "信用壓力 — 早期 risk-off 警訊"
           }
@@ -164,7 +173,7 @@
         "role_zh": "避險與抗法幣對沖;與實質利率反向。",
         "group": "safe",
         "signal": "risk_on",
-        "tilt": 0.5,
+        "tilt": 0.41,
         "indicators": [
           {
             "id": "gold",
@@ -175,6 +184,7 @@
             "chg_1m": -5.92,
             "unit": "",
             "live": true,
+            "is_level": false,
             "signal": "risk_on",
             "rising_en": "Hedge bid (debasement / real-rate fall)",
             "rising_zh": "避險買盤(貶值/實質利率下降)"
@@ -191,7 +201,7 @@
         "role_zh": "risk-on 流動性海綿;穩定幣供應 = 加密乾火藥。",
         "group": "risk",
         "signal": "risk_off",
-        "tilt": -1.0,
+        "tilt": -0.7,
         "indicators": [
           {
             "id": "btc",
@@ -202,6 +212,7 @@
             "chg_1m": -10.3,
             "unit": "",
             "live": true,
+            "is_level": false,
             "signal": "risk_off",
             "rising_en": "Retail / speculative risk appetite up",
             "rising_zh": "散戶/投機風險偏好上升"
@@ -215,6 +226,7 @@
             "chg_1m": -2.32,
             "unit": "$B",
             "live": true,
+            "is_level": false,
             "signal": "risk_off",
             "rising_en": "Crypto dry powder entering",
             "rising_zh": "加密乾火藥進場"
@@ -231,7 +243,7 @@
         "role_zh": "主要風險蓄水池;廣度顯示參與度。",
         "group": "risk",
         "signal": "risk_on",
-        "tilt": 1.0,
+        "tilt": 0.72,
         "indicators": [
           {
             "id": "spx",
@@ -242,6 +254,7 @@
             "chg_1m": 2.0,
             "unit": "",
             "live": true,
+            "is_level": false,
             "signal": "risk_on",
             "rising_en": "Broad market into risk",
             "rising_zh": "大盤偏risk-on"
@@ -255,6 +268,7 @@
             "chg_1m": 4.14,
             "unit": "",
             "live": true,
+            "is_level": false,
             "signal": "risk_on",
             "rising_en": "Breadth — broad participation",
             "rising_zh": "廣度 — 普遍參與"
@@ -268,6 +282,7 @@
             "chg_1m": 5.57,
             "unit": "",
             "live": true,
+            "is_level": false,
             "signal": "risk_on",
             "rising_en": "Growth / tech bid",
             "rising_zh": "成長/科技買盤"
@@ -281,6 +296,7 @@
             "chg_1m": 8.6,
             "unit": "",
             "live": true,
+            "is_level": false,
             "signal": "risk_on",
             "rising_en": "Retail speculation proxy",
             "rising_zh": "散戶投機代理"
@@ -294,6 +310,7 @@
             "chg_1m": 8.53,
             "unit": "",
             "live": true,
+            "is_level": false,
             "signal": "risk_on",
             "rising_en": "Cyclical / breadth risk appetite",
             "rising_zh": "景氣循環/廣度風險偏好"
@@ -307,6 +324,7 @@
             "chg_1m": -1.04,
             "unit": "",
             "live": true,
+            "is_level": true,
             "signal": "risk_on",
             "rising_en": "Fear up — hedging demand",
             "rising_zh": "恐慌上升 — 避險需求"
@@ -334,6 +352,7 @@
             "chg_1m": 28.79,
             "unit": "",
             "live": true,
+            "is_level": false,
             "signal": "risk_on",
             "rising_en": "AI-infrastructure demand bid",
             "rising_zh": "AI 基礎設施需求買盤"
@@ -350,7 +369,7 @@
         "role_zh": "美元走強抽乾全球流動性,壓制風險資產與黃金。",
         "group": "macro",
         "signal": "risk_off",
-        "tilt": -1.0,
+        "tilt": -0.35,
         "indicators": [
           {
             "id": "dxy",
@@ -361,6 +380,7 @@
             "chg_1m": 1.82,
             "unit": "",
             "live": true,
+            "is_level": false,
             "signal": "risk_off",
             "rising_en": "Strong USD drains global liquidity",
             "rising_zh": "美元走強抽乾全球流動性"
@@ -370,9 +390,10 @@
     ],
     "derived": {
       "net_liquidity": {
-        "value": -873976.8,
-        "chg_1m": 5.06,
-        "chg_bn": -44203.5
+        "value": 5855.5,
+        "chg_1m": -0.61,
+        "chg_bn": -35.9,
+        "sane": true
       },
       "breadth": {
         "value": 2.14
@@ -383,69 +404,69 @@
     },
     "lenses": {
       "liquidity": {
-        "score": 0.2,
-        "label": "risk_on"
+        "score": 0.09,
+        "label": "neutral"
       },
       "price": {
-        "score": 0.36,
+        "score": 0.21,
         "label": "risk_on"
       },
       "positioning": {
-        "score": 0.38,
-        "label": "risk_on"
+        "score": 0.09,
+        "label": "neutral"
       },
-      "aligned": true
+      "aligned": false
     },
     "marginal_direction": {
-      "score": 29.2,
-      "label_en": "Risk-on",
-      "label_zh": "Risk-on 進場"
+      "score": 7.9,
+      "label_en": "Mixed / two-way",
+      "label_zh": "分歧 / 雙向"
     },
     "retail_vs_inst": {
-      "retail": 33.3,
-      "institution": 37.5,
-      "divergence": -4.2,
+      "retail": 30.2,
+      "institution": 9.4,
+      "divergence": 20.8,
       "warning": false
     },
     "ai_signal": {
-      "score": 80.0,
+      "score": 68.5,
       "label_en": "Supportive",
       "label_zh": "支撐"
     }
   },
   "l4": {
     "retail_vs_institution": {
-      "summary_en": "Retail appetite 33.3 sits BELOW institution 37.5, divergence −4.2 with no topping flag — institutions are the marginal buyer, not the crowd, which is the healthy configuration (the dangerous one is retail-hot/institutions-raising-cash). Risk appetite is broad: ARKK +8.6%, IWM +8.53%, RSP +4.14% all participating, VIX −1.04 and HY OAS −0.17 calm. The one crack is crypto/stablecoins: BTC −10.3%, stablecoin supply −2.32% — speculative leverage is bleeding even as equity beta rallies. So no blow-off froth yet, but the marginal speculative dollar has already left crypto.",
-      "summary_zh": "散戶情緒33.3低於機構37.5，背離−4.2且無見頂警示——邊際買盤是機構而非散戶，屬健康結構（危險型態為散戶過熱、機構抽現金）。風險偏好廣泛：ARKK +8.6%、IWM +8.53%、RSP +4.14%同步參與，VIX −1.04、高收益利差−0.17平穩。唯一裂縫在加密與穩定幣：BTC −10.3%、穩定幣供給−2.32%，投機槓桿正流失，即便股票beta上漲。尚無吹哨式狂熱，但邊際投機資金已先撤離加密。"
+      "summary_en": "Retail 30.2 and institution 9.4 appetite are broadly in line (gap 20.8) — no euphoric retail-vs-smart-money split right now.",
+      "summary_zh": "散戶 30.2 與機構 9.4 情緒大致一致(差距 20.8)——目前沒有散戶狂熱對機構撤離的明顯分裂。"
     },
     "ai_mapping": {
-      "summary_en": "AI leadership is screaming: SOXX +28.79% vs SPX over 1m, AI continuation 80/100, supported by breadth (RSP−SPX +2.14, equal-weight participating) and a rising liquidity tide (RRP −96.52% drained into markets, HY OAS tightening, VIX falling). All three lenses align positive (liq 0.2, price 0.36, pos 0.38). This is broad-based risk-on, not a narrow blow-off — flows SUPPORT AI continuation. The yellow flag is crypto: BTC −10.3% and stablecoin supply −2.32% mean the speculative funding base is shrinking, which historically leads semis lower with a lag. Watch that the liquidity drain (TGA +5.02%, M2 flat) does not starve the tide.",
-      "summary_zh": "AI領導力強勁：SOXX相對SPX一個月+28.79%，AI延續訊號80/100，並獲廣度（RSP−SPX +2.14、等權參與）與流動性潮汐（RRP −96.52%釋出、高收益利差收窄、VIX下行）支撐。三鏡頭一致偏多（流動性0.2、價格0.36、部位0.38）。屬廣基risk-on而非窄幅噴出，資金面支持AI延續。黃旗在加密：BTC −10.3%、穩定幣−2.32%顯示投機資金基礎收縮，歷史上常領先半導體回落。需留意TGA +5.02%、M2持平的抽水不致掐斷潮汐。"
+      "summary_en": "AI-continuation signal 68.5/100 (Supportive). AI leadership (SOXX−SPX 1m) is 26.79 and breadth (RSP−SPX 1m) is 2.14. Broadening breadth alongside AI leadership is the healthy combination for continuation.",
+      "summary_zh": "AI 延續訊號 68.5/100(支撐)。AI 領先度(SOXX−SPX 1m)為 26.79,廣度(RSP−SPX 1m)為 2.14。廣度擴散 + AI 領漲是延續的健康組合。"
     },
     "thesis": {
-      "direction_en": "Bullish on AI continuation, but trim conviction on the crypto/liquidity-drain divergence",
-      "direction_zh": "看多AI延續，但因加密與抽水背離降低信念",
-      "confidence": "medium",
+      "direction_en": "Mixed — two-way flows, no clean trend",
+      "direction_zh": "分歧 — 雙向資金、無明確趨勢",
+      "confidence": "low",
       "leading_signals": [
         {
-          "en": "Stablecoin supply growth (USDT+USDC) — re-acceleration confirms speculative funding returning; continued −2%+ contraction leads semis lower",
-          "zh": "穩定幣供給增速——重新加速確認投機資金回流；持續−2%以上收縮領先半導體下跌"
+          "en": "Net liquidity 1m change (-0.61%) — the master tide",
+          "zh": "淨流動性月變化(-0.61%)——主潮"
         },
         {
-          "en": "RRP / TGA balance — RRP exhausted means the easy liquidity tailwind is ending; TGA rebuild above +5% drains net liquidity",
-          "zh": "RRP／TGA餘額——RRP耗盡代表流動性順風將結束；TGA回補逾+5%抽乾淨流動性"
+          "en": "Breadth RSP−SPX (2.14) — participation vs concentration",
+          "zh": "廣度 RSP−SPX(2.14)——參與度 vs 集中"
         },
         {
-          "en": "HY OAS spread — any widening >25bp from current tight level fronts a risk regime shift",
-          "zh": "高收益OAS利差——自當前低位走闊逾25bp預示風險體制轉變"
+          "en": "HY credit spread direction — earliest risk-off tell",
+          "zh": "高收益信用利差方向——最早的 risk-off 訊號"
         },
         {
-          "en": "Equal-weight breadth (RSP−SPX) — if it rolls from +2.14 toward negative, leadership narrows and rally is fragile",
-          "zh": "等權廣度（RSP−SPX）——若自+2.14轉負，領導面收窄、漲勢脆弱"
+          "en": "Stablecoin supply trend — crypto dry powder",
+          "zh": "穩定幣供應趨勢——加密乾火藥"
         },
         {
-          "en": "SOXX−SPX leadership slope — deceleration from +26.79 is the first AI-specific crack",
-          "zh": "SOXX−SPX領導斜率——自+26.79減速是AI專屬的首道裂縫"
+          "en": "AI leadership SOXX−SPX (26.79) — thesis temperature",
+          "zh": "AI 領先度 SOXX−SPX(26.79)——論點溫度"
         }
       ]
     }
@@ -454,86 +475,86 @@
     "scenarios": [
       {
         "name_en": "Liquidity holds → AI continues",
-        "name_zh": "流動性維持→AI延續",
-        "prob": 48,
-        "trigger_en": "Net liquidity flat/rising + breadth ≥0 (RSP−SPX held) + HY OAS <3.5% + SOXX leadership stays >+15%",
-        "trigger_zh": "淨流動性持平/上升＋廣度≥0（RSP−SPX維持）＋高收益OAS<3.5%＋SOXX領導>+15%"
+        "name_zh": "流動性續強 → AI 延續",
+        "prob": 25,
+        "trigger_en": "Net liquidity rising + breadth ≥0 + HY OAS <3.5%",
+        "trigger_zh": "淨流動性上升 + 廣度≥0 + HY OAS <3.5%"
       },
       {
-        "name_en": "Rotation → AI cools, index holds",
-        "name_zh": "輪動→AI降溫、指數守穩",
-        "prob": 27,
-        "trigger_en": "SOXX−SPX falls below +10% while RSP/IWM hold positive and breadth broadens",
-        "trigger_zh": "SOXX−SPX跌破+10%，同時RSP/IWM維持正值且廣度擴散"
+        "name_en": "Rotation → AI corrects, index holds",
+        "name_zh": "資金輪動 → AI 補跌、大盤撐住",
+        "prob": 25,
+        "trigger_en": "AI_rel falling while RSP holds + breadth broadening",
+        "trigger_zh": "AI 領先度下滑但 RSP 撐住 + 廣度擴散"
       },
       {
-        "name_en": "Crypto-led funding squeeze → whistle period",
-        "name_zh": "加密主導資金緊縮→吹哨期",
-        "prob": 15,
-        "trigger_en": "Stablecoin supply −5%+ and BTC −20% with RRP exhausted + TGA rebuild draining net liquidity",
-        "trigger_zh": "穩定幣−5%以上、BTC −20%，RRP耗盡＋TGA回補抽乾淨流動性"
+        "name_en": "Retail blow-off → whistle period",
+        "name_zh": "散戶見頂式狂熱 → 吹哨期",
+        "prob": 25,
+        "trigger_en": "BTC+ARKK surging with margin/leverage as institutions raise cash",
+        "trigger_zh": "BTC+ARKK 噴出且槓桿上升,同時機構加現金"
       },
       {
         "name_en": "Credit cracks → regime break",
-        "name_zh": "信用破裂→體制斷裂",
-        "prob": 10,
-        "trigger_en": "HY OAS widens >50bp + VIX >22 + net liquidity contracting",
-        "trigger_zh": "高收益OAS走闊>50bp＋VIX>22＋淨流動性收縮"
+        "name_zh": "信用裂縫 → regime break",
+        "prob": 25,
+        "trigger_en": "HY OAS widening >50bp + VIX >22 + net liquidity contracting",
+        "trigger_zh": "HY OAS 擴張 >50bp + VIX >22 + 淨流動性收縮"
       }
     ],
     "falsification": [
       {
-        "en": "HY OAS widens >50bp while VIX breaks above 22 — credit and vol no longer calm, bullish thesis invalidated",
-        "zh": "高收益OAS走闊>50bp且VIX突破22——信用與波動不再平穩，多頭論點失效"
+        "en": "HY OAS widens >50bp with VIX >22 while the index holds — credit is leading; flip cautious.",
+        "zh": "HY OAS 擴張 >50bp 且 VIX >22 但指數仍撐——信用在領先;轉保守。"
       },
       {
-        "en": "Breadth flips: RSP−SPX turns negative AND SOXX leadership collapses below +5% simultaneously — rally was narrow and is failing",
-        "zh": "廣度翻轉：RSP−SPX轉負且SOXX領導同時跌破+5%——漲勢窄且正在瓦解"
+        "en": "Net liquidity turns down for 3+ weeks while AI keeps making highs — the tide no longer supports the price.",
+        "zh": "淨流動性連 3 週以上下降但 AI 仍創高——潮汐已不支撐價格。"
       },
       {
-        "en": "Institution appetite drops below retail (divergence flips positive >+5) — smart money distributing into retail strength",
-        "zh": "機構情緒跌破散戶（背離翻正>+5）——機構向散戶派發"
+        "en": "Breadth collapses (RSP−SPX deeply negative) while marginal direction reads risk-on — concentration, not participation.",
+        "zh": "廣度崩落(RSP−SPX 深度為負)但邊際方向仍 risk-on——是集中而非參與。"
       }
     ],
     "early_warning": [
       {
-        "en": "Stablecoin supply + BTC — speculative funding base, moves first",
-        "zh": "穩定幣供給＋BTC——投機資金基礎，最先變動",
+        "en": "HY credit spread (BAMLH0A0HYM2)",
+        "zh": "高收益信用利差",
         "freq": "daily"
       },
       {
-        "en": "RRP drawdown / TGA rebuild — liquidity tide turning",
-        "zh": "RRP耗盡／TGA回補——流動性潮汐轉向",
+        "en": "VIX level & 1w change",
+        "zh": "VIX 水準與週變化",
         "freq": "daily"
       },
       {
-        "en": "VIX and HY OAS spread — vol/credit calm-but-turning",
-        "zh": "VIX與高收益OAS利差——波動/信用平靜但轉折",
-        "freq": "daily"
-      },
-      {
-        "en": "SOXX−SPX leadership slope — AI-specific deceleration",
-        "zh": "SOXX−SPX領導斜率——AI專屬減速",
-        "freq": "daily"
-      },
-      {
-        "en": "Equal-weight breadth RSP−SPX — participation narrowing",
-        "zh": "等權廣度RSP−SPX——參與面收窄",
+        "en": "Net liquidity (WALCL−RRP−TGA)",
+        "zh": "淨流動性(WALCL−RRP−TGA)",
         "freq": "weekly"
       },
       {
-        "en": "Retail vs institution divergence — distribution check",
-        "zh": "散戶與機構背離——派發檢查",
+        "en": "Breadth RSP−SPX relative",
+        "zh": "廣度 RSP−SPX 相對",
+        "freq": "daily"
+      },
+      {
+        "en": "Stablecoin supply trend",
+        "zh": "穩定幣供應趨勢",
+        "freq": "daily"
+      },
+      {
+        "en": "Retail-vs-institution divergence",
+        "zh": "散戶vs機構背離",
         "freq": "weekly"
       },
       {
-        "en": "Net liquidity (WALCL−RRP−TGA) trend — tide level",
-        "zh": "淨流動性（WALCL−RRP−TGA）趨勢——潮位",
-        "freq": "weekly"
+        "en": "AI leadership SOXX−SPX",
+        "zh": "AI 領先度 SOXX−SPX",
+        "freq": "daily"
       }
     ]
   },
-  "analysis_engine": "claude",
+  "analysis_engine": "rules",
   "money_map": {
     "reservoirs": [
       {

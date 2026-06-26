@@ -107,6 +107,66 @@ class TestAnalysisRules(unittest.TestCase):
             self.assertTrue(s["name_en"] and s["name_zh"])
 
 
+class TestAuditFixes(unittest.TestCase):
+    """Locks in the 2026-06-24 data-audit fixes for /flows."""
+
+    def test_tga_has_millions_to_billions_scale(self):
+        # H1: WTREGEN comes from FRED in millions; KB must scale 0.001 → $B,
+        # like WALCL, so TGA lands ~700–900 not ~880,000.
+        tga = next(i for i in KB["indicators"] if i["id"] == "tga")
+        self.assertEqual(tga["fetch"]["series"], "WTREGEN")
+        self.assertAlmostEqual(tga["fetch"].get("scale", 1.0), 0.001)
+
+    def test_tga_fix_yields_sane_net_liquidity(self):
+        # H1+H2: a millions-scale TGA feeds net liquidity to a sane $B band.
+        live = {"metrics": {
+            "walcl": {"value": 6736.42, "chg_1w": 0.16, "chg_1m": 0.12, "live": True},
+            "rrp":   {"value": 0.25,    "chg_1w": -45.65, "chg_1m": -96.52, "live": True},
+            "tga":   {"value": 880713 * 0.001, "chg_1w": 6.35, "chg_1m": 5.02, "live": True},
+        }}
+        snap = model.build_snapshot(KB, live=live)
+        nl = snap["l3"]["derived"]["net_liquidity"]
+        self.assertAlmostEqual(nl["value"], 5855.46, places=0)
+        self.assertTrue(nl["sane"])
+
+    def test_net_liquidity_sanity_flag_trips_on_unit_bug(self):
+        # M19: an un-scaled (millions) TGA explodes net liquidity → flagged unsane.
+        live = {"metrics": {
+            "walcl": {"value": 6736.42, "chg_1w": 0.0, "chg_1m": 0.1, "live": True},
+            "rrp":   {"value": 0.25, "chg_1w": 0.0, "chg_1m": 0.0, "live": True},
+            "tga":   {"value": 880713.0, "chg_1w": 0.0, "chg_1m": 5.0, "live": True},
+        }}
+        snap = model.build_snapshot(KB, live=live)
+        self.assertFalse(snap["l3"]["derived"]["net_liquidity"]["sane"])
+
+    def test_rollups_reproduce_from_displayed_values(self):
+        # H2: institution/retail roll-ups must be recomputable from the per-
+        # indicator chg_1m the dashboard displays (single shared tilt path).
+        snap = _compute()
+        disp, isl, dirs = {}, {}, {}
+        for r in snap["l3"]["reservoirs"]:
+            for i in r["indicators"]:
+                disp[i["id"]], isl[i["id"]] = i["chg_1m"], i.get("is_level", False)
+        for ind in KB["indicators"]:
+            dirs[ind["id"]] = ind["rising_means"]
+
+        def recompute(ids):
+            ts = [model._tilt(dirs[i], disp[i], is_level=isl[i]) for i in ids]
+            return round(sum(ts) / len(ts) * 100, 1)
+
+        rvi = snap["l3"]["retail_vs_inst"]
+        self.assertAlmostEqual(recompute(KB["institution_proxies"]), rvi["institution"], places=1)
+        self.assertAlmostEqual(recompute(KB["retail_proxies"]), rvi["retail"], places=1)
+
+    def test_tilt_is_magnitude_aware(self):
+        # M9: a violent move must out-weigh a microscopic one (not equal sign).
+        big = model._tilt("risk_on", 28.0)
+        tiny = model._tilt("risk_on", 0.01)
+        self.assertGreater(big, tiny)
+        self.assertLess(tiny, 0.05)        # near-zero move → near-zero tilt
+        self.assertLessEqual(abs(big), 1.0)  # still bounded
+
+
 class TestCollectorsParsing(unittest.TestCase):
     def test_fred_csv_parse(self):
         sample = "observation_date,WALCL\n2026-05-01,6650000\n2026-06-01,6600000\n"

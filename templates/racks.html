@@ -198,6 +198,7 @@ const T={
   cat:{"merchant-rack":"商用機櫃","merchant-baseboard":"商用基板","custom-pod":"自研 pod"},
   status:{shipping:"量產",sampling:"送樣",announced:"已發表"},
   bom:{accel:"加速器",cpu:"CPU",hbm:"HBM",power:"功耗",cooling:"散熱",scaleup:"Scale-up",scaleout:"Scale-out"},
+  undisclosed:"未揭露",
   sup_toggle:"供應商 ▾", sup_toggle_open:"供應商 ▴", verified:"查證", stale:"天未更新",
   kpi:{systems:"追蹤系統數",vendors:"廠商",shipping:"量產中",maxhbm:"單一 pod/櫃 最大 HBM",maxaccel:"單一單位 最多加速器",hbmchk:"HBM 校驗通過"},
    landscape_th:["供應商","代號","份額/定位","備註","證據","即時"]
@@ -228,6 +229,7 @@ const T={
   cat:{"merchant-rack":"Merchant rack","merchant-baseboard":"Merchant baseboard","custom-pod":"Custom pod"},
   status:{shipping:"Shipping",sampling:"Sampling",announced:"Announced"},
   bom:{accel:"Accelerators",cpu:"CPU",hbm:"HBM",power:"Power",cooling:"Cooling",scaleup:"Scale-up",scaleout:"Scale-out"},
+  undisclosed:"not disclosed",
   sup_toggle:"Suppliers ▾", sup_toggle_open:"Suppliers ▴", verified:"verified", stale:"days stale",
   kpi:{systems:"Systems tracked",vendors:"Vendors",shipping:"Shipping",maxhbm:"Max HBM / pod·rack",maxaccel:"Max accelerators / unit",hbmchk:"HBM check passed"},
   landscape_th:["Supplier","Ticker","Share / positioning","Note","Tier","Live"]
@@ -324,7 +326,7 @@ function renderSystems(){
         <div class="cell"><div class="cl">${t.bom.accel}</div><div class="cv">${fmt0(s.accelerators)||'—'}</div><div class="cs">${s.accelerator_model}</div></div>
         <div class="cell"><div class="cl">${t.bom.cpu}</div><div class="cv">${s.cpus>0?s.cpus:'—'}</div><div class="cs">${s.cpu_model}</div></div>
         <div class="cell"><div class="cl">${t.bom.hbm}</div><div class="cv">${s.hbm_gb_per_accel?s.hbm_gb_per_accel+' GB':'—'}</div><div class="cs">${s.hbm_type} · ${hbmTotal}</div></div>
-        <div class="cell"><div class="cl">${t.bom.power} / ${t.bom.cooling}</div><div class="cv">${s.power_kw>0?fmt(s.power_kw)+' kW':'—'}</div><div class="cs">${s.cooling}</div></div>
+        <div class="cell"><div class="cl">${t.bom.power} / ${t.bom.cooling}</div><div class="cv">${s.power_kw>0?fmt(s.power_kw)+' kW':`<span style="color:var(--mut);font-size:12px">${t.undisclosed}</span>`}</div><div class="cs">${s.cooling}</div></div>
       </div>
       <div class="meta2">
         <span><b>${t.bom.scaleup}:</b> ${s.scale_up||'—'}</span>
@@ -370,7 +372,9 @@ function renderLandscape(){
   let html='';
   for(const [cat,blk] of Object.entries(SNAP.supplier_landscape)){
     const lbl=LANG==='zh'?blk.label_zh:blk.label_en;
+    const blkNote=LANG==='zh'?blk.note_zh:blk.note_en;
     html+=`<div class="lscat panel" style="margin-bottom:12px"><div style="font-size:13px;font-weight:600;margin-bottom:8px">${lbl}</div>
+      ${blkNote?`<div class="note" style="margin:-2px 0 8px;font-size:11px">${blkNote}</div>`:''}
       <table><thead><tr>${th.map(x=>`<th>${x}</th>`).join('')}</tr></thead><tbody>`;
     blk.rows.forEach(r=>{
       let live='—';

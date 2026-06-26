@@ -65,6 +65,14 @@ from pricing import load_snapshot as pricing_load_snapshot
 from payback import payback_bp
 from payback import load_snapshot as payback_load_snapshot
 # payback refresh is manual-only (password-gated button), like pricing — not wired into the weekly scheduler
+from scenario import scenario_bp
+from scenario import load_snapshot as scenario_load_snapshot
+# scenario refresh is manual-only (password-gated button), like flows/pricing/payback —
+# NOT wired into the weekly scheduler (keep Opus cost on-demand).
+from company import company_bp
+from company import load_snapshot as company_load_snapshot
+# company (single-company deep-dive) refresh is manual-only (password-gated), like
+# pricing/payback/scenario — NOT wired into the weekly scheduler (keep Opus cost on-demand).
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)s | %(message)s")
 log = logging.getLogger("macro-ai")
@@ -81,6 +89,8 @@ app.register_blueprint(cwengine_bp)
 app.register_blueprint(earnings_bp)
 app.register_blueprint(pricing_bp)
 app.register_blueprint(payback_bp)
+app.register_blueprint(scenario_bp)
+app.register_blueprint(company_bp)
 
 # ── secrets / auth (all from env; never hard-code real values) ──
 _DEFAULT_SECRET = "dev-insecure-change-me"
@@ -105,7 +115,7 @@ STRINGS = {
     "eyebrow":   {"en": "AI-Assisted · External Market Intelligence", "zh": "AI 輔助 · 外部市場情報"},
     "subtitle":  {"en": "External signals across macro & AI markets",  "zh": "整合總體經濟與 AI 市場的外部訊號"},
     "enter":     {"en": "Enter",                      "zh": "進入"},
-    "aib_name":  {"en": "AI Bubble Monitor",          "zh": "AI 泡沫監控"},
+    "aib_name":  {"en": "Bubble Monitor",             "zh": "泡沫監控"},
     "aib_desc":  {"en": "Twin thermometer — market signals against leading frontier signals.",
                   "zh": "雙溫度計 — 市場訊號對照前沿領先訊號。"},
     "econ_name": {"en": "US Economic Monitor",        "zh": "美國經濟指標"},
@@ -149,23 +159,37 @@ STRINGS = {
     "v_monetizing":{"en": "monetizing",                "zh": "變現中"},
     "v_investing":{"en": "investing",                  "zh": "投入期"},
     "v_burning": {"en": "burning",                     "zh": "燒錢"},
+    "scenario_name":{"en": "Scenario Radar",           "zh": "情境雷達"},
+    "scenario_desc":{"en": "Synthesizes every platform below into the capital-market states that could come next — each with a model-assisted probability and the driver signals that move it.",
+                     "zh": "把下方所有平台合成成接下來可能的資本市場狀態 — 每個狀態附 model-assisted 機率,以及推動它的 driver 訊號。"},
+    "scenario_div_lbl":{"en": "divergences",           "zh": "項背離"},
+    "company_name":{"en": "Company Deep-Dive — Amazon", "zh": "個股深掘 — Amazon"},
+    "company_desc":{"en": "One company, four pillars: how AWS raises realized compute price · what to watch it with · how much it makes from AI · and how all of it rests on TSMC leading-edge & CoWoS.",
+                    "zh": "一家公司、四支柱:AWS 怎麼提高已實現算力售價 · 用什麼資料觀察 · 從 AI 賺多少 · 以及這一切如何押在台積電先進製程與 CoWoS。"},
+    "company_lbl":{"en": "/100 pricing power",         "zh": "/100 定價權"},
+    "v_raising": {"en": "raising",                     "zh": "漲價中"},
+    "v_holding": {"en": "holding",                     "zh": "持平"},
+    "v_eroding": {"en": "eroding",                     "zh": "受壓"},
+    "tier5":     {"en": "Company Deep-Dive",           "zh": "個股深掘"},
+    "tier5_sub": {"en": "Zoom all the way into one company — and trace its AI benefit back to TSMC.",
+                  "zh": "鑽進單一公司 — 再把它的 AI 利益一路追回台積電。"},
     # ── pyramid: thesis + tier headers (macro → industry) ──
-    "thesis":    {"en": "One question — is AI a bubble? Read top-down: the macro economy at the apex, down through the AI capital cycle and demand, to the foundry supply chain and competitive strategy at the base.",
-                  "zh": "一個問題:AI 是不是泡沫?由上而下閱讀 — 頂端是總體經濟,往下經過 AI 資本循環與需求,落到底部的代工供應鏈與競爭策略。"},
+    "thesis":    {"en": "One question — is AI a bubble? Read top-down: the macro economy at the apex, down through the AI capital cycle and demand, to the foundry supply chain and competitive strategy, and finally all the way into a single company.",
+                  "zh": "一個問題:AI 是不是泡沫?由上而下閱讀 — 頂端是總體經濟,往下經過 AI 資本循環與需求,落到代工供應鏈與競爭策略,最後一路鑽進單一公司。"},
     "axis_top":  {"en": "MACRO ECONOMY",               "zh": "經濟面"},
     "axis_bottom":{"en": "INDUSTRY STRATEGY",          "zh": "產業分析"},
     "tier1":     {"en": "Macroeconomy",                "zh": "經濟面"},
-    "tier1_sub": {"en": "The backdrop — is the cycle a tailwind or a headwind?",
-                  "zh": "大環境:景氣是順風還是逆風?"},
+    "tier1_sub": {"en": "The backdrop and the capstone — the macro cycle, plus one synthesis of every layer below into scenarios.",
+                  "zh": "大環境與總綱 — 景氣循環,以及把下方每一層收斂成情境的綜合判讀。"},
     "tier2":     {"en": "Capital Flows & Bubble Heat", "zh": "資金流向與泡沫溫度"},
-    "tier2_sub": {"en": "Where the money is going, and how hot the bubble runs.",
-                  "zh": "錢往哪裡流、泡沫燒得多熱。"},
+    "tier2_sub": {"en": "Where capital is flowing, and how hot the bubble runs — direction paired with temperature.",
+                  "zh": "資金往哪裡流、泡沫燒得多熱 — 方向搭配溫度兩個面向。"},
     "tier3":     {"en": "AI Demand & Payback",         "zh": "AI 需求與回本"},
-    "tier3_sub": {"en": "Turning CapEx into real silicon demand — and is it paying off yet?",
-                  "zh": "把資本支出換算成真實晶片需求 — 而且回本了沒?"},
+    "tier3_sub": {"en": "One arc, left to right: CapEx → silicon demand → leading-edge wafers → is it paying off yet?",
+                  "zh": "一條主線,由左到右:資本支出 → 晶片需求 → 先進製程晶圓 → 回本了沒?"},
     "tier4":     {"en": "Supply Chain & Competitive Strategy", "zh": "供應鏈與產業策略"},
-    "tier4_sub": {"en": "Down to the foundry supply chain, pricing power and rivals.",
-                  "zh": "落到代工供應鏈、定價權與競爭者。"},
+    "tier4_sub": {"en": "The foundry supply chain itself — rack BOMs, the earnings calendar, pricing power and rivals.",
+                  "zh": "代工供應鏈本身 — 機櫃 BOM、法說行事曆、定價權與競爭者。"},
     "updated":   {"en": "Updated",                    "zh": "更新"},
     "indicators":{"en": "indicators",                 "zh": "指標"},
     "signout":   {"en": "Sign out",                   "zh": "登出"},
@@ -202,7 +226,7 @@ def require_login():
     if session.get("auth"):
         return None
     # Unauthenticated: API/JSON callers get 401, humans go to the login page.
-    if request.path.startswith(("/api/", "/econ/api/", "/aibubble/api/", "/rival/api/", "/compute/api/", "/racks/api/", "/flows/api/", "/cwengine/api/", "/earnings/api/", "/pricing/api/", "/payback/api/")):
+    if request.path.startswith(("/api/", "/econ/api/", "/aibubble/api/", "/rival/api/", "/compute/api/", "/racks/api/", "/flows/api/", "/cwengine/api/", "/earnings/api/", "/pricing/api/", "/payback/api/", "/scenario/api/")) or (request.path.startswith("/company/") and "/api/" in request.path):
         return jsonify({"error": "auth required"}), 401
     return redirect(url_for("login", next=request.path))
 
@@ -279,6 +303,14 @@ def portal():
         payback_snap = payback_load_snapshot()
     except Exception:
         payback_snap = None
+    try:
+        scenario_snap = scenario_load_snapshot()
+    except Exception:
+        scenario_snap = None
+    try:
+        company_snap = company_load_snapshot("amazon")
+    except Exception:
+        company_snap = None
     return render_template(
         "portal.html",
         econ_updated=econ_snap.get("date") if econ_snap else None,
@@ -305,6 +337,15 @@ def portal():
         payback_updated=(payback_snap.get("as_of") if payback_snap else None),
         payback_coverage=((payback_snap.get("headline") or {}).get("coverage")) if payback_snap else None,
         payback_verdict=((payback_snap.get("headline") or {}).get("verdict_key")) if payback_snap else None,
+        scenario_updated=(scenario_snap.get("as_of") if scenario_snap else None),
+        scenario_prob=((scenario_snap.get("headline") or {}).get("base_prob")) if scenario_snap else None,
+        scenario_base_label=(((scenario_snap.get("headline") or {}).get("base_label") or {}).get("zh" if ui_lang() == "zh" else "en")) if scenario_snap else None,
+        scenario_divergences=((scenario_snap.get("headline") or {}).get("divergence_count")) if scenario_snap else None,
+        company_updated=(company_snap.get("as_of") if company_snap else None),
+        company_score=((company_snap.get("headline") or {}).get("compute_pricing_score")) if company_snap else None,
+        company_verdict=((company_snap.get("headline") or {}).get("verdict_key")) if company_snap else None,
+        company_benefit=((company_snap.get("headline") or {}).get("ai_benefit_usd_bn")) if company_snap else None,
+        company_name=(((company_snap.get("company") or {}).get("name_zh" if ui_lang() == "zh" else "name_en")) if company_snap else None),
     )
 
 

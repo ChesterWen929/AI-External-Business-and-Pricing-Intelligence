@@ -42,24 +42,47 @@ def hbm_check(sys):
     return ok, round(implied_raw, 2)
 
 
+# Map a raw supplier-name string to the underlying *company* entity. Without
+# this, packaging strings like "TSMC CoWoS-L" / "TSMC N3P + CoWoS" / "TSMC 3.5D"
+# each become a separate key and TSMC — the single largest packaging chokepoint
+# — is badly under-counted. We aggregate by company, not by process node/role.
+_ENTITY_PATTERNS = (
+    ("TSMC", "TSMC"),            # any "...TSMC...": CoWoS-L/S, N3P, 3.5D, "Microsoft→TSMC", ...
+    ("Foxconn", "Foxconn/Hon Hai"),
+    ("Hon Hai", "Foxconn/Hon Hai"),
+)
+
+
+def _entity(name):
+    """Normalize a supplier name to its canonical company entity for aggregation."""
+    raw = (name or "").strip()
+    for needle, canon in _ENTITY_PATTERNS:
+        if needle in raw:
+            return canon
+    # Fallback: leading vendor token (before '/', '(' or '+' qualifiers).
+    return raw.split("(")[0].split("/")[0].split("+")[0].strip()
+
+
 def supplier_index(systems):
-    """Invert systems -> suppliers: which systems each supplier appears in."""
+    """Invert systems -> suppliers: which systems each supplier appears in,
+    aggregated by *company* entity (so TSMC's many process/package nodes count
+    as one chokepoint, not a dozen). `count` = number of distinct systems."""
     idx = {}
     for s in systems:
         for cat, lst in (s.get("suppliers") or {}).items():
             for sup in lst:
-                # take the leading vendor name token (before '/' or '(')
-                name = sup.get("name", "").split("(")[0].strip()
-                key = name
-                e = idx.setdefault(key, {"name": name, "categories": set(), "systems": [], "count": 0})
+                key = _entity(sup.get("name", ""))
+                if not key:
+                    continue
+                e = idx.setdefault(key, {"name": key, "categories": set(), "systems": set()})
                 e["categories"].add(cat)
-                e["systems"].append(s["id"])
-                e["count"] += 1
-    # serialize sets
+                e["systems"].add(s["id"])
+    # serialize sets; count = distinct systems the entity appears in
     out = []
     for e in idx.values():
+        systems_sorted = sorted(e["systems"])
         out.append({"name": e["name"], "categories": sorted(e["categories"]),
-                    "systems": e["systems"], "count": e["count"]})
+                    "systems": systems_sorted, "count": len(systems_sorted)})
     out.sort(key=lambda x: -x["count"])
     return out
 
@@ -162,7 +185,8 @@ def build_snapshot(kb, live=None, generated_at=None, today=None):
             if st:
                 rr["live"] = st
             rows.append(rr)
-        landscape[cat] = {"label_zh": blk.get("label_zh"), "label_en": blk.get("label_en"), "rows": rows}
+        landscape[cat] = {"label_zh": blk.get("label_zh"), "label_en": blk.get("label_en"),
+                          "note_zh": blk.get("note_zh"), "note_en": blk.get("note_en"), "rows": rows}
 
     stale_threshold = 120
     stale = [{"id": s["id"], "name": s["name"], "days": s["staleness_days"]}

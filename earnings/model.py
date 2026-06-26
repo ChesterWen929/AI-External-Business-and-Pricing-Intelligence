@@ -43,6 +43,27 @@ def _quarter_for(d: date) -> str:
     return f"Q{(d.month - 1) // 3 + 1} {d.year}"
 
 
+def _is_us_exchange(tz: str | None) -> bool:
+    """US-listed (common/ADR) symbols Finnhub's free tier serves; others 403."""
+    return (tz or "").startswith("America/")
+
+
+def _seed_date(company: dict, start: date, end: date) -> date:
+    """Deterministic in-window estimated date (same scheme as SeedAdapter)."""
+    span = max((end - start).days, 1)
+    return start + timedelta(days=sum(ord(ch) for ch in company["id"]) % span)
+
+
+def _seed_event(company: dict, ticker: str, start: date, end: date, source: str) -> dict:
+    d = _seed_date(company, start, end)
+    return {
+        "company_id": company["id"], "ticker": ticker, "date": d.isoformat(),
+        "fiscal_quarter": _quarter_for(d),
+        "earnings_timing": company.get("earnings_timing", "unknown"),
+        "source": source, "estimated": True,
+    }
+
+
 # ───────────────────────── adapters ─────────────────────────
 
 class CalendarAdapter(ABC):
@@ -59,7 +80,6 @@ class SeedAdapter(CalendarAdapter):
 
     def fetch(self, companies, start, end):
         self.misses = []
-        span = max((end - start).days, 1)
         out = []
         for c in companies:
             if not c.get("active", True):
@@ -67,13 +87,7 @@ class SeedAdapter(CalendarAdapter):
             ticker = c.get("primary_ticker") or (c.get("tickers") or [None])[0]
             if not ticker:
                 continue
-            d = start + timedelta(days=sum(ord(ch) for ch in c["id"]) % span)
-            out.append({
-                "company_id": c["id"], "ticker": ticker, "date": d.isoformat(),
-                "fiscal_quarter": _quarter_for(d),
-                "earnings_timing": c.get("earnings_timing", "unknown"),
-                "source": self.name, "estimated": True,
-            })
+            out.append(_seed_event(c, ticker, start, end, self.name))
         return out
 
 
@@ -123,18 +137,28 @@ class FinnhubAdapter(CalendarAdapter):
             ticker = c.get("primary_ticker") or (c.get("tickers") or [None])[0]
             if not ticker:
                 continue
+            kb_timing = c.get("earnings_timing", "unknown")
+            non_us = not _is_us_exchange(c.get("exchange_tz"))
             try:
                 data = self._get({"from": start.isoformat(), "to": end.isoformat(),
                                   "symbol": ticker, "token": self.api_key})
             except Exception as exc:  # noqa: BLE001
                 self.misses.append({"company_id": c["id"], "ticker": ticker, "reason": str(exc)})
+                # H7: don't drop non-US names Finnhub's free tier 403s — fall back to a
+                # seed estimate so the Asian/EU supply chain stays on the calendar.
+                out.append(_seed_event(c, ticker, start, end, self.name))
                 continue
             for row in (data or {}).get("earningsCalendar", []) or []:
                 d = row.get("date")
                 if not d:
                     continue
                 hour = (row.get("hour") or "").lower()
-                timing = {"bmo": "bmo", "amc": "amc", "dmh": "intraday"}.get(hour, c.get("earnings_timing", "unknown"))
+                fh_timing = {"bmo": "bmo", "amc": "amc", "dmh": "intraday"}.get(hour, kb_timing)
+                # M17: Finnhub stamps non-US ADR sessions in US clock terms (e.g. amc),
+                # which collapses onto the local exchange tz wrongly (Taipei 16:30 → PT
+                # 01:30). For non-US exchanges, trust the curated KB earnings_timing when
+                # it disagrees with Finnhub's hour.
+                timing = kb_timing if (non_us and kb_timing != "unknown" and fh_timing != kb_timing) else fh_timing
                 qy = row.get("quarter"), row.get("year")
                 fq = f"Q{qy[0]} {qy[1]}" if all(qy) else _quarter_for(date.fromisoformat(d))
                 out.append({
@@ -168,6 +192,74 @@ def _to_times(ev: dict, exchange_tz: str) -> tuple[str, str]:
         tz = timezone.utc
     utc = datetime(d.year, d.month, d.day, hh, mm, tzinfo=tz).astimezone(timezone.utc)
     return utc.isoformat().replace("+00:00", "Z"), utc.astimezone(DISPLAY_TZ).isoformat()
+
+
+# Relation → display semantics. Edges are stored directed (from → to); we read
+# them in both directions so a focal earnings node reaches up- and down-stream.
+_RELATION_LABEL = {
+    "supplies": {"en": "supply chain", "zh": "供應鏈"},
+    "competes_with": {"en": "competitor", "zh": "競爭"},
+}
+
+
+def propagate_signals(events: list[dict], by_id: dict, graph: dict,
+                      horizon_days: int) -> list[dict]:
+    """H6: supply-chain signal propagation.
+
+    Every upcoming high-importance earnings (processing_tier T1, or any event
+    linked by a `high`-strength edge) radiates a "watch signal" to its graph
+    neighbours (suppliers/customers/competitors). Each signal carries the source
+    company, the edge relation, an intensity, and a human-readable reason — so a
+    reader can see *which* upcoming print is the reason to watch a given node.
+    """
+    if not events:
+        return []
+    edges = graph.get("edges", []) or []
+    # adjacency: node -> list of (neighbour, relation, strength)
+    adj: dict[str, list[tuple[str, str, str]]] = {}
+    for e in edges:
+        a, b = e.get("from"), e.get("to")
+        rel, st = e.get("relation", "supplies"), e.get("strength", "medium")
+        if not a or not b:
+            continue
+        adj.setdefault(a, []).append((b, rel, st))
+        adj.setdefault(b, []).append((a, rel, st))
+
+    def _name(cid: str) -> str:
+        c = by_id.get(cid, {})
+        return c.get("short_name") or c.get("name") or cid
+
+    # earliest upcoming event per company drives the signal date.
+    first_event: dict[str, dict] = {}
+    for ev in events:  # events arrive pre-sorted by datetime_utc
+        first_event.setdefault(ev["company_id"], ev)
+
+    signals = []
+    for ev in sorted(first_event.values(), key=lambda e: e["datetime_utc"]):
+        src = ev["company_id"]
+        is_focal = ev.get("processing_tier") == "T1"
+        for neigh, rel, strength in adj.get(src, []):
+            if not is_focal and strength != "high":
+                continue
+            intensity = "high" if (is_focal and strength == "high") else "medium"
+            lbl = _RELATION_LABEL.get(rel, {"en": rel, "zh": rel})
+            src_name, nb_name = _name(src), _name(neigh)
+            signals.append({
+                "source_id": src, "source_name": src_name,
+                "target_id": neigh, "target_name": nb_name,
+                "relation": rel, "strength": strength, "intensity": intensity,
+                "source_tier": ev.get("processing_tier"),
+                "source_date_local": ev["datetime_local"],
+                "source_estimated": ev.get("estimated", False),
+                "reason_en": f"{src_name} reports {ev.get('fiscal_quarter') or 'soon'} "
+                             f"({_RELATION_LABEL.get(rel, {}).get('en', rel)} link) — watch {nb_name} for read-through.",
+                "reason_zh": f"{src_name} 即將公布 {ev.get('fiscal_quarter') or ''}"
+                             f"（{lbl['zh']}關係）— 留意對 {nb_name} 的傳導。",
+            })
+    # strongest first, then by how soon the source reports.
+    order = {"high": 0, "medium": 1, "low": 2}
+    signals.sort(key=lambda s: (order.get(s["intensity"], 9), s["source_date_local"]))
+    return signals
 
 
 def build_snapshot(horizon_days: int | None = None, source: str | None = None,
@@ -216,6 +308,14 @@ def build_snapshot(horizon_days: int | None = None, source: str | None = None,
     for e in events:
         by_tier[e["processing_tier"]] = by_tier.get(e["processing_tier"], 0) + 1
 
+    # H6: supply-chain signal propagation off the bundled graph.
+    graph = load_graph()
+    signals = propagate_signals(events, by_id, graph, horizon_days)
+
+    # H7: misses now keep a seed fallback event, so they no longer subtract from
+    # coverage; clamp at 0 to stay non-negative if both ever overlap.
+    no_data = max(queried - with_events, 0)
+
     return {
         "as_of": start.isoformat(),
         "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
@@ -227,10 +327,16 @@ def build_snapshot(horizon_days: int | None = None, source: str | None = None,
         "by_tier": by_tier,
         "coverage": {
             "queried": queried, "companies_with_events": with_events,
-            "no_data_in_window": queried - with_events - len(misses),
+            "no_data_in_window": no_data,
             "access_misses": len(misses), "misses": misses,
         },
         "events": events,
         "companies": company_map,
+        "signals": signals,
+        "graph_meta": {
+            "nodes": len(graph.get("nodes", [])),
+            "edges": len(graph.get("edges", [])),
+            "signal_count": len(signals),
+        },
         "universe": {"total": len(companies), "active": len(active)},
     }

@@ -141,7 +141,16 @@
            "inference_chip": {"point": 3400,  "low": 2200,  "high": 4700}
          },
          "rationale_en": "GB300-class flagship ASP up again; inference-chip ASP compression continues — the two segments diverge.",
-         "rationale_zh": "GB300 級旗艦 ASP 再上調；推論晶片 ASP 壓縮持續——兩區段背離。", "evidence_ids": ["ev_blackwell_asp", "ev_inference_asp_compression"]}
+         "rationale_zh": "GB300 級旗艦 ASP 再上調；推論晶片 ASP 壓縮持續——兩區段背離。", "evidence_ids": ["ev_blackwell_asp", "ev_inference_asp_compression"]},
+        {"version": 4, "regime": "inference_led", "valid_from": "2026-06-01", "confidence": "low",
+         "value": {
+           "gpu_flagship":   {"point": 33000, "low": 26000, "high": 42000},
+           "gpu_mid":        {"point": 6800,  "low": 5000,  "high": 9000},
+           "asic_custom":    {"point": 8800,  "low": 6300,  "high": 11800},
+           "inference_chip": {"point": 3000,  "low": 2000,  "high": 4300}
+         },
+         "rationale_en": "Projected inference-led ASPs: flagship (Rubin-class) ASP rises again, but custom-ASIC cost-plus pricing eases at scale and inference-chip ASP keeps compressing — blended ASP falls as the mix tilts to the cheaper segments.",
+         "rationale_zh": "預估推論主導 ASP：旗艦（Rubin 級）ASP 再升，但自研 ASIC 規模化後成本加成趨緩、推論晶片 ASP 持續壓縮——隨組合偏向較便宜區段，混合 ASP 下降。", "evidence_ids": ["ev_blackwell_asp", "ev_inference_asp_compression"]}
       ]
     },
 
@@ -167,7 +176,16 @@
            "inference_chip": {"point": 185, "low": 140, "high": 250}
          },
          "rationale_en": "Multi-die flagship keeps per-tile logic area near reticle; inference dies trend smaller as designs specialize.",
-         "rationale_zh": "多裸晶旗艦使每片邏輯面積維持接近光罩；推論裸晶隨設計專用化而趨小。", "evidence_ids": []}
+         "rationale_zh": "多裸晶旗艦使每片邏輯面積維持接近光罩；推論裸晶隨設計專用化而趨小。", "evidence_ids": []},
+        {"version": 3, "regime": "inference_led", "valid_from": "2026-06-01", "confidence": "low",
+         "value": {
+           "gpu_flagship":   {"point": 825, "low": 755, "high": 895},
+           "gpu_mid":        {"point": 380, "low": 320, "high": 440},
+           "asic_custom":    {"point": 560, "low": 470, "high": 680},
+           "inference_chip": {"point": 170, "low": 130, "high": 230}
+         },
+         "rationale_en": "Projected inference-led dies: flagship stays near reticle, but custom ASIC and inference silicon trend smaller as inference-optimized designs specialize and standardize on N5/N4 — blended logic die area falls.",
+         "rationale_zh": "預估推論主導裸晶：旗艦維持接近光罩，但自研 ASIC 與推論矽隨推論最佳化設計專用化、標準化於 N5/N4 而趨小——混合邏輯裸晶面積下降。", "evidence_ids": []}
       ]
     },
 
@@ -209,7 +227,16 @@
            "inference_chip": {"point": 0.82, "low": 0.74, "high": 0.88}
          },
          "rationale_en": "N3 defect density improving; large-die yields step up, lowering wafers needed per good die.",
-         "rationale_zh": "N3 缺陷密度改善；大裸晶良率提升，降低每顆良裸晶所需晶圓。", "evidence_ids": ["ev_n3_yield"]}
+         "rationale_zh": "N3 缺陷密度改善；大裸晶良率提升，降低每顆良裸晶所需晶圓。", "evidence_ids": ["ev_n3_yield"]},
+        {"version": 3, "regime": "inference_led", "valid_from": "2026-06-01", "confidence": "low",
+         "value": {
+           "gpu_flagship":   {"point": 0.66, "low": 0.56, "high": 0.75},
+           "gpu_mid":        {"point": 0.79, "low": 0.72, "high": 0.86},
+           "asic_custom":    {"point": 0.72, "low": 0.62, "high": 0.81},
+           "inference_chip": {"point": 0.85, "low": 0.78, "high": 0.90}
+         },
+         "rationale_en": "Projected inference-led yields: a more mature node mix (N5/N4) and smaller inference/ASIC dies lift composite yields versus the inference-rotating step, further reducing wafers per good die.",
+         "rationale_zh": "預估推論主導良率：更成熟的製程結構（N5/N4）與更小的推論／ASIC 裸晶使綜合良率較推論輪動再升，進一步降低每顆良裸晶所需晶圓。", "evidence_ids": ["ev_n3_yield"]}
       ]
     },
 

@@ -62,7 +62,8 @@ def _scale(value, points):
         return float(points[-1][1])
     for (x0, y0), (x1, y1) in zip(points, points[1:]):
         if x0 <= value <= x1:
-            return round(y0 + (value - x0) / (x1 - x0) * (y1 - y0), 1)
+            # 中間值保留 4 位小數，最終顯示精度交由上層收斂（統一精度，消 ~0.5 累積捨入差）。
+            return round(y0 + (value - x0) / (x1 - x0) * (y1 - y0), 4)
     return None
 
 
@@ -71,6 +72,24 @@ def _fmt(v, suffix="", digits=1, sign=False):
         return "—"
     s = f"{v:+.{digits}f}" if sign else f"{v:.{digits}f}"
     return s + suffix
+
+
+def _log_compress_growth(g):
+    """把含 CI/CD 噪音、量級可達數百%的需求年增壓縮成穩健度量。
+
+    對「成長倍數」(1 + g/100) 取對數，再線性還原成百分點：
+      compressed% = 100 * SCALE * ln(1 + g/100)
+    SCALE 取 0.4，使常態區間（+20%~+60%）幾乎不失真，
+    而極端值（+860%）被壓到約 +90%，避免把剪刀差永久夾到地板。
+    負成長對稱壓縮。
+    """
+    import math
+    if g is None:
+        return None
+    ratio = 1.0 + g / 100.0
+    if ratio <= 0:        # 防呆：年增 <= -100%
+        return -100.0
+    return round(100.0 * 0.4 * math.log(ratio), 1)
 
 
 # ────────────────────── 1. GPU 現貨租金（vast.ai） ──────────────────────
@@ -396,12 +415,17 @@ def build_frontier_scores(gpu, adoption, dc, circ, hn, gap, capex_agg) -> dict:
 
     supply = (capex_agg or {}).get("yoy")
     demand = (adoption or {}).get("avg_g1y")
-    scissor = round(supply - demand, 1) if (supply is not None and demand is not None) else None
+    # npm 下載年增含 CI/CD 噪音，量級可達數百%，會把剪刀差永久夾到地板。
+    # 改用對數壓縮的穩健需求度量（與供給的百分點同量綱），保留「供給 vs 需求」原意。
+    demand_robust = _log_compress_growth(demand)
+    scissor = round(supply - demand_robust, 1) \
+        if (supply is not None and demand_robust is not None) else None
     raw["scissors"] = (
-        _scale(scissor, [(-300, 8), (-150, 20), (-50, 35), (0, 50), (50, 75), (150, 92)]),
+        _scale(scissor, [(-120, 8), (-60, 25), (-20, 40), (0, 50), (30, 68), (70, 85), (120, 95)]),
         [{"zh": "供給端：CapEx 年增率", "v": _fmt(supply, "%", 1, True)},
-         {"zh": "需求端：SDK 下載年增率（npm 平均）", "v": _fmt(demand, "%", 1, True)},
-         {"zh": "剪刀差（供給−需求）", "v": _fmt(scissor, " 個百分點", 1, True)}],
+         {"zh": "需求端：SDK 下載年增率（npm 平均，原始）", "v": _fmt(demand, "%", 1, True)},
+         {"zh": "需求端：對數壓縮後（穩健度量）", "v": _fmt(demand_robust, "%", 1, True)},
+         {"zh": "剪刀差（供給−穩健需求）", "v": _fmt(scissor, " 個百分點", 1, True)}],
     )
 
     ratio = (dc or {}).get("ratio")
@@ -414,10 +438,17 @@ def build_frontier_scores(gpu, adoption, dc, circ, hn, gap, capex_agg) -> dict:
     )
 
     fresh = (circ or {}).get("fresh_n", 0)
-    circ_score = min(95.0, 55.0 + 5.0 * fresh)     # 種子台帳已達思科級 → 基準 55
+    seed_total = (circ or {}).get("seed_total_b", 0) or 0
+    # 舊版 55 + 5×fresh 在 fresh≥8 即封頂 95、上行解析度盡失。
+    # 改為兩段：累計規模（種子台帳）給基底 + 新增報導以對數飽和加成，
+    # 上界留至 ~92（僅在規模 + 新增同時極端時逼近），保留上行空間。
+    import math
+    base = _scale(seed_total, [(0, 30), (100, 45), (300, 55), (600, 65), (1200, 78)]) or 30.0
+    fresh_bump = round(7.0 * math.log(1 + fresh), 1)    # fresh=8→14.5，對數飽和、留上行空間
+    circ_score = round(min(92.0, base + fresh_bump), 1)
     raw["circularity"] = (
         circ_score,
-        [{"zh": "已揭露循環結構累計（種子台帳）", "v": f"~${(circ or {}).get('seed_total_b', 0):.0f}B"},
+        [{"zh": "已揭露循環結構累計（種子台帳）", "v": f"~${seed_total:.0f}B"},
          {"zh": "本期新增相關報導", "v": f"{fresh} 則"}],
     )
 
@@ -431,8 +462,10 @@ def build_frontier_scores(gpu, adoption, dc, circ, hn, gap, capex_agg) -> dict:
     )
 
     mult = (gap or {}).get("multiple")
+    # 舊版頂錨 12x→96 已被當期 12.4x 達到、上行解析度喪失。
+    # 延伸至 25x，讓更極端的缺口仍有區分度（25x 才逼近 99）。
     raw["revenue_gap"] = (
-        _scale(mult, [(1, 15), (2, 35), (3, 50), (5, 70), (8, 88), (12, 96)])
+        _scale(mult, [(1, 15), (2, 35), (3, 50), (5, 68), (8, 82), (12, 91), (18, 96), (25, 99)])
         if mult is not None else None,
         [{"zh": "隱含必要收入（CapEx×2 年化）", "v": f"~${(gap or {}).get('required_t', 0):.2f}T"},
          {"zh": "目前 AI 終端收入估計", "v": f"~${(gap or {}).get('est_revenue_b', 0):.0f}B"},
@@ -443,8 +476,10 @@ def build_frontier_scores(gpu, adoption, dc, circ, hn, gap, capex_agg) -> dict:
     for key, (sc, inputs) in raw.items():
         meta = FRONTIER_META[key]
         level = "na" if sc is None else ("good" if sc < 40 else "warn" if sc < 65 else "bad")
+        # composite 用全精度 sc 累加；顯示分數統一收斂為 1 位。
         subs.append({"key": key, "zh": meta["zh"], "en": meta["en"],
-                     "note_zh": meta["note_zh"], "score": sc, "level": level,
+                     "note_zh": meta["note_zh"],
+                     "score": round(sc, 1) if sc is not None else None, "level": level,
                      "weight": FRONTIER_WEIGHTS[key], "inputs": inputs})
         if sc is not None:
             weighted += sc * FRONTIER_WEIGHTS[key]

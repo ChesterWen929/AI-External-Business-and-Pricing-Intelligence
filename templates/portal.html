@@ -220,7 +220,20 @@
               <span class="tier-name">{{ t('tier1') }}</span>
               <span class="tier-sub">{{ t('tier1_sub') }}</span>
             </div>
-            <div class="row n1">
+            <div class="row n2">
+              <a class="card" href="/scenario/">
+                <div class="kicker">CAPSTONE · SCENARIO</div>
+                <h2>{{ t('scenario_name') }}</h2>
+                <div class="desc">{{ t('scenario_desc') }}{% if scenario_divergences %} · ⚠ {{ scenario_divergences }} {{ t('scenario_div_lbl') }}{% endif %}</div>
+                <div class="foot">
+                  <div class="stat">
+                    {% if scenario_prob is not none %}<span class="score">{{ scenario_prob }}%{% if scenario_base_label %}<small>{{ scenario_base_label }}</small>{% endif %}</span>{% endif %}
+                    {% if scenario_updated %}<span class="meta">{{ t('updated') }} · {{ scenario_updated }}</span>{% endif %}
+                  </div>
+                  <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
+                </div>
+              </a>
+
               <a class="card" href="/econ/">
                 <div class="kicker">ECON</div>
                 <h2>{{ t('econ_name') }}</h2>
@@ -299,19 +312,6 @@
                 </div>
               </a>
 
-              <a class="card" href="/payback/">
-                <div class="kicker">PAYBACK</div>
-                <h2>{{ t('payback_name') }}</h2>
-                <div class="desc">{{ t('payback_desc') }}</div>
-                <div class="foot">
-                  <div class="stat">
-                    {% if payback_coverage is not none %}<span class="score">{{ '%.2f'|format(payback_coverage) }}<small>{% if payback_verdict %}{{ t('v_' ~ payback_verdict) }}{% else %}{{ t('payback_lbl') }}{% endif %}</small></span>{% endif %}
-                    {% if payback_updated %}<span class="meta">{{ t('updated') }} · {{ payback_updated }}</span>{% endif %}
-                  </div>
-                  <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
-                </div>
-              </a>
-
               <a class="card" href="/cwengine/">
                 <div class="kicker">CWENGINE</div>
                 <h2>{{ t('cwe_name') }}</h2>
@@ -320,6 +320,19 @@
                   <div class="stat">
                     {% if cwe_wpm %}<span class="score">{{ '{:,}'.format(cwe_wpm) }}<small>{{ t('cwe_lbl') }}</small></span>{% endif %}
                     {% if cwe_updated %}<span class="meta">{{ t('updated') }} · {{ cwe_updated }}</span>{% endif %}
+                  </div>
+                  <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
+                </div>
+              </a>
+
+              <a class="card" href="/payback/">
+                <div class="kicker">PAYBACK</div>
+                <h2>{{ t('payback_name') }}</h2>
+                <div class="desc">{{ t('payback_desc') }}</div>
+                <div class="foot">
+                  <div class="stat">
+                    {% if payback_coverage is not none %}<span class="score">{{ '%.2f'|format(payback_coverage) }}<small>{% if payback_verdict %}{{ t('v_' ~ payback_verdict) }}{% else %}{{ t('payback_lbl') }}{% endif %}</small></span>{% endif %}
+                    {% if payback_updated %}<span class="meta">{{ t('updated') }} · {{ payback_updated }}</span>{% endif %}
                   </div>
                   <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
                 </div>
@@ -384,6 +397,31 @@
                   <div class="stat">
                     {% if rival_events %}<span class="score">{{ rival_events }}<small>{{ t('events_lbl') }}</small></span>{% endif %}
                     {% if rival_updated %}<span class="meta">{{ t('updated') }} · {{ rival_updated }}</span>{% endif %}
+                  </div>
+                  <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <div class="chev">▾</div>
+
+          <!-- ── Tier V · Company Deep-Dive (converging point) ── -->
+          <div class="tier">
+            <div class="tier-head">
+              <div class="tier-no">V</div>
+              <span class="tier-name">{{ t('tier5') }}</span>
+              <span class="tier-sub">{{ t('tier5_sub') }}</span>
+            </div>
+            <div class="row n1">
+              <a class="card" href="/company/amazon/">
+                <div class="kicker">COMPANY · AMZN</div>
+                <h2>{{ t('company_name') }}</h2>
+                <div class="desc">{{ t('company_desc') }}</div>
+                <div class="foot">
+                  <div class="stat">
+                    {% if company_score is not none %}<span class="score">{{ '%.0f'|format(company_score) }}<small>{% if company_verdict %}{{ t('v_' ~ company_verdict) }}{% else %}{{ t('company_lbl') }}{% endif %}</small></span>{% endif %}
+                    {% if company_benefit is not none %}<span class="meta">AI ≈ ${{ '%.0f'|format(company_benefit) }}B{% if company_updated %} · {{ t('updated') }} {{ company_updated }}{% endif %}</span>{% elif company_updated %}<span class="meta">{{ t('updated') }} · {{ company_updated }}</span>{% endif %}
                   </div>
                   <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
                 </div>

@@ -264,6 +264,9 @@ const I18N = {
   dim_momentum:{zh:"動能", en:"Momentum"},
   more_src:   {zh:"查證補充來源", en:"Extra sources from verification"},
   share_lbl:  {zh:"市佔", en:"Share"},
+  share_est:  {zh:"估計", en:"est."},
+  caliber:    {zh:"口徑", en:"Caliber"},
+  caliber_foot:{zh:"⚠ 斜紋柱口徑不同(含研發或部門範圍較廣),長度不可與其他直接比較", en:"⚠ Striped bars use a different caliber (incl. R&D or a broader division scope) — length is not directly comparable"},
   mktcap:     {zh:"市值", en:"Mkt cap"}
 };
 let lang = localStorage.getItem("rr_lang") || "zh";
@@ -408,14 +411,23 @@ function capexChart(kb){
   const names = Object.keys(rows).sort((a,b)=>((rows[b][yr]&&rows[b][yr].usd_b)||0)-((rows[a][yr]&&rows[a][yr].usd_b)||0));
   const maxV = Math.max(...names.map(n=>Math.max((rows[n][yr]&&rows[n][yr].usd_b)||0,(prev&&rows[n][prev]&&rows[n][prev].usd_b)||0)), 1);
   let h = '<div class="legend"><span><i style="background:#4dd8ff"></i>'+esc(yr)+'</span>'+(prev?'<span><i style="background:#44516e"></i>'+esc(prev)+"</span>":"")+"</div>";
+  let hasCaliber = false;
   names.forEach(n => {
     const cur = rows[n][yr], pv = prev && rows[n][prev];
-    h += '<div class="rankbar"><div class="nm">'+esc(n)+'</div><div style="flex:1">';
+    const cal = cur && (cur["caliber_"+lang] || cur.caliber_en);
+    if (cal) hasCaliber = true;
+    // off-caliber bars get an amber striped fill so the length is not read at face value
+    const curFill = cal
+      ? "repeating-linear-gradient(45deg,#ffc24d,#ffc24d 5px,#3a2f12 5px,#3a2f12 10px)"
+      : "#4dd8ff";
+    h += '<div class="rankbar"><div class="nm">'+esc(n)+(cal?' <sup style="color:#ffc24d">⚠</sup>':"")+'</div><div style="flex:1">';
     if (pv) h += '<div class="bar" style="height:9px;margin-bottom:3px"><div class="fill" style="background:#44516e;width:'+(pv.usd_b/maxV*100)+'%"></div></div>';
-    h += '<div class="bar" style="height:13px"><div class="fill" style="background:#4dd8ff;width:'+((cur&&cur.usd_b||0)/maxV*100)+'%"></div></div>';
+    h += '<div class="bar" style="height:13px"><div class="fill" style="background:'+curFill+';width:'+((cur&&cur.usd_b||0)/maxV*100)+'%"></div></div>';
     h += '</div><div class="sc" style="width:52px">'+((cur&&cur.usd_b)||0)+"B</div></div>";
+    if (cal) h += '<div class="rankbar" style="margin-top:-4px"><div class="nm"></div><div class="ol" style="color:#ffc24d">⚠ '+t("caliber")+": "+esc(cal)+"</div></div>";
     if (cur && cur["note_"+lang]) h += '<div class="rankbar" style="margin-top:-4px"><div class="nm"></div><div class="ol">'+f(cur,"note")+"</div></div>";
   });
+  if (hasCaliber) h += '<div class="src" style="color:#ffc24d">'+t("caliber_foot")+"</div>";
   return h;
 }
 
@@ -502,7 +514,7 @@ function vThreat(kb){
     const dims=["technology","capacity","customer_traction","geopolitics","momentum"];
     let h='<div class="card pcard"><div class="top"><div><h2>'+f(p,"name")+'</h2><div class="hq">'+f(p,"hq")
       +(p.ticker?" · "+esc(p.ticker):"")
-      +(p.market_share_pct?" · "+t("share_lbl")+" "+p.market_share_pct+"%":"")
+      +(p.market_share_pct?' · <span title="'+(p.share_estimated?t("share_est"):"TrendForce 2025Q4")+'">'+t("share_lbl")+" "+p.market_share_pct+"%"+(p.share_estimated?" ("+t("share_est")+")":"")+"</span>":"")
       +'</div></div>';
     h+='<div class="total">'+( totals[p.key]!=null ? totals[p.key].toFixed(1) : "—")+'<small>'+t("total_threat")+"</small></div></div>";
     h+=radarSVG(th, dims);

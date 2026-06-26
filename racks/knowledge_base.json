@@ -448,6 +448,8 @@
     "_note": "供應鏈份額地圖(2025-26)。share 多為 T2/T3 分析師/供應鏈估計,方向性參考。",
     "hbm": {
       "label_zh": "HBM 記憶體", "label_en": "HBM Memory",
+      "note_zh": "三家份額為單一來源 (astutegroup, 2026) 的整數估計,湊整 ~100%,僅供方向性參考。",
+      "note_en": "Three-vendor shares are rounded integer estimates from a single source (astutegroup, 2026), summing to ~100%; directional only.",
       "rows": [
         {"name": "SK Hynix", "ticker": "000660.KS", "share": "~62%", "note": "HBM 龍頭;NVIDIA 主供;首個 12-Hi HBM3e", "tier": "T2", "url": "https://www.astutegroup.com/news/general/sk-hynix-holds-62-of-hbm-micron-overtakes-samsung-2026-battle-pivots-to-hbm4/"},
         {"name": "Micron", "ticker": "MU", "share": "~21%", "note": "已超越三星;12-Hi HBM3e;AMD MI300/350", "tier": "T2", "url": "https://www.astutegroup.com/news/general/sk-hynix-holds-62-of-hbm-micron-overtakes-samsung-2026-battle-pivots-to-hbm4/"},

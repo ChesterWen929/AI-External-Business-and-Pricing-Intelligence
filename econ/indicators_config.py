@@ -14,6 +14,7 @@ class IndicatorDef(TypedDict):
     category: str
     importance: str  # high / medium
     format: str      # percent / index / thousands / billions / bps / ratio
+    native_unit: str  # for format == "billions" only: "millions" (FRED native $M, ÷1000 → $B) or "billions" (FRED native $B, no scaling → $B/$T)
 
 CATEGORIES = {
     "inflation":     {"en": "Inflation",     "zh": "通膨"},
@@ -196,6 +197,7 @@ INDICATORS: list[IndicatorDef] = [
         "category": "growth",
         "importance": "high",
         "format": "billions",
+        "native_unit": "billions",  # FRED native = $B → display as $T
     },
     {
         "id": "retail_sales",
@@ -211,6 +213,7 @@ INDICATORS: list[IndicatorDef] = [
         "category": "growth",
         "importance": "high",
         "format": "billions",
+        "native_unit": "millions",  # FRED native = $M → ÷1000 → $B
     },
     {
         "id": "industrial_production",
@@ -241,6 +244,7 @@ INDICATORS: list[IndicatorDef] = [
         "category": "growth",
         "importance": "medium",
         "format": "billions",
+        "native_unit": "billions",  # FRED native = $B → display as $T
     },
     {
         "id": "fed_rate",
@@ -365,6 +369,7 @@ INDICATORS: list[IndicatorDef] = [
         "category": "manufacturing",
         "importance": "medium",
         "format": "billions",
+        "native_unit": "millions",  # FRED native = $M → ÷1000 → $B
     },
     {
         "id": "manufacturing_production",
@@ -532,6 +537,7 @@ INDICATORS: list[IndicatorDef] = [
         "category": "financial",
         "importance": "medium",
         "format": "billions",
+        "native_unit": "billions",  # FRED native = $B → display as $T
     },
     # ── 就業（補強）──────────────────────────────────────────────────────
     {
@@ -613,6 +619,7 @@ INDICATORS: list[IndicatorDef] = [
         "category": "trade",
         "importance": "medium",
         "format": "billions",
+        "native_unit": "millions",  # FRED native = $M → ÷1000 → $B
     },
     {
         "id": "import_prices",
@@ -758,6 +765,7 @@ INDICATORS: list[IndicatorDef] = [
         "category": "growth",
         "importance": "medium",
         "format": "billions",
+        "native_unit": "billions",  # FRED native = $B → display as $T
     },
     {
         "id": "real_personal_income",
@@ -773,6 +781,7 @@ INDICATORS: list[IndicatorDef] = [
         "category": "growth",
         "importance": "medium",
         "format": "billions",
+        "native_unit": "billions",  # FRED native = $B → display as $T
     },
     {
         "id": "saving_rate",
@@ -867,6 +876,7 @@ INDICATORS: list[IndicatorDef] = [
         "category": "financial",
         "importance": "medium",
         "format": "billions",
+        "native_unit": "millions",  # FRED native = $M → ÷1000 → $B
     },
     {
         "id": "ig_oas",

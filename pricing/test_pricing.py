@@ -151,6 +151,17 @@ class TestCollectorsParsing(unittest.TestCase):
             collectors._get = orig
         self.assertEqual(row["value"], 106.0)
         self.assertTrue(row["live"])
+        # monthly cadence is flagged and 1w repeats the 1m move (no fake weekly print)
+        self.assertEqual(row["freq"], "monthly")
+        self.assertEqual(row["chg_1w"], row["chg_1m"])
+
+    def test_close_on_or_before_holiday_safe(self):
+        from datetime import date
+        series = [(date(2026, 5, 1), 100.0), (date(2026, 5, 22), 110.0), (date(2026, 5, 29), 120.0)]
+        last = series[-1][0].toordinal()
+        # 7d back from 5/29 = 5/22 (exact trading day); 30d back ≈ 4/29 → falls to oldest 5/1
+        self.assertEqual(collectors._close_on_or_before(series, last - 7), 110.0)
+        self.assertEqual(collectors._close_on_or_before(series, last - 30), 100.0)
 
     def test_live_overrides_seed(self):
         live = {"metrics": {"tsm_proxy": {"value": 999.0, "chg_1w": 1.0, "chg_1m": 9.0, "live": True}}}
@@ -159,6 +170,59 @@ class TestCollectorsParsing(unittest.TestCase):
         self.assertTrue(merged["tsm_proxy"]["live"])
         # a curated price estimate keeps its seed
         self.assertFalse(merged["n3_asp"]["live"])
+
+
+class TestEquityDamping(unittest.TestCase):
+    """Issue H3 — stock-price noise must not drive the bargaining score."""
+
+    def _snap_with(self, equity_chg):
+        # huge equity move on every fetchable equity proxy, real indices flat-ish
+        metrics = {}
+        for it in KB["items"]:
+            if it.get("momentum_kind") == "equity" and it.get("fetch"):
+                metrics[it["id"]] = {"value": 100.0, "chg_1w": 0.0, "chg_1m": equity_chg, "live": True}
+        return model.build_snapshot(KB, live={"metrics": metrics}, generated_at="x", today="2026-06-25")
+
+    def test_equity_move_is_damped_and_capped_in_score(self):
+        snap = self._snap_with(50.0)  # +50% stock spike
+        up = next(ly for ly in snap["l3"]["layers"] if ly["id"] == "up")
+        eq = next(it for it in up["items"] if it["momentum_kind"] == "equity")
+        cap = KB["momentum"]["equity_cap"]
+        self.assertEqual(eq["chg_1m"], 50.0)             # raw move preserved for display
+        self.assertLessEqual(eq["score_chg_1m"], cap)    # but capped before the score
+        # raw equity surfaced separately and NOT equal to the damped layer momentum
+        self.assertAlmostEqual(snap["l3"]["market_sentiment"]["upstream"], 50.0, places=1)
+        self.assertLess(up["momentum"], 50.0)
+
+    def test_score_not_dominated_by_equity_spike(self):
+        # a +50% vs -50% stock swing must move the score far less than a raw mean would
+        hi = self._snap_with(50.0)["pricing_power"]["score"]
+        lo = self._snap_with(-50.0)["pricing_power"]["score"]
+        self.assertLess(abs(hi - lo), 60, "equity swing still dominates the score")
+
+    def test_market_sentiment_excluded_from_score_formula(self):
+        # score must still equal the documented formula on the (damped) stack momenta
+        snap = self._snap_with(50.0)
+        st = snap["l3"]["stack"]
+        expect = round(max(0, min(100, 50 + 6 * (st["foundry"] - st["upstream"]) + 3 * st["downstream"])), 1)
+        self.assertAlmostEqual(snap["pricing_power"]["score"], expect, places=1)
+
+
+class TestSourceFreshness(unittest.TestCase):
+    """Issue M10 — a refresh where some fetchable items failed is PARTIAL."""
+
+    def test_partial_when_some_fetch_failed(self):
+        # only one proxy came back live; the rest (incl. ppi_semi) fell to seed
+        live = {"metrics": {"tsm_proxy": {"value": 200.0, "chg_1w": 0.0, "chg_1m": 1.0, "live": True}}}
+        snap = model.build_snapshot(KB, live=live, generated_at="x", today="2026-06-25")
+        self.assertEqual(snap["source"], "partial")
+        self.assertIn("ppi_semi", snap["stale_fetch_ids"])
+        self.assertNotIn("tsm_proxy", snap["stale_fetch_ids"])
+
+    def test_seed_when_no_live(self):
+        snap = model.build_snapshot(KB, live=None, generated_at="x", today="2026-06-25")
+        self.assertEqual(snap["source"], "seed")
+        self.assertEqual(snap["stale_fetch_ids"], [])
 
 
 if __name__ == "__main__":

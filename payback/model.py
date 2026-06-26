@@ -20,10 +20,20 @@ from __future__ import annotations
 
 from . import analysis, depreciation
 
+# Headline (aggregate) labels — driven by COVERAGE, so "covering the spend" is literal.
 _VERDICT = {
     "monetizing": {"en": "MONETIZING — AI revenue covering the spend", "zh": "MONETIZING — AI 營收正在覆蓋投入"},
     "investing":  {"en": "INVESTING — heavy build, revenue ramping behind", "zh": "INVESTING — 重壓建置,營收在後爬升"},
     "burning":    {"en": "BURNING — spend far ahead of AI revenue", "zh": "BURNING — 投入遠超 AI 營收"},
+}
+
+# Per-company labels — driven by the 0–100 payback SCORE (not coverage), so the wording
+# must NOT claim coverage is achieved. A high score means the conversion trajectory looks
+# strong (cloud growth, contained intensity), even while coverage is still well under 1.
+_VERDICT_SCORE = {
+    "monetizing": {"en": "CONVERTING — strongest payback trajectory", "zh": "CONVERTING — 變現軌跡最強"},
+    "investing":  {"en": "INVESTING — heavy build, revenue ramping behind", "zh": "INVESTING — 重壓建置,營收在後爬升"},
+    "burning":    {"en": "OUTSPENDING — spend far ahead of AI revenue", "zh": "OUTSPENDING — 投入遠超 AI 營收"},
 }
 
 
@@ -172,7 +182,7 @@ def _compute_public(c, live):
         "cloud_growth": cloud_growth, "capex_intensity": intensity,
         "coverage": coverage,
         "score": score, "verdict_key": key,
-        "verdict_en": _VERDICT[key]["en"], "verdict_zh": _VERDICT[key]["zh"],
+        "verdict_en": _VERDICT_SCORE[key]["en"], "verdict_zh": _VERDICT_SCORE[key]["zh"],
         "stock": m["stock"], "stock_chg_1m": m["stock_chg_1m"],
         "as_of_q": m["as_of_q"], "live": m["live"],
         "mgmt_quote": c.get("mgmt_quote", {}),
@@ -208,7 +218,7 @@ def _compute_private(c):
         "compute_commitment": s.get("compute_commitment_usd_bn"),
         "coverage": coverage, "runway_years": runway_years,
         "score": score, "verdict_key": key,
-        "verdict_en": _VERDICT[key]["en"], "verdict_zh": _VERDICT[key]["zh"],
+        "verdict_en": _VERDICT_SCORE[key]["en"], "verdict_zh": _VERDICT_SCORE[key]["zh"],
         "mgmt_quote": c.get("mgmt_quote", {}),
         "note_en": c.get("note_en", ""), "note_zh": c.get("note_zh", ""),
     }
@@ -264,8 +274,23 @@ def _scissors(kb, publics):
 
 def _circularity(kb):
     edges = kb.get("circularity_edges", [])
+
+    def _sum(kind):
+        return round(sum(float(e.get("amount_usd_bn", 0) or 0)
+                         for e in edges if e.get("kind") == kind), 1)
+
     total = round(sum(float(e.get("amount_usd_bn", 0) or 0) for e in edges), 1)
-    return {"edges": edges, "total_usd_bn": total, "count": len(edges)}
+    # The headline total is a HETEROGENEOUS sum: multi-year purchase commitments
+    # (a FLOW) added to cumulative equity investments (a STOCK). It is a "scale of
+    # entanglement" gauge, not an additive accounting quantity — so we also break it out.
+    return {
+        "edges": edges,
+        "total_usd_bn": total,
+        "count": len(edges),
+        "commitment_flow_usd_bn": _sum("commitment_flow"),   # multi-year purchase commitments (flow)
+        "investment_stock_usd_bn": _sum("investment_stock"),  # cumulative equity investments (stock)
+        "heterogeneous": True,
+    }
 
 
 # --------------------------------------------------------------------------- #
@@ -313,8 +338,8 @@ def _alerts(agg, publics, privates, circ, dep=None):
 
     if circ["total_usd_bn"] > 100:
         out.append({"level": "watch",
-                    "en": f"Circularity flag: ≈ ${circ['total_usd_bn']}B in tracked commitments loops between Nvidia, the labs and the clouds — some 'AI revenue' is the same dollars circulating, not independent end-demand.",
-                    "zh": f"循環性警示:約 ${circ['total_usd_bn']}B 的追蹤承諾在 Nvidia、實驗室與雲端之間轉圈 — 部分「AI 營收」是同一批資金循環,非獨立終端需求。"})
+                    "en": f"Circularity flag: ≈ ${circ['commitment_flow_usd_bn']}B of multi-year purchase commitments (flow) plus ≈ ${circ['investment_stock_usd_bn']}B of cumulative equity investments (stock) loop between Nvidia, the labs and the clouds — some 'AI revenue' is the same dollars circulating, not independent end-demand. (Flow + stock is a heterogeneous gauge of entanglement, not an additive total.)",
+                    "zh": f"循環性警示:約 ${circ['commitment_flow_usd_bn']}B 多年期採購承諾(流量)加上約 ${circ['investment_stock_usd_bn']}B 累計股權投資(存量),在 Nvidia、實驗室與雲端之間轉圈 — 部分「AI 營收」是同一批資金循環,非獨立終端需求。(流量+存量為糾纏規模,非可加總計。)"})
 
     burning = [p for p in privates if p["verdict_key"] == "burning"]
     if burning:

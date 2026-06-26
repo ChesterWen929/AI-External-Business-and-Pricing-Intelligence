@@ -253,11 +253,12 @@ const T = {
 };
 
 function L(o,base){ return (o && (o[base+"_"+LANG] ?? o[base+"_en"])) || ""; }
-function fmtChg(v,unit){
+function fmtChg(v,unit,isLevel){
   if(v===null||v===undefined) return "—";
-  const isPct = unit==="%"||unit===""||unit===undefined;
   const sign = v>0?"+":"";
-  return sign + v + (unit && unit!=="%"? "" : (isPct?"%":""));
+  // is_level indicators (VIX / yields) report an ABSOLUTE point change, not a %.
+  if(isLevel) return sign + v + " pt";
+  return sign + v + "%";
 }
 function chgClass(v){ if(v===null||v===undefined||v===0) return "flat"; return v>0?"up":"down"; }
 
@@ -321,7 +322,7 @@ function render(){
     const inds = r.indicators.map(i=>`
       <div class="ind">
         <span class="iname">${LANG==="zh"?i.name_zh:i.name_en}${i.live?' <span class="live">live</span>':''}</span>
-        <span class="ival"><span class="chg ${chgClass(i.chg_1m)}">${fmtChg(i.chg_1m,i.unit)}</span><span class="dot ${i.signal}"></span></span>
+        <span class="ival"><span class="chg ${chgClass(i.chg_1m)}">${fmtChg(i.chg_1m,i.unit,i.is_level)}</span><span class="dot ${i.signal}"></span></span>
       </div>`).join("");
     return `<div class="rescard">
       <div class="reshead"><span class="nm">${LANG==="zh"?r.name_zh:r.name_en}</span><span class="tag ${r.signal}">${r.signal.replace("_"," ")}</span></div>

@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-06-22 06:40 UTC",
+  "generated_at": "2026-06-25 08:12 UTC",
   "as_of": "2026-06-16",
-  "is_demo": false,
+  "is_demo": true,
   "meta": {
     "schema_version": "0.1",
     "as_of": "2026-06-16",
@@ -185,32 +185,7 @@
       "default": false
     }
   ],
-  "live_capex_context": {
-    "by_company": {
-      "MSFT": {
-        "name": "Microsoft",
-        "capex_ttm_usd_bn": 97.2
-      },
-      "GOOGL": {
-        "name": "Alphabet",
-        "capex_ttm_usd_bn": 109.9
-      },
-      "AMZN": {
-        "name": "Amazon",
-        "capex_ttm_usd_bn": 151.0
-      },
-      "META": {
-        "name": "Meta",
-        "capex_ttm_usd_bn": 75.7
-      },
-      "ORCL": {
-        "name": "Oracle",
-        "capex_ttm_usd_bn": 48.2
-      }
-    },
-    "total_ttm_usd_bn": 482.0,
-    "n": 5
-  },
+  "live_capex_context": {},
   "inference": {
     "regime": "inference_rotating",
     "capex_usd_bn": 600,
@@ -625,15 +600,15 @@
         "era_zh": "2026 起 預估",
         "color": "#5fb8a0",
         "inference_share": 0.72,
-        "wafers_year": 312042,
-        "wafers_year_low": 182964,
-        "wafers_year_high": 441120,
-        "wafers_per_month": 26003,
-        "total_units_m": 28.22,
+        "wafers_year": 247395,
+        "wafers_year_low": 137825,
+        "wafers_year_high": 356966,
+        "wafers_per_month": 20616,
+        "total_units_m": 30.23,
         "asic_inf_share": 0.56
       }
     ],
-    "spread_wafers": 39092,
+    "spread_wafers": 35625,
     "spread_pct": 14
   },
   "drift": {
@@ -694,13 +669,13 @@
         "metric_en": "Flagship-GPU ASP",
         "metric_zh": "旗艦 GPU ASP",
         "direction": "up",
-        "run_len": 3,
+        "run_len": 4,
         "from_value": 22000,
-        "to_value": 30000,
-        "abs_change": 8000,
-        "pct_change": 36.4,
+        "to_value": 33000,
+        "abs_change": 11000,
+        "pct_change": 50.0,
         "from_date": "2023-06-01",
-        "to_date": "2026-05-01",
+        "to_date": "2026-06-01",
         "series": [
           {
             "valid_from": "2023-06-01",
@@ -719,6 +694,12 @@
             "version": 3,
             "regime": "inference_rotating",
             "metric": 30000
+          },
+          {
+            "valid_from": "2026-06-01",
+            "version": 4,
+            "regime": "inference_led",
+            "metric": 33000
           }
         ],
         "confidence": ""
@@ -782,10 +763,10 @@
       }
     ],
     "regime_swing": {
-      "swing_wafers": 39092,
+      "swing_wafers": 35625,
       "swing_pct": 14,
-      "low_regime": "inference_rotating",
-      "high_regime": "inference_led"
+      "low_regime": "inference_led",
+      "high_regime": "training_led"
     }
   },
   "evidence": [
@@ -957,7 +938,7 @@
       "name_en": "Per-segment ASP",
       "name_zh": "各區段 ASP",
       "kind": "per_segment_band",
-      "n_versions": 3
+      "n_versions": 4
     },
     {
       "id": "segment_die_mm2",
@@ -965,7 +946,7 @@
       "name_en": "Per-segment logic die size",
       "name_zh": "各區段邏輯裸晶尺寸",
       "kind": "per_segment_band",
-      "n_versions": 2
+      "n_versions": 3
     },
     {
       "id": "segment_node",
@@ -981,7 +962,7 @@
       "name_en": "Per-segment yield",
       "name_zh": "各區段良率",
       "kind": "per_segment_band",
-      "n_versions": 2
+      "n_versions": 3
     },
     {
       "id": "wafer_usable_area_mm2",

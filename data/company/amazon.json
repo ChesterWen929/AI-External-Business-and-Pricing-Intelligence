@@ -1,0 +1,554 @@
+{
+  "slug": "amazon",
+  "generated_at": "2026-06-26 18:02 UTC",
+  "as_of": "2026-06-26",
+  "source": "seed",
+  "stale_fetch_ids": [],
+  "is_demo": true,
+  "company": {
+    "name_en": "Amazon (AWS)",
+    "name_zh": "Amazon（AWS）",
+    "ticker": "AMZN",
+    "segment_en": "Amazon Web Services — cloud compute, the AI profit engine of Amazon",
+    "segment_zh": "Amazon Web Services — 雲端算力，Amazon 的 AI 獲利引擎",
+    "blurb_en": "How does AWS actually raise the price of compute, what can you watch it with, how much is Amazon making from AI, and how all of it ultimately rests on TSMC leading-edge silicon and CoWoS.",
+    "blurb_zh": "AWS 究竟怎麼提高算力售價、能用什麼資料觀察、Amazon 從 AI 賺到多少，以及這一切最終如何押在台積電先進製程與 CoWoS 上。"
+  },
+  "thesis_en": "List prices for raw compute fall every year. AWS still raises its REALIZED price per useful unit of compute — by moving customers up the stack, capturing custom-silicon margin, and pricing scarce accelerators at a premium. That realized-price engine is what funds Amazon's AI benefit, and every accelerator under it is fabbed by TSMC.",
+  "thesis_zh": "原始算力的牌價年年下跌。AWS 仍然在提高它每單位「有用算力」的已實現售價 — 靠把客戶往服務棧上推、捕獲自研晶片的成本利差、對稀缺加速器收溢價。這部已實現價格引擎撐起 Amazon 的 AI 利益，而它底下每一顆加速器都由台積電製造。",
+  "headline": {
+    "compute_pricing_score": 64.9,
+    "verdict_key": "raising",
+    "verdict_en": "RAISING — realized compute price expanding",
+    "verdict_zh": "RAISING — 已實現算力售價擴張",
+    "ai_benefit_usd_bn": 18.0,
+    "ai_benefit_metric": "revenue_runrate",
+    "tsmc_exposure_pct": 100
+  },
+  "pillars": {
+    "pricing": {
+      "score": 64.9,
+      "verdict_key": "raising",
+      "verdict_en": "RAISING — realized compute price expanding",
+      "verdict_zh": "RAISING — 已實現算力售價擴張",
+      "levers": [
+        {
+          "id": "custom_silicon_margin",
+          "name_en": "Custom-silicon margin capture (Trainium / Inferentia)",
+          "name_zh": "自研晶片成本捕獲（Trainium／Inferentia）",
+          "mechanism_en": "AWS designs its own accelerators via Annapurna Labs. Selling Trainium2 capacity at a price competitive with NVIDIA, but at a far lower cost-to-serve, raises the effective price per dollar of silicon AWS deploys — price held, margin (and realized $/useful-FLOP) expands.",
+          "mechanism_zh": "AWS 透過 Annapurna Labs 自研加速器。以對標 NVIDIA 的價格賣 Trainium2 算力，但自家成本遠低，提高了 AWS 每一塊矽投入所實現的有效售價 — 價格不變、毛利（與已實現每有效 FLOP 售價）擴張。",
+          "direction": "up",
+          "strength": 80.0,
+          "weight": 1.0,
+          "tier": "T1",
+          "is_estimate": false,
+          "observability_en": "Trainium adoption disclosures, Anthropic 'Project Rainier' (hundreds of thousands of Trainium2), AWS capex mix.",
+          "observability_zh": "Trainium 採用揭露、Anthropic「Project Rainier」（數十萬顆 Trainium2）、AWS capex 結構。",
+          "source_en": "AWS re:Invent 2024-25; Amazon-Anthropic announcements",
+          "source_zh": "AWS re:Invent 2024-25；Amazon-Anthropic 公告",
+          "source_url": "https://press.aboutamazon.com/2024/11/amazon-and-anthropic-deepen-strategic-collaboration"
+        },
+        {
+          "id": "mix_shift_up_stack",
+          "name_en": "Mix-shift up the stack (IaaS → Bedrock / SageMaker)",
+          "name_zh": "服務棧上移（IaaS → Bedrock／SageMaker）",
+          "mechanism_en": "Raw EC2 is commoditizing; managed AI services (Bedrock model APIs, SageMaker) sell the same underlying compute at a higher price and margin. Each customer that moves up raises blended realized $/compute without any list-price hike.",
+          "mechanism_zh": "原始 EC2 正在商品化；託管 AI 服務（Bedrock 模型 API、SageMaker）把同一份底層算力以更高價格與毛利賣出。每個往上移的客戶都在不抬牌價的情況下提高混合後的已實現每單位算力售價。",
+          "direction": "up",
+          "strength": 72.0,
+          "weight": 1.0,
+          "tier": "T2",
+          "is_estimate": true,
+          "observability_en": "Bedrock GA cadence, managed-service attach in earnings commentary, AWS gross-margin trend.",
+          "observability_zh": "Bedrock 上線節奏、法說中託管服務 attach、AWS 毛利率趨勢。",
+          "source_en": "Amazon 10-Q AWS segment; earnings calls",
+          "source_zh": "Amazon 10-Q AWS 分部；法說會",
+          "source_url": "https://ir.aboutamazon.com/quarterly-results/default.aspx"
+        },
+        {
+          "id": "accelerator_scarcity",
+          "name_en": "Accelerator scarcity premium (P5/P6 GPU capacity blocks)",
+          "name_zh": "加速器稀缺溢價（P5/P6 GPU 容量區塊）",
+          "mechanism_en": "When H100/H200/GB200 capacity is supply-constrained, AWS prices it through capacity reservations and EC2 Capacity Blocks — a scarcity premium over on-demand. Realized price tracks GPU supply tightness, not the list rate card.",
+          "mechanism_zh": "當 H100/H200/GB200 產能受限，AWS 透過容量預留與 EC2 Capacity Blocks 定價 — 對 on-demand 收稀缺溢價。已實現價格跟著 GPU 供給鬆緊走，而非牌價表。",
+          "direction": "up",
+          "strength": 62.0,
+          "weight": 0.9,
+          "tier": "T2",
+          "is_estimate": true,
+          "observability_en": "EC2 Capacity Block prices, GPU spot rents (vast.ai / market), NVIDIA allocation news.",
+          "observability_zh": "EC2 Capacity Block 報價、GPU 現貨租金（vast.ai／市場）、NVIDIA 配額新聞。",
+          "source_en": "AWS Capacity Blocks pricing; third-party GPU price trackers",
+          "source_zh": "AWS Capacity Blocks 定價；第三方 GPU 價格追蹤",
+          "source_url": "https://aws.amazon.com/ec2/capacityblocks/"
+        },
+        {
+          "id": "commitment_lockin",
+          "name_en": "Commitment lock-in (Savings Plans / Reserved / RPO backlog)",
+          "name_zh": "承諾鎖定（Savings Plans／Reserved／RPO 在手訂單）",
+          "mechanism_en": "Multi-year Savings Plans and a large Remaining Performance Obligations (RPO) backlog lock customers into committed spend, cut discounting pressure, and stabilize realized price across the cycle.",
+          "mechanism_zh": "多年期 Savings Plans 與龐大的剩餘履約義務（RPO）在手訂單，把客戶鎖進承諾支出、降低折讓壓力，並在景氣循環中穩住已實現價格。",
+          "direction": "up",
+          "strength": 58.0,
+          "weight": 0.8,
+          "tier": "T1",
+          "is_estimate": false,
+          "observability_en": "RPO disclosed in Amazon 10-Q/10-K; weighted-average remaining life.",
+          "observability_zh": "Amazon 10-Q/10-K 揭露的 RPO；加權平均剩餘期限。",
+          "source_en": "Amazon 10-K — Remaining Performance Obligations",
+          "source_zh": "Amazon 10-K — 剩餘履約義務",
+          "source_url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=AMZN&type=10-K"
+        },
+        {
+          "id": "token_value_pricing",
+          "name_en": "Value-based token pricing (Bedrock frontier models)",
+          "name_zh": "價值定向 token 定價（Bedrock 前沿模型）",
+          "mechanism_en": "Bedrock charges per input/output token, with premium frontier models (e.g. Claude) priced well above the underlying compute cost. Pricing tracks model value, not FLOPs — a lever raw EC2 never had.",
+          "mechanism_zh": "Bedrock 按輸入/輸出 token 計費，前沿模型（如 Claude）定價遠高於底層算力成本。定價跟著模型價值走，而非 FLOPs — 這是原始 EC2 從未有過的槓桿。",
+          "direction": "up",
+          "strength": 60.0,
+          "weight": 0.7,
+          "tier": "T2",
+          "is_estimate": true,
+          "observability_en": "Bedrock per-token price sheets vs. spot compute cost; model-tier mix.",
+          "observability_zh": "Bedrock 每 token 價目 vs. 現貨算力成本；模型分層組合。",
+          "source_en": "AWS Bedrock pricing page",
+          "source_zh": "AWS Bedrock 定價頁",
+          "source_url": "https://aws.amazon.com/bedrock/pricing/"
+        },
+        {
+          "id": "ancillary_attach",
+          "name_en": "Ancillary attach (egress, storage, networking on AI workloads)",
+          "name_zh": "附帶服務 attach（AI 工作負載的 egress、儲存、網路）",
+          "mechanism_en": "AI training/inference drags along data egress, S3 storage and networking that bill separately. These attach revenues raise the total realized price of an AI workload above the headline instance rate.",
+          "mechanism_zh": "AI 訓練/推論會帶出另計費的資料 egress、S3 儲存與網路。這些 attach 營收把一個 AI 工作負載的總已實現售價，推高到 instance 牌價之上。",
+          "direction": "up",
+          "strength": 44.0,
+          "weight": 0.5,
+          "tier": "T3",
+          "is_estimate": true,
+          "observability_en": "Egress price changes, 'other' AWS revenue lines, customer TCO analyses.",
+          "observability_zh": "Egress 價格變動、AWS「其他」營收項、客戶 TCO 分析。",
+          "source_en": "AWS pricing pages; analyst TCO breakdowns",
+          "source_zh": "AWS 定價頁；分析師 TCO 拆解",
+          "source_url": "https://aws.amazon.com/ec2/pricing/"
+        }
+      ],
+      "top_lever_id": "custom_silicon_margin"
+    },
+    "sources": {
+      "items": [
+        {
+          "name_en": "Amazon 10-Q / 10-K (AWS segment)",
+          "name_zh": "Amazon 10-Q／10-K（AWS 分部）",
+          "what_en": "AWS revenue, operating income & margin, RPO backlog, capex (property & equipment + finance leases).",
+          "what_zh": "AWS 營收、營益與利潤率、RPO 在手訂單、capex（不動產設備＋融資租賃）。",
+          "tier": "T1",
+          "cadence": "quarterly",
+          "access_en": "free (SEC EDGAR)",
+          "access_zh": "免費（SEC EDGAR）",
+          "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=AMZN&type=10-Q"
+        },
+        {
+          "name_en": "Amazon earnings call transcripts",
+          "name_zh": "Amazon 法說會逐字稿",
+          "what_en": "Management's AI-revenue framing ('multi-billion, triple-digit growth'), Trainium adoption, capacity commentary.",
+          "what_zh": "管理層對 AI 營收的措辭（「數十億美元、三位數成長」）、Trainium 採用、產能評論。",
+          "tier": "T1",
+          "cadence": "quarterly",
+          "access_en": "free (IR site)",
+          "access_zh": "免費（IR 網站）",
+          "url": "https://ir.aboutamazon.com/quarterly-results/default.aspx"
+        },
+        {
+          "name_en": "AWS Price List Bulk API",
+          "name_zh": "AWS Price List 批量 API",
+          "what_en": "Machine-readable list prices for every instance/region — the baseline the realized price is measured against.",
+          "what_zh": "每個 instance/region 的機器可讀牌價 — 衡量已實現價格的基準線。",
+          "tier": "T1",
+          "cadence": "continuous",
+          "access_en": "free API",
+          "access_zh": "免費 API",
+          "url": "https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/price-changes.html"
+        },
+        {
+          "name_en": "Vantage / ec2instances.info",
+          "name_zh": "Vantage／ec2instances.info",
+          "what_en": "Effective per-instance pricing tracker (on-demand vs reserved vs spot) across the GPU/Trainium fleet.",
+          "what_zh": "GPU/Trainium 機隊的有效 instance 定價追蹤（on-demand vs reserved vs spot）。",
+          "tier": "T2",
+          "cadence": "continuous",
+          "access_en": "free / freemium",
+          "access_zh": "免費／freemium",
+          "url": "https://instances.vantage.sh/"
+        },
+        {
+          "name_en": "AWS Bedrock pricing page",
+          "name_zh": "AWS Bedrock 定價頁",
+          "what_en": "Per-token prices by model — the value-based pricing lever in the open.",
+          "what_zh": "各模型每 token 價格 — 公開可見的價值定價槓桿。",
+          "tier": "T1",
+          "cadence": "on-change",
+          "access_en": "free",
+          "access_zh": "免費",
+          "url": "https://aws.amazon.com/bedrock/pricing/"
+        },
+        {
+          "name_en": "GPU spot-rent trackers (vast.ai)",
+          "name_zh": "GPU 現貨租金追蹤（vast.ai）",
+          "what_en": "Market GPU rents — a real-time proxy for accelerator scarcity that leads AWS capacity-block pricing.",
+          "what_zh": "市場 GPU 租金 — 加速器稀缺的即時 proxy，領先 AWS capacity-block 定價。",
+          "tier": "T2",
+          "cadence": "continuous",
+          "access_en": "free dashboard",
+          "access_zh": "免費儀表板",
+          "url": "https://vast.ai/"
+        },
+        {
+          "name_en": "Liftr Insights / SemiAnalysis",
+          "name_zh": "Liftr Insights／SemiAnalysis",
+          "what_en": "Cloud instance share & accelerator deployment estimates — who is actually running on what silicon.",
+          "what_zh": "雲端 instance 占有率與加速器部署估計 — 誰實際跑在什麼矽上。",
+          "tier": "T2",
+          "cadence": "periodic",
+          "access_en": "paid research",
+          "access_zh": "付費研究",
+          "url": "https://www.semianalysis.com/"
+        },
+        {
+          "name_en": "TSMC revenue & capex disclosures",
+          "name_zh": "台積電營收與 capex 揭露",
+          "what_en": "Leading-edge (N3/N5) revenue mix and CoWoS capacity — the supply ceiling on Amazon's accelerators.",
+          "what_zh": "先進製程（N3/N5）營收結構與 CoWoS 產能 — Amazon 加速器的供給天花板。",
+          "tier": "T1",
+          "cadence": "monthly/quarterly",
+          "access_en": "free (TSMC IR)",
+          "access_zh": "免費（台積電 IR）",
+          "url": "https://investor.tsmc.com/"
+        }
+      ]
+    },
+    "benefit": {
+      "estimates": [
+        {
+          "id": "aws_ai_revenue_runrate",
+          "method_en": "AI-attributable AWS revenue run-rate (top-down)",
+          "method_zh": "AI 可歸因 AWS 營收年化（由上而下）",
+          "value_usd_bn": 18.0,
+          "metric": "revenue_runrate",
+          "confidence": "medium",
+          "tier": "T2",
+          "is_estimate": true,
+          "basis_en": "Reconciled with /payback's AWS AI-services band ($10–18B, OUR_EST, 2026Q1) — we take the top of that band as the AI-attributable run-rate (GenAI services + accelerator capacity). AWS is at a >$115B annualized run-rate; management calls the AI business 'multi-billion-dollar, growing triple digits.' See /payback for the per-company coverage view.",
+          "basis_zh": "與 /payback 的 AWS AI 服務估計帶（$10–18B，OUR_EST，2026Q1）對齊 — 取帶上緣為 AI 可歸因年化（GenAI 服務＋加速器產能）。AWS 年化營收 >$115B；管理層稱 AI 業務「數十億美元、三位數成長」。逐家覆蓋率視角見 /payback。"
+        },
+        {
+          "id": "aws_ai_op_income",
+          "method_en": "AI-attributable AWS operating income (margin lens)",
+          "method_zh": "AI 可歸因 AWS 營益（利潤率視角）",
+          "value_usd_bn": 8.0,
+          "metric": "op_income",
+          "confidence": "low",
+          "tier": "T3",
+          "is_estimate": true,
+          "basis_en": "AWS operating income annualizing near $40B at a ~35-38% margin. Custom-silicon cost advantage means AI workloads can run at or above segment margin — an estimated $6-10B of operating income is AI-linked.",
+          "basis_zh": "AWS 營益年化近 $40B、利潤率約 35-38%。自研晶片成本優勢讓 AI 工作負載能以分部利潤率或更高運行 — 估計 $6-10B 營益與 AI 連動。"
+        },
+        {
+          "id": "anthropic_stake",
+          "method_en": "Anthropic stake mark-up (balance-sheet, non-operating)",
+          "method_zh": "Anthropic 持股增值（資產負債表、非營業）",
+          "value_usd_bn": 4.0,
+          "metric": "equity_gain",
+          "confidence": "low",
+          "tier": "T3",
+          "is_estimate": true,
+          "basis_en": "Amazon committed ~$8B to Anthropic. As Anthropic's valuation re-rates upward, the carrying value produces multi-billion-dollar non-operating gains — strategically tied to AWS because Anthropic trains on Trainium.",
+          "basis_zh": "Amazon 對 Anthropic 承諾約 $8B。隨 Anthropic 估值上修，帳面價值產生數十億美元非營業利得 — 戰略上與 AWS 綁定，因為 Anthropic 在 Trainium 上訓練。"
+        }
+      ],
+      "headline_id": "aws_ai_revenue_runrate",
+      "headline_usd_bn": 18.0,
+      "headline_metric": "revenue_runrate",
+      "consensus_usd_bn": 18.0
+    },
+    "silicon": {
+      "chain": [
+        {
+          "accelerator_en": "Trainium2",
+          "accelerator_zh": "Trainium2",
+          "role_en": "AWS training/inference accelerator",
+          "role_zh": "AWS 訓練/推論加速器",
+          "designer": "Annapurna Labs (AWS)",
+          "node": "TSMC N3-class (3nm)",
+          "packaging": "CoWoS",
+          "fab": "TSMC",
+          "dependency": "critical",
+          "tier": "T2",
+          "is_estimate": true,
+          "note_en": "Volume accelerator behind Anthropic's Project Rainier; advanced node + CoWoS packaging are TSMC-only at this scale.",
+          "note_zh": "Anthropic Project Rainier 背後的量產加速器；此規模的先進節點＋CoWoS 封裝僅台積電可供。"
+        },
+        {
+          "accelerator_en": "Trainium3 (preview)",
+          "accelerator_zh": "Trainium3（預覽）",
+          "role_en": "Next-gen AWS accelerator",
+          "role_zh": "次世代 AWS 加速器",
+          "designer": "Annapurna Labs (AWS)",
+          "node": "TSMC N3P / N2-class",
+          "packaging": "CoWoS (advanced)",
+          "fab": "TSMC",
+          "dependency": "critical",
+          "tier": "T3",
+          "is_estimate": true,
+          "note_en": "Forward roadmap — pushes Amazon further onto TSMC's most advanced nodes and CoWoS allocation.",
+          "note_zh": "前瞻路線圖 — 把 Amazon 進一步推上台積電最先進節點與 CoWoS 配額。"
+        },
+        {
+          "accelerator_en": "NVIDIA H100/H200/GB200 (rented in AWS)",
+          "accelerator_zh": "NVIDIA H100/H200/GB200（AWS 租用）",
+          "role_en": "GPU capacity AWS resells",
+          "role_zh": "AWS 轉售的 GPU 產能",
+          "designer": "NVIDIA",
+          "node": "TSMC N4/N4P",
+          "packaging": "CoWoS",
+          "fab": "TSMC",
+          "dependency": "critical",
+          "tier": "T1",
+          "is_estimate": false,
+          "note_en": "The scarcity-premium lever runs on NVIDIA silicon — also 100% TSMC + CoWoS. Amazon is thus a TSMC customer twice over: directly via Annapurna and indirectly via NVIDIA.",
+          "note_zh": "稀缺溢價槓桿跑在 NVIDIA 矽上 — 同樣 100% 台積電＋CoWoS。Amazon 因此是台積電的雙重客戶：經 Annapurna 直接、經 NVIDIA 間接。"
+        },
+        {
+          "accelerator_en": "Inferentia2",
+          "accelerator_zh": "Inferentia2",
+          "role_en": "AWS inference accelerator",
+          "role_zh": "AWS 推論加速器",
+          "designer": "Annapurna Labs (AWS)",
+          "node": "TSMC ~N5/N4",
+          "packaging": "advanced",
+          "fab": "TSMC",
+          "dependency": "high",
+          "tier": "T2",
+          "is_estimate": true,
+          "note_en": "Lowers cost-to-serve for inference — directly powers the custom-silicon margin lever.",
+          "note_zh": "降低推論成本 — 直接驅動自研晶片成本利差槓桿。"
+        },
+        {
+          "accelerator_en": "Graviton4",
+          "accelerator_zh": "Graviton4",
+          "role_en": "AWS Arm CPU (AI serving/host)",
+          "role_zh": "AWS Arm CPU（AI 服務/主機）",
+          "designer": "Annapurna Labs (AWS)",
+          "node": "TSMC N4",
+          "packaging": "standard",
+          "fab": "TSMC",
+          "dependency": "high",
+          "tier": "T1",
+          "is_estimate": false,
+          "note_en": "Hosts and front-ends AI workloads at low cost; another TSMC-fabbed pillar of the margin story.",
+          "note_zh": "以低成本承載與前置 AI 工作負載；利差故事中另一根台積電製造的支柱。"
+        }
+      ],
+      "tsmc_exposure_pct": 100,
+      "tsmc_fabbed_count": 5,
+      "chain_count": 5,
+      "critical_count": 3,
+      "tsmc_read_en": "Essentially 100% of Amazon's AI compute — its own Trainium/Inferentia/Graviton AND the NVIDIA GPUs it resells — is fabbed by TSMC on N3-N5 and packaged with CoWoS. Amazon's compute-pricing playbook and its entire AI benefit therefore sit on top of TSMC leading-edge capacity and CoWoS allocation. For TSMC, Amazon is a large direct advanced-node customer (via Annapurna) layered on top of indirect demand (via NVIDIA) — and the binding constraint on Amazon's AI growth is the same CoWoS bottleneck TSMC controls.",
+      "tsmc_read_zh": "Amazon 的 AI 算力 — 自研 Trainium/Inferentia/Graviton 加上轉售的 NVIDIA GPU — 幾乎 100% 由台積電以 N3-N5 製造、用 CoWoS 封裝。因此 Amazon 的算力定價打法與整個 AI 利益，都疊在台積電先進產能與 CoWoS 配額之上。對台積電而言，Amazon 是一個大型先進節點直接客戶（經 Annapurna），疊在間接需求（經 NVIDIA）之上 — 而 Amazon AI 成長的綁定約束，正是台積電掌握的同一個 CoWoS 瓶頸。"
+    }
+  },
+  "l3": {
+    "proxies": [
+      {
+        "id": "amzn_equity",
+        "name_en": "Amazon (AMZN)",
+        "name_zh": "Amazon（AMZN）",
+        "kind": "equity",
+        "value": 215.0,
+        "chg_1w": 1.2,
+        "chg_1m": 3.5,
+        "live": false
+      },
+      {
+        "id": "nvda_equity",
+        "name_en": "NVIDIA (NVDA) — GPU scarcity proxy",
+        "name_zh": "NVIDIA（NVDA）— GPU 稀缺 proxy",
+        "kind": "equity",
+        "value": 145.0,
+        "chg_1w": 0.8,
+        "chg_1m": 4.1,
+        "live": false
+      },
+      {
+        "id": "tsm_equity",
+        "name_en": "TSMC (TSM) — supply-side proxy",
+        "name_zh": "台積電（TSM）— 供給端 proxy",
+        "kind": "equity",
+        "value": 205.0,
+        "chg_1w": 1.0,
+        "chg_1m": 5.2,
+        "live": false
+      }
+    ],
+    "alerts": [
+      {
+        "level": "exposure",
+        "en": "Concentration: ~100% of the AI compute behind this benefit is TSMC-fabbed, 3 link(s) critical — the CoWoS bottleneck TSMC controls is the binding constraint on growth.",
+        "zh": "集中度：撐起此利益的 AI 算力約 100% 由台積電製造，3 條鏈關鍵 — 台積電掌握的 CoWoS 瓶頸即成長綁定約束。"
+      },
+      {
+        "level": "watch",
+        "en": "AI benefit (headline est.) ≈ $18.0B revenue_runrate — an ESTIMATE; AWS discloses no AI-only line.",
+        "zh": "AI 利益（頭條估計）≈ $18.0B revenue_runrate — 為估計值；AWS 無純 AI 揭露項。"
+      }
+    ]
+  },
+  "l4": {
+    "integrated_thesis": {
+      "en": "Amazon (AWS) raises REALIZED compute price even as list prices fall — score 64.9/100 (RAISING), led by 'Custom-silicon margin capture (Trainium / Inferentia)'. That engine underwrites an estimated $18.0B revenue_runrate of AI benefit, and ~100% of the silicon beneath it is TSMC-fabbed — so the upside and its binding constraint both sit on TSMC's leading-edge & CoWoS.",
+      "zh": "Amazon（AWS） 在牌價下跌之際仍提高已實現算力售價 — 分數 64.9/100（RAISING），由「自研晶片成本捕獲（Trainium／Inferentia）」帶動。這部引擎撐起估計 $18.0B revenue_runrate 的 AI 利益，而其底層約 100% 的矽由台積電製造 — 因此上行空間與綁定約束都押在台積電先進製程與 CoWoS。"
+    },
+    "pillars": {
+      "pricing": {
+        "en": "Score 64.9/100 — RAISING. The work is done by 'Custom-silicon margin capture (Trainium / Inferentia)' and the up-stack levers, not list-price hikes. Realized price per useful compute is rising through mix and margin capture.",
+        "zh": "分數 64.9/100 — RAISING。推動者是「自研晶片成本捕獲（Trainium／Inferentia）」與服務棧上移槓桿，而非抬牌價。每單位有用算力的已實現價格靠組合與利差捕獲在上升。"
+      },
+      "sources": {
+        "en": "Watch it via: Amazon 10-Q / 10-K (AWS segment), Amazon earnings call transcripts, AWS Price List Bulk API, Vantage / ec2instances.info — segment filings + RPO are the hard floor; GPU spot rents & price APIs lead.",
+        "zh": "觀測管道：10-Q/10-K 分部與 RPO 是硬底，GPU 現貨租金與價格 API 領先。"
+      },
+      "benefit": {
+        "en": "AI benefit headline ≈ $18.0B revenue_runrate — an ESTIMATE (consensus $18.0B); no AI-only line is disclosed. Cross-checked against op-income and stake lenses.",
+        "zh": "AI 利益頭條 ≈ $18.0B revenue_runrate — 為估計值（共識 $18.0B）；無純 AI 揭露項。已用營益與持股視角交叉驗證。"
+      },
+      "silicon": {
+        "en": "~100% TSMC-fabbed across 5 accelerators, 3 critical. Custom Trainium/Inferentia/Graviton AND the resold NVIDIA GPUs are all TSMC N3-N5 + CoWoS.",
+        "zh": "5 顆加速器約 100% 由台積電製造，3 條關鍵。自研 Trainium/Inferentia/Graviton 加上轉售的 NVIDIA GPU 全為台積電 N3-N5＋CoWoS。"
+      }
+    },
+    "tsmc_implication": {
+      "en": "Essentially 100% of Amazon's AI compute — its own Trainium/Inferentia/Graviton AND the NVIDIA GPUs it resells — is fabbed by TSMC on N3-N5 and packaged with CoWoS. Amazon's compute-pricing playbook and its entire AI benefit therefore sit on top of TSMC leading-edge capacity and CoWoS allocation. For TSMC, Amazon is a large direct advanced-node customer (via Annapurna) layered on top of indirect demand (via NVIDIA) — and the binding constraint on Amazon's AI growth is the same CoWoS bottleneck TSMC controls.",
+      "zh": "Amazon 的 AI 算力 — 自研 Trainium/Inferentia/Graviton 加上轉售的 NVIDIA GPU — 幾乎 100% 由台積電以 N3-N5 製造、用 CoWoS 封裝。因此 Amazon 的算力定價打法與整個 AI 利益，都疊在台積電先進產能與 CoWoS 配額之上。對台積電而言，Amazon 是一個大型先進節點直接客戶（經 Annapurna），疊在間接需求（經 NVIDIA）之上 — 而 Amazon AI 成長的綁定約束，正是台積電掌握的同一個 CoWoS 瓶頸。"
+    }
+  },
+  "l5": {
+    "scenarios": [
+      {
+        "name_en": "Custom-silicon flywheel",
+        "name_zh": "自研晶片飛輪",
+        "prob": 40,
+        "trigger_en": "Trainium mix keeps rising, AWS margin expands above 38% while GPU scarcity holds prices firm.",
+        "trigger_zh": "Trainium 占比續升，AWS 利潤率擴張破 38%，同時 GPU 稀缺撐住價格。"
+      },
+      {
+        "name_en": "Up-stack repricing wins",
+        "name_zh": "服務棧上移再定價勝出",
+        "prob": 27,
+        "trigger_en": "Bedrock/token value-pricing drives blended realized price up even as raw EC2 list prices fall.",
+        "trigger_zh": "Bedrock／token 價值定價推升混合已實現價格，即使原始 EC2 牌價下跌。"
+      },
+      {
+        "name_en": "CoWoS bottleneck caps growth",
+        "name_zh": "CoWoS 瓶頸卡住成長",
+        "prob": 21,
+        "trigger_en": "TSMC CoWoS allocation limits Trainium3 + GPU volume; Amazon can raise price but can't ship units.",
+        "trigger_zh": "台積電 CoWoS 配額限制 Trainium3＋GPU 量；Amazon 能漲價卻出不了貨。"
+      },
+      {
+        "name_en": "GPU glut deflates scarcity premium",
+        "name_zh": "GPU 供給過剩，稀缺溢價消風",
+        "prob": 12,
+        "trigger_en": "Accelerator supply catches up, capacity-block premiums compress, realized price growth stalls.",
+        "trigger_zh": "加速器供給跟上，capacity-block 溢價收斂，已實現價格成長停滯。"
+      }
+    ],
+    "falsification": [
+      {
+        "en": "AWS gross margin falls for two straight quarters while Trainium mix rises — the custom-silicon margin thesis breaks.",
+        "zh": "Trainium 占比上升的同時 AWS 毛利率連兩季下滑 — 自研晶片利差論點被推翻。"
+      },
+      {
+        "en": "RPO backlog shrinks QoQ — commitment lock-in is weakening, not strengthening.",
+        "zh": "RPO 在手訂單季減 — 承諾鎖定在轉弱而非轉強。"
+      },
+      {
+        "en": "GPU spot rents collapse and stay low — the scarcity-premium lever is gone.",
+        "zh": "GPU 現貨租金崩跌且持續低檔 — 稀缺溢價槓桿消失。"
+      }
+    ],
+    "watch": [
+      {
+        "en": "AWS revenue growth & operating margin (10-Q)",
+        "zh": "AWS 營收成長與營益率（10-Q）",
+        "freq": "quarterly"
+      },
+      {
+        "en": "RPO backlog and weighted-average remaining life",
+        "zh": "RPO 在手訂單與加權平均剩餘期限",
+        "freq": "quarterly"
+      },
+      {
+        "en": "Trainium / Inferentia adoption & Project Rainier scale",
+        "zh": "Trainium／Inferentia 採用與 Project Rainier 規模",
+        "freq": "monthly"
+      },
+      {
+        "en": "GPU spot rents & EC2 Capacity Block prices",
+        "zh": "GPU 現貨租金與 EC2 Capacity Block 報價",
+        "freq": "weekly"
+      },
+      {
+        "en": "TSMC CoWoS capacity & N3 revenue mix",
+        "zh": "台積電 CoWoS 產能與 N3 營收占比",
+        "freq": "monthly"
+      },
+      {
+        "en": "Bedrock per-token price changes",
+        "zh": "Bedrock 每 token 價格變動",
+        "freq": "on-change"
+      }
+    ]
+  },
+  "analysis_engine": "rules",
+  "cross_links": [
+    {
+      "href": "/cwengine/",
+      "label_en": "CapEx → Wafer Engine — turn Amazon's capex into implied TSMC wafer demand",
+      "label_zh": "CapEx → 晶圓引擎 — 把 Amazon 的 capex 換算成隱含台積電晶圓需求"
+    },
+    {
+      "href": "/pricing/",
+      "label_en": "Pricing Power Radar — the foundry ASP side of the same price stack",
+      "label_zh": "議價能力雷達 — 同一價格堆疊的代工 ASP 端"
+    },
+    {
+      "href": "/payback/",
+      "label_en": "Capex Payback Radar — is Amazon's AI capex paying off yet?",
+      "label_zh": "資本支出回本雷達 — Amazon 的 AI capex 回本了沒？"
+    },
+    {
+      "href": "/compute/",
+      "label_en": "AI Compute Demand Radar — the accelerator demand Amazon feeds",
+      "label_zh": "AI 算力需求雷達 — Amazon 餵養的加速器需求"
+    },
+    {
+      "href": "/rival/",
+      "label_en": "Rival Radar — TSMC's competitive position behind Amazon's silicon",
+      "label_zh": "競爭者雷達 — Amazon 矽背後台積電的競爭格局"
+    }
+  ],
+  "blind_spots_en": [
+    "AWS never discloses AI-only revenue — every benefit number here is a labeled estimate, not a reported figure.",
+    "Node assignments (e.g. Trainium2 on N3-class) are from press/industry reporting, not TSMC/Amazon confirmation.",
+    "Live proxies (AMZN/NVDA/TSM equity) are sentiment context, deliberately kept out of the core pricing-power score."
+  ],
+  "blind_spots_zh": [
+    "AWS 從不揭露純 AI 營收 — 此處每個利益數字都是標註過的估計值，而非揭露數字。",
+    "節點對應（如 Trainium2 用 N3-class）來自媒體/產業報導，非台積電/Amazon 確認。",
+    "即時 proxy（AMZN/NVDA/TSM 股價）為情緒情境，刻意排除在核心定價權分數之外。"
+  ],
+  "news": [],
+  "fetched_at": null
+}

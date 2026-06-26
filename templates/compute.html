@@ -159,6 +159,7 @@
   <h2><span class="n">E</span><span data-t="h_vendor"></span></h2>
   <div class="note" data-t="vendor_note"></div>
   <div class="panel" style="overflow-x:auto"><table id="vendorTable"></table></div>
+  <div class="disc" id="vendorCaliber" style="margin-top:10px"></div>
 
   <!-- POWER -->
   <h2><span class="n">F</span><span data-t="h_power"></span></h2>
@@ -209,13 +210,13 @@ const T = {
     scenario_lbl:"情境：", scenario:{base:"基準",bull:"多頭",bear:"空頭"},
     h_reco:"三鏡頭對帳",
     reco_note:"data-driven 的誠實之處：把三種獨立估法並排，缺口公開，不藏。",
-    reco_2025:"① 2025 基準錨點(Top-down vs 分析師)— 兩者吻合 → 高信心",
+    reco_2025:"① 2025 基準錨點(Top-down vs 分析師)— 注意:分析師僅 n=1(Omdia)、且 mid 係數反推校準至此,非獨立交叉驗證",
     reco_runrate:"② 當前 run-rate 交叉檢核(Bottom-up 年化 vs Top-down 同年)",
     h_cat:"分類明細(金額 $B 與顆數 百萬顆)",
     h_vendor:"Bottom-up 廠商營收(yfinance 即時縮放)",
     vendor_note:"各廠資料中心矽營收加總。即時模式下，每條會依 yfinance 最新 TTM 營收 ÷ 錨定 TTM 自動縮放 → 新財報一出估計就跟著動。",
     h_power:"電力交叉檢核(IEA)與供給瓶頸",
-    power_note:"需求要落地需要電與先進封裝。IEA 電力與台積電 CoWoS 產能是兩道現實天花板。",
+    power_note:"需求要落地需要電與先進封裝。IEA 電力與台積電 CoWoS 產能是兩道現實天花板。註:此處的『AI 占 DC 電力』(ai_share_of_dc_power)與方法論流程用的『AI 占 DC capex』(ai_dc_capex_share)是兩套不同口徑的占比——前者是用電結構、後者是資本支出結構,定義不同、數值不可互相套用。",
     h_sources:"資料來源與假設(可更新)",
     sources_note:"yfinance 抓不到的數都在 assumptions.json，每項附來源/日期/信心。改數字＋日期再 Refresh 即更新預測。",
     foot_method:"方法：終端 DC capex → ×AI 占比 → ×矽含量轉換帶(low/mid/high) → 分類 mix → ÷ASP = 顆數。Bottom-up 與分析師 TAM 作交叉驗證；情境用 capex 乘數＋轉換層差異。",
@@ -257,13 +258,13 @@ const T = {
     scenario_lbl:"Scenario:", scenario:{base:"Base",bull:"Bull",bear:"Bear"},
     h_reco:"Three-lens reconciliation",
     reco_note:"The honest part of 'data-driven': three independent estimates side by side, the gap shown, not hidden.",
-    reco_2025:"① 2025 anchor (Top-down vs analyst) — they agree → high confidence",
+    reco_2025:"① 2025 anchor (Top-down vs analyst) — note: analyst is n=1 (Omdia) and the mid coefficient is reverse-calibrated to it, so not an independent cross-check",
     reco_runrate:"② Current run-rate cross-check (Bottom-up annualized vs Top-down same year)",
     h_cat:"Category detail ($B and units, millions)",
     h_vendor:"Bottom-up vendor revenue (yfinance live-scaled)",
     vendor_note:"Sum of vendor data-center silicon revenue. In live mode each line auto-scales by latest yfinance TTM ÷ anchor TTM → estimate moves the moment a new earnings print lands.",
     h_power:"Power cross-check (IEA) & supply bottleneck",
-    power_note:"Demand needs electricity and advanced packaging to land. IEA power and TSMC CoWoS capacity are the two reality ceilings.",
+    power_note:"Demand needs electricity and advanced packaging to land. IEA power and TSMC CoWoS capacity are the two reality ceilings. Note: 'AI share of DC power' (ai_share_of_dc_power) here and 'AI share of DC capex' (ai_dc_capex_share) used in the methodology flow are two DIFFERENT shares — one is the electricity mix, the other the capex mix; different definitions, not interchangeable.",
     h_sources:"Data sources & assumptions (updatable)",
     sources_note:"Everything yfinance can't fetch lives in assumptions.json, each with source/date/confidence. Edit numbers + date, hit Refresh, forecast updates.",
     foot_method:"Method: end-demand DC capex → ×AI share → ×silicon-conversion band (low/mid/high) → category mix → ÷ASP = units. Bottom-up & analyst TAM cross-validate; scenarios use a capex multiplier + conversion tier.",
@@ -410,8 +411,13 @@ function renderReco(){
   const max1=Math.max(r.topdown_band_usd_bn.high,r.analyst_mid_usd_bn||0)*1.1;
   document.getElementById('reco2025').innerHTML=
     bar('Top-down '+(LANG==='zh'?'中位':'mid'),r.topdown_mid_usd_bn,max1,'#4ea8ff',`band $${fmt0(r.topdown_band_usd_bn.low)}–${fmt0(r.topdown_band_usd_bn.high)}B`)+
-    bar(LANG==='zh'?'分析師 中位':'Analyst mid',r.analyst_mid_usd_bn,max1,'#36e2a4','Omdia 2025')+
+    bar(LANG==='zh'?'分析師 中位':'Analyst mid',r.analyst_mid_usd_bn,max1,'#36e2a4',LANG==='zh'?'僅 Omdia 一點 (n=1)':'Omdia only (n=1)')+
     bar(LANG==='zh'?'★ 混合中心':'★ Blended',r.blended_central_usd_bn,max1,'#ffd166');
+  const calib=(SNAP.reconciliation.calibration_caveat);
+  document.getElementById('reco2025').insertAdjacentHTML('beforeend',
+    `<div class="note" style="margin:6px 0 0">${LANG==='zh'
+      ?'⚠ 2025「分析師帶」只有 Omdia 一個資料點(n=1)，且矽含量轉換係數(mid)是反推校準到此點 → 此處「吻合」部分屬建構性，非獨立交叉驗證。'
+      :'⚠ The 2025 "analyst band" is a single Omdia data point (n=1), and the silicon-conversion mid coefficient is reverse-calibrated to it → this "agreement" is partly by construction, not an independent cross-validation.'}</div>`);
   const rr=r.current_runrate;
   const max2=Math.max(rr.bottomup_usd_bn,rr.topdown_mid_usd_bn)*1.15;
   document.getElementById('recoRun').innerHTML=
@@ -441,7 +447,10 @@ function renderVendor(){
   const th=tt().vendor_th;
   let h='<thead><tr>'+th.map(x=>`<th>${x}</th>`).join('')+'</tr></thead><tbody>';
   SNAP.bottomup.lines.forEach(l=>{
-    h+=`<tr><td>${l.name.replace(/_/g,' ')}</td><td>${l.ticker||'—'}</td>
+    const cal=l.caliber==='forward_runrate'
+      ? ` <span class="tag" title="${LANG==='zh'?'前瞻年化 run-rate(非已截止財年)':'forward annualized run-rate (not a closed fiscal year)'}">${LANG==='zh'?'前瞻 run-rate':'fwd run-rate'}</span>`
+      : '';
+    h+=`<tr><td>${l.name.replace(/_/g,' ')}${cal}</td><td>${l.ticker||'—'}</td>
       <td><span class="tag ${l.category}">${l.category.toUpperCase()}</span></td>
       <td>$${fmt(l.anchor_usd_bn)}</td><td><b>$${fmt(l.estimate_usd_bn)}</b></td>
       <td>${l.live_scaled?'<span class="live">● live</span>':'—'}</td>
@@ -452,6 +461,8 @@ function renderVendor(){
      <td style="font-size:10px;color:var(--mut)">G ${fmt0(bc.gpu)} · A ${fmt0(bc.asic)} · C ${fmt0(bc.cpu)}</td>
      <td></td><td><b>$${fmt0(SNAP.bottomup.total_usd_bn)}B</b></td><td></td><td></td></tr>`;
   document.getElementById('vendorTable').innerHTML=h+'</tbody>';
+  const cn=LANG==='zh'?SNAP.bottomup.caliber_note_zh:SNAP.bottomup.caliber_note_en;
+  document.getElementById('vendorCaliber').textContent=cn||'';
 }
 
 function renderPower(){

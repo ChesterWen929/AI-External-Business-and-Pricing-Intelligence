@@ -105,20 +105,28 @@ def _fmt_l3(kb, l3):
     st = l3["stack"]
     tr = l3["transmission"]
     mg = l3["margin"]
+    ms = l3.get("market_sentiment", {})
     lines = [
         f"Pricing-power score: {pp['score']}/100 → verdict {pp['verdict_key'].upper()}",
-        f"Layer momentum (1m %): upstream cost {st['upstream']}, foundry ASP {st['foundry']}, downstream ASP {st['downstream']}",
+        f"Bargaining momentum (1m %, equity proxies sentiment-damped & capped): upstream cost {st['upstream']}, foundry ASP {st['foundry']}, downstream ASP {st['downstream']}",
+        f"Market-sentiment reference (RAW equity moves, NOT in the score — do not treat as cost/ASP): upstream {ms.get('upstream')}, foundry {ms.get('foundry')}, downstream {ms.get('downstream')}",
         f"Pass-through: upstream→foundry {tr['up_to_fab']}%, foundry→downstream {tr['fab_to_down']}%",
         f"Margin deltas: foundry−cost {mg['fab_delta']}, downstream−foundry {mg['chain_delta']}",
         "Deterministic alerts already raised: " + "; ".join(f"[{a['level']}] {a['en']}" for a in l3["alerts"]),
-        "Per-layer items (1m %, tier, est?):",
+        "Per-layer items (1m %, tier, est?). For equity proxies the raw move and the damped value that actually entered the score are both shown — narrate from the damped score value, treat the raw move as sentiment only:",
     ]
     for ly in l3["layers"]:
-        its = ", ".join(
-            f"{r['name_en']} {('+' if (r['chg_1m'] or 0) >= 0 else '')}{r['chg_1m']}%/{r['tier']}{'·est' if r['is_estimate'] else ''}"
-            for r in ly["items"] if r.get("weight", 0) > 0
-        )
-        lines.append(f"  [{ly['name_en']}] {its}")
+        parts = []
+        for r in ly["items"]:
+            if r.get("weight", 0) <= 0:
+                continue
+            raw = r["chg_1m"]
+            tag = f"{r['name_en']} {('+' if (raw or 0) >= 0 else '')}{raw}%"
+            if r.get("momentum_kind") == "equity":
+                tag += f" (equity·sentiment; damped→{r.get('score_chg_1m')}% in score)"
+            tag += f"/{r['tier']}{'·est' if r['is_estimate'] else ''}{'·⚑calibrate' if r.get('needs_calibration') else ''}"
+            parts.append(tag)
+        lines.append(f"  [{ly['name_en']}] {', '.join(parts)}")
     seeds = "; ".join(f"{s['name_en']} — {s['trigger_en']}" for s in kb.get("scenarios_seed", []))
     lines.append(f"Seed scenarios to build on: {seeds}")
     return "\n".join(lines)

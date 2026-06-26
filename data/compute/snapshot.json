@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-22 06:39 UTC",
+  "generated_at": "2026-06-25 08:17 UTC",
   "as_of": "2026-06-13",
   "base_year": 2025,
   "end_year": 2030,
@@ -56,13 +56,13 @@
       "categories": {
         "gpu": {
           "usd_bn": 96.3,
-          "units_m": 3.7,
-          "asp_usd": 26000
+          "units_m": 3.78,
+          "asp_usd": 25490
         },
         "asic": {
           "usd_bn": 13.2,
-          "units_m": 2.04,
-          "asp_usd": 6500
+          "units_m": 2.02,
+          "asp_usd": 6566
         },
         "cpu": {
           "usd_bn": 10.8,
@@ -108,13 +108,13 @@
       "categories": {
         "gpu": {
           "usd_bn": 246.2,
-          "units_m": 9.47,
-          "asp_usd": 26000
+          "units_m": 9.28,
+          "asp_usd": 26520
         },
         "asic": {
           "usd_bn": 59.9,
-          "units_m": 9.21,
-          "asp_usd": 6500
+          "units_m": 9.3,
+          "asp_usd": 6435
         },
         "cpu": {
           "usd_bn": 26.6,
@@ -134,13 +134,13 @@
       "categories": {
         "gpu": {
           "usd_bn": 296.4,
-          "units_m": 11.4,
-          "asp_usd": 26000
+          "units_m": 10.96,
+          "asp_usd": 27050
         },
         "asic": {
           "usd_bn": 93.1,
-          "units_m": 14.33,
-          "asp_usd": 6500
+          "units_m": 14.62,
+          "asp_usd": 6371
         },
         "cpu": {
           "usd_bn": 33.9,
@@ -160,13 +160,13 @@
       "categories": {
         "gpu": {
           "usd_bn": 331.3,
-          "units_m": 12.74,
-          "asp_usd": 26000
+          "units_m": 12.01,
+          "asp_usd": 27591
         },
         "asic": {
           "usd_bn": 123.6,
-          "units_m": 19.02,
-          "asp_usd": 6500
+          "units_m": 19.6,
+          "asp_usd": 6307
         },
         "cpu": {
           "usd_bn": 39.6,
@@ -186,13 +186,13 @@
       "categories": {
         "gpu": {
           "usd_bn": 352.1,
-          "units_m": 13.54,
-          "asp_usd": 26000
+          "units_m": 12.51,
+          "asp_usd": 28143
         },
         "asic": {
           "usd_bn": 154.0,
-          "units_m": 23.7,
-          "asp_usd": 6500
+          "units_m": 24.67,
+          "asp_usd": 6244
         },
         "cpu": {
           "usd_bn": 44.0,
@@ -212,13 +212,13 @@
       "categories": {
         "gpu": {
           "usd_bn": 366.2,
-          "units_m": 14.08,
-          "asp_usd": 26000
+          "units_m": 12.76,
+          "asp_usd": 28706
         },
         "asic": {
           "usd_bn": 177.2,
-          "units_m": 27.26,
-          "asp_usd": 6500
+          "units_m": 28.66,
+          "asp_usd": 6181
         },
         "cpu": {
           "usd_bn": 47.2,
@@ -238,7 +238,8 @@
         "estimate_usd_bn": 249.0,
         "live_scaled": true,
         "live_source": "yfinance",
-        "confidence": "high"
+        "confidence": "high",
+        "caliber": "forward_runrate"
       },
       {
         "name": "amd_instinct_gpu",
@@ -248,7 +249,8 @@
         "estimate_usd_bn": 11.0,
         "live_scaled": true,
         "live_source": "yfinance",
-        "confidence": "medium"
+        "confidence": "medium",
+        "caliber": null
       },
       {
         "name": "broadcom_ai_semi",
@@ -258,7 +260,8 @@
         "estimate_usd_bn": 45.0,
         "live_scaled": true,
         "live_source": "yfinance",
-        "confidence": "high"
+        "confidence": "high",
+        "caliber": null
       },
       {
         "name": "marvell_custom_dc",
@@ -268,7 +271,8 @@
         "estimate_usd_bn": 8.0,
         "live_scaled": true,
         "live_source": "yfinance",
-        "confidence": "medium"
+        "confidence": "medium",
+        "caliber": null
       },
       {
         "name": "internal_custom_asic",
@@ -278,7 +282,8 @@
         "estimate_usd_bn": 30.0,
         "live_scaled": false,
         "live_source": null,
-        "confidence": "low"
+        "confidence": "low",
+        "caliber": null
       },
       {
         "name": "intel_dcai_cpu",
@@ -288,7 +293,8 @@
         "estimate_usd_bn": 13.0,
         "live_scaled": true,
         "live_source": "yfinance",
-        "confidence": "medium"
+        "confidence": "medium",
+        "caliber": null
       },
       {
         "name": "amd_epyc_cpu",
@@ -298,7 +304,8 @@
         "estimate_usd_bn": 15.0,
         "live_scaled": true,
         "live_source": "yfinance",
-        "confidence": "medium"
+        "confidence": "medium",
+        "caliber": null
       },
       {
         "name": "arm_based_server_cpu",
@@ -308,7 +315,8 @@
         "estimate_usd_bn": 9.0,
         "live_scaled": false,
         "live_source": null,
-        "confidence": "low"
+        "confidence": "low",
+        "caliber": null
       }
     ],
     "by_category_usd_bn": {
@@ -316,7 +324,9 @@
       "asic": 83.0,
       "cpu": 37.0
     },
-    "total_usd_bn": 380.0
+    "total_usd_bn": 380.0,
+    "caliber_note_zh": "口徑:這些是『前瞻年化 run-rate』(最新一季 ×4 或前瞻指引),代表日曆 ~2026,刻意領先官方『已截止財年』申報。故 NVDA 資料中心錨點 $249B(單一分部年化)會高於 SEC EDGAR 全公司年報 $215.9B(截至 FY26 1 月)——前者是前瞻分部 run-rate、後者是已截止全公司財年,兩者口徑不同、不可直接相減。",
+    "caliber_note_en": "Caliber: these are FORWARD ANNUALIZED run-rates (latest quarter ×4 or forward guide) representing calendar ~2026, deliberately ahead of official CLOSED-fiscal-year filings. So the NVDA Data Center anchor $249B (single-segment annualized) sits ABOVE the SEC EDGAR full-company FY26 (ended Jan) revenue of $215.9B — the former is a forward segment run-rate, the latter a closed full-company fiscal year; different calibers, not directly subtractable."
   },
   "analyst": {
     "benchmarks": [
@@ -410,6 +420,8 @@
       "high": 248.8
     },
     "analyst_mid_usd_bn": 207.0,
+    "analyst_n": 1,
+    "calibration_caveat": true,
     "blended_central_usd_bn": 204.0,
     "current_runrate": {
       "year": 2026,
@@ -424,8 +436,8 @@
       "by_year": {
         "2024": {
           "usd_bn": 96.3,
-          "units_m": 3.7,
-          "asp_usd": 26000
+          "units_m": 3.78,
+          "asp_usd": 25490
         },
         "2025": {
           "usd_bn": 156.8,
@@ -434,28 +446,28 @@
         },
         "2026": {
           "usd_bn": 246.2,
-          "units_m": 9.47,
-          "asp_usd": 26000
+          "units_m": 9.28,
+          "asp_usd": 26520
         },
         "2027": {
           "usd_bn": 296.4,
-          "units_m": 11.4,
-          "asp_usd": 26000
+          "units_m": 10.96,
+          "asp_usd": 27050
         },
         "2028": {
           "usd_bn": 331.3,
-          "units_m": 12.74,
-          "asp_usd": 26000
+          "units_m": 12.01,
+          "asp_usd": 27591
         },
         "2029": {
           "usd_bn": 352.1,
-          "units_m": 13.54,
-          "asp_usd": 26000
+          "units_m": 12.51,
+          "asp_usd": 28143
         },
         "2030": {
           "usd_bn": 366.2,
-          "units_m": 14.08,
-          "asp_usd": 26000
+          "units_m": 12.76,
+          "asp_usd": 28706
         }
       },
       "cagr_pct": 18.5
@@ -465,8 +477,8 @@
       "by_year": {
         "2024": {
           "usd_bn": 13.2,
-          "units_m": 2.04,
-          "asp_usd": 6500
+          "units_m": 2.02,
+          "asp_usd": 6566
         },
         "2025": {
           "usd_bn": 28.1,
@@ -475,28 +487,28 @@
         },
         "2026": {
           "usd_bn": 59.9,
-          "units_m": 9.21,
-          "asp_usd": 6500
+          "units_m": 9.3,
+          "asp_usd": 6435
         },
         "2027": {
           "usd_bn": 93.1,
-          "units_m": 14.33,
-          "asp_usd": 6500
+          "units_m": 14.62,
+          "asp_usd": 6371
         },
         "2028": {
           "usd_bn": 123.6,
-          "units_m": 19.02,
-          "asp_usd": 6500
+          "units_m": 19.6,
+          "asp_usd": 6307
         },
         "2029": {
           "usd_bn": 154.0,
-          "units_m": 23.7,
-          "asp_usd": 6500
+          "units_m": 24.67,
+          "asp_usd": 6244
         },
         "2030": {
           "usd_bn": 177.2,
-          "units_m": 27.26,
-          "asp_usd": 6500
+          "units_m": 28.66,
+          "asp_usd": 6181
         }
       },
       "cagr_pct": 44.5
@@ -758,10 +770,19 @@
     "2024": 242.0,
     "2025": 403.0,
     "2026": 660.0,
-    "2027": 0,
-    "2028": 0,
-    "2029": 0,
-    "2030": 0
+    "2027": 800.0,
+    "2028": 910.0,
+    "2029": 990.0,
+    "2030": 1050.0
+  },
+  "hyperscaler_capex_extrapolated": {
+    "2024": false,
+    "2025": false,
+    "2026": false,
+    "2027": true,
+    "2028": true,
+    "2029": true,
+    "2030": true
   },
   "global_dc_capex_usd_bn": {
     "2024": 455.0,
@@ -837,32 +858,40 @@
       "annual_fy_end": "2026-01-25",
       "latest_quarter_revenue_usd_bn": 81.6,
       "quarter_end": "2026-04-26",
-      "annual_capex_usd_bn": 6.0,
-      "source": "SEC EDGAR companyfacts"
+      "annual_capex_usd_bn": null,
+      "source": "SEC EDGAR companyfacts",
+      "capex_suppressed": true,
+      "capex_suppressed_reason": "companyfacts PP&E-purchase concept understates capex for asset-light fabless designers; suppressed to avoid a misleading official-looking figure."
     },
     "AMD": {
       "annual_revenue_usd_bn": 34.6,
       "annual_fy_end": "2025-12-27",
       "latest_quarter_revenue_usd_bn": 10.3,
       "quarter_end": "2026-03-28",
-      "annual_capex_usd_bn": 1.0,
-      "source": "SEC EDGAR companyfacts"
+      "annual_capex_usd_bn": null,
+      "source": "SEC EDGAR companyfacts",
+      "capex_suppressed": true,
+      "capex_suppressed_reason": "companyfacts PP&E-purchase concept understates capex for asset-light fabless designers; suppressed to avoid a misleading official-looking figure."
     },
     "AVGO": {
       "annual_revenue_usd_bn": 63.9,
       "annual_fy_end": "2025-11-02",
       "latest_quarter_revenue_usd_bn": 22.2,
       "quarter_end": "2026-05-03",
-      "annual_capex_usd_bn": 0.6,
-      "source": "SEC EDGAR companyfacts"
+      "annual_capex_usd_bn": null,
+      "source": "SEC EDGAR companyfacts",
+      "capex_suppressed": true,
+      "capex_suppressed_reason": "companyfacts PP&E-purchase concept understates capex for asset-light fabless designers; suppressed to avoid a misleading official-looking figure."
     },
     "MRVL": {
       "annual_revenue_usd_bn": 8.2,
       "annual_fy_end": "2026-01-31",
       "latest_quarter_revenue_usd_bn": 2.4,
       "quarter_end": "2026-05-02",
-      "annual_capex_usd_bn": 0.4,
-      "source": "SEC EDGAR companyfacts"
+      "annual_capex_usd_bn": null,
+      "source": "SEC EDGAR companyfacts",
+      "capex_suppressed": true,
+      "capex_suppressed_reason": "companyfacts PP&E-purchase concept understates capex for asset-light fabless designers; suppressed to avoid a misleading official-looking figure."
     },
     "INTC": {
       "annual_revenue_usd_bn": 52.9,
@@ -916,14 +945,14 @@
   "sources": [
     {
       "key": "hyperscaler_capex_usd_bn",
-      "source": "Company FY2025 reports + 2026 guidance; visualcapitalist/valueaddvc/CNBC/Futurum compilations (as_of 2026-02)",
-      "confidence": "high (2024-25 actuals) / medium (2026 guide)",
+      "source": "Company FY2025 reports + 2026 guidance; visualcapitalist/valueaddvc/CNBC/Futurum compilations (as_of 2026-02). 2027-2030 = extrapolation (no firm guidance issued that far out).",
+      "confidence": "high (2024-25 actuals) / medium (2026 guide) / low (2027-30 extrapolation)",
       "as_of": "2026-06-13",
       "url": null
     },
     {
       "key": "global_dc_capex_usd_bn",
-      "source": "Hyperscaler spine grossed up for colo/enterprise/sovereign/neocloud (CoreWeave etc.). Cross-checked vs Dell'Oro / IDC DC capex prints.",
+      "source": "Independent anchor: Dell'Oro / IDC global DC capex prints (colo + enterprise + sovereign + neocloud + hyperscaler). NOT derived from the top-hyperscaler sum.",
       "confidence": "medium",
       "as_of": "2026-06-13",
       "url": null

@@ -187,15 +187,26 @@ def _capex_one(sym: str):
         for r in rows:
             if r["q"][:4] == str(int(latest["q"][:4]) - 1) and r["q"][4:] == latest["q"][4:]:
                 yoy = _pct(latest["capex_b"], r["capex_b"])
+        # TTM（近 4 季合計）— 對單季尖峰與財年季錯位更穩健的比率分母。
+        ttm = rows[-4:] if len(rows) >= 4 else rows
+        ttm_capex = round(sum(r["capex_b"] for r in ttm), 2)
+        ttm_ocf_rows = [r for r in ttm if r.get("ocf_b")]
+        ttm_rev_rows = [r for r in ttm if r.get("rev_b")]
+        ttm_ocf = round(sum(r["ocf_b"] for r in ttm_ocf_rows), 2) if ttm_ocf_rows else None
+        ttm_rev = round(sum(r["rev_b"] for r in ttm_rev_rows), 2) if ttm_rev_rows else None
         return sym, {
             "quarters": rows,
             "latest_q": latest["q"],
             "latest_capex_b": latest["capex_b"],
             "yoy": yoy,
+            "ttm_capex_b": ttm_capex,
+            "ttm_n": len(ttm),
             "capex_ocf": round(latest["capex_b"] / latest["ocf_b"] * 100, 1)
                 if latest.get("ocf_b") else None,
             "capex_rev": round(latest["capex_b"] / latest["rev_b"] * 100, 1)
                 if latest.get("rev_b") else None,
+            "ttm_capex_ocf": round(ttm_capex / ttm_ocf * 100, 1) if ttm_ocf else None,
+            "ttm_capex_rev": round(ttm_capex / ttm_rev * 100, 1) if ttm_rev else None,
         }
     except Exception:
         log.warning("aibubble: capex fetch failed for %s", sym, exc_info=True)
@@ -213,28 +224,38 @@ def fetch_capex() -> dict:
     agg = None
     if out:
         latest_total = round(sum(c["latest_capex_b"] for c in out.values()), 1)
-        yoy_pairs = [(c["latest_capex_b"], c["latest_capex_b"] / (1 + c["yoy"] / 100))
-                     for c in out.values() if c.get("yoy") is not None]
+        # 單一公司（如 ORCL 單季 YoY +218%、CapEx/營收 108%、/OCF 261%）會扭曲合計。
+        # 對策：(a) 合計 YoY 對每家 YoY 設上限（winsorize）再彙總；
+        #       (b) 比率（/OCF、/營收）改用 TTM 合計分母，淡化單季尖峰與財年季錯位。
+        YOY_CAP = 150.0   # 單一公司 YoY 貢獻上限（百分點），避免極端值主導
+        yoy_pairs = []
+        for c in out.values():
+            if c.get("yoy") is None:
+                continue
+            yoy_capped = min(c["yoy"], YOY_CAP)
+            yoy_pairs.append((c["latest_capex_b"], c["latest_capex_b"] / (1 + yoy_capped / 100)))
         agg_yoy = None
         if yoy_pairs:
             now_sum = sum(p[0] for p in yoy_pairs)
             then_sum = sum(p[1] for p in yoy_pairs)
             agg_yoy = _pct(now_sum, then_sum)
-        ocf_pairs = [(c["latest_capex_b"], q["ocf_b"])
-                     for c in out.values()
-                     for q in [c["quarters"][-1]] if q.get("ocf_b")]
-        agg_ocf = round(sum(p[0] for p in ocf_pairs) / sum(p[1] for p in ocf_pairs) * 100, 1) \
-            if ocf_pairs else None
-        rev_pairs = [(c["latest_capex_b"], c["quarters"][-1].get("rev_b"))
-                     for c in out.values() if c["quarters"][-1].get("rev_b")]
-        agg_rev = round(sum(p[0] for p in rev_pairs) / sum(p[1] for p in rev_pairs) * 100, 1) \
-            if rev_pairs else None
+        # TTM 合計比率：對單季波動（含 ORCL/AMZN 的 OCF 大幅震盪）穩健。
+        ttm_capex_total = sum(c["ttm_capex_b"] for c in out.values() if c.get("ttm_capex_b"))
+        ocf_num = sum(c["ttm_capex_b"] for c in out.values() if c.get("ttm_capex_ocf"))
+        ocf_den = sum(c["ttm_capex_b"] / (c["ttm_capex_ocf"] / 100)
+                      for c in out.values() if c.get("ttm_capex_ocf"))
+        agg_ocf = round(ocf_num / ocf_den * 100, 1) if ocf_den else None
+        rev_num = sum(c["ttm_capex_b"] for c in out.values() if c.get("ttm_capex_rev"))
+        rev_den = sum(c["ttm_capex_b"] / (c["ttm_capex_rev"] / 100)
+                      for c in out.values() if c.get("ttm_capex_rev"))
+        agg_rev = round(rev_num / rev_den * 100, 1) if rev_den else None
         annual_run_rate = round(latest_total * 4 / 1000, 2)  # 兆美元年化
         agg = {
             "latest_total_b": latest_total,
             "yoy": agg_yoy,
             "capex_ocf": agg_ocf,
             "capex_rev": agg_rev,
+            "ttm_capex_total_b": round(ttm_capex_total, 1) if ttm_capex_total else None,
             "annual_run_rate_t": annual_run_rate,
             "companies": len(out),
         }
@@ -271,7 +292,11 @@ def fetch_hy_oas() -> dict | None:
 # ────────────────────────── 評分引擎 ──────────────────────────
 
 def _scale(value, points):
-    """分段線性映射：points = [(x, score), ...]，x 遞增。"""
+    """分段線性映射：points = [(x, score), ...]，x 遞增。
+
+    中間值保留 4 位小數（避免逐錨點四捨五入後再平均產生 ~0.5 累積差），
+    最終顯示精度統一交由 _avg 收斂為 1 位。
+    """
     if value is None:
         return None
     if value <= points[0][0]:
@@ -280,7 +305,7 @@ def _scale(value, points):
         return float(points[-1][1])
     for (x0, y0), (x1, y1) in zip(points, points[1:]):
         if x0 <= value <= x1:
-            return round(y0 + (value - x0) / (x1 - x0) * (y1 - y0), 1)
+            return round(y0 + (value - x0) / (x1 - x0) * (y1 - y0), 4)
     return None
 
 
@@ -331,10 +356,11 @@ def score_momentum(quotes):
     m6 = _basket_avg(quotes, MOMENTUM_BASKET, "chg_6m")
     spy6 = (quotes.get("SPY") or {}).get("chg_6m")
     excess6 = round(m6 - spy6, 2) if (m6 is not None and spy6 is not None) else None
+    # 延伸上界：6M / 超額在本輪極端行情常衝破舊頂錨（80% / 50%）被夾 95，喪失解析度。
     sc = _avg([
-        _scale(y1, [(0, 15), (30, 40), (60, 65), (100, 85), (200, 100)]),
-        _scale(m6, [(0, 15), (20, 45), (40, 70), (80, 95)]),
-        _scale(excess6, [(-10, 10), (0, 25), (15, 50), (30, 75), (50, 95)]),
+        _scale(y1, [(0, 15), (30, 40), (60, 65), (100, 82), (200, 95), (350, 100)]),
+        _scale(m6, [(0, 15), (20, 45), (40, 68), (80, 88), (130, 97), (180, 100)]),
+        _scale(excess6, [(-10, 10), (0, 25), (15, 48), (30, 68), (60, 88), (110, 100)]),
     ])
     inputs = [
         {"zh": "AI 籃子近 1 年平均漲幅", "v": _fmt(y1, "%", 1, True)},

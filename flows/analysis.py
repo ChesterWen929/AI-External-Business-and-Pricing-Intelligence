@@ -120,12 +120,25 @@ def _fmt_l3(kb, l3):
     ai = l3["ai_signal"]
     lz = l3["lenses"]
     d = l3["derived"]
+    nl = d["net_liquidity"]
+    # M19 sanity guard: only cite the net-liquidity number if it passed the
+    # range check (3–9 $T); otherwise tell the model the read is unreliable so a
+    # unit/scale bug never gets written into the narrative.
+    if nl.get("sane", True) and nl.get("value") is not None:
+        nl_line = (f"Derived — net liquidity {nl['value']}$B (1m {nl['chg_1m']}%), "
+                   f"breadth {d['breadth']['value']} (RSP−SPX 1m), "
+                   f"AI leadership {d['ai_rel']['value']} (SOXX−SPX 1m)")
+    else:
+        nl_line = ("Derived — net liquidity UNRELIABLE this run (failed range check; "
+                   "do NOT cite a level), "
+                   f"breadth {d['breadth']['value']} (RSP−SPX 1m), "
+                   f"AI leadership {d['ai_rel']['value']} (SOXX−SPX 1m)")
     lines = [
         f"Marginal capital direction: {md['score']} ({md['label_en']})",
         f"Lenses — liquidity {lz['liquidity']['score']}, price {lz['price']['score']}, positioning {lz['positioning']['score']}; aligned={lz['aligned']}",
         f"Retail appetite {rvi['retail']} vs institution {rvi['institution']}; divergence {rvi['divergence']} (warning={rvi['warning']})",
         f"AI continuation signal {ai['score']}/100 ({ai['label_en']})",
-        f"Derived — net liquidity {d['net_liquidity']['value']}$B (1m {d['net_liquidity']['chg_1m']}%), breadth {d['breadth']['value']} (RSP−SPX 1m), AI leadership {d['ai_rel']['value']} (SOXX−SPX 1m)",
+        nl_line,
         "Reservoirs (1m % / point change, signal):",
     ]
     for res in l3["reservoirs"]:

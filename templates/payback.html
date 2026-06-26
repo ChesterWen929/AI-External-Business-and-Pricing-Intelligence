@@ -286,23 +286,26 @@ const T = {
       spend:"The spend (TTM, $bn)", ag_capex:"Total capex", ag_aicapex:"AI capex (est. share)", ag_cloud:"Cloud segment revenue",
       earn:"The return (TTM, $bn)", ag_airev:"AI-only revenue (est.)", ag_gap:"AI capex − AI revenue gap",
       earnHint:"Cloud revenue is the hard floor; AI-only revenue is an estimate band. The gap is what's not yet earned back.",
-      chart:"Capex vs cloud revenue — the build vs the business", chartNote:"Quarterly, four hyperscalers combined. Cloud segment revenue (hard) still tops total capex — but the AI-only slice of revenue (below) is far under the AI slice of capex.",
-      cos:"Per company — who is converting?", cosNote:"Coverage = AI revenue ÷ AI capex. Total capex & revenue are live (yfinance TTM); AI share is management-guided; cloud revenue is reported; the AI-only band is our estimate.",
+      chart:"Capex vs cloud revenue — the build vs the business", chartNote:"PER-QUARTER values, four hyperscalers combined (do not compare directly to the hero's TTM total capex of ≈$330B, which is four quarters summed). The 'cloud revenue' line folds in Meta's Family-of-Apps AD revenue (Meta has no cloud business; AI monetizes via ad efficiency), so it is a build-vs-business proxy, not a pure cloud-segment figure. Cloud/ad revenue (hard) still tops quarterly capex — but the AI-only slice of revenue (below) is far under the AI slice of capex.",
+      cos:"Per company — who is converting?", cosNote:"Tag = payback-SCORE band (cloud growth + contained intensity), NOT coverage — a strong tag can still sit under 1.0 coverage. Coverage = AI revenue ÷ AI capex. Total capex & revenue are live (yfinance TTM); AI share is management-guided; cloud revenue is reported; the AI-only band is our estimate.",
+      v_monetizing:"CONVERTING", v_investing:"INVESTING", v_burning:"OUTSPENDING",
       alerts:"Divergence alerts", alertsNote:"Deterministic flags from the numbers.",
       read:"L4 · The read — paying off yet?", circread:"L4 · Circularity read",
       takes:"L4 · Per-company take", leads:"Leading signals (move before reported AI revenue)",
-      priv:"Frontier labs — OpenAI & Anthropic (fragmentary)", privNote:"No filings. Every figure is press/our-estimate, directional only. Coverage here = revenue run-rate ÷ annual burn; runway = funding raised ÷ burn.",
-      circ:"Circularity ledger — AI dollars looping", circNote:"Tracked commitments/investments between Nvidia, the labs and the clouds. Some 'AI revenue' is the same dollars circulating.",
+      priv:"Frontier labs — OpenAI & Anthropic (fragmentary)", privNote:"No filings. EVERY figure is press/our-estimate (OUR_EST / press), directional only — none is reported or anchored. Coverage here = revenue run-rate ÷ annual burn; runway = funding raised ÷ burn. Note: both runways landing at ≈1.7 yrs is coincidental (independent funding ÷ burn estimates), not a shared constraint. The source links (↗) point to Google News SEARCH pages, not a single anchoring article — treat them as 'where to start looking', not as the citation.",
+      circ:"Circularity ledger — AI dollars looping", circNote:"Tracked commitments/investments between Nvidia, the labs and the clouds. Some 'AI revenue' is the same dollars circulating. ⚠ The headline total is a HETEROGENEOUS sum — multi-year purchase commitments (a flow) added to cumulative equity investments (a stock). Read it as the scale of entanglement, NOT an additive accounting figure; the flow / stock split is shown below.",
+      circ_flow:"Purchase commitments (flow)", circ_stock:"Equity investments (stock)",
+      k_commitment_flow:"commitment · flow", k_investment_stock:"investment · stock", k_loop:"loop",
       scn:"L5 · Scenarios", scnNote:"Probabilities from the current read; each with a concrete trigger.",
       fals:"L5 · Falsification — what flips the verdict", watch:"L5 · Watch-list",
       news:"News radar (fetched on refresh)", blind:"Blind spots", trigger:"Trigger",
-      capex:"capex", cloudrev:"cloud rev", airev:"AI-only rev",
+      capex:"capex (quarterly)", cloudrev:"cloud / ad rev (quarterly)", airev:"AI-only rev",
       r_capex:"Total capex", r_aicapex:"AI capex", r_cloud:"Cloud rev", r_cloudg:"Cloud growth",
       r_airev:"AI-only rev", r_intensity:"Capex intensity", r_accel:"Capex vs rev growth", r_cover:"Coverage",
       r_rev:"Revenue run-rate", r_burn:"Annual burn", r_runway:"Funded runway", r_fund:"Funding raised", r_val:"Valuation", r_compute:"Compute commitment",
       yrs:"yrs",
       dep:"Depreciation engine — the earnings tail behind the capex",
-      depNote:"Capex hits cash now; the P&L hit lands later as depreciation. Three switchable shocks on the REAL reported D&A / PP&E: an H100 write-down (one-time), stranded-chip early retirement when power & land are capped (annual), and a useful-life reversal 6→4yr (annual). Each shown in $ and as % of operating income.",
+      depNote:"Capex hits cash now; the P&L hit lands later as depreciation. Three switchable shocks on the REAL reported D&A / PP&E: an H100 write-down (one-time), stranded-chip early retirement when power & land are capped (annual), and a useful-life reversal 6→4yr (annual). Each shown in $ and as % of operating income. ⓘ Capex-basis note: this engine's D&A / PP&E are from the Capital IQ TTM export — a different vendor/period cut than the yfinance capex shown in the hero & cards above (e.g. AMZN Capital IQ capex ≈ $151B vs yfinance ≈ $100B). Treat the two capex figures as different cuts, not a contradiction.",
       dep_atrisk:"At-risk accelerator book", dep_impair:"H100 write-down (1×)", dep_combined:"Combined annual shock", dep_exposed:"Most exposed",
       dep_co:"Company", dep_imp:"Impair 1×", dep_str:"Stranded /yr", dep_life:"Life 6→4 /yr", dep_comb:"Combined /yr",
       r_capexocf:"Capex / op cash flow", r_headroom:"Free cash after build", st_self:"self-funded", st_tight:"tight", st_external:"external",
@@ -322,23 +325,26 @@ const T = {
       spend:"花的錢(TTM,$十億)", ag_capex:"總 capex", ag_aicapex:"AI capex(估計佔比)", ag_cloud:"雲端分部營收",
       earn:"賺的錢(TTM,$十億)", ag_airev:"AI-only 營收(估)", ag_gap:"AI capex − AI 營收 缺口",
       earnHint:"雲端營收是硬底;AI-only 營收是估計帶。缺口就是尚未回本的部分。",
-      chart:"capex vs 雲端營收 — 建置 vs 本業", chartNote:"季度、四大巨頭合計。雲端分部營收(硬)仍高於總 capex — 但營收中的 AI-only 部分(更低)遠少於 capex 中的 AI 部分。",
-      cos:"逐家 — 誰在變現?", cosNote:"覆蓋率 = AI 營收 ÷ AI capex。總 capex 與營收為即時(yfinance TTM);AI 佔比為管理層口徑;雲端營收為財報;AI-only 帶為本平台估計。",
+      chart:"capex vs 雲端營收 — 建置 vs 本業", chartNote:"為「單季」值、四大巨頭合計(請勿與 hero 的 TTM 總 capex ≈$330B 直接相比,後者是四季加總)。「雲端營收」線含 Meta 的 Family-of-Apps 廣告營收(Meta 無雲端業務,AI 透過廣告效率變現),故為建置 vs 本業的代理,非純雲端分部數字。雲端/廣告營收(硬)仍高於單季 capex — 但營收中的 AI-only 部分(更低)遠少於 capex 中的 AI 部分。",
+      cos:"逐家 — 誰在變現?", cosNote:"標籤 = 回本「分數」分檔(雲端成長 + 強度受控),非覆蓋率 — 標籤強仍可能覆蓋率不到 1.0。覆蓋率 = AI 營收 ÷ AI capex。總 capex 與營收為即時(yfinance TTM);AI 佔比為管理層口徑;雲端營收為財報;AI-only 帶為本平台估計。",
+      v_monetizing:"變現軌跡", v_investing:"投入期", v_burning:"入超",
       alerts:"背離警報", alertsNote:"由數字產生的確定性標記。",
       read:"L4 · 判讀 — 回本了沒?", circread:"L4 · 循環性判讀",
       takes:"L4 · 逐家結論", leads:"領先訊號(比報導 AI 營收先動)",
-      priv:"前沿實驗室 — OpenAI 與 Anthropic(零碎)", privNote:"無財報。每個數字皆為新聞/本平台估計,僅供方向。此處覆蓋率 = 營收 run-rate ÷ 年燒錢;跑道 = 募資 ÷ 燒錢。",
-      circ:"循環性帳本 — AI 資金轉圈", circNote:"Nvidia、實驗室與雲端之間的追蹤承諾/投資。部分「AI 營收」是同一批資金循環。",
+      priv:"前沿實驗室 — OpenAI 與 Anthropic(零碎)", privNote:"無財報。每個數字「皆」為新聞/本平台估計(本估 / 新聞),僅供方向 — 無一為財報或定錨值。此處覆蓋率 = 營收 run-rate ÷ 年燒錢;跑道 = 募資 ÷ 燒錢。註:兩家跑道都落在 ≈1.7 年純屬巧合(各自獨立的募資 ÷ 燒錢估計),非共同約束。來源連結(↗)指向 Google News「搜尋頁」,非單一定錨文章 — 視為「從哪開始查」,非引用出處。",
+      circ:"循環性帳本 — AI 資金轉圈", circNote:"Nvidia、實驗室與雲端之間的追蹤承諾/投資。部分「AI 營收」是同一批資金循環。⚠ 標頭合計為「異質加總」— 多年期採購承諾(流量)加上累計股權投資(存量)。請視為糾纏規模,非可加會計量;下方另列流量 / 存量拆分。",
+      circ_flow:"採購承諾(流量)", circ_stock:"股權投資(存量)",
+      k_commitment_flow:"承諾 · 流量", k_investment_stock:"投資 · 存量", k_loop:"閉環",
       scn:"L5 · 情境", scnNote:"機率來自當前判讀;每個情境附具體觸發條件。",
       fals:"L5 · 證偽 — 什麼會翻轉結論", watch:"L5 · 觀察清單",
       news:"新聞雷達(更新時抓取)", blind:"盲點", trigger:"觸發",
-      capex:"capex", cloudrev:"雲端營收", airev:"AI-only 營收",
+      capex:"capex(單季)", cloudrev:"雲端/廣告營收(單季)", airev:"AI-only 營收",
       r_capex:"總 capex", r_aicapex:"AI capex", r_cloud:"雲端營收", r_cloudg:"雲端成長",
       r_airev:"AI-only 營收", r_intensity:"capex 強度", r_accel:"capex vs 營收成長", r_cover:"覆蓋率",
       r_rev:"營收 run-rate", r_burn:"年燒錢", r_runway:"募資跑道", r_fund:"累計募資", r_val:"估值", r_compute:"算力承諾",
       yrs:"年",
       dep:"折舊引擎 — capex 背後的盈餘尾巴",
-      depNote:"capex 現在吃現金;盈餘衝擊稍後以折舊到來。對真實揭露的 D&A / PP&E 套三種可調衝擊:H100 減損(一次性)、電力與土地受限下擱淺晶片提前汰換(年化)、耐用年限 6→4 年回調(年化)。各以 $ 及占營益 % 並陳。",
+      depNote:"capex 現在吃現金;盈餘衝擊稍後以折舊到來。對真實揭露的 D&A / PP&E 套三種可調衝擊:H100 減損(一次性)、電力與土地受限下擱淺晶片提前汰換(年化)、耐用年限 6→4 年回調(年化)。各以 $ 及占營益 % 並陳。ⓘ capex 口徑提醒:本引擎的 D&A / PP&E 取自 Capital IQ TTM 匯出 — 與上方 hero/卡片的 yfinance capex 為不同來源/期間切口(例:AMZN Capital IQ capex ≈ $151B vs yfinance ≈ $100B)。兩個 capex 數字屬不同口徑,非互相矛盾。",
       dep_atrisk:"風險加速器帳面", dep_impair:"H100 減損(1×)", dep_combined:"年化合計衝擊", dep_exposed:"最敏感",
       dep_co:"公司", dep_imp:"減損 1×", dep_str:"擱淺/年", dep_life:"年限6→4/年", dep_comb:"合計/年",
       r_capexocf:"capex / 營運現金流", r_headroom:"建置後自由現金", st_self:"自籌", st_tight:"吃緊", st_external:"需外部",
@@ -439,7 +445,7 @@ function render(){
     return `<div class="co">
       <div class="cohead">
         <div><span class="coname">${LANG==="zh"?p.name_zh:p.name_en}</span><span class="coticker">${p.ticker||""}${p.live?tierBadgeLive():""}</span></div>
-        <div class="coscore"><span class="s">${p.score}</span><br><span class="tag ${p.verdict_key}">${p.verdict_key}</span></div>
+        <div class="coscore"><span class="s">${p.score}</span><br><span class="tag ${p.verdict_key}" title="${LANG==="zh"?p.verdict_zh:p.verdict_en}">${t["v_"+p.verdict_key]||p.verdict_key}</span></div>
       </div>
       <div class="covbar"><i style="width:${Math.min(100,cov*100)}%"></i></div>
       ${row(t.r_cover, cov.toFixed(2))}
@@ -507,7 +513,7 @@ function render(){
     return `<div class="co">
       <div class="cohead">
         <div><span class="coname">${LANG==="zh"?p.name_zh:p.name_en}</span></div>
-        <div class="coscore"><span class="s">${p.score}</span><br><span class="tag ${p.verdict_key}">${p.verdict_key}</span></div>
+        <div class="coscore"><span class="s">${p.score}</span><br><span class="tag ${p.verdict_key}" title="${LANG==="zh"?p.verdict_zh:p.verdict_en}">${t["v_"+p.verdict_key]||p.verdict_key}</span></div>
       </div>
       <div class="covbar"><i style="width:${Math.min(100,cov*100)}%"></i></div>
       <div class="corow"><span class="k">${t.r_cover}</span><span class="v">${cov.toFixed(2)}</span></div>
@@ -523,14 +529,21 @@ function render(){
   }).join("");
 
   // circularity ledger
-  document.getElementById("h_circ").textContent=t.circ+" · $"+l3.circularity.total_usd_bn+"B";
+  const circ=l3.circularity;
+  document.getElementById("h_circ").textContent=t.circ+" · $"+circ.total_usd_bn+"B";
   document.getElementById("n_circ").textContent=t.circNote;
-  document.getElementById("circ").innerHTML=l3.circularity.edges.map(e=>`
-    <div class="edge">
+  const splitHtml=(circ.commitment_flow_usd_bn!=null||circ.investment_stock_usd_bn!=null)?
+    `<div class="corow" style="border-top:none;padding-bottom:2px">
+       <span class="k">${t.circ_flow}</span><span class="v">${bn(circ.commitment_flow_usd_bn)}</span></div>
+     <div class="corow" style="padding-top:2px">
+       <span class="k">${t.circ_stock}</span><span class="v">${bn(circ.investment_stock_usd_bn)}</span></div>`:"";
+  document.getElementById("circ").innerHTML=splitHtml+circ.edges.map(e=>{
+    const kb=e.kind?`<span class="badge">${t["k_"+e.kind]||e.kind}</span>`:"";
+    return `<div class="edge">
       <span class="amt">${e.amount_usd_bn>0?("$"+e.amount_usd_bn+"B"):"—"}</span>
       <span class="flow">${e.from} <span class="ar">→</span> ${e.to}</span>
-      <span class="wh">${LANG==="zh"?e.what_zh:e.what_en} ${tierBadge(e.tier)}${srcLink(e.source_url)}</span>
-    </div>`).join("");
+      <span class="wh">${LANG==="zh"?e.what_zh:e.what_en} ${kb}${tierBadge(e.tier)}${srcLink(e.source_url)}</span>
+    </div>`;}).join("");
 
   // L5
   const l5=s.l5;

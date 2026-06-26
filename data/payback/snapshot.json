@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-23 15:43 UTC",
-  "as_of": "2026-06-23",
+  "generated_at": "regen offline",
+  "as_of": "2026-06-25",
   "source": "seed",
   "is_demo": true,
   "title_en": "AI Capex Payback Radar",
@@ -105,8 +105,8 @@
         "coverage": 0.267,
         "score": 72.4,
         "verdict_key": "monetizing",
-        "verdict_en": "MONETIZING — AI revenue covering the spend",
-        "verdict_zh": "MONETIZING — AI 營收正在覆蓋投入",
+        "verdict_en": "CONVERTING — strongest payback trajectory",
+        "verdict_zh": "CONVERTING — 變現軌跡最強",
         "stock": 195.0,
         "stock_chg_1m": 3.0,
         "as_of_q": "2026Q1",
@@ -307,8 +307,8 @@
         "coverage": 0.255,
         "score": 61.2,
         "verdict_key": "monetizing",
-        "verdict_en": "MONETIZING — AI revenue covering the spend",
-        "verdict_zh": "MONETIZING — AI 營收正在覆蓋投入",
+        "verdict_en": "CONVERTING — strongest payback trajectory",
+        "verdict_zh": "CONVERTING — 變現軌跡最強",
         "stock": 220.0,
         "stock_chg_1m": 1.5,
         "as_of_q": "2026Q1",
@@ -635,6 +635,7 @@
           "from": "Nvidia",
           "to": "OpenAI",
           "amount_usd_bn": 100.0,
+          "kind": "commitment_flow",
           "what_en": "Nvidia investment/commitment tied to OpenAI buildout",
           "what_zh": "Nvidia 對 OpenAI 建置的投資/承諾",
           "tier": "NEWS",
@@ -644,6 +645,7 @@
           "from": "OpenAI",
           "to": "Oracle/CoreWeave",
           "amount_usd_bn": 300.0,
+          "kind": "commitment_flow",
           "what_en": "OpenAI multi-year compute purchase commitments",
           "what_zh": "OpenAI 多年期算力採購承諾",
           "tier": "NEWS",
@@ -653,6 +655,7 @@
           "from": "Microsoft",
           "to": "OpenAI",
           "amount_usd_bn": 13.0,
+          "kind": "investment_stock",
           "what_en": "Microsoft cumulative investment in OpenAI",
           "what_zh": "微軟對 OpenAI 的累計投資",
           "tier": "NEWS",
@@ -662,6 +665,7 @@
           "from": "Amazon",
           "to": "Anthropic",
           "amount_usd_bn": 8.0,
+          "kind": "investment_stock",
           "what_en": "Amazon investment in Anthropic (cloud credits + equity)",
           "what_zh": "Amazon 對 Anthropic 的投資(雲端額度 + 股權)",
           "tier": "NEWS",
@@ -671,6 +675,7 @@
           "from": "Google",
           "to": "Anthropic",
           "amount_usd_bn": 3.0,
+          "kind": "investment_stock",
           "what_en": "Google investment in Anthropic",
           "what_zh": "Google 對 Anthropic 的投資",
           "tier": "NEWS",
@@ -680,6 +685,7 @@
           "from": "OpenAI/Anthropic",
           "to": "Nvidia",
           "amount_usd_bn": 0.0,
+          "kind": "loop",
           "what_en": "GPU purchases route compute dollars back to Nvidia — closing the loop",
           "what_zh": "GPU 採購把算力支出送回 Nvidia — 閉合循環",
           "tier": "OUR_EST",
@@ -687,7 +693,10 @@
         }
       ],
       "total_usd_bn": 424.0,
-      "count": 6
+      "count": 6,
+      "commitment_flow_usd_bn": 400.0,
+      "investment_stock_usd_bn": 24.0,
+      "heterogeneous": true
     },
     "depreciation": {
       "aggregate": {
@@ -929,8 +938,8 @@
       },
       {
         "level": "watch",
-        "en": "Circularity flag: ≈ $424.0B in tracked commitments loops between Nvidia, the labs and the clouds — some 'AI revenue' is the same dollars circulating, not independent end-demand.",
-        "zh": "循環性警示:約 $424.0B 的追蹤承諾在 Nvidia、實驗室與雲端之間轉圈 — 部分「AI 營收」是同一批資金循環,非獨立終端需求。"
+        "en": "Circularity flag: ≈ $400.0B of multi-year purchase commitments (flow) plus ≈ $24.0B of cumulative equity investments (stock) loop between Nvidia, the labs and the clouds — some 'AI revenue' is the same dollars circulating, not independent end-demand. (Flow + stock is a heterogeneous gauge of entanglement, not an additive total.)",
+        "zh": "循環性警示:約 $400.0B 多年期採購承諾(流量)加上約 $24.0B 累計股權投資(存量),在 Nvidia、實驗室與雲端之間轉圈 — 部分「AI 營收」是同一批資金循環,非獨立終端需求。(流量+存量為糾纏規模,非可加總計。)"
       }
     ]
   },
