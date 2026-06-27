@@ -152,5 +152,68 @@ def test_proxies_not_in_pricing_score(amazon_kb):
     assert base["headline"]["compute_pricing_score"] == moved["headline"]["compute_pricing_score"]
 
 
+# ── NVIDIA (second company; disclosed-benefit + KB-driven copy) ──
+@pytest.fixture
+def nvidia_kb():
+    with open(KB_DIR / "nvidia.json", encoding="utf-8") as f:
+        return json.load(f)
+
+
+@pytest.fixture
+def nv_snap(nvidia_kb, monkeypatch):
+    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    return model.build_snapshot(nvidia_kb, live=None, generated_at="2026-06-27 00:00 UTC", today="2026-06-27")
+
+
+def test_nvidia_builds_and_is_raising(nv_snap):
+    assert nv_snap["slug"] == "nvidia"
+    assert nv_snap["headline"]["verdict_key"] == "raising"
+    assert nv_snap["headline"]["compute_pricing_score"] >= 60
+
+
+def test_nvidia_top_lever_is_generational_asp(nv_snap):
+    assert nv_snap["pillars"]["pricing"]["top_lever_id"] == "generational_asp"
+    assert len(nv_snap["pillars"]["pricing"]["levers"]) == 6
+
+
+def test_nvidia_benefit_is_disclosed(nv_snap):
+    b = nv_snap["pillars"]["benefit"]
+    # headline DC revenue is a disclosed (annualized) figure, not an estimate
+    assert b["headline_is_estimate"] is False
+    assert nv_snap["headline"]["ai_benefit_metric"] == "revenue_runrate"
+
+
+def test_nvidia_full_tsmc_exposure(nv_snap):
+    sil = nv_snap["pillars"]["silicon"]
+    assert nv_snap["headline"]["tsmc_exposure_pct"] == 100
+    assert all(c["fab"].upper().startswith("TSMC") for c in sil["chain"])
+    assert sil["chain_count"] == 6
+
+
+def test_nvidia_scenarios_sum_100(nv_snap):
+    probs = [s["prob"] for s in nv_snap["l5"]["scenarios"]]
+    assert sum(probs) == 100 and len(probs) == 4
+
+
+def test_nvidia_benefit_alert_has_no_amazon_bleed(nv_snap):
+    """The disclosed-benefit company must not inherit Amazon's 'AWS discloses no AI-only line'."""
+    ben_alerts = [a for a in nv_snap["l3"]["alerts"] if "AI benefit" in a["en"]]
+    assert ben_alerts, "expected an AI-benefit alert"
+    assert all("AWS discloses no AI-only line" not in a["en"] for a in ben_alerts)
+    assert any("reports Data Center revenue" in a["en"] for a in ben_alerts)
+
+
+def test_nvidia_pricing_engine_note_drives_strong_alert(nv_snap):
+    strong = [a for a in nv_snap["l3"]["alerts"] if a["level"] == "strong"]
+    assert strong and "price-maker" in strong[0]["en"]
+
+
+def test_amazon_defaults_preserved_for_disclosure_note(snap):
+    """Amazon omits the KB note fields → engine falls back to the AWS-specific default."""
+    ben_alerts = [a for a in snap["l3"]["alerts"] if "AI benefit" in a["en"]]
+    assert ben_alerts and "AWS discloses no AI-only line" in ben_alerts[0]["en"]
+    assert snap["pillars"]["benefit"]["headline_is_estimate"] is True
+
+
 if __name__ == "__main__":
     sys.exit(pytest.main([__file__, "-q"]))

@@ -427,7 +427,7 @@
               <span class="tier-name">{{ t('tier5') }}</span>
               <span class="tier-sub">{{ t('tier5_sub') }}</span>
             </div>
-            <div class="row n1">
+            <div class="row n2">
               <a class="card" href="/company/amazon/">
                 <div class="kicker">COMPANY · AMZN</div>
                 <h2>{{ t('company_name') }}</h2>
@@ -436,6 +436,18 @@
                   <div class="stat">
                     {% if company_score is not none %}<span class="score">{{ '%.0f'|format(company_score) }}<small>{% if company_verdict %}{{ t('v_' ~ company_verdict) }}{% else %}{{ t('company_lbl') }}{% endif %}</small></span>{% endif %}
                     {% if company_benefit is not none %}<span class="meta">AI ≈ ${{ '%.0f'|format(company_benefit) }}B{% if company_updated %} · {{ t('updated') }} {{ company_updated }}{% endif %}</span>{% elif company_updated %}<span class="meta">{{ t('updated') }} · {{ company_updated }}</span>{% endif %}
+                  </div>
+                  <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
+                </div>
+              </a>
+              <a class="card" href="/company/nvidia/">
+                <div class="kicker">COMPANY · NVDA</div>
+                <h2>{{ t('company_nv_name') }}</h2>
+                <div class="desc">{{ t('company_nv_desc') }}</div>
+                <div class="foot">
+                  <div class="stat">
+                    {% if company_nv_score is not none %}<span class="score">{{ '%.0f'|format(company_nv_score) }}<small>{% if company_nv_verdict %}{{ t('v_' ~ company_nv_verdict) }}{% else %}{{ t('company_lbl') }}{% endif %}</small></span>{% endif %}
+                    {% if company_nv_benefit is not none %}<span class="meta">AI ≈ ${{ '%.0f'|format(company_nv_benefit) }}B{% if company_nv_updated %} · {{ t('updated') }} {{ company_nv_updated }}{% endif %}</span>{% elif company_nv_updated %}<span class="meta">{{ t('updated') }} · {{ company_nv_updated }}</span>{% endif %}
                   </div>
                   <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
                 </div>

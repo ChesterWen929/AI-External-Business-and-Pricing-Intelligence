@@ -82,6 +82,9 @@ def _pricing(kb):
         "verdict_en": _VERDICT[key]["en"], "verdict_zh": _VERDICT[key]["zh"],
         "levers": sorted(levers, key=lambda x: -(x["strength"] * x["weight"])),
         "top_lever_id": top["id"] if top else None,
+        # one-line "what's doing the work" — KB-overridable, per-company (None → Amazon default)
+        "engine_note_en": kb.get("pricing_engine_note_en"),
+        "engine_note_zh": kb.get("pricing_engine_note_zh"),
     }
 
 
@@ -110,7 +113,11 @@ def _benefit(kb):
         "headline_id": head_id,
         "headline_usd_bn": headline["value_usd_bn"] if headline else None,
         "headline_metric": headline["metric"] if headline else None,
+        "headline_is_estimate": bool(headline.get("is_estimate", True)) if headline else True,
         "consensus_usd_bn": consensus,
+        # how this company discloses its AI benefit — KB-overridable (None → Amazon default)
+        "disclosure_note_en": kb.get("benefit_disclosure_en"),
+        "disclosure_note_zh": kb.get("benefit_disclosure_zh"),
     }
 
 
@@ -151,9 +158,11 @@ def _alerts(pricing, benefit, silicon, proxies):
     by_id = {p["id"]: p for p in proxies}
 
     if pricing["score"] >= 65:
+        eng_en = pricing.get("engine_note_en") or "the custom-silicon + up-stack levers are doing the work, not list-price hikes"
+        eng_zh = pricing.get("engine_note_zh") or "推動的是自研晶片＋服務棧上移槓桿，而非抬牌價"
         out.append({"level": "strong",
-                    "en": f"Realized-price engine running hot: pricing-power score {pricing['score']}/100 — the custom-silicon + up-stack levers are doing the work, not list-price hikes.",
-                    "zh": f"已實現價格引擎火熱：定價權分數 {pricing['score']}/100 — 推動的是自研晶片＋服務棧上移槓桿，而非抬牌價。"})
+                    "en": f"Realized-price engine running hot: pricing-power score {pricing['score']}/100 — {eng_en}.",
+                    "zh": f"已實現價格引擎火熱：定價權分數 {pricing['score']}/100 — {eng_zh}。"})
 
     nv = by_id.get("nvda_equity", {})
     if nv.get("chg_1m") is not None and nv["chg_1m"] < -8:
@@ -167,9 +176,14 @@ def _alerts(pricing, benefit, silicon, proxies):
                     "zh": f"集中度：撐起此利益的 AI 算力約 {silicon['tsmc_exposure_pct']}% 由台積電製造，{silicon['critical_count']} 條鏈關鍵 — 台積電掌握的 CoWoS 瓶頸即成長綁定約束。"})
 
     if benefit.get("headline_usd_bn"):
+        is_est = benefit.get("headline_is_estimate", True)
+        tag_en = "(headline est.)" if is_est else "(headline)"
+        tag_zh = "（頭條估計）" if is_est else "（頭條）"
+        note_en = benefit.get("disclosure_note_en") or "an ESTIMATE; AWS discloses no AI-only line."
+        note_zh = benefit.get("disclosure_note_zh") or "為估計值；AWS 無純 AI 揭露項。"
         out.append({"level": "watch",
-                    "en": f"AI benefit (headline est.) ≈ ${benefit['headline_usd_bn']}B {benefit['headline_metric']} — an ESTIMATE; AWS discloses no AI-only line.",
-                    "zh": f"AI 利益（頭條估計）≈ ${benefit['headline_usd_bn']}B {benefit['headline_metric']} — 為估計值；AWS 無純 AI 揭露項。"})
+                    "en": f"AI benefit {tag_en} ≈ ${benefit['headline_usd_bn']}B {benefit['headline_metric']} — {note_en}",
+                    "zh": f"AI 利益{tag_zh}≈ ${benefit['headline_usd_bn']}B {benefit['headline_metric']} — {note_zh}"})
 
     if not out:
         out.append({"level": "watch", "en": "No sharp signal this read.", "zh": "本次判讀無明顯訊號。"})

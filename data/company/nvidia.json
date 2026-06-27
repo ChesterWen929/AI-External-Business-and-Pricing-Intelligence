@@ -1,0 +1,584 @@
+{
+  "slug": "nvidia",
+  "generated_at": "2026-06-27 15:51 UTC",
+  "as_of": "2026-06-27",
+  "source": "seed",
+  "stale_fetch_ids": [],
+  "is_demo": true,
+  "company": {
+    "name_en": "NVIDIA",
+    "name_zh": "NVIDIA（輝達）",
+    "ticker": "NVDA",
+    "segment_en": "Data Center — the accelerated-compute platform that sets the price of AI silicon, and TSMC's anchor customer",
+    "segment_zh": "資料中心 — 替 AI 矽定價的加速運算平台，也是台積電的頭號客戶",
+    "blurb_en": "How NVIDIA actually raises the realized price of compute, what you can watch it with, how much it makes from AI, and how ~100% of it rests on TSMC leading-edge silicon and CoWoS — the purest read on TSMC's single largest customer.",
+    "blurb_zh": "NVIDIA 究竟怎麼提高已實現算力售價、能用什麼資料觀察、從 AI 賺到多少，以及這一切如何幾乎 100% 押在台積電先進製程與 CoWoS 上 — 對台積電最大單一客戶最純粹的判讀。"
+  },
+  "thesis_en": "NVIDIA is the purest pricing-power story in AI compute — and TSMC's anchor customer. Raw FLOPs keep getting cheaper, yet NVIDIA's REALIZED price per unit of useful compute keeps rising: every generation (Hopper → Blackwell → Rubin) steps ASP up, it now sells $3M+ rack-scale systems instead of $30k chips, and CUDA locks the buyer in. Nearly 100% of that silicon is fabbed by TSMC on N4/N3 with CoWoS — so both NVIDIA's AI benefit and its binding constraint live inside TSMC's leading-edge and CoWoS capacity.",
+  "thesis_zh": "NVIDIA 是 AI 算力中最純粹的定價權故事 — 也是台積電的頭號客戶。原始 FLOPs 年年變便宜，但 NVIDIA 每單位「有用算力」的已實現售價持續上升：每一個世代（Hopper → Blackwell → Rubin）都把 ASP 往上推，現在賣的是 300 萬美元以上的機櫃級整機而非 3 萬美元的單顆晶片，而 CUDA 把客戶牢牢鎖住。這些矽幾乎 100% 由台積電以 N4/N3 製造、用 CoWoS 封裝 — 因此 NVIDIA 的 AI 利益與它的綁定約束，都住在台積電的先進製程與 CoWoS 產能裡。",
+  "headline": {
+    "compute_pricing_score": 75.0,
+    "verdict_key": "raising",
+    "verdict_en": "RAISING — realized compute price expanding",
+    "verdict_zh": "RAISING — 已實現算力售價擴張",
+    "ai_benefit_usd_bn": 180.0,
+    "ai_benefit_metric": "revenue_runrate",
+    "tsmc_exposure_pct": 100
+  },
+  "pillars": {
+    "pricing": {
+      "score": 75.0,
+      "verdict_key": "raising",
+      "verdict_en": "RAISING — realized compute price expanding",
+      "verdict_zh": "RAISING — 已實現算力售價擴張",
+      "levers": [
+        {
+          "id": "generational_asp",
+          "name_en": "Generational ASP step-ups (Hopper → Blackwell → Rubin)",
+          "name_zh": "世代 ASP 階梯（Hopper → Blackwell → Rubin）",
+          "mechanism_en": "Each new architecture is priced well above the one it replaces while delivering more performance/Watt. The annual cadence resets the price ceiling every year — a GB200 commands a large premium over H100, and Rubin will reset it again. Realized $/useful-FLOP rises despite raw-FLOP deflation.",
+          "mechanism_zh": "每一個新架構的定價都遠高於它取代的上一代，同時提供更高的效能/瓦。年度節奏每年重置價格天花板 — GB200 對 H100 收取大幅溢價，Rubin 會再重置一次。即使原始 FLOP 通縮，已實現每有效 FLOP 售價仍上升。",
+          "direction": "up",
+          "strength": 85.0,
+          "weight": 1.0,
+          "tier": "T1",
+          "is_estimate": false,
+          "observability_en": "Data Center ASP trend in 10-Q revenue ÷ units, GTC product pricing, analyst accelerator models (SemiAnalysis).",
+          "observability_zh": "10-Q 資料中心營收 ÷ 出貨量的 ASP 趨勢、GTC 產品定價、分析師加速器模型（SemiAnalysis）。",
+          "source_en": "NVIDIA GTC keynotes; NVIDIA 10-Q Data Center segment",
+          "source_zh": "NVIDIA GTC 主題演講；NVIDIA 10-Q 資料中心分部",
+          "source_url": "https://investor.nvidia.com/financial-info/financial-reports/"
+        },
+        {
+          "id": "full_system_selling",
+          "name_en": "Rack-scale system selling (GB200 NVL72 / DGX), not chips",
+          "name_zh": "機櫃級整機銷售（GB200 NVL72／DGX），而非單顆晶片",
+          "mechanism_en": "NVIDIA increasingly sells integrated rack systems (NVL72) and DGX/HGX platforms rather than bare GPUs. The unit of sale jumps from a ~$30-40k chip to a ~$3M+ rack, pulling NVLink, NVSwitch, trays and software into one ASP — a step-change in realized price per deployed unit.",
+          "mechanism_zh": "NVIDIA 越來越多賣的是整合機櫃系統（NVL72）與 DGX/HGX 平台，而非裸 GPU。銷售單位從約 3-4 萬美元的晶片，跳升到約 300 萬美元以上的機櫃，把 NVLink、NVSwitch、托盤與軟體一起納入單一 ASP — 每部署單位的已實現售價出現階躍。",
+          "direction": "up",
+          "strength": 82.0,
+          "weight": 1.0,
+          "tier": "T1",
+          "is_estimate": false,
+          "observability_en": "System vs component revenue mix in earnings commentary; NVL72 / DGX shipment disclosures; ODM (Foxconn/Quanta) order flow.",
+          "observability_zh": "法說中系統 vs 元件營收結構；NVL72／DGX 出貨揭露；ODM（鴻海/廣達）接單流。",
+          "source_en": "NVIDIA earnings calls; ODM order reporting",
+          "source_zh": "NVIDIA 法說會；ODM 接單報導",
+          "source_url": "https://investor.nvidia.com/events-and-presentations/events-and-presentations/"
+        },
+        {
+          "id": "cuda_lockin",
+          "name_en": "CUDA + software platform lock-in",
+          "name_zh": "CUDA＋軟體平台鎖定",
+          "mechanism_en": "Two decades of CUDA, cuDNN, TensorRT, NIM microservices and a trained developer base make switching costly. Low price elasticity lets NVIDIA hold and raise price where a fungible-silicon vendor could not — the moat that underwrites every other lever.",
+          "mechanism_zh": "二十年的 CUDA、cuDNN、TensorRT、NIM 微服務與龐大的開發者基礎，讓轉換成本高昂。低價格彈性讓 NVIDIA 能在可替代矽供應商辦不到的情況下守住並提高價格 — 這是支撐其他所有槓桿的護城河。",
+          "direction": "up",
+          "strength": 80.0,
+          "weight": 1.0,
+          "tier": "T1",
+          "is_estimate": false,
+          "observability_en": "Gross-margin durability across cycles; developer/CUDA download counts; share retention vs custom ASICs.",
+          "observability_zh": "跨循環的毛利率韌性；開發者/CUDA 下載量；相對自研 ASIC 的市占保持。",
+          "source_en": "NVIDIA gross-margin trend; developer ecosystem disclosures",
+          "source_zh": "NVIDIA 毛利率趨勢；開發者生態揭露",
+          "source_url": "https://developer.nvidia.com/cuda-zone"
+        },
+        {
+          "id": "scarcity_allocation",
+          "name_en": "Scarcity / allocation premium (supply-constrained)",
+          "name_zh": "稀缺／配額溢價（供給受限）",
+          "mechanism_en": "Demand has run far ahead of CoWoS and HBM supply, so NVIDIA allocates rather than discounts. Constrained supply holds ASP firm and lets the newest, highest-priced parts clear first — realized price tracks supply tightness, not a falling rate card.",
+          "mechanism_zh": "需求遠遠超前 CoWoS 與 HBM 供給，因此 NVIDIA 用配額而非折讓。受限供給撐住 ASP，並讓最新、最高價的產品優先出清 — 已實現價格跟著供給鬆緊走，而非下滑的牌價表。",
+          "direction": "up",
+          "strength": 70.0,
+          "weight": 0.9,
+          "tier": "T2",
+          "is_estimate": true,
+          "observability_en": "CoWoS / HBM lead times, GPU spot rents (vast.ai / market), NVIDIA 'supply-constrained' guidance language.",
+          "observability_zh": "CoWoS／HBM 交期、GPU 現貨租金（vast.ai／市場）、NVIDIA「供給受限」的指引措辭。",
+          "source_en": "TSMC CoWoS commentary; third-party GPU price trackers",
+          "source_zh": "台積電 CoWoS 評論；第三方 GPU 價格追蹤",
+          "source_url": "https://vast.ai/"
+        },
+        {
+          "id": "networking_attach",
+          "name_en": "Networking attach (NVLink / InfiniBand / Spectrum-X / BlueField)",
+          "name_zh": "網路 attach（NVLink／InfiniBand／Spectrum-X／BlueField）",
+          "mechanism_en": "Bigger clusters drag along NVLink/NVSwitch, Quantum InfiniBand, Spectrum-X Ethernet and BlueField DPUs (post-Mellanox). Networking scales with cluster size and bills separately, raising the total realized price of an AI deployment above the accelerator line alone.",
+          "mechanism_zh": "更大的叢集會帶出 NVLink/NVSwitch、Quantum InfiniBand、Spectrum-X 乙太網路與 BlueField DPU（併購 Mellanox 後）。網路隨叢集規模放大、另計費，把一次 AI 部署的總已實現售價推高到加速器項目之上。",
+          "direction": "up",
+          "strength": 68.0,
+          "weight": 0.8,
+          "tier": "T1",
+          "is_estimate": false,
+          "observability_en": "Networking revenue line in 10-Q; InfiniBand vs Ethernet mix; attach rate per GPU cluster.",
+          "observability_zh": "10-Q 的網路營收項；InfiniBand vs 乙太網路結構；每 GPU 叢集的 attach 率。",
+          "source_en": "NVIDIA 10-Q networking disclosures",
+          "source_zh": "NVIDIA 10-Q 網路揭露",
+          "source_url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=NVDA&type=10-Q"
+        },
+        {
+          "id": "software_recurring",
+          "name_en": "Software & recurring (AI Enterprise / DGX Cloud / Omniverse)",
+          "name_zh": "軟體與週期性收入（AI Enterprise／DGX Cloud／Omniverse）",
+          "mechanism_en": "Per-GPU AI Enterprise subscriptions, DGX Cloud and Omniverse layer a value-based, recurring revenue stream on top of the silicon — a software margin that lifts blended realized price and is independent of any per-chip rate card.",
+          "mechanism_zh": "每 GPU 的 AI Enterprise 訂閱、DGX Cloud 與 Omniverse，在矽之上疊加一層價值定向、週期性的營收流 — 一種軟體利差，拉高混合後的已實現售價，且不受任何每晶片牌價牽制。",
+          "direction": "up",
+          "strength": 55.0,
+          "weight": 0.6,
+          "tier": "T2",
+          "is_estimate": true,
+          "observability_en": "Software & services run-rate disclosures; AI Enterprise per-GPU pricing; DGX Cloud commitments.",
+          "observability_zh": "軟體與服務年化揭露；AI Enterprise 每 GPU 定價；DGX Cloud 承諾。",
+          "source_en": "NVIDIA software run-rate commentary",
+          "source_zh": "NVIDIA 軟體年化評論",
+          "source_url": "https://www.nvidia.com/en-us/data-center/products/ai-enterprise/"
+        }
+      ],
+      "top_lever_id": "generational_asp",
+      "engine_note_en": "generational ASP step-ups (Hopper→Blackwell→Rubin), rack-scale system selling and CUDA lock-in are doing the work — NVIDIA is a price-maker, not a price-taker",
+      "engine_note_zh": "世代 ASP 階梯（Hopper→Blackwell→Rubin）、機櫃級整機銷售與 CUDA 鎖定在推動 — NVIDIA 是定價者而非價格接受者"
+    },
+    "sources": {
+      "items": [
+        {
+          "name_en": "NVIDIA 10-Q / 10-K (Data Center segment)",
+          "name_zh": "NVIDIA 10-Q／10-K（資料中心分部）",
+          "what_en": "Data Center revenue, gross & operating margin, networking line, inventory & purchase commitments — the hard floor for the benefit estimate.",
+          "what_zh": "資料中心營收、毛利與營益率、網路項、存貨與採購承諾 — 利益估計的硬底。",
+          "tier": "T1",
+          "cadence": "quarterly",
+          "access_en": "free (SEC EDGAR)",
+          "access_zh": "免費（SEC EDGAR）",
+          "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=NVDA&type=10-Q"
+        },
+        {
+          "name_en": "NVIDIA earnings calls & investor presentations",
+          "name_zh": "NVIDIA 法說會與投資人簡報",
+          "what_en": "Management framing of Blackwell/Rubin ramp, supply constraints, system vs component mix, and software run-rate.",
+          "what_zh": "管理層對 Blackwell/Rubin 量產、供給限制、系統 vs 元件結構與軟體年化的措辭。",
+          "tier": "T1",
+          "cadence": "quarterly",
+          "access_en": "free (IR site)",
+          "access_zh": "免費（IR 網站）",
+          "url": "https://investor.nvidia.com/events-and-presentations/events-and-presentations/"
+        },
+        {
+          "name_en": "Hyperscaler capex guidance (MSFT/GOOG/META/AMZN)",
+          "name_zh": "雲端巨頭 capex 指引（微軟/Google/Meta/Amazon）",
+          "what_en": "The demand that leads NVIDIA Data Center revenue by a quarter or two — the single best forward indicator.",
+          "what_zh": "領先 NVIDIA 資料中心營收約一兩季的需求 — 最佳的前瞻指標。",
+          "tier": "T1",
+          "cadence": "quarterly",
+          "access_en": "free (IR / 10-Q)",
+          "access_zh": "免費（IR／10-Q）",
+          "url": "https://www.sec.gov/cgi-bin/browse-edgar"
+        },
+        {
+          "name_en": "SemiAnalysis accelerator model",
+          "name_zh": "SemiAnalysis 加速器模型",
+          "what_en": "Independent ASP, BOM and shipment estimates per accelerator — the cross-check on realized price and unit economics.",
+          "what_zh": "各加速器獨立的 ASP、BOM 與出貨估計 — 對已實現價格與單位經濟的交叉驗證。",
+          "tier": "T2",
+          "cadence": "periodic",
+          "access_en": "paid research",
+          "access_zh": "付費研究",
+          "url": "https://www.semianalysis.com/"
+        },
+        {
+          "name_en": "GPU spot-rent trackers (vast.ai)",
+          "name_zh": "GPU 現貨租金追蹤（vast.ai）",
+          "what_en": "Market GPU rental rates — a real-time proxy for accelerator scarcity that leads the allocation premium.",
+          "what_zh": "市場 GPU 租金 — 加速器稀缺的即時 proxy，領先配額溢價。",
+          "tier": "T2",
+          "cadence": "continuous",
+          "access_en": "free dashboard",
+          "access_zh": "免費儀表板",
+          "url": "https://vast.ai/"
+        },
+        {
+          "name_en": "TSMC revenue & CoWoS capacity disclosures",
+          "name_zh": "台積電營收與 CoWoS 產能揭露",
+          "what_en": "Leading-edge (N4/N3) mix and CoWoS capacity — the supply ceiling that caps NVIDIA's shippable units.",
+          "what_zh": "先進製程（N4/N3）結構與 CoWoS 產能 — 限制 NVIDIA 可出貨量的供給天花板。",
+          "tier": "T1",
+          "cadence": "monthly/quarterly",
+          "access_en": "free (TSMC IR)",
+          "access_zh": "免費（台積電 IR）",
+          "url": "https://investor.tsmc.com/"
+        },
+        {
+          "name_en": "HBM supply (SK hynix / Micron / Samsung)",
+          "name_zh": "HBM 供給（SK 海力士／美光／三星）",
+          "what_en": "HBM3E/HBM4 capacity and qualification — the other binding input alongside CoWoS for every Blackwell/Rubin GPU.",
+          "what_zh": "HBM3E/HBM4 產能與驗證 — 與 CoWoS 並列、每顆 Blackwell/Rubin GPU 的另一個綁定輸入。",
+          "tier": "T2",
+          "cadence": "quarterly",
+          "access_en": "free (IR)",
+          "access_zh": "免費（IR）",
+          "url": "https://www.skhynix.com/ir/"
+        },
+        {
+          "name_en": "NVIDIA GTC roadmap (Blackwell / Rubin cadence)",
+          "name_zh": "NVIDIA GTC 路線圖（Blackwell／Rubin 節奏）",
+          "what_en": "The annual product cadence that resets the ASP ceiling — confirms the timing of each generational step-up.",
+          "what_zh": "每年重置 ASP 天花板的產品節奏 — 確認每一次世代階躍的時點。",
+          "tier": "T1",
+          "cadence": "on-event",
+          "access_en": "free",
+          "access_zh": "免費",
+          "url": "https://www.nvidia.com/gtc/"
+        }
+      ]
+    },
+    "benefit": {
+      "estimates": [
+        {
+          "id": "dc_revenue_runrate",
+          "method_en": "Data Center revenue run-rate (disclosed, annualized)",
+          "method_zh": "資料中心營收年化（揭露值，年化）",
+          "value_usd_bn": 180.0,
+          "metric": "revenue_runrate",
+          "confidence": "high",
+          "tier": "T1",
+          "is_estimate": false,
+          "basis_en": "Unlike AWS, NVIDIA reports a Data Center segment directly. Annualizing the most recent disclosed quarter (~$45B) gives a ~$180B run-rate — and Data Center is now ~88-90% of NVIDIA's total revenue and effectively all AI. Annualization is the only projection; the segment itself is disclosed. Cross-references /payback for the demand-side coverage view.",
+          "basis_zh": "與 AWS 不同，NVIDIA 直接揭露資料中心分部。把最近一季揭露值（約 $45B）年化得到約 $180B 年化營收 — 而資料中心現在約占 NVIDIA 總營收 88-90%、實質上全為 AI。唯一的推估是年化動作；分部本身為揭露值。需求端覆蓋率視角見 /payback。"
+        },
+        {
+          "id": "dc_op_income",
+          "method_en": "Data Center operating income (margin lens)",
+          "method_zh": "資料中心營益（利潤率視角）",
+          "value_usd_bn": 112.0,
+          "metric": "op_income",
+          "confidence": "high",
+          "tier": "T2",
+          "is_estimate": true,
+          "basis_en": "At a ~62-64% operating margin on the Data Center run-rate, AI operating income annualizes near $110-115B. This is a derived estimate (NVIDIA reports company-level, not segment-level, operating income) but anchored to disclosed margins.",
+          "basis_zh": "以資料中心年化營收約 62-64% 營益率計，AI 營益年化接近 $110-115B。此為推導估計（NVIDIA 揭露公司層級而非分部層級營益），但錨定在揭露的利潤率上。"
+        },
+        {
+          "id": "software_recurring_runrate",
+          "method_en": "Software & services recurring run-rate",
+          "method_zh": "軟體與服務週期性年化",
+          "value_usd_bn": 3.0,
+          "metric": "software_runrate",
+          "confidence": "low",
+          "tier": "T3",
+          "is_estimate": true,
+          "basis_en": "AI Enterprise per-GPU subscriptions, DGX Cloud and Omniverse — management has pointed to a software/services run-rate in the low-single-digit $B and rising. A small slice today, but a higher-margin, value-based layer that compounds.",
+          "basis_zh": "AI Enterprise 每 GPU 訂閱、DGX Cloud 與 Omniverse — 管理層指出軟體/服務年化在個位數低端 $B 且持續上升。今日占比小，但屬高利差、價值定向、會複利成長的一層。"
+        }
+      ],
+      "headline_id": "dc_revenue_runrate",
+      "headline_usd_bn": 180.0,
+      "headline_metric": "revenue_runrate",
+      "headline_is_estimate": false,
+      "consensus_usd_bn": 180.0,
+      "disclosure_note_en": "NVIDIA reports Data Center revenue directly (near-pure AI); the only estimates are the operating-income split and the software run-rate. Cross-checked against op-income and software lenses.",
+      "disclosure_note_zh": "NVIDIA 直接揭露資料中心營收（近乎純 AI）；唯一的估計是營益拆分與軟體年化。已用營益與軟體視角交叉驗證。"
+    },
+    "silicon": {
+      "chain": [
+        {
+          "accelerator_en": "GB200 / GB300 (Blackwell)",
+          "accelerator_zh": "GB200／GB300（Blackwell）",
+          "role_en": "Flagship training/inference accelerator",
+          "role_zh": "旗艦訓練/推論加速器",
+          "designer": "NVIDIA",
+          "node": "TSMC N4P (4nm-class)",
+          "packaging": "CoWoS-L",
+          "fab": "TSMC",
+          "dependency": "critical",
+          "tier": "T1",
+          "is_estimate": false,
+          "note_en": "The volume engine of the current cycle; large-die CoWoS-L + HBM3E make it entirely dependent on TSMC advanced packaging at scale.",
+          "note_zh": "本循環的量產引擎；大尺寸 CoWoS-L＋HBM3E 使其在規模上完全依賴台積電先進封裝。"
+        },
+        {
+          "accelerator_en": "Rubin (R100, next-gen)",
+          "accelerator_zh": "Rubin（R100，次世代）",
+          "role_en": "Next-gen accelerator (2026 roadmap)",
+          "role_zh": "次世代加速器（2026 路線圖）",
+          "designer": "NVIDIA",
+          "node": "TSMC N3 (3nm-class)",
+          "packaging": "CoWoS-L (advanced) + HBM4",
+          "fab": "TSMC",
+          "dependency": "critical",
+          "tier": "T2",
+          "is_estimate": true,
+          "note_en": "Forward roadmap — pushes NVIDIA onto TSMC N3 and the next CoWoS/HBM4 generation, deepening leading-edge dependence.",
+          "note_zh": "前瞻路線圖 — 把 NVIDIA 推上台積電 N3 與次世代 CoWoS/HBM4，加深對先進製程的依賴。"
+        },
+        {
+          "accelerator_en": "H100 / H200 (Hopper)",
+          "accelerator_zh": "H100／H200（Hopper）",
+          "role_en": "Prior-gen training/inference accelerator",
+          "role_zh": "上一代訓練/推論加速器",
+          "designer": "NVIDIA",
+          "node": "TSMC N4 (4nm)",
+          "packaging": "CoWoS-S",
+          "fab": "TSMC",
+          "dependency": "high",
+          "tier": "T1",
+          "is_estimate": false,
+          "note_en": "Still a large installed and shipping base; the generation that established the CoWoS bottleneck as the binding constraint.",
+          "note_zh": "仍是龐大的安裝與出貨基礎；正是這一代讓 CoWoS 瓶頸成為綁定約束。"
+        },
+        {
+          "accelerator_en": "Grace CPU",
+          "accelerator_zh": "Grace CPU",
+          "role_en": "Arm CPU paired with GPUs (Grace-Blackwell)",
+          "role_zh": "與 GPU 搭配的 Arm CPU（Grace-Blackwell）",
+          "designer": "NVIDIA",
+          "node": "TSMC N5/N4",
+          "packaging": "advanced",
+          "fab": "TSMC",
+          "dependency": "high",
+          "tier": "T1",
+          "is_estimate": false,
+          "note_en": "The CPU half of the superchip — another TSMC leading-edge die that ships inside every GB200 rack.",
+          "note_zh": "超級晶片的 CPU 一半 — 另一顆每個 GB200 機櫃內都會出貨的台積電先進製程晶粒。"
+        },
+        {
+          "accelerator_en": "NVLink Switch / NVSwitch",
+          "accelerator_zh": "NVLink Switch／NVSwitch",
+          "role_en": "Scale-up interconnect fabric",
+          "role_zh": "scale-up 互連 fabric",
+          "designer": "NVIDIA",
+          "node": "TSMC N4",
+          "packaging": "standard/advanced",
+          "fab": "TSMC",
+          "dependency": "high",
+          "tier": "T2",
+          "is_estimate": true,
+          "note_en": "The fabric that makes NVL72 sell as one system — also TSMC-fabbed, and part of why the unit of sale (and ASP) keeps rising.",
+          "note_zh": "讓 NVL72 能以單一系統出售的 fabric — 同樣由台積電製造，也是銷售單位（與 ASP）持續上升的原因之一。"
+        },
+        {
+          "accelerator_en": "Networking (Spectrum-X / Quantum / BlueField)",
+          "accelerator_zh": "網路（Spectrum-X／Quantum／BlueField）",
+          "role_en": "Scale-out networking & DPUs",
+          "role_zh": "scale-out 網路與 DPU",
+          "designer": "NVIDIA",
+          "node": "TSMC N5/N7",
+          "packaging": "standard",
+          "fab": "TSMC",
+          "dependency": "medium",
+          "tier": "T2",
+          "is_estimate": true,
+          "note_en": "InfiniBand/Ethernet switches and BlueField DPUs (post-Mellanox) — the networking-attach lever, again on TSMC silicon.",
+          "note_zh": "InfiniBand／乙太網路交換器與 BlueField DPU（併購 Mellanox 後）— 網路 attach 槓桿，同樣跑在台積電矽上。"
+        }
+      ],
+      "tsmc_exposure_pct": 100,
+      "tsmc_fabbed_count": 6,
+      "chain_count": 6,
+      "critical_count": 2,
+      "tsmc_read_en": "Essentially 100% of NVIDIA's AI silicon — Blackwell/Rubin/Hopper GPUs, the Grace CPU, NVLink switches and networking — is fabbed by TSMC on N4/N3 and packaged with CoWoS. For TSMC, NVIDIA is the direct anchor customer: a top leading-edge buyer AND the single largest source of CoWoS demand. NVIDIA also aggregates the indirect demand of every hyperscaler that rents its GPUs (Amazon is a TSMC customer 'twice over' partly through NVIDIA). The binding constraint on NVIDIA's growth — CoWoS and HBM — sits inside TSMC's own capacity, so NVIDIA's pricing power and TSMC's pricing power are two ends of the same leading-edge scarcity.",
+      "tsmc_read_zh": "NVIDIA 的 AI 矽 — Blackwell/Rubin/Hopper GPU、Grace CPU、NVLink 交換器與網路 — 幾乎 100% 由台積電以 N4/N3 製造、用 CoWoS 封裝。對台積電而言，NVIDIA 是直接的頭號客戶：頂級先進製程買家，也是 CoWoS 需求的最大單一來源。NVIDIA 同時匯聚了所有租用其 GPU 的雲端巨頭的間接需求（Amazon 之所以是台積電的「雙重」客戶，部分正是透過 NVIDIA）。NVIDIA 成長的綁定約束 — CoWoS 與 HBM — 就在台積電自己的產能裡，因此 NVIDIA 的定價權與台積電的定價權，是同一個先進製程稀缺的兩端。"
+    }
+  },
+  "l3": {
+    "proxies": [
+      {
+        "id": "nvda_equity",
+        "name_en": "NVIDIA (NVDA)",
+        "name_zh": "NVIDIA（NVDA）",
+        "kind": "equity",
+        "value": 175.0,
+        "chg_1w": 1.5,
+        "chg_1m": 6.0,
+        "live": false
+      },
+      {
+        "id": "tsm_equity",
+        "name_en": "TSMC (TSM) — supply-side proxy",
+        "name_zh": "台積電（TSM）— 供給端 proxy",
+        "kind": "equity",
+        "value": 230.0,
+        "chg_1w": 1.0,
+        "chg_1m": 5.2,
+        "live": false
+      },
+      {
+        "id": "avgo_equity",
+        "name_en": "Broadcom (AVGO) — custom-ASIC competition proxy",
+        "name_zh": "博通（AVGO）— 自研 ASIC 競爭 proxy",
+        "kind": "equity",
+        "value": 280.0,
+        "chg_1w": 0.6,
+        "chg_1m": 3.4,
+        "live": false
+      }
+    ],
+    "alerts": [
+      {
+        "level": "strong",
+        "en": "Realized-price engine running hot: pricing-power score 75.0/100 — generational ASP step-ups (Hopper→Blackwell→Rubin), rack-scale system selling and CUDA lock-in are doing the work — NVIDIA is a price-maker, not a price-taker.",
+        "zh": "已實現價格引擎火熱：定價權分數 75.0/100 — 世代 ASP 階梯（Hopper→Blackwell→Rubin）、機櫃級整機銷售與 CUDA 鎖定在推動 — NVIDIA 是定價者而非價格接受者。"
+      },
+      {
+        "level": "exposure",
+        "en": "Concentration: ~100% of the AI compute behind this benefit is TSMC-fabbed, 2 link(s) critical — the CoWoS bottleneck TSMC controls is the binding constraint on growth.",
+        "zh": "集中度：撐起此利益的 AI 算力約 100% 由台積電製造，2 條鏈關鍵 — 台積電掌握的 CoWoS 瓶頸即成長綁定約束。"
+      },
+      {
+        "level": "watch",
+        "en": "AI benefit (headline) ≈ $180.0B revenue_runrate — NVIDIA reports Data Center revenue directly (near-pure AI); the only estimates are the operating-income split and the software run-rate. Cross-checked against op-income and software lenses.",
+        "zh": "AI 利益（頭條）≈ $180.0B revenue_runrate — NVIDIA 直接揭露資料中心營收（近乎純 AI）；唯一的估計是營益拆分與軟體年化。已用營益與軟體視角交叉驗證。"
+      }
+    ]
+  },
+  "l4": {
+    "integrated_thesis": {
+      "en": "NVIDIA raises REALIZED compute price even as list prices fall — score 75.0/100 (RAISING), led by 'Generational ASP step-ups (Hopper → Blackwell → Rubin)'. That engine underwrites an estimated $180.0B revenue_runrate of AI benefit, and ~100% of the silicon beneath it is TSMC-fabbed — so the upside and its binding constraint both sit on TSMC's leading-edge & CoWoS.",
+      "zh": "NVIDIA（輝達） 在牌價下跌之際仍提高已實現算力售價 — 分數 75.0/100（RAISING），由「世代 ASP 階梯（Hopper → Blackwell → Rubin）」帶動。這部引擎撐起估計 $180.0B revenue_runrate 的 AI 利益，而其底層約 100% 的矽由台積電製造 — 因此上行空間與綁定約束都押在台積電先進製程與 CoWoS。"
+    },
+    "pillars": {
+      "pricing": {
+        "en": "Score 75.0/100 — RAISING. The work is done by 'Generational ASP step-ups (Hopper → Blackwell → Rubin)' and the up-stack levers, not list-price hikes. Realized price per useful compute is rising through mix and margin capture.",
+        "zh": "分數 75.0/100 — RAISING。推動者是「世代 ASP 階梯（Hopper → Blackwell → Rubin）」與服務棧上移槓桿，而非抬牌價。每單位有用算力的已實現價格靠組合與利差捕獲在上升。"
+      },
+      "sources": {
+        "en": "Watch it via: NVIDIA 10-Q / 10-K (Data Center segment), NVIDIA earnings calls & investor presentations, Hyperscaler capex guidance (MSFT/GOOG/META/AMZN), SemiAnalysis accelerator model — segment filings + RPO are the hard floor; GPU spot rents & price APIs lead.",
+        "zh": "觀測管道：10-Q/10-K 分部與 RPO 是硬底，GPU 現貨租金與價格 API 領先。"
+      },
+      "benefit": {
+        "en": "AI benefit headline ≈ $180.0B revenue_runrate — DISCLOSED (consensus $180.0B); NVIDIA reports Data Center revenue directly (near-pure AI); the only estimates are the operating-income split and the software run-rate. Cross-checked against op-income and software lenses.",
+        "zh": "AI 利益頭條 ≈ $180.0B revenue_runrate — 為揭露值（共識 $180.0B）；NVIDIA 直接揭露資料中心營收（近乎純 AI）；唯一的估計是營益拆分與軟體年化。已用營益與軟體視角交叉驗證。"
+      },
+      "silicon": {
+        "en": "~100% TSMC-fabbed across 6 accelerators, 2 critical. Every Blackwell/Rubin/Hopper GPU, the Grace CPU and the NVLink/Spectrum networking are TSMC N3-N5 + CoWoS — NVIDIA is TSMC's single largest CoWoS customer.",
+        "zh": "6 顆加速器約 100% 由台積電製造，2 條關鍵。每顆 Blackwell/Rubin/Hopper GPU、Grace CPU 與 NVLink/Spectrum 網路全為台積電 N3-N5＋CoWoS — NVIDIA 是台積電最大的單一 CoWoS 客戶。"
+      }
+    },
+    "tsmc_implication": {
+      "en": "Essentially 100% of NVIDIA's AI silicon — Blackwell/Rubin/Hopper GPUs, the Grace CPU, NVLink switches and networking — is fabbed by TSMC on N4/N3 and packaged with CoWoS. For TSMC, NVIDIA is the direct anchor customer: a top leading-edge buyer AND the single largest source of CoWoS demand. NVIDIA also aggregates the indirect demand of every hyperscaler that rents its GPUs (Amazon is a TSMC customer 'twice over' partly through NVIDIA). The binding constraint on NVIDIA's growth — CoWoS and HBM — sits inside TSMC's own capacity, so NVIDIA's pricing power and TSMC's pricing power are two ends of t",
+      "zh": "NVIDIA 的 AI 矽 — Blackwell/Rubin/Hopper GPU、Grace CPU、NVLink 交換器與網路 — 幾乎 100% 由台積電以 N4/N3 製造、用 CoWoS 封裝。對台積電而言，NVIDIA 是直接的頭號客戶：頂級先進製程買家，也是 CoWoS 需求的最大單一來源。NVIDIA 同時匯聚了所有租用其 GPU 的雲端巨頭的間接需求（Amazon 之所以是台積電的「雙重」客戶，部分正是透過 NVIDIA）。NVIDIA 成長的綁定約束 — CoWoS 與 HBM — 就在台積電自己的產能裡，因此 NVIDIA 的定價權與台積電的定價權，是同一個先進製程稀缺的兩端。"
+    }
+  },
+  "l5": {
+    "scenarios": [
+      {
+        "name_en": "CUDA + annual-cadence flywheel",
+        "name_zh": "CUDA＋年度節奏飛輪",
+        "prob": 40,
+        "trigger_en": "Rubin ships on schedule, Data Center run-rate clears $250B, gross margin holds above 72% as CUDA lock-in and the annual cadence keep ASP and share rising.",
+        "trigger_zh": "Rubin 如期出貨，資料中心年化突破 $250B，毛利率守在 72% 以上，CUDA 鎖定與年度節奏持續推升 ASP 與市占。"
+      },
+      {
+        "name_en": "System & software repricing wins",
+        "name_zh": "系統與軟體再定價勝出",
+        "prob": 27,
+        "trigger_en": "Value migrates from per-chip ASP to rack-systems plus software (AI Enterprise/DGX Cloud); networking attach and software run-rate rise, lifting blended realized price even if per-GPU ASP plateaus.",
+        "trigger_zh": "價值從每晶片 ASP 移向機櫃系統加軟體（AI Enterprise／DGX Cloud）；網路 attach 與軟體年化上升，即使每 GPU ASP 進入高原仍推升混合已實現價格。"
+      },
+      {
+        "name_en": "CoWoS / HBM bottleneck caps volume",
+        "name_zh": "CoWoS／HBM 瓶頸卡住出貨量",
+        "prob": 21,
+        "trigger_en": "TSMC CoWoS and HBM allocation cap shippable units; NVIDIA can hold price but guides supply-constrained, and shipped units stay below demand.",
+        "trigger_zh": "台積電 CoWoS 與 HBM 配額限制可出貨量；NVIDIA 能守住價格卻指引供給受限，出貨量持續低於需求。"
+      },
+      {
+        "name_en": "Accelerator glut / ASP compression",
+        "name_zh": "加速器過剩／ASP 壓縮",
+        "prob": 12,
+        "trigger_en": "Hyperscaler capex flattens YoY, GPU spot rents fall hard, and custom ASICs (Trainium/TPU/MTIA/Maia) take share — the scarcity premium and ASP compress.",
+        "trigger_zh": "雲端巨頭 capex 年增轉平，GPU 現貨租金重挫，自研 ASIC（Trainium/TPU/MTIA/Maia）搶走市占 — 稀缺溢價與 ASP 一起壓縮。"
+      }
+    ],
+    "falsification": [
+      {
+        "en": "NVIDIA Data Center gross margin falls for two straight quarters while DC revenue still grows — pricing power is eroding under ASIC/competitive pressure, not scaling.",
+        "zh": "資料中心營收仍成長的同時，NVIDIA 資料中心毛利率連兩季下滑 — 定價權在 ASIC／競爭壓力下轉弱，而非擴張。"
+      },
+      {
+        "en": "Custom-silicon (Trainium/TPU/MTIA/Maia) share of new AI capacity rises materially while NVIDIA DC growth decelerates — the share-and-price moat is breaking.",
+        "zh": "自研晶片（Trainium/TPU/MTIA/Maia）在新增 AI 產能的占比明顯上升，同時 NVIDIA 資料中心成長減速 — 市占與定價的護城河正在破。"
+      },
+      {
+        "en": "GPU spot rents collapse and stay low as supply normalizes — the scarcity / allocation premium is gone.",
+        "zh": "隨供給正常化，GPU 現貨租金崩跌且持續低檔 — 稀缺／配額溢價消失。"
+      }
+    ],
+    "watch": [
+      {
+        "en": "NVIDIA Data Center revenue & gross margin (10-Q)",
+        "zh": "NVIDIA 資料中心營收與毛利率（10-Q）",
+        "freq": "quarterly"
+      },
+      {
+        "en": "Hyperscaler capex guidance (MSFT/GOOG/META/AMZN) — leads DC revenue",
+        "zh": "雲端巨頭 capex 指引（微軟/Google/Meta/Amazon）— 領先資料中心營收",
+        "freq": "quarterly"
+      },
+      {
+        "en": "Blackwell / Rubin ramp & GTC roadmap cadence",
+        "zh": "Blackwell／Rubin 量產與 GTC 路線圖節奏",
+        "freq": "on-event"
+      },
+      {
+        "en": "CoWoS capacity & HBM (SK hynix / Micron) lead times",
+        "zh": "CoWoS 產能與 HBM（SK 海力士／美光）交期",
+        "freq": "monthly"
+      },
+      {
+        "en": "GPU spot rents (vast.ai / market)",
+        "zh": "GPU 現貨租金（vast.ai／市場）",
+        "freq": "weekly"
+      },
+      {
+        "en": "Custom-ASIC share (Trainium/TPU/MTIA/Maia) in hyperscaler fleets",
+        "zh": "雲端機隊中自研 ASIC（Trainium/TPU/MTIA/Maia）占比",
+        "freq": "quarterly"
+      },
+      {
+        "en": "Networking + software (AI Enterprise/DGX Cloud) attach",
+        "zh": "網路＋軟體（AI Enterprise／DGX Cloud）attach",
+        "freq": "quarterly"
+      }
+    ]
+  },
+  "analysis_engine": "rules",
+  "cross_links": [
+    {
+      "href": "/cwengine/",
+      "label_en": "CapEx → Wafer Engine — turn the capex NVIDIA captures into implied TSMC wafer demand",
+      "label_zh": "CapEx → 晶圓引擎 — 把 NVIDIA 吃下的 capex 換算成隱含台積電晶圓需求"
+    },
+    {
+      "href": "/pricing/",
+      "label_en": "Pricing Power Radar — the foundry ASP side of the same price stack",
+      "label_zh": "議價能力雷達 — 同一價格堆疊的代工 ASP 端"
+    },
+    {
+      "href": "/payback/",
+      "label_en": "Capex Payback Radar — is the AI capex NVIDIA feeds on paying off yet?",
+      "label_zh": "資本支出回本雷達 — 餵養 NVIDIA 的 AI capex 回本了沒？"
+    },
+    {
+      "href": "/compute/",
+      "label_en": "AI Compute Demand Radar — the accelerator demand NVIDIA supplies",
+      "label_zh": "AI 算力需求雷達 — NVIDIA 供給的加速器需求"
+    },
+    {
+      "href": "/rival/",
+      "label_en": "Rival Radar — TSMC's competitive position behind NVIDIA's silicon",
+      "label_zh": "競爭者雷達 — NVIDIA 矽背後台積電的競爭格局"
+    }
+  ],
+  "blind_spots_en": [
+    "NVIDIA discloses Data Center revenue but not a precise training-vs-inference-vs-networking split — that breakdown here is estimated, and the run-rate annualizes a single quarter.",
+    "Node and packaging assignments (e.g. Rubin on N3, CoWoS-L) are from press / industry reporting, not TSMC/NVIDIA confirmation.",
+    "Live proxies (NVDA/TSM/AVGO equity) are sentiment context, deliberately kept out of the core pricing-power score."
+  ],
+  "blind_spots_zh": [
+    "NVIDIA 揭露資料中心營收，但未揭露精確的訓練 vs 推論 vs 網路拆分 — 此處的拆分為估計，且年化是把單季年化。",
+    "節點與封裝對應（如 Rubin 用 N3、CoWoS-L）來自媒體／產業報導，非台積電/NVIDIA 確認。",
+    "即時 proxy（NVDA/TSM/AVGO 股價）為情緒情境，刻意排除在核心定價權分數之外。"
+  ],
+  "news": [],
+  "fetched_at": null
+}

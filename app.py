@@ -174,9 +174,12 @@ STRINGS = {
     "scenario_desc":{"en": "Synthesizes every platform below into the capital-market states that could come next — each with a model-assisted probability and the driver signals that move it.",
                      "zh": "把下方所有平台合成成接下來可能的資本市場狀態 — 每個狀態附 model-assisted 機率,以及推動它的 driver 訊號。"},
     "scenario_div_lbl":{"en": "divergences",           "zh": "項背離"},
-    "company_name":{"en": "Company Deep-Dive — Amazon", "zh": "個股深掘 — Amazon"},
-    "company_desc":{"en": "One company, four pillars: how AWS raises realized compute price · what to watch it with · how much it makes from AI · and how all of it rests on TSMC leading-edge & CoWoS.",
-                    "zh": "一家公司、四支柱:AWS 怎麼提高已實現算力售價 · 用什麼資料觀察 · 從 AI 賺多少 · 以及這一切如何押在台積電先進製程與 CoWoS。"},
+    "company_name":{"en": "Amazon (AWS)",              "zh": "Amazon（AWS）"},
+    "company_desc":{"en": "Four pillars: how AWS raises realized compute price · what to watch it with · how much it makes from AI · and how all of it rests on TSMC leading-edge & CoWoS.",
+                    "zh": "四支柱:AWS 怎麼提高已實現算力售價 · 用什麼資料觀察 · 從 AI 賺多少 · 以及這一切如何押在台積電先進製程與 CoWoS。"},
+    "company_nv_name":{"en": "NVIDIA",                  "zh": "NVIDIA（輝達）"},
+    "company_nv_desc":{"en": "Four pillars on TSMC's anchor customer: how NVIDIA raises realized compute price (generational ASP · rack systems · CUDA lock-in) · what to watch it with · its AI revenue · and how ~100% of it is TSMC N4/N3 + CoWoS.",
+                       "zh": "對台積電頭號客戶的四支柱:NVIDIA 怎麼提高已實現算力售價（世代 ASP · 機櫃整機 · CUDA 鎖定）· 用什麼觀察 · AI 營收多少 · 以及這一切如何幾乎 100% 是台積電 N4/N3＋CoWoS。"},
     "company_lbl":{"en": "/100 pricing power",         "zh": "/100 定價權"},
     "v_raising": {"en": "raising",                     "zh": "漲價中"},
     "v_holding": {"en": "holding",                     "zh": "持平"},
@@ -323,6 +326,10 @@ def portal():
     except Exception:
         company_snap = None
     try:
+        company_nv_snap = company_load_snapshot("nvidia")
+    except Exception:
+        company_nv_snap = None
+    try:
         bottleneck_snap = bottleneck_load_snapshot()
     except Exception:
         bottleneck_snap = None
@@ -361,6 +368,10 @@ def portal():
         company_verdict=((company_snap.get("headline") or {}).get("verdict_key")) if company_snap else None,
         company_benefit=((company_snap.get("headline") or {}).get("ai_benefit_usd_bn")) if company_snap else None,
         company_name=(((company_snap.get("company") or {}).get("name_zh" if ui_lang() == "zh" else "name_en")) if company_snap else None),
+        company_nv_updated=(company_nv_snap.get("as_of") if company_nv_snap else None),
+        company_nv_score=((company_nv_snap.get("headline") or {}).get("compute_pricing_score")) if company_nv_snap else None,
+        company_nv_verdict=((company_nv_snap.get("headline") or {}).get("verdict_key")) if company_nv_snap else None,
+        company_nv_benefit=((company_nv_snap.get("headline") or {}).get("ai_benefit_usd_bn")) if company_nv_snap else None,
         bottleneck_updated=(bottleneck_snap.get("as_of") if bottleneck_snap else None),
         bottleneck_binding=(((bottleneck_snap.get("thesis") or {}).get("binding_name_zh" if ui_lang() == "zh" else "binding_name_en")) if bottleneck_snap else None),
         bottleneck_deliv=(((bottleneck_snap.get("thesis") or {}).get("deliverable_ea_qtr")) if bottleneck_snap else None),

@@ -264,14 +264,14 @@ const T = {
       srcSeed:"source: seed", srcLive:"source: live", srcPartial:"source: partial",
       h_pp:"① Compute pricing power", scLo:"0 eroding", scHi:"100 raising",
       ppNote:"List prices fall every year — this scores the REALIZED price-per-compute levers.",
-      h_ben:"③ AI benefit (est.)", benNote:"Labeled estimate — AWS discloses no AI-only line.",
+      h_ben:"③ AI benefit", estTag:" (est.)", benNoteEst:"Labeled estimate — see the methods & blind spots below.", benNoteDisc:"Largely disclosed — see the methods & blind spots below.",
       h_tsmc:"④ TSMC exposure", tsmcNote:"Share of the AI compute beneath this benefit that is TSMC-fabbed.",
-      h_A:"① How AWS raises the price of compute", n_A:"Six realized-price levers, scored by current strength (0–100). List price ≠ realized price.",
+      h_A:"① How it raises the price of compute", n_A:"Realized-price levers, scored by current strength (0–100). List price ≠ realized price.",
       readA_l:"CEO read", h_alerts:"Signals", h_B:"② What to watch it with",
       n_B:"The data-source dictionary — where each lever above is actually observable.",
       th_src:"Source", th_what:"What it shows", th_tier:"Tier", th_cad:"Cadence", th_acc:"Access",
-      readB_l:"CEO read", h_C:"③ How much Amazon makes from AI",
-      n_C:"Multi-method estimates with confidence — no figure here is a reported number.",
+      readB_l:"CEO read", h_C:"③ How much it makes from AI",
+      n_C:"Multi-method figures — disclosed lines and labeled estimates, each with confidence and tier.",
       readC_l:"CEO read", h_D:"④ The chip & TSMC link",
       n_D:"Every accelerator behind the benefit → node → CoWoS → fab. This is where it lands on TSMC.",
       th_acc2:"Accelerator", th_des:"Designer", th_node:"Node", th_pkg:"Packaging", th_fab:"Fab", th_dep:"Dependency",
@@ -280,7 +280,7 @@ const T = {
       h_fals:"What would break the thesis", h_watch:"Watch-list",
       h_links:"Close the loop", n_links:"Where this company sits in the rest of the platform.",
       h_news:"Live headlines", blind:"Blind spots & honesty notes",
-      disc:"Not investment advice. AWS does not disclose AI-only revenue or confidential contract prices; every dollar figure here is a labeled estimate, and node/packaging assignments are from press & industry reporting. Live equity proxies are sentiment context and are deliberately kept OUT of the pricing-power score."},
+      disc:"Not investment advice. Confidential contract prices are never reproduced; AI-benefit figures combine disclosed lines with labeled estimates, and node/packaging assignments are from press & industry reporting. Live equity proxies are sentiment context and are deliberately kept OUT of the pricing-power score."},
   zh:{home:"外部市場分析", lang:"EN", refresh:"↻ 刷新",
       pwPrompt:"輸入刷新密碼（預設 companylens2026）：",
       refreshing:"刷新中… 即時 proxy + Claude L4/L5", done:"完成，重新載入…", fail:"刷新失敗",
@@ -289,14 +289,14 @@ const T = {
       srcSeed:"來源：種子", srcLive:"來源：即時", srcPartial:"來源：部分即時",
       h_pp:"① 算力定價權", scLo:"0 受壓", scHi:"100 漲價中",
       ppNote:"牌價年年下跌 — 此處評的是「已實現單位算力價格」槓桿。",
-      h_ben:"③ AI 利益（估計）", benNote:"標註過的估計值 — AWS 無純 AI 揭露項。",
+      h_ben:"③ AI 利益", estTag:"（估計）", benNoteEst:"標註過的估計值 — 詳見下方方法與盲點。", benNoteDisc:"多為揭露值 — 詳見下方方法與盲點。",
       h_tsmc:"④ 台積電曝險", tsmcNote:"撐起此利益的 AI 算力中，由台積電製造的比例。",
-      h_A:"① AWS 怎麼提高算力售價", n_A:"六條已實現價格槓桿，依當前強度評分（0–100）。牌價 ≠ 已實現價格。",
+      h_A:"① 它怎麼提高算力售價", n_A:"已實現價格槓桿，依當前強度評分（0–100）。牌價 ≠ 已實現價格。",
       readA_l:"CEO 解讀", h_alerts:"訊號", h_B:"② 用什麼資料來源觀察",
       n_B:"資料來源字典 — 上面每條槓桿實際能在哪裡觀測。",
       th_src:"來源", th_what:"能看到什麼", th_tier:"分級", th_cad:"頻率", th_acc:"取得",
-      readB_l:"CEO 解讀", h_C:"③ Amazon 從 AI 賺多少",
-      n_C:"多方法估計＋信賴度 — 此處沒有任何數字是揭露數字。",
+      readB_l:"CEO 解讀", h_C:"③ 它從 AI 賺多少",
+      n_C:"多方法數字 — 揭露項與標註估計並陳，各附信賴度與分級。",
       readC_l:"CEO 解讀", h_D:"④ 晶片與台積電的連結",
       n_D:"利益背後每顆加速器 → 節點 → CoWoS → 製造。這就是它落到台積電的地方。",
       th_acc2:"加速器", th_des:"設計者", th_node:"節點", th_pkg:"封裝", th_fab:"製造", th_dep:"依賴",
@@ -305,7 +305,7 @@ const T = {
       h_fals:"什麼會推翻論點", h_watch:"觀察清單",
       h_links:"收回迴圈", n_links:"這家公司在平台其餘部分的位置。",
       h_news:"即時頭條", blind:"盲點與誠實註記",
-      disc:"非投資建議。AWS 不揭露純 AI 營收或機密合約價格；此處每個金額皆為標註過的估計值，節點／封裝對應來自媒體與產業報導。即時股價 proxy 為情緒情境，刻意排除於定價權分數之外。"},
+      disc:"非投資建議。機密合約價格一律不重現；AI 利益數字結合揭露項與標註估計，節點／封裝對應來自媒體與產業報導。即時股價 proxy 為情緒情境，刻意排除於定價權分數之外。"},
 };
 
 const tierClass = (t)=>({"T1":"t1","T2":"t2","T3":"t3"})[t]||"t2";
@@ -336,9 +336,10 @@ function render(){
   document.getElementById("ppPin").style.left=Math.max(0,Math.min(100,h.compute_pricing_score))+"%";
   document.getElementById("sc_lo").textContent=t.scLo; document.getElementById("sc_hi").textContent=t.scHi;
   document.getElementById("ppNote").textContent=t.ppNote;
-  document.getElementById("h_ben").textContent=t.h_ben;
+  const benIsEst=(P.benefit&&P.benefit.headline_is_estimate)!==false; // default to estimate
+  document.getElementById("h_ben").textContent=t.h_ben+(benIsEst?t.estTag:"");
   document.getElementById("benVal").textContent=h.ai_benefit_usd_bn;
-  document.getElementById("benNote").textContent=(LANG==="zh"?"口徑：":"metric: ")+(h.ai_benefit_metric||"")+" · "+t.benNote;
+  document.getElementById("benNote").textContent=(LANG==="zh"?"口徑：":"metric: ")+(h.ai_benefit_metric||"")+" · "+(benIsEst?t.benNoteEst:t.benNoteDisc);
   document.getElementById("h_tsmc").textContent=t.h_tsmc;
   document.getElementById("tsmcVal").textContent="~"+h.tsmc_exposure_pct;
   document.getElementById("tsmcNote").textContent=t.tsmcNote;

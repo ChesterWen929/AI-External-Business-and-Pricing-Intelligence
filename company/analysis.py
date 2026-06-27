@@ -181,16 +181,21 @@ def _rules(kb, pillars, l3):
     sources_en = f"Watch it via: {src_names} — segment filings + RPO are the hard floor; GPU spot rents & price APIs lead."
     sources_zh = "觀測管道：10-Q/10-K 分部與 RPO 是硬底，GPU 現貨租金與價格 API 領先。"
 
-    benefit_en = (f"AI benefit headline ≈ ${bn}B {metric} — an ESTIMATE ({'consensus $' + str(b.get('consensus_usd_bn')) + 'B' if b.get('consensus_usd_bn') else 'single-method'}); "
-                  f"no AI-only line is disclosed. Cross-checked against op-income and stake lenses.")
-    benefit_zh = (f"AI 利益頭條 ≈ ${bn}B {metric} — 為估計值（{'共識 $' + str(b.get('consensus_usd_bn')) + 'B' if b.get('consensus_usd_bn') else '單一方法'}）；"
-                  f"無純 AI 揭露項。已用營益與持股視角交叉驗證。")
+    is_est = b.get("headline_is_estimate", True)
+    label_en = "an ESTIMATE" if is_est else "DISCLOSED"
+    label_zh = "為估計值" if is_est else "為揭露值"
+    disc_en = b.get("disclosure_note_en") or "no AI-only line is disclosed. Cross-checked against op-income and stake lenses."
+    disc_zh = b.get("disclosure_note_zh") or "無純 AI 揭露項。已用營益與持股視角交叉驗證。"
+    benefit_en = (f"AI benefit headline ≈ ${bn}B {metric} — {label_en} ({'consensus $' + str(b.get('consensus_usd_bn')) + 'B' if b.get('consensus_usd_bn') else 'single-method'}); "
+                  f"{disc_en}")
+    benefit_zh = (f"AI 利益頭條 ≈ ${bn}B {metric} — {label_zh}（{'共識 $' + str(b.get('consensus_usd_bn')) + 'B' if b.get('consensus_usd_bn') else '單一方法'}）；"
+                  f"{disc_zh}")
 
     crit = s["critical_count"]
-    silicon_en = (f"~{exp}% TSMC-fabbed across {s['chain_count']} accelerators, {crit} critical. Custom Trainium/Inferentia/Graviton "
-                  f"AND the resold NVIDIA GPUs are all TSMC N3-N5 + CoWoS.")
-    silicon_zh = (f"{s['chain_count']} 顆加速器約 {exp}% 由台積電製造，{crit} 條關鍵。自研 Trainium/Inferentia/Graviton "
-                  f"加上轉售的 NVIDIA GPU 全為台積電 N3-N5＋CoWoS。")
+    sil_tail_en = kb.get("silicon_summary_en") or "Custom Trainium/Inferentia/Graviton AND the resold NVIDIA GPUs are all TSMC N3-N5 + CoWoS."
+    sil_tail_zh = kb.get("silicon_summary_zh") or "自研 Trainium/Inferentia/Graviton 加上轉售的 NVIDIA GPU 全為台積電 N3-N5＋CoWoS。"
+    silicon_en = f"~{exp}% TSMC-fabbed across {s['chain_count']} accelerators, {crit} critical. {sil_tail_en}"
+    silicon_zh = f"{s['chain_count']} 顆加速器約 {exp}% 由台積電製造，{crit} 條關鍵。{sil_tail_zh}"
 
     tsmc_en = (s.get("tsmc_read_en") or "")[:600]
     tsmc_zh = (s.get("tsmc_read_zh") or "")[:600]
