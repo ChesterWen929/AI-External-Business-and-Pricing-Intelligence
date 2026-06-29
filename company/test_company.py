@@ -215,5 +215,61 @@ def test_amazon_defaults_preserved_for_disclosure_note(snap):
     assert snap["pillars"]["benefit"]["headline_is_estimate"] is True
 
 
+# ── Broadcom (third company; custom-ASIC / networking / VMware) ──
+@pytest.fixture
+def broadcom_kb():
+    with open(KB_DIR / "broadcom.json", encoding="utf-8") as f:
+        return json.load(f)
+
+
+@pytest.fixture
+def bc_snap(broadcom_kb, monkeypatch):
+    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    return model.build_snapshot(broadcom_kb, live=None, generated_at="2026-06-28 00:00 UTC", today="2026-06-28")
+
+
+def test_broadcom_builds_and_is_raising(bc_snap):
+    assert bc_snap["slug"] == "broadcom"
+    assert bc_snap["headline"]["verdict_key"] == "raising"
+    assert bc_snap["headline"]["compute_pricing_score"] >= 60
+
+
+def test_broadcom_top_lever_is_custom_asic(bc_snap):
+    assert bc_snap["pillars"]["pricing"]["top_lever_id"] == "custom_asic_value_capture"
+    assert len(bc_snap["pillars"]["pricing"]["levers"]) == 6
+
+
+def test_broadcom_benefit_is_disclosed(bc_snap):
+    assert bc_snap["pillars"]["benefit"]["headline_is_estimate"] is False
+    assert bc_snap["headline"]["ai_benefit_metric"] == "revenue_runrate"
+
+
+def test_broadcom_full_tsmc_exposure(bc_snap):
+    sil = bc_snap["pillars"]["silicon"]
+    assert bc_snap["headline"]["tsmc_exposure_pct"] == 100
+    assert all(c["fab"].upper().startswith("TSMC") for c in sil["chain"])
+    assert sil["chain_count"] == 6
+
+
+def test_broadcom_scenarios_sum_100(bc_snap):
+    probs = [s["prob"] for s in bc_snap["l5"]["scenarios"]]
+    assert sum(probs) == 100 and len(probs) == 4
+
+
+def test_broadcom_no_amazon_or_nvidia_bleed(bc_snap):
+    """The de-Amazonified engine must not leak Amazon/NVIDIA-specific copy into Broadcom's read."""
+    import json as _json
+    blob = _json.dumps(bc_snap, ensure_ascii=False)
+    assert "Trainium" not in blob
+    assert "AWS discloses no AI-only line" not in blob
+    ben_alerts = [a for a in bc_snap["l3"]["alerts"] if "AI benefit" in a["en"]]
+    assert ben_alerts and any("guides AI semiconductor revenue" in a["en"] for a in ben_alerts)
+
+
+def test_broadcom_pricing_engine_note_drives_strong_alert(bc_snap):
+    strong = [a for a in bc_snap["l3"]["alerts"] if a["level"] == "strong"]
+    assert strong and "shift away from merchant GPUs" in strong[0]["en"]
+
+
 if __name__ == "__main__":
     sys.exit(pytest.main([__file__, "-q"]))

@@ -180,6 +180,9 @@ STRINGS = {
     "company_nv_name":{"en": "NVIDIA",                  "zh": "NVIDIA（輝達）"},
     "company_nv_desc":{"en": "Four pillars on TSMC's anchor customer: how NVIDIA raises realized compute price (generational ASP · rack systems · CUDA lock-in) · what to watch it with · its AI revenue · and how ~100% of it is TSMC N4/N3 + CoWoS.",
                        "zh": "對台積電頭號客戶的四支柱:NVIDIA 怎麼提高已實現算力售價（世代 ASP · 機櫃整機 · CUDA 鎖定）· 用什麼觀察 · AI 營收多少 · 以及這一切如何幾乎 100% 是台積電 N4/N3＋CoWoS。"},
+    "company_bc_name":{"en": "Broadcom",               "zh": "Broadcom（博通）"},
+    "company_bc_desc":{"en": "Four pillars on the anti-NVIDIA arms dealer: how Broadcom raises realized price (custom-ASIC value capture · networking content · VMware repricing) · what to watch it with · its AI revenue · and how — GPUs or ASICs — it all lands on TSMC N3 + CoWoS.",
+                       "zh": "對「反 NVIDIA 軍火商」的四支柱:Broadcom 怎麼提高已實現售價（客製 ASIC 價值捕獲 · 網路含量 · VMware 再定價）· 用什麼觀察 · AI 營收多少 · 以及無論 GPU 或 ASIC 如何全落在台積電 N3＋CoWoS。"},
     "company_lbl":{"en": "/100 pricing power",         "zh": "/100 定價權"},
     "v_raising": {"en": "raising",                     "zh": "漲價中"},
     "v_holding": {"en": "holding",                     "zh": "持平"},
@@ -330,6 +333,10 @@ def portal():
     except Exception:
         company_nv_snap = None
     try:
+        company_bc_snap = company_load_snapshot("broadcom")
+    except Exception:
+        company_bc_snap = None
+    try:
         bottleneck_snap = bottleneck_load_snapshot()
     except Exception:
         bottleneck_snap = None
@@ -372,6 +379,10 @@ def portal():
         company_nv_score=((company_nv_snap.get("headline") or {}).get("compute_pricing_score")) if company_nv_snap else None,
         company_nv_verdict=((company_nv_snap.get("headline") or {}).get("verdict_key")) if company_nv_snap else None,
         company_nv_benefit=((company_nv_snap.get("headline") or {}).get("ai_benefit_usd_bn")) if company_nv_snap else None,
+        company_bc_updated=(company_bc_snap.get("as_of") if company_bc_snap else None),
+        company_bc_score=((company_bc_snap.get("headline") or {}).get("compute_pricing_score")) if company_bc_snap else None,
+        company_bc_verdict=((company_bc_snap.get("headline") or {}).get("verdict_key")) if company_bc_snap else None,
+        company_bc_benefit=((company_bc_snap.get("headline") or {}).get("ai_benefit_usd_bn")) if company_bc_snap else None,
         bottleneck_updated=(bottleneck_snap.get("as_of") if bottleneck_snap else None),
         bottleneck_binding=(((bottleneck_snap.get("thesis") or {}).get("binding_name_zh" if ui_lang() == "zh" else "binding_name_en")) if bottleneck_snap else None),
         bottleneck_deliv=(((bottleneck_snap.get("thesis") or {}).get("deliverable_ea_qtr")) if bottleneck_snap else None),

@@ -1,0 +1,586 @@
+{
+  "slug": "broadcom",
+  "generated_at": "2026-06-28 00:00 UTC",
+  "as_of": "2026-06-28",
+  "source": "seed",
+  "stale_fetch_ids": [],
+  "is_demo": true,
+  "company": {
+    "name_en": "Broadcom",
+    "name_zh": "Broadcom（博通）",
+    "ticker": "AVGO",
+    "segment_en": "Custom AI accelerators (XPU) + merchant AI networking + VMware software — the merchant enabler of custom silicon, and a top TSMC customer",
+    "segment_zh": "客製 AI 加速器（XPU）＋商用 AI 網路＋VMware 軟體 — 客製矽的軍火商，也是台積電前段大客戶",
+    "blurb_en": "How Broadcom raises the realized price of compute (custom-ASIC value capture · networking content per cluster · VMware repricing), what to watch it with, how much it makes from AI, and how — whether the market buys GPUs or ASICs — it all lands on TSMC N3 + CoWoS.",
+    "blurb_zh": "Broadcom 怎麼提高已實現算力售價（客製 ASIC 價值捕獲 · 每叢集網路含量 · VMware 再定價）、能用什麼資料觀察、從 AI 賺多少，以及無論市場買 GPU 還是 ASIC，這一切如何全落在台積電 N3＋CoWoS。"
+  },
+  "thesis_en": "Broadcom is the arms dealer of the anti-NVIDIA trade. It co-designs the custom AI accelerators (XPUs) that let Google, Meta and others cut their GPU bill, it owns the merchant networking silicon every AI cluster needs to scale, and VMware's repriced software funds the R&D. Realized price rises through custom-ASIC value capture, rising networking content per cluster, and software repricing — not list-price hikes. And whether the market buys NVIDIA GPUs or hyperscaler ASICs, the silicon is fabbed by TSMC: so Broadcom is TSMC's hedge, routing hyperscaler diversification straight back to TSMC's leading edge and CoWoS.",
+  "thesis_zh": "Broadcom 是「反 NVIDIA」交易的軍火商。它與客戶共同設計客製 AI 加速器（XPU），讓 Google、Meta 等砍掉 GPU 帳單；它掌握每個 AI 叢集擴張都需要的商用網路矽；而再定價後的 VMware 軟體替研發買單。已實現價格靠客製 ASIC 價值捕獲、每叢集網路含量上升、軟體再定價推升 — 而非抬牌價。無論市場買 NVIDIA GPU 還是巨頭的 ASIC，矽都由台積電製造：因此 Broadcom 是台積電的避險，把巨頭的去 NVIDIA 化需求直接導回台積電的先進製程與 CoWoS。",
+  "headline": {
+    "compute_pricing_score": 73.8,
+    "verdict_key": "raising",
+    "verdict_en": "RAISING — realized compute price expanding",
+    "verdict_zh": "RAISING — 已實現算力售價擴張",
+    "ai_benefit_usd_bn": 38.0,
+    "ai_benefit_metric": "revenue_runrate",
+    "tsmc_exposure_pct": 100
+  },
+  "pillars": {
+    "pricing": {
+      "score": 73.8,
+      "verdict_key": "raising",
+      "verdict_en": "RAISING — realized compute price expanding",
+      "verdict_zh": "RAISING — 已實現算力售價擴張",
+      "levers": [
+        {
+          "id": "custom_asic_value_capture",
+          "name_en": "Custom AI accelerator (XPU) value capture",
+          "name_zh": "客製 AI 加速器（XPU）價值捕獲",
+          "mechanism_en": "Broadcom co-designs hyperscaler accelerators (Google TPU, Meta MTIA and others), capturing the high-value IP — SerDes, advanced packaging, design services and a share of each XPU shipped. As hyperscalers shift spend from merchant GPUs to custom silicon, Broadcom captures rising dollar content per accelerator deployed.",
+          "mechanism_zh": "Broadcom 與巨頭共同設計加速器（Google TPU、Meta MTIA 等），捕獲高價值 IP — SerDes、先進封裝、設計服務與每顆 XPU 的分潤。當巨頭把支出從商用 GPU 移向客製矽，Broadcom 捕獲每部署一顆加速器越來越高的金額含量。",
+          "direction": "up",
+          "strength": 82.0,
+          "weight": 1.0,
+          "tier": "T1",
+          "is_estimate": false,
+          "observability_en": "Broadcom AI revenue guidance, custom-silicon customer count & 2027 SAM commentary, hyperscaler TPU/MTIA disclosures.",
+          "observability_zh": "Broadcom AI 營收指引、客製矽客戶數與 2027 SAM 評論、巨頭 TPU/MTIA 揭露。",
+          "source_en": "Broadcom earnings calls; hyperscaler accelerator announcements",
+          "source_zh": "Broadcom 法說會；巨頭加速器公告",
+          "source_url": "https://investors.broadcom.com/financial-information/quarterly-results"
+        },
+        {
+          "id": "networking_content_per_cluster",
+          "name_en": "Rising networking content per AI cluster (Tomahawk / Jericho / optics)",
+          "name_zh": "每 AI 叢集網路含量上升（Tomahawk／Jericho／光通訊）",
+          "mechanism_en": "As clusters scale to 100k+ accelerators, scale-out Ethernet (Tomahawk switches), scheduled fabric (Jericho), retimers, PCIe switches and optical DSP all rise in dollar content per accelerator. Broadcom is the merchant leader, so networking $ per cluster grows independent of any list-price move.",
+          "mechanism_zh": "當叢集擴張到 10 萬顆以上加速器，scale-out 乙太網路（Tomahawk 交換器）、排程 fabric（Jericho）、retimer、PCIe 交換器與光 DSP，每顆加速器的金額含量全面上升。Broadcom 是商用領導者，因此每叢集網路金額成長與牌價無關。",
+          "direction": "up",
+          "strength": 80.0,
+          "weight": 1.0,
+          "tier": "T1",
+          "is_estimate": false,
+          "observability_en": "Networking revenue line, 800G→1.6T switch & optics ramp (Dell'Oro/LightCounting), Ethernet vs NVLink share.",
+          "observability_zh": "網路營收項、800G→1.6T 交換器與光通訊放量（Dell'Oro／LightCounting）、乙太網路 vs NVLink 占比。",
+          "source_en": "Broadcom 10-Q networking disclosures; switch/optics market trackers",
+          "source_zh": "Broadcom 10-Q 網路揭露；交換器／光通訊市場追蹤",
+          "source_url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=AVGO&type=10-Q"
+        },
+        {
+          "id": "vmware_software_repricing",
+          "name_en": "VMware software repricing (subscription + VCF bundling)",
+          "name_zh": "VMware 軟體再定價（訂閱＋VCF 綁定）",
+          "mechanism_en": "Post-acquisition, Broadcom converted VMware to subscription and bundled SKUs (VMware Cloud Foundation), sharply raising realized price per customer at very high margin. This recurring software engine funds AI R&D and lifts blended company-level realized price.",
+          "mechanism_zh": "併購後，Broadcom 把 VMware 轉為訂閱與綁定 SKU（VMware Cloud Foundation），以極高毛利大幅提高每客戶已實現售價。這部週期性軟體引擎替 AI 研發買單，並拉高公司層級的混合已實現售價。",
+          "direction": "up",
+          "strength": 78.0,
+          "weight": 0.9,
+          "tier": "T1",
+          "is_estimate": false,
+          "observability_en": "Infrastructure Software segment revenue & operating margin, VMware ARR / subscription mix, renewal pricing reports.",
+          "observability_zh": "基礎設施軟體分部營收與營益率、VMware ARR／訂閱比重、續約定價報導。",
+          "source_en": "Broadcom 10-Q Infrastructure Software segment",
+          "source_zh": "Broadcom 10-Q 基礎設施軟體分部",
+          "source_url": "https://investors.broadcom.com/financial-information/sec-filings"
+        },
+        {
+          "id": "serdes_ip_leadership",
+          "name_en": "SerDes / IP / advanced-packaging leadership premium",
+          "name_zh": "SerDes／IP／先進封裝領導溢價",
+          "mechanism_en": "Best-in-class SerDes and packaging IP give Broadcom sole-source positions inside custom designs and a pricing premium competitors (Marvell, Alchip) struggle to match — the technical moat under the custom-ASIC lever.",
+          "mechanism_zh": "頂尖的 SerDes 與封裝 IP 讓 Broadcom 在客製設計中取得獨家供應地位與定價溢價，競爭者（Marvell、創意/Alchip）難以匹敵 — 這是客製 ASIC 槓桿底下的技術護城河。",
+          "direction": "up",
+          "strength": 70.0,
+          "weight": 0.8,
+          "tier": "T2",
+          "is_estimate": true,
+          "observability_en": "Design-win retention across generations, SerDes speed leadership (200G/lane), competitive teardowns.",
+          "observability_zh": "跨世代的設計勝出保持、SerDes 速度領先（200G/lane）、競品拆解。",
+          "source_en": "Broadcom technical disclosures; SemiAnalysis",
+          "source_zh": "Broadcom 技術揭露；SemiAnalysis",
+          "source_url": "https://www.semianalysis.com/"
+        },
+        {
+          "id": "sole_source_lockin",
+          "name_en": "Multi-year design-win lock-in",
+          "name_zh": "多年期設計勝出鎖定",
+          "mechanism_en": "Custom-silicon programs are multi-year and deeply co-engineered; once designed in, Broadcom holds the socket across successive generations, stabilizing realized price and shielding it from re-bid pressure.",
+          "mechanism_zh": "客製矽專案是多年期且深度共同工程；一旦設計導入，Broadcom 跨連續世代守住該插槽，穩住已實現價格並抵禦重新競標壓力。",
+          "direction": "up",
+          "strength": 66.0,
+          "weight": 0.7,
+          "tier": "T2",
+          "is_estimate": true,
+          "observability_en": "Customer concentration & program continuity in filings, multi-generation roadmap commentary.",
+          "observability_zh": "財報中的客戶集中度與專案延續性、多世代路線圖評論。",
+          "source_en": "Broadcom 10-K risk factors & customer commentary",
+          "source_zh": "Broadcom 10-K 風險因素與客戶評論",
+          "source_url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=AVGO&type=10-K"
+        },
+        {
+          "id": "coupled_optics_next_gen",
+          "name_en": "Co-packaged optics & next-gen content expansion",
+          "name_zh": "共封裝光學與次世代含量擴張",
+          "mechanism_en": "Co-packaged optics, optical DSP and next-gen PCIe/scale-up fabrics add incremental high-value silicon per cluster, expanding Broadcom's served content as interconnect bandwidth becomes the binding constraint.",
+          "mechanism_zh": "共封裝光學、光 DSP 與次世代 PCIe／scale-up fabric，為每叢集增添高價值矽含量；當互連頻寬成為綁定約束，Broadcom 的可服務含量隨之擴張。",
+          "direction": "up",
+          "strength": 58.0,
+          "weight": 0.6,
+          "tier": "T2",
+          "is_estimate": true,
+          "observability_en": "CPO product roadmap, optical attach rate, interconnect bandwidth roadmaps.",
+          "observability_zh": "CPO 產品路線圖、光學 attach 率、互連頻寬路線圖。",
+          "source_en": "Broadcom product roadmap; optical market research",
+          "source_zh": "Broadcom 產品路線圖；光通訊市場研究",
+          "source_url": "https://www.broadcom.com/products/optical-systems"
+        }
+      ],
+      "top_lever_id": "custom_asic_value_capture",
+      "engine_note_en": "custom-ASIC value capture, rising networking content per cluster and VMware software repricing are doing the work — Broadcom monetizes the shift away from merchant GPUs",
+      "engine_note_zh": "客製 ASIC 價值捕獲、每叢集網路含量上升與 VMware 軟體再定價在推動 — Broadcom 把「去 NVIDIA 化」變現"
+    },
+    "sources": {
+      "items": [
+        {
+          "name_en": "Broadcom 10-Q / 10-K (Semiconductor vs Infrastructure Software)",
+          "name_zh": "Broadcom 10-Q／10-K（半導體 vs 基礎設施軟體）",
+          "what_en": "Segment revenue & operating margin, networking line, RPO/backlog, AI commentary — the hard floor under the benefit estimate.",
+          "what_zh": "分部營收與營益率、網路項、RPO/在手訂單、AI 評論 — 利益估計的硬底。",
+          "tier": "T1",
+          "cadence": "quarterly",
+          "access_en": "free (SEC EDGAR)",
+          "access_zh": "免費（SEC EDGAR）",
+          "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=AVGO&type=10-Q"
+        },
+        {
+          "name_en": "Broadcom earnings calls & investor materials",
+          "name_zh": "Broadcom 法說會與投資人資料",
+          "what_en": "Guided AI semiconductor revenue, custom-silicon customer count & multi-year SAM, networking and VMware framing.",
+          "what_zh": "指引的 AI 半導體營收、客製矽客戶數與多年期 SAM、網路與 VMware 措辭。",
+          "tier": "T1",
+          "cadence": "quarterly",
+          "access_en": "free (IR site)",
+          "access_zh": "免費（IR 網站）",
+          "url": "https://investors.broadcom.com/financial-information/quarterly-results"
+        },
+        {
+          "name_en": "Hyperscaler capex (GOOG / META / others)",
+          "name_zh": "雲端巨頭 capex（Google／Meta／其他）",
+          "what_en": "The custom-silicon demand that leads Broadcom AI revenue — and the budget that funds TPU/MTIA programs.",
+          "what_zh": "領先 Broadcom AI 營收的客製矽需求 — 也是替 TPU/MTIA 專案買單的預算。",
+          "tier": "T1",
+          "cadence": "quarterly",
+          "access_en": "free (IR / 10-Q)",
+          "access_zh": "免費（IR／10-Q）",
+          "url": "https://www.sec.gov/cgi-bin/browse-edgar"
+        },
+        {
+          "name_en": "SemiAnalysis custom-silicon & networking model",
+          "name_zh": "SemiAnalysis 客製矽與網路模型",
+          "what_en": "Independent XPU shipment/ASP and switch-share estimates — the cross-check on Broadcom's AI content and design wins.",
+          "what_zh": "獨立的 XPU 出貨/ASP 與交換器占比估計 — 對 Broadcom AI 含量與設計勝出的交叉驗證。",
+          "tier": "T2",
+          "cadence": "periodic",
+          "access_en": "paid research",
+          "access_zh": "付費研究",
+          "url": "https://www.semianalysis.com/"
+        },
+        {
+          "name_en": "TSMC revenue & CoWoS capacity disclosures",
+          "name_zh": "台積電營收與 CoWoS 產能揭露",
+          "what_en": "Leading-edge (N3/N5) mix and CoWoS capacity — the supply ceiling Broadcom's XPUs share with NVIDIA.",
+          "what_zh": "先進製程（N3/N5）結構與 CoWoS 產能 — Broadcom XPU 與 NVIDIA 共用的供給天花板。",
+          "tier": "T1",
+          "cadence": "monthly/quarterly",
+          "access_en": "free (TSMC IR)",
+          "access_zh": "免費（台積電 IR）",
+          "url": "https://investor.tsmc.com/"
+        },
+        {
+          "name_en": "Ethernet switch & optics trackers (Dell'Oro / LightCounting)",
+          "name_zh": "乙太網路交換器與光通訊追蹤（Dell'Oro／LightCounting）",
+          "what_en": "800G→1.6T switch and optical shipment data — a direct proxy for Broadcom's networking-content lever.",
+          "what_zh": "800G→1.6T 交換器與光學出貨數據 — Broadcom 網路含量槓桿的直接 proxy。",
+          "tier": "T2",
+          "cadence": "quarterly",
+          "access_en": "paid research",
+          "access_zh": "付費研究",
+          "url": "https://www.delloro.com/"
+        },
+        {
+          "name_en": "VMware / Infrastructure Software ARR & pricing",
+          "name_zh": "VMware／基礎設施軟體 ARR 與定價",
+          "what_en": "Subscription mix, VCF bundle pricing and renewal/churn signals — where the software-repricing lever shows up.",
+          "what_zh": "訂閱比重、VCF 綁定定價與續約/流失訊號 — 軟體再定價槓桿的觀測點。",
+          "tier": "T2",
+          "cadence": "quarterly",
+          "access_en": "IR + channel reports",
+          "access_zh": "IR＋通路報導",
+          "url": "https://investors.broadcom.com/financial-information/sec-filings"
+        },
+        {
+          "name_en": "HBM supply (SK hynix / Micron / Samsung)",
+          "name_zh": "HBM 供給（SK 海力士／美光／三星）",
+          "what_en": "HBM capacity & qualification — the memory input for HBM-class XPUs, alongside CoWoS.",
+          "what_zh": "HBM 產能與驗證 — 搭配 CoWoS、供 HBM 級 XPU 的記憶體輸入。",
+          "tier": "T2",
+          "cadence": "quarterly",
+          "access_en": "free (IR)",
+          "access_zh": "免費（IR）",
+          "url": "https://www.skhynix.com/ir/"
+        }
+      ]
+    },
+    "benefit": {
+      "estimates": [
+        {
+          "id": "ai_semi_revenue_runrate",
+          "method_en": "AI semiconductor revenue run-rate (guided, annualized)",
+          "method_zh": "AI 半導體營收年化（指引值，年化）",
+          "value_usd_bn": 38.0,
+          "metric": "revenue_runrate",
+          "confidence": "high",
+          "tier": "T1",
+          "is_estimate": false,
+          "basis_en": "Broadcom guides AI semiconductor revenue explicitly each quarter (custom XPUs + AI networking). Annualizing the recent guided quarter gives a ~$38B run-rate; management's stated 2027 SAM for its lead custom-silicon customers is $60–90B. Annualization/forward-mix is the only projection. See /payback for the demand-side coverage view.",
+          "basis_zh": "Broadcom 每季明確指引 AI 半導體營收（客製 XPU＋AI 網路）。把近一季指引值年化得約 $38B 年化；管理層所述其領先客製矽客戶的 2027 SAM 為 $60–90B。唯一推估是年化／前瞻組合。需求端覆蓋率視角見 /payback。"
+        },
+        {
+          "id": "ai_networking_portion",
+          "method_en": "AI networking portion of AI semi revenue",
+          "method_zh": "AI 網路占 AI 半導體營收部分",
+          "value_usd_bn": 12.0,
+          "metric": "networking_runrate",
+          "confidence": "medium",
+          "tier": "T2",
+          "is_estimate": true,
+          "basis_en": "Roughly a third of AI semi revenue is networking silicon (switches, fabric, optics, retimers) — distinct from the custom-XPU compute portion. The split is estimated; Broadcom discloses the AI total, not always the compute/networking mix.",
+          "basis_zh": "AI 半導體營收約三分之一為網路矽（交換器、fabric、光通訊、retimer）— 有別於客製 XPU 運算部分。此拆分為估計；Broadcom 揭露 AI 總額，未必揭露運算/網路組合。"
+        },
+        {
+          "id": "software_op_income",
+          "method_en": "Infrastructure Software (VMware) operating income (funding lens)",
+          "method_zh": "基礎設施軟體（VMware）營益（買單視角）",
+          "value_usd_bn": 18.0,
+          "metric": "op_income",
+          "confidence": "medium",
+          "tier": "T2",
+          "is_estimate": true,
+          "basis_en": "The repriced Infrastructure Software segment runs at very high margin and annualizes a large operating income — not AI revenue itself, but the recurring engine that funds Broadcom's AI R&D and design-services scale. A derived estimate from segment margin.",
+          "basis_zh": "再定價後的基礎設施軟體分部以極高毛利運行、年化出龐大營益 — 它本身非 AI 營收，而是替 Broadcom AI 研發與設計服務規模買單的週期性引擎。為分部利潤率推導之估計。"
+        }
+      ],
+      "headline_id": "ai_semi_revenue_runrate",
+      "headline_usd_bn": 38.0,
+      "headline_metric": "revenue_runrate",
+      "headline_is_estimate": false,
+      "consensus_usd_bn": 38.0,
+      "disclosure_note_en": "Broadcom guides AI semiconductor revenue directly (and a multi-year custom-silicon SAM); the compute-vs-networking split and the software-funding lens are the estimates.",
+      "disclosure_note_zh": "Broadcom 直接指引 AI 半導體營收（及多年期客製矽 SAM）；運算 vs 網路的拆分與軟體買單視角才是估計。"
+    },
+    "silicon": {
+      "chain": [
+        {
+          "accelerator_en": "Custom AI XPU (Google TPU / Meta MTIA-class)",
+          "accelerator_zh": "客製 AI XPU（Google TPU／Meta MTIA 級）",
+          "role_en": "Hyperscaler training/inference accelerator",
+          "role_zh": "巨頭訓練/推論加速器",
+          "designer": "Broadcom + hyperscaler",
+          "node": "TSMC N3 (3nm)",
+          "packaging": "CoWoS + HBM",
+          "fab": "TSMC",
+          "dependency": "critical",
+          "tier": "T2",
+          "is_estimate": true,
+          "note_en": "The signature program — large-die CoWoS + HBM makes it as TSMC-bound as any NVIDIA GPU; this is how hyperscaler diversification still lands at TSMC.",
+          "note_zh": "招牌專案 — 大尺寸 CoWoS＋HBM 使其與任何 NVIDIA GPU 一樣綁死台積電；這正是巨頭多元化仍落回台積電的路徑。"
+        },
+        {
+          "accelerator_en": "Next-gen XPU (2nm roadmap)",
+          "accelerator_zh": "次世代 XPU（2nm 路線圖）",
+          "role_en": "Forward custom-accelerator roadmap",
+          "role_zh": "前瞻客製加速器路線圖",
+          "designer": "Broadcom + hyperscaler",
+          "node": "TSMC N2 (2nm)",
+          "packaging": "advanced CoWoS + HBM4",
+          "fab": "TSMC",
+          "dependency": "critical",
+          "tier": "T3",
+          "is_estimate": true,
+          "note_en": "Pushes Broadcom and its customers onto TSMC's most advanced node and next-gen CoWoS/HBM4 — deepening leading-edge dependence.",
+          "note_zh": "把 Broadcom 與其客戶推上台積電最先進節點與次世代 CoWoS/HBM4 — 加深對先進製程的依賴。"
+        },
+        {
+          "accelerator_en": "Tomahawk 5 / 6 (Ethernet switch)",
+          "accelerator_zh": "Tomahawk 5／6（乙太網路交換器）",
+          "role_en": "Scale-out AI networking switch",
+          "role_zh": "scale-out AI 網路交換器",
+          "designer": "Broadcom",
+          "node": "TSMC N3 / N5",
+          "packaging": "advanced",
+          "fab": "TSMC",
+          "dependency": "high",
+          "tier": "T1",
+          "is_estimate": false,
+          "note_en": "The merchant Ethernet engine for AI clusters — TSMC-fabbed, and the core of the networking-content lever.",
+          "note_zh": "AI 叢集的商用乙太網路引擎 — 由台積電製造，也是網路含量槓桿的核心。"
+        },
+        {
+          "accelerator_en": "Jericho3-AI (scheduled fabric)",
+          "accelerator_zh": "Jericho3-AI（排程 fabric）",
+          "role_en": "Deep-buffer routing / AI fabric",
+          "role_zh": "深緩衝路由／AI fabric",
+          "designer": "Broadcom",
+          "node": "TSMC N5 / N4",
+          "packaging": "advanced",
+          "fab": "TSMC",
+          "dependency": "high",
+          "tier": "T2",
+          "is_estimate": true,
+          "note_en": "Connects large training clusters with lossless scheduling — another TSMC leading-edge die per cluster.",
+          "note_zh": "以無損排程連接大型訓練叢集 — 每叢集另一顆台積電先進製程晶粒。"
+        },
+        {
+          "accelerator_en": "SerDes / PCIe switch / retimer",
+          "accelerator_zh": "SerDes／PCIe 交換器／retimer",
+          "role_en": "High-speed interconnect IP & devices",
+          "role_zh": "高速互連 IP 與元件",
+          "designer": "Broadcom",
+          "node": "TSMC N5 / N4",
+          "packaging": "standard",
+          "fab": "TSMC",
+          "dependency": "medium",
+          "tier": "T2",
+          "is_estimate": true,
+          "note_en": "The interconnect glue that scales clusters — best-in-class SerDes is the IP moat under the custom-ASIC wins.",
+          "note_zh": "讓叢集擴張的互連黏著 — 頂尖 SerDes 是客製 ASIC 勝出底下的 IP 護城河。"
+        },
+        {
+          "accelerator_en": "Co-packaged optics / optical DSP",
+          "accelerator_zh": "共封裝光學／光 DSP",
+          "role_en": "Optical interconnect for scale-out",
+          "role_zh": "scale-out 光互連",
+          "designer": "Broadcom",
+          "node": "TSMC N5 / N7",
+          "packaging": "advanced (photonics)",
+          "fab": "TSMC",
+          "dependency": "medium",
+          "tier": "T2",
+          "is_estimate": true,
+          "note_en": "As bandwidth becomes the binding constraint, optical content rises — again on TSMC silicon.",
+          "note_zh": "當頻寬成為綁定約束，光學含量上升 — 同樣跑在台積電矽上。"
+        }
+      ],
+      "tsmc_exposure_pct": 100,
+      "tsmc_fabbed_count": 6,
+      "chain_count": 6,
+      "critical_count": 2,
+      "tsmc_read_en": "Essentially 100% of Broadcom's AI silicon — the custom XPUs, the Tomahawk/Jericho networking and the SerDes/optics — is fabbed by TSMC on N3-N5 and, for the big accelerators, packaged with CoWoS. For TSMC, Broadcom is the hedge against NVIDIA concentration: it is the second large pillar of CoWoS demand and the vector through which hyperscaler diversification AWAY from NVIDIA flows straight back to TSMC's leading edge. Broadcom and NVIDIA compete for the SAME N3 + CoWoS allocation — so whichever way the GPU-vs-ASIC battle goes, TSMC wins the wafer, and the binding constraint stays the CoWoS bottleneck TSMC controls.",
+      "tsmc_read_zh": "Broadcom 的 AI 矽 — 客製 XPU、Tomahawk/Jericho 網路與 SerDes/光通訊 — 幾乎 100% 由台積電以 N3-N5 製造，大型加速器並用 CoWoS 封裝。對台積電而言，Broadcom 是對抗 NVIDIA 集中度的避險：它是 CoWoS 需求的第二根大支柱，也是巨頭「去 NVIDIA 化」需求直接流回台積電先進製程的渠道。Broadcom 與 NVIDIA 競逐同一批 N3＋CoWoS 配額 — 因此無論 GPU vs ASIC 之戰怎麼走，台積電都贏得晶圓，綁定約束仍是台積電掌握的 CoWoS 瓶頸。"
+    }
+  },
+  "l3": {
+    "proxies": [
+      {
+        "id": "avgo_equity",
+        "name_en": "Broadcom (AVGO)",
+        "name_zh": "Broadcom（AVGO）",
+        "kind": "equity",
+        "value": 280.0,
+        "chg_1w": 1.1,
+        "chg_1m": 4.6,
+        "live": false
+      },
+      {
+        "id": "nvda_equity",
+        "name_en": "NVIDIA (NVDA) — GPU-vs-ASIC proxy",
+        "name_zh": "NVIDIA（NVDA）— GPU vs ASIC proxy",
+        "kind": "equity",
+        "value": 175.0,
+        "chg_1w": 0.9,
+        "chg_1m": 5.4,
+        "live": false
+      },
+      {
+        "id": "tsm_equity",
+        "name_en": "TSMC (TSM) — supply-side proxy",
+        "name_zh": "台積電（TSM）— 供給端 proxy",
+        "kind": "equity",
+        "value": 230.0,
+        "chg_1w": 1.0,
+        "chg_1m": 5.0,
+        "live": false
+      }
+    ],
+    "alerts": [
+      {
+        "level": "strong",
+        "en": "Realized-price engine running hot: pricing-power score 73.8/100 — custom-ASIC value capture, rising networking content per cluster and VMware software repricing are doing the work — Broadcom monetizes the shift away from merchant GPUs.",
+        "zh": "已實現價格引擎火熱：定價權分數 73.8/100 — 客製 ASIC 價值捕獲、每叢集網路含量上升與 VMware 軟體再定價在推動 — Broadcom 把「去 NVIDIA 化」變現。"
+      },
+      {
+        "level": "exposure",
+        "en": "Concentration: ~100% of the AI compute behind this benefit is TSMC-fabbed, 2 link(s) critical — the CoWoS bottleneck TSMC controls is the binding constraint on growth.",
+        "zh": "集中度：撐起此利益的 AI 算力約 100% 由台積電製造，2 條鏈關鍵 — 台積電掌握的 CoWoS 瓶頸即成長綁定約束。"
+      },
+      {
+        "level": "watch",
+        "en": "AI benefit (headline) ≈ $38.0B revenue_runrate — Broadcom guides AI semiconductor revenue directly (and a multi-year custom-silicon SAM); the compute-vs-networking split and the software-funding lens are the estimates.",
+        "zh": "AI 利益（頭條）≈ $38.0B revenue_runrate — Broadcom 直接指引 AI 半導體營收（及多年期客製矽 SAM）；運算 vs 網路的拆分與軟體買單視角才是估計。"
+      }
+    ]
+  },
+  "l4": {
+    "integrated_thesis": {
+      "en": "Broadcom raises REALIZED compute price even as list prices fall — score 73.8/100 (RAISING), led by 'Custom AI accelerator (XPU) value capture'. That engine underwrites an estimated $38.0B revenue_runrate of AI benefit, and ~100% of the silicon beneath it is TSMC-fabbed — so the upside and its binding constraint both sit on TSMC's leading-edge & CoWoS.",
+      "zh": "Broadcom（博通） 在牌價下跌之際仍提高已實現算力售價 — 分數 73.8/100（RAISING），由「客製 AI 加速器（XPU）價值捕獲」帶動。這部引擎撐起估計 $38.0B revenue_runrate 的 AI 利益，而其底層約 100% 的矽由台積電製造 — 因此上行空間與綁定約束都押在台積電先進製程與 CoWoS。"
+    },
+    "pillars": {
+      "pricing": {
+        "en": "Score 73.8/100 — RAISING. The work is done by 'Custom AI accelerator (XPU) value capture' and the up-stack levers, not list-price hikes. Realized price per useful compute is rising through mix and margin capture.",
+        "zh": "分數 73.8/100 — RAISING。推動者是「客製 AI 加速器（XPU）價值捕獲」與服務棧上移槓桿，而非抬牌價。每單位有用算力的已實現價格靠組合與利差捕獲在上升。"
+      },
+      "sources": {
+        "en": "Watch it via: Broadcom 10-Q / 10-K (Semiconductor vs Infrastructure Software), Broadcom earnings calls & investor materials, Hyperscaler capex (GOOG / META / others), SemiAnalysis custom-silicon & networking model — segment filings + RPO are the hard floor; GPU spot rents & price APIs lead.",
+        "zh": "觀測管道：10-Q/10-K 分部與 RPO 是硬底，GPU 現貨租金與價格 API 領先。"
+      },
+      "benefit": {
+        "en": "AI benefit headline ≈ $38.0B revenue_runrate — DISCLOSED (consensus $38.0B); Broadcom guides AI semiconductor revenue directly (and a multi-year custom-silicon SAM); the compute-vs-networking split and the software-funding lens are the estimates.",
+        "zh": "AI 利益頭條 ≈ $38.0B revenue_runrate — 為揭露值（共識 $38.0B）；Broadcom 直接指引 AI 半導體營收（及多年期客製矽 SAM）；運算 vs 網路的拆分與軟體買單視角才是估計。"
+      },
+      "silicon": {
+        "en": "~100% TSMC-fabbed across 6 accelerators, 2 critical. The custom XPUs (TPU/MTIA-class), the Tomahawk/Jericho switches and the SerDes/optics are all TSMC N3-N5 + CoWoS — whether AI buys GPUs or ASICs, TSMC fabs both.",
+        "zh": "6 顆加速器約 100% 由台積電製造，2 條關鍵。客製 XPU（TPU/MTIA 級）、Tomahawk/Jericho 交換器與 SerDes/光通訊全為台積電 N3-N5＋CoWoS — 無論 AI 買 GPU 還是 ASIC，台積電都製造。"
+      }
+    },
+    "tsmc_implication": {
+      "en": "Essentially 100% of Broadcom's AI silicon — the custom XPUs, the Tomahawk/Jericho networking and the SerDes/optics — is fabbed by TSMC on N3-N5 and, for the big accelerators, packaged with CoWoS. For TSMC, Broadcom is the hedge against NVIDIA concentration: it is the second large pillar of CoWoS demand and the vector through which hyperscaler diversification AWAY from NVIDIA flows straight back to TSMC's leading edge. Broadcom and NVIDIA compete for the SAME N3 + CoWoS allocation — so whichever way the GPU-vs-ASIC battle goes, TSMC wins the wafer, and the binding constraint stays the CoWoS bot",
+      "zh": "Broadcom 的 AI 矽 — 客製 XPU、Tomahawk/Jericho 網路與 SerDes/光通訊 — 幾乎 100% 由台積電以 N3-N5 製造，大型加速器並用 CoWoS 封裝。對台積電而言，Broadcom 是對抗 NVIDIA 集中度的避險：它是 CoWoS 需求的第二根大支柱，也是巨頭「去 NVIDIA 化」需求直接流回台積電先進製程的渠道。Broadcom 與 NVIDIA 競逐同一批 N3＋CoWoS 配額 — 因此無論 GPU vs ASIC 之戰怎麼走，台積電都贏得晶圓，綁定約束仍是台積電掌握的 CoWoS 瓶頸。"
+    }
+  },
+  "l5": {
+    "scenarios": [
+      {
+        "name_en": "Custom-ASIC + networking flywheel",
+        "name_zh": "客製 ASIC＋網路飛輪",
+        "prob": 40,
+        "trigger_en": "Custom-XPU customers ramp from ~3 toward 5+, AI semi revenue run-rate clears $50B, and networking content per cluster keeps rising on the 1.6T transition.",
+        "trigger_zh": "客製 XPU 客戶從約 3 家擴向 5+，AI 半導體年化突破 $50B，且 1.6T 轉換讓每叢集網路含量續升。"
+      },
+      {
+        "name_en": "VMware + content repricing wins",
+        "name_zh": "VMware＋含量再定價勝出",
+        "prob": 27,
+        "trigger_en": "VMware ARR and VCF bundle pricing step up while AI content per cluster rises, lifting blended realized price and margin even if unit growth moderates.",
+        "trigger_zh": "VMware ARR 與 VCF 綁定定價上台階，同時每叢集 AI 含量上升，即使單位成長趨緩仍推升混合已實現價格與利潤率。"
+      },
+      {
+        "name_en": "CoWoS bottleneck caps XPU volume",
+        "name_zh": "CoWoS 瓶頸卡住 XPU 出貨量",
+        "prob": 21,
+        "trigger_en": "Broadcom and NVIDIA compete for the same TSMC CoWoS allocation; XPU shipments are capped — Broadcom can win designs but can't ship the units.",
+        "trigger_zh": "Broadcom 與 NVIDIA 競逐同一批台積電 CoWoS 配額；XPU 出貨被限制 — Broadcom 能贏設計卻出不了貨。"
+      },
+      {
+        "name_en": "AI digestion / GPU reasserts vs ASIC",
+        "name_zh": "AI 消化／GPU 對 ASIC 反撲",
+        "prob": 12,
+        "trigger_en": "Hyperscaler capex digests, an XPU program slips or is insourced, and NVIDIA GPUs + Spectrum-X Ethernet reassert share against custom ASIC + merchant Ethernet.",
+        "trigger_zh": "巨頭 capex 進入消化，一個 XPU 專案延後或被內製，NVIDIA GPU＋Spectrum-X 乙太網路對「客製 ASIC＋商用乙太網路」重新搶回占比。"
+      }
+    ],
+    "falsification": [
+      {
+        "en": "An anchor XPU customer (Google/Meta) insources its accelerator design or shifts to a competing ASIC vendor (Marvell/Alchip) — the custom-silicon moat cracks.",
+        "zh": "一個錨定 XPU 客戶（Google/Meta）把加速器設計內製或轉向競爭 ASIC 廠（Marvell／創意）— 客製矽護城河出現裂縫。"
+      },
+      {
+        "en": "Merchant Ethernet loses scale-out share to NVIDIA NVLink/Spectrum-X in the largest clusters — the networking-content lever stalls.",
+        "zh": "在最大型叢集中，商用乙太網路把 scale-out 占比輸給 NVIDIA NVLink／Spectrum-X — 網路含量槓桿停滯。"
+      },
+      {
+        "en": "VMware churn or deferred renewals rise — the software-repricing lever has hit its ceiling.",
+        "zh": "VMware 流失或續約遞延上升 — 軟體再定價槓桿觸頂。"
+      }
+    ],
+    "watch": [
+      {
+        "en": "Broadcom AI semiconductor revenue & next-quarter guidance",
+        "zh": "Broadcom AI 半導體營收與下季指引",
+        "freq": "quarterly"
+      },
+      {
+        "en": "Hyperscaler capex (GOOG/META…) — leads custom-XPU demand",
+        "zh": "巨頭 capex（Google/Meta…）— 領先客製 XPU 需求",
+        "freq": "quarterly"
+      },
+      {
+        "en": "Custom-XPU customer count & 2027 SAM progress (~3 → 5+)",
+        "zh": "客製 XPU 客戶數與 2027 SAM 進度（約 3 → 5+）",
+        "freq": "on-event"
+      },
+      {
+        "en": "CoWoS / advanced-packaging allocation at TSMC",
+        "zh": "台積電 CoWoS／先進封裝配額",
+        "freq": "monthly"
+      },
+      {
+        "en": "Tomahawk 6 / 1.6T Ethernet & optics ramp",
+        "zh": "Tomahawk 6／1.6T 乙太網路與光通訊放量",
+        "freq": "quarterly"
+      },
+      {
+        "en": "Ethernet vs NVLink/Spectrum-X share in AI clusters",
+        "zh": "AI 叢集中乙太網路 vs NVLink／Spectrum-X 占比",
+        "freq": "quarterly"
+      },
+      {
+        "en": "VMware/VCF ARR, subscription mix & churn",
+        "zh": "VMware／VCF ARR、訂閱比重與流失",
+        "freq": "quarterly"
+      }
+    ]
+  },
+  "analysis_engine": "rules",
+  "cross_links": [
+    {
+      "href": "/cwengine/",
+      "label_en": "CapEx → Wafer Engine — turn the custom-silicon capex Broadcom captures into implied TSMC wafer demand",
+      "label_zh": "CapEx → 晶圓引擎 — 把 Broadcom 吃下的客製矽 capex 換算成隱含台積電晶圓需求"
+    },
+    {
+      "href": "/pricing/",
+      "label_en": "Pricing Power Radar — the foundry ASP side of the same price stack",
+      "label_zh": "議價能力雷達 — 同一價格堆疊的代工 ASP 端"
+    },
+    {
+      "href": "/payback/",
+      "label_en": "Capex Payback Radar — is the hyperscaler AI capex Broadcom feeds on paying off yet?",
+      "label_zh": "資本支出回本雷達 — 餵養 Broadcom 的巨頭 AI capex 回本了沒？"
+    },
+    {
+      "href": "/compute/",
+      "label_en": "AI Compute Demand Radar — the custom-accelerator demand Broadcom supplies",
+      "label_zh": "AI 算力需求雷達 — Broadcom 供給的客製加速器需求"
+    },
+    {
+      "href": "/rival/",
+      "label_en": "Rival Radar — TSMC's competitive position behind Broadcom's silicon",
+      "label_zh": "競爭者雷達 — Broadcom 矽背後台積電的競爭格局"
+    }
+  ],
+  "blind_spots_en": [
+    "Some custom-XPU customer identities (e.g. which hyperscaler) are press/industry-attributed, not confirmed by Broadcom.",
+    "AI revenue is management-defined and guided; the compute-vs-networking split here is an estimate.",
+    "Node/packaging assignments (e.g. XPU on N3, next-gen on N2) are from press & industry reporting, not TSMC/Broadcom confirmation.",
+    "Live proxies (AVGO/NVDA/TSM equity) are sentiment context, deliberately kept out of the core pricing-power score."
+  ],
+  "blind_spots_zh": [
+    "部分客製 XPU 客戶身分（哪一家巨頭）來自媒體／產業歸因，非 Broadcom 確認。",
+    "AI 營收為管理層定義並指引；此處運算 vs 網路的拆分為估計。",
+    "節點／封裝對應（如 XPU 用 N3、次世代用 N2）來自媒體與產業報導，非台積電/Broadcom 確認。",
+    "即時 proxy（AVGO/NVDA/TSM 股價）為情緒情境，刻意排除在核心定價權分數之外。"
+  ],
+  "news": [],
+  "fetched_at": null
+}
