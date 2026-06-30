@@ -183,6 +183,9 @@ STRINGS = {
     "company_bc_name":{"en": "Broadcom",               "zh": "Broadcom（博通）"},
     "company_bc_desc":{"en": "Four pillars on the anti-NVIDIA arms dealer: how Broadcom raises realized price (custom-ASIC value capture · networking content · VMware repricing) · what to watch it with · its AI revenue · and how — GPUs or ASICs — it all lands on TSMC N3 + CoWoS.",
                        "zh": "對「反 NVIDIA 軍火商」的四支柱:Broadcom 怎麼提高已實現售價（客製 ASIC 價值捕獲 · 網路含量 · VMware 再定價）· 用什麼觀察 · AI 營收多少 · 以及無論 GPU 或 ASIC 如何全落在台積電 N3＋CoWoS。"},
+    "company_cb_name":{"en": "Cerebras",               "zh": "Cerebras（晶圓級推論）"},
+    "company_cb_desc":{"en": "Four pillars on the wafer-scale inference challenger (newly public, CBRS): how Cerebras raises realized price (locked-in backlog · latency-as-product · wafer-scale moat) vs the token price-war · what to watch it with · its ~$0.9B AI revenue atop a $24.6B backlog · and how ~100% is one TSMC N5 wafer — uniquely CoWoS/HBM-light.",
+                       "zh": "對「晶圓級推論挑戰者」的四支柱（剛上市,CBRS）:Cerebras 怎麼提高已實現售價（鎖定在手訂單 · 速度即產品 · 晶圓級護城河）vs 代幣價格戰 · 用什麼觀察 · 約 $0.9B AI 營收背後 $24.6B 在手訂單 · 以及這一切如何幾乎 100% 是一片台積電 N5 晶圓 — 罕見地少用 CoWoS／HBM。"},
     "company_lbl":{"en": "/100 pricing power",         "zh": "/100 定價權"},
     "v_raising": {"en": "raising",                     "zh": "漲價中"},
     "v_holding": {"en": "holding",                     "zh": "持平"},
@@ -337,6 +340,10 @@ def portal():
     except Exception:
         company_bc_snap = None
     try:
+        company_cb_snap = company_load_snapshot("cerebras")
+    except Exception:
+        company_cb_snap = None
+    try:
         bottleneck_snap = bottleneck_load_snapshot()
     except Exception:
         bottleneck_snap = None
@@ -383,6 +390,10 @@ def portal():
         company_bc_score=((company_bc_snap.get("headline") or {}).get("compute_pricing_score")) if company_bc_snap else None,
         company_bc_verdict=((company_bc_snap.get("headline") or {}).get("verdict_key")) if company_bc_snap else None,
         company_bc_benefit=((company_bc_snap.get("headline") or {}).get("ai_benefit_usd_bn")) if company_bc_snap else None,
+        company_cb_updated=(company_cb_snap.get("as_of") if company_cb_snap else None),
+        company_cb_score=((company_cb_snap.get("headline") or {}).get("compute_pricing_score")) if company_cb_snap else None,
+        company_cb_verdict=((company_cb_snap.get("headline") or {}).get("verdict_key")) if company_cb_snap else None,
+        company_cb_benefit=((company_cb_snap.get("headline") or {}).get("ai_benefit_usd_bn")) if company_cb_snap else None,
         bottleneck_updated=(bottleneck_snap.get("as_of") if bottleneck_snap else None),
         bottleneck_binding=(((bottleneck_snap.get("thesis") or {}).get("binding_name_zh" if ui_lang() == "zh" else "binding_name_en")) if bottleneck_snap else None),
         bottleneck_deliv=(((bottleneck_snap.get("thesis") or {}).get("deliverable_ea_qtr")) if bottleneck_snap else None),

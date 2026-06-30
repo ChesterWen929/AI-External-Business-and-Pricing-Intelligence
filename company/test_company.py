@@ -271,5 +271,68 @@ def test_broadcom_pricing_engine_note_drives_strong_alert(bc_snap):
     assert strong and "shift away from merchant GPUs" in strong[0]["en"]
 
 
+# ── Cerebras (fourth company; wafer-scale inference, newly public, HOLDING) ──
+@pytest.fixture
+def cerebras_kb():
+    with open(KB_DIR / "cerebras.json", encoding="utf-8") as f:
+        return json.load(f)
+
+
+@pytest.fixture
+def cb_snap(cerebras_kb, monkeypatch):
+    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    return model.build_snapshot(cerebras_kb, live=None, generated_at="2026-06-29 00:00 UTC", today="2026-06-29")
+
+
+def test_cerebras_builds_and_is_holding(cb_snap):
+    # Honest read: demand booms but realized unit economics are under pressure → HOLDING,
+    # deliberately distinct from the three RAISING price-makers (AMZN/NVDA/AVGO).
+    assert cb_snap["slug"] == "cerebras"
+    assert cb_snap["headline"]["verdict_key"] == "holding"
+    sc = cb_snap["headline"]["compute_pricing_score"]
+    assert 41 <= sc <= 59
+
+
+def test_cerebras_top_lever_is_backlog_lockin(cb_snap):
+    assert cb_snap["pillars"]["pricing"]["top_lever_id"] == "backlog_commitment_lockin"
+    assert len(cb_snap["pillars"]["pricing"]["levers"]) == 6
+
+
+def test_cerebras_benefit_is_disclosed_revenue(cb_snap):
+    b = cb_snap["pillars"]["benefit"]
+    # total revenue ≈ AI benefit for a pure-play; disclosed/guided, not an estimate
+    assert b["headline_is_estimate"] is False
+    assert cb_snap["headline"]["ai_benefit_metric"] == "revenue_runrate"
+    # backlog ($24.6B) carries a DIFFERENT metric → must not be averaged into the run-rate consensus
+    assert b["consensus_usd_bn"] == round(cb_snap["headline"]["ai_benefit_usd_bn"], 1)
+
+
+def test_cerebras_full_tsmc_exposure(cb_snap):
+    sil = cb_snap["pillars"]["silicon"]
+    assert cb_snap["headline"]["tsmc_exposure_pct"] == 100
+    assert all(c["fab"].upper().startswith("TSMC") for c in sil["chain"])
+    assert sil["chain_count"] == 6
+
+
+def test_cerebras_exposure_alert_fires(cb_snap):
+    alerts = cb_snap["l3"]["alerts"]
+    assert any(a["level"] == "exposure" for a in alerts)
+
+
+def test_cerebras_scenarios_sum_100(cb_snap):
+    probs = [s["prob"] for s in cb_snap["l5"]["scenarios"]]
+    assert sum(probs) == 100 and len(probs) == 4
+
+
+def test_cerebras_no_amazon_or_nvidia_bleed(cb_snap):
+    """The KB-driven engine must not leak Amazon/NVIDIA-specific copy into Cerebras's read."""
+    import json as _json
+    blob = _json.dumps(cb_snap, ensure_ascii=False)
+    assert "AWS discloses no AI-only line" not in blob
+    assert "Trainium/Inferentia/Graviton" not in blob
+    ben_alerts = [a for a in cb_snap["l3"]["alerts"] if "AI benefit" in a["en"]]
+    assert ben_alerts and any("pure-play" in a["en"] for a in ben_alerts)
+
+
 if __name__ == "__main__":
     sys.exit(pytest.main([__file__, "-q"]))

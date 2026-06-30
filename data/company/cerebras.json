@@ -1,0 +1,585 @@
+{
+  "slug": "cerebras",
+  "generated_at": "2026-06-29 15:36 UTC",
+  "as_of": "2026-06-29",
+  "source": "seed",
+  "stale_fetch_ids": [],
+  "is_demo": true,
+  "company": {
+    "name_en": "Cerebras Systems",
+    "name_zh": "Cerebras（晶圓級 AI 推論）",
+    "ticker": "CBRS",
+    "segment_en": "Wafer-scale AI compute — the pure-play bet on the training→inference shift, newly public (Nasdaq, May 2026), and TSMC's most wafer-intensive customer per chip",
+    "segment_zh": "晶圓級 AI 算力 — 押注「訓練→推論」轉移的純標的，2026/5 剛於 Nasdaq 上市，也是台積電「每顆晶片最吃晶圓」的客戶",
+    "blurb_en": "Four pillars on the wafer-scale inference challenger: how Cerebras raises realized compute price (locked-in backlog · latency-as-product · wafer-scale moat) and where the token price-war and margin compression push back · what to watch it with · how much it makes from AI (≈ all of its ~$0.9B revenue, atop a $24.6B backlog) · and how ~100% of it is a single TSMC N5 wafer — uniquely CoWoS/HBM-light.",
+    "blurb_zh": "對「晶圓級推論挑戰者」的四支柱：Cerebras 怎麼提高已實現算力售價（鎖定的在手訂單 · 速度即產品 · 晶圓級護城河），以及代幣價格戰與毛利壓縮如何反推 · 用什麼資料觀察 · 從 AI 賺多少（≈ 其全部約 $0.9B 營收，背後是 $24.6B 在手訂單）· 以及這一切如何幾乎 100% 是一整片台積電 N5 晶圓 — 且罕見地「不吃 CoWoS／HBM」。"
+  },
+  "thesis_en": "Cerebras is the purest public bet on the training→inference shift. Its Wafer-Scale Engine — a single TSMC 5nm wafer, ~57x the die of an H100 with 44GB of on-chip SRAM — turns LATENCY into the product, posting inference speeds (Llama 8B ~1,800 tok/s) GPUs struggle to match. The bull case is demand, not unit price: a $24.6B RPO backlog (~48x 2025 revenue) plus a >$20B / 750MW OpenAI commitment and DOE/national-lab anchors. The honest tension is the other side of the ledger — realized economics are UNDER PRESSURE (gross margin guided down from 47% to 36-38%), the token price-war is brutal, and 86% of revenue comes from two related UAE entities (MBZUAI + G42). For TSMC, Cerebras is a different shape of customer: it consumes raw advanced-node WAFER AREA at scale yet largely bypasses the CoWoS + HBM bottleneck — so its binding constraint is data-center POWER and its own deployment capex, not packaging.",
+  "thesis_zh": "Cerebras 是公開市場上對「訓練→推論」轉移最純粹的押注。它的晶圓級引擎（Wafer-Scale Engine）— 一整片台積電 5nm 晶圓、晶粒約是 H100 的 57 倍、片上 44GB SRAM — 把「延遲」變成產品，推出 GPU 難以匹敵的推論速度（Llama 8B 約 1,800 tok/s）。多頭論點在需求、不在單位價格：$24.6B 在手訂單（RPO，約 2025 營收的 48 倍）、加上 OpenAI >$20B／750MW 承諾與 DOE／國家實驗室錨定客戶。誠實的張力在帳本另一邊 — 已實現經濟正受壓（毛利指引從 47% 砍到 36-38%）、代幣價格戰殘酷，且 86% 營收來自兩家阿聯酋關係企業（MBZUAI＋G42）。對台積電而言，Cerebras 是另一種形狀的客戶：它大量消耗先進製程的「晶圓面積」，卻幾乎繞過 CoWoS＋HBM 瓶頸 — 因此它的綁定約束是資料中心電力與自身部署資本支出，而非封裝。",
+  "headline": {
+    "compute_pricing_score": 57.7,
+    "verdict_key": "holding",
+    "verdict_en": "HOLDING — realized price roughly flat",
+    "verdict_zh": "HOLDING — 已實現價格大致持平",
+    "ai_benefit_usd_bn": 0.86,
+    "ai_benefit_metric": "revenue_runrate",
+    "tsmc_exposure_pct": 100
+  },
+  "pillars": {
+    "pricing": {
+      "score": 57.7,
+      "verdict_key": "holding",
+      "verdict_en": "HOLDING — realized price roughly flat",
+      "verdict_zh": "HOLDING — 已實現價格大致持平",
+      "levers": [
+        {
+          "id": "backlog_commitment_lockin",
+          "name_en": "Locked-in backlog & multi-year commitments (RPO / OpenAI / G42)",
+          "name_zh": "鎖定的在手訂單與多年期承諾（RPO／OpenAI／G42）",
+          "mechanism_en": "Cerebras carries a $24.6B remaining-performance-obligation backlog (~48x 2025 revenue), a >$20B OpenAI master agreement (750MW, options to 2GW) and G42 take-or-pay commitments (~$1.43B, $640M prepaid). These lock forward volume and pricing across multiple years, giving Cerebras pricing visibility and reference points few startups have — the single strongest pillar under its realized price.",
+          "mechanism_zh": "Cerebras 握有 $24.6B 剩餘履約義務（RPO，約 2025 營收的 48 倍）、OpenAI >$20B 主協議（750MW、選擇權至 2GW）與 G42 take-or-pay 承諾（約 $1.43B、已預付 $640M）。這些跨多年鎖定前瞻量與價格，給 Cerebras 少數新創才有的定價能見度與參考點 — 是其已實現價格底下最強的一根支柱。",
+          "direction": "up",
+          "strength": 80.0,
+          "weight": 1.4,
+          "tier": "T1",
+          "is_estimate": false,
+          "observability_en": "Cerebras 10-Q RPO/backlog line, OpenAI/G42/AWS contract disclosures, deferred-revenue & prepayment balances.",
+          "observability_zh": "Cerebras 10-Q 的 RPO／在手訂單項、OpenAI／G42／AWS 合約揭露、遞延收入與預付款餘額。",
+          "source_en": "Cerebras S-1 / 10-Q; OpenAI & G42 deal announcements",
+          "source_zh": "Cerebras S-1／10-Q；OpenAI 與 G42 合約公告",
+          "source_url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&company=cerebras&type=10-Q"
+        },
+        {
+          "id": "latency_as_product",
+          "name_en": "Latency-as-product premium (speed is the SKU)",
+          "name_zh": "「速度即產品」溢價（延遲就是規格）",
+          "mechanism_en": "Wafer-scale on-chip memory bandwidth (~21 PB/s) lets Cerebras post inference speeds GPUs can't — ~1,800 tok/s on Llama 8B, ~450 tok/s on 70B, ~969 tok/s on 405B. For real-time and agentic workloads where tokens/sec IS the product (Mistral Le Chat, Perplexity, AlphaSense), that latency commands a premium and lets Cerebras price above raw cost-per-token. The edge is strongest on small/mid models and contested on the largest.",
+          "mechanism_zh": "晶圓級片上記憶體頻寬（約 21 PB/s）讓 Cerebras 跑出 GPU 做不到的推論速度 — Llama 8B 約 1,800 tok/s、70B 約 450 tok/s、405B 約 969 tok/s。對「每秒代幣數即產品」的即時與代理（agentic）工作負載（Mistral Le Chat、Perplexity、AlphaSense），這份延遲帶來溢價，讓 Cerebras 能在純成本之上定價。優勢在中小模型最強，在最大模型則受競爭。",
+          "direction": "up",
+          "strength": 72.0,
+          "weight": 1.2,
+          "tier": "T1",
+          "is_estimate": false,
+          "observability_en": "Artificial Analysis & Cerebras benchmark tokens/sec, published $/M-token pricing, named latency-sensitive customer wins.",
+          "observability_zh": "Artificial Analysis 與 Cerebras 的 tok/s 基準、公布的每百萬代幣價格、延遲敏感客戶的具名勝出。",
+          "source_en": "Cerebras Inference benchmarks; Artificial Analysis",
+          "source_zh": "Cerebras Inference 基準；Artificial Analysis",
+          "source_url": "https://artificialanalysis.ai/"
+        },
+        {
+          "id": "wafer_scale_moat",
+          "name_en": "Wafer-scale architectural moat (no direct substitute)",
+          "name_zh": "晶圓級架構護城河（無直接替代品）",
+          "mechanism_en": "A 4-trillion-transistor, 900,000-core single wafer with 44GB on-chip SRAM is an architecture no merchant GPU replicates — the whole model fits on-chip, eliminating chip-to-chip overhead. This uniqueness insulates pricing on workloads that need it: there is no second-source to bid Cerebras down, unlike a fungible GPU rack.",
+          "mechanism_zh": "4 兆電晶體、90 萬核心、片上 44GB SRAM 的單一晶圓，是商用 GPU 無法複製的架構 — 整個模型放進片上，消除晶片間通訊負擔。這份獨特性在需要它的工作負載上保護定價：不像可替換的 GPU 機櫃，沒有第二供應商能把 Cerebras 殺價。",
+          "direction": "up",
+          "strength": 68.0,
+          "weight": 1.0,
+          "tier": "T2",
+          "is_estimate": true,
+          "observability_en": "WSE-3 spec disclosures, win/loss vs GPU clusters on latency-bound RFPs, competitive teardown commentary.",
+          "observability_zh": "WSE-3 規格揭露、延遲綁定標案中對 GPU 叢集的勝負、競品拆解評論。",
+          "source_en": "Cerebras WSE-3 disclosures; IEEE Spectrum",
+          "source_zh": "Cerebras WSE-3 揭露；IEEE Spectrum",
+          "source_url": "https://www.cerebras.ai/press-release/cerebras-announces-third-generation-wafer-scale-engine"
+        },
+        {
+          "id": "anchor_credibility",
+          "name_en": "Anchor-contract credibility (OpenAI / DOE / national labs)",
+          "name_zh": "錨定合約的可信度（OpenAI／DOE／國家實驗室）",
+          "mechanism_en": "Marquee anchors — the OpenAI master agreement, a DOE 'Genesis Mission' MOU, and deployed CS-3 systems at Sandia / Lawrence Livermore / Los Alamos — act as pricing references and credibility that pull in commercial logos at firmer terms. Validation by the most demanding buyers supports realized price across the rest of the book.",
+          "mechanism_zh": "招牌錨定客戶 — OpenAI 主協議、DOE「Genesis Mission」MOU、以及部署於 Sandia／Lawrence Livermore／Los Alamos 的 CS-3 系統 — 作為定價參考與可信度，以更穩的條件帶進商業客戶。被最挑剔買家驗證，支撐其餘訂單的已實現價格。",
+          "direction": "up",
+          "strength": 64.0,
+          "weight": 0.9,
+          "tier": "T2",
+          "is_estimate": true,
+          "observability_en": "New anchor announcements, government/national-lab deployment count, commercial customer logo additions.",
+          "observability_zh": "新錨定客戶公告、政府／國家實驗室部署數、新增商業客戶。",
+          "source_en": "Cerebras press releases; DOE / national-lab announcements",
+          "source_zh": "Cerebras 新聞稿；DOE／國家實驗室公告",
+          "source_url": "https://www.cerebras.ai/press"
+        },
+        {
+          "id": "token_price_war",
+          "name_en": "Token price-war (realized-price drag)",
+          "name_zh": "代幣價格戰（已實現價格拖累）",
+          "mechanism_en": "Inference is commoditizing fast: per-token prices have collapsed (~$20 → ~$0.07 per million tokens since 2022) and Gartner projects another ~90% decline by 2030. Cerebras must price its inference cloud against hyperscaler and Groq/SambaNova rates, so even with a speed premium its realized price-per-token is dragged down — a structural headwind on the up-stack levers above.",
+          "mechanism_zh": "推論正快速商品化：每代幣價格崩跌（2022 至今每百萬代幣約 $20 → $0.07），Gartner 預估到 2030 再降約 90%。Cerebras 的推論雲必須對齊雲端巨頭與 Groq／SambaNova 的價格，因此即便有速度溢價，其每代幣已實現價格仍被往下拖 — 是上述上移槓桿之上的結構性逆風。",
+          "direction": "down",
+          "strength": 34.0,
+          "weight": 1.2,
+          "tier": "T1",
+          "is_estimate": false,
+          "observability_en": "Published $/M-token across providers, Cerebras Inference price changes, Stanford AI Index cost-decline series.",
+          "observability_zh": "各供應商公布的每百萬代幣價格、Cerebras Inference 價格變動、史丹佛 AI Index 成本下降序列。",
+          "source_en": "Provider pricing pages; Stanford AI Index 2025",
+          "source_zh": "各供應商定價頁；史丹佛 AI Index 2025",
+          "source_url": "https://hai.stanford.edu/ai-index"
+        },
+        {
+          "id": "unit_economics_compression",
+          "name_en": "Wafer-scale unit-economics compression (realized-margin drag)",
+          "name_zh": "晶圓級單位經濟壓縮（已實現利潤拖累）",
+          "mechanism_en": "The Q1 2026 print guided gross margin DOWN from 46.5% to 36-38% (full-year 38-41%, operating margin (28-32%)). Wafer-scale uses enormous silicon area per model (a 70B model reportedly spans multiple wafers), and the backlog ramp is gated by data-center power and Cerebras's own deployment capex — so as volume scales, realized economics per unit of compute are under pressure, not expanding.",
+          "mechanism_zh": "2026 Q1 財報把毛利指引從 46.5% 砍到 36-38%（全年 38-41%、營益率 (28-32%)）。晶圓級每個模型吃下巨量矽面積（一個 70B 模型據報需跨多片晶圓），且在手訂單放量受資料中心電力與 Cerebras 自身部署資本支出制約 — 因此隨量擴張，每單位算力的已實現經濟是受壓、而非擴張。",
+          "direction": "down",
+          "strength": 30.0,
+          "weight": 1.3,
+          "tier": "T1",
+          "is_estimate": false,
+          "observability_en": "Quarterly gross-margin actuals vs guide, deployment capex & power commentary, utilization of installed CS-3 fleet.",
+          "observability_zh": "每季毛利實績 vs 指引、部署資本支出與電力評論、已裝機 CS-3 機隊的利用率。",
+          "source_en": "Cerebras Q1 2026 results & guidance; earnings call",
+          "source_zh": "Cerebras 2026 Q1 財報與指引；法說會",
+          "source_url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&company=cerebras&type=10-Q"
+        }
+      ],
+      "top_lever_id": "backlog_commitment_lockin",
+      "engine_note_en": "the pricing power is locked-in backlog and the latency-as-product premium — not unit-price expansion, where the token price-war and wafer-scale economics are compressing realized margin",
+      "engine_note_zh": "定價權來自鎖定的在手訂單與「速度即產品」溢價 — 而非單位價格擴張；在單位價格端，代幣價格戰與晶圓級經濟正壓縮已實現利潤"
+    },
+    "sources": {
+      "items": [
+        {
+          "name_en": "Cerebras S-1 / 10-Q / 10-K (SEC EDGAR)",
+          "name_zh": "Cerebras S-1／10-Q／10-K（SEC EDGAR）",
+          "what_en": "Revenue, gross margin, RPO/backlog, customer concentration (MBZUAI/G42), deferred revenue — the hard floor under every pillar. Newly public, so history is short.",
+          "what_zh": "營收、毛利、RPO／在手訂單、客戶集中度（MBZUAI／G42）、遞延收入 — 各支柱的硬底。剛上市，歷史尚短。",
+          "tier": "T1",
+          "cadence": "quarterly",
+          "access_en": "free (SEC EDGAR)",
+          "access_zh": "免費（SEC EDGAR）",
+          "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&company=cerebras&type=10-K"
+        },
+        {
+          "name_en": "Cerebras earnings calls & IR",
+          "name_zh": "Cerebras 法說會與投資人關係",
+          "what_en": "Guided core revenue & gross-margin trajectory, OpenAI / AWS / DOE deal commentary, deployment & power constraints — the swing factors on backlog conversion.",
+          "what_zh": "指引的核心營收與毛利軌跡、OpenAI／AWS／DOE 合約評論、部署與電力約束 — 在手訂單轉換的擺盪因子。",
+          "tier": "T1",
+          "cadence": "quarterly",
+          "access_en": "free (IR site)",
+          "access_zh": "免費（IR 網站）",
+          "url": "https://www.cerebras.ai/"
+        },
+        {
+          "name_en": "CBRS stock (Nasdaq) + analyst targets",
+          "name_zh": "CBRS 股價（Nasdaq）＋分析師目標價",
+          "what_en": "Live price, market cap, P/S vs NVDA/AVGO, consensus target (~$299) and lockup calendar — the market's read on backlog-conversion odds. Sentiment context, kept OUT of the pricing-power score.",
+          "what_zh": "即時價格、市值、P/S vs NVDA／AVGO、共識目標價（約 $299）與解禁時程 — 市場對在手訂單轉換機率的判讀。屬情緒情境，刻意排除在定價權分數外。",
+          "tier": "T1",
+          "cadence": "daily",
+          "access_en": "free (yfinance / stockanalysis)",
+          "access_zh": "免費（yfinance／stockanalysis）",
+          "url": "https://stockanalysis.com/stocks/cbrs/"
+        },
+        {
+          "name_en": "Inference benchmarks (Artificial Analysis, Cerebras blog)",
+          "name_zh": "推論基準（Artificial Analysis、Cerebras 部落格）",
+          "what_en": "Independent tokens/sec and $/M-token across models — the cross-check on the latency-as-product lever vs Groq / SambaNova / NVIDIA.",
+          "what_zh": "跨模型的獨立 tok/s 與每百萬代幣價格 — 對「速度即產品」槓桿、相對 Groq／SambaNova／NVIDIA 的交叉驗證。",
+          "tier": "T2",
+          "cadence": "periodic",
+          "access_en": "free / freemium",
+          "access_zh": "免費／freemium",
+          "url": "https://artificialanalysis.ai/"
+        },
+        {
+          "name_en": "TSMC revenue & advanced-node disclosures",
+          "name_zh": "台積電營收與先進製程揭露",
+          "what_en": "N5/N3 wafer mix and capacity — the raw wafer supply behind every WSE; note Cerebras is wafer-heavy but CoWoS-light, unlike NVIDIA/Broadcom.",
+          "what_zh": "N5／N3 晶圓結構與產能 — 每片 WSE 背後的原始晶圓供給；注意 Cerebras 吃晶圓但少用 CoWoS，與 NVIDIA／Broadcom 不同。",
+          "tier": "T1",
+          "cadence": "monthly/quarterly",
+          "access_en": "free (TSMC IR)",
+          "access_zh": "免費（台積電 IR）",
+          "url": "https://investor.tsmc.com/"
+        },
+        {
+          "name_en": "Customer-concentration & anchor disclosures (G42 / MBZUAI / OpenAI / DOE)",
+          "name_zh": "客戶集中度與錨定揭露（G42／MBZUAI／OpenAI／DOE）",
+          "what_en": "Related-party revenue share (~86% UAE), OpenAI MRA & warrant terms, DOE/national-lab deployments — the demand anchors AND the concentration risk.",
+          "what_zh": "關係人營收占比（約 86% 阿聯酋）、OpenAI 主協議與認股權條件、DOE／國家實驗室部署 — 既是需求錨定，也是集中度風險。",
+          "tier": "T1",
+          "cadence": "quarterly/on-event",
+          "access_en": "free (filings / press)",
+          "access_zh": "免費（財報／新聞）",
+          "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&company=cerebras&type=S-1"
+        },
+        {
+          "name_en": "SemiAnalysis / independent inference-cost models",
+          "name_zh": "SemiAnalysis／獨立推論成本模型",
+          "what_en": "Independent estimates of wafer-scale cost-per-token and silicon-area-per-model — the cross-check on the margin-compression lever.",
+          "what_zh": "晶圓級每代幣成本與每模型矽面積的獨立估計 — 對毛利壓縮槓桿的交叉驗證。",
+          "tier": "T2",
+          "cadence": "periodic",
+          "access_en": "paid research",
+          "access_zh": "付費研究",
+          "url": "https://www.semianalysis.com/"
+        },
+        {
+          "name_en": "AI inference market & token-price trackers",
+          "name_zh": "AI 推論市場與代幣價格追蹤",
+          "what_en": "Inference market size (~$106B 2025 → ~$255B 2030 EST), inference share of AI compute (~2/3 by 2026), and token-price indices — the demand backdrop and the price-war.",
+          "what_zh": "推論市場規模（約 $106B 2025 → 約 $255B 2030 EST）、推論占 AI 算力比重（2026 約 2/3）、代幣價格指數 — 需求背景與價格戰。",
+          "tier": "T2",
+          "cadence": "periodic",
+          "access_en": "mixed (research firms)",
+          "access_zh": "混合（研究機構）",
+          "url": "https://www.marketsandmarkets.com/"
+        }
+      ]
+    },
+    "benefit": {
+      "estimates": [
+        {
+          "id": "revenue_runrate",
+          "method_en": "Total revenue run-rate (guided FY2026 core revenue)",
+          "method_zh": "總營收年化（指引 FY2026 核心營收）",
+          "value_usd_bn": 0.86,
+          "metric": "revenue_runrate",
+          "confidence": "high",
+          "tier": "T1",
+          "is_estimate": false,
+          "basis_en": "Cerebras is a pure-play AI compute company, so total revenue ≈ AI benefit. 2025 revenue was $510M (+76%); Q1 2026 was $193.4M (+92%); management guides FY2026 core revenue to ~$855-865M. This is a disclosed/guided figure — only the annualization is a projection. For the demand-side coverage view see /payback; for the inference-share backdrop see /compute.",
+          "basis_zh": "Cerebras 是純 AI 算力公司，故總營收 ≈ AI 利益。2025 營收 $510M（+76%）；2026 Q1 為 $193.4M（+92%）；管理層指引 FY2026 核心營收約 $855-865M。此為揭露／指引值 — 唯一推估是年化。需求端覆蓋率視角見 /payback；推論占比背景見 /compute。"
+        },
+        {
+          "id": "rpo_backlog",
+          "method_en": "Contracted backlog (remaining performance obligations)",
+          "method_zh": "在手訂單（剩餘履約義務 RPO）",
+          "value_usd_bn": 24.6,
+          "metric": "backlog_rpo",
+          "confidence": "high",
+          "tier": "T1",
+          "is_estimate": false,
+          "basis_en": "S-1 discloses $24.6B of RPO — ~48x 2025 revenue. Recognition is back-loaded: ~15% (~$3.7B) through 2027, ~43% (~$10.6B) in 2028-2029, ~42% after. This is contracted future revenue, NOT an annual figure — backlog conversion timing (gated by power & deployment) is the central swing factor. Cancellability and related-party terms are the caveats.",
+          "basis_zh": "S-1 揭露 $24.6B 的 RPO — 約 2025 營收的 48 倍。認列後段集中：到 2027 約 15%（約 $3.7B）、2028-2029 約 43%（約 $10.6B）、其後約 42%。這是已簽約的未來營收、非年度數字 — 在手訂單的轉換時點（受電力與部署制約）是核心擺盪因子。可取消性與關係人條件是但書。"
+        },
+        {
+          "id": "openai_contract",
+          "method_en": "OpenAI master agreement (total contract value)",
+          "method_zh": "OpenAI 主協議（合約總值）",
+          "value_usd_bn": 20.0,
+          "metric": "contract_tcv",
+          "confidence": "medium",
+          "tier": "T1",
+          "is_estimate": true,
+          "basis_en": "The Dec 2025 OpenAI master agreement is reported at >$20B for 750MW of capacity (options to 2GW), bundled with a warrant to OpenAI (~33.4M shares) and a $1B working-capital loan to Cerebras. The headline TCV is disclosed-ish but figure precision and vesting milestones (incl. a $40B market-cap trigger) make the realized value an estimate.",
+          "basis_zh": "2025/12 的 OpenAI 主協議報導 >$20B、對應 750MW 產能（選擇權至 2GW），並綁定給 OpenAI 的認股權（約 33.4M 股）與給 Cerebras 的 $1B 營運資金貸款。頭條 TCV 大致揭露，但金額精度與行權里程碑（含 $40B 市值門檻）使已實現價值仍屬估計。"
+        }
+      ],
+      "headline_id": "revenue_runrate",
+      "headline_usd_bn": 0.86,
+      "headline_metric": "revenue_runrate",
+      "headline_is_estimate": false,
+      "consensus_usd_bn": 0.9,
+      "disclosure_note_en": "Cerebras reports total revenue directly and it ≈ AI benefit (a pure-play). The headline is the guided ~$0.86B FY2026 core run-rate; the $24.6B RPO backlog and >$20B OpenAI commitment are disclosed CONTRACTED figures, not annual revenue — backlog-conversion timing is the swing factor, and 86% of revenue is two related UAE entities.",
+      "disclosure_note_zh": "Cerebras 直接揭露總營收、且 ≈ AI 利益（純標的）。頭條為指引的約 $0.86B FY2026 核心年化；$24.6B RPO 在手訂單與 >$20B OpenAI 承諾是已揭露的「已簽約」數字、非年度營收 — 在手訂單轉換時點是擺盪因子，且 86% 營收來自兩家阿聯酋關係企業。"
+    },
+    "silicon": {
+      "chain": [
+        {
+          "accelerator_en": "WSE-3 (Wafer-Scale Engine 3)",
+          "accelerator_zh": "WSE-3（第三代晶圓級引擎）",
+          "role_en": "The product = one full TSMC wafer (training + inference)",
+          "role_zh": "產品本身＝一整片台積電晶圓（訓練＋推論）",
+          "designer": "Cerebras",
+          "node": "TSMC N5 (5nm)",
+          "packaging": "wafer-scale (no dicing)",
+          "fab": "TSMC",
+          "dependency": "critical",
+          "tier": "T1",
+          "is_estimate": false,
+          "note_en": "4T transistors, 900K cores, 44GB on-chip SRAM on a 46,225mm² die — ~57x an H100. The entire chip is a single TSMC N5 wafer: the most wafer-intensive product TSMC builds per unit.",
+          "note_zh": "4 兆電晶體、90 萬核心、46,225mm² 晶粒上 44GB 片上 SRAM — 約 H100 的 57 倍。整顆晶片就是一整片台積電 N5 晶圓：台積電「每顆最吃晶圓」的產品。"
+        },
+        {
+          "accelerator_en": "CS-3 system (WSE-3 integrated)",
+          "accelerator_zh": "CS-3 系統（整合 WSE-3）",
+          "role_en": "Deployed appliance — power, cooling, I/O around the wafer",
+          "role_zh": "部署整機 — 晶圓外的電力、散熱、I/O",
+          "designer": "Cerebras",
+          "node": "TSMC N5 (5nm)",
+          "packaging": "custom wafer-scale integration",
+          "fab": "TSMC",
+          "dependency": "critical",
+          "tier": "T1",
+          "is_estimate": false,
+          "note_en": "The shippable unit. Its constraint is data-center POWER and cooling, not packaging — the very thing gating backlog conversion and compressing margins.",
+          "note_zh": "可出貨單位。其約束是資料中心電力與散熱、而非封裝 — 正是卡住在手訂單轉換、壓縮毛利的那個變數。"
+        },
+        {
+          "accelerator_en": "WSE-4 (next-gen roadmap)",
+          "accelerator_zh": "WSE-4（次世代路線圖）",
+          "role_en": "Forward wafer-scale roadmap",
+          "role_zh": "前瞻晶圓級路線圖",
+          "designer": "Cerebras",
+          "node": "TSMC N3 (3nm)",
+          "packaging": "wafer-scale",
+          "fab": "TSMC",
+          "dependency": "critical",
+          "tier": "T3",
+          "is_estimate": true,
+          "note_en": "The roadmap pushes Cerebras onto TSMC's most advanced node — deepening leading-edge wafer dependence as it scales. Node/timing is industry-attributed.",
+          "note_zh": "路線圖把 Cerebras 推上台積電最先進節點 — 隨擴張加深對先進製程晶圓的依賴。節點／時程為產業歸因。"
+        },
+        {
+          "accelerator_en": "MemoryX (external weight-streaming memory)",
+          "accelerator_zh": "MemoryX（外部權重串流記憶體）",
+          "role_en": "Streams model weights to the wafer (disaggregated memory)",
+          "role_zh": "把模型權重串流到晶圓（解耦記憶體）",
+          "designer": "Cerebras",
+          "node": "TSMC N7 / N5",
+          "packaging": "standard",
+          "fab": "TSMC",
+          "dependency": "high",
+          "tier": "T2",
+          "is_estimate": true,
+          "note_en": "Disaggregated DRAM appliance that feeds weights — this is how Cerebras sidesteps HBM: commodity DRAM + streaming instead of HBM stacks + CoWoS.",
+          "note_zh": "餵入權重的解耦 DRAM 整機 — 這正是 Cerebras 繞過 HBM 的方式：商品 DRAM＋串流，取代 HBM 堆疊＋CoWoS。"
+        },
+        {
+          "accelerator_en": "SwarmX (scale-out interconnect fabric)",
+          "accelerator_zh": "SwarmX（scale-out 互連 fabric）",
+          "role_en": "Links multiple CS-3 into a cluster",
+          "role_zh": "把多台 CS-3 連成叢集",
+          "designer": "Cerebras",
+          "node": "TSMC N7",
+          "packaging": "standard",
+          "fab": "TSMC",
+          "dependency": "high",
+          "tier": "T2",
+          "is_estimate": true,
+          "note_en": "Broadcast/reduce fabric for weight streaming across many wafers — Cerebras's answer to NVLink/InfiniBand scale-out, also on TSMC silicon.",
+          "note_zh": "跨多片晶圓做權重串流的 broadcast/reduce fabric — Cerebras 對 NVLink／InfiniBand scale-out 的解法，同樣跑在台積電矽上。"
+        },
+        {
+          "accelerator_en": "Wafer-scale integration & redundant-core yield architecture",
+          "accelerator_zh": "晶圓級整合與冗餘核心良率架構",
+          "role_en": "What makes a whole-wafer chip yield-able & manufacturable",
+          "role_zh": "讓整片晶圓晶片能量產、可良率化",
+          "designer": "Cerebras + TSMC",
+          "node": "TSMC N5",
+          "packaging": "advanced (wafer-scale)",
+          "fab": "TSMC",
+          "dependency": "medium",
+          "tier": "T2",
+          "is_estimate": true,
+          "note_en": "Co-engineered redundancy, power delivery and the wafer-scale process flow with TSMC — the manufacturing moat that makes a single-wafer chip possible at all.",
+          "note_zh": "與台積電共同工程的冗餘、供電與晶圓級製程流程 — 讓「單一晶圓晶片」得以成立的製造護城河。"
+        }
+      ],
+      "tsmc_exposure_pct": 100,
+      "tsmc_fabbed_count": 6,
+      "chain_count": 6,
+      "critical_count": 3,
+      "tsmc_read_en": "Essentially 100% of Cerebras's silicon is fabbed by TSMC — WSE-3 on N5, the WSE-4 roadmap on N3, MemoryX/SwarmX on N7. But Cerebras is a DIFFERENT shape of customer from NVIDIA or Broadcom: its entire product is a single ~46,225mm² wafer (~57x an H100 die), so it consumes raw advanced-node WAFER AREA at extraordinary intensity per unit — yet it largely BYPASSES the CoWoS + HBM bottleneck (on-wafer SRAM + streamed commodity DRAM instead of HBM stacks and chip-to-chip CoWoS). For TSMC that means pure wafer-start demand decoupled from the packaging constraint that gates NVIDIA/Broadcom. As Cerebras converts its $24.6B backlog and the OpenAI 750MW→2GW ramp, that is incremental N5/N3 wafer demand — but its binding constraint is data-center POWER and its own deployment capex, the very thing that just compressed its margins, not CoWoS.",
+      "tsmc_read_zh": "Cerebras 的矽幾乎 100% 由台積電製造 — WSE-3 用 N5、WSE-4 路線圖用 N3、MemoryX／SwarmX 用 N7。但 Cerebras 是與 NVIDIA 或 Broadcom 不同形狀的客戶：它的整個產品就是一整片約 46,225mm² 的晶圓（約 H100 晶粒的 57 倍），因此每單位以驚人強度消耗先進製程「晶圓面積」 — 卻幾乎繞過 CoWoS＋HBM 瓶頸（片上 SRAM＋串流商品 DRAM，取代 HBM 堆疊與晶片間 CoWoS）。對台積電而言，這是與「卡住 NVIDIA／Broadcom 的封裝約束」脫鉤的純晶圓投片需求。當 Cerebras 轉換 $24.6B 在手訂單與 OpenAI 750MW→2GW 放量，那是增量的 N5／N3 晶圓需求 — 但它的綁定約束是資料中心電力與自身部署資本支出（正是剛壓縮其毛利的那個變數），而非 CoWoS。"
+    }
+  },
+  "l3": {
+    "proxies": [
+      {
+        "id": "cbrs_equity",
+        "name_en": "Cerebras (CBRS)",
+        "name_zh": "Cerebras（CBRS）",
+        "kind": "equity",
+        "value": 181.59,
+        "chg_1w": -2.8,
+        "chg_1m": -21.5,
+        "live": false
+      },
+      {
+        "id": "nvda_equity",
+        "name_en": "NVIDIA (NVDA) — inference-competition proxy",
+        "name_zh": "NVIDIA（NVDA）— 推論競爭 proxy",
+        "kind": "equity",
+        "value": 175.0,
+        "chg_1w": 0.9,
+        "chg_1m": 5.4,
+        "live": false
+      },
+      {
+        "id": "tsm_equity",
+        "name_en": "TSMC (TSM) — wafer-supply proxy",
+        "name_zh": "台積電（TSM）— 晶圓供給 proxy",
+        "kind": "equity",
+        "value": 230.0,
+        "chg_1w": 1.0,
+        "chg_1m": 5.0,
+        "live": false
+      }
+    ],
+    "alerts": [
+      {
+        "level": "exposure",
+        "en": "Concentration: ~100% of the AI compute behind this benefit is TSMC-fabbed, 3 link(s) critical — the CoWoS bottleneck TSMC controls is the binding constraint on growth.",
+        "zh": "集中度：撐起此利益的 AI 算力約 100% 由台積電製造，3 條鏈關鍵 — 台積電掌握的 CoWoS 瓶頸即成長綁定約束。"
+      },
+      {
+        "level": "watch",
+        "en": "AI benefit (headline) ≈ $0.86B revenue_runrate — Cerebras reports total revenue directly and it ≈ AI benefit (a pure-play). The headline is the guided ~$0.86B FY2026 core run-rate; the $24.6B RPO backlog and >$20B OpenAI commitment are disclosed CONTRACTED figures, not annual revenue — backlog-conversion timing is the swing factor, and 86% of revenue is two related UAE entities.",
+        "zh": "AI 利益（頭條）≈ $0.86B revenue_runrate — Cerebras 直接揭露總營收、且 ≈ AI 利益（純標的）。頭條為指引的約 $0.86B FY2026 核心年化；$24.6B RPO 在手訂單與 >$20B OpenAI 承諾是已揭露的「已簽約」數字、非年度營收 — 在手訂單轉換時點是擺盪因子，且 86% 營收來自兩家阿聯酋關係企業。"
+      }
+    ]
+  },
+  "l4": {
+    "integrated_thesis": {
+      "en": "Cerebras is a wafer-scale pure-play whose realized-price engine is contractual lock-in, not list price: a $24.6B RPO backlog and a >$20B OpenAI TCV anchor a guided ~$0.86B FY2026 run-rate. Latency-as-the-SKU lets it charge a speed premium, but token price-wars and ramp-cost margin compression (GM 36-38%) drag realized economics, holding the score at 57.7. The benefit is the revenue — it is a pure-play — but 86% sits in two related UAE entities, and conversion timing is the swing factor. Crucially for us: ~100% of that compute is TSMC-fabbed across N5 today and N3 for WSE-4. Cerebras is a direct advanced-node customer whose growth is gated by wafer and deployment capacity.",
+      "zh": "Cerebras 為晶圓級純 AI 業者，實現價格引擎是合約鎖定而非牌價：247 億美元 RPO 積壓與逾 200 億美元 OpenAI 合約，支撐 FY2026 約 8.6 億美元指引營收。以延遲為賣點可收速度溢價，但代幣價格戰與量產成本壓縮（毛利 36-38%）拖累實現經濟，分數維持 57.7。受益即營收（純 AI），但 86% 集中於兩家相關 UAE 實體，積壓轉換時點為關鍵變數。對台積電而言：該算力近乎 100% 由台積電代工，現以 N5、WSE-4 將進 N3。Cerebras 為直接先進製程客戶，成長受晶圓與部署產能制約。"
+    },
+    "pillars": {
+      "pricing": {
+        "en": "Score 57.7 (HOLDING). The dominant lever is backlog_commitment_lockin (strength 80, T1): multi-year RPO and the OpenAI/G42 commitments fix price ahead of the token price-war (34) and unit-economics compression (30) that pull realized margin down. Latency-as-product (72) sustains a speed premium that protects ASP. Net: pricing power is structurally supported by contracts, not list price — but only if backlog converts before commoditization erodes the latency moat.",
+        "zh": "分數 57.7（持穩）。主導槓桿為積壓承諾鎖定（強度 80，T1）：多年期 RPO 與 OpenAI/G42 承諾在代幣價格戰（34）與單位經濟壓縮（30）之前鎖定價格。延遲即產品（72）維持速度溢價，保護均價。結論：定價力靠合約而非牌價支撐，但前提是積壓需在商品化侵蝕延遲護城河前完成轉換。"
+      },
+      "sources": {
+        "en": "Highest signal: Cerebras S-1/10-Q/10-K on EDGAR for RPO and customer-concentration disclosure; earnings calls for backlog-conversion cadence and gross-margin trajectory; Artificial Analysis inference benchmarks to verify the latency premium is real; SemiAnalysis cost models to test margin claims; anchor disclosures (G42/MBZUAI/OpenAI/DOE) for concentration; and TSMC advanced-node disclosures to corroborate the N5→N3 wafer pull.",
+        "zh": "最高訊號：EDGAR 上 S-1/10-Q/10-K 揭露 RPO 與客戶集中度；財報電話會議追蹤積壓轉換節奏與毛利走勢；Artificial Analysis 基準驗證延遲溢價真實性；SemiAnalysis 成本模型檢驗毛利說法；錨定客戶揭露（G42/MBZUAI/OpenAI/DOE）看集中度；台積電先進製程揭露佐證 N5→N3 晶圓拉貨。"
+      },
+      "benefit": {
+        "en": "Treat the benefit as the company: guided ~$0.86B FY2026 core run-rate (high confidence, consensus $0.9B) — this is revenue, not an AI-only carve-out, because Cerebras is a pure-play. The $24.6B RPO and >$20B OpenAI TCV are disclosed CONTRACTED figures, NOT annual revenue; conversion timing is the swing. Risk flag: ~86% of revenue is two related UAE entities — diversification of logos is the credibility test.",
+        "zh": "受益即公司本身：FY2026 核心營收指引約 8.6 億美元（高信心，共識 9 億），此為營收而非 AI 切分，因 Cerebras 為純業者。247 億 RPO 與逾 200 億 OpenAI TCV 為揭露之合約金額，非年營收；轉換時點為擺盪因子。風險：約 86% 營收來自兩家相關 UAE 實體，客戶多元化是可信度試金石。"
+      },
+      "silicon": {
+        "en": "Near-total TSMC dependency, three critical links. WSE-3 and the CS-3 system run on N5 wafer-scale (no dicing) — a uniquely TSMC-intensive process; WSE-4 moves to N3. MemoryX and SwarmX add N7/N5 standard volume. This is a direct leading-edge customer, but volumes are small versus NVIDIA. Notably wafer-scale uses NO CoWoS — so Cerebras consumes our wafers and advanced integration, not our packaging bottleneck, making it a margin-accretive, capacity-light direct logo.",
+        "zh": "近乎全數依賴台積電，三條關鍵鏈。WSE-3 與 CS-3 採 N5 晶圓級（不切割）——獨特高台積電強度製程；WSE-4 轉 N3。MemoryX 與 SwarmX 增 N7/N5 標準產能。屬直接先進製程客戶，但量遠小於 NVIDIA。關鍵：晶圓級不用 CoWoS——故 Cerebras 消耗我方晶圓與先進整合，而非封裝瓶頸，為毛利加值、產能輕的直接客戶。"
+      }
+    },
+    "tsmc_implication": {
+      "en": "Cerebras is a DIRECT advanced-node customer (N5 today, N3 for WSE-4), not an indirect-via-NVIDIA one — and uniquely it consumes wafer-scale capacity WITHOUT touching the CoWoS bottleneck that gates our NVIDIA business. The binding constraint on Cerebras's own growth is not our packaging but data-center power and its deployment capex; for us, the binding constraint is simply whether backlog converts into wafer orders. Upside: incremental N5/N3 demand that does not compete for scarce CoWoS slots. Downside: small absolute volume and ~86% UAE concentration make this a high-optionality, low-base account — worth wafer-allocation goodwill, not capacity reservations.",
+      "zh": "Cerebras 為直接先進製程客戶（現 N5、WSE-4 將 N3），非經 NVIDIA 間接客戶，且獨特地消耗晶圓級產能而不觸及制約我方 NVIDIA 業務的 CoWoS 瓶頸。其自身成長受限於資料中心電力與部署資本支出，而非我方封裝；對我方而言瓶頸僅在於積壓能否轉為晶圓訂單。利多：增量 N5/N3 需求不與稀缺 CoWoS 名額競爭。利空：絕對量小且約 86% UAE 集中，屬高選擇權、低基數客戶——值得晶圓配置善意，但不需保留產能。"
+    }
+  },
+  "l5": {
+    "scenarios": [
+      {
+        "name_en": "Backlog-conversion flywheel",
+        "name_zh": "積壓轉換飛輪",
+        "prob": 30,
+        "trigger_en": "RPO converts on schedule, OpenAI 750MW + AWS deploy, run-rate clears $2-3B and non-UAE logos cut MBZUAI+G42 concentration below ~60%.",
+        "trigger_zh": "RPO 如期轉換，OpenAI 750MW 與 AWS 部署，營收衝 20-30 億美元，非 UAE 客戶將 MBZUAI+G42 集中度壓至約 60% 以下。"
+      },
+      {
+        "name_en": "Power & deployment bottleneck caps backlog",
+        "name_zh": "電力與部署瓶頸壓制積壓",
+        "prob": 28,
+        "trigger_en": "Wins continue but data-center power + deployment capex gate conversion; meaningful revenue slips to 2027+ and GM stays pinned at 36-38%.",
+        "trigger_zh": "持續得標但電力與部署資本支出拖累轉換，主要營收延至 2027 年後，毛利卡在 36-38%。"
+      },
+      {
+        "name_en": "Margin recovery / scale economics",
+        "name_zh": "毛利回升／規模經濟",
+        "prob": 22,
+        "trigger_en": "Utilization rises, gross margin recovers from 36-38% toward 45%+, proving Q1 compression was transitory ramp cost.",
+        "trigger_zh": "利用率上升，毛利從 36-38% 回升至 45% 以上，證明 Q1 壓縮為暫時量產成本。"
+      },
+      {
+        "name_en": "Inference commoditization / NVIDIA-Groq squeeze",
+        "name_zh": "推論商品化／NVIDIA-Groq 擠壓",
+        "prob": 20,
+        "trigger_en": "NVIDIA (Groq) Blackwell/Rubin + custom ASICs match latency at lower cost; token prices fall further and Cerebras GM stays below 38%.",
+        "trigger_zh": "NVIDIA(Groq) Blackwell/Rubin 與客製 ASIC 以更低成本匹配延遲；代幣價格續跌，Cerebras 毛利持續低於 38%。"
+      }
+    ],
+    "falsification": [
+      {
+        "en": "RPO conversion stalls: two consecutive quarters where recognized revenue grows <10% sequentially despite a flat-to-rising backlog — proving lock-in does not translate to realized price.",
+        "zh": "RPO 轉換停滯：連續兩季在積壓持平或上升下認列營收環比增幅低於 10%——證明鎖定無法轉化為實現價格。"
+      },
+      {
+        "en": "Latency premium collapses: Artificial Analysis benchmarks show NVIDIA/Groq matching Cerebras tokens/sec at lower $/token, removing the speed-as-SKU pricing basis.",
+        "zh": "延遲溢價瓦解：Artificial Analysis 顯示 NVIDIA/Groq 以更低每代幣成本匹配 Cerebras 速度，速度賣點定價基礎消失。"
+      },
+      {
+        "en": "Concentration crisis: a UAE entity cancels or delays, exposing that ~86% of revenue lacks diversified demand and the backlog is not bankable.",
+        "zh": "集中度危機：UAE 實體取消或延遲，暴露約 86% 營收缺乏多元需求，積壓不可變現。"
+      }
+    ],
+    "watch": [
+      {
+        "en": "CBRS price/sentiment & analyst targets (currently -21.5%/m)",
+        "zh": "CBRS 股價／情緒與分析師目標（目前 -21.5%/月）",
+        "freq": "weekly"
+      },
+      {
+        "en": "Inference benchmarks — Cerebras vs NVIDIA/Groq tokens/sec and $/token",
+        "zh": "推論基準——Cerebras 對 NVIDIA/Groq 每秒代幣與每代幣成本",
+        "freq": "monthly"
+      },
+      {
+        "en": "Quarterly RPO balance and backlog-conversion cadence in 10-Q",
+        "zh": "10-Q 季度 RPO 餘額與積壓轉換節奏",
+        "freq": "quarterly"
+      },
+      {
+        "en": "Gross margin trajectory vs 36-38% floor / 45% target",
+        "zh": "毛利走勢相對 36-38% 底部／45% 目標",
+        "freq": "quarterly"
+      },
+      {
+        "en": "Customer concentration — non-UAE logo additions cutting MBZUAI+G42 share",
+        "zh": "客戶集中度——非 UAE 新客戶降低 MBZUAI+G42 佔比",
+        "freq": "quarterly"
+      },
+      {
+        "en": "OpenAI/AWS deployment & data-center power milestones (750MW ramp)",
+        "zh": "OpenAI/AWS 部署與資料中心電力里程碑（750MW 爬坡）",
+        "freq": "quarterly"
+      },
+      {
+        "en": "TSMC N5/N3 wafer-allocation signals and WSE-4 tape-out timing",
+        "zh": "台積電 N5/N3 晶圓配置訊號與 WSE-4 流片時點",
+        "freq": "quarterly"
+      }
+    ]
+  },
+  "analysis_engine": "claude",
+  "cross_links": [
+    {
+      "href": "/bottleneck/",
+      "label_en": "Bottleneck Radar — power is Cerebras's binding constraint, not CoWoS; see which deliverable-compute link caps growth",
+      "label_zh": "瓶頸雷達 — 電力才是 Cerebras 的綁定約束（非 CoWoS）；看哪個可交付算力環節卡住成長"
+    },
+    {
+      "href": "/compute/",
+      "label_en": "AI Compute Demand Radar — the inference demand Cerebras is built to ride",
+      "label_zh": "AI 算力需求雷達 — Cerebras 為之而生的推論需求"
+    },
+    {
+      "href": "/payback/",
+      "label_en": "Capex Payback Radar — is the AI inference capex paying off across the giants?",
+      "label_zh": "資本支出回本雷達 — 巨頭的 AI 推論資本支出回本了沒？"
+    },
+    {
+      "href": "/pricing/",
+      "label_en": "Pricing Power Radar — the foundry ASP side of the same compute price stack",
+      "label_zh": "議價能力雷達 — 同一算力價格堆疊的代工 ASP 端"
+    },
+    {
+      "href": "/rival/",
+      "label_en": "Rival Radar — TSMC's competitive position behind the wafer Cerebras buys",
+      "label_zh": "競爭者雷達 — Cerebras 所買晶圓背後台積電的競爭格局"
+    }
+  ],
+  "blind_spots_en": [
+    "Newly public (May 2026) — only one quarter of public financials; limited history and a pending lockup expiry that can move the stock.",
+    "~86% of revenue is two related UAE entities (MBZUAI + G42); related-party pricing may not reflect arm's-length market rates.",
+    "Backlog ($24.6B RPO) conversion timing and cancellability assumptions are uncertain and back-loaded to 2028+.",
+    "Inference speed claims (e.g. 'Nx faster than Blackwell') are vendor benchmarks; independent figures vary by model size.",
+    "Node/timing for WSE-4 and MemoryX/SwarmX are industry-attributed, not TSMC/Cerebras-confirmed.",
+    "Live CBRS/NVDA/TSM proxies are sentiment context, deliberately kept out of the core pricing-power score."
+  ],
+  "blind_spots_zh": [
+    "剛上市（2026/5）— 僅一季公開財報；歷史有限，且即將到來的解禁可能牽動股價。",
+    "約 86% 營收來自兩家阿聯酋關係企業（MBZUAI＋G42）；關係人定價未必反映公平市場價。",
+    "在手訂單（$24.6B RPO）的轉換時點與可取消性假設不確定，且認列後段集中於 2028+。",
+    "推論速度宣稱（如「比 Blackwell 快 N 倍」）為廠商基準；獨立數字隨模型大小而異。",
+    "WSE-4 與 MemoryX／SwarmX 的節點／時程為產業歸因，非台積電／Cerebras 確認。",
+    "即時 CBRS／NVDA／TSM proxy 為情緒情境，刻意排除在核心定價權分數之外。"
+  ],
+  "news": [],
+  "fetched_at": null
+}
