@@ -189,6 +189,9 @@ STRINGS = {
     "company_amd_name":{"en": "AMD",                    "zh": "AMD（超微）"},
     "company_amd_desc":{"en": "Four pillars on the #2 AI-GPU challenger & inference value-play: how AMD raises realized price (Instinct generational ASP · HBM-capacity inference premium · EPYC share · ~12GW OpenAI+Meta lock-in) vs the ROCm-vs-CUDA gap · what to watch it with · its ~$8B Instinct revenue (est.) inside a $5.8B/qtr Data Center segment · and how ~100% is TSMC N3→N2 + CoWoS + HBM.",
                         "zh": "對「AI-GPU 第二名挑戰者＋推論性價比標的」的四支柱:AMD 怎麼提高已實現售價（Instinct 世代 ASP · HBM 容量推論溢價 · EPYC 市占 · OpenAI＋Meta ~12GW 鎖定）vs ROCm vs CUDA 差距 · 用什麼觀察 · 其 ~$8B Instinct 營收（估計）藏在每季 $5.8B 資料中心分部內 · 以及這一切如何幾乎 100% 是台積電 N3→N2＋CoWoS＋HBM。"},
+    "company_ap_name":{"en": "Apple",                   "zh": "Apple（蘋果）"},
+    "company_ap_desc":{"en": "Four pillars on TSMC's volume anchor & the on-device AI play: how Apple raises realized AI value at the EDGE (in-house Apple Silicon · ecosystem lock-in · Apple-Intelligence-gated device mix · Services attach) vs the mixed-reception / partner-dependent drag · what to watch it with · its ~$12B AI-attributable uplift (est.; no AI line disclosed) · and how ~100% is TSMC N3→N2 leading-edge logic — yet uniquely CoWoS/HBM-light.",
+                       "zh": "對台積電「量的錨」與端側 AI 標的的四支柱:Apple 怎麼在邊緣提高已實現 AI 價值（自研 Apple Silicon · 生態鎖定 · Apple Intelligence 綁定的裝置組合 · 服務附帶）vs 評價兩極／依賴夥伴的拖累 · 用什麼觀察 · 其 ~$12B AI 可歸因增益（估計;不揭露 AI 項）· 以及這一切如何幾乎 100% 是台積電 N3→N2 先進邏輯 — 卻罕見地少用 CoWoS／HBM。"},
     "company_lbl":{"en": "/100 pricing power",         "zh": "/100 定價權"},
     "v_raising": {"en": "raising",                     "zh": "漲價中"},
     "v_holding": {"en": "holding",                     "zh": "持平"},
@@ -351,6 +354,10 @@ def portal():
     except Exception:
         company_amd_snap = None
     try:
+        company_ap_snap = company_load_snapshot("apple")
+    except Exception:
+        company_ap_snap = None
+    try:
         bottleneck_snap = bottleneck_load_snapshot()
     except Exception:
         bottleneck_snap = None
@@ -405,6 +412,10 @@ def portal():
         company_amd_score=((company_amd_snap.get("headline") or {}).get("compute_pricing_score")) if company_amd_snap else None,
         company_amd_verdict=((company_amd_snap.get("headline") or {}).get("verdict_key")) if company_amd_snap else None,
         company_amd_benefit=((company_amd_snap.get("headline") or {}).get("ai_benefit_usd_bn")) if company_amd_snap else None,
+        company_ap_updated=(company_ap_snap.get("as_of") if company_ap_snap else None),
+        company_ap_score=((company_ap_snap.get("headline") or {}).get("compute_pricing_score")) if company_ap_snap else None,
+        company_ap_verdict=((company_ap_snap.get("headline") or {}).get("verdict_key")) if company_ap_snap else None,
+        company_ap_benefit=((company_ap_snap.get("headline") or {}).get("ai_benefit_usd_bn")) if company_ap_snap else None,
         bottleneck_updated=(bottleneck_snap.get("as_of") if bottleneck_snap else None),
         bottleneck_binding=(((bottleneck_snap.get("thesis") or {}).get("binding_name_zh" if ui_lang() == "zh" else "binding_name_en")) if bottleneck_snap else None),
         bottleneck_deliv=(((bottleneck_snap.get("thesis") or {}).get("deliverable_ea_qtr")) if bottleneck_snap else None),

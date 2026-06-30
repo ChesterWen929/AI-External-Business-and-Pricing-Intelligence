@@ -395,5 +395,73 @@ def test_amd_pricing_engine_note_drives_strong_alert(amd_snap):
     assert strong and "value alternative to NVIDIA" in strong[0]["en"]
 
 
+# ── Apple (sixth company; TSMC volume anchor, on-device/edge-AI, HOLDING, CoWoS-light) ──
+@pytest.fixture
+def apple_kb():
+    with open(KB_DIR / "apple.json", encoding="utf-8") as f:
+        return json.load(f)
+
+
+@pytest.fixture
+def apple_snap(apple_kb, monkeypatch):
+    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    return model.build_snapshot(apple_kb, live=None, generated_at="2026-06-30 00:00 UTC", today="2026-06-30")
+
+
+def test_apple_builds_and_is_holding(apple_snap):
+    # On-device AI monetized only indirectly → honest HOLDING, below AMD (68) / near Cerebras (58).
+    assert apple_snap["slug"] == "apple"
+    assert apple_snap["headline"]["verdict_key"] == "holding"
+    assert 50 <= apple_snap["headline"]["compute_pricing_score"] < 60
+
+
+def test_apple_top_lever_is_in_house_silicon(apple_snap):
+    assert apple_snap["pillars"]["pricing"]["top_lever_id"] == "in_house_silicon"
+    assert len(apple_snap["pillars"]["pricing"]["levers"]) == 6
+
+
+def test_apple_benefit_is_estimate(apple_snap):
+    b = apple_snap["pillars"]["benefit"]
+    # Apple discloses NO AI line → headline is an ESTIMATE
+    assert b["headline_is_estimate"] is True
+    assert apple_snap["headline"]["ai_benefit_metric"] == "revenue_runrate"
+    # the disclosed Services run-rate ($100B) carries a DIFFERENT metric → not averaged in
+    assert b["consensus_usd_bn"] == round(apple_snap["headline"]["ai_benefit_usd_bn"], 1)
+
+
+def test_apple_full_tsmc_exposure(apple_snap):
+    sil = apple_snap["pillars"]["silicon"]
+    assert apple_snap["headline"]["tsmc_exposure_pct"] == 100
+    assert all(c["fab"].upper().startswith("TSMC") for c in sil["chain"])
+    assert sil["chain_count"] == 6
+
+
+def test_apple_scenarios_sum_100(apple_snap):
+    probs = [s["prob"] for s in apple_snap["l5"]["scenarios"]]
+    assert sum(probs) == 100 and len(probs) == 4
+
+
+def test_apple_no_amazon_or_nvidia_bleed(apple_snap):
+    """KB-driven engine must not leak Amazon/NVIDIA-specific copy into Apple's read."""
+    import json as _json
+    blob = _json.dumps(apple_snap, ensure_ascii=False)
+    assert "AWS discloses no AI-only line" not in blob
+    assert "Trainium/Inferentia/Graviton" not in blob
+    ben_alerts = [a for a in apple_snap["l3"]["alerts"] if "AI benefit" in a["en"]]
+    assert ben_alerts and any("estimate" in a["en"].lower() for a in ben_alerts)
+
+
+def test_apple_is_cowos_light(apple_snap):
+    """Apple's signature: ~100% TSMC leading-edge logic, yet uniquely CoWoS/HBM-light (on-device SoC)."""
+    read = apple_snap["pillars"]["silicon"]["tsmc_read_en"].lower()
+    assert "cowos" in read and "on-device" in read
+    # the signature: ~100% TSMC leading-edge logic but explicitly CoWoS/HBM-LIGHT (drawn from the KB summary)
+    summ = (apple_snap["pillars"]["silicon"].get("tsmc_read_en") or "").lower()
+    assert "outside the cowos bottleneck" in summ or "not apple's binding constraint" in summ
+    # the flagship SoC links lean on unified memory, not a GPU-style HBM stack
+    info_links = [c for c in apple_snap["pillars"]["silicon"]["chain"] if "unified memory" in (c["packaging"] or "").lower()]
+    assert len(info_links) >= 3
+
+
 if __name__ == "__main__":
     sys.exit(pytest.main([__file__, "-q"]))

@@ -135,6 +135,7 @@
   .row.n3 { grid-template-columns: repeat(3, 1fr); max-width: 876px; }
   .row.n4 { grid-template-columns: repeat(4, 1fr); max-width: 1164px; }
   .row.n5 { grid-template-columns: repeat(5, 1fr); max-width: 1164px; }
+  .row.n6 { grid-template-columns: repeat(6, 1fr); max-width: 1164px; }
 
   /* ── cards ── */
   .card {
@@ -176,10 +177,10 @@
   /* ── responsive ── */
   @media (max-width: 980px) {
     .pyramid::before { display: none; }
-    .row.n1, .row.n2, .row.n3, .row.n4, .row.n5 { grid-template-columns: 1fr 1fr; max-width: 560px; }
+    .row.n1, .row.n2, .row.n3, .row.n4, .row.n5, .row.n6 { grid-template-columns: 1fr 1fr; max-width: 560px; }
   }
   @media (max-width: 560px) {
-    .row.n1, .row.n2, .row.n3, .row.n4, .row.n5 { grid-template-columns: 1fr; max-width: 360px; }
+    .row.n1, .row.n2, .row.n3, .row.n4, .row.n5, .row.n6 { grid-template-columns: 1fr; max-width: 360px; }
   }
 
   /* ── footer ── */
@@ -427,7 +428,7 @@
               <span class="tier-name">{{ t('tier5') }}</span>
               <span class="tier-sub">{{ t('tier5_sub') }}</span>
             </div>
-            <div class="row n5">
+            <div class="row n6">
               <a class="card" href="/company/amazon/">
                 <div class="kicker">COMPANY · AMZN</div>
                 <h2>{{ t('company_name') }}</h2>
@@ -484,6 +485,18 @@
                   <div class="stat">
                     {% if company_amd_score is not none %}<span class="score">{{ '%.0f'|format(company_amd_score) }}<small>{% if company_amd_verdict %}{{ t('v_' ~ company_amd_verdict) }}{% else %}{{ t('company_lbl') }}{% endif %}</small></span>{% endif %}
                     {% if company_amd_benefit is not none %}<span class="meta">AI ≈ ${{ '%.0f'|format(company_amd_benefit) }}B{% if company_amd_updated %} · {{ t('updated') }} {{ company_amd_updated }}{% endif %}</span>{% elif company_amd_updated %}<span class="meta">{{ t('updated') }} · {{ company_amd_updated }}</span>{% endif %}
+                  </div>
+                  <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
+                </div>
+              </a>
+              <a class="card" href="/company/apple/">
+                <div class="kicker">COMPANY · AAPL</div>
+                <h2>{{ t('company_ap_name') }}</h2>
+                <div class="desc">{{ t('company_ap_desc') }}</div>
+                <div class="foot">
+                  <div class="stat">
+                    {% if company_ap_score is not none %}<span class="score">{{ '%.0f'|format(company_ap_score) }}<small>{% if company_ap_verdict %}{{ t('v_' ~ company_ap_verdict) }}{% else %}{{ t('company_lbl') }}{% endif %}</small></span>{% endif %}
+                    {% if company_ap_benefit is not none %}<span class="meta">AI ≈ ${{ '%.0f'|format(company_ap_benefit) }}B{% if company_ap_updated %} · {{ t('updated') }} {{ company_ap_updated }}{% endif %}</span>{% elif company_ap_updated %}<span class="meta">{{ t('updated') }} · {{ company_ap_updated }}</span>{% endif %}
                   </div>
                   <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
                 </div>
