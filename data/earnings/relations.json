@@ -1,0 +1,1991 @@
+{
+  "updated_at": "2026-05-10T21:49:39",
+  "model": "claude-sonnet-4-5",
+  "tokens": {
+    "input": 4287,
+    "output": 1452,
+    "cost_usd": 0.035
+  },
+  "data": {
+    "5511.TWO": {
+      "ticker": "5511.TWO",
+      "relation": "supplier",
+      "reason_zh": "TSMC廠房土建承包商",
+      "reason_en": "TSMC fab civil contractor"
+    },
+    "2546.TW": {
+      "ticker": "2546.TW",
+      "relation": "supplier",
+      "reason_zh": "TSMC廠房土建工程",
+      "reason_en": "TSMC fab civil engineering"
+    },
+    "2515.TW": {
+      "ticker": "2515.TW",
+      "relation": "supplier",
+      "reason_zh": "TSMC基建與土建",
+      "reason_en": "TSMC infrastructure civil work"
+    },
+    "3703.TW": {
+      "ticker": "3703.TW",
+      "relation": "supplier",
+      "reason_zh": "根基母公司TSMC土建",
+      "reason_en": "Parent of TSMC civil contractor"
+    },
+    "5519.TW": {
+      "ticker": "5519.TW",
+      "relation": "supplier",
+      "reason_zh": "半導體廠房土建工程",
+      "reason_en": "Semiconductor fab civil engineering"
+    },
+    "2535.TW": {
+      "ticker": "2535.TW",
+      "relation": "supplier",
+      "reason_zh": "廠房土建營造",
+      "reason_en": "Fab civil construction"
+    },
+    "2597.TW": {
+      "ticker": "2597.TW",
+      "relation": "supplier",
+      "reason_zh": "廠房預鑄混凝土",
+      "reason_en": "Precast concrete for fabs"
+    },
+    "1801.T": {
+      "ticker": "1801.T",
+      "relation": "supplier",
+      "reason_zh": "TSMC熊本廠營造",
+      "reason_en": "TSMC Kumamoto fab construction"
+    },
+    "1812.T": {
+      "ticker": "1812.T",
+      "relation": "supplier",
+      "reason_zh": "日本廠房營造",
+      "reason_en": "Japan fab construction"
+    },
+    "1802.T": {
+      "ticker": "1802.T",
+      "relation": "supplier",
+      "reason_zh": "日本綜合營造商",
+      "reason_en": "Japan general contractor fabs"
+    },
+    "1803.T": {
+      "ticker": "1803.T",
+      "relation": "supplier",
+      "reason_zh": "日本廠房營造",
+      "reason_en": "Japan fab construction"
+    },
+    "028260.KS": {
+      "ticker": "028260.KS",
+      "relation": "supplier",
+      "reason_zh": "三星廠房營造",
+      "reason_en": "Samsung fab construction"
+    },
+    "000720.KS": {
+      "ticker": "000720.KS",
+      "relation": "supplier",
+      "reason_zh": "三星SK廠房土建",
+      "reason_en": "Samsung SK fab civil"
+    },
+    "047040.KS": {
+      "ticker": "047040.KS",
+      "relation": "supplier",
+      "reason_zh": "三星廠房分包商",
+      "reason_en": "Samsung fab subcontractor"
+    },
+    "STR.VI": {
+      "ticker": "STR.VI",
+      "relation": "supplier",
+      "reason_zh": "TSMC德勒斯登廠營造",
+      "reason_en": "TSMC Dresden fab construction"
+    },
+    "GBF.DE": {
+      "ticker": "GBF.DE",
+      "relation": "supplier",
+      "reason_zh": "德國廠房工程服務",
+      "reason_en": "German fab engineering services"
+    },
+    "FLR": {
+      "ticker": "FLR",
+      "relation": "supplier",
+      "reason_zh": "TSMC亞利桑那廠營造",
+      "reason_en": "TSMC Arizona fab construction"
+    },
+    "J": {
+      "ticker": "J",
+      "relation": "supplier",
+      "reason_zh": "TSMC美國廠工程",
+      "reason_en": "TSMC US fab engineering"
+    },
+    "ACM": {
+      "ticker": "ACM",
+      "relation": "supplier",
+      "reason_zh": "基建工程服務",
+      "reason_en": "Infrastructure engineering services"
+    },
+    "6196.TW": {
+      "ticker": "6196.TW",
+      "relation": "supplier",
+      "reason_zh": "TSMC無塵室統包整合",
+      "reason_en": "TSMC cleanroom turnkey integration"
+    },
+    "PRIVATE": {
+      "ticker": "PRIVATE",
+      "relation": "demand",
+      "reason_zh": "AI數據中心終端用戶",
+      "reason_en": "AI datacenter end-user"
+    },
+    "4005.T": {
+      "ticker": "4005.T",
+      "relation": "supplier",
+      "reason_zh": "光阻劑與特殊材料供應商",
+      "reason_en": "Photoresist and specialty materials supplier"
+    },
+    "MRK.DE": {
+      "ticker": "MRK.DE",
+      "relation": "supplier",
+      "reason_zh": "半導體特殊化學品供應商",
+      "reason_en": "Semiconductor specialty chemicals supplier"
+    },
+    "DD": {
+      "ticker": "DD",
+      "relation": "supplier",
+      "reason_zh": "電子材料、漿料供應商",
+      "reason_en": "Electronic materials and slurries supplier"
+    },
+    "ENTG": {
+      "ticker": "ENTG",
+      "relation": "supplier",
+      "reason_zh": "過濾、漿料、氣體純化供應",
+      "reason_en": "Filtration, slurries, gas purification supplier"
+    },
+    "4901.T": {
+      "ticker": "4901.T",
+      "relation": "supplier",
+      "reason_zh": "光阻劑與CMP漿料供應",
+      "reason_en": "Photoresist and CMP slurries supplier"
+    },
+    "1773.TW": {
+      "ticker": "1773.TW",
+      "relation": "supplier",
+      "reason_zh": "電子級溶劑蝕刻劑供應",
+      "reason_en": "Electronic-grade solvents/etchants supplier"
+    },
+    "4755.TW": {
+      "ticker": "4755.TW",
+      "relation": "supplier",
+      "reason_zh": "晶圓廠高純度濕化學品",
+      "reason_en": "High-purity wet chemicals for fabs"
+    },
+    "1717.TW": {
+      "ticker": "1717.TW",
+      "relation": "supplier",
+      "reason_zh": "PCB樹脂、光阻劑供應",
+      "reason_en": "PCB resins and photoresists supplier"
+    },
+    "LIN": {
+      "ticker": "LIN",
+      "relation": "supplier",
+      "reason_zh": "全球最大工業氣體供應商",
+      "reason_en": "World's largest industrial gas supplier"
+    },
+    "AI.PA": {
+      "ticker": "AI.PA",
+      "relation": "supplier",
+      "reason_zh": "第二大工業電子氣體供應",
+      "reason_en": "Second largest electronic gases supplier"
+    },
+    "APD": {
+      "ticker": "APD",
+      "relation": "supplier",
+      "reason_zh": "工業氣體、氫氣供應商",
+      "reason_en": "Industrial gases and hydrogen supplier"
+    },
+    "4091.T": {
+      "ticker": "4091.T",
+      "relation": "supplier",
+      "reason_zh": "日本特殊氣體供應商",
+      "reason_en": "Japan specialty gases supplier"
+    },
+    "PLAB": {
+      "ticker": "PLAB",
+      "relation": "supplier",
+      "reason_zh": "最大商用光罩供應商",
+      "reason_en": "Largest merchant photomask supplier"
+    },
+    "7911.T": {
+      "ticker": "7911.T",
+      "relation": "supplier",
+      "reason_zh": "光罩、封裝基板供應",
+      "reason_en": "Photomasks and packaging substrates supplier"
+    },
+    "7912.T": {
+      "ticker": "7912.T",
+      "relation": "supplier",
+      "reason_zh": "光罩、導線架供應商",
+      "reason_en": "Photomasks and lead frames supplier"
+    },
+    "7741.T": {
+      "ticker": "7741.T",
+      "relation": "supplier",
+      "reason_zh": "EUV光罩基板近壟斷",
+      "reason_en": "EUV photomask blanks near-monopoly"
+    },
+    "3037.TW": {
+      "ticker": "3037.TW",
+      "relation": "ecosystem",
+      "reason_zh": "ABF基板廠，TSMC下游",
+      "reason_en": "ABF substrate maker, TSMC downstream"
+    },
+    "8046.TW": {
+      "ticker": "8046.TW",
+      "relation": "ecosystem",
+      "reason_zh": "ABF基板廠，TSMC下游",
+      "reason_en": "ABF substrate maker, TSMC downstream"
+    },
+    "3189.TW": {
+      "ticker": "3189.TW",
+      "relation": "ecosystem",
+      "reason_zh": "IC載板廠，TSMC下游",
+      "reason_en": "IC carrier maker, TSMC downstream"
+    },
+    "4062.T": {
+      "ticker": "4062.T",
+      "relation": "ecosystem",
+      "reason_zh": "ABF基板供下游封裝，非TSMC直供",
+      "reason_en": "ABF substrate for downstream packaging, not TSMC direct"
+    },
+    "ATS.VI": {
+      "ticker": "ATS.VI",
+      "relation": "ecosystem",
+      "reason_zh": "IC基板供封裝段，非TSMC上游",
+      "reason_en": "IC substrate for packaging downstream, not TSMC upstream"
+    },
+    "002938.SZ": {
+      "ticker": "002938.SZ",
+      "relation": "ecosystem",
+      "reason_zh": "PCB基板供封裝下游非晶圓廠",
+      "reason_en": "PCB substrate for downstream packaging, not fab"
+    },
+    "MP": {
+      "ticker": "MP",
+      "relation": "ecosystem",
+      "reason_zh": "稀土礦產對TSMC無直接影響",
+      "reason_en": "Rare earth mining no direct TSMC impact"
+    },
+    "LYC.AX": {
+      "ticker": "LYC.AX",
+      "relation": "ecosystem",
+      "reason_zh": "稀土供應鏈對TSMC影響間接",
+      "reason_en": "Rare earth supply chain indirect to TSMC"
+    },
+    "600111.SS": {
+      "ticker": "600111.SS",
+      "relation": "ecosystem",
+      "reason_zh": "稀土材料非TSMC直接上游",
+      "reason_en": "Rare earth materials not TSMC direct supplier"
+    },
+    "3016.TW": {
+      "ticker": "3016.TW",
+      "relation": "competitor",
+      "reason_zh": "砷化鎵磊晶競爭化合物半導體代工",
+      "reason_en": "GaAs epi competes in compound semiconductor foundry"
+    },
+    "2455.TW": {
+      "ticker": "2455.TW",
+      "relation": "competitor",
+      "reason_zh": "化合物磊晶供競爭代工廠",
+      "reason_en": "Compound epi for competing foundries"
+    },
+    "4991.TWO": {
+      "ticker": "4991.TWO",
+      "relation": "competitor",
+      "reason_zh": "化合物磊晶供RF專業代工",
+      "reason_en": "Compound epi for RF specialty foundries"
+    },
+    "6919.TW": {
+      "ticker": "6919.TW",
+      "relation": "ecosystem",
+      "reason_zh": "碳化矽基板供功率半導體非TSMC",
+      "reason_en": "SiC substrate for power semi, not TSMC"
+    },
+    "5201.T": {
+      "ticker": "5201.T",
+      "relation": "ecosystem",
+      "reason_zh": "顯示器玻璃非晶圓製造供應",
+      "reason_en": "Display glass not wafer fab supply"
+    },
+    "5214.T": {
+      "ticker": "5214.T",
+      "relation": "ecosystem",
+      "reason_zh": "顯示玻璃與TSMC無直接關係",
+      "reason_en": "Display glass no direct TSMC relation"
+    },
+    "OLED": {
+      "ticker": "OLED",
+      "relation": "ecosystem",
+      "reason_zh": "OLED材料IP供顯示面板廠",
+      "reason_en": "OLED material IP for panel makers"
+    },
+    "034220.KS": {
+      "ticker": "034220.KS",
+      "relation": "ecosystem",
+      "reason_zh": "面板製造商非TSMC供應鏈",
+      "reason_en": "Panel maker not in TSMC supply chain"
+    },
+    "ASML": {
+      "ticker": "ASML",
+      "relation": "supplier",
+      "reason_zh": "EUV光刻機唯一供應商",
+      "reason_en": "EUV lithography sole supplier to TSMC"
+    },
+    "7751.T": {
+      "ticker": "7751.T",
+      "relation": "supplier",
+      "reason_zh": "成熟製程光刻設備供應商",
+      "reason_en": "Mature node lithography equipment supplier"
+    },
+    "7731.T": {
+      "ticker": "7731.T",
+      "relation": "supplier",
+      "reason_zh": "DUV光刻機供應TSMC舊製程",
+      "reason_en": "DUV scanners supply TSMC legacy nodes"
+    },
+    "AMAT": {
+      "ticker": "AMAT",
+      "relation": "supplier",
+      "reason_zh": "薄膜沉積蝕刻設備核心供應",
+      "reason_en": "Core deposition/etch equipment supplier to TSMC"
+    },
+    "LRCX": {
+      "ticker": "LRCX",
+      "relation": "supplier",
+      "reason_zh": "蝕刻薄膜設備主要供應商",
+      "reason_en": "Major etch/deposition equipment supplier to TSMC"
+    },
+    "2404.TW": {
+      "ticker": "2404.TW",
+      "relation": "supplier",
+      "reason_zh": "TSMC晶圓廠無塵室工程承包商",
+      "reason_en": "Cleanroom EPC contractor for TSMC fabs"
+    },
+    "5536.TWO": {
+      "ticker": "5536.TWO",
+      "relation": "supplier",
+      "reason_zh": "晶圓廠空調與機電系統供應商",
+      "reason_en": "HVAC and M&E systems for fabs"
+    },
+    "6667.TWO": {
+      "ticker": "6667.TWO",
+      "relation": "supplier",
+      "reason_zh": "晶圓廠化學品輸送系統供應商",
+      "reason_en": "Chemical delivery systems for TSMC fabs"
+    },
+    "3413.TW": {
+      "ticker": "3413.TW",
+      "relation": "supplier",
+      "reason_zh": "真空與無塵室設備製造商",
+      "reason_en": "Vacuum and cleanroom equipment supplier"
+    },
+    "9933.TW": {
+      "ticker": "9933.TW",
+      "relation": "supplier",
+      "reason_zh": "工廠與晶圓廠EPC工程承包",
+      "reason_en": "EPC engineering for fab construction"
+    },
+    "4426.TW": {
+      "ticker": "4426.TW",
+      "relation": "supplier",
+      "reason_zh": "無塵室與淨化隔間製造商",
+      "reason_en": "Clean booth and cleanroom maker"
+    },
+    "6139.TW": {
+      "ticker": "6139.TW",
+      "relation": "supplier",
+      "reason_zh": "無塵室電力與機電工程承包商",
+      "reason_en": "Cleanroom electrical and MEP contractor"
+    },
+    "6125.TWO": {
+      "ticker": "6125.TWO",
+      "relation": "supplier",
+      "reason_zh": "晶圓廠AMHS物料搬運系統",
+      "reason_en": "AMHS material handling for fabs"
+    },
+    "8091.TWO": {
+      "ticker": "8091.TWO",
+      "relation": "supplier",
+      "reason_zh": "半導體精密零件與晶舟供應商",
+      "reason_en": "Precision components and wafer carriers"
+    },
+    "6383.T": {
+      "ticker": "6383.T",
+      "relation": "supplier",
+      "reason_zh": "TSMC與Samsung的AMHS自動化系統",
+      "reason_en": "AMHS automation for TSMC Samsung"
+    },
+    "4063.T": {
+      "ticker": "4063.T",
+      "relation": "supplier",
+      "reason_zh": "全球最大300mm矽晶圓供應商",
+      "reason_en": "World's #1 300mm silicon wafer supplier"
+    },
+    "3436.T": {
+      "ticker": "3436.T",
+      "relation": "supplier",
+      "reason_zh": "第二大矽晶圓製造商",
+      "reason_en": "#2 silicon wafer producer globally"
+    },
+    "6488.TWO": {
+      "ticker": "6488.TWO",
+      "relation": "supplier",
+      "reason_zh": "第三大矽晶圓供應商",
+      "reason_en": "#3 silicon wafer supplier to TSMC"
+    },
+    "WAF.DE": {
+      "ticker": "WAF.DE",
+      "relation": "supplier",
+      "reason_zh": "德國300mm矽晶圓專業製造商",
+      "reason_en": "German 300mm wafer specialist supplier"
+    },
+    "WOLF": {
+      "ticker": "WOLF",
+      "relation": "supplier",
+      "reason_zh": "碳化矽基板與功率元件供應商",
+      "reason_en": "SiC substrate supplier for power"
+    },
+    "COHR": {
+      "ticker": "COHR",
+      "relation": "supplier",
+      "reason_zh": "碳化矽基板與光子學材料供應",
+      "reason_en": "SiC substrates and photonics materials"
+    },
+    "SOI.PA": {
+      "ticker": "SOI.PA",
+      "relation": "supplier",
+      "reason_zh": "特殊工程基板SOI供應商",
+      "reason_en": "Engineered SOI substrate supplier TSMC"
+    },
+    "4186.T": {
+      "ticker": "4186.T",
+      "relation": "supplier",
+      "reason_zh": "EUV光阻劑領導供應商",
+      "reason_en": "EUV photoresist leader for TSMC"
+    },
+    "6510.TWO": {
+      "ticker": "6510.TWO",
+      "relation": "supplier",
+      "reason_zh": "探針卡供應TSMC測試",
+      "reason_en": "Probe cards for TSMC testing"
+    },
+    "OXIG.L": {
+      "ticker": "OXIG.L",
+      "relation": "ecosystem",
+      "reason_zh": "量子低溫設備非TSMC直接供應",
+      "reason_en": "Quantum cryo not direct TSMC supplier"
+    },
+    "SNPS": {
+      "ticker": "SNPS",
+      "relation": "supplier",
+      "reason_zh": "EDA工具供TSMC製程",
+      "reason_en": "EDA tools for TSMC processes"
+    },
+    "CDNS": {
+      "ticker": "CDNS",
+      "relation": "supplier",
+      "reason_zh": "EDA軟體供應TSMC客戶",
+      "reason_en": "EDA software for TSMC customers"
+    },
+    "SIE.DE": {
+      "ticker": "SIE.DE",
+      "relation": "demand",
+      "reason_zh": "工業自動化終端客戶驅動晶片需求",
+      "reason_en": "Industrial automation end customer, chip demand"
+    },
+    "KEYS": {
+      "ticker": "KEYS",
+      "relation": "supplier",
+      "reason_zh": "RF模擬與測試設備供應",
+      "reason_en": "RF simulation test equipment supply"
+    },
+    "ARM": {
+      "ticker": "ARM",
+      "relation": "supplier",
+      "reason_zh": "CPU IP授權TSMC客戶",
+      "reason_en": "CPU IP licensed to TSMC customers"
+    },
+    "RMBS": {
+      "ticker": "RMBS",
+      "relation": "supplier",
+      "reason_zh": "記憶體與安全IP",
+      "reason_en": "Memory security IP"
+    },
+    "CEVA": {
+      "ticker": "CEVA",
+      "relation": "supplier",
+      "reason_zh": "DSP與無線IP授權",
+      "reason_en": "DSP wireless IP licensing"
+    },
+    "6533.TW": {
+      "ticker": "6533.TW",
+      "relation": "supplier",
+      "reason_zh": "RISC-V CPU IP授權",
+      "reason_en": "RISC-V CPU IP licensing"
+    },
+    "2330.TW": {
+      "ticker": "2330.TW",
+      "relation": "tsmc",
+      "reason_zh": "TSMC本體",
+      "reason_en": "TSMC itself"
+    },
+    "005930.KS": {
+      "ticker": "005930.KS",
+      "relation": "competitor",
+      "reason_zh": "三星晶圓代工主要競爭對手",
+      "reason_en": "Samsung Foundry primary competitor"
+    },
+    "INTC": {
+      "ticker": "INTC",
+      "relation": "competitor",
+      "reason_zh": "轉型晶圓代工業務競爭者",
+      "reason_en": "Foundry pivot makes primary competitor"
+    },
+    "GFS": {
+      "ticker": "GFS",
+      "relation": "competitor",
+      "reason_zh": "成熟製程晶圓代工競爭",
+      "reason_en": "Mature node foundry competitor"
+    },
+    "2303.TW": {
+      "ticker": "2303.TW",
+      "relation": "competitor",
+      "reason_zh": "第三大晶圓代工競爭",
+      "reason_en": "Third foundry competitor"
+    },
+    "0981.HK": {
+      "ticker": "0981.HK",
+      "relation": "competitor",
+      "reason_zh": "中國晶圓代工競爭對手",
+      "reason_en": "China foundry competitor"
+    },
+    "8035.T": {
+      "ticker": "8035.T",
+      "relation": "supplier",
+      "reason_zh": "TEL提供塗佈、蝕刻、清洗設備給TSMC",
+      "reason_en": "TEL supplies coater, etch, cleaning equipment to TSMC"
+    },
+    "ASM.AS": {
+      "ticker": "ASM.AS",
+      "relation": "supplier",
+      "reason_zh": "ASM提供ALD與磊晶沉積設備給TSMC",
+      "reason_en": "ASM supplies ALD and epitaxy deposition tools to TSMC"
+    },
+    "7735.T": {
+      "ticker": "7735.T",
+      "relation": "supplier",
+      "reason_zh": "Screen提供晶圓清洗設備給TSMC",
+      "reason_en": "Screen supplies wafer cleaning equipment to TSMC"
+    },
+    "KLAC": {
+      "ticker": "KLAC",
+      "relation": "supplier",
+      "reason_zh": "KLA提供製程控制與缺陷檢測設備給TSMC",
+      "reason_en": "KLA supplies process control and defect inspection to TSMC"
+    },
+    "ONTO": {
+      "ticker": "ONTO",
+      "relation": "supplier",
+      "reason_zh": "Onto提供光學量測與微影軟體給TSMC",
+      "reason_en": "Onto supplies optical metrology and litho software to TSMC"
+    },
+    "CAMT": {
+      "ticker": "CAMT",
+      "relation": "supplier",
+      "reason_zh": "Camtek提供先進封裝檢測設備給TSMC",
+      "reason_en": "Camtek supplies advanced packaging inspection tools to TSMC"
+    },
+    "6920.T": {
+      "ticker": "6920.T",
+      "relation": "supplier",
+      "reason_zh": "Lasertec獨家提供EUV光罩檢測設備給TSMC",
+      "reason_en": "Lasertec sole supplier of EUV mask inspection to TSMC"
+    },
+    "140860.KQ": {
+      "ticker": "140860.KQ",
+      "relation": "supplier",
+      "reason_zh": "Park Systems提供原子力顯微鏡量測給TSMC",
+      "reason_en": "Park Systems supplies AFM metrology tools to TSMC"
+    },
+    "TER": {
+      "ticker": "TER",
+      "relation": "supplier",
+      "reason_zh": "Teradyne提供自動測試設備給TSMC",
+      "reason_en": "Teradyne supplies ATE testing equipment to TSMC"
+    },
+    "6857.T": {
+      "ticker": "6857.T",
+      "relation": "supplier",
+      "reason_zh": "Advantest提供ATE與HBM測試設備給TSMC",
+      "reason_en": "Advantest supplies ATE and HBM test equipment to TSMC"
+    },
+    "AEHR": {
+      "ticker": "AEHR",
+      "relation": "supplier",
+      "reason_zh": "Aehr提供燒機與晶圓級測試設備給TSMC",
+      "reason_en": "Aehr supplies burn-in and wafer-level test to TSMC"
+    },
+    "COHU": {
+      "ticker": "COHU",
+      "relation": "supplier",
+      "reason_zh": "Cohu提供測試搬運與接觸器設備給TSMC",
+      "reason_en": "Cohu supplies test handlers and contactors to TSMC"
+    },
+    "FORM": {
+      "ticker": "FORM",
+      "relation": "supplier",
+      "reason_zh": "FormFactor提供探針卡測試介面給TSMC",
+      "reason_en": "FormFactor supplies probe cards testing interface to TSMC"
+    },
+    "6146.T": {
+      "ticker": "6146.T",
+      "relation": "supplier",
+      "reason_zh": "DISCO提供晶圓切割與研磨設備給TSMC",
+      "reason_en": "DISCO supplies wafer dicing and grinding equipment to TSMC"
+    },
+    "6315.T": {
+      "ticker": "6315.T",
+      "relation": "supplier",
+      "reason_zh": "Towa提供封裝模塑設備給TSMC",
+      "reason_en": "Towa supplies encapsulation molding equipment to TSMC"
+    },
+    "042700.KQ": {
+      "ticker": "042700.KQ",
+      "relation": "supplier",
+      "reason_zh": "Hanmi提供HBM熱壓接合設備給TSMC",
+      "reason_en": "Hanmi supplies HBM TC bonding equipment to TSMC"
+    },
+    "BESI.AS": {
+      "ticker": "BESI.AS",
+      "relation": "supplier",
+      "reason_zh": "BESI提供混合鍵合封裝設備給TSMC",
+      "reason_en": "BESI supplies hybrid bonding packaging equipment to TSMC"
+    },
+    "6223.TWO": {
+      "ticker": "6223.TWO",
+      "relation": "supplier",
+      "reason_zh": "旺矽提供探針卡測試介面給TSMC",
+      "reason_en": "MPI supplies probe cards test interface to TSMC"
+    },
+    "6610.TWO": {
+      "ticker": "6610.TWO",
+      "relation": "supplier",
+      "reason_zh": "雍智提供HBM探針測試服務給TSMC",
+      "reason_en": "Yongchih supplies HBM probe testing services to TSMC"
+    },
+    "6770.TW": {
+      "ticker": "6770.TW",
+      "relation": "competitor",
+      "reason_zh": "台灣成熟製程晶圓代工廠",
+      "reason_en": "Taiwan mature-node foundry competitor"
+    },
+    "5347.TWO": {
+      "ticker": "5347.TWO",
+      "relation": "competitor",
+      "reason_zh": "8吋成熟製程晶圓代工廠",
+      "reason_en": "8-inch mature foundry competitor"
+    },
+    "1347.HK": {
+      "ticker": "1347.HK",
+      "relation": "competitor",
+      "reason_zh": "中國特色製程晶圓代工廠",
+      "reason_en": "China specialty foundry competitor"
+    },
+    "TSEM": {
+      "ticker": "TSEM",
+      "relation": "competitor",
+      "reason_zh": "類比射頻特殊晶圓代工廠",
+      "reason_en": "Specialty analog/RF foundry competitor"
+    },
+    "3105.TWO": {
+      "ticker": "3105.TWO",
+      "relation": "competitor",
+      "reason_zh": "砷化鎵化合物晶圓代工廠",
+      "reason_en": "GaAs compound foundry competitor"
+    },
+    "600703.SS": {
+      "ticker": "600703.SS",
+      "relation": "competitor",
+      "reason_zh": "化合物半導體晶圓代工廠",
+      "reason_en": "Compound semiconductor foundry competitor"
+    },
+    "3714.TW": {
+      "ticker": "3714.TW",
+      "relation": "competitor",
+      "reason_zh": "LED化合物半導體代工廠",
+      "reason_en": "LED compound foundry competitor"
+    },
+    "XFAB.PA": {
+      "ticker": "XFAB.PA",
+      "relation": "competitor",
+      "reason_zh": "車用類比特殊晶圓代工廠",
+      "reason_en": "Automotive analog specialty foundry competitor"
+    },
+    "TXN": {
+      "ticker": "TXN",
+      "relation": "ecosystem",
+      "reason_zh": "類比IDM自有產能為主",
+      "reason_en": "Analog IDM with own fabs"
+    },
+    "IFX.DE": {
+      "ticker": "IFX.DE",
+      "relation": "ecosystem",
+      "reason_zh": "功率半導體IDM自有產能",
+      "reason_en": "Power IDM with own fabs"
+    },
+    "STM": {
+      "ticker": "STM",
+      "relation": "ecosystem",
+      "reason_zh": "混合訊號IDM自有產能",
+      "reason_en": "Mixed-signal IDM with own fabs"
+    },
+    "NXPI": {
+      "ticker": "NXPI",
+      "relation": "ecosystem",
+      "reason_zh": "車用IDM自有產能為主",
+      "reason_en": "Auto IDM mostly own fabs"
+    },
+    "6723.T": {
+      "ticker": "6723.T",
+      "relation": "ecosystem",
+      "reason_zh": "車用MCU IDM自有產能",
+      "reason_en": "Auto MCU IDM own fabs"
+    },
+    "ADI": {
+      "ticker": "ADI",
+      "relation": "ecosystem",
+      "reason_zh": "高階類比IDM自有產能",
+      "reason_en": "Analog IDM with own fabs"
+    },
+    "MCHP": {
+      "ticker": "MCHP",
+      "relation": "ecosystem",
+      "reason_zh": "MCU IDM自有產能為主",
+      "reason_en": "MCU IDM mostly own fabs"
+    },
+    "ON": {
+      "ticker": "ON",
+      "relation": "ecosystem",
+      "reason_zh": "功率感測IDM自有產能",
+      "reason_en": "Power/sensor IDM own fabs"
+    },
+    "6758.T": {
+      "ticker": "6758.T",
+      "relation": "customer",
+      "reason_zh": "影像感測器委託台積電製造",
+      "reason_en": "CIS image sensors manufactured at TSMC"
+    },
+    "000660.KS": {
+      "ticker": "000660.KS",
+      "relation": "ecosystem",
+      "reason_zh": "記憶體IDM，自有晶圓廠",
+      "reason_en": "Memory IDM with own fabs"
+    },
+    "MU": {
+      "ticker": "MU",
+      "relation": "ecosystem",
+      "reason_zh": "記憶體IDM，自有晶圓廠",
+      "reason_en": "Memory IDM with own fabs"
+    },
+    "285A.T": {
+      "ticker": "285A.T",
+      "relation": "ecosystem",
+      "reason_zh": "NAND專業IDM自有廠",
+      "reason_en": "NAND specialist IDM own fabs"
+    },
+    "WDC": {
+      "ticker": "WDC",
+      "relation": "ecosystem",
+      "reason_zh": "NAND/HDD廠商自有產線",
+      "reason_en": "NAND/HDD maker own production"
+    },
+    "2408.TW": {
+      "ticker": "2408.TW",
+      "relation": "ecosystem",
+      "reason_zh": "DRAM專業IDM自有廠",
+      "reason_en": "DRAM specialist IDM own fabs"
+    },
+    "2344.TW": {
+      "ticker": "2344.TW",
+      "relation": "ecosystem",
+      "reason_zh": "特殊記憶體IDM自有廠",
+      "reason_en": "Specialty memory IDM own fabs"
+    },
+    "2337.TW": {
+      "ticker": "2337.TW",
+      "relation": "ecosystem",
+      "reason_zh": "特殊記憶體IDM自有廠",
+      "reason_en": "Specialty memory IDM own fabs"
+    },
+    "3711.TW": {
+      "ticker": "3711.TW",
+      "relation": "ecosystem",
+      "reason_zh": "封測廠台積電下游",
+      "reason_en": "OSAT downstream from TSMC"
+    },
+    "AMKR": {
+      "ticker": "AMKR",
+      "relation": "ecosystem",
+      "reason_zh": "封測廠台積電下游",
+      "reason_en": "OSAT downstream from TSMC"
+    },
+    "600584.SS": {
+      "ticker": "600584.SS",
+      "relation": "ecosystem",
+      "reason_zh": "封測廠台積電下游",
+      "reason_en": "OSAT downstream from TSMC"
+    },
+    "6239.TW": {
+      "ticker": "6239.TW",
+      "relation": "ecosystem",
+      "reason_zh": "封測廠台積電下游",
+      "reason_en": "OSAT downstream from TSMC"
+    },
+    "8150.TW": {
+      "ticker": "8150.TW",
+      "relation": "ecosystem",
+      "reason_zh": "封測廠台積電下游",
+      "reason_en": "OSAT downstream from TSMC"
+    },
+    "2449.TW": {
+      "ticker": "2449.TW",
+      "relation": "ecosystem",
+      "reason_zh": "測試廠台積電下游",
+      "reason_en": "Test house downstream TSMC"
+    },
+    "002156.SZ": {
+      "ticker": "002156.SZ",
+      "relation": "ecosystem",
+      "reason_zh": "封測廠台積電下游",
+      "reason_en": "OSAT downstream from TSMC"
+    },
+    "002185.SZ": {
+      "ticker": "002185.SZ",
+      "relation": "ecosystem",
+      "reason_zh": "封測廠台積電下游",
+      "reason_en": "OSAT downstream from TSMC"
+    },
+    "6257.TW": {
+      "ticker": "6257.TW",
+      "relation": "ecosystem",
+      "reason_zh": "測試廠台積電下游",
+      "reason_en": "Test specialist downstream TSMC"
+    },
+    "0166.KL": {
+      "ticker": "0166.KL",
+      "relation": "ecosystem",
+      "reason_zh": "封測廠台積電下游",
+      "reason_en": "OSAT downstream from TSMC"
+    },
+    "5079.KL": {
+      "ticker": "5079.KL",
+      "relation": "ecosystem",
+      "reason_zh": "封測廠台積電下游",
+      "reason_en": "OSAT downstream from TSMC"
+    },
+    "HIMX": {
+      "ticker": "HIMX",
+      "relation": "customer",
+      "reason_zh": "顯示驅動IC由台積電代工",
+      "reason_en": "Display driver ICs fabbed at TSMC"
+    },
+    "2379.TW": {
+      "ticker": "2379.TW",
+      "relation": "customer",
+      "reason_zh": "WiFi連接晶片用台積電",
+      "reason_en": "WiFi/BT chips manufactured at TSMC"
+    },
+    "SYNA": {
+      "ticker": "SYNA",
+      "relation": "customer",
+      "reason_zh": "觸控HMI晶片台積電代工",
+      "reason_en": "Touch/HMI chips fabbed at TSMC"
+    },
+    "CRUS": {
+      "ticker": "CRUS",
+      "relation": "customer",
+      "reason_zh": "音訊晶片由台積電製造",
+      "reason_en": "Audio chips manufactured at TSMC"
+    },
+    "4919.TW": {
+      "ticker": "4919.TW",
+      "relation": "ecosystem",
+      "reason_zh": "IDM自有8吋廠非客戶",
+      "reason_en": "IDM with own 8-inch fabs"
+    },
+    "MBLY": {
+      "ticker": "MBLY",
+      "relation": "customer",
+      "reason_zh": "ADAS晶片台積電代工",
+      "reason_en": "ADAS chips manufactured at TSMC"
+    },
+    "AMBA": {
+      "ticker": "AMBA",
+      "relation": "customer",
+      "reason_zh": "車用視覺SoC用台積電",
+      "reason_en": "Auto vision SoCs fabbed at TSMC"
+    },
+    "MPWR": {
+      "ticker": "MPWR",
+      "relation": "customer",
+      "reason_zh": "電源管理IC台積電代工",
+      "reason_en": "PMIC fabbed at TSMC foundry"
+    },
+    "6415.TW": {
+      "ticker": "6415.TW",
+      "relation": "customer",
+      "reason_zh": "類比電源IC用台積電",
+      "reason_en": "Analog PMIC manufactured at TSMC"
+    },
+    "AOSL": {
+      "ticker": "AOSL",
+      "relation": "customer",
+      "reason_zh": "功率元件台積電代工",
+      "reason_en": "Power discrete fabbed at TSMC"
+    },
+    "8299.TWO": {
+      "ticker": "8299.TWO",
+      "relation": "customer",
+      "reason_zh": "SSD控制晶片台積電製",
+      "reason_en": "SSD controller chips from TSMC"
+    },
+    "SIMO": {
+      "ticker": "SIMO",
+      "relation": "customer",
+      "reason_zh": "快閃控制器用台積電",
+      "reason_en": "Flash controllers manufactured at TSMC"
+    },
+    "SWKS": {
+      "ticker": "SWKS",
+      "relation": "customer",
+      "reason_zh": "RF前端台積電代工",
+      "reason_en": "RF front-end fabbed at TSMC"
+    },
+    "QRVO": {
+      "ticker": "QRVO",
+      "relation": "customer",
+      "reason_zh": "射頻PA用台積電製",
+      "reason_en": "RF/PA chips manufactured at TSMC"
+    },
+    "SLAB": {
+      "ticker": "SLAB",
+      "relation": "customer",
+      "reason_zh": "IoT無線晶片台積電",
+      "reason_en": "IoT wireless chips from TSMC"
+    },
+    "NOD.OL": {
+      "ticker": "NOD.OL",
+      "relation": "customer",
+      "reason_zh": "藍牙SoC台積電代工",
+      "reason_en": "Bluetooth SoCs fabbed at TSMC"
+    },
+    "603236.SS": {
+      "ticker": "603236.SS",
+      "relation": "customer",
+      "reason_zh": "蜂巢IoT模組用台積電",
+      "reason_en": "Cellular IoT chips from TSMC"
+    },
+    "LSCC": {
+      "ticker": "LSCC",
+      "relation": "customer",
+      "reason_zh": "低功耗FPGA台積電製",
+      "reason_en": "Low-power FPGAs manufactured at TSMC"
+    },
+    "HSAI": {
+      "ticker": "HSAI",
+      "relation": "customer",
+      "reason_zh": "LiDAR晶片台積電製造",
+      "reason_en": "LiDAR silicon manufactured at TSMC"
+    },
+    "LMNR": {
+      "ticker": "LMNR",
+      "relation": "customer",
+      "reason_zh": "車用LiDAR晶片在台積電製造",
+      "reason_en": "Automotive LiDAR chips fab at TSMC"
+    },
+    "INVZ": {
+      "ticker": "INVZ",
+      "relation": "customer",
+      "reason_zh": "固態LiDAR矽光子晶片客戶",
+      "reason_en": "Solid-state LiDAR silicon photonics customer"
+    },
+    "AEVA": {
+      "ticker": "AEVA",
+      "relation": "customer",
+      "reason_zh": "FMCW LiDAR晶片台積電代工",
+      "reason_en": "FMCW LiDAR chips manufactured at TSMC"
+    },
+    "603501.SS": {
+      "ticker": "603501.SS",
+      "relation": "customer",
+      "reason_zh": "影像感測器歷史台積電客戶",
+      "reason_en": "Image sensor historic TSMC customer pre-sanctions"
+    },
+    "603986.SS": {
+      "ticker": "603986.SS",
+      "relation": "customer",
+      "reason_zh": "快閃記憶體控制器過去客戶",
+      "reason_en": "NOR flash controller historic TSMC client"
+    },
+    "688018.SS": {
+      "ticker": "688018.SS",
+      "relation": "customer",
+      "reason_zh": "WiFi晶片歷史台積電客戶",
+      "reason_en": "WiFi MCU historic TSMC customer pre-sanctions"
+    },
+    "300782.SZ": {
+      "ticker": "300782.SZ",
+      "relation": "customer",
+      "reason_zh": "射頻晶片過去台積電客戶",
+      "reason_en": "RF chip historic TSMC customer pre-sanctions"
+    },
+    "603893.SS": {
+      "ticker": "603893.SS",
+      "relation": "customer",
+      "reason_zh": "AIoT晶片歷史台積電客戶",
+      "reason_en": "AIoT SoC historic TSMC customer pre-sanctions"
+    },
+    "3443.TW": {
+      "ticker": "3443.TW",
+      "relation": "customer",
+      "reason_zh": "ASIC設計服務付台積電晶圓費",
+      "reason_en": "ASIC design house pays TSMC foundry fees"
+    },
+    "3661.TW": {
+      "ticker": "3661.TW",
+      "relation": "customer",
+      "reason_zh": "超大規模ASIC台積電代工客戶",
+      "reason_en": "Hyperscaler ASIC design customer of TSMC"
+    },
+    "3529.TWO": {
+      "ticker": "3529.TWO",
+      "relation": "customer",
+      "reason_zh": "嵌入式記憶體IP客戶授權費",
+      "reason_en": "Embedded NVM IP customer licensing revenue"
+    },
+    "3035.TW": {
+      "ticker": "3035.TW",
+      "relation": "customer",
+      "reason_zh": "ASIC設計服務台積電客戶",
+      "reason_en": "ASIC design services TSMC foundry customer"
+    },
+    "IONQ": {
+      "ticker": "IONQ",
+      "relation": "customer",
+      "reason_zh": "量子晶片台積電代工製造",
+      "reason_en": "Quantum chips manufactured at TSMC foundry"
+    },
+    "RGTI": {
+      "ticker": "RGTI",
+      "relation": "customer",
+      "reason_zh": "超導量子晶片台積電客戶",
+      "reason_en": "Superconducting quantum chips TSMC customer"
+    },
+    "QBTS": {
+      "ticker": "QBTS",
+      "relation": "customer",
+      "reason_zh": "量子退火晶片台積電代工",
+      "reason_en": "Quantum annealing chips fab at TSMC"
+    },
+    "ARW": {
+      "ticker": "ARW",
+      "relation": "ecosystem",
+      "reason_zh": "分銷商不直接影響TSMC營收",
+      "reason_en": "Distributor downstream from TSMC customers"
+    },
+    "AVT": {
+      "ticker": "AVT",
+      "relation": "ecosystem",
+      "reason_zh": "分銷商不直接影響TSMC營收",
+      "reason_en": "Distributor downstream from TSMC customers"
+    },
+    "3036.TW": {
+      "ticker": "3036.TW",
+      "relation": "ecosystem",
+      "reason_zh": "分銷商不直接影響TSMC營收",
+      "reason_en": "Distributor downstream from TSMC customers"
+    },
+    "3702.TW": {
+      "ticker": "3702.TW",
+      "relation": "ecosystem",
+      "reason_zh": "分銷商不直接影響TSMC營收",
+      "reason_en": "Distributor downstream from TSMC customers"
+    },
+    "5434.TW": {
+      "ticker": "5434.TW",
+      "relation": "ecosystem",
+      "reason_zh": "材料分銷非直接供應TSMC",
+      "reason_en": "Materials distributor not direct TSMC supplier"
+    },
+    "2317.TW": {
+      "ticker": "2317.TW",
+      "relation": "ecosystem",
+      "reason_zh": "AI伺服器組裝商終端需求",
+      "reason_en": "Server EMS downstream assembly tier"
+    },
+    "6669.TW": {
+      "ticker": "6669.TW",
+      "relation": "ecosystem",
+      "reason_zh": "AI伺服器ODM下游組裝",
+      "reason_en": "AI server ODM downstream assembly"
+    },
+    "2382.TW": {
+      "ticker": "2382.TW",
+      "relation": "ecosystem",
+      "reason_zh": "AI伺服器ODM下游組裝",
+      "reason_en": "AI server ODM downstream assembly"
+    },
+    "2356.TW": {
+      "ticker": "2356.TW",
+      "relation": "ecosystem",
+      "reason_zh": "伺服器ODM下游組裝",
+      "reason_en": "Server ODM downstream assembly tier"
+    },
+    "SMCI": {
+      "ticker": "SMCI",
+      "relation": "ecosystem",
+      "reason_zh": "AI機架OEM下游組裝",
+      "reason_en": "AI rack OEM downstream assembly"
+    },
+    "2324.TW": {
+      "ticker": "2324.TW",
+      "relation": "ecosystem",
+      "reason_zh": "筆電ODM下游組裝",
+      "reason_en": "Notebook ODM downstream assembly tier"
+    },
+    "3231.TW": {
+      "ticker": "3231.TW",
+      "relation": "ecosystem",
+      "reason_zh": "伺服器ODM下游組裝",
+      "reason_en": "Server ODM downstream assembly tier"
+    },
+    "4938.TW": {
+      "ticker": "4938.TW",
+      "relation": "ecosystem",
+      "reason_zh": "EMS組裝下游非TSMC客戶",
+      "reason_en": "EMS assembly downstream not TSMC client"
+    },
+    "2357.TW": {
+      "ticker": "2357.TW",
+      "relation": "ecosystem",
+      "reason_zh": "PC品牌ODM下游組裝",
+      "reason_en": "PC brand ODM downstream assembly"
+    },
+    "2376.TW": {
+      "ticker": "2376.TW",
+      "relation": "ecosystem",
+      "reason_zh": "伺服器主機板下游組裝",
+      "reason_en": "Server motherboard downstream assembly tier"
+    },
+    "2353.TW": {
+      "ticker": "2353.TW",
+      "relation": "ecosystem",
+      "reason_zh": "PC品牌終端需求",
+      "reason_en": "PC brand end demand tier"
+    },
+    "2327.TW": {
+      "ticker": "2327.TW",
+      "relation": "ecosystem",
+      "reason_zh": "被動元件下游非TSMC供應",
+      "reason_en": "Passive components downstream not TSMC supplier"
+    },
+    "6981.T": {
+      "ticker": "6981.T",
+      "relation": "ecosystem",
+      "reason_zh": "被動元件下游非TSMC供應",
+      "reason_en": "MLCC downstream not TSMC supplier"
+    },
+    "6762.T": {
+      "ticker": "6762.T",
+      "relation": "ecosystem",
+      "reason_zh": "被動元件下游非TSMC供應",
+      "reason_en": "Passive components downstream not TSMC supplier"
+    },
+    "VEDL.NS": {
+      "ticker": "VEDL.NS",
+      "relation": "ecosystem",
+      "reason_zh": "印度封測合資計畫，非直接TSMC供應或客戶",
+      "reason_en": "India OSAT venture, not direct TSMC supplier/customer"
+    },
+    "558.SI": {
+      "ticker": "558.SI",
+      "relation": "ecosystem",
+      "reason_zh": "新加坡半導體設備零組件商，下游封測業",
+      "reason_en": "Singapore semi equipment parts, downstream OSAT ecosystem"
+    },
+    "E28.SI": {
+      "ticker": "E28.SI",
+      "relation": "ecosystem",
+      "reason_zh": "新加坡精密零件商，服務封測與設備業",
+      "reason_en": "Singapore precision parts for OSAT/equipment industry"
+    },
+    "NVDA": {
+      "ticker": "NVDA",
+      "relation": "customer",
+      "reason_zh": "TSMC最大客戶，AI晶片設計商",
+      "reason_en": "TSMC's largest customer, AI chip designer"
+    },
+    "AMD": {
+      "ticker": "AMD",
+      "relation": "customer",
+      "reason_zh": "無晶圓廠CPU/GPU設計商，使用TSMC代工",
+      "reason_en": "Fabless CPU/GPU designer using TSMC foundry"
+    },
+    "QCOM": {
+      "ticker": "QCOM",
+      "relation": "customer",
+      "reason_zh": "行動SoC無晶圓廠設計商，TSMC客戶",
+      "reason_en": "Mobile SoC fabless designer, TSMC customer"
+    },
+    "2454.TW": {
+      "ticker": "2454.TW",
+      "relation": "customer",
+      "reason_zh": "全球最大手機晶片設計商，TSMC主力客戶",
+      "reason_en": "World's largest mobile chip designer, major TSMC customer"
+    },
+    "AAPL": {
+      "ticker": "AAPL",
+      "relation": "customer",
+      "reason_zh": "獨家先進製程矽晶片設計客戶",
+      "reason_en": "Exclusive leading-edge silicon design customer"
+    },
+    "AVGO": {
+      "ticker": "AVGO",
+      "relation": "customer",
+      "reason_zh": "客製AI晶片設計商，TSMC代工客戶",
+      "reason_en": "Custom AI ASIC designer, TSMC foundry customer"
+    },
+    "MRVL": {
+      "ticker": "MRVL",
+      "relation": "customer",
+      "reason_zh": "客製AI與網路晶片設計商，TSMC客戶",
+      "reason_en": "Custom AI/networking chip designer, TSMC customer"
+    },
+    "ALAB": {
+      "ticker": "ALAB",
+      "relation": "customer",
+      "reason_zh": "AI連接晶片設計商，TSMC代工客戶",
+      "reason_en": "AI connectivity chip designer, TSMC customer"
+    },
+    "3034.TW": {
+      "ticker": "3034.TW",
+      "relation": "customer",
+      "reason_zh": "顯示驅動IC設計商，TSMC代工客戶",
+      "reason_en": "Display driver IC designer, TSMC foundry customer"
+    },
+    "CSCO": {
+      "ticker": "CSCO",
+      "relation": "demand",
+      "reason_zh": "網路設備OEM，終端市場需求方",
+      "reason_en": "Networking OEM, end-market demand driver"
+    },
+    "ANET": {
+      "ticker": "ANET",
+      "relation": "demand",
+      "reason_zh": "數據中心網路OEM，終端需求",
+      "reason_en": "Data center networking OEM, end demand"
+    },
+    "ABBNY": {
+      "ticker": "ABBNY",
+      "relation": "demand",
+      "reason_zh": "工業設備終端客戶驅動晶片需求",
+      "reason_en": "Industrial equipment end customer, chip demand"
+    },
+    "HON": {
+      "ticker": "HON",
+      "relation": "demand",
+      "reason_zh": "工業航太終端客戶驅動晶片需求",
+      "reason_en": "Industrial aerospace end customer, chip demand"
+    },
+    "LMT": {
+      "ticker": "LMT",
+      "relation": "demand",
+      "reason_zh": "國防終端客戶驅動晶片需求",
+      "reason_en": "Defense end customer drives chip demand"
+    },
+    "RTX": {
+      "ticker": "RTX",
+      "relation": "demand",
+      "reason_zh": "國防航太終端客戶晶片需求",
+      "reason_en": "Defense aerospace end customer chip demand"
+    },
+    "NOC": {
+      "ticker": "NOC",
+      "relation": "demand",
+      "reason_zh": "國防太空終端客戶晶片需求",
+      "reason_en": "Defense space end customer chip demand"
+    },
+    "BA": {
+      "ticker": "BA",
+      "relation": "demand",
+      "reason_zh": "航空終端客戶驅動晶片需求",
+      "reason_en": "Aerospace end customer drives chip demand"
+    },
+    "GD": {
+      "ticker": "GD",
+      "relation": "demand",
+      "reason_zh": "國防終端客戶驅動晶片需求",
+      "reason_en": "Defense end customer drives chip demand"
+    },
+    "MARA": {
+      "ticker": "MARA",
+      "relation": "demand",
+      "reason_zh": "加密挖礦終端ASIC需求方",
+      "reason_en": "Crypto mining end-market ASIC demand"
+    },
+    "RIOT": {
+      "ticker": "RIOT",
+      "relation": "demand",
+      "reason_zh": "挖礦與AI終端運算需求",
+      "reason_en": "Mining and AI end compute demand"
+    },
+    "CLSK": {
+      "ticker": "CLSK",
+      "relation": "demand",
+      "reason_zh": "挖礦終端ASIC需求方",
+      "reason_en": "Mining end-market ASIC demand driver"
+    },
+    "LITE": {
+      "ticker": "LITE",
+      "relation": "ecosystem",
+      "reason_zh": "光網路元件供應商",
+      "reason_en": "Optical networking components"
+    },
+    "CIEN": {
+      "ticker": "CIEN",
+      "relation": "ecosystem",
+      "reason_zh": "光網路系統設備商",
+      "reason_en": "Optical networking systems"
+    },
+    "002281.SZ": {
+      "ticker": "002281.SZ",
+      "relation": "ecosystem",
+      "reason_zh": "光收發模組供應商",
+      "reason_en": "Optical transceiver supplier"
+    },
+    "TEL": {
+      "ticker": "TEL",
+      "relation": "ecosystem",
+      "reason_zh": "連接器與感測器供應",
+      "reason_en": "Connectors and sensors"
+    },
+    "APH": {
+      "ticker": "APH",
+      "relation": "ecosystem",
+      "reason_zh": "高速連接器供應商",
+      "reason_en": "High-speed connector supplier"
+    },
+    "GLW": {
+      "ticker": "GLW",
+      "relation": "ecosystem",
+      "reason_zh": "光纖與玻璃基板",
+      "reason_en": "Optical fiber and glass"
+    },
+    "3533.TW": {
+      "ticker": "3533.TW",
+      "relation": "ecosystem",
+      "reason_zh": "CPU插槽連接器",
+      "reason_en": "CPU socket connectors"
+    },
+    "2308.TW": {
+      "ticker": "2308.TW",
+      "relation": "ecosystem",
+      "reason_zh": "伺服器電源供應器",
+      "reason_en": "Server power supply unit"
+    },
+    "2301.TW": {
+      "ticker": "2301.TW",
+      "relation": "ecosystem",
+      "reason_zh": "伺服器電源供應器",
+      "reason_en": "Server power supply unit"
+    },
+    "6412.TW": {
+      "ticker": "6412.TW",
+      "relation": "ecosystem",
+      "reason_zh": "AI伺服器電源供應",
+      "reason_en": "AI server power supply"
+    },
+    "2385.TW": {
+      "ticker": "2385.TW",
+      "relation": "ecosystem",
+      "reason_zh": "伺服器散熱與電源",
+      "reason_en": "Server cooling and power"
+    },
+    "VST": {
+      "ticker": "VST",
+      "relation": "demand",
+      "reason_zh": "電力供應商",
+      "reason_en": "Power generation utility"
+    },
+    "CEG": {
+      "ticker": "CEG",
+      "relation": "demand",
+      "reason_zh": "核電供應商",
+      "reason_en": "Nuclear power utility"
+    },
+    "TLN": {
+      "ticker": "TLN",
+      "relation": "demand",
+      "reason_zh": "核電供應商",
+      "reason_en": "Nuclear power utility"
+    },
+    "NEE": {
+      "ticker": "NEE",
+      "relation": "demand",
+      "reason_zh": "再生能源電力供應",
+      "reason_en": "Renewable power utility"
+    },
+    "SO": {
+      "ticker": "SO",
+      "relation": "demand",
+      "reason_zh": "核電供應商",
+      "reason_en": "Nuclear power utility"
+    },
+    "DUK": {
+      "ticker": "DUK",
+      "relation": "demand",
+      "reason_zh": "受監管電力供應商",
+      "reason_en": "Regulated power utility"
+    },
+    "SMR": {
+      "ticker": "SMR",
+      "relation": "demand",
+      "reason_zh": "小型模組化反應爐",
+      "reason_en": "Small modular reactor"
+    },
+    "OKLO": {
+      "ticker": "OKLO",
+      "relation": "demand",
+      "reason_zh": "微型反應爐開發商",
+      "reason_en": "Microreactor developer"
+    },
+    "BWXT": {
+      "ticker": "BWXT",
+      "relation": "demand",
+      "reason_zh": "反應爐零組件供應",
+      "reason_en": "Reactor component supplier"
+    },
+    "EOSE": {
+      "ticker": "EOSE",
+      "relation": "ecosystem",
+      "reason_zh": "鋅電池儲能,不直接影響台積電",
+      "reason_en": "Zinc battery storage, no direct TSMC impact"
+    },
+    "MSFT": {
+      "ticker": "MSFT",
+      "relation": "demand",
+      "reason_zh": "Azure超大規模雲端終端用戶",
+      "reason_en": "Azure hyperscaler end-market consumer"
+    },
+    "GOOGL": {
+      "ticker": "GOOGL",
+      "relation": "demand",
+      "reason_zh": "GCP雲端終端用戶驅動晶片需求",
+      "reason_en": "GCP hyperscaler drives chip demand"
+    },
+    "AMZN": {
+      "ticker": "AMZN",
+      "relation": "demand",
+      "reason_zh": "AWS雲端終端用戶驅動需求",
+      "reason_en": "AWS hyperscaler drives chip demand"
+    },
+    "META": {
+      "ticker": "META",
+      "relation": "demand",
+      "reason_zh": "AI資本支出終端用戶需求",
+      "reason_en": "GenAI capex end-market consumer"
+    },
+    "ORCL": {
+      "ticker": "ORCL",
+      "relation": "demand",
+      "reason_zh": "OCI雲端終端用戶驅動需求",
+      "reason_en": "OCI hyperscaler drives demand"
+    },
+    "0700.HK": {
+      "ticker": "0700.HK",
+      "relation": "demand",
+      "reason_zh": "中國雲端AI終端用戶",
+      "reason_en": "China cloud hyperscaler end-consumer"
+    },
+    "BABA": {
+      "ticker": "BABA",
+      "relation": "demand",
+      "reason_zh": "中國雲端終端用戶驅動需求",
+      "reason_en": "China cloud hyperscaler end-consumer"
+    },
+    "9888.HK": {
+      "ticker": "9888.HK",
+      "relation": "demand",
+      "reason_zh": "中國AI搜尋終端用戶",
+      "reason_en": "China AI hyperscaler end-consumer"
+    },
+    "1810.HK": {
+      "ticker": "1810.HK",
+      "relation": "demand",
+      "reason_zh": "手機品牌終端消費市場",
+      "reason_en": "Smartphone brand end-market consumer"
+    },
+    "DELL": {
+      "ticker": "DELL",
+      "relation": "demand",
+      "reason_zh": "PC與AI伺服器終端用戶",
+      "reason_en": "PC and AI server end-consumer"
+    },
+    "HPQ": {
+      "ticker": "HPQ",
+      "relation": "demand",
+      "reason_zh": "PC品牌終端消費市場",
+      "reason_en": "PC brand end-market consumer"
+    },
+    "HPE": {
+      "ticker": "HPE",
+      "relation": "demand",
+      "reason_zh": "企業伺服器終端用戶",
+      "reason_en": "Enterprise server end-consumer"
+    },
+    "0992.HK": {
+      "ticker": "0992.HK",
+      "relation": "demand",
+      "reason_zh": "PC與伺服器終端用戶",
+      "reason_en": "PC and server end-consumer"
+    },
+    "TSLA": {
+      "ticker": "TSLA",
+      "relation": "demand",
+      "reason_zh": "電動車終端消費市場",
+      "reason_en": "EV end-market consumer"
+    },
+    "1211.HK": {
+      "ticker": "1211.HK",
+      "relation": "demand",
+      "reason_zh": "新能源車終端消費市場",
+      "reason_en": "NEV end-market consumer"
+    },
+    "7203.T": {
+      "ticker": "7203.T",
+      "relation": "demand",
+      "reason_zh": "汽車終端消費市場",
+      "reason_en": "Auto end-market consumer"
+    },
+    "VOW3.DE": {
+      "ticker": "VOW3.DE",
+      "relation": "demand",
+      "reason_zh": "汽車終端消費市場",
+      "reason_en": "Auto end-market consumer"
+    },
+    "CCJ": {
+      "ticker": "CCJ",
+      "relation": "ecosystem",
+      "reason_zh": "鈾礦供應核電廠，非台積電直接夥伴",
+      "reason_en": "Uranium for nuclear plants, not TSMC's direct partner"
+    },
+    "LEU": {
+      "ticker": "LEU",
+      "relation": "ecosystem",
+      "reason_zh": "核燃料濃縮，服務核電產業",
+      "reason_en": "Nuclear fuel enrichment for power industry"
+    },
+    "ETN": {
+      "ticker": "ETN",
+      "relation": "ecosystem",
+      "reason_zh": "電力管理設備，數據中心生態系",
+      "reason_en": "Power management equipment for data centers"
+    },
+    "ENR.DE": {
+      "ticker": "ENR.DE",
+      "relation": "ecosystem",
+      "reason_zh": "電網與發電設備，能源基礎建設",
+      "reason_en": "Grid and turbine equipment, energy infrastructure"
+    },
+    "SU.PA": {
+      "ticker": "SU.PA",
+      "relation": "ecosystem",
+      "reason_zh": "數據中心電力設施供應商",
+      "reason_en": "Data center power infrastructure provider"
+    },
+    "GEV": {
+      "ticker": "GEV",
+      "relation": "ecosystem",
+      "reason_zh": "發電與電網設備製造商",
+      "reason_en": "Power generation and grid equipment maker"
+    },
+    "PWR": {
+      "ticker": "PWR",
+      "relation": "ecosystem",
+      "reason_zh": "電網建設工程，能源基礎建設",
+      "reason_en": "Grid construction, energy infrastructure contractor"
+    },
+    "HUBB": {
+      "ticker": "HUBB",
+      "relation": "ecosystem",
+      "reason_zh": "輸配電元件供應商",
+      "reason_en": "Electrical transmission and distribution components"
+    },
+    "1519.TW": {
+      "ticker": "1519.TW",
+      "relation": "supplier",
+      "reason_zh": "變壓器供應晶圓廠電力系統",
+      "reason_en": "Transformers for fab electrical systems"
+    },
+    "1503.TW": {
+      "ticker": "1503.TW",
+      "relation": "supplier",
+      "reason_zh": "開關設備及變壓器供晶圓廠",
+      "reason_en": "Switchgear and transformers for fabs"
+    },
+    "1513.TW": {
+      "ticker": "1513.TW",
+      "relation": "supplier",
+      "reason_zh": "氣體絕緣開關設備供晶圓廠",
+      "reason_en": "Gas-insulated switchgear for fab power"
+    },
+    "1514.TW": {
+      "ticker": "1514.TW",
+      "relation": "supplier",
+      "reason_zh": "變壓器供應晶圓廠電力",
+      "reason_en": "Transformers for fab electrical infrastructure"
+    },
+    "1504.TW": {
+      "ticker": "1504.TW",
+      "relation": "ecosystem",
+      "reason_zh": "工業馬達與自動化設備",
+      "reason_en": "Industrial motors and automation equipment"
+    },
+    "2371.TW": {
+      "ticker": "2371.TW",
+      "relation": "ecosystem",
+      "reason_zh": "重電集團，士電母公司",
+      "reason_en": "Heavy electrical conglomerate, Shihlin parent"
+    },
+    "1605.TW": {
+      "ticker": "1605.TW",
+      "relation": "ecosystem",
+      "reason_zh": "電力電纜與不鏽鋼製造",
+      "reason_en": "Power cables and stainless steel"
+    },
+    "FSLR": {
+      "ticker": "FSLR",
+      "relation": "ecosystem",
+      "reason_zh": "太陽能電廠，數據中心綠電",
+      "reason_en": "Solar farms for data center PPAs"
+    },
+    "ENPH": {
+      "ticker": "ENPH",
+      "relation": "ecosystem",
+      "reason_zh": "太陽能逆變器與儲能",
+      "reason_en": "Solar inverters and battery systems"
+    },
+    "FLNC": {
+      "ticker": "FLNC",
+      "relation": "ecosystem",
+      "reason_zh": "電池儲能系統供電網",
+      "reason_en": "Utility-scale battery storage for grid"
+    },
+    "300750.SZ": {
+      "ticker": "300750.SZ",
+      "relation": "ecosystem",
+      "reason_zh": "電池製造，儲能與電動車",
+      "reason_en": "Battery maker for storage and EVs"
+    },
+    "STEM": {
+      "ticker": "STEM",
+      "relation": "ecosystem",
+      "reason_zh": "儲能軟體優化電力使用",
+      "reason_en": "Battery storage software for power optimization"
+    },
+    "SNOW": {
+      "ticker": "SNOW",
+      "relation": "demand",
+      "reason_zh": "企業數據雲終端客戶",
+      "reason_en": "Enterprise data cloud end customer"
+    },
+    "DDOG": {
+      "ticker": "DDOG",
+      "relation": "demand",
+      "reason_zh": "監控平台終端客戶",
+      "reason_en": "Observability platform end customer"
+    },
+    "AI": {
+      "ticker": "AI",
+      "relation": "demand",
+      "reason_zh": "企業AI應用終端客戶",
+      "reason_en": "Enterprise AI apps end customer"
+    },
+    "CHPT": {
+      "ticker": "CHPT",
+      "relation": "demand",
+      "reason_zh": "電動車充電網終端",
+      "reason_en": "EV charging network end market"
+    },
+    "EVGO": {
+      "ticker": "EVGO",
+      "relation": "demand",
+      "reason_zh": "快充站終端市場",
+      "reason_en": "DC fast charging end market"
+    },
+    "WBX": {
+      "ticker": "WBX",
+      "relation": "demand",
+      "reason_zh": "充電樁終端市場",
+      "reason_en": "EV charger end market"
+    },
+    "BLNK": {
+      "ticker": "BLNK",
+      "relation": "demand",
+      "reason_zh": "充電設備終端市場",
+      "reason_en": "Charging hardware end market"
+    },
+    "JOBY": {
+      "ticker": "JOBY",
+      "relation": "demand",
+      "reason_zh": "飛行計程車終端市場",
+      "reason_en": "Air taxi end market"
+    },
+    "ACHR": {
+      "ticker": "ACHR",
+      "relation": "demand",
+      "reason_zh": "電動垂直起降終端",
+      "reason_en": "EVTOL end market"
+    },
+    "AVAV": {
+      "ticker": "AVAV",
+      "relation": "demand",
+      "reason_zh": "軍用無人機終端市場",
+      "reason_en": "Military drones end market"
+    },
+    "KTOS": {
+      "ticker": "KTOS",
+      "relation": "demand",
+      "reason_zh": "戰術無人機終端市場",
+      "reason_en": "Tactical drones end market"
+    },
+    "IREN": {
+      "ticker": "IREN",
+      "relation": "demand",
+      "reason_zh": "比特幣礦機終端用戶",
+      "reason_en": "BTC mining end-user"
+    },
+    "HUT": {
+      "ticker": "HUT",
+      "relation": "demand",
+      "reason_zh": "比特幣礦機終端用戶",
+      "reason_en": "BTC mining end-user"
+    },
+    "CAN": {
+      "ticker": "CAN",
+      "relation": "demand",
+      "reason_zh": "礦機ASIC終端買家",
+      "reason_en": "Mining ASIC end-buyer"
+    },
+    "NBIS": {
+      "ticker": "NBIS",
+      "relation": "demand",
+      "reason_zh": "GPU雲端終端客戶",
+      "reason_en": "GPU cloud end-customer"
+    },
+    "APLD": {
+      "ticker": "APLD",
+      "relation": "demand",
+      "reason_zh": "AI數據中心終端用戶",
+      "reason_en": "AI datacenter end-user"
+    },
+    "WULF": {
+      "ticker": "WULF",
+      "relation": "demand",
+      "reason_zh": "HPC託管終端用戶",
+      "reason_en": "HPC hosting end-user"
+    },
+    "CRWV": {
+      "ticker": "CRWV",
+      "relation": "demand",
+      "reason_zh": "GPU雲端終端客戶",
+      "reason_en": "GPU cloud end-customer"
+    },
+    "ILMN": {
+      "ticker": "ILMN",
+      "relation": "customer",
+      "reason_zh": "定序晶片由台積電製造",
+      "reason_en": "Sequencing chips made at TSMC"
+    },
+    "PACB": {
+      "ticker": "PACB",
+      "relation": "customer",
+      "reason_zh": "定序晶片由台積電製造",
+      "reason_en": "Sequencing chips made at TSMC"
+    },
+    "ONT.L": {
+      "ticker": "ONT.L",
+      "relation": "customer",
+      "reason_zh": "奈米孔晶片由台積電製造",
+      "reason_en": "Nanopore chips made at TSMC"
+    },
+    "TXG": {
+      "ticker": "TXG",
+      "relation": "demand",
+      "reason_zh": "單細胞基因體學終端用戶",
+      "reason_en": "Single-cell genomics end-user"
+    },
+    "6954.T": {
+      "ticker": "6954.T",
+      "relation": "demand",
+      "reason_zh": "工業機器人終端需求",
+      "reason_en": "Industrial robot end-demand"
+    },
+    "6506.T": {
+      "ticker": "6506.T",
+      "relation": "demand",
+      "reason_zh": "工業機器人終端需求",
+      "reason_en": "Industrial robot end-demand"
+    },
+    "SYM": {
+      "ticker": "SYM",
+      "relation": "demand",
+      "reason_zh": "倉儲機器人終端需求",
+      "reason_en": "Warehouse robot end-demand"
+    },
+    "ISRG": {
+      "ticker": "ISRG",
+      "relation": "demand",
+      "reason_zh": "手術機器人終端需求",
+      "reason_en": "Surgical robot end-demand"
+    },
+    "PLTR": {
+      "ticker": "PLTR",
+      "relation": "demand",
+      "reason_zh": "企業AI平台終端客戶",
+      "reason_en": "Enterprise AI platform end-customer"
+    },
+    "CRM": {
+      "ticker": "CRM",
+      "relation": "demand",
+      "reason_zh": "企業AI軟體終端客戶",
+      "reason_en": "Enterprise AI software end-customer"
+    },
+    "NOW": {
+      "ticker": "NOW",
+      "relation": "demand",
+      "reason_zh": "企業工作流終端客戶",
+      "reason_en": "Enterprise workflow end-customer"
+    },
+    "6976.T": {
+      "ticker": "6976.T",
+      "relation": "ecosystem",
+      "reason_zh": "被動元件供OSAT/OEM，非TSMC直接上下游",
+      "reason_en": "Passive components for EMS/OEM, not direct TSMC tier"
+    },
+    "2492.TW": {
+      "ticker": "2492.TW",
+      "relation": "ecosystem",
+      "reason_zh": "MLCC電阻供板卡廠，非TSMC直接供應鏈",
+      "reason_en": "MLCC/resistor to PCB makers, not direct TSMC supply"
+    },
+    "6902.T": {
+      "ticker": "6902.T",
+      "relation": "ecosystem",
+      "reason_zh": "汽車Tier 1，與TSMC無直接交易關係",
+      "reason_en": "Auto Tier 1, no direct TSMC transaction relationship"
+    },
+    "APTV": {
+      "ticker": "APTV",
+      "relation": "ecosystem",
+      "reason_zh": "汽車線束電子T1，非TSMC直接客戶或供應商",
+      "reason_en": "Auto wiring Tier 1, not direct TSMC customer/supplier"
+    },
+    "MGA": {
+      "ticker": "MGA",
+      "relation": "ecosystem",
+      "reason_zh": "汽車Tier 1，非TSMC直接供應鏈夥伴",
+      "reason_en": "Auto Tier 1, not direct TSMC supply chain partner"
+    },
+    "CON.DE": {
+      "ticker": "CON.DE",
+      "relation": "ecosystem",
+      "reason_zh": "汽車T1，與TSMC無直接營收關係",
+      "reason_en": "Auto Tier 1, no direct TSMC revenue relationship"
+    },
+    "EQIX": {
+      "ticker": "EQIX",
+      "relation": "ecosystem",
+      "reason_zh": "數據中心REIT，非TSMC直接上下游",
+      "reason_en": "DC REIT infrastructure, not direct TSMC tier"
+    },
+    "DLR": {
+      "ticker": "DLR",
+      "relation": "ecosystem",
+      "reason_zh": "數據中心REIT，非TSMC直接供應鏈",
+      "reason_en": "Hyperscale DC REIT, not direct TSMC supply chain"
+    },
+    "IRM": {
+      "ticker": "IRM",
+      "relation": "ecosystem",
+      "reason_zh": "數據中心REIT，與TSMC無直接交易",
+      "reason_en": "DC REIT, no direct TSMC transaction relationship"
+    },
+    "GDS": {
+      "ticker": "GDS",
+      "relation": "ecosystem",
+      "reason_zh": "中國數據中心營運商，非TSMC直接夥伴",
+      "reason_en": "China DC operator, not direct TSMC partner"
+    },
+    "VRT": {
+      "ticker": "VRT",
+      "relation": "ecosystem",
+      "reason_zh": "數據中心冷卻設備，非TSMC直接供應商",
+      "reason_en": "DC cooling equipment, not direct TSMC supplier"
+    },
+    "MOD": {
+      "ticker": "MOD",
+      "relation": "ecosystem",
+      "reason_zh": "數據中心液冷系統，非TSMC直接上游",
+      "reason_en": "DC liquid cooling, not direct TSMC upstream"
+    },
+    "GNRC": {
+      "ticker": "GNRC",
+      "relation": "ecosystem",
+      "reason_zh": "備用發電機供應商，非TSMC直接供應鏈",
+      "reason_en": "Backup gensets, not direct TSMC supply chain"
+    },
+    "CMI": {
+      "ticker": "CMI",
+      "relation": "ecosystem",
+      "reason_zh": "柴油發電機供數據中心，非TSMC直接上游",
+      "reason_en": "Diesel gensets for DC, not direct TSMC upstream"
+    },
+    "3324.TWO": {
+      "ticker": "3324.TWO",
+      "relation": "ecosystem",
+      "reason_zh": "AI伺服器液冷供OEM，非TSMC直接供應商",
+      "reason_en": "AI server liquid cooling to OEM, not TSMC supplier"
+    },
+    "3017.TW": {
+      "ticker": "3017.TW",
+      "relation": "ecosystem",
+      "reason_zh": "散熱模組供AI伺服器廠，非TSMC直接上游",
+      "reason_en": "Heat sinks to AI server makers, not TSMC upstream"
+    },
+    "8996.TW": {
+      "ticker": "8996.TW",
+      "relation": "ecosystem",
+      "reason_zh": "熱交換器供數據中心，非TSMC直接供應鏈",
+      "reason_en": "Heat exchanger to DC, not direct TSMC supply chain"
+    },
+    "3338.TW": {
+      "ticker": "3338.TW",
+      "relation": "ecosystem",
+      "reason_zh": "均熱板供伺服器廠，非TSMC直接供應商",
+      "reason_en": "Vapor chamber to server makers, not TSMC supplier"
+    },
+    "3653.TW": {
+      "ticker": "3653.TW",
+      "relation": "ecosystem",
+      "reason_zh": "CPU/GPU散熱片供OEM，非TSMC直接上游",
+      "reason_en": "CPU/GPU heat spreader to OEM, not TSMC upstream"
+    }
+  }
+}

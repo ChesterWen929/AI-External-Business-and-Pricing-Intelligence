@@ -84,6 +84,47 @@
   .sig .ix.high { color: var(--t1); border-color: var(--t1); }
   .sig .ix.medium { color: var(--t2); border-color: var(--t2); }
   .sig .rel { font-size: 11px; color: var(--muted); margin-left: 8px; font-weight: 400; }
+
+  /* ─── Synthesis (industry + company narratives) ─── */
+  .syn-wrap { margin: 18px 24px; }
+  .syn-head { display: flex; align-items: center; gap: 12px; cursor: pointer; user-select: none; padding: 6px 0; }
+  .syn-head h2 { font-size: 14px; font-weight: 600; margin: 0; }
+  .syn-head .caret { color: var(--muted); transition: transform .15s; }
+  .syn-wrap.open .syn-head .caret { transform: rotate(90deg); }
+  .syn-head .cnt { font-size: 12px; color: var(--muted); }
+  .syn-head .src { font-size: 10px; color: var(--muted); margin-left: auto; letter-spacing: .5px; }
+  .syn-body { display: none; padding-top: 10px; }
+  .syn-wrap.open .syn-body { display: block; }
+  .syn-note { font-size: 12px; color: var(--muted); margin: 0 0 12px; line-height: 1.55; }
+
+  .syn-ind-list { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  .syn-ind { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; }
+  .syn-ind-top { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
+  .syn-ind-name { font-size: 13.5px; font-weight: 600; color: var(--fg); }
+  .syn-ind-n { font-size: 11px; color: var(--muted); margin-left: 4px; }
+  .syn-ind-theme { font-size: 11.5px; color: var(--gold); font-weight: 600; background: rgba(200,168,106,0.10); padding: 2px 9px; border-radius: 10px; border: 1px solid rgba(200,168,106,0.25); }
+  .syn-ind-summary { font-size: 12.5px; line-height: 1.6; color: var(--fg); margin-bottom: 8px; }
+  .syn-ind-meta { display: flex; flex-direction: column; gap: 3px; font-size: 11.5px; margin-bottom: 8px; }
+  .syn-ind-meta .row { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+  .syn-pill { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 7px; border-radius: 5px; letter-spacing: .3px; }
+  .syn-pill.up { background: rgba(79,180,119,0.15); color: var(--good); }
+  .syn-pill.dn { background: rgba(224,123,176,0.15); color: var(--amc); }
+  .tk-pill { display: inline-block; background: var(--panel2); border: 1px solid var(--border); padding: 1px 7px; border-radius: 6px; font-size: 10.5px; color: var(--ink-soft); }
+  .syn-ind-points { list-style: none; padding: 0; margin: 4px 0 8px; }
+  .syn-ind-points li { font-size: 12px; color: var(--muted); line-height: 1.55; padding-left: 12px; position: relative; margin-bottom: 3px; }
+  .syn-ind-points li::before { content: "•"; position: absolute; left: 0; color: var(--accent); }
+  .syn-ind-tsmc { background: rgba(200,168,106,0.08); border-left: 2px solid var(--gold); padding: 6px 10px; border-radius: 0 5px 5px 0; font-size: 12px; line-height: 1.55; color: var(--fg); }
+
+  .syn-co-group { font-size: 11px; font-weight: 700; color: var(--muted); margin: 14px 0 6px 2px; text-transform: uppercase; letter-spacing: .6px; }
+  .syn-co-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 8px; }
+  .syn-co { background: var(--panel); border: 1px solid var(--border); border-radius: 7px; padding: 10px 12px; }
+  .syn-co-top { display: flex; justify-content: space-between; align-items: center; padding-bottom: 5px; border-bottom: 1px dashed var(--border); margin-bottom: 6px; }
+  .syn-co-name { font-size: 12.5px; color: var(--fg); }
+  .syn-co-ticker { font-size: 10.5px; color: var(--accent); font-family: "JetBrains Mono", "SF Mono", Menlo, monospace; margin-left: 5px; }
+  .syn-co-traj { font-size: 10.5px; font-weight: 700; color: var(--accent); }
+  .syn-q { display: grid; grid-template-columns: 50px 1fr; gap: 6px; font-size: 11.5px; line-height: 1.5; padding: 1px 0; }
+  .syn-q-l { color: var(--muted); font-weight: 700; font-size: 9.5px; text-transform: uppercase; letter-spacing: .4px; padding-top: 2px; }
+  .syn-co-tsmc { background: rgba(200,168,106,0.06); border-left: 2px solid var(--gold); padding: 5px 8px; border-radius: 0 4px 4px 0; font-size: 11.5px; line-height: 1.5; color: var(--fg); margin-top: 6px; }
 </style>
 </head>
 <body>
@@ -131,6 +172,34 @@
   </div>
 </div>
 
+<div class="syn-wrap open" id="synIndWrap" style="display:none">
+  <div class="syn-head" id="synIndHead">
+    <h2>10 大產業跨公司法說綜述 <span style="color:var(--muted);font-weight:400">· Cross-company industry synthesis</span></h2>
+    <span class="cnt" id="synIndCount"></span>
+    <span class="caret">▶</span>
+    <span class="src" id="synIndSrc"></span>
+  </div>
+  <div class="syn-body">
+    <p class="syn-note">已公布的最近 4 季法說資料（營收、毛利、營業利益、EPS surprise、新聞、分析師評等）經 Claude 跨公司歸納；每個產業給主旋律、~100 字綜述、加速 / 減速名單、3 個關鍵數據點、對台積電的戰略意涵。<br/>
+      Trailing-4Q earnings + financials + analyst data, synthesized by Claude. Each industry gets a theme, ~100-word recap, accel/decel breakdown, 3 datapoints, TSMC implication.</p>
+    <div class="syn-ind-list" id="synIndList"></div>
+  </div>
+</div>
+
+<div class="syn-wrap open" id="synCoWrap" style="display:none">
+  <div class="syn-head" id="synCoHead">
+    <h2>戰略公司 4 季法說演進 <span style="color:var(--muted);font-weight:400">· Strategic-company 4-quarter narrative arcs</span></h2>
+    <span class="cnt" id="synCoCount"></span>
+    <span class="caret">▶</span>
+    <span class="src">Claude Sonnet 4.5</span>
+  </div>
+  <div class="syn-body">
+    <p class="syn-note">關鍵 27 家公司的 4 季敘事（從最舊到最新），用具體營收 / 毛利 / EPS 數字寫一句話 / 季，再給「對台積電」的意涵。按與台積電的戰略關係分組。<br/>
+      27 strategic companies' 4-quarter narrative arcs (oldest → newest), each quarter summarized with concrete revenue / margin / EPS numbers, grouped by strategic relation to TSMC.</p>
+    <div id="synCoList"></div>
+  </div>
+</div>
+
 <main id="timeline"><div class="empty">載入中…</div></main>
 
 <script>
@@ -160,7 +229,105 @@ function init() {
   document.getElementById("sigHead").addEventListener("click", () =>
     document.getElementById("sigWrap").classList.toggle("open"));
   renderSignals();
+  renderSynthesis();
   render();
+}
+
+const RELATION_ORDER = ["tsmc","competitor","customer","supplier","ecosystem","demand"];
+const RELATION_LABEL = {
+  tsmc: "★ TSMC", supplier: "🔵 供應商 Supplier", customer: "🟢 客戶 Customer",
+  competitor: "🔴 競爭者 Competitor", ecosystem: "⚫ 生態系 Ecosystem", demand: "🟣 終端需求 End Demand"
+};
+const TRAJ_ICON = { accelerating: "🚀", decelerating: "📉", stable: "➡️", volatile: "🌀" };
+const QLBL = ["Q1 舊", "Q2", "Q3", "Q4 新"];
+
+function htmlEsc(s) {
+  return (s == null ? "" : String(s))
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+
+function renderSynthesis() {
+  const syn = SNAPSHOT.synthesis;
+  if (!syn || !syn.industries_meta || !syn.industries) return;
+  document.getElementById("synIndWrap").style.display = "";
+  document.getElementById("synCoWrap").style.display = "";
+
+  // ─── industries ───
+  const indHtml = [];
+  let indCount = 0;
+  for (const meta of syn.industries_meta) {
+    const ind = syn.industries[meta.id] || {};
+    if (!ind.summary_zh) continue;
+    indCount++;
+    const accel = (ind.accelerating || []).map(t => `<span class="tk-pill">${htmlEsc(t)}</span>`).join(" ")
+                  || '<span style="color:var(--muted)">—</span>';
+    const decel = (ind.decelerating || []).map(t => `<span class="tk-pill">${htmlEsc(t)}</span>`).join(" ")
+                  || '<span style="color:var(--muted)">—</span>';
+    const points = (ind.key_datapoints_zh || []).map(p => `<li>${htmlEsc(p)}</li>`).join("");
+    indHtml.push(`
+      <div class="syn-ind">
+        <div class="syn-ind-top">
+          <div class="syn-ind-name">🏷 ${htmlEsc(meta.name_zh)} <span class="syn-ind-n">${ind.n_companies||0} 家</span></div>
+          <div class="syn-ind-theme">主旋律：${htmlEsc(ind.common_theme_zh||"")}</div>
+        </div>
+        <div class="syn-ind-summary">${htmlEsc(ind.summary_zh)}</div>
+        <div class="syn-ind-meta">
+          <div class="row"><span class="syn-pill up">▲ 加速</span>${accel}</div>
+          <div class="row"><span class="syn-pill dn">▼ 減速</span>${decel}</div>
+        </div>
+        <ul class="syn-ind-points">${points}</ul>
+        <div class="syn-ind-tsmc">💡 對 TSMC：${htmlEsc(ind.implication_for_tsmc_zh||"")}</div>
+      </div>`);
+  }
+  document.getElementById("synIndList").innerHTML = indHtml.join("");
+  document.getElementById("synIndCount").textContent = indCount + " 產業";
+  document.getElementById("synIndSrc").textContent =
+    (syn.updated_at ? "Claude Sonnet 4.5 · " + syn.updated_at.replace("T"," ").slice(0,16) : "Claude Sonnet 4.5");
+
+  // ─── strategic companies grouped by tsmc_relation ───
+  const grouped = {};
+  for (const r of RELATION_ORDER) grouped[r] = [];
+  for (const [tkr, co] of Object.entries(syn.companies || {})) {
+    if (!co.quarterly_arc_zh || !co.quarterly_arc_zh.length) continue;
+    const rel = grouped[co.tsmc_relation] ? co.tsmc_relation : "ecosystem";
+    grouped[rel].push({ tkr, co });
+  }
+
+  const coHtml = [];
+  let coCount = 0;
+  for (const rel of RELATION_ORDER) {
+    const items = grouped[rel];
+    if (!items.length) continue;
+    coHtml.push(`<div class="syn-co-group">${htmlEsc(RELATION_LABEL[rel])} <span style="color:var(--muted);font-weight:500">· ${items.length}</span></div>`);
+    coHtml.push('<div class="syn-co-grid">');
+    for (const { tkr, co } of items) {
+      coCount++;
+      const traj = co.trajectory || "stable";
+      const trajIcon = TRAJ_ICON[traj] || "·";
+      let qRows = "";
+      const arc = co.quarterly_arc_zh || [];
+      for (let i = 0; i < Math.min(4, arc.length); i++) {
+        qRows += `<div class="syn-q"><div class="syn-q-l">${QLBL[i]}</div><div>${htmlEsc(arc[i])}</div></div>`;
+      }
+      coHtml.push(`
+        <div class="syn-co">
+          <div class="syn-co-top">
+            <div class="syn-co-name"><strong>${htmlEsc(co.name_zh || tkr)}</strong><span class="syn-co-ticker">${htmlEsc(tkr)}</span></div>
+            <div class="syn-co-traj">${trajIcon} ${htmlEsc(co.trajectory_zh || traj)}</div>
+          </div>
+          <div>${qRows}</div>
+          <div class="syn-co-tsmc">💡 對 TSMC：${htmlEsc(co.what_this_tells_tsmc_zh||"")}</div>
+        </div>`);
+    }
+    coHtml.push("</div>");
+  }
+  document.getElementById("synCoList").innerHTML = coHtml.join("");
+  document.getElementById("synCoCount").textContent = coCount + " 家";
+
+  document.getElementById("synIndHead").addEventListener("click", () =>
+    document.getElementById("synIndWrap").classList.toggle("open"));
+  document.getElementById("synCoHead").addEventListener("click", () =>
+    document.getElementById("synCoWrap").classList.toggle("open"));
 }
 
 const SIG_SHOWN = 40;  // cap the list so a dense graph stays readable

@@ -22,6 +22,8 @@ from . import model
 PKG = Path(__file__).resolve().parent
 DATA = PKG.parent / "data" / "earnings"
 SNAPSHOT = DATA / "snapshot.json"
+SYNTHESIS = DATA / "synthesis.json"
+RELATIONS = DATA / "relations.json"
 REFRESH_PW = os.environ.get("EARNINGS_REFRESH_PASSWORD", "earnings2026")
 
 earnings_bp = Blueprint("earnings", __name__, url_prefix="/earnings")
@@ -33,12 +35,43 @@ def _save(snap: dict) -> None:
         json.dump(snap, f, ensure_ascii=False, indent=2)
 
 
+def _load_synthesis() -> dict:
+    """Trailing-4Q narrative from Claude (cross-industry + per-company arcs).
+    Companies are augmented with tsmc_relation looked up from relations.json so
+    the template can group them by strategic relationship to TSMC.
+    Committed seed; complements the forward-looking calendar above it.
+    Returns {} if not yet generated."""
+    if not SYNTHESIS.exists():
+        return {}
+    try:
+        with open(SYNTHESIS, encoding="utf-8") as f:
+            syn = json.load(f)
+    except Exception:
+        return {}
+    # Merge per-ticker relation if relations.json available
+    if RELATIONS.exists():
+        try:
+            with open(RELATIONS, encoding="utf-8") as f:
+                rels = json.load(f).get("data", {})
+            for tkr, co in (syn.get("companies") or {}).items():
+                if co.get("tsmc_relation"):
+                    continue
+                rel = rels.get(tkr, {}).get("relation")
+                if rel:
+                    co["tsmc_relation"] = rel
+        except Exception:
+            pass
+    return syn
+
+
 def load_snapshot() -> dict:
     if SNAPSHOT.exists():
         with open(SNAPSHOT, encoding="utf-8") as f:
-            return json.load(f)
-    snap = model.build_snapshot()
-    _save(snap)
+            snap = json.load(f)
+    else:
+        snap = model.build_snapshot()
+        _save(snap)
+    snap["synthesis"] = _load_synthesis()
     return snap
 
 

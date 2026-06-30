@@ -1,0 +1,1140 @@
+{
+  "updated_at": "2026-05-12T01:32:42",
+  "model": "claude-sonnet-4-5",
+  "tokens": {
+    "input": 53948,
+    "output": 24930,
+    "cost_usd": 0.536
+  },
+  "industries_meta": [
+    {
+      "id": "foundries",
+      "name_zh": "晶圓代工 (TSMC 同業)",
+      "name_en": "Foundries (TSMC peers)"
+    },
+    {
+      "id": "wfe",
+      "name_zh": "晶圓製造設備",
+      "name_en": "Wafer Fab Equipment"
+    },
+    {
+      "id": "eda-ip",
+      "name_zh": "EDA 與半導體 IP",
+      "name_en": "EDA & Semiconductor IP"
+    },
+    {
+      "id": "ai-gpu-fabless",
+      "name_zh": "AI/GPU 大型 Fabless",
+      "name_en": "AI/GPU Large Fabless"
+    },
+    {
+      "id": "mobile-soc",
+      "name_zh": "行動 SoC (TSMC 行動客戶)",
+      "name_en": "Mobile SoC (TSMC mobile clients)"
+    },
+    {
+      "id": "memory",
+      "name_zh": "記憶體 (DRAM/NAND/HBM)",
+      "name_en": "Memory (DRAM/NAND/HBM)"
+    },
+    {
+      "id": "silicon-materials",
+      "name_zh": "矽晶圓與特化材料",
+      "name_en": "Silicon Wafers & Specialty Materials"
+    },
+    {
+      "id": "osat",
+      "name_zh": "封裝測試 OSAT",
+      "name_en": "OSAT (Packaging & Test)"
+    },
+    {
+      "id": "hyperscalers",
+      "name_zh": "雲端終端客戶 (AI capex)",
+      "name_en": "Hyperscalers (AI capex drivers)"
+    },
+    {
+      "id": "substrates",
+      "name_zh": "IC 載板 ABF (HBM 卡點)",
+      "name_en": "IC Substrates ABF (HBM bottleneck)"
+    }
+  ],
+  "industries": {
+    "eda-ip": {
+      "industry_id": "EDA_IP",
+      "common_theme_zh": "EDA/IP 成長但獲利承壓",
+      "common_theme_en": "Growth amid margin compression",
+      "summary_zh": "EDA/IP 產業營收持續擴張但獲利率普遍承壓。Synopsys Q1'26 營收成長至 $2.4B (+4% QoQ) 但 Ansys 併購拖累 OM 從 23.5% 暴跌至 13.3%,GM 從 80% 降至 73.5%。Cadence 營收穩健成長至 $1.5B,維持 85%+ 高毛利但 OM 從 33.8% 壓縮至 29.3%,連四季 EPS 超標 +4-8%。Arm 憑 AI 伺服器 CPU 需求創紀錄營收 $1.2B,維持 97.6% 超高毛利。Keysight 營收成長緩慢 ($1.3B→$1.6B),OM 徘徊 15-17%。Rambus 連四季零成長卡在 $0.2B,Q1 EPS miss -1% 引發股價暴跌 -21%。",
+      "summary_en": "EDA/IP sector shows revenue expansion with widespread margin pressure. Synopsys Q1'26 revenue grew +4% QoQ to $2.4B but Ansys integration crushed OM from 23.5% to 13.3%, GM fell from 80% to 73.5%. Cadence maintained steady growth to $1.5B with 85%+ GM but OM compressed 440bps to 29.3% despite four consecutive EPS beats +4-8%. Arm achieved record $1.2B revenue driven by AI server CPU demand with exceptional 97.6% GM. Keysight showed sluggish growth ($1.3B→$1.6B) with 15-17% OM volatility. Rambus stagnated at $0.2B for four straight quarters, Q1 EPS miss -1% triggered -21% stock crash.",
+      "accelerating": [
+        "ARM",
+        "CDNS"
+      ],
+      "decelerating": [
+        "RMBS",
+        "SNPS"
+      ],
+      "key_datapoints_zh": [
+        "Synopsys OM 從 23.5% 崩至 13.3%,Ansys 併購拖累 GM 降至 73.5%",
+        "Cadence 連四季 EPS 超標 +4-8%,營收穩步成長至 $1.5B 但 OM 壓縮 440bps",
+        "Arm 營收 $1.2B 創高,維持 97.6% 超高毛利,AI 伺服器 CPU 驅動強勁"
+      ],
+      "implication_for_tsmc_zh": "EDA/IP 廠商獲利壓力反映產業整合成本與投資週期,但 Arm AI 伺服器動能與 Cadence 持續超標顯示先進製程設計需求強勁,支撐 TSMC N3/N2 客戶擴張",
+      "implication_for_tsmc_en": "Margin compression reflects integration costs and investment cycles, but Arm's AI server momentum and Cadence's consistent beats signal robust advanced-node design demand supporting TSMC N3/N2 customer expansion.",
+      "_usage": {
+        "in": 3090,
+        "out": 929
+      },
+      "n_companies": 6,
+      "company_tickers": [
+        "SNPS",
+        "CDNS",
+        "SIE.DE",
+        "KEYS",
+        "ARM",
+        "RMBS"
+      ]
+    },
+    "wfe": {
+      "industry_id": "wafer_fab_equipment",
+      "common_theme_zh": "AI晶片複雜化驅動高階設備需求",
+      "common_theme_en": "AI chip complexity drives premium tool demand",
+      "summary_zh": "晶圓製造設備廠商呈現分化：應用材料連四季EPS超預期3.5-7.9%，Q1營收達$70億、毛利率49%；科林研發Q1營收躍升10%至$58億、營益率回升至35%；愛德萬Q4 EPS大勝27.5%、全年營收¥1.13兆受惠AI/HBM測試；ASM國際Q1營收成長16%至$0.9B、營益率創新高33.1%；但ASML營收從$97億降至$88億、營益率從40.8%壓縮至36%，中國出口管制持續施壓；Lasertec突然轉負、EPS miss達-29.5%顯示EUV光罩檢測需求波動；整體顯示先進封裝、ALD沉積、測試設備受AI驅動強勁，但光刻設備受地緣政治拖累。",
+      "summary_en": "WFE sector shows bifurcation: Applied Materials delivered four consecutive EPS beats (+3.5% to +7.9%), Q1 revenue $7.0B with 49% GM; Lam Research Q1 revenue jumped 10% to $5.8B, OM rebounded to 35%; Advantest Q4 beat +27.5%, FY revenue ¥1.13T driven by AI/HBM test demand; ASM International Q1 revenue surged 16% to $0.9B with record 33.1% OM; but ASML revenue declined from $9.7B to $8.8B, OM compressed from 40.8% to 36% amid China export controls; Lasertec abruptly missed EPS by -29.5%, signaling EUV mask inspection volatility. Advanced packaging (BESI orders doubled to €200M), ALD deposition, and test equipment show AI-driven strength, while lithography faces geopolitical headwinds.",
+      "accelerating": [
+        "AMAT",
+        "LRCX",
+        "6857.T",
+        "ASM.AS",
+        "TER",
+        "BESI.AS",
+        "6146.T"
+      ],
+      "decelerating": [
+        "ASML",
+        "6920.T",
+        "7735.T"
+      ],
+      "key_datapoints_zh": [
+        "應用材料/科林研發/Teradyne連四季EPS超預期，Q1營益率達29.9%/35.0%/37.1%，AI晶片製程設備需求強勁",
+        "ASML營收QoQ降9%至$88億、營益率從40.8%壓縮至36%，中國出口管制影響EUV/DUV出貨動能",
+        "ASM國際Q1營益率創紀錄33.1%、Advantest Q4 EPS勝27.5%，先進封裝ALD與AI測試設備成長爆發"
+      ],
+      "implication_for_tsmc_zh": "先進封裝、高階測試設備供應鏈強勁支撐TSMC 3nm/2nm產能擴張，但EUV設備交期與成本受地緣政治風險壓力，需分散供應鏈並加速CoWoS良率提升",
+      "implication_for_tsmc_en": "Strong advanced packaging and test equipment supply chain supports TSMC 3nm/2nm ramp, but EUV delivery/cost risks from geopolitics require supply diversification and accelerated CoWoS yield improvement",
+      "_usage": {
+        "in": 5032,
+        "out": 1011
+      },
+      "n_companies": 12,
+      "company_tickers": [
+        "ASML",
+        "AMAT",
+        "LRCX",
+        "8035.T",
+        "KLAC",
+        "ASM.AS",
+        "7735.T",
+        "6857.T",
+        "TER",
+        "6920.T",
+        "6146.T",
+        "BESI.AS"
+      ]
+    },
+    "foundries": {
+      "industry_id": "foundries_tsmc_peers",
+      "common_theme_zh": "成熟製程分化,先進製程受壓",
+      "common_theme_en": "Mature-node bifurcation, leading-edge stress",
+      "summary_zh": "晶圓代工業呈現雙速分化:三星Q4營收衝上₩93.8兆(+26% QoQ)、毛利率飆至47.2%(+880bps),英特爾Q1毛利率回升至39.4%但仍虧$3.73B,聯電Q1營收持平$61B、毛利率壓縮至29.2%,格芯Q1營收衰退11%至$1.6B、營益率跌至11.0%。中國陣營承壓:中芯連四季EPS負成長(-19%~-33%)、華虹連四季嚴重虧損(-88%~-57%)、力積電連四季負毛利率且Q4營益率-5.8%。成熟製程專業廠分化:高塔四季連續超越預期、毛利率擴張630bps至26.7%,世界先進營收+8% QoQ但毛利率壓縮至27.5%。",
+      "summary_en": "Foundry sector shows stark two-speed divergence: Samsung Q4 revenue surged 26% QoQ to ₩93.8T with GM expanding 880bps to 47.2%; Intel Q1 GM recovered to 39.4% yet posted $3.73B net loss; UMC Q1 revenue flat at $61B with GM compressing to 29.2%; GFS Q1 revenue declined 11% to $1.6B with OM falling to 11.0%. Chinese foundries face systemic stress: SMIC four consecutive quarters of negative EPS growth (-19% to -33%), Hua Hong four straight severe EPS misses (-88% to -57%), Powerchip four quarters of negative GM with Q4 OM at -5.8%. Mature-node specialists bifurcate: Tower beat EPS four quarters straight with GM expanding 630bps to 26.7%; VIS revenue +8% QoQ but GM compressed to 27.5%.",
+      "accelerating": [
+        "005930.KS",
+        "TSEM"
+      ],
+      "decelerating": [
+        "6770.TW",
+        "1347.HK",
+        "0981.HK",
+        "GFS",
+        "5347.TWO"
+      ],
+      "key_datapoints_zh": [
+        "三星Q4毛利率47.2%創四季新高(vs Q1 35.5%),營益率21.4%為聯電(18.4%)1.16倍",
+        "中國三廠(中芯/華虹/力積電)連四季虧損或負成長,力積電營益率-5.8%、華虹EPS miss -57%",
+        "成熟製程廠毛利率差距擴大:高塔26.7% vs 世界先進27.5% vs 格芯27.6%,但營益率高塔16.1%遠勝格芯11.0%"
+      ],
+      "implication_for_tsmc_zh": "先進製程領先優勢擴大(三星記憶體拉抬、英特爾18A仍無外部客戶),成熟製程競爭白熱化需以技術差異化維持定價權,中國受制裁加劇利於TSMC份額鞏固",
+      "implication_for_tsmc_en": "Leading-edge gap widens (Samsung memory-driven, Intel 18A lacks external wins); mature-node pricing pressure demands tech differentiation; China sanctions intensify TSMC share consolidation opportunity",
+      "_usage": {
+        "in": 4086,
+        "out": 1007
+      },
+      "n_companies": 9,
+      "company_tickers": [
+        "005930.KS",
+        "INTC",
+        "GFS",
+        "2303.TW",
+        "0981.HK",
+        "6770.TW",
+        "5347.TWO",
+        "1347.HK",
+        "TSEM"
+      ]
+    },
+    "ai-gpu-fabless": {
+      "industry_id": "AI_GPU_Large_Fabless",
+      "common_theme_zh": "AI算力狂潮持續",
+      "common_theme_en": "AI Infrastructure Boom Sustains",
+      "summary_zh": "五大 AI 晶片廠商展現強勁成長動能：輝達營收飆升 54% 達 $68.1B、毛利率擴張至 75%，連四季 EPS 超預期；超微營收增 12% 至 $10.3B、營業利益率從 13.7% 躍升至 17.1%，Q4 EPS 超預期 16%；博通營收四季成長 28.7% 至 $19.3B、營業利益率從 38.1% 擴至 44.9%；邁威爾營收成長 15.8% 至 $2.2B、營業利益率從 13.6% 升至 18.7%；Astera Labs 維持 76% 毛利率、連四季 EPS 超預期 13-36%。五家公司分析師評級 194 買進 vs 29 持有 vs 2 賣出，反映 AI 基礎建設需求強勁且利潤率持續擴張。",
+      "summary_en": "Five AI chip leaders demonstrate explosive growth: NVIDIA revenue surged 54% to $68.1B with GM expanding to 75% and four consecutive EPS beats (+5.3% latest); AMD revenue up 12% to $10.3B with OM leaping from 13.7% to 17.1% and Q4 EPS beat of +16%; Broadcom revenue accelerated 28.7% across four quarters to $19.3B with OM expanding from 38.1% to 44.9%; Marvell revenue grew 15.8% to $2.2B with OM rising from 13.6% to 18.7%; Astera Labs maintained 76% GM with four straight EPS beats of 13-36%. Collective analyst ratings show 194 BUY vs 29 HOLD vs 2 SELL, reflecting robust AI infrastructure demand and sustained margin expansion across the ecosystem.",
+      "accelerating": [
+        "NVDA",
+        "AMD",
+        "AVGO"
+      ],
+      "decelerating": [],
+      "key_datapoints_zh": [
+        "輝達營收四季飆升 $44.1B→$68.1B (+54%)、毛利率從 60.5% 擴至 75%，營業利益率從 49.1% 升至 65%",
+        "超微 Q4 營業利益率從 13.7% 躍升至 17.1%、毛利率擴張 260bps 至 54.3%，EPS 超預期 16%",
+        "博通四季營收從 $15B 增至 $19.3B (+28.7%)、營業利益率從 38.1% 擴至 44.9%，連四季 EPS 超預期"
+      ],
+      "implication_for_tsmc_zh": "AI 算力需求強勁，客戶利潤率擴張顯示先進製程定價空間充足，輝達 25% 營收占比帶來產能壓力與議價優勢並存，需平衡產能配置",
+      "implication_for_tsmc_en": "Robust AI compute demand with customer margin expansion validates advanced node pricing power; NVDA's 25% revenue share creates capacity tension and negotiation leverage requiring strategic capacity allocation balance",
+      "_usage": {
+        "in": 2734,
+        "out": 946
+      },
+      "n_companies": 5,
+      "company_tickers": [
+        "NVDA",
+        "AMD",
+        "AVGO",
+        "MRVL",
+        "ALAB"
+      ]
+    },
+    "mobile-soc": {
+      "industry_id": "mobile_soc",
+      "common_theme_zh": "高階獨占 vs. 大眾市場壓縮",
+      "common_theme_en": "Premium monopoly vs. volume margin collapse",
+      "summary_zh": "行動 SoC 呈現極端分化：Apple 獨享 TSMC N3/N2 製程，連續四季 EPS 超預期 +3.5~10.1%，毛利率擴張 280bps 至 49.3%，營運利益率穩居 30-35% 菁英區；Qualcomm 營收季減 14% 至 $10.6B，毛利率連四季壓縮至 53.8%，指引未達標但 EPS 仍超 +3.6%；MediaTek 毛利率從 Q2 49.1% 崩至 Q4 46.1%，營運利益率腰斬至 14.5%，淨利季減 22%、EPS 負驚喜 -5%，大眾市場價格戰激烈。",
+      "summary_en": "Mobile SoC bifurcates sharply: Apple monopolizes TSMC N3/N2, delivering 4 straight EPS beats +3.5~10.1%, gross margin expanded 280bps to 49.3%, operating margin held elite 30-35% range. Qualcomm revenue fell 14% QoQ to $10.6B, gross margin compressed 4th consecutive quarter to 53.8%, guidance missed yet EPS beat +3.6%. MediaTek margins collapsed—GM from Q2 49.1% to Q4 46.1%, OM halved to 14.5%, net income down 22% QoQ, EPS miss -5%—reflecting brutal volume-tier price war amid stable $150B revenue.",
+      "accelerating": [
+        "AAPL"
+      ],
+      "decelerating": [
+        "QCOM",
+        "2454.TW"
+      ],
+      "key_datapoints_zh": [
+        "Apple 毛利率四季擴張 280bps 至 49.3%，營運利益率守 30-35%，EPS 連四季超預期 +3.5~10.1%",
+        "Qualcomm 營收季減 14% 至 $10.6B，毛利率連四季收窄至 53.8%，指引未達標但 EPS 仍超 +3.6%",
+        "MediaTek 毛利率從 Q2 49.1% 崩至 Q4 46.1%，營運利益率腰斬至 14.5%，淨利季減 22%、EPS 負驚喜 -5%"
+      ],
+      "implication_for_tsmc_zh": "N3/N2 先進製程客戶集中度極高（Apple 獨占），中階 N4/N5 面臨 MediaTek/Qualcomm 價格戰壓力，需防單一客戶依賴風險並加速開發多元先進製程客群",
+      "implication_for_tsmc_en": "N3/N2 revenue concentrates in single client (Apple), mid-tier N4/N5 faces price war (MediaTek/Qualcomm margin collapse), urgently diversify leading-edge customers to mitigate dependency risk",
+      "_usage": {
+        "in": 1781,
+        "out": 892
+      },
+      "n_companies": 3,
+      "company_tickers": [
+        "QCOM",
+        "2454.TW",
+        "AAPL"
+      ]
+    },
+    "memory": {
+      "industry_id": "memory_dram_nand_hbm",
+      "common_theme_zh": "HBM 供應緊縮驅動超級週期",
+      "common_theme_en": "HBM supply crunch drives supercycle",
+      "summary_zh": "記憶體產業進入 AI 驅動的超級週期,SK 海力士 Q4 營收達 $32.8T KRW(+34% QoQ)、毛利率擴張至 68.8%,美光 Q2 營收 $23.9B、毛利率創紀錄 74.4%,兩大 HBM 龍頭連續 4 季 EPS 超標 20%+;大型科技公司主動提供資金確保 HBM 產能,記憶體價格飆漲限制消費電子供應。台系廠商南亞科 Q1 營收暴增 187% 至 $30.1B、毛利率從負轉正至 49%,華邦電/旺宏連續 3 季獲利改善。",
+      "summary_en": "Memory sector enters AI-driven supercycle: SK Hynix Q4 revenue surged 34% QoQ to $32.8T KRW with 68.8% GM, Micron Q2 hit record $23.9B revenue with 74.4% GM; both HBM leaders delivered 4 consecutive quarters of 20%+ EPS beats. Big tech firms proactively offering production funding to secure HBM supply, driving unprecedented memory price surge constraining consumer electronics. Taiwan players show sharp recovery: Nanya Q1 revenue soared 187% to $30.1B with GM recovering to 49% from deep negatives, Winbond/Macronix achieved 3 consecutive quarters of profitability improvement.",
+      "accelerating": [
+        "000660.KS",
+        "MU",
+        "2408.TW",
+        "WDC"
+      ],
+      "decelerating": [
+        "285A.T"
+      ],
+      "key_datapoints_zh": [
+        "SK 海力士與美光連續 4 季 EPS 超標 20%+,Q4/Q2 毛利率分別達 68.8%/74.4%,HBM 供應緊張推動定價權",
+        "南亞科 Q1 營收 $30.1B(+187% YoY)、毛利率從 -20.6% 回升至 49%,DRAM 價格復甦驅動利潤率擴張",
+        "威騰電子連續 4 季 EPS 超標 10%+、毛利率擴張 920bps 至 50.2%,AI 資料中心儲存需求推動股價漲 170%"
+      ],
+      "implication_for_tsmc_zh": "HBM/AI 記憶體需求爆發創造先進封裝(CoWoS)產能瓶頸,TSMC 需加速 3D 堆疊與矽中介層技術擴產以支撐客戶 HBM 整合需求",
+      "implication_for_tsmc_en": "HBM/AI memory demand explosion creates advanced packaging (CoWoS) capacity bottleneck; TSMC must accelerate 3D stacking and silicon interposer expansion to support customer HBM integration requirements",
+      "_usage": {
+        "in": 3350,
+        "out": 905
+      },
+      "n_companies": 7,
+      "company_tickers": [
+        "000660.KS",
+        "MU",
+        "285A.T",
+        "WDC",
+        "2408.TW",
+        "2344.TW",
+        "2337.TW"
+      ]
+    },
+    "silicon-materials": {
+      "industry_id": "silicon_wafers_specialty_materials",
+      "common_theme_zh": "矽晶圓崩盤 特化材料撐場",
+      "common_theme_en": "Wafer collapse, specialty resilience",
+      "summary_zh": "矽晶圓三巨頭全面潰敗:信越 Q4 EPS -10.9%、勝高連二季虧損(Q4 -51.6%/Q3 -109.4%)、環球晶毛利率壓縮 430bps 至 25.7%、世創毛利率崩至 -8.5% 虧損 $0.06B。特化材料分化:東京應化連四季大幅超標(+11%~+65%)主導 EUV 光阻、Entegris Q1 毛利率擴至 46.9% EPS +15.4%、富士連三季超標;工業氣體停滯,Linde 營收持平 $8.8B 毛利率壓縮 80bps、Air Products 營運利潤率縮 190bps 至 23.7%。",
+      "summary_en": "Silicon wafer sector in free fall: Shin-Etsu Q4 EPS miss -10.9%, SUMCO consecutive losses (Q4 -51.6%/Q3 -109.4%), GlobalWafers GM compressed 430bps to 25.7%, Siltronic GM collapsed to -8.5% with -$0.06B loss. Specialty materials bifurcated: Tokyo Ohka four straight massive beats (+11% to +65%) leading EUV photoresist, Entegris Q1 GM expanded to 46.9% with +15.4% EPS beat, Fujifilm three consecutive beats; industrial gases stagnant with Linde revenue flat at $8.8B and GM down 80bps, Air Products OM contracted 190bps to 23.7% despite consistent beats.",
+      "accelerating": [
+        "4186.T",
+        "ENTG",
+        "4901.T"
+      ],
+      "decelerating": [
+        "4063.T",
+        "3436.T",
+        "6488.TWO",
+        "WAF.DE",
+        "LIN",
+        "APD"
+      ],
+      "key_datapoints_zh": [
+        "矽晶圓產能過剩:世創毛利率 -8.5%、勝高 Q4 虧損擴大至 -51.6%、環球晶營收季減 9%",
+        "EUV 光阻獨強:東京應化連四季超標 +11%~+65%、Entegris 毛利率擴張至 46.9%",
+        "工業氣體停滯:Linde 營收持平 $8.8B、Air Products 營運利潤率縮 190bps 至 23.7%"
+      ],
+      "implication_for_tsmc_zh": "晶圓產能過剩壓低成本但 EUV 材料價格堅挺,先進製程毛利率承壓,需加速 2nm 良率提升分攤材料成本",
+      "implication_for_tsmc_en": "Wafer oversupply lowers costs but EUV material pricing stays firm, pressuring advanced-node margins; urgently accelerate 2nm yield to amortize material expenses.",
+      "_usage": {
+        "in": 4035,
+        "out": 896
+      },
+      "n_companies": 10,
+      "company_tickers": [
+        "4063.T",
+        "3436.T",
+        "6488.TWO",
+        "WAF.DE",
+        "4186.T",
+        "4901.T",
+        "ENTG",
+        "LIN",
+        "AI.PA",
+        "APD"
+      ]
+    },
+    "osat": {
+      "industry_id": "OSAT",
+      "common_theme_zh": "兩極分化",
+      "common_theme_en": "Bifurcated recovery trajectory",
+      "summary_zh": "OSAT 產業呈兩極走勢:日月光 Q1'26 營收 $173.7B、毛利率 20.1%、連三季 EPS 超標 13-18%,力成 Q4'25 營收飆 25% 至 $21.4B、毛利率 18.6%,南茂 Q4 營收倍增至 $12.1B;但艾克爾營收季減 11% 至 $1.7B、毛利率壓縮至 14.2%,長電營收季減 10.8% 至 $9.2B、淨利腰斬至 $0.29B,京元電營收雖成長 7.5% 至 $10B、毛利率 37.7%,但 EPS 不如預期、淨利季減。領導廠商受惠高階封裝與記憶體復甦,二線廠商面臨需求疲軟與利潤壓力。",
+      "summary_en": "OSAT sector shows stark bifurcation: ASE posted $173.7B Q1'26 revenue with 20.1% GM and three consecutive 13-18% EPS beats; Powertech surged 25% QoQ to $21.4B revenue with 18.6% GM; ChipMOS doubled revenue to $12.1B. Conversely, Amkor declined 11% QoQ to $1.7B with GM compressed to 14.2%; JCET dropped 10.8% to $9.2B with NI halved to $0.29B; King Yuan grew 7.5% to $10B with 37.7% GM but missed EPS with declining NI $2.25B vs $2.30B. Leaders capitalize on advanced packaging and memory recovery while tier-two players face demand softness and margin pressure.",
+      "accelerating": [
+        "3711.TW",
+        "6239.TW",
+        "8150.TW"
+      ],
+      "decelerating": [
+        "AMKR",
+        "600584.SS",
+        "2449.TW"
+      ],
+      "key_datapoints_zh": [
+        "日月光毛利率從 17% 擴張至 20.1%,連三季營運利潤率改善至 10.1%,EPS 超標幅度 13-18%",
+        "力成 Q4 營收季增 25% 達 $21.4B、毛利率 18.6%、營運利潤率 12.6%,記憶體封裝需求強勁復甦",
+        "艾克爾營收季減 11% 至 $1.7B、毛利率壓縮 250bp 至 14.2%,長電淨利腰斬至 $0.29B"
+      ],
+      "implication_for_tsmc_zh": "高階封裝(CoWoS/InFO)需求兩極化,TSMC 應聚焦頂級客戶與先進製程協同封裝,避開商品化產能戰",
+      "implication_for_tsmc_en": "Advanced packaging demand polarizes; TSMC must prioritize tier-1 synergies and avoid commoditized capacity battles in OSAT space",
+      "_usage": {
+        "in": 2886,
+        "out": 914
+      },
+      "n_companies": 6,
+      "company_tickers": [
+        "3711.TW",
+        "AMKR",
+        "600584.SS",
+        "6239.TW",
+        "8150.TW",
+        "2449.TW"
+      ]
+    },
+    "hyperscalers": {
+      "industry_id": "hyperscalers_ai_capex",
+      "common_theme_zh": "AI資本支出推動營收成長，但獲利率承壓",
+      "common_theme_en": "AI capex drives revenue, margin pressure emerges",
+      "summary_zh": "五大雲端巨頭Q1'26合計營收$447.8B (+8% YoY)，但獲利率分化嚴重：微軟營業利益率從48.9%壓縮至46.3% (-260bp)，甲骨文毛利率從70.2%驟降至64.6% (-560bp)，Meta毛利率穩守81-82%但Q3'25淨利暴跌至$2.71B (-84.3% EPS miss)顯示AI基礎建設投資拖累。亞馬遜AWS需求強勁帶動Q1'26營業利益率擴張至13.1%、EPS驚喜+68%；Google Q1'26 EPS暴增+91.6%但營收QoQ衰退3.4%至$109.9B，記憶體短缺威脅TPU邊際效益。甲骨文裁員2-3萬人凸顯成本結構失控，儘管OCI營收年增15%至$17.2B。",
+      "summary_en": "Five hyperscalers generated $447.8B combined Q1'26 revenue (+8% YoY), but margin bifurcation intensifies: Microsoft's operating margin compressed 260bp (48.9%→46.3%), Oracle's gross margin plunged 560bp (70.2%→64.6%), Meta's stable 81-82% GM masks Q3'25 net income collapse to $2.71B (-84.3% EPS miss) from AI infrastructure drag. Amazon AWS demand drove 13.1% operating margin (+140bp QoQ) with massive 68% EPS beat. Google's 91.6% Q1'26 EPS surprise offset 3.4% QoQ revenue decline to $109.9B; memory shortage threatens GCP/TPU margins. Oracle laid off 20-30K despite 15% OCI revenue growth to $17.2B, exposing cost structure crisis amid AI pivot.",
+      "accelerating": [
+        "AMZN",
+        "GOOGL"
+      ],
+      "decelerating": [
+        "MSFT",
+        "ORCL",
+        "META"
+      ],
+      "key_datapoints_zh": [
+        "亞馬遜Q1'26營業利益率13.1% (QoQ +140bp)、EPS驚喜+68%，AWS需求最強勁",
+        "微軟與甲骨文毛利率分別壓縮至67.6% (-260bp) 與64.6% (-560bp)，AI投資侵蝕獲利",
+        "Google營收$109.9B (QoQ -3.4%) 但EPS暴增+91.6%，記憶體短缺威脅TPU擴張"
+      ],
+      "implication_for_tsmc_zh": "AWS Trainium/Inferentia與Meta MTIA自研晶片需求強勁，但微軟Maia與Google TPU面臨成本壓力，高階CoWoS產能應優先配置獲利率改善客戶",
+      "implication_for_tsmc_en": "Prioritize CoWoS allocation to margin-expanding customers (AWS Trainium, Meta MTIA) over margin-compressed hyperscalers (MSFT Maia, GOOGL TPU facing memory costs)",
+      "_usage": {
+        "in": 2753,
+        "out": 948
+      },
+      "n_companies": 5,
+      "company_tickers": [
+        "MSFT",
+        "GOOGL",
+        "AMZN",
+        "META",
+        "ORCL"
+      ]
+    },
+    "substrates": {
+      "industry_id": "IC_Substrates_ABF_HBM",
+      "common_theme_zh": "AI 載板需求分化",
+      "common_theme_en": "AI substrate demand bifurcation",
+      "summary_zh": "ABF 載板呈現 AI 與傳統客戶分化:欣興受惠 NVIDIA AI 需求，Q4 營收達 $34.7B、毛利率擴張至 15.8%、淨利暴增 117 倍至 $3.53B，連續兩季 EPS 超預期 48-50%；南電 Q4 營收跳升 42% 至 $11.2B、毛利率回升至 12.5%、營益率轉正至 8.6%，確認 ABF 需求拐點；但 Intel 曝險高的 Ibiden Q4 EPS 衰退 13.5%，景碩 2026Q1 EPS 大幅低於預期 24.6%，顯示非 AI 客戶需求疲軟，產業呈 AI 驅動的雙速成長格局。",
+      "summary_en": "ABF substrate sector shows stark AI/legacy bifurcation: Unimicron capitalized on NVIDIA AI demand with Q4 revenue hitting $34.7B, GM expanding 270bp to 15.8%, and NI surging 117x to $3.53B, delivering 48-50% EPS beats for two consecutive quarters. Nan Ya PCB confirmed inflection with Q4 revenue jumping 42% to $11.2B, GM recovering to 12.5%, and OM turning positive to 8.6% after 25% EPS beat. Conversely, Intel-exposed Ibiden missed Q4 EPS by 13.5% amid declining earnings, while Kinsus badly missed 2026Q1 EPS estimates by 24.6% despite maintaining 22.1% GM. Data confirms two-speed growth: AI-driven players accelerating sharply while legacy CPU/server substrate suppliers face demand softness.",
+      "accelerating": [
+        "3037.TW",
+        "8046.TW"
+      ],
+      "decelerating": [
+        "4062.T",
+        "3189.TW"
+      ],
+      "key_datapoints_zh": [
+        "欣興 Q4 淨利 $3.53B 年增 117 倍，毛利率 15.8% 擴張 270bp，連續兩季 EPS 超預期 48-50%",
+        "南電 Q4 營收 $11.2B 季增 42%、營益率轉正至 8.6%，EPS 超預期 25%，確認 ABF 需求拐點",
+        "Ibiden Q4 EPS 衰退 13.5%、景碩 2026Q1 EPS 低於預期 24.6%，非 AI 客戶需求疲軟"
+      ],
+      "implication_for_tsmc_zh": "HBM 封裝需 ABF 載板，欣興/南電強勁成長證實 CoWoS 需求暢旺，但 Intel 疲軟顯示傳統客戶產能利用率壓力",
+      "implication_for_tsmc_en": "Unimicron/Nan Ya strength validates robust CoWoS demand for HBM packaging, but Intel weakness signals traditional customer utilization pressure",
+      "_usage": {
+        "in": 2399,
+        "out": 909
+      },
+      "n_companies": 5,
+      "company_tickers": [
+        "3037.TW",
+        "8046.TW",
+        "3189.TW",
+        "4062.T",
+        "ATS.VI"
+      ]
+    }
+  },
+  "companies": {
+    "ASML": {
+      "ticker": "ASML",
+      "quarterly_arc_zh": [
+        "Q2'25收入$7.7B、營益率40.8%創高峰，EPS超預期12.4%，DUV與EUV雙引擎強勁",
+        "Q3'25收入降至$7.5B、營益率壓縮至32.8%，中國出口管制衝擊顯現但EPS仍超預期2.1%",
+        "Q4'25收入反彈至$9.7B、毛利率52.2%，但營益率35.3%未恢復且EPS短差2.7%顯示成本壓力",
+        "Q1'26收入回落至$8.8B、毛利率升至53%新高，但營益率續降至36%，EPS超預期8%靠效率非規模"
+      ],
+      "quarterly_arc_en": [
+        "Q2'25: $7.7B revenue, 40.8% OM peaked, +12.4% EPS surprise—DUV & EUV dual engines firing",
+        "Q3'25: Revenue dropped to $7.5B, OM compressed to 32.8% as China export curbs bit, yet +2.1% EPS beat",
+        "Q4'25: Revenue rebounded to $9.7B, GM 52.2%, but OM stuck at 35.3% and -2.7% EPS miss reveal cost pressure",
+        "Q1'26: Revenue slipped to $8.8B, GM hit 53% high, OM fell to 36%, +8.0% EPS beat driven by efficiency not scale"
+      ],
+      "trajectory": "volatile",
+      "trajectory_zh": "波動",
+      "what_this_tells_tsmc_zh": "EUV壟斷穩固但交期波動，TSMC需分散供應鏈風險並提前鎖定產能配額",
+      "what_this_tells_tsmc_en": "EUV monopoly solid but delivery volatile—TSMC must lock capacity early and diversify risk",
+      "_usage": {
+        "in": 844,
+        "out": 560
+      },
+      "name_zh": "艾司摩爾",
+      "name_en": "ASML",
+      "tsmc_relation": null
+    },
+    "AMAT": {
+      "ticker": "AMAT",
+      "quarterly_arc_zh": [
+        "2025年4月營收$71億、毛利率49.1%、淨利$21.4億，EPS超預期3.5%，WFE需求強勁奠定全年基調",
+        "2025年7月營收升至$73億、毛利率48.8%維持高檔、EPS再超預期5.1%，設備需求續旺但Q4警訊浮現",
+        "2025年10月營收回落至$68億、毛利率降至48.0%、營業利益率縮至27.8%，產業週期轉折導致黃燈警示",
+        "2026年1月營收回穩$70億、毛利率反彈至49.0%、EPS大超7.9%、淨利$20.3億，先進製程復甦推動31買/0賣評級"
+      ],
+      "quarterly_arc_en": [
+        "Apr 2025: $7.1B revenue, 49.1% GM, $2.14B NI, +3.5% EPS beat set strong WFE demand baseline for year",
+        "Jul 2025: Revenue peaked $7.3B, 48.8% GM sustained, +5.1% EPS surprise but Q4 cyclical warning emerged",
+        "Oct 2025: Revenue dropped to $6.8B, GM compressed to 48%, OM fell to 27.8%, yellow light on cycle downturn",
+        "Jan 2026: Revenue stabilized $7.0B, GM rebounded 49%, +7.9% EPS beat, advanced-node recovery drove 31 buys/0 sells"
+      ],
+      "trajectory": "volatile",
+      "trajectory_zh": "先揚後抑再穩",
+      "what_this_tells_tsmc_zh": "AMAT設備需求V型反轉，先進製程資本支出Q1重啟，台積電擴產訊號明確",
+      "what_this_tells_tsmc_en": "WFE demand V-shaped recovery signals TSMC capex restart for advanced nodes",
+      "_usage": {
+        "in": 832,
+        "out": 576
+      },
+      "name_zh": "應用材料",
+      "name_en": "Applied Materials",
+      "tsmc_relation": null
+    },
+    "2330.TW": {
+      "ticker": "2330.TW",
+      "quarterly_arc_zh": [
+        "2025Q2營收9338億、毛利率58.6%、淨利3983億，EPS超預期5.9%，先進製程需求強勁奠定基礎",
+        "2025Q3營收9899億(+6%)、毛利率59.5%(+90bps)、EPS超預期10.3%，N3/N5節點產能滿載推動獲利加速",
+        "2025Q4營收10461億(+6%)、毛利率62.3%(+280bps)、淨利4855億，EPS超7.4%，N2量產獨佔優勢顯現",
+        "2026Q1 EPS再超5.3%，Cramer稱「訂單接不完」，Apple獨家N2/A16晶片戰確立台積電無可取代地位"
+      ],
+      "quarterly_arc_en": [
+        "Q2'25: Revenue $933.8B, GM 58.6%, NI $398.3B, EPS beat +5.9%, advanced node demand strong foundation laid",
+        "Q3'25: Revenue $989.9B (+6%), GM 59.5% (+90bps), EPS beat +10.3%, N3/N5 capacity full driving profit acceleration",
+        "Q4'25: Revenue $1046.1B (+6%), GM 62.3% (+280bps), NI $485.5B, EPS beat +7.4%, N2 ramp exclusive advantage clear",
+        "Q1'26: EPS beat +5.3%, Cramer says 'more business than can handle', Apple exclusive N2/A16 cements irreplaceable position"
+      ],
+      "trajectory": "accelerating",
+      "trajectory_zh": "加速成長",
+      "what_this_tells_tsmc_zh": "本體:毛利率4季擴370bps至62.3%、N2獨佔、需求超載，技術與定價權雙重護城河深化",
+      "what_this_tells_tsmc_en": "Self: GM +370bps to 62.3%, N2 exclusive, demand overload—tech+pricing moat deepening",
+      "_usage": {
+        "in": 780,
+        "out": 601
+      },
+      "name_zh": "台積電",
+      "name_en": "TSMC",
+      "tsmc_relation": null
+    },
+    "LRCX": {
+      "ticker": "LRCX",
+      "quarterly_arc_zh": [
+        "2025年Q2營收$5.2B、毛利率50.1%、EPS超預期+10.4%，晶片設備需求穩健",
+        "Q3營收持平$5.3B但毛利率維持50.4%高峰，獲利能力展現定價權優勢",
+        "Q4營收$5.3B、營益率33.9%、EPS再超預期+8.7%，AI驅動需求持續",
+        "2026年Q1營收跳升10%至$5.8B、營益率擴至35%、EPS激增+7.9%，蝕刻設備訂單加速"
+      ],
+      "quarterly_arc_en": [
+        "Q2'25: $5.2B revenue, 50.1% GM, +10.4% EPS beat reflects healthy chip equipment demand",
+        "Q3'25: Revenue flat at $5.3B but 50.4% GM peak demonstrates strong pricing power",
+        "Q4'25: $5.3B revenue, 33.9% OM, +8.7% EPS surprise as AI demand sustains momentum",
+        "Q1'26: Revenue surges 10% to $5.8B, OM expands to 35%, +7.9% beat signals etch equipment acceleration"
+      ],
+      "trajectory": "accelerating",
+      "trajectory_zh": "加速成長",
+      "what_this_tells_tsmc_zh": "Q1營收跳升10%顯示先進製程設備需求強勁，台積電擴產週期進入高峰期",
+      "what_this_tells_tsmc_en": "Q1 10% revenue jump signals peak capex cycle for TSMC advanced node expansion",
+      "_usage": {
+        "in": 803,
+        "out": 489
+      },
+      "name_zh": "科林研發",
+      "name_en": "Lam Research",
+      "tsmc_relation": null
+    },
+    "KLAC": {
+      "ticker": "KLAC",
+      "quarterly_arc_zh": [
+        "2025年Q2營收$3.2B、毛利率62.0%、營益率42.6%，EPS超預期+9.7%，展現定價能力高峰",
+        "2025年Q3營收持平$3.2B但毛利率降至61.3%、營益率降至41.7%，EPS仍超預期+2.2%，顯示產品組合壓力浮現",
+        "2025年Q4營收微增至$3.3B、毛利率61.4%、營益率41.3%，EPS超預期縮至+0.6%，利潤率持續壓縮",
+        "2026年Q1營收加速至$3.4B、毛利率61.1%、營益率41.2%，EPS超預期+2.5%，量增但利潤率未回升顯示競爭加劇"
+      ],
+      "quarterly_arc_en": [
+        "Q2'25: Revenue $3.2B, GM 62.0%, OM 42.6%, EPS beat +9.7% marked pricing power peak",
+        "Q3'25: Revenue flat at $3.2B, GM fell to 61.3%, OM to 41.7%, product mix pressure emerged despite +2.2% EPS beat",
+        "Q4'25: Revenue rose to $3.3B but GM 61.4%, OM 41.3%, EPS beat shrank to +0.6%, margin compression continued",
+        "Q1'26: Revenue accelerated to $3.4B, GM 61.1%, OM 41.2%, +2.5% EPS beat, volume growth but margins stayed pressured"
+      ],
+      "trajectory": "decelerating",
+      "trajectory_zh": "量增利縮",
+      "what_this_tells_tsmc_zh": "檢測設備需求強勁但競爭加劇，TSMC先進製程擴產受惠但議價力提升",
+      "what_this_tells_tsmc_en": "Strong inspection demand but pricing power weakens, TSMC gains procurement leverage",
+      "_usage": {
+        "in": 835,
+        "out": 584
+      },
+      "name_zh": "科磊",
+      "name_en": "KLA Corp",
+      "tsmc_relation": null
+    },
+    "8035.T": {
+      "ticker": "8035.T",
+      "quarterly_arc_zh": [
+        "2025年6月季度EPS落後預期5.1%,反映半導體設備需求疲軟,毛利率承壓",
+        "2025年9月季度EPS僅略低預期0.2%,需求企穩但成長動能仍顯不足",
+        "2025年12月季度EPS再度落後4.4%,中國本土設備商市佔率提升構成競爭壓力",
+        "2026年3月季度EPS大幅超越預期14.6%,AI晶片複雜度帶動塗布顯影與蝕刻設備需求強勁反彈"
+      ],
+      "quarterly_arc_en": [
+        "Q2 FY2025 EPS missed by 5.1%, semiconductor equipment demand weak with margin pressure.",
+        "Q3 FY2025 EPS missed marginally by 0.2%, demand stabilizing but growth momentum insufficient.",
+        "Q4 FY2025 EPS missed by 4.4%, Chinese local equipment vendors gaining market share posed competitive pressure.",
+        "Q1 FY2026 EPS beat by 14.6%, AI chip complexity drove strong rebound in coater/developer and etch equipment demand."
+      ],
+      "trajectory": "accelerating",
+      "trajectory_zh": "加速反彈",
+      "what_this_tells_tsmc_zh": "先進製程蝕刻與塗布設備需求復甦,但需關注中國設備商替代風險",
+      "what_this_tells_tsmc_en": "Advanced-node equipment demand recovering, monitor Chinese vendor substitution risk",
+      "_usage": {
+        "in": 644,
+        "out": 461
+      },
+      "name_zh": "東京威力科創",
+      "name_en": "Tokyo Electron (TEL)",
+      "tsmc_relation": null
+    },
+    "6857.T": {
+      "ticker": "6857.T",
+      "quarterly_arc_zh": [
+        "Q2'25營收受惠HBM測試需求，EPS驚喜+30.6%，AI測試設備訂單強勁奠定成長基礎",
+        "Q3'25成長放緩EPS僅超預期+1.7%，HBM產能擴張週期進入調整，毛利率面臨壓力",
+        "Q4'25重返加速軌道EPS大超+41.3%，NVIDIA CoWoS需求爆發，年度營收衝破¥1兆里程碑",
+        "Q1'26延續強勁EPS再超+27.5%達¥174.55，EPIC夥伴關係與AMAT深化護城河，16家買進評級確認龍頭地位"
+      ],
+      "quarterly_arc_en": [
+        "Q2'25 HBM test demand drove +30.6% EPS beat, strong AI equipment orders established growth foundation",
+        "Q3'25 growth decelerated to +1.7% EPS surprise, HBM capacity expansion cycle adjusted, margin pressure emerged",
+        "Q4'25 reaccelerated with +41.3% EPS beat, NVIDIA CoWoS demand surge pushed annual revenue past ¥1T milestone",
+        "Q1'26 sustained momentum +27.5% EPS beat at ¥174.55, EPIC-AMAT partnership deepens moat, 16 Buy ratings confirm leadership"
+      ],
+      "trajectory": "accelerating",
+      "trajectory_zh": "加速向上",
+      "what_this_tells_tsmc_zh": "愛德萬測試設備訂單領先指標，HBM與CoWoS需求強勁預示台積電先進封裝產能將持續滿載",
+      "what_this_tells_tsmc_en": "Advantest ATE orders leading indicator, robust HBM/CoWoS demand signals TSMC advanced packaging capacity stays tight",
+      "_usage": {
+        "in": 698,
+        "out": 547
+      },
+      "name_zh": "愛德萬測試",
+      "name_en": "Advantest",
+      "tsmc_relation": null
+    },
+    "CDNS": {
+      "ticker": "CDNS",
+      "quarterly_arc_zh": [
+        "2025Q2營收$1.3B、淨利$0.16B，EPS超預期6.0%，毛利率85.6%顯示AI設計工具需求穩定",
+        "2025Q3營收持平$1.3B、淨利增至$0.29B，EPS超預期7.8%、營業利潤率衝至33.8%高點",
+        "2025Q4營收升至$1.4B、毛利率達86.9%高峰，但淨利回落至$0.39B反映投資加碼",
+        "2026Q1營收續增至$1.5B、淨利降至$0.34B，營業利潤率壓縮至29.3%顯示擴張成本上升"
+      ],
+      "quarterly_arc_en": [
+        "Q2'25 revenue $1.3B, NI $0.16B, 6.0% EPS beat with 85.6% GM showing stable AI design tool demand",
+        "Q3'25 revenue flat $1.3B, NI jumped to $0.29B, 7.8% EPS surprise with OM peaking at 33.8%",
+        "Q4'25 revenue rose to $1.4B, GM hit 86.9% high, but NI dropped to $0.39B on investment ramp",
+        "Q1'26 revenue grew to $1.5B, NI fell to $0.34B as OM compressed to 29.3% on expansion costs"
+      ],
+      "trajectory": "decelerating",
+      "trajectory_zh": "增長減速",
+      "what_this_tells_tsmc_zh": "EDA龍頭營收穩增但利潤率壓縮顯示AI晶片設計競爭加劇，台積電需關注客戶成本壓力",
+      "what_this_tells_tsmc_en": "EDA leader's margin compression signals intensifying AI chip design competition affecting customer economics",
+      "_usage": {
+        "in": 814,
+        "out": 555
+      },
+      "name_zh": "益華電腦",
+      "name_en": "Cadence",
+      "tsmc_relation": null
+    },
+    "SNPS": {
+      "ticker": "SNPS",
+      "quarterly_arc_zh": [
+        "2025-04-30營收$1.6B、毛利率80.2%、營業利益率23.5%，EPS超預期8%，反映核心EDA/IP業務高利潤穩健表現",
+        "2025-07-31營收$1.7B成長6%但EPS意外低於預期9.5%，毛利率維持78.1%但營業利益率降至9.5%顯示費用壓力浮現",
+        "2025-10-31營收$2.3B大增35%、淨利$0.45B創高，但毛利率驟降至71%、營業利益率僅5.4%，Ansys整合成本開始侵蝕利潤結構",
+        "2026-01-31營收$2.4B續增、EPS超預期6%，但毛利率73.5%、營業利益率13.3%仍遠低於歷史80%+/20%+水準，整合陣痛持續拖累獲利能力"
+      ],
+      "quarterly_arc_en": [
+        "Apr'25: $1.6B revenue, 80.2% GM, 23.5% OM, +8% EPS beat reflects strong core EDA/IP profitability baseline before integration",
+        "Jul'25: $1.7B revenue +6%, but -9.5% EPS miss as OM drops to 9.5% despite 78.1% GM, early expense pressures emerge",
+        "Oct'25: $2.3B revenue +35%, $0.45B NI peak, but GM crashes to 71%, OM 5.4% as Ansys integration costs erode margin structure",
+        "Jan'26: $2.4B revenue, +6% EPS beat, yet 73.5% GM/13.3% OM far below historic 80%+/20%+ levels, integration pain persists through transition"
+      ],
+      "trajectory": "volatile",
+      "trajectory_zh": "整合震盪",
+      "what_this_tells_tsmc_zh": "EDA龍頭Ansys併購規模擴張但利潤率劇烈波動，短期整合成本重、長期工具整合度與定價力待觀察",
+      "what_this_tells_tsmc_en": "EDA leader scales via Ansys but margin volatility high, integration costs heavy, long-term pricing power uncertain",
+      "_usage": {
+        "in": 822,
+        "out": 669
+      },
+      "name_zh": "新思科技",
+      "name_en": "Synopsys",
+      "tsmc_relation": null
+    },
+    "ARM": {
+      "ticker": "ARM",
+      "quarterly_arc_zh": [
+        "2025 Q2營收$1.1B、毛利率97.2%、營益率僅10.8%但EPS意外持平，AI伺服器CPU授權剛起步",
+        "2025 Q3營收$1.1B持平、毛利率97.4%、營益率升至14.4%、EPS大超預期17.7%，AI訂單加速轉化",
+        "2025 Q4營收$1.2B突破、毛利率97.6%、營益率15.4%、EPS超預期5.1%，三連拍證實AI CPU骨幹地位",
+        "2026 Q1 Cramer稱「訂單超載」、連四季EPS正驚喜、分析師27買2賣，悄然成為AI時代CPU帝國"
+      ],
+      "quarterly_arc_en": [
+        "Q2 2025: $1.1B revenue, 97.2% GM, 10.8% OM, EPS miss -0.3%, AI server CPU licensing nascent",
+        "Q3 2025: $1.1B flat revenue, 97.4% GM, 14.4% OM, +17.7% EPS surprise, AI orders accelerating conversion",
+        "Q4 2025: $1.2B revenue breakout, 97.6% GM, 15.4% OM, +5.1% EPS beat, triple-beat confirms AI CPU backbone",
+        "Q1 2026: Cramer says 'more orders than can handle', 4-quarter EPS beat streak, 27 BUY/2 SELL, quiet AI CPU empire"
+      ],
+      "trajectory": "accelerating",
+      "trajectory_zh": "加速",
+      "what_this_tells_tsmc_zh": "ARM授權爆發驅動客戶流片需求，N3/N2先進製程CPU晶片訂單將持續湧入",
+      "what_this_tells_tsmc_en": "ARM licensing surge drives customer tape-outs, N3/N2 CPU chip orders incoming",
+      "_usage": {
+        "in": 759,
+        "out": 574
+      },
+      "name_zh": "安謀",
+      "name_en": "Arm",
+      "tsmc_relation": null
+    },
+    "NVDA": {
+      "ticker": "NVDA",
+      "quarterly_arc_zh": [
+        "2025Q2營收$44.1B、毛利率60.5%，EPS超預期8%，AI晶片需求首波爆發",
+        "2025Q3營收升至$46.7B、毛利率72.4%，淨利$26.4B，產能擴張帶動利潤結構優化",
+        "2025Q4營收$57.0B年增122%、營業利益率63.2%，淨利$31.9B，Blackwell架構量產加速",
+        "2026Q1營收衝破$68.1B、毛利率75%創高、淨利$43B，四季連勝鞏固AI算力霸主地位"
+      ],
+      "quarterly_arc_en": [
+        "Q2'25: Revenue $44.1B, GM 60.5%, +8% EPS beat—AI chip demand ignites first wave",
+        "Q3'25: Revenue $46.7B, GM 72.4%, NI $26.4B—capacity expansion optimizes profit structure",
+        "Q4'25: Revenue $57.0B +122% YoY, OM 63.2%, NI $31.9B—Blackwell ramp accelerates production",
+        "Q1'26: Revenue breaks $68.1B, GM 75% record high, NI $43B—four consecutive beats cement AI compute dominance"
+      ],
+      "trajectory": "accelerating",
+      "trajectory_zh": "爆發加速",
+      "what_this_tells_tsmc_zh": "單季營收從$44B飆至$68B，先進製程需求狂潮將持續2-3年",
+      "what_this_tells_tsmc_en": "Revenue surge $44B→$68B signals 2-3 year advanced node supercycle ahead",
+      "_usage": {
+        "in": 855,
+        "out": 506
+      },
+      "name_zh": "輝達",
+      "name_en": "NVIDIA",
+      "tsmc_relation": null
+    },
+    "AMD": {
+      "ticker": "AMD",
+      "quarterly_arc_zh": [
+        "Q1'25營收$7.4B、毛利率50.2%但營益率僅10.8%，淨利$0.71B顯示AI加速器初期投入成本壓縮獲利",
+        "Q6'25營收$7.7B微增、毛利率驟降至39.8%、營益率轉負-1.7%，淨利$0.87B反映MI系列產能爬坡陣痛",
+        "Q9'25營收$9.2B年增19%、毛利率回升至51.7%、營益率轉正13.7%，淨利$1.24B且EPS超預期2.5%顯示MI系列放量",
+        "Q12'25營收$10.3B續增12%、毛利率擴至54.3%、營益率躍升17.1%，淨利$1.51B且EPS大超16%確認$120B伺服器商機兌現"
+      ],
+      "quarterly_arc_en": [
+        "Q1'25 revenue $7.4B, GM 50.2% but OM only 10.8%, NI $0.71B shows early AI accelerator investment compressed profitability",
+        "Q6'25 revenue $7.7B slight growth, GM plunged to 39.8%, OM turned negative -1.7%, NI $0.87B reflects MI series ramp-up pain",
+        "Q9'25 revenue $9.2B up 19% YoY, GM recovered to 51.7%, OM positive 13.7%, NI $1.24B with 2.5% EPS beat signals MI volume inflection",
+        "Q12'25 revenue $10.3B up 12% QoQ, GM expanded to 54.3%, OM surged to 17.1%, NI $1.51B with 16% EPS beat confirms $120B server CPU opportunity materializing"
+      ],
+      "trajectory": "accelerating",
+      "trajectory_zh": "加速向上",
+      "what_this_tells_tsmc_zh": "AMD MI系列從虧損轉盈且毛利率擴張至54%，顯示先進封裝CoWoS需求將持續強勁成長",
+      "what_this_tells_tsmc_en": "AMD MI profitability inflection with 54% GM signals sustained strong CoWoS demand growth",
+      "_usage": {
+        "in": 834,
+        "out": 660
+      },
+      "name_zh": "超微",
+      "name_en": "AMD",
+      "tsmc_relation": null
+    },
+    "AVGO": {
+      "ticker": "AVGO",
+      "quarterly_arc_zh": [
+        "2025年4月營收$15.0B、營業利潤率39.4%，AI ASIC需求啟動但成長溫和，EPS僅超預期0.6%顯示市場仍觀望",
+        "7月營收升至$16.0B (+6.7%)但營業利潤率降至38.1%，Google TPU訂單放量前的產能調整期，淨利腰斬至$4.14B",
+        "10月營收加速至$18.0B (+12.5%)、營業利潤率回升至42.5%，AI ASIC與VMware協同效應顯現，EPS超預期4.4%創高",
+        "2026年1月營收衝破$19.3B、營業利潤率擴張至44.9%，Custom AI晶片訂單爆發性成長，連續四季綠燈驗證AI基建龍頭地位"
+      ],
+      "quarterly_arc_en": [
+        "Apr'25: $15.0B revenue, 39.4% OM; AI ASIC demand initiated but modest +0.6% EPS beat signals cautious market positioning",
+        "Jul'25: Revenue +6.7% to $16.0B but OM compressed to 38.1%, NI halved to $4.14B amid pre-ramp capacity adjustments for Google TPU",
+        "Oct'25: Revenue accelerated +12.5% to $18.0B, OM rebounded to 42.5%, +4.4% EPS surprise as AI ASIC-VMware synergy materialized",
+        "Jan'26: Revenue hit $19.3B, OM expanded to 44.9%; explosive custom AI chip orders, 4-quarter green streak confirms AI infrastructure leadership"
+      ],
+      "trajectory": "accelerating",
+      "trajectory_zh": "爆發成長",
+      "what_this_tells_tsmc_zh": "客製化AI ASIC需求激增，先進封裝與CoWoS產能需持續擴充以支撐Google TPU等超大規模訂單",
+      "what_this_tells_tsmc_en": "Custom AI ASIC demand surging; urgently expand advanced packaging CoWoS capacity for hyperscale orders",
+      "_usage": {
+        "in": 817,
+        "out": 621
+      },
+      "name_zh": "博通",
+      "name_en": "Broadcom",
+      "tsmc_relation": null
+    },
+    "QCOM": {
+      "ticker": "QCOM",
+      "quarterly_arc_zh": [
+        "2025Q2營收$10.4B、毛利率55.6%、EPS超預期2.0%,移動SoC穩健但成長動能待觀察",
+        "2025Q3營收升至$11.3B、毛利率55.3%、EPS超預期4.3%但淨利-$3.12B顯示一次性衝擊",
+        "2025Q4營收攀至$12.3B季度高峰、毛利率54.6%、淨利回正$3.00B且EPS超預期2.9%",
+        "2026Q1營收回落至$10.6B、毛利率壓縮至53.8%、但EPS仍超預期3.6%且搶攻AI硬體新戰場"
+      ],
+      "quarterly_arc_en": [
+        "Q2'25: Revenue $10.4B, GM 55.6%, EPS beat +2.0%—mobile SoC stable baseline established",
+        "Q3'25: Revenue grew to $11.3B, GM 55.3%, EPS beat +4.3% but NI -$3.12B from one-time hit",
+        "Q4'25: Revenue peaked $12.3B, GM 54.6%, NI recovered to +$3.00B with +2.9% EPS beat",
+        "Q1'26: Revenue declined to $10.6B, GM compressed to 53.8%, but +3.6% EPS beat as AI device partnerships emerge"
+      ],
+      "trajectory": "volatile",
+      "trajectory_zh": "震盪轉型",
+      "what_this_tells_tsmc_zh": "手機晶片需求波動加劇,但AI裝置新需求可望帶來先進製程增量訂單",
+      "what_this_tells_tsmc_en": "Mobile chip demand volatility rising; AI device pivot could drive advanced node orders",
+      "_usage": {
+        "in": 835,
+        "out": 537
+      },
+      "name_zh": "高通",
+      "name_en": "Qualcomm",
+      "tsmc_relation": null
+    },
+    "AAPL": {
+      "ticker": "AAPL",
+      "quarterly_arc_zh": [
+        "2025年Q3營收$94.0B、GM 46.5%、EPS超預期+10.1%，奠定擴張週期基底",
+        "2025年Q4營收$102.5B、GM升至47.2%、EPS+4.5%，iPhone週期加速拉動",
+        "2025年假期季營收衝$143.8B、GM 48.2%、OM達35.4%，高階產品組合優化",
+        "2026年Q1營收$111.2B、GM破49.3%、連四季EPS超標，TSMC N3產能獨佔優勢鞏固"
+      ],
+      "quarterly_arc_en": [
+        "Q3'25: $94.0B revenue, 46.5% GM, +10.1% EPS beat established expansion base",
+        "Q4'25: $102.5B revenue, GM rose to 47.2%, +4.5% EPS beat as iPhone cycle accelerated",
+        "Holiday Q1'26: $143.8B revenue, 48.2% GM, 35.4% OM driven by premium mix",
+        "Q2'26: $111.2B revenue, GM hit 49.3%, 4th straight EPS beat, exclusive TSMC N3 moat solidified"
+      ],
+      "trajectory": "accelerating",
+      "trajectory_zh": "加速擴張",
+      "what_this_tells_tsmc_zh": "蘋果毛利率連四季擴張280bps至49.3%，證明N3先進製程獨家供應創造定價權與產能鎖定效應",
+      "what_this_tells_tsmc_en": "Apple's 280bps GM expansion to 49.3% validates TSMC's N3 exclusive supply moat and pricing power",
+      "_usage": {
+        "in": 823,
+        "out": 509
+      },
+      "name_zh": "蘋果",
+      "name_en": "Apple",
+      "tsmc_relation": null
+    },
+    "2454.TW": {
+      "ticker": "2454.TW",
+      "quarterly_arc_zh": [
+        "Q1營收1533億元毛利率48.1%營益率19.6%淨利293億元,盈利能力處高峰",
+        "Q2營收1504億元毛利率49.1%營益率19.5%淨利279億元,獲利維持強勁",
+        "Q3營收1421億元毛利率46.5%營益率15.6%淨利252億元,EPS超預期4.8%但利潤率開始下滑",
+        "Q4營收1502億元毛利率46.1%營益率14.5%淨利229億元,EPS不如預期-5%利潤率持續壓縮"
+      ],
+      "quarterly_arc_en": [
+        "Q1 revenue $153.3B GM 48.1% OM 19.6% NI $29.3B, profitability at peak levels",
+        "Q2 revenue $150.4B GM 49.1% OM 19.5% NI $27.9B, strong margins sustained",
+        "Q3 revenue $142.1B GM 46.5% OM 15.6% NI $25.2B, EPS beat +4.8% but margin compression begins",
+        "Q4 revenue $150.2B GM 46.1% OM 14.5% NI $22.9B, EPS miss -5% margin erosion accelerates"
+      ],
+      "trajectory": "decelerating",
+      "trajectory_zh": "獲利惡化",
+      "what_this_tells_tsmc_zh": "聯發科營益率從19.6%崩至14.5%顯示手機SoC價格戰加劇,先進製程需求疲弱",
+      "what_this_tells_tsmc_en": "OM collapse 19.6%→14.5% signals mobile SoC pricing pressure, advanced node demand weakening",
+      "_usage": {
+        "in": 775,
+        "out": 536
+      },
+      "name_zh": "聯發科",
+      "name_en": "MediaTek",
+      "tsmc_relation": null
+    },
+    "MU": {
+      "ticker": "MU",
+      "quarterly_arc_zh": [
+        "2025年5月營收$9.3B、毛利率37.7%，EPS超預期19.8%，HBM需求啟動記憶體週期反轉",
+        "2025年8月營收升至$11.3B、毛利率44.7%，連續第二季EPS正向驚喜，AI伺服器拉貨加速",
+        "2025年11月營收跳升至$13.6B、毛利率56%，EPS超預期20.6%，HBM供應緊缺推升定價權",
+        "2026年2月營收暴增至$23.9B、毛利率創紀錄74.4%，EPS超預期33%，晶片短缺下美光700%漲幅仍被低估"
+      ],
+      "quarterly_arc_en": [
+        "May 2025: revenue $9.3B, GM 37.7%, +19.8% EPS beat as HBM demand ignited memory cycle recovery",
+        "Aug 2025: revenue $11.3B, GM 44.7%, second consecutive EPS surprise as AI server pull-ins accelerated",
+        "Nov 2025: revenue jumped to $13.6B, GM 56%, +20.6% EPS beat as HBM shortage strengthened pricing power",
+        "Feb 2026: revenue surged to $23.9B, record GM 74.4%, +33% EPS beat; chip shortage fuels 700% rally, still undervalued"
+      ],
+      "trajectory": "accelerating",
+      "trajectory_zh": "加速爆發",
+      "what_this_tells_tsmc_zh": "HBM產能緊缺推動CoWoS需求激增，先進封裝成TSMC新成長引擎",
+      "what_this_tells_tsmc_en": "HBM shortage drives CoWoS demand surge, advanced packaging becomes TSMC growth engine",
+      "_usage": {
+        "in": 807,
+        "out": 537
+      },
+      "name_zh": "美光",
+      "name_en": "Micron",
+      "tsmc_relation": null
+    },
+    "000660.KS": {
+      "ticker": "000660.KS",
+      "quarterly_arc_zh": [
+        "Q1營收₩17.6兆、毛利率57.3%、淨利₩8.1兆，HBM需求驅動獲利能力穩固基礎",
+        "Q2營收成長至₩22.2兆、毛利率微降至53.9%、淨利₩7.0兆，產能爬坡壓縮短期利潤率",
+        "Q3營收躍升至₩24.4兆、毛利率回升至57.4%、EPS超預期41.8%，NVIDIA獨家供應加速",
+        "Q4營收暴增至₩32.8兆、毛利率擴張至68.8%、淨利₩15.2兆、EPS超預期20.8%，大型科技廠主動預付產能"
+      ],
+      "quarterly_arc_en": [
+        "Q1 revenue ₩17.6T, GM 57.3%, NI ₩8.1T; HBM demand establishes solid profitability foundation",
+        "Q2 revenue rises to ₩22.2T, GM dips to 53.9%, NI ₩7.0T; capacity ramp pressures margins",
+        "Q3 revenue jumps to ₩24.4T, GM recovers to 57.4%, EPS beats by 41.8%; NVIDIA exclusive supply accelerates",
+        "Q4 revenue surges to ₩32.8T, GM expands to 68.8%, NI ₩15.2T, EPS beats by 20.8%; big tech prepays capacity"
+      ],
+      "trajectory": "accelerating",
+      "trajectory_zh": "爆發加速",
+      "what_this_tells_tsmc_zh": "HBM供應瓶頸迫使客戶預付產能，TSMC須防止CoWoS產能成為AI系統卡點",
+      "what_this_tells_tsmc_en": "HBM bottleneck forces customer prepayments; TSMC must prevent CoWoS from becoming AI system constraint",
+      "_usage": {
+        "in": 821,
+        "out": 582
+      },
+      "name_zh": "SK 海力士",
+      "name_en": "SK Hynix",
+      "tsmc_relation": null
+    },
+    "005930.KS": {
+      "ticker": "005930.KS",
+      "quarterly_arc_zh": [
+        "2025Q1營收₩79.1T、毛利率35.5%，記憶體週期谷底掙扎，營益率僅8.4%顯示代工與手機業務壓力沉重",
+        "2025Q2營收跌至₩74.6T、毛利率滑落至34.2%，營益率暴跌至6.3%，EPS意外下修3.6%凸顯記憶體價格戰最黑暗時刻",
+        "2025Q3營收反彈至₩86.1T、毛利率回升至38.9%，EPS驚喜+25.5%，記憶體庫存去化完成、AI伺服器DRAM需求啟動復甦",
+        "2025Q4營收飆升至₩93.8T、毛利率衝破47.2%、營益率翻倍至21.4%，EPS連三季超預期20%以上，HBM3E量產引爆記憶體超級週期"
+      ],
+      "quarterly_arc_en": [
+        "Q1'25 revenue ₩79.1T, GM 35.5%, memory cycle trough with OM 8.4% exposing foundry/mobile margin pressure",
+        "Q2'25 revenue dropped to ₩74.6T, GM fell to 34.2%, OM crashed to 6.3%, EPS miss -3.6% marked memory price war nadir",
+        "Q3'25 revenue rebounded to ₩86.1T, GM recovered to 38.9%, EPS beat +25.5% as memory inventory cleared and AI server DRAM demand ignited",
+        "Q4'25 revenue surged to ₩93.8T, GM exploded to 47.2%, OM doubled to 21.4%, EPS beat 20%+ third straight quarter as HBM3E ramp triggered memory supercycle"
+      ],
+      "trajectory": "accelerating",
+      "trajectory_zh": "爆發加速",
+      "what_this_tells_tsmc_zh": "三星記憶體超級週期壓縮先進製程產能，HBM需求排擠邏輯晶片代工訂單，台積電CoWoS封裝優勢更關鍵",
+      "what_this_tells_tsmc_en": "Samsung memory supercycle squeezes logic foundry capacity; TSMC's CoWoS packaging advantage becomes critical differentiator",
+      "_usage": {
+        "in": 826,
+        "out": 690
+      },
+      "name_zh": "三星電子",
+      "name_en": "Samsung Electronics",
+      "tsmc_relation": null
+    },
+    "INTC": {
+      "ticker": "INTC",
+      "quarterly_arc_zh": [
+        "Q2'25營收$12.9B、毛利率僅27.5%、營業利益率-10.0%、虧損$2.92B,EPS意外驚跌1281%,重組陣痛達高峰",
+        "Q3'25營收$13.7B持平、毛利率回升至38.2%、轉盈$4.06B,EPS意外暴漲3121%,成本控制初見成效但代工客戶仍缺",
+        "Q4'25營收$13.7B持穩、毛利率回落至36.1%、淨利虧損縮至$0.59B,EPS意外+82%,18A製程無外部客戶實證",
+        "Q1'26營收$13.6B微降、毛利率39.4%續升但虧損擴至$3.73B,EPS意外+2109%因基期低,代工轉型未見突破"
+      ],
+      "quarterly_arc_en": [
+        "Q2'25: Revenue $12.9B, GM crashed to 27.5%, OM -10.0%, loss $2.92B, EPS miss -1281%, restructuring pain peaked",
+        "Q3'25: Revenue flat $13.7B, GM recovered 38.2%, profit $4.06B, EPS surprise +3121%, cost control worked but foundry clients absent",
+        "Q4'25: Revenue held $13.7B, GM slipped 36.1%, loss narrowed $0.59B, EPS beat +82%, 18A still lacks external validation",
+        "Q1'26: Revenue dipped $13.6B, GM improved 39.4% yet loss widened $3.73B, EPS beat +2109% on low base, foundry pivot stalled"
+      ],
+      "trajectory": "volatile",
+      "trajectory_zh": "震盪",
+      "what_this_tells_tsmc_zh": "英特爾代工轉型未獲客戶實證,TSMC先進製程領先地位未受威脅",
+      "what_this_tells_tsmc_en": "Intel foundry pivot lacks client proof; TSMC lead-node dominance remains unchallenged",
+      "_usage": {
+        "in": 814,
+        "out": 615
+      },
+      "name_zh": "英特爾",
+      "name_en": "Intel",
+      "tsmc_relation": null
+    },
+    "GFS": {
+      "ticker": "GFS",
+      "quarterly_arc_zh": [
+        "2025Q2營收$1.7B、毛利率24.2%、淨利$0.23B，EPS超預期17%，FDX與車用成熟製程站穩基本盤",
+        "2025Q3營收持平$1.7B、毛利率升至24.8%、淨利$0.25B，EPS超預期5.4%，產能利用率改善帶動利潤率回升",
+        "2025Q4營收跳升至$1.8B、毛利率27.8%、淨利$0.20B，EPS超預期16.2%，季節性高峰疊加RF/車用需求強勁",
+        "2026Q1營收回落至$1.6B（-11% QoQ）、毛利率27.6%、營業利益率壓縮至11.0%，EPS仍超預期14%但投資者日宣告40%毛利率目標與新股息政策救市"
+      ],
+      "quarterly_arc_en": [
+        "Q2'25: $1.7B revenue, 24.2% GM, $0.23B NI, +17% EPS beat; FDX and auto mature nodes stabilize baseline demand",
+        "Q3'25: Revenue flat at $1.7B, GM improved to 24.8%, NI $0.25B, +5.4% EPS beat; utilization uptick lifts profitability",
+        "Q4'25: Revenue surged to $1.8B, GM 27.8%, NI $0.20B, +16.2% EPS beat; seasonal peak plus strong RF/auto demand",
+        "Q1'26: Revenue dropped 11% QoQ to $1.6B, GM 27.6%, OM compressed to 11.0%, +14% EPS beat; Investor Day sets 40% GM target and new dividend to reassure markets"
+      ],
+      "trajectory": "decelerating",
+      "trajectory_zh": "減速",
+      "what_this_tells_tsmc_zh": "成熟製程競爭加劇，GFS季節性波動顯著但40%毛利目標顯示產能定價壓力上升，台積成熟製程需防價格戰",
+      "what_this_tells_tsmc_en": "Mature-node pricing pressure intensifies; GFS volatility signals capacity glut risk for TSMC's legacy portfolio",
+      "_usage": {
+        "in": 830,
+        "out": 667
+      },
+      "name_zh": "格芯",
+      "name_en": "GlobalFoundries",
+      "tsmc_relation": null
+    },
+    "3711.TW": {
+      "ticker": "3711.TW",
+      "quarterly_arc_zh": [
+        "2025Q2營收$150.8B、毛利率17.0%但EPS意外虧損24.6%,封測龍頭遭遇獲利低谷",
+        "2025Q3營收回升至$168.6B、淨利$10.87B且EPS超預期18.4%,開始走出谷底",
+        "2025Q4營收攀升$177.9B、營業利益率10.4%並EPS驚喜14.0%,獲利能力顯著修復",
+        "2026Q1營收$173.7B、毛利率突破20.1%且連三季EPS超標13.4%,封測產能吃緊態勢確立"
+      ],
+      "quarterly_arc_en": [
+        "Q2'25: revenue $150.8B, GM 17.0% but EPS missed -24.6%, OSAT leader hit profit trough",
+        "Q3'25: revenue rebounded $168.6B, NI $10.87B with +18.4% EPS surprise, recovery initiated",
+        "Q4'25: revenue climbed $177.9B, OM 10.4% and +14.0% EPS beat, profitability restored sharply",
+        "Q1'26: revenue $173.7B, GM broke 20.1% with 3rd consecutive +13.4% EPS surprise, tight capacity confirmed"
+      ],
+      "trajectory": "accelerating",
+      "trajectory_zh": "加速上行",
+      "what_this_tells_tsmc_zh": "封測產能緊俏、毛利率飆升20%,先進封裝需求強勁,台積電CoWoS夥伴獲利大增",
+      "what_this_tells_tsmc_en": "Tight OSAT capacity, 20% GM surge signal robust advanced packaging demand for TSMC CoWoS",
+      "_usage": {
+        "in": 807,
+        "out": 531
+      },
+      "name_zh": "日月光投控",
+      "name_en": "ASE Technology",
+      "tsmc_relation": null
+    },
+    "AMKR": {
+      "ticker": "AMKR",
+      "quarterly_arc_zh": [
+        "2025Q2營收$1.5B、毛利率12.0%觸底，淨利僅$0.05B但EPS超預期39.6%顯示成本控制到位",
+        "2025Q3營收回升至$2.0B、毛利率14.3%、淨利$0.13B，EPS續超19.6%反映先進封裝需求復甦",
+        "2025Q4營收$1.9B、毛利率峰值16.7%、淨利$0.17B創高，EPS爆發超預期56.5%驗證高階產能擴張效益",
+        "2026Q1營收回落至$1.7B、毛利率降至14.2%淨利$0.08B，但EPS仍超35.6%顯示季節性調整而非結構惡化"
+      ],
+      "quarterly_arc_en": [
+        "Q2'25 revenue bottomed at $1.5B with 12% GM and $0.05B NI, yet 39.6% EPS beat showed cost discipline intact",
+        "Q3'25 revenue rebounded to $2.0B with 14.3% GM and $0.13B NI, 19.6% EPS surprise reflected advanced packaging demand recovery",
+        "Q4'25 revenue $1.9B hit peak 16.7% GM and record $0.17B NI, explosive 56.5% EPS beat validated high-end capacity expansion",
+        "Q1'26 revenue dipped to $1.7B with 14.2% GM and $0.08B NI, but 35.6% EPS beat signals seasonal not structural weakness"
+      ],
+      "trajectory": "volatile",
+      "trajectory_zh": "波動復甦",
+      "what_this_tells_tsmc_zh": "OSAT毛利率波動反映先進封裝產能爬坡與季節性需求，TSMC CoWoS供應鏈夥伴產能利用率仍不穩定",
+      "what_this_tells_tsmc_en": "OSAT margin volatility reveals advanced packaging capacity ramp challenges, CoWoS partner utilization remains unstable",
+      "_usage": {
+        "in": 830,
+        "out": 610
+      },
+      "name_zh": "艾克爾",
+      "name_en": "Amkor Technology",
+      "tsmc_relation": null
+    },
+    "MSFT": {
+      "ticker": "MSFT",
+      "quarterly_arc_zh": [
+        "2025年6月季營收764億美元但營業利益率僅44.9%，EPS超預期8.1%顯示AI投資初期成本壓力",
+        "2025年9月季營收777億美元、營業利益率躍升至48.9%，EPS大超12.7%證明Azure及OpenAI變現開始兌現",
+        "2025年12月季營收813億美元但淨利暴增至385億、營業利益率微降至47.1%，顯示大規模AI資本支出侵蝕效率",
+        "2026年3月季營收829億美元、營業利益率續跌至46.3%且淨利回落318億，毛利率降至67.6%暗示AI晶片採購成本高漲"
+      ],
+      "quarterly_arc_en": [
+        "Jun'25: $76.4B revenue, 44.9% OM, +8.1% EPS beat shows AI investment phase cost pressure building",
+        "Sep'25: $77.7B revenue, 48.9% OM peak, +12.7% EPS surprise confirms Azure/OpenAI monetization inflection",
+        "Dec'25: $81.3B revenue but 47.1% OM decline, $38.5B NI spike masks heavy AI capex drag",
+        "Mar'26: $82.9B revenue, 46.3% OM, 67.6% GM signals rising AI silicon costs despite Agent 365 traction"
+      ],
+      "trajectory": "decelerating",
+      "trajectory_zh": "利潤收縮",
+      "what_this_tells_tsmc_zh": "微軟AI晶片需求持續但願付價格下降，台積電須防範客戶議價壓力及產能過剩風險",
+      "what_this_tells_tsmc_en": "MSFT's margin squeeze signals pricing pressure risk for TSMC's AI wafer sales",
+      "_usage": {
+        "in": 830,
+        "out": 548
+      },
+      "name_zh": "微軟",
+      "name_en": "Microsoft",
+      "tsmc_relation": null
+    },
+    "GOOGL": {
+      "ticker": "GOOGL",
+      "quarterly_arc_zh": [
+        "Q2'25營收$96.4B、毛利率59.5%、EPS僅小幅超預期5.7%，GCP與TPU成長初現但獲利能力平平",
+        "Q3'25營收升至$102.3B、毛利率持平59.6%、EPS大超預期26.9%，Gemini與TPU訂單推動營運槓桿顯現",
+        "Q4'25營收衝$113.8B季增11%、毛利率微升59.8%但營益率縮至31.6%，AI支出壓縮短期利潤",
+        "Q1'26營收回落至$109.9B季減3.4%、毛利率躍升62.4%但發債$17B推EPS暴增91.6%，記憶體短缺威脅TPU供應鏈"
+      ],
+      "quarterly_arc_en": [
+        "Q2'25 revenue $96.4B, GM 59.5%, modest EPS beat +5.7%; GCP/TPU growth emerging but profitability tepid",
+        "Q3'25 revenue rose to $102.3B, GM flat 59.6%, EPS surprise +26.9%; Gemini/TPU orders drive operating leverage",
+        "Q4'25 revenue surged to $113.8B +11% QoQ, GM 59.8% but OM compressed to 31.6%; AI capex squeezes near-term margins",
+        "Q1'26 revenue dropped to $109.9B -3.4% QoQ, GM jumped 62.4% but $17B bond fueled +91.6% EPS beat; memory shortage threatens TPU supply"
+      ],
+      "trajectory": "volatile",
+      "trajectory_zh": "波動加劇",
+      "what_this_tells_tsmc_zh": "Google TPU需求強勁但季度波動大，記憶體瓶頸與債務擴張顯示供應鏈壓力上升",
+      "what_this_tells_tsmc_en": "Strong TPU demand but volatile; memory bottleneck signals supply chain stress escalating",
+      "_usage": {
+        "in": 829,
+        "out": 597
+      },
+      "name_zh": "字母 (Google)",
+      "name_en": "Alphabet (Google)",
+      "tsmc_relation": null
+    },
+    "AMZN": {
+      "ticker": "AMZN",
+      "quarterly_arc_zh": [
+        "2025Q2營收$167.7B、毛利率51.8%、淨利$18.16B，EPS驚喜+26.1%，AWS需求穩健帶動獲利成長。",
+        "2025Q3營收$180.2B、毛利率50.8%、營業利益率降至9.7%，淨利$21.19B，EPS仍超預期+25.2%。",
+        "2025Q4營收衝高至$213.4B但毛利率跌至48.5%、營業利益率11.7%，EPS首次略低預期-0.5%。",
+        "2026Q1營收回落至$181.5B但毛利率反彈至51.8%、營業利益率躍升至13.1%，淨利$30.25B、EPS爆發+68.2%。"
+      ],
+      "quarterly_arc_en": [
+        "2025Q2 revenue $167.7B, GM 51.8%, NI $18.16B with +26.1% EPS beat driven by steady AWS demand.",
+        "2025Q3 revenue $180.2B, GM 50.8%, OM dipped to 9.7%, NI $21.19B, EPS still surprised +25.2%.",
+        "2025Q4 revenue spiked to $213.4B but GM fell to 48.5%, OM 11.7%, first EPS miss -0.5%.",
+        "2026Q1 revenue $181.5B, GM rebounded to 51.8%, OM surged to 13.1%, NI $30.25B, EPS exploded +68.2%."
+      ],
+      "trajectory": "volatile",
+      "trajectory_zh": "先抑後揚",
+      "what_this_tells_tsmc_zh": "AWS晶片需求季節波動大但Q1利潤率爆發顯示Trainium/Inferentia量產成熟",
+      "what_this_tells_tsmc_en": "AWS chip demand volatile but Q1 margin surge signals mature Trainium/Inferentia production",
+      "_usage": {
+        "in": 804,
+        "out": 589
+      },
+      "name_zh": "亞馬遜",
+      "name_en": "Amazon",
+      "tsmc_relation": null
+    },
+    "META": {
+      "ticker": "META",
+      "quarterly_arc_zh": [
+        "2025年Q2營收$47.5B、毛利率82.1%、營益率43.0%達峰值，EPS超預期21.0%，GenAI基建投資尚未拖累獲利",
+        "2025年Q3營收$51.2B成長但淨利暴跌至$2.7B、EPS驟減84.3%，MTIA加速器與資本支出重壓營運效率",
+        "2025年Q4營收$59.9B、淨利回升至$22.8B、EPS超8.0%，毛利率81.8%穩定，顯示AI投資週期陣痛緩解",
+        "2026年Q1營收$56.3B、淨利$26.8B創高、EPS爆增56.8%，營益率40.6%回穩，AI貨幣化與晶片自研效益浮現"
+      ],
+      "quarterly_arc_en": [
+        "Q2'25: $47.5B revenue, 82.1% GM, 43.0% OM peak, +21.0% EPS beat; GenAI capex not yet burdening profitability",
+        "Q3'25: $51.2B revenue growth but NI crashed to $2.7B, -84.3% EPS miss; MTIA accelerator investment crushed operational efficiency",
+        "Q4'25: $59.9B revenue, NI recovered to $22.8B, +8.0% EPS beat, 81.8% GM stable; AI investment pain cycle easing",
+        "Q1'26: $56.3B revenue, NI hit $26.8B high, +56.8% EPS surge, 40.6% OM stabilized; AI monetization and custom chip gains emerging"
+      ],
+      "trajectory": "volatile",
+      "trajectory_zh": "先崩後起",
+      "what_this_tells_tsmc_zh": "META自研MTIA加速器需求漸明，但資本支出波動大恐影響晶圓代工訂單穩定性與能見度",
+      "what_this_tells_tsmc_en": "MTIA ramp evident but capex volatility risks wafer order stability and visibility for TSMC",
+      "_usage": {
+        "in": 834,
+        "out": 622
+      },
+      "name_zh": "Meta",
+      "name_en": "Meta",
+      "tsmc_relation": null
+    }
+  }
+}
