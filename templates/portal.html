@@ -427,7 +427,7 @@
               <span class="tier-name">{{ t('tier5') }}</span>
               <span class="tier-sub">{{ t('tier5_sub') }}</span>
             </div>
-            <div class="row n4">
+            <div class="row n5">
               <a class="card" href="/company/amazon/">
                 <div class="kicker">COMPANY · AMZN</div>
                 <h2>{{ t('company_name') }}</h2>
@@ -472,6 +472,18 @@
                   <div class="stat">
                     {% if company_cb_score is not none %}<span class="score">{{ '%.0f'|format(company_cb_score) }}<small>{% if company_cb_verdict %}{{ t('v_' ~ company_cb_verdict) }}{% else %}{{ t('company_lbl') }}{% endif %}</small></span>{% endif %}
                     {% if company_cb_benefit is not none %}<span class="meta">AI ≈ ${{ '%.0f'|format(company_cb_benefit) }}B{% if company_cb_updated %} · {{ t('updated') }} {{ company_cb_updated }}{% endif %}</span>{% elif company_cb_updated %}<span class="meta">{{ t('updated') }} · {{ company_cb_updated }}</span>{% endif %}
+                  </div>
+                  <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
+                </div>
+              </a>
+              <a class="card" href="/company/amd/">
+                <div class="kicker">COMPANY · AMD</div>
+                <h2>{{ t('company_amd_name') }}</h2>
+                <div class="desc">{{ t('company_amd_desc') }}</div>
+                <div class="foot">
+                  <div class="stat">
+                    {% if company_amd_score is not none %}<span class="score">{{ '%.0f'|format(company_amd_score) }}<small>{% if company_amd_verdict %}{{ t('v_' ~ company_amd_verdict) }}{% else %}{{ t('company_lbl') }}{% endif %}</small></span>{% endif %}
+                    {% if company_amd_benefit is not none %}<span class="meta">AI ≈ ${{ '%.0f'|format(company_amd_benefit) }}B{% if company_amd_updated %} · {{ t('updated') }} {{ company_amd_updated }}{% endif %}</span>{% elif company_amd_updated %}<span class="meta">{{ t('updated') }} · {{ company_amd_updated }}</span>{% endif %}
                   </div>
                   <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
                 </div>

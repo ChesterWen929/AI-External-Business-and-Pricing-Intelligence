@@ -186,6 +186,9 @@ STRINGS = {
     "company_cb_name":{"en": "Cerebras",               "zh": "Cerebras（晶圓級推論）"},
     "company_cb_desc":{"en": "Four pillars on the wafer-scale inference challenger (newly public, CBRS): how Cerebras raises realized price (locked-in backlog · latency-as-product · wafer-scale moat) vs the token price-war · what to watch it with · its ~$0.9B AI revenue atop a $24.6B backlog · and how ~100% is one TSMC N5 wafer — uniquely CoWoS/HBM-light.",
                        "zh": "對「晶圓級推論挑戰者」的四支柱（剛上市,CBRS）:Cerebras 怎麼提高已實現售價（鎖定在手訂單 · 速度即產品 · 晶圓級護城河）vs 代幣價格戰 · 用什麼觀察 · 約 $0.9B AI 營收背後 $24.6B 在手訂單 · 以及這一切如何幾乎 100% 是一片台積電 N5 晶圓 — 罕見地少用 CoWoS／HBM。"},
+    "company_amd_name":{"en": "AMD",                    "zh": "AMD（超微）"},
+    "company_amd_desc":{"en": "Four pillars on the #2 AI-GPU challenger & inference value-play: how AMD raises realized price (Instinct generational ASP · HBM-capacity inference premium · EPYC share · ~12GW OpenAI+Meta lock-in) vs the ROCm-vs-CUDA gap · what to watch it with · its ~$8B Instinct revenue (est.) inside a $5.8B/qtr Data Center segment · and how ~100% is TSMC N3→N2 + CoWoS + HBM.",
+                        "zh": "對「AI-GPU 第二名挑戰者＋推論性價比標的」的四支柱:AMD 怎麼提高已實現售價（Instinct 世代 ASP · HBM 容量推論溢價 · EPYC 市占 · OpenAI＋Meta ~12GW 鎖定）vs ROCm vs CUDA 差距 · 用什麼觀察 · 其 ~$8B Instinct 營收（估計）藏在每季 $5.8B 資料中心分部內 · 以及這一切如何幾乎 100% 是台積電 N3→N2＋CoWoS＋HBM。"},
     "company_lbl":{"en": "/100 pricing power",         "zh": "/100 定價權"},
     "v_raising": {"en": "raising",                     "zh": "漲價中"},
     "v_holding": {"en": "holding",                     "zh": "持平"},
@@ -344,6 +347,10 @@ def portal():
     except Exception:
         company_cb_snap = None
     try:
+        company_amd_snap = company_load_snapshot("amd")
+    except Exception:
+        company_amd_snap = None
+    try:
         bottleneck_snap = bottleneck_load_snapshot()
     except Exception:
         bottleneck_snap = None
@@ -394,6 +401,10 @@ def portal():
         company_cb_score=((company_cb_snap.get("headline") or {}).get("compute_pricing_score")) if company_cb_snap else None,
         company_cb_verdict=((company_cb_snap.get("headline") or {}).get("verdict_key")) if company_cb_snap else None,
         company_cb_benefit=((company_cb_snap.get("headline") or {}).get("ai_benefit_usd_bn")) if company_cb_snap else None,
+        company_amd_updated=(company_amd_snap.get("as_of") if company_amd_snap else None),
+        company_amd_score=((company_amd_snap.get("headline") or {}).get("compute_pricing_score")) if company_amd_snap else None,
+        company_amd_verdict=((company_amd_snap.get("headline") or {}).get("verdict_key")) if company_amd_snap else None,
+        company_amd_benefit=((company_amd_snap.get("headline") or {}).get("ai_benefit_usd_bn")) if company_amd_snap else None,
         bottleneck_updated=(bottleneck_snap.get("as_of") if bottleneck_snap else None),
         bottleneck_binding=(((bottleneck_snap.get("thesis") or {}).get("binding_name_zh" if ui_lang() == "zh" else "binding_name_en")) if bottleneck_snap else None),
         bottleneck_deliv=(((bottleneck_snap.get("thesis") or {}).get("deliverable_ea_qtr")) if bottleneck_snap else None),

@@ -1,0 +1,588 @@
+{
+  "slug": "amd",
+  "generated_at": "2026-06-30 15:08 UTC",
+  "as_of": "2026-06-30",
+  "source": "seed",
+  "stale_fetch_ids": [],
+  "is_demo": true,
+  "company": {
+    "name_en": "AMD",
+    "name_zh": "AMD（超微）",
+    "ticker": "AMD",
+    "segment_en": "The credible #2 in AI accelerators and the inference value-play — Instinct GPUs + EPYC server CPUs, a direct TSMC leading-edge & CoWoS customer competing with NVIDIA for the same allocation",
+    "segment_zh": "AI 加速器市場可信的第二名、也是推論的「性價比」標的 — Instinct GPU＋EPYC 伺服器 CPU，台積電先進製程與 CoWoS 的直接客戶，與 NVIDIA 競逐同一批配額",
+    "blurb_en": "Four pillars on the #2 AI-accelerator challenger: how AMD raises realized compute price (Instinct generational ASP · HBM-capacity inference premium · EPYC share gains · ~12GW OpenAI+Meta lock-in) and where the ROCm-vs-CUDA gap pushes back · what to watch it with · its ~$8B AI-GPU revenue (Instinct, an estimate) inside a disclosed $5.8B/qtr Data Center segment · and how ~100% is TSMC N3→N2 + CoWoS + HBM.",
+    "blurb_zh": "對「AI 加速器第二名挑戰者」的四支柱：AMD 怎麼提高已實現算力售價（Instinct 世代 ASP · HBM 容量推論溢價 · EPYC 市占擴張 · OpenAI＋Meta ~12GW 鎖定），以及 ROCm vs CUDA 差距如何反推 · 用什麼觀察 · 其 ~$8B AI-GPU 營收（Instinct，估計值）藏在已揭露的每季 $5.8B 資料中心分部內 · 以及這一切如何幾乎 100% 是台積電 N3→N2＋CoWoS＋HBM。"
+  },
+  "thesis_en": "AMD is the credible #2 in AI accelerators and the inference value-play. Its edge is MEMORY: bigger HBM than NVIDIA every generation (288GB on MI355X vs 180GB on B200) lets customers run large models on fewer GPUs — a structural inference-TCO advantage as inference becomes ~2/3 of accelerator spend. Realized price rises through the Instinct generational ASP ramp (MI300→MI350→MI400/Helios), ~12GW of OpenAI + Meta commitments, and a record ~46% EPYC server-CPU share that funds the GPU push. The honest drag is ROCm: still trailing CUDA, so AMD prices as the value alternative to NVIDIA, not the price-maker — and the stock (~$559, +130% YTD, forward P/E ~62, the richest multiple of the big three) has run ahead of analyst targets, so the 2H-2026 MI400/Helios ramp must validate it. For TSMC, AMD is ~100% bound to N3→N2 + CoWoS + HBM, competing with NVIDIA for the same oversubscribed allocation.",
+  "thesis_zh": "AMD 是 AI 加速器市場可信的第二名、也是推論的「性價比」標的。它的優勢在記憶體：每一代 HBM 容量都比 NVIDIA 大（MI355X 的 288GB vs B200 的 180GB），讓客戶用更少 GPU 跑大模型 — 當推論占加速器支出約 2/3，這是結構性的推論 TCO 優勢。已實現價格靠 Instinct 世代 ASP 階梯（MI300→MI350→MI400/Helios）、OpenAI＋Meta ~12GW 承諾、以及替 GPU 攻勢買單的 ~46% EPYC 伺服器 CPU 市占推升。誠實的拖累是 ROCm：仍落後 CUDA，所以 AMD 以「NVIDIA 的性價比替代品」定價、而非定價者 — 且股價（~$559、YTD +130%、前瞻本益比 ~62，三巨頭中最貴）已跑在分析師目標價之前，因此 2H-2026 的 MI400/Helios 放量必須兌現。對台積電而言，AMD ~100% 綁定 N3→N2＋CoWoS＋HBM，與 NVIDIA 競逐同一批超額認購的配額。",
+  "headline": {
+    "compute_pricing_score": 68.3,
+    "verdict_key": "raising",
+    "verdict_en": "RAISING — realized compute price expanding",
+    "verdict_zh": "RAISING — 已實現算力售價擴張",
+    "ai_benefit_usd_bn": 8.0,
+    "ai_benefit_metric": "revenue_runrate",
+    "tsmc_exposure_pct": 100
+  },
+  "pillars": {
+    "pricing": {
+      "score": 68.3,
+      "verdict_key": "raising",
+      "verdict_en": "RAISING — realized compute price expanding",
+      "verdict_zh": "RAISING — 已實現算力售價擴張",
+      "levers": [
+        {
+          "id": "generational_asp",
+          "name_en": "Instinct generational ASP ramp (MI300 → MI350 → MI400)",
+          "name_zh": "Instinct 世代 ASP 階梯（MI300 → MI350 → MI400）",
+          "mechanism_en": "Each Instinct generation steps up capability and price: MI300X (192GB) → MI325X (256GB) → MI355X (288GB HBM3E, FP4/FP6, in production) → MI400/MI450 (HBM4, 2nm, ramping 2H 2026). The mix-shift to newer, higher-ASP parts raises realized price per GPU independent of any list-price move — the core engine as Data Center GPU revenue ramps.",
+          "mechanism_zh": "每一代 Instinct 都在能力與價格上台階：MI300X（192GB）→ MI325X（256GB）→ MI355X（288GB HBM3E、FP4/FP6、量產中）→ MI400/MI450（HBM4、2nm、2H 2026 放量）。組合往更新、更高 ASP 的產品移動，與牌價無關地推升每顆 GPU 的已實現價格 — 是資料中心 GPU 營收放量時的核心引擎。",
+          "direction": "up",
+          "strength": 80.0,
+          "weight": 1.3,
+          "tier": "T1",
+          "is_estimate": false,
+          "observability_en": "AMD Data Center segment revenue & growth, Instinct generation mix, MI355X/MI400 ramp commentary on earnings calls.",
+          "observability_zh": "AMD 資料中心分部營收與成長、Instinct 世代組合、法說會上 MI355X/MI400 放量評論。",
+          "source_en": "AMD quarterly results & investor materials",
+          "source_zh": "AMD 季報與投資人資料",
+          "source_url": "https://ir.amd.com/"
+        },
+        {
+          "id": "memory_capacity_premium",
+          "name_en": "HBM-capacity inference premium (more memory = fewer GPUs)",
+          "name_zh": "HBM 容量推論溢價（記憶體越大、用越少 GPU）",
+          "mechanism_en": "AMD has led NVIDIA on HBM capacity every generation (288GB MI355X vs 180GB B200, 141GB H200). For inference, more memory per GPU fits larger models / longer context on FEWER GPUs, cutting sharding overhead and TCO — the structural reason AMD can command price on memory-bound inference workloads even without the CUDA ecosystem.",
+          "mechanism_zh": "AMD 每一代的 HBM 容量都領先 NVIDIA（MI355X 288GB vs B200 180GB、H200 141GB）。對推論而言，每顆 GPU 記憶體越大，就能用更少 GPU 放下更大模型／更長上下文，降低分片負擔與 TCO — 這是 AMD 即便沒有 CUDA 生態、仍能在記憶體綁定的推論工作負載上要價的結構性原因。",
+          "direction": "up",
+          "strength": 74.0,
+          "weight": 1.2,
+          "tier": "T1",
+          "is_estimate": false,
+          "observability_en": "HBM GB/GPU vs NVIDIA each generation, MLPerf/Signal65 inference benchmarks, named memory-bound inference wins (large-model serving).",
+          "observability_zh": "每一代每顆 GPU 的 HBM GB 數 vs NVIDIA、MLPerf/Signal65 推論基準、具名的記憶體綁定推論勝出（大模型服務）。",
+          "source_en": "AMD specs; MLPerf Inference; SemiAnalysis",
+          "source_zh": "AMD 規格；MLPerf Inference；SemiAnalysis",
+          "source_url": "https://newsletter.semianalysis.com/"
+        },
+        {
+          "id": "commitment_lockin",
+          "name_en": "Multi-GW commitment lock-in (OpenAI 6GW + Meta 6GW)",
+          "name_zh": "多 GW 承諾鎖定（OpenAI 6GW＋Meta 6GW）",
+          "mechanism_en": "OpenAI (6GW, multi-generation, warrants up to ~160M AMD shares) and Meta (6GW, custom MI450) together commit ~12GW of forward Instinct demand. These multi-year anchors lock volume and pricing reference points and validate AMD as a second source — the demand spine under the ASP ramp (with warrant dilution as the cost).",
+          "mechanism_zh": "OpenAI（6GW、多世代、認股權最高約 1.6 億股 AMD）與 Meta（6GW、客製 MI450）合計承諾約 12GW 的前瞻 Instinct 需求。這些多年期錨定鎖住量與定價參考點，並驗證 AMD 作為第二供應商 — 是 ASP 階梯底下的需求脊柱（代價是認股權稀釋）。",
+          "direction": "up",
+          "strength": 72.0,
+          "weight": 1.1,
+          "tier": "T1",
+          "is_estimate": false,
+          "observability_en": "OpenAI/Meta deployment milestones, warrant vesting disclosures, new hyperscaler design wins (Microsoft/Oracle).",
+          "observability_zh": "OpenAI/Meta 部署里程碑、認股權行權揭露、新增雲端設計勝出（Microsoft/Oracle）。",
+          "source_en": "AMD & OpenAI/Meta announcements",
+          "source_zh": "AMD 與 OpenAI/Meta 公告",
+          "source_url": "https://openai.com/index/openai-amd-strategic-partnership/"
+        },
+        {
+          "id": "epyc_share_gains",
+          "name_en": "EPYC server-CPU share gains (the profitable base)",
+          "name_zh": "EPYC 伺服器 CPU 市占擴張（獲利基底）",
+          "mechanism_en": "EPYC reached a record ~46% of server-CPU REVENUE in Q1 2026 (from <1% in 2017). 'Venice' (Zen 6, TSMC N2, up to 256 cores) extends the lead. This high-margin, share-gaining franchise raises blended Data Center realized price and funds the Instinct push — a TAM AMD guides toward ~$120B by 2030.",
+          "mechanism_zh": "EPYC 在 2026 Q1 達到伺服器 CPU 營收約 46% 的新高（2017 年還 <1%）。「Venice」（Zen 6、台積電 N2、最高 256 核）延續領先。這個高毛利、持續搶市占的事業拉高混合資料中心已實現價格，並替 Instinct 攻勢買單 — AMD 指引此 TAM 到 2030 年約 $120B。",
+          "direction": "up",
+          "strength": 76.0,
+          "weight": 1.0,
+          "tier": "T1",
+          "is_estimate": false,
+          "observability_en": "Mercury Research server-CPU revenue share, EPYC Venice ramp, Data Center segment CPU/GPU split commentary.",
+          "observability_zh": "Mercury Research 伺服器 CPU 營收市占、EPYC Venice 放量、資料中心分部 CPU/GPU 拆分評論。",
+          "source_en": "Mercury Research; AMD earnings",
+          "source_zh": "Mercury Research；AMD 法說",
+          "source_url": "https://ir.amd.com/"
+        },
+        {
+          "id": "rack_scale_helios",
+          "name_en": "Helios rack-scale system (content per deployment)",
+          "name_zh": "Helios 機櫃整機（每次部署的含量）",
+          "mechanism_en": "Helios sells AMD as an integrated rack (72 MI455X-class GPUs, 31TB HBM4, 1.4 PB/s, EPYC Venice, UALink) rather than loose chips — AMD's answer to NVIDIA's NVL72. Rack-scale shifts the unit of sale up, raising dollar content and realized price per deployment as it ramps in 2H 2026.",
+          "mechanism_zh": "Helios 把 AMD 當成整櫃賣（72 顆 MI455X 級 GPU、31TB HBM4、1.4 PB/s、EPYC Venice、UALink），而非散裝晶片 — 是 AMD 對 NVIDIA NVL72 的回應。機櫃級把銷售單位往上抬，隨 2H 2026 放量提高每次部署的金額含量與已實現價格。",
+          "direction": "up",
+          "strength": 62.0,
+          "weight": 0.9,
+          "tier": "T2",
+          "is_estimate": true,
+          "observability_en": "Helios shipment timing, rack ASP vs chip ASP, UALink/Open Rack adoption, MI455X volume.",
+          "observability_zh": "Helios 出貨時程、機櫃 ASP vs 晶片 ASP、UALink/Open Rack 採用、MI455X 出貨量。",
+          "source_en": "AMD CES 2026 / roadmap; press coverage",
+          "source_zh": "AMD CES 2026／路線圖；媒體報導",
+          "source_url": "https://www.amd.com/en/products/accelerators/instinct.html"
+        },
+        {
+          "id": "rocm_software_gap",
+          "name_en": "ROCm-vs-CUDA gap (value-discount drag)",
+          "name_zh": "ROCm vs CUDA 差距（性價比折價拖累）",
+          "mechanism_en": "ROCm 6.x reached near-parity for common inference workloads (vLLM/SGLang/HF support), but CUDA still leads decisively on ecosystem breadth, developer familiarity and time-to-productivity. To win against that lock-in, AMD must price BELOW NVIDIA as the value alternative — capping realized price even as capability matches. Software is AMD's #1 competitive gap.",
+          "mechanism_zh": "ROCm 6.x 在常見推論工作負載已接近持平（支援 vLLM/SGLang/HF），但 CUDA 在生態廣度、開發者熟悉度與上手速度仍明顯領先。要對抗這份鎖定，AMD 必須以「性價比替代品」定價、低於 NVIDIA — 即便能力追平也壓住已實現價格。軟體是 AMD 的頭號競爭差距。",
+          "direction": "down",
+          "strength": 40.0,
+          "weight": 1.0,
+          "tier": "T1",
+          "is_estimate": false,
+          "observability_en": "ROCm adoption (vLLM/SGLang/framework support), AMD-vs-NVIDIA $/GPU and $/M-token gap, developer-mindshare signals.",
+          "observability_zh": "ROCm 採用（vLLM/SGLang/框架支援）、AMD vs NVIDIA 的每顆 GPU 與每百萬代幣價差、開發者心智占有訊號。",
+          "source_en": "ROCm release notes; SemiAnalysis cost models",
+          "source_zh": "ROCm 發行說明；SemiAnalysis 成本模型",
+          "source_url": "https://rocm.docs.amd.com/"
+        }
+      ],
+      "top_lever_id": "generational_asp",
+      "engine_note_en": "the Instinct generational ASP ramp, AMD's HBM-capacity lead for inference, ~12GW of OpenAI+Meta lock-in and record EPYC server share are doing the work — AMD is the credible #2, pricing as the value alternative to NVIDIA rather than the price-maker",
+      "engine_note_zh": "Instinct 世代 ASP 階梯、AMD 在推論的 HBM 容量領先、OpenAI＋Meta ~12GW 鎖定與創新高的 EPYC 伺服器市占在推動 — AMD 是可信的第二名，以「NVIDIA 的性價比替代品」定價、而非定價者"
+    },
+    "sources": {
+      "items": [
+        {
+          "name_en": "AMD 10-Q / 10-K (Data Center segment)",
+          "name_zh": "AMD 10-Q／10-K（資料中心分部）",
+          "what_en": "Data Center segment revenue & operating income (EPYC + Instinct bundled), total revenue, gross margin — the hard floor; Instinct itself is NOT broken out.",
+          "what_zh": "資料中心分部營收與營益（EPYC＋Instinct 合併）、總營收、毛利 — 硬底；Instinct 本身未單獨揭露。",
+          "tier": "T1",
+          "cadence": "quarterly",
+          "access_en": "free (SEC EDGAR)",
+          "access_zh": "免費（SEC EDGAR）",
+          "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=AMD&type=10-Q"
+        },
+        {
+          "name_en": "AMD earnings calls & investor materials",
+          "name_zh": "AMD 法說會與投資人資料",
+          "what_en": "Data Center growth guide, Instinct ramp & MI400/Helios timing, OpenAI/Meta commentary, server-CPU TAM — where management frames the AI story.",
+          "what_zh": "資料中心成長指引、Instinct 放量與 MI400/Helios 時程、OpenAI/Meta 評論、伺服器 CPU TAM — 管理層框定 AI 故事的地方。",
+          "tier": "T1",
+          "cadence": "quarterly",
+          "access_en": "free (IR site)",
+          "access_zh": "免費（IR 網站）",
+          "url": "https://ir.amd.com/"
+        },
+        {
+          "name_en": "AMD stock (Nasdaq) + analyst targets",
+          "name_zh": "AMD 股價（Nasdaq）＋分析師目標價",
+          "what_en": "Live price, market cap, forward P/E (~62) vs NVDA/AVGO, consensus target (~$449, currently BELOW price) — the market's read on the MI400 ramp. Sentiment context, kept OUT of the score.",
+          "what_zh": "即時價格、市值、前瞻本益比（~62）vs NVDA／AVGO、共識目標價（~$449，目前低於股價）— 市場對 MI400 放量的判讀。屬情緒情境，排除在分數外。",
+          "tier": "T1",
+          "cadence": "daily",
+          "access_en": "free (yfinance / stockanalysis)",
+          "access_zh": "免費（yfinance／stockanalysis）",
+          "url": "https://stockanalysis.com/stocks/amd/"
+        },
+        {
+          "name_en": "MLPerf Inference & SemiAnalysis benchmarks",
+          "name_zh": "MLPerf Inference 與 SemiAnalysis 基準",
+          "what_en": "Independent (and AMD-commissioned) MI355X-vs-B200 tokens/sec and cost-per-token — the cross-check on the HBM-capacity inference premium.",
+          "what_zh": "獨立（與 AMD 委託）的 MI355X vs B200 tok/s 與每代幣成本 — 對 HBM 容量推論溢價的交叉驗證。",
+          "tier": "T2",
+          "cadence": "periodic",
+          "access_en": "free / paid",
+          "access_zh": "免費／付費",
+          "url": "https://mlcommons.org/benchmarks/inference-datacenter/"
+        },
+        {
+          "name_en": "TSMC revenue & advanced-node / CoWoS disclosures",
+          "name_zh": "台積電營收與先進製程／CoWoS 揭露",
+          "what_en": "N3/N2 mix and CoWoS/HBM capacity — the supply ceiling AMD shares with NVIDIA; AMD+NVIDIA+Google+Amazon took >90% of CoWoS+HBM by value in 2025.",
+          "what_zh": "N3/N2 結構與 CoWoS/HBM 產能 — AMD 與 NVIDIA 共用的供給天花板；2025 年 AMD＋NVIDIA＋Google＋Amazon 吃下 CoWoS＋HBM 價值的 >90%。",
+          "tier": "T1",
+          "cadence": "monthly/quarterly",
+          "access_en": "free (TSMC IR)",
+          "access_zh": "免費（台積電 IR）",
+          "url": "https://investor.tsmc.com/"
+        },
+        {
+          "name_en": "Mercury Research server-CPU share",
+          "name_zh": "Mercury Research 伺服器 CPU 市占",
+          "what_en": "Quarterly EPYC vs Intel server-CPU unit & revenue share — the EPYC-lever observation point (record ~46% revenue share Q1 2026).",
+          "what_zh": "每季 EPYC vs Intel 伺服器 CPU 出貨與營收市占 — EPYC 槓桿的觀測點（2026 Q1 營收市占創新高約 46%）。",
+          "tier": "T2",
+          "cadence": "quarterly",
+          "access_en": "paid research / press",
+          "access_zh": "付費研究／媒體",
+          "url": "https://www.mercuryresearch.com/"
+        },
+        {
+          "name_en": "OpenAI / Meta commitment & warrant disclosures",
+          "name_zh": "OpenAI／Meta 承諾與認股權揭露",
+          "what_en": "The ~12GW forward Instinct book, deployment milestones, and OpenAI warrant (up to ~160M shares) vesting — demand anchors AND dilution cost.",
+          "what_zh": "~12GW 前瞻 Instinct 訂單、部署里程碑、OpenAI 認股權（最高約 1.6 億股）行權 — 既是需求錨定，也是稀釋成本。",
+          "tier": "T1",
+          "cadence": "on-event",
+          "access_en": "free (press / filings)",
+          "access_zh": "免費（新聞／財報）",
+          "url": "https://openai.com/index/openai-amd-strategic-partnership/"
+        },
+        {
+          "name_en": "ROCm release notes & framework support",
+          "name_zh": "ROCm 發行說明與框架支援",
+          "what_en": "ROCm version cadence and vLLM/SGLang/HF/Modular support — the software-gap lever, narrowing fastest in inference.",
+          "what_zh": "ROCm 版本節奏與 vLLM/SGLang/HF/Modular 支援 — 軟體差距槓桿，在推論端收斂最快。",
+          "tier": "T2",
+          "cadence": "periodic",
+          "access_en": "free (docs)",
+          "access_zh": "免費（文件）",
+          "url": "https://rocm.docs.amd.com/"
+        }
+      ]
+    },
+    "benefit": {
+      "estimates": [
+        {
+          "id": "instinct_runrate",
+          "method_en": "Data Center GPU (Instinct) revenue run-rate",
+          "method_zh": "資料中心 GPU（Instinct）營收年化",
+          "value_usd_bn": 8.0,
+          "metric": "revenue_runrate",
+          "confidence": "medium",
+          "tier": "T2",
+          "is_estimate": true,
+          "basis_en": "AMD does NOT break out Instinct separately, so this ~$8B is a third-party ESTIMATE of 2025 Data Center GPU revenue, ramping hard with MI350/MI400. Comparable to NVIDIA DC GPU and Broadcom AI-semi run-rates. For the demand-side coverage view see /payback; for inference-share backdrop see /compute.",
+          "basis_zh": "AMD 未單獨揭露 Instinct，故此 ~$8B 為第三方對 2025 資料中心 GPU 營收的估計，隨 MI350/MI400 大幅放量。可與 NVIDIA DC GPU、Broadcom AI 半導體年化對比。需求端覆蓋率視角見 /payback；推論占比背景見 /compute。"
+        },
+        {
+          "id": "dc_segment_runrate",
+          "method_en": "Data Center SEGMENT revenue run-rate (disclosed; EPYC + Instinct)",
+          "method_zh": "資料中心「分部」營收年化（揭露值；EPYC＋Instinct）",
+          "value_usd_bn": 23.2,
+          "metric": "segment_runrate",
+          "confidence": "high",
+          "tier": "T1",
+          "is_estimate": false,
+          "basis_en": "AMD discloses the Data Center SEGMENT: $5.8B in Q1 2026 (+57% YoY), annualizing to ~$23B. This bundles EPYC server CPUs WITH Instinct GPUs, so it is the disclosed floor — not AI-accelerator-only. Only the annualization is a projection.",
+          "basis_zh": "AMD 揭露資料中心「分部」：2026 Q1 為 $5.8B（+57% YoY），年化約 $23B。它把 EPYC 伺服器 CPU 與 Instinct GPU 合併，因此是揭露的硬底 — 非純 AI 加速器。唯一推估是年化。"
+        },
+        {
+          "id": "forward_commitments",
+          "method_en": "Forward Instinct commitments (OpenAI 6GW + Meta 6GW)",
+          "method_zh": "前瞻 Instinct 承諾（OpenAI 6GW＋Meta 6GW）",
+          "value_usd_bn": 100.0,
+          "metric": "forward_commitment_tcv",
+          "confidence": "low",
+          "tier": "T3",
+          "is_estimate": true,
+          "basis_en": "OpenAI (6GW) + Meta (6GW) = ~12GW of multi-year Instinct commitments. The dollar value is a PRESS ESTIMATE (Meta alone reported >$100B potential; OpenAI 'tens of billions'), GW-based not AMD-disclosed, and OpenAI carries warrant dilution up to ~10%. A directional anchor, not a booked number.",
+          "basis_zh": "OpenAI（6GW）＋Meta（6GW）＝約 12GW 多年期 Instinct 承諾。金額為媒體估計（光 Meta 報導潛在 >$100B；OpenAI「數百億」），以 GW 計、非 AMD 揭露，且 OpenAI 帶最高約 10% 認股權稀釋。為方向性錨點、非入帳數字。"
+        }
+      ],
+      "headline_id": "instinct_runrate",
+      "headline_usd_bn": 8.0,
+      "headline_metric": "revenue_runrate",
+      "headline_is_estimate": true,
+      "consensus_usd_bn": 8.0,
+      "disclosure_note_en": "AMD does NOT break out Instinct (AI-GPU) revenue — the ~$8B headline is a third-party ESTIMATE. AMD discloses the Data Center SEGMENT ($5.8B in Q1 2026, +57% YoY) which bundles EPYC server CPUs with Instinct. The OpenAI (6GW) + Meta (6GW) ~12GW commitments are the forward driver (with warrant dilution as the cost).",
+      "disclosure_note_zh": "AMD 未單獨揭露 Instinct（AI-GPU）營收 — ~$8B 頭條為第三方估計。AMD 揭露的是資料中心「分部」（2026 Q1 $5.8B、+57% YoY），它把 EPYC 伺服器 CPU 與 Instinct 合併。OpenAI（6GW）＋Meta（6GW）的 ~12GW 承諾是前瞻驅動（代價是認股權稀釋）。"
+    },
+    "silicon": {
+      "chain": [
+        {
+          "accelerator_en": "Instinct MI355X (CDNA 4)",
+          "accelerator_zh": "Instinct MI355X（CDNA 4）",
+          "role_en": "Current AI training + inference flagship",
+          "role_zh": "當前 AI 訓練＋推論旗艦",
+          "designer": "AMD",
+          "node": "TSMC N3 (3nm)",
+          "packaging": "CoWoS + 288GB HBM3E",
+          "fab": "TSMC",
+          "dependency": "critical",
+          "tier": "T1",
+          "is_estimate": false,
+          "note_en": "288GB HBM3E (vs 180GB B200), FP4/FP6, in production. The HBM-capacity lead is the inference-TCO edge — and it is as TSMC-N3 + CoWoS-bound as any NVIDIA GPU.",
+          "note_zh": "288GB HBM3E（vs B200 180GB）、FP4/FP6、量產中。HBM 容量領先是推論 TCO 優勢 — 而它與任何 NVIDIA GPU 一樣綁死台積電 N3＋CoWoS。"
+        },
+        {
+          "accelerator_en": "Instinct MI400 / MI450 (CDNA 5)",
+          "accelerator_zh": "Instinct MI400／MI450（CDNA 5）",
+          "role_en": "Next-gen accelerator, Helios rack",
+          "role_zh": "次世代加速器、Helios 機櫃",
+          "designer": "AMD",
+          "node": "TSMC N2 (2nm) + N3 chiplets",
+          "packaging": "advanced CoWoS + HBM4 (~432GB EST)",
+          "fab": "TSMC",
+          "dependency": "critical",
+          "tier": "T2",
+          "is_estimate": true,
+          "note_en": "Sampling; production ramp 2H 2026. Pushes AMD onto TSMC 2nm + HBM4 — the make-or-break ramp the rich multiple is priced on. Node/HBM4 capacity are roadmap-attributed.",
+          "note_zh": "送樣中；2H 2026 量產放量。把 AMD 推上台積電 2nm＋HBM4 — 那個被昂貴本益比定價的成敗放量。節點／HBM4 容量為路線圖歸因。"
+        },
+        {
+          "accelerator_en": "Instinct MI300X / MI325X (CDNA 3)",
+          "accelerator_zh": "Instinct MI300X／MI325X（CDNA 3）",
+          "role_en": "Installed-base accelerator",
+          "role_zh": "已裝機加速器",
+          "designer": "AMD",
+          "node": "TSMC N5 / N6 chiplets",
+          "packaging": "CoWoS + HBM3 / HBM3E",
+          "fab": "TSMC",
+          "dependency": "high",
+          "tier": "T1",
+          "is_estimate": false,
+          "note_en": "192GB / 256GB HBM, shipping since 2024 — the multi-die chiplet design that proved AMD's CoWoS + HBM packaging at scale.",
+          "note_zh": "192GB／256GB HBM，2024 起出貨 — 證明 AMD CoWoS＋HBM 封裝可規模化的多晶粒 chiplet 設計。"
+        },
+        {
+          "accelerator_en": "EPYC 'Venice' server CPU (Zen 6)",
+          "accelerator_zh": "EPYC「Venice」伺服器 CPU（Zen 6）",
+          "role_en": "Data-center CPU franchise (the other half)",
+          "role_zh": "資料中心 CPU 事業（另一半）",
+          "designer": "AMD",
+          "node": "TSMC N2 (2nm)",
+          "packaging": "chiplet (advanced)",
+          "fab": "TSMC",
+          "dependency": "high",
+          "tier": "T1",
+          "is_estimate": false,
+          "note_en": "Up to 256 cores on TSMC 2nm; record ~46% server-CPU revenue share. An early, high-volume N2 customer — and the profitable base that funds the GPU push.",
+          "note_zh": "台積電 2nm 上最高 256 核；伺服器 CPU 營收市占創新高約 46%。是 N2 的早期、高量客戶 — 也是替 GPU 攻勢買單的獲利基底。"
+        },
+        {
+          "accelerator_en": "Helios rack-scale system",
+          "accelerator_zh": "Helios 機櫃整機系統",
+          "role_en": "Integrated AI rack (72 GPU + EPYC + UALink)",
+          "role_zh": "整合 AI 機櫃（72 GPU＋EPYC＋UALink）",
+          "designer": "AMD + Meta (Open Rack)",
+          "node": "TSMC N2 / N3",
+          "packaging": "rack-scale integration",
+          "fab": "TSMC",
+          "dependency": "high",
+          "tier": "T2",
+          "is_estimate": true,
+          "note_en": "72 MI455X-class GPUs, 31TB HBM4, 1.4 PB/s — AMD's answer to NVL72. Every die inside is TSMC leading-edge; rack-scale raises TSMC content per deployment.",
+          "note_zh": "72 顆 MI455X 級 GPU、31TB HBM4、1.4 PB/s — AMD 對 NVL72 的回應。櫃內每顆晶粒都是台積電先進製程；機櫃級提高每次部署的台積電含量。"
+        },
+        {
+          "accelerator_en": "Infinity Fabric / UALink interconnect",
+          "accelerator_zh": "Infinity Fabric／UALink 互連",
+          "role_en": "Scale-up/scale-out interconnect",
+          "role_zh": "scale-up／scale-out 互連",
+          "designer": "AMD",
+          "node": "TSMC N5 / N4",
+          "packaging": "advanced",
+          "fab": "TSMC",
+          "dependency": "medium",
+          "tier": "T2",
+          "is_estimate": true,
+          "note_en": "The open-standard answer to NVLink — the interconnect that lets Helios scale, also on TSMC silicon. Maturity vs NVLink is a watch item.",
+          "note_zh": "對 NVLink 的開放標準回應 — 讓 Helios 得以擴張的互連，同樣跑在台積電矽上。相對 NVLink 的成熟度是觀察項。"
+        }
+      ],
+      "tsmc_exposure_pct": 100,
+      "tsmc_fabbed_count": 6,
+      "chain_count": 6,
+      "critical_count": 2,
+      "tsmc_read_en": "AMD is ~100% TSMC-bound for advanced logic AND packaging: Instinct on N3 (MI350) → N2 (MI400), EPYC 'Venice' on N2, all CoWoS-packaged with HBM3E/HBM4. For TSMC, AMD is the #2 pillar of leading-edge AI-GPU demand and one of the earliest high-volume N2 customers (Venice + MI400). Crucially, AMD does NOT relieve TSMC's CoWoS bottleneck — it DEEPENS it: AMD, NVIDIA, Google and Amazon together consumed >90% of global CoWoS + HBM by value in 2025, and the two GPU makers compete for the SAME oversubscribed allocation. So whether buyers diversify toward AMD or stay with NVIDIA, TSMC fabs both — AMD is a second source for TSMC's customers, never a second source for TSMC itself, and the CoWoS/HBM ceiling stays the binding constraint TSMC controls.",
+      "tsmc_read_zh": "AMD 在先進邏輯「與」封裝上 ~100% 綁定台積電：Instinct 走 N3（MI350）→ N2（MI400），EPYC「Venice」走 N2，全部以 CoWoS 搭配 HBM3E/HBM4 封裝。對台積電而言，AMD 是先進製程 AI-GPU 需求的第二根支柱，也是最早的高量 N2 客戶之一（Venice＋MI400）。關鍵是，AMD 並不紓解台積電的 CoWoS 瓶頸，反而加深它：2025 年 AMD、NVIDIA、Google 與 Amazon 合計吃下全球 CoWoS＋HBM 價值的 >90%，而兩家 GPU 廠競逐同一批超額認購的配額。因此無論買家轉向 AMD 還是續留 NVIDIA，台積電都製造兩者 — AMD 是台積電「客戶」的第二供應商、卻永遠不是台積電自己的第二供應商，CoWoS／HBM 天花板仍是台積電掌握的綁定約束。"
+    }
+  },
+  "l3": {
+    "proxies": [
+      {
+        "id": "amd_equity",
+        "name_en": "AMD (AMD)",
+        "name_zh": "AMD（超微）",
+        "kind": "equity",
+        "value": 558.92,
+        "chg_1w": 3.6,
+        "chg_1m": 14.0,
+        "live": false
+      },
+      {
+        "id": "nvda_equity",
+        "name_en": "NVIDIA (NVDA) — the #1 AMD prices against",
+        "name_zh": "NVIDIA（NVDA）— AMD 對標的第一名",
+        "kind": "equity",
+        "value": 175.0,
+        "chg_1w": 0.9,
+        "chg_1m": 5.4,
+        "live": false
+      },
+      {
+        "id": "tsm_equity",
+        "name_en": "TSMC (TSM) — supply-side proxy",
+        "name_zh": "台積電（TSM）— 供給端 proxy",
+        "kind": "equity",
+        "value": 230.0,
+        "chg_1w": 1.0,
+        "chg_1m": 5.0,
+        "live": false
+      }
+    ],
+    "alerts": [
+      {
+        "level": "strong",
+        "en": "Realized-price engine running hot: pricing-power score 68.3/100 — the Instinct generational ASP ramp, AMD's HBM-capacity lead for inference, ~12GW of OpenAI+Meta lock-in and record EPYC server share are doing the work — AMD is the credible #2, pricing as the value alternative to NVIDIA rather than the price-maker.",
+        "zh": "已實現價格引擎火熱：定價權分數 68.3/100 — Instinct 世代 ASP 階梯、AMD 在推論的 HBM 容量領先、OpenAI＋Meta ~12GW 鎖定與創新高的 EPYC 伺服器市占在推動 — AMD 是可信的第二名，以「NVIDIA 的性價比替代品」定價、而非定價者。"
+      },
+      {
+        "level": "exposure",
+        "en": "Concentration: ~100% of the AI compute behind this benefit is TSMC-fabbed, 2 link(s) critical — the CoWoS bottleneck TSMC controls is the binding constraint on growth.",
+        "zh": "集中度：撐起此利益的 AI 算力約 100% 由台積電製造，2 條鏈關鍵 — 台積電掌握的 CoWoS 瓶頸即成長綁定約束。"
+      },
+      {
+        "level": "watch",
+        "en": "AI benefit (headline est.) ≈ $8.0B revenue_runrate — AMD does NOT break out Instinct (AI-GPU) revenue — the ~$8B headline is a third-party ESTIMATE. AMD discloses the Data Center SEGMENT ($5.8B in Q1 2026, +57% YoY) which bundles EPYC server CPUs with Instinct. The OpenAI (6GW) + Meta (6GW) ~12GW commitments are the forward driver (with warrant dilution as the cost).",
+        "zh": "AI 利益（頭條估計）≈ $8.0B revenue_runrate — AMD 未單獨揭露 Instinct（AI-GPU）營收 — ~$8B 頭條為第三方估計。AMD 揭露的是資料中心「分部」（2026 Q1 $5.8B、+57% YoY），它把 EPYC 伺服器 CPU 與 Instinct 合併。OpenAI（6GW）＋Meta（6GW）的 ~12GW 承諾是前瞻驅動（代價是認股權稀釋）。"
+      }
+    ]
+  },
+  "l4": {
+    "integrated_thesis": {
+      "en": "AMD is the credible #2 — it prices as NVIDIA's value alternative, not the price-maker, yet its realized-price engine runs hot (68.3/100). The lever stack is generational ASP (MI300→MI350→MI400), an HBM-capacity inference lead (more memory, fewer GPUs), ~12GW of OpenAI+Meta lock-in and record EPYC share. Disclosed Data Center segment runs ~$23.2B; the Instinct slice is a ~$8B third-party estimate, with ~$100B forward TCV (low confidence). Crucially, ~100% of that AI compute is TSMC-fabbed across N5/N3/N2 plus CoWoS — AMD's entire AI ambition is a direct, advanced-node and CoWoS-bound demand stream for TSMC.",
+      "zh": "AMD是可信的第二名——以NVIDIA的價值替代者定價,而非價格制定者,但其實現價格引擎運轉熾熱(68.3/100)。槓桿堆疊為世代ASP躍升(MI300→MI350→MI400)、HBM容量推論優勢(記憶體越多、GPU越少)、約12GW的OpenAI+Meta鎖定及創紀錄EPYC份額。資料中心整體營收約232億美元;Instinct部分為約80億美元的第三方估計,前瞻TCV約1000億(信心低)。關鍵是約100%的AI算力均由台積電製造,橫跨N5/N3/N2及CoWoS——AMD整個AI雄心是台積電直接的先進製程與CoWoS需求流。"
+    },
+    "pillars": {
+      "pricing": {
+        "en": "Score 68.3 = RAISING, but as value challenger. Top lever is generational ASP: each Instinct turn (MI300→MI350→MI400) lifts content per socket, reinforced by an HBM-capacity edge that monetizes inference (fewer GPUs per workload). Multi-GW OpenAI+Meta lock-in (str 72) cements volume; EPYC share gains (76) fund the base. The drag is ROCm-vs-CUDA (40) — AMD must discount on software maturity, capping pure price-making. Realized price rises via mix and memory, not list.",
+        "zh": "分數68.3=上升,但屬價值挑戰者。首要槓桿是世代ASP:每次Instinct換代(MI300→MI350→MI400)提升單槽內容,並由HBM容量優勢強化推論變現(每工作負載GPU更少)。多GW的OpenAI+Meta鎖定(72)穩固量;EPYC份額增長(76)支撐基底。拖累是ROCm對CUDA(40)——須以軟體成熟度折讓,限制純定價權。實現價格靠組合與記憶體提升,而非定價表。"
+      },
+      "sources": {
+        "en": "Highest signal: AMD 10-Q/10-K Data Center segment (only disclosed line — bundles EPYC+Instinct) and earnings-call commentary for Instinct directional color. Mercury Research for EPYC server share. MLPerf Inference + SemiAnalysis for the ROCm-vs-CUDA serving gap. OpenAI/Meta warrant & commitment disclosures for the ~12GW TCV and dilution cost. TSMC CoWoS/advanced-node disclosures as the supply-side ceiling. Note: no Instinct-only revenue is ever reported — treat $8B as estimate.",
+        "zh": "最高信號:AMD 10-Q/10-K資料中心分部(唯一揭露項——綑綁EPYC+Instinct)及法說會評論作Instinct方向性參考。Mercury Research看EPYC伺服器份額。MLPerf Inference+SemiAnalysis看ROCm對CUDA服務差距。OpenAI/Meta認股權與承諾揭露看約12GW TCV及稀釋成本。台積電CoWoS/先進製程揭露為供給端天花板。注意:從不揭露純Instinct營收——80億為估計值。"
+      },
+      "benefit": {
+        "en": "Disclosed: Data Center SEGMENT ~$23.2B run-rate (high confidence) — but that bundles EPYC and Instinct. The AI-GPU slice is a ~$8B third-party ESTIMATE (medium confidence, consensus aligned), NOT a reported figure. Forward Instinct commitments (OpenAI 6GW + Meta 6GW) carry ~$100B TCV but low confidence — TCV is not revenue, and warrant dilution is a real cost. AMD's AI benefit is large but unverifiable at the line-item level; model it as a band, not a point.",
+        "zh": "已揭露:資料中心分部運行率約232億美元(信心高)——但綑綁EPYC與Instinct。AI-GPU部分為約80億美元第三方估計(信心中,符合共識),非報告數字。前瞻Instinct承諾(OpenAI 6GW+Meta 6GW)TCV約1000億但信心低——TCV非營收,且認股權稀釋為實質成本。AMD的AI效益龐大但在細項層面無法驗證;應以區間而非單點建模。"
+      },
+      "silicon": {
+        "en": "~100% TSMC-fabbed, two critical links. MI355X (CDNA4) on N3+CoWoS+288GB HBM3E; MI400/MI450 (CDNA5) on N2+N3 chiplets, advanced CoWoS+HBM4 — both critical. MI300X/MI325X on N5/N6+CoWoS. Crucially, EPYC 'Venice' (Zen6) moves to N2, and Helios rack-scale pulls N2/N3 integration — so AMD is a direct N2 anchor customer, not just an AI buyer. The binding constraint is shared CoWoS+HBM allocation AMD competes for against NVIDIA.",
+        "zh": "約100%台積電製造,兩個關鍵連結。MI355X(CDNA4)用N3+CoWoS+288GB HBM3E;MI400/MI450(CDNA5)用N2+N3小晶片、先進CoWoS+HBM4——皆關鍵。MI300X/MI325X用N5/N6+CoWoS。關鍵是EPYC「Venice」(Zen6)轉N2,Helios機架級拉動N2/N3整合——故AMD是直接的N2錨定客戶,非僅AI買家。約束在於AMD與NVIDIA競爭的共享CoWoS+HBM配額。"
+      }
+    },
+    "tsmc_implication": {
+      "en": "AMD is a DIRECT advanced-node and CoWoS customer across the board — Instinct (N3→N2), EPYC Venice (N2), and Helios racks all land at TSMC, with ~100% exposure and two critical links. Unlike a pure-NVIDIA story, AMD diversifies TSMC's leading-edge demand base and is a second large N2 anchor. The binding constraint is CoWoS+HBM: AMD and NVIDIA bid for the same oversubscribed allocation, so TSMC's packaging capacity decisions directly arbitrate who ships. Every AMD design win is incremental TSMC wafer+CoWoS demand — but only converts if TSMC expands advanced packaging.",
+      "zh": "AMD是全面的直接先進製程與CoWoS客戶——Instinct(N3→N2)、EPYC Venice(N2)、Helios機架全部落在台積電,約100%曝險、兩個關鍵連結。不同於純NVIDIA故事,AMD分散台積電先進製程需求基底,並為第二大N2錨定客戶。約束在CoWoS+HBM:AMD與NVIDIA競標同一超額認購配額,故台積電封裝產能決策直接裁定誰能出貨。每個AMD設計勝出皆為增量晶圓+CoWoS需求——但僅在台積電擴張先進封裝時方能轉化。"
+    }
+  },
+  "l5": {
+    "scenarios": [
+      {
+        "name_en": "Instinct + EPYC flywheel converts",
+        "name_zh": "Instinct+EPYC飛輪轉化",
+        "prob": 35,
+        "trigger_en": "MI400/Helios ramp on schedule in 2H2026; OpenAI+Meta ~12GW begin revenue conversion; AMD ≥25% merchant accelerator share; Instinct est. run-rate >$15B.",
+        "trigger_zh": "MI400/Helios於2026下半年如期放量;OpenAI+Meta約12GW開始營收轉化;AMD商用加速器份額≥25%;Instinct估計運行率>150億美元。"
+      },
+      {
+        "name_en": "Memory-premium repricing",
+        "name_zh": "記憶體溢價重定價",
+        "prob": 20,
+        "trigger_en": "HBM-capacity lead + Helios rack content lift blended Instinct ASP and Data Center margin >35% even as units grow.",
+        "trigger_zh": "HBM容量優勢+Helios機架內容使混合Instinct ASP及資料中心毛利率>35%,即便出貨量增長。"
+      },
+      {
+        "name_en": "CoWoS/HBM bottleneck caps ramp",
+        "name_zh": "CoWoS/HBM瓶頸封頂",
+        "prob": 25,
+        "trigger_en": "AMD wins deals but TSMC CoWoS+HBM allocation gates shipments through 2027; Instinct run-rate stalls near $8-10B despite design wins.",
+        "trigger_zh": "AMD贏單但台積電CoWoS+HBM配額限制出貨至2027;儘管設計勝出,Instinct運行率停滯於80-100億美元。"
+      },
+      {
+        "name_en": "NVIDIA price-war / ROCm gap persists",
+        "name_zh": "NVIDIA價格戰/ROCm差距持續",
+        "prob": 20,
+        "trigger_en": "Blackwell-Rubin cadence + price war + AI-capex digestion compress AMD's ~62x multiple; ROCm still trails CUDA in MLPerf serving; AMD stuck as discounter.",
+        "trigger_zh": "Blackwell-Rubin節奏+價格戰+AI資本支出消化壓縮AMD約62倍本益比;ROCm在MLPerf服務仍落後CUDA;AMD困於折價者。"
+      }
+    ],
+    "falsification": [
+      {
+        "en": "Data Center segment growth decelerates below ~30% YoY for two consecutive quarters, signaling Instinct + EPYC momentum stalling despite the ASP narrative.",
+        "zh": "資料中心分部增長連兩季降至約30%以下,顯示儘管有ASP敘事,Instinct+EPYC動能仍停滯。"
+      },
+      {
+        "en": "OpenAI/Meta ~12GW commitments slip, get renegotiated, or convert to far less than $100B TCV — collapsing the forward-commitment pillar.",
+        "zh": "OpenAI/Meta約12GW承諾延宕、重新談判或轉化遠低於1000億TCV——前瞻承諾支柱崩潰。"
+      },
+      {
+        "en": "ROCm fails to close the CUDA serving gap in MLPerf, forcing deeper price discounts that erode realized ASP gains.",
+        "zh": "ROCm在MLPerf未能縮小CUDA服務差距,迫使更深折讓侵蝕實現ASP增益。"
+      }
+    ],
+    "watch": [
+      {
+        "en": "AMD live proxy (14%/m) vs NVDA & TSM — sentiment on AI/value-challenger thesis",
+        "zh": "AMD即時代理(14%/月)對NVDA及TSM——AI/價值挑戰者論點情緒",
+        "freq": "daily"
+      },
+      {
+        "en": "SemiAnalysis/spot trackers on CoWoS + HBM4 allocation between AMD and NVIDIA",
+        "zh": "SemiAnalysis/現貨追蹤AMD與NVIDIA間CoWoS+HBM4配額",
+        "freq": "weekly"
+      },
+      {
+        "en": "MLPerf Inference + ROCm release notes — CUDA serving-gap closure",
+        "zh": "MLPerf Inference+ROCm版本說明——CUDA服務差距縮小",
+        "freq": "per release"
+      },
+      {
+        "en": "AMD 10-Q Data Center segment growth + margin; any Instinct directional disclosure",
+        "zh": "AMD 10-Q資料中心分部增長與毛利;任何Instinct方向性揭露",
+        "freq": "quarterly"
+      },
+      {
+        "en": "Mercury Research EPYC server-CPU share — the profitable base",
+        "zh": "Mercury Research EPYC伺服器CPU份額——獲利基底",
+        "freq": "quarterly"
+      },
+      {
+        "en": "OpenAI/Meta warrant & commitment disclosures — TCV conversion and dilution cost",
+        "zh": "OpenAI/Meta認股權與承諾揭露——TCV轉化及稀釋成本",
+        "freq": "per filing"
+      },
+      {
+        "en": "TSMC advanced-node (N2) + CoWoS capacity disclosures — the binding ceiling",
+        "zh": "台積電先進製程(N2)+CoWoS產能揭露——約束天花板",
+        "freq": "quarterly"
+      }
+    ]
+  },
+  "analysis_engine": "claude",
+  "cross_links": [
+    {
+      "href": "/company/nvidia/",
+      "label_en": "NVIDIA lens — the #1 AMD prices against; compare the two GPU price-makers side by side",
+      "label_zh": "NVIDIA 鏡頭 — AMD 對標的第一名;兩家 GPU 定價者並排比較"
+    },
+    {
+      "href": "/bottleneck/",
+      "label_en": "Bottleneck Radar — the CoWoS/HBM ceiling AMD and NVIDIA share",
+      "label_zh": "瓶頸雷達 — AMD 與 NVIDIA 共用的 CoWoS／HBM 天花板"
+    },
+    {
+      "href": "/payback/",
+      "label_en": "Capex Payback Radar — is the AI capex feeding AMD's ramp paying off?",
+      "label_zh": "資本支出回本雷達 — 餵養 AMD 放量的 AI capex 回本了沒？"
+    },
+    {
+      "href": "/compute/",
+      "label_en": "AI Compute Demand Radar — the accelerator demand AMD is the #2 supplier of",
+      "label_zh": "AI 算力需求雷達 — AMD 作為第二供應商的加速器需求"
+    },
+    {
+      "href": "/pricing/",
+      "label_en": "Pricing Power Radar — the foundry ASP side of the same compute price stack",
+      "label_zh": "議價能力雷達 — 同一算力價格堆疊的代工 ASP 端"
+    }
+  ],
+  "blind_spots_en": [
+    "AMD does NOT break out Instinct (AI-GPU) revenue — the ~$8B headline is a third-party estimate; only the Data Center segment (EPYC + Instinct) is disclosed.",
+    "Multi-GW OpenAI/Meta commitments are GW-based; dollar values (>$100B Meta) are press estimates, and OpenAI warrant dilution (up to ~10%) is a real cost.",
+    "Benchmark claims (MI355X ~1.3x B200) are largely AMD-commissioned / vendor-influenced.",
+    "Node/packaging for MI400 (N2) and HBM4 capacity (~432GB) are roadmap / industry-attributed, not AMD/TSMC-confirmed.",
+    "The stock has run +130% YTD ahead of analyst targets (~$449 avg below ~$559 price); live AMD/NVDA/TSM proxies are sentiment context, kept out of the pricing-power score."
+  ],
+  "blind_spots_zh": [
+    "AMD 未單獨揭露 Instinct（AI-GPU）營收 — ~$8B 頭條為第三方估計；只有資料中心分部（EPYC＋Instinct）是揭露值。",
+    "多 GW 的 OpenAI/Meta 承諾以 GW 計；金額（Meta >$100B）為媒體估計，且 OpenAI 認股權稀釋（最高約 10%）是真實成本。",
+    "基準宣稱（MI355X ~1.3x B200）多為 AMD 委託／廠商影響。",
+    "MI400（N2）的節點／封裝與 HBM4 容量（~432GB）為路線圖／產業歸因，非 AMD／台積電確認。",
+    "股價 YTD +130% 已跑在分析師目標價之前（均 ~$449 低於 ~$559 股價）；即時 AMD/NVDA/TSM proxy 為情緒情境，排除在定價權分數外。"
+  ],
+  "news": [],
+  "fetched_at": null
+}

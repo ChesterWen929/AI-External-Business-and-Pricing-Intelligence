@@ -334,5 +334,66 @@ def test_cerebras_no_amazon_or_nvidia_bleed(cb_snap):
     assert ben_alerts and any("pure-play" in a["en"] for a in ben_alerts)
 
 
+# ── AMD (fifth company; #2 AI-GPU challenger, inference value-play, RAISING) ──
+@pytest.fixture
+def amd_kb():
+    with open(KB_DIR / "amd.json", encoding="utf-8") as f:
+        return json.load(f)
+
+
+@pytest.fixture
+def amd_snap(amd_kb, monkeypatch):
+    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    return model.build_snapshot(amd_kb, live=None, generated_at="2026-06-30 00:00 UTC", today="2026-06-30")
+
+
+def test_amd_builds_and_is_raising(amd_snap):
+    # Credible #2 — RAISING, but ranked below NVIDIA (75) and Broadcom (74), above Cerebras (holding).
+    assert amd_snap["slug"] == "amd"
+    assert amd_snap["headline"]["verdict_key"] == "raising"
+    assert 60 <= amd_snap["headline"]["compute_pricing_score"] <= 73
+
+
+def test_amd_top_lever_is_generational_asp(amd_snap):
+    assert amd_snap["pillars"]["pricing"]["top_lever_id"] == "generational_asp"
+    assert len(amd_snap["pillars"]["pricing"]["levers"]) == 6
+
+
+def test_amd_benefit_instinct_is_estimate(amd_snap):
+    b = amd_snap["pillars"]["benefit"]
+    # AMD does NOT break out Instinct → headline is an ESTIMATE (unlike NVIDIA/Broadcom disclosed)
+    assert b["headline_is_estimate"] is True
+    assert amd_snap["headline"]["ai_benefit_metric"] == "revenue_runrate"
+    # the disclosed DC segment ($23B) carries a DIFFERENT metric → not averaged into the Instinct consensus
+    assert b["consensus_usd_bn"] == round(amd_snap["headline"]["ai_benefit_usd_bn"], 1)
+
+
+def test_amd_full_tsmc_exposure(amd_snap):
+    sil = amd_snap["pillars"]["silicon"]
+    assert amd_snap["headline"]["tsmc_exposure_pct"] == 100
+    assert all(c["fab"].upper().startswith("TSMC") for c in sil["chain"])
+    assert sil["chain_count"] == 6
+
+
+def test_amd_scenarios_sum_100(amd_snap):
+    probs = [s["prob"] for s in amd_snap["l5"]["scenarios"]]
+    assert sum(probs) == 100 and len(probs) == 4
+
+
+def test_amd_no_amazon_or_nvidia_bleed(amd_snap):
+    """KB-driven engine must not leak Amazon/NVIDIA-specific copy into AMD's read."""
+    import json as _json
+    blob = _json.dumps(amd_snap, ensure_ascii=False)
+    assert "AWS discloses no AI-only line" not in blob
+    assert "Trainium/Inferentia/Graviton" not in blob
+    ben_alerts = [a for a in amd_snap["l3"]["alerts"] if "AI benefit" in a["en"]]
+    assert ben_alerts and any("Instinct" in a["en"] for a in ben_alerts)
+
+
+def test_amd_pricing_engine_note_drives_strong_alert(amd_snap):
+    strong = [a for a in amd_snap["l3"]["alerts"] if a["level"] == "strong"]
+    assert strong and "value alternative to NVIDIA" in strong[0]["en"]
+
+
 if __name__ == "__main__":
     sys.exit(pytest.main([__file__, "-q"]))
