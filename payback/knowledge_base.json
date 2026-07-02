@@ -495,7 +495,7 @@
       "name_zh": "OpenAI",
       "seed": {
         "revenue_runrate_usd_bn": {
-          "value": 20.0,
+          "value": 25,
           "tier": "NEWS",
           "source_en": "Reported annualized revenue run-rate",
           "source_zh": "報導之年化營收 run-rate",
@@ -516,14 +516,14 @@
           "source_url": "https://news.google.com/search?q=OpenAI%20cash%20burn%20losses%202026"
         },
         "funding_raised_usd_bn": {
-          "value": 60.0,
+          "value": 122,
           "tier": "NEWS",
           "source_en": "Cumulative equity raised (incl. Microsoft & later rounds)",
           "source_zh": "累計募資(含微軟與後續輪)",
           "source_url": "https://news.google.com/search?q=OpenAI%20funding%20raised%20total%202026"
         },
         "valuation_usd_bn": {
-          "value": 400.0,
+          "value": 850,
           "tier": "NEWS",
           "source_en": "Latest reported private valuation",
           "source_zh": "最新報導之私募估值",
@@ -575,14 +575,14 @@
           "source_url": "https://news.google.com/search?q=Anthropic%20cash%20burn%20losses%202026"
         },
         "funding_raised_usd_bn": {
-          "value": 30.0,
+          "value": 95,
           "tier": "NEWS",
           "source_en": "Cumulative equity raised (incl. Amazon & Google)",
           "source_zh": "累計募資(含 Amazon 與 Google)",
           "source_url": "https://news.google.com/search?q=Anthropic%20funding%20raised%20total%202026"
         },
         "valuation_usd_bn": {
-          "value": 200.0,
+          "value": 965,
           "tier": "NEWS",
           "source_en": "Latest reported private valuation",
           "source_zh": "最新報導之私募估值",
