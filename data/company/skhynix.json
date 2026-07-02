@@ -1,0 +1,667 @@
+{
+  "slug": "skhynix",
+  "generated_at": "2026-07-02 16:39 UTC",
+  "as_of": "2026-07-02",
+  "source": "live",
+  "stale_fetch_ids": [],
+  "is_demo": false,
+  "company": {
+    "name_en": "SK hynix",
+    "name_zh": "SK海力士",
+    "ticker": "000660.KS",
+    "segment_en": "The owner of the AI build-out's binding constraint — ~50-60% of HBM (EST), sold out through 2026, and the ONLY Tier-V name that is TSMC's complement rather than TSMC's customer",
+    "segment_zh": "AI 建置綁定約束的擁有者 — 約 50-60% 的 HBM 市占（估計），2026 全年售罄，也是 Tier V 七家中唯一「台積電的互補者、而非台積電的客戶」",
+    "blurb_en": "Four pillars on the memory company the platform's own findings converge on: how SK hynix raises realized compute price (HBM3E→HBM4 generational ASP · sold-out LTA allocation · custom base dies · conventional-DRAM spillover) with NAND honestly weak and Samsung/Micron/CXMT pushing back · what to watch it with · its ~$25B HBM run-rate (DERIVED estimate) inside disclosed total revenue · and the twist: memory dies never touch a TSMC fab, yet TSMC CoWoS and SK HBM gate each other — 互補而非客戶.",
+    "blurb_zh": "對「平台自身結論所收斂的那家記憶體公司」的四支柱：SK海力士怎麼提高已實現算力售價（HBM3E→HBM4 世代 ASP · 售罄的 LTA 配額 · 客製 base die · 傳統 DRAM 外溢），NAND 誠實地弱、三星/美光/CXMT 反推 · 用什麼觀察 · 其 ~$25B HBM 年化（推導估計）藏在已揭露總營收內 · 以及反轉：記憶體晶粒從不進台積電晶圓廠，但台積電 CoWoS 與 SK HBM 互相把關 — 互補而非客戶。"
+  },
+  "thesis_en": "SK hynix owns the thing everyone else on this board queues for: /bottleneck names HBM supply the binding constraint of deliverable compute (1.72M B200-eq accelerators/qtr, 對齊 /bottleneck 2026-07-02), and SK hynix holds ~50-60% of HBM (EST). Realized price rises through the HBM3E 12-hi → HBM4 generational ASP ladder (HBM4 premium ~50-60%, press EST), capacity sold out through 2026 under year-ahead LTAs, custom base-die co-design, and conventional-DRAM tightening as AI absorbs wafers. Honest drags: NAND is a weak lever, and Samsung/Micron catch-up plus CXMT (the /geo China-DRAM thread) is structural — memory pricing power is cyclical, so the score sits at 71.4, below NVDA 75.0 / AVGO 73.8 (full-stack price-setters) and above AMD 68.3. The TSMC twist: SK hynix is a COMPLEMENT, not a customer — its stacks are consumed on TSMC CoWoS interposers, the two gate each other, and only the HBM4 base die makes it a TSMC logic customer at all. Its capacity ramp RELIEVES the platform's binding constraint.",
+  "thesis_zh": "SK海力士擁有這個平台上其他所有人都在排隊等的東西：/bottleneck 判定 HBM 供給是可交付算力的綁定約束（每季 172 萬顆 B200 當量加速器，對齊 /bottleneck 2026-07-02），而 SK海力士握有約 50-60% 的 HBM（估計）。已實現價格靠 HBM3E 12層 → HBM4 的世代 ASP 階梯（HBM4 溢價約 50-60%，媒體估計）、2026 全年在一年期 LTA 下售罄的產能、客製 base die 共同設計、以及 AI 吸走晶圓後傳統 DRAM 的緊縮外溢推升。誠實的拖累：NAND 是弱槓桿，三星/美光追趕加上 CXMT（/geo 的中國 DRAM 線）是結構性的 — 記憶體定價權有循環性，因此分數 71.4，低於 NVDA 75.0／AVGO 73.8（全堆疊定價者）、高於 AMD 68.3。台積電反轉：SK海力士是互補者、不是客戶 — 它的堆疊在台積電 CoWoS 中介層上被消耗，兩者互相把關，只有 HBM4 base die 讓它勉強成為台積電邏輯客戶。它的產能爬坡「紓解」的正是平台的綁定約束。",
+  "headline": {
+    "compute_pricing_score": 71.4,
+    "verdict_key": "raising",
+    "verdict_en": "RAISING — realized compute price expanding",
+    "verdict_zh": "RAISING — 已實現算力售價擴張",
+    "ai_benefit_usd_bn": 25.0,
+    "ai_benefit_metric": "revenue_runrate",
+    "tsmc_exposure_pct": 15
+  },
+  "pillars": {
+    "pricing": {
+      "score": 71.4,
+      "verdict_key": "raising",
+      "verdict_en": "RAISING — realized compute price expanding",
+      "verdict_zh": "RAISING — 已實現算力售價擴張",
+      "levers": [
+        {
+          "id": "hbm_generational_asp",
+          "name_en": "HBM generational ASP ladder (HBM3E 12-hi → HBM4)",
+          "name_zh": "HBM 世代 ASP 階梯（HBM3E 12層 → HBM4）",
+          "mechanism_en": "Each HBM generation resets price far above the one it replaces: HBM3E 8-hi → 12-hi (36GB) stepped ASP up, and HBM4 (2,048-bit I/O, 12-hi first, mass-production readiness completed Sep 2025) is press-reported to carry a ~50-60% premium over HBM3E (EST). Because every next-gen accelerator (Rubin, MI400) REQUIRES the next HBM generation, the mix forcibly migrates to the highest-ASP part — realized $/GB rises even as commodity DRAM $/GB deflates long-run.",
+          "mechanism_zh": "每一代 HBM 都把價格重置到遠高於上一代：HBM3E 8層 → 12層（36GB）已把 ASP 推上一階，HBM4（2,048-bit I/O、12層先行、2025 年 9 月完成量產準備）據媒體報導對 HBM3E 有約 50-60% 溢價（估計）。因為每一代新加速器（Rubin、MI400）都「必須」用下一代 HBM，產品組合被迫遷移到最高 ASP 的產品 — 即使商品 DRAM 每 GB 長期通縮，已實現 $/GB 仍上升。",
+          "direction": "up",
+          "strength": 86.0,
+          "weight": 1.3,
+          "tier": "T2",
+          "is_estimate": true,
+          "observability_en": "HBM4 vs HBM3E price-premium estimates (TrendForce-class), DRAM revenue ÷ bit shipments (blended ASP) in quarterly results, HBM share-of-DRAM-revenue commentary.",
+          "observability_zh": "HBM4 vs HBM3E 溢價估計（TrendForce 級）、季報 DRAM 營收 ÷ 位元出貨（混合 ASP）、HBM 占 DRAM 營收比例的法說評論。",
+          "source_en": "SK hynix earnings; TrendForce HBM pricing research",
+          "source_zh": "SK海力士法說；TrendForce HBM 價格研究",
+          "source_url": "https://www.trendforce.com/"
+        },
+        {
+          "id": "capacity_allocation_lta",
+          "name_en": "Sold-out allocation power (year-ahead LTAs, 2026 capacity gone)",
+          "name_zh": "售罄的配額權力（一年期 LTA，2026 產能已清空）",
+          "mechanism_en": "Management disclosed 2026 HBM capacity is effectively SOLD OUT via year-ahead long-term agreements negotiated with each customer — with prepayment/commitment structures press-reported for anchor buyers (T3). When the constraint's owner allocates rather than bids, price is set at negotiation, not eroded through the year — the memory version of NVIDIA's scarcity premium, and the strongest hard-disclosed lever.",
+          "mechanism_zh": "管理層揭露 2026 年 HBM 產能已透過與各客戶逐一議定的一年期長約實質售罄 — 錨定買家的預付/承諾結構有媒體報導（T3）。當約束的擁有者用「分配」而非「競價」出貨，價格在議約時就定好、不會在年中被侵蝕 — 這是 NVIDIA 稀缺溢價的記憶體版本，也是揭露基礎最硬的槓桿。",
+          "direction": "up",
+          "strength": 84.0,
+          "weight": 1.2,
+          "tier": "T1",
+          "is_estimate": false,
+          "observability_en": "Sold-out language on earnings calls, LTA/prepayment disclosures and press reports, HBM capex guidance (M15X ramp), customer inventory-commitment lines in NVIDIA/AMD filings.",
+          "observability_zh": "法說會的「售罄」措辭、LTA／預付揭露與報導、HBM capex 指引（M15X 爬坡）、NVIDIA/AMD 財報中的客戶存貨承諾項。",
+          "source_en": "SK hynix earnings calls / IR",
+          "source_zh": "SK海力士法說會／IR",
+          "source_url": "https://www.skhynix.com/ir/"
+        },
+        {
+          "id": "conventional_dram_spillover",
+          "name_en": "Conventional-DRAM tightening spillover (AI absorbs the wafers)",
+          "name_zh": "傳統 DRAM 緊縮外溢（AI 吸走晶圓）",
+          "mechanism_en": "HBM consumes ~3x the wafer area per bit of standard DRAM, so every HBM ramp removes conventional supply. With AI servers also pulling DDR5/MRDIMM, server-DRAM contract prices surged through late 2025 into 2026 (TrendForce-class indices) — a memory supercycle where the SAME fabs earn more on both the AI product and the starved commodity one. This lever is cyclical: it mean-reverts when capex catches up.",
+          "mechanism_zh": "HBM 每位元耗掉約 3 倍於標準 DRAM 的晶圓面積，因此每次 HBM 爬坡都在抽走傳統供給。加上 AI 伺服器同步拉動 DDR5/MRDIMM，伺服器 DRAM 合約價自 2025 年末漲進 2026（TrendForce 級指數）— 一場記憶體超級循環：同一批晶圓廠在 AI 產品與被抽乾的商品產品上同時多賺。此槓桿有循環性：capex 追上時會均值回歸。",
+          "direction": "up",
+          "strength": 76.0,
+          "weight": 1.0,
+          "tier": "T2",
+          "is_estimate": false,
+          "observability_en": "DRAM contract & spot price indices (TrendForce/DRAMeXchange), server-DDR5 contract-price QoQ moves, DRAM revenue mix in quarterly results.",
+          "observability_zh": "DRAM 合約與現貨價指數（TrendForce/DRAMeXchange）、伺服器 DDR5 合約價季環比、季報中的 DRAM 營收結構。",
+          "source_en": "TrendForce / DRAMeXchange price indices",
+          "source_zh": "TrendForce／DRAMeXchange 價格指數",
+          "source_url": "https://www.dramexchange.com/"
+        },
+        {
+          "id": "custom_base_die",
+          "name_en": "Custom / base-die differentiation (HBM4 base die → logic process)",
+          "name_zh": "客製／base die 差異化（HBM4 base die → 邏輯製程）",
+          "mechanism_en": "From HBM4 the base (logic) die moves to a foundry logic process — SK hynix partnered with TSMC (2024 MOU) to build it, and custom-HBM programs co-design that die with the accelerator vendor (controller/PHY functions pulled in). Customization converts a commodity stack into a socketed, co-engineered part: switching costs rise, second-sourcing gets harder, and value capture per stack goes up — the same 'custom silicon' economics Broadcom runs, applied to memory.",
+          "mechanism_zh": "從 HBM4 起，base（邏輯）die 移到晶圓代工邏輯製程 — SK海力士與台積電合作（2024 MOU）生產，而客製 HBM 專案更與加速器廠商共同設計該晶粒（把控制器/PHY 功能拉進來）。客製化把商品化的堆疊變成有插槽、共同工程的零件：轉換成本上升、第二供應商更難、每個堆疊的價值捕獲提高 — 等於把博通的「客製矽」經濟學搬進記憶體。",
+          "direction": "up",
+          "strength": 74.0,
+          "weight": 1.0,
+          "tier": "T2",
+          "is_estimate": true,
+          "observability_en": "TSMC-SK hynix base-die partnership milestones, custom-HBM design-win announcements, base-die node attribution in teardowns (TechInsights).",
+          "observability_zh": "台積電-SK海力士 base die 合作里程碑、客製 HBM 設計勝出公告、拆解報告中的 base die 節點歸因（TechInsights）。",
+          "source_en": "SK hynix-TSMC partnership announcement; trade press",
+          "source_zh": "SK海力士-台積電合作公告；產業媒體",
+          "source_url": "https://news.skhynix.com/"
+        },
+        {
+          "id": "competitor_catchup_pressure",
+          "name_en": "Samsung / Micron / CXMT catch-up (negative lever)",
+          "name_zh": "三星／美光／CXMT 追趕（負向槓桿）",
+          "mechanism_en": "The share that underwrites allocation power is under structural attack: Samsung is pushing HBM4 requalification to reclaim share, Micron is ramping HBM3E/HBM4 capacity, and CXMT — the China-DRAM catch-up thread /geo tracks (對齊 /geo 2026-07-02) — floods conventional DRAM first and aims at HBM next. Every point of share lost weakens the sold-out LTA lever; memory history says duopoly-plus-one premiums compress once a third qualified source ships at volume.",
+          "mechanism_zh": "支撐配額權力的市占正受結構性攻擊：三星力推 HBM4 重新驗證以奪回市占，美光加速 HBM3E/HBM4 產能，而 CXMT — /geo 追蹤的中國 DRAM 追趕線（對齊 /geo 2026-07-02）— 先淹沒傳統 DRAM、下一步瞄準 HBM。每失一個百分點市占，售罄 LTA 槓桿就弱一分；記憶體歷史說明：一旦第三家通過驗證的供應商量產出貨，雙寡頭加一的溢價就會壓縮。",
+          "direction": "down",
+          "strength": 40.0,
+          "weight": 0.9,
+          "tier": "T2",
+          "is_estimate": true,
+          "observability_en": "NVIDIA/AMD HBM qualification news per vendor, TrendForce HBM share estimates, CXMT capacity/node reports (/geo second-chain read), Samsung HBM4 milestones.",
+          "observability_zh": "各家 HBM 通過 NVIDIA/AMD 驗證的新聞、TrendForce HBM 市占估計、CXMT 產能/節點報導（/geo 第二供應鏈判讀）、三星 HBM4 里程碑。",
+          "source_en": "TrendForce; trade press; /geo alignment",
+          "source_zh": "TrendForce；產業媒體；對齊 /geo",
+          "source_url": "https://www.trendforce.com/"
+        },
+        {
+          "id": "nand_weak_lever",
+          "name_en": "NAND / eSSD (Solidigm) — the honestly weak lever",
+          "name_zh": "NAND／eSSD（Solidigm）— 誠實的弱槓桿",
+          "mechanism_en": "AI data centers do lift high-capacity eSSD demand (QLC nearline via Solidigm), and NAND pricing recovered into 2026 — but NAND has more suppliers, weaker technology stratification and no HBM-style qualification moat. SK hynix takes price here more than it makes price. Kept in the stack for honesty: it dilutes, not drives, the blended realized-price story.",
+          "mechanism_zh": "AI 資料中心確實拉動大容量 eSSD 需求（Solidigm 的 QLC 近線儲存），NAND 價格也回升進 2026 — 但 NAND 供應商更多、技術分層更弱、沒有 HBM 式的驗證護城河。SK海力士在這裡接受價格多於制定價格。為誠實而保留在堆疊中：它稀釋、而非推動混合已實現價格的故事。",
+          "direction": "up",
+          "strength": 50.0,
+          "weight": 0.6,
+          "tier": "T2",
+          "is_estimate": true,
+          "observability_en": "NAND contract price indices, eSSD share commentary, Solidigm results inside SK hynix consolidated filings.",
+          "observability_zh": "NAND 合約價指數、eSSD 市占評論、SK海力士合併報表內的 Solidigm 表現。",
+          "source_en": "TrendForce NAND research; SK hynix filings",
+          "source_zh": "TrendForce NAND 研究；SK海力士財報",
+          "source_url": "https://www.trendforce.com/"
+        }
+      ],
+      "top_lever_id": "hbm_generational_asp",
+      "engine_note_en": "the HBM3E→HBM4 generational ASP ladder plus sold-out, LTA-locked allocation are doing the work — the constraint's owner prices the queue rather than chasing it, though memory cyclicality and Samsung/Micron/CXMT catch-up cap how far",
+      "engine_note_zh": "HBM3E→HBM4 世代 ASP 階梯加上售罄、LTA 鎖定的配額在推動 — 約束的擁有者替排隊的人定價、而非追價，但記憶體循環性與三星/美光/CXMT 追趕限制其上限"
+    },
+    "sources": {
+      "items": [
+        {
+          "name_en": "SK hynix quarterly results (KRX/DART filings)",
+          "name_zh": "SK海力士季報（KRX／DART 申報）",
+          "what_en": "Total & DRAM revenue, operating profit, HBM share-of-DRAM commentary — the hard floor for the benefit math; note: NO HBM segment line is reported.",
+          "what_zh": "總營收與 DRAM 營收、營業利益、HBM 占 DRAM 比例的評論 — 利益推導的硬底；注意：並無 HBM 分部揭露項。",
+          "tier": "T1",
+          "cadence": "quarterly",
+          "access_en": "free (DART / IR site)",
+          "access_zh": "免費（DART／IR 網站）",
+          "url": "https://www.skhynix.com/ir/"
+        },
+        {
+          "name_en": "SK hynix earnings calls & IR presentations",
+          "name_zh": "SK海力士法說會與投資人簡報",
+          "what_en": "Sold-out / LTA language, HBM4 ramp timing, capex framing, custom-HBM commentary — where the allocation-power lever is actually disclosed.",
+          "what_zh": "「售罄」／LTA 措辭、HBM4 爬坡時程、capex 框架、客製 HBM 評論 — 配額權力槓桿真正被揭露的地方。",
+          "tier": "T1",
+          "cadence": "quarterly",
+          "access_en": "free (IR site)",
+          "access_zh": "免費（IR 網站）",
+          "url": "https://www.skhynix.com/ir/"
+        },
+        {
+          "name_en": "DRAM contract & spot price indices (TrendForce / DRAMeXchange)",
+          "name_zh": "DRAM 合約與現貨價指數（TrendForce／DRAMeXchange）",
+          "what_en": "Server-DDR5 contract price moves and DRAM spot — the conventional-spillover lever's direct gauge, and /pricing's memory-premium input (對齊 /pricing 2026-07-02).",
+          "what_zh": "伺服器 DDR5 合約價變動與 DRAM 現貨 — 傳統外溢槓桿的直接量規，也是 /pricing 記憶體溢價的輸入（對齊 /pricing 2026-07-02）。",
+          "tier": "T2",
+          "cadence": "monthly",
+          "access_en": "paid research / press summaries",
+          "access_zh": "付費研究／媒體摘要",
+          "url": "https://www.dramexchange.com/"
+        },
+        {
+          "name_en": "HBM market-share estimates (TrendForce / Counterpoint)",
+          "name_zh": "HBM 市占估計（TrendForce／Counterpoint）",
+          "what_en": "The ~50-60% SK hynix HBM share (EST) that underwrites allocation power — third-party estimates, no vendor reports HBM share.",
+          "what_zh": "支撐配額權力的 SK海力士約 50-60% HBM 市占（估計）— 全為第三方估計，沒有任何一家廠商揭露 HBM 市占。",
+          "tier": "T2",
+          "cadence": "quarterly",
+          "access_en": "paid research / press",
+          "access_zh": "付費研究／媒體",
+          "url": "https://www.trendforce.com/"
+        },
+        {
+          "name_en": "Capex guidance & fab construction (M15X, Yongin)",
+          "name_zh": "Capex 指引與晶圓廠建設（M15X、龍仁）",
+          "what_en": "HBM capacity ramp = the relief valve on the platform's binding constraint — M15X (Cheongju) and the Yongin cluster set how fast the HBM ceiling lifts (對齊 /bottleneck 2026-07-02).",
+          "what_zh": "HBM 產能爬坡＝平台綁定約束的洩壓閥 — M15X（清州）與龍仁聚落決定 HBM 天花板抬升多快（對齊 /bottleneck 2026-07-02）。",
+          "tier": "T1",
+          "cadence": "quarterly/on-event",
+          "access_en": "free (IR / press)",
+          "access_zh": "免費（IR／新聞）",
+          "url": "https://news.skhynix.com/"
+        },
+        {
+          "name_en": "LTA / prepayment disclosures & customer commitments",
+          "name_zh": "LTA／預付揭露與客戶承諾",
+          "what_en": "Year-ahead HBM agreements, press-reported prepayments, and the purchase-commitment lines in NVIDIA/AMD filings — the demand side of the sold-out claim.",
+          "what_zh": "一年期 HBM 協議、媒體報導的預付款、以及 NVIDIA/AMD 財報中的採購承諾項 — 「售罄」宣稱的需求端證據。",
+          "tier": "T3",
+          "cadence": "on-event",
+          "access_en": "free (filings / press)",
+          "access_zh": "免費（財報／新聞）",
+          "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=NVDA&type=10-Q"
+        },
+        {
+          "name_en": "Teardowns & die attribution (TechInsights)",
+          "name_zh": "拆解與晶粒歸因（TechInsights）",
+          "what_en": "Which vendor's HBM sits on which accelerator, stack height, and base-die node attribution — the ground truth behind share and custom-die claims.",
+          "what_zh": "哪家的 HBM 落在哪顆加速器上、堆疊層數、base die 節點歸因 — 市占與客製晶粒宣稱背後的實物真相。",
+          "tier": "T2",
+          "cadence": "periodic",
+          "access_en": "paid research",
+          "access_zh": "付費研究",
+          "url": "https://www.techinsights.com/"
+        },
+        {
+          "name_en": "SK hynix equity 000660.KS (yfinance)",
+          "name_zh": "SK海力士股價 000660.KS（yfinance）",
+          "what_en": "Live KRX price — the market's real-time read on the memory supercycle. Sentiment context only, kept OUT of the pricing-power score.",
+          "what_zh": "KRX 即時股價 — 市場對記憶體超級循環的即時判讀。僅屬情緒情境，排除在定價權分數之外。",
+          "tier": "T1",
+          "cadence": "daily",
+          "access_en": "free (yfinance)",
+          "access_zh": "免費（yfinance）",
+          "url": "https://finance.yahoo.com/quote/000660.KS/"
+        }
+      ]
+    },
+    "benefit": {
+      "estimates": [
+        {
+          "id": "hbm_runrate",
+          "method_en": "HBM revenue run-rate (derived from disclosed share math)",
+          "method_zh": "HBM 營收年化（由揭露的比例推導）",
+          "value_usd_bn": 25.0,
+          "metric": "revenue_runrate",
+          "confidence": "medium",
+          "tier": "T2",
+          "is_estimate": true,
+          "basis_en": "SK hynix reports NO HBM line. Derivation: total revenue run-rate ~$78B (annualized, KRW→USD) × DRAM ~80% of revenue ≈ $62B × HBM ~40% of DRAM revenue (management commentary) ≈ mid-$20Bs — carried at $25B, an ESTIMATE built from three disclosed/commented ratios. This is the revenue of the platform's binding constraint (對齊 /bottleneck 2026-07-02).",
+          "basis_zh": "SK海力士沒有 HBM 揭露項。推導：總營收年化約 $78B（年化、韓元→美元）× DRAM 約占營收 80% ≈ $62B × HBM 約占 DRAM 營收 40%（管理層評論）≈ $25B 上下 — 取 $25B，為由三個揭露/評論比例組成的估計值。這正是平台綁定約束的營收（對齊 /bottleneck 2026-07-02）。"
+        },
+        {
+          "id": "total_runrate",
+          "method_en": "Total revenue run-rate (disclosed, annualized KRW→USD)",
+          "method_zh": "總營收年化（揭露值，年化韓元→美元）",
+          "value_usd_bn": 78.0,
+          "metric": "total_runrate",
+          "confidence": "high",
+          "tier": "T1",
+          "is_estimate": false,
+          "basis_en": "Annualizing the most recent disclosed quarter (~₩27T-class) at ~₩1,400/USD gives a ~$78B total run-rate — the disclosed anchor under the HBM derivation. Only the annualization and FX conversion are mechanical projections; the quarter itself is reported.",
+          "basis_zh": "把最近一季揭露值（約 ₩27T 級）以約 ₩1,400/USD 年化，得總營收年化約 $78B — HBM 推導底下的揭露錨點。年化與匯率換算是機械性推算；季度本身為申報值。"
+        },
+        {
+          "id": "hbm_op_income",
+          "method_en": "HBM operating-income lens (margin estimate)",
+          "method_zh": "HBM 營業利益視角（利潤率估計）",
+          "value_usd_bn": 14.0,
+          "metric": "op_income",
+          "confidence": "low",
+          "tier": "T3",
+          "is_estimate": true,
+          "basis_en": "Analyst-class estimates put HBM operating margin near ~55-60% given negotiated LTA pricing — on a $25B run-rate that annualizes to ~$14B of operating income. Doubly estimated (revenue derived, margin estimated); a directional lens on how profitable owning the constraint is, not a reported figure.",
+          "basis_zh": "分析師級估計認為在議定 LTA 價格下 HBM 營業利益率約 55-60% — 以 $25B 年化計約 $14B 營業利益。雙重估計（營收為推導、利潤率為估計）；用來看「擁有約束有多賺」的方向性視角，非申報數字。"
+        }
+      ],
+      "headline_id": "hbm_runrate",
+      "headline_usd_bn": 25.0,
+      "headline_metric": "revenue_runrate",
+      "headline_is_estimate": true,
+      "consensus_usd_bn": 25.0,
+      "disclosure_note_en": "SK hynix disclosures give total and DRAM revenue plus 'HBM ≈ 40% of DRAM revenue' commentary — but NO HBM segment line exists. The ~$25B headline is DERIVED from those disclosed ratios, an estimate cross-checked against the disclosed $78B total run-rate and an op-income lens.",
+      "disclosure_note_zh": "SK海力士的揭露給出總營收、DRAM 營收與「HBM 約占 DRAM 營收 40%」的評論 — 但不存在 HBM 分部揭露項。~$25B 頭條是由這些揭露比例「推導」的估計值，並以揭露的 $78B 總營收年化與營益視角交叉驗證。"
+    },
+    "silicon": {
+      "chain": [
+        {
+          "accelerator_en": "HBM4 (12-hi, base die on TSMC logic)",
+          "accelerator_zh": "HBM4（12層，base die 走台積電邏輯製程）",
+          "role_en": "Next-gen HBM for Rubin / MI400-class accelerators",
+          "role_zh": "供 Rubin／MI400 級加速器的次世代 HBM",
+          "designer": "SK hynix (base die co-designed)",
+          "node": "1c DRAM (EUV) + TSMC logic base die (node EST)",
+          "packaging": "Advanced MR-MUF (hybrid-bonding path)",
+          "fab": "SK hynix (DRAM) + TSMC (base die)",
+          "dependency": "critical",
+          "tier": "T2",
+          "is_estimate": true,
+          "note_en": "The one thread where SK hynix IS a TSMC customer: from HBM4 the base die moves to a foundry logic process under the 2024 TSMC partnership (announced-class, T2). DRAM core dies stay in SK hynix's own fabs.",
+          "note_zh": "SK海力士唯一「成為台積電客戶」的一條線：自 HBM4 起，base die 依 2024 年與台積電的合作移到代工邏輯製程（公告級，T2）。DRAM 核心晶粒仍留在 SK海力士自家晶圓廠。"
+        },
+        {
+          "accelerator_en": "HBM3E 12-hi (36GB)",
+          "accelerator_zh": "HBM3E 12層（36GB）",
+          "role_en": "Current flagship stack (GB300 / MI355X class)",
+          "role_zh": "當前旗艦堆疊（GB300／MI355X 級）",
+          "designer": "SK hynix",
+          "node": "1b DRAM",
+          "packaging": "Advanced MR-MUF",
+          "fab": "SK hynix (Icheon / M15X Cheongju)",
+          "dependency": "critical",
+          "tier": "T1",
+          "is_estimate": false,
+          "note_en": "The volume product of the constraint: lead supplier position on NVIDIA's newest accelerators. Never touches a TSMC fab — but every stack is consumed on a TSMC CoWoS interposer.",
+          "note_zh": "約束的量產主力：在 NVIDIA 最新加速器上居主力供應商地位。從不進台積電晶圓廠 — 但每個堆疊都在台積電 CoWoS 中介層上被消耗。"
+        },
+        {
+          "accelerator_en": "CoWoS-mounted HBM (GB200/GB300 · MI355X · TPU)",
+          "accelerator_zh": "CoWoS 上的 HBM（GB200/GB300 · MI355X · TPU）",
+          "role_en": "Where the stacks are consumed — the complement link",
+          "role_zh": "堆疊被消耗之處 — 互補環節",
+          "designer": "NVIDIA / AMD / Google (accelerators); SK hynix (stacks)",
+          "node": "interposer-level integration",
+          "packaging": "TSMC CoWoS-L / CoWoS-S",
+          "fab": "TSMC (advanced packaging)",
+          "dependency": "critical",
+          "tier": "T2",
+          "is_estimate": true,
+          "note_en": "The mutual gate: TSMC CoWoS capacity and SK hynix HBM supply cap EACH OTHER — /bottleneck finds HBM binding at 1.72M B200-eq accelerators/qtr (對齊 /bottleneck 2026-07-02), and /racks itemizes the stacks per rack. Neither side ships without the other.",
+          "note_zh": "互相把關：台積電 CoWoS 產能與 SK海力士 HBM 供給互為上限 — /bottleneck 判定 HBM 綁定在每季 172 萬顆 B200 當量（對齊 /bottleneck 2026-07-02），/racks 則逐櫃列出堆疊用量。缺了任何一邊，另一邊都出不了貨。"
+        },
+        {
+          "accelerator_en": "HBM3E 8-hi / HBM3 (installed base)",
+          "accelerator_zh": "HBM3E 8層／HBM3（已裝機基礎）",
+          "role_en": "Prior-gen stacks (H100/H200/MI300 class)",
+          "role_zh": "前代堆疊（H100/H200/MI300 級）",
+          "designer": "SK hynix",
+          "node": "1a/1b DRAM",
+          "packaging": "MR-MUF",
+          "fab": "SK hynix (Icheon)",
+          "dependency": "high",
+          "tier": "T1",
+          "is_estimate": false,
+          "note_en": "The generation that built the HBM lead — first to qualify at NVIDIA in volume, establishing the qualification moat the current allocation power rests on.",
+          "note_zh": "建立 HBM 領先的一代 — 最早在 NVIDIA 大規模通過驗證，奠定了今日配額權力所依賴的驗證護城河。"
+        },
+        {
+          "accelerator_en": "Server DDR5 / MRDIMM (conventional DRAM)",
+          "accelerator_zh": "伺服器 DDR5／MRDIMM（傳統 DRAM）",
+          "role_en": "AI-server host memory + spillover lever",
+          "role_zh": "AI 伺服器主記憶體＋外溢槓桿",
+          "designer": "SK hynix",
+          "node": "1b/1c DRAM",
+          "packaging": "module (RDIMM/MRDIMM)",
+          "fab": "SK hynix (Icheon / Wuxi)",
+          "dependency": "high",
+          "tier": "T1",
+          "is_estimate": false,
+          "note_en": "Every AI server carries TBs of host DRAM; HBM's wafer absorption tightens this market too. Also the first line CXMT attacks (/geo second-chain read, 對齊 2026-07-02).",
+          "note_zh": "每台 AI 伺服器都載著數 TB 主記憶體；HBM 吸走晶圓也讓這個市場變緊。同時是 CXMT 最先進攻的產品線（/geo 第二供應鏈判讀，對齊 2026-07-02）。"
+        },
+        {
+          "accelerator_en": "eSSD / NAND (Solidigm QLC nearline)",
+          "accelerator_zh": "eSSD／NAND（Solidigm QLC 近線）",
+          "role_en": "AI data-lake storage — the weak lever",
+          "role_zh": "AI 資料湖儲存 — 弱槓桿",
+          "designer": "SK hynix / Solidigm",
+          "node": "238L+ NAND",
+          "packaging": "eSSD",
+          "fab": "SK hynix / Solidigm (Dalian)",
+          "dependency": "medium",
+          "tier": "T2",
+          "is_estimate": true,
+          "note_en": "AI lifts high-capacity eSSD demand, but NAND lacks HBM's qualification moat — included for honesty; it dilutes the blended pricing story.",
+          "note_zh": "AI 拉動大容量 eSSD 需求，但 NAND 沒有 HBM 的驗證護城河 — 為誠實而列入；它稀釋混合定價故事。"
+        }
+      ],
+      "tsmc_exposure_pct": 15,
+      "tsmc_fabbed_count": 1,
+      "chain_count": 6,
+      "critical_count": 3,
+      "tsmc_read_en": "SK hynix is a COMPLEMENT, not a customer — 互補而非客戶, unique among the seven lenses. Its DRAM stacks come from its own fabs (~15% TSMC exposure, EST, via the HBM4 base die on TSMC logic under the 2024 partnership). Yet no TSMC CoWoS interposer ships without HBM and no HBM stack earns without CoWoS: the two gate EACH OTHER, and /bottleneck names HBM the binding constraint on deliverable compute (1.72M B200-eq/qtr, 對齊 /bottleneck 2026-07-02). The Liebig insight for a foundry CEO: SK hynix's capacity ramp (M15X, Yongin) RELIEVES the platform's binding constraint — its capex is the one outside TSMC's walls that most directly monetizes TSMC's own CoWoS buildout, while CXMT (/geo) is the shared long-run threat.",
+      "tsmc_read_zh": "SK海力士是互補者、不是客戶 — 互補而非客戶，七個鏡頭中獨一無二。其 DRAM 堆疊出自自家晶圓廠（台積電曝險約 15%，估計，來自 2024 年合作下走台積電邏輯製程的 HBM4 base die）。但沒有 HBM，台積電的 CoWoS 中介層出不了貨；沒有 CoWoS，HBM 堆疊也賺不到錢：兩者互相把關，而 /bottleneck 判定 HBM 是可交付算力的綁定約束（每季 172 萬顆 B200 當量，對齊 /bottleneck 2026-07-02）。給晶圓代工 CEO 的 Liebig 洞見：SK海力士的產能爬坡（M15X、龍仁）「紓解」的正是平台的綁定約束 — 它是台積電牆外最直接把台積電自家 CoWoS 擴建變現的 capex，而 CXMT（/geo）是雙方共同的長期威脅。"
+    }
+  },
+  "l3": {
+    "proxies": [
+      {
+        "id": "skhynix_equity",
+        "name_en": "SK hynix (000660.KS)",
+        "name_zh": "SK海力士（000660.KS）",
+        "kind": "equity",
+        "value": 2560000.0,
+        "chg_1w": -2.33,
+        "chg_1m": 8.34,
+        "live": true
+      },
+      {
+        "id": "nvda_equity",
+        "name_en": "NVIDIA (NVDA) — anchor-customer demand proxy",
+        "name_zh": "NVIDIA（NVDA）— 錨定客戶需求 proxy",
+        "kind": "equity",
+        "value": 193.35,
+        "chg_1w": -1.22,
+        "chg_1m": -13.12,
+        "live": true
+      },
+      {
+        "id": "mu_equity",
+        "name_en": "Micron (MU) — HBM-competition proxy",
+        "name_zh": "美光（MU）— HBM 競爭 proxy",
+        "kind": "equity",
+        "value": 968.71,
+        "chg_1w": -20.18,
+        "chg_1m": -8.96,
+        "live": true
+      }
+    ],
+    "alerts": [
+      {
+        "level": "strong",
+        "en": "Realized-price engine running hot: pricing-power score 71.4/100 — the HBM3E→HBM4 generational ASP ladder plus sold-out, LTA-locked allocation are doing the work — the constraint's owner prices the queue rather than chasing it, though memory cyclicality and Samsung/Micron/CXMT catch-up cap how far.",
+        "zh": "已實現價格引擎火熱：定價權分數 71.4/100 — HBM3E→HBM4 世代 ASP 階梯加上售罄、LTA 鎖定的配額在推動 — 約束的擁有者替排隊的人定價、而非追價，但記憶體循環性與三星/美光/CXMT 追趕限制其上限。"
+      },
+      {
+        "level": "watch",
+        "en": "GPU-scarcity proxy cooling: NVDA -13.12%/m — watch the accelerator-scarcity premium (capacity-block pricing) for follow-through.",
+        "zh": "GPU 稀缺 proxy 降溫：NVDA -13.12%/月 — 留意加速器稀缺溢價（capacity-block 定價）是否跟跌。"
+      },
+      {
+        "level": "watch",
+        "en": "AI benefit (headline est.) ≈ $25.0B revenue_runrate — SK hynix disclosures give total and DRAM revenue plus 'HBM ≈ 40% of DRAM revenue' commentary — but NO HBM segment line exists. The ~$25B headline is DERIVED from those disclosed ratios, an estimate cross-checked against the disclosed $78B total run-rate and an op-income lens.",
+        "zh": "AI 利益（頭條估計）≈ $25.0B revenue_runrate — SK海力士的揭露給出總營收、DRAM 營收與「HBM 約占 DRAM 營收 40%」的評論 — 但不存在 HBM 分部揭露項。~$25B 頭條是由這些揭露比例「推導」的估計值，並以揭露的 $78B 總營收年化與營益視角交叉驗證。"
+      }
+    ]
+  },
+  "l4": {
+    "integrated_thesis": {
+      "en": "SK hynix is the constraint's owner in AI memory: it prices the queue rather than chasing it. The realized-price engine is the HBM3E-12hi→HBM4 generational ASP ladder (~50-60% premiums) layered on sold-out, LTA-locked 2026 allocation — score 71.4, verdict RAISING. AI benefit runs at a derived ~$25B HBM revenue run-rate inside a disclosed $78B total, with a low-confidence ~$14B op-income lens. For TSMC the hook is twofold and tightening: HBM4 base dies migrate onto TSMC logic (direct advanced-node pull), and every HBM stack lands on TSMC CoWoS interposers (indirect via NVIDIA/AMD/Google). ~15% TSMC-fabbed today, but the base-die shift raises that structurally.",
+      "zh": "SK海力士是AI記憶體瓶頸的擁有者:對排隊定價而非追價。實現價引擎為HBM3E 12層→HBM4的世代ASP階梯(溢價約50-60%),疊加已售罄、LTA鎖定的2026產能——評分71.4,判定「拉升中」。AI效益以推導的HBM營收約250億美元運行,嵌於已揭露780億美元總營收中,另有低信心約140億美元營業利益視角。對台積電意義雙重且趨緊:HBM4基底晶粒移往台積電邏輯製程(直接先進製程拉動),且每顆HBM堆疊皆落於台積電CoWoS中介層(經NVIDIA/AMD/Google間接)。今約15%由台積電代工,基底晶粒轉移將結構性推升此占比。"
+    },
+    "pillars": {
+      "pricing": {
+        "en": "Score 71.4, RAISING. Top lever is the HBM generational ASP ladder (strength 86): each node HBM3E-12hi→HBM4 carries a 50-60% premium regardless of falling $/bit list trend. Reinforced by Tier-1 sold-out allocation power (84) — 2026 capacity gone under year-ahead LTAs, letting hynix price the queue. Conventional-DRAM spillover (76) adds as AI absorbs wafers. Cap: memory cyclicality plus Samsung/Micron/CXMT catch-up (40, negative) limits how far. NAND/Solidigm remains the honestly weak lever (50).",
+        "zh": "評分71.4,拉升中。首要槓桿為HBM世代ASP階梯(強度86):每一世代HBM3E 12層→HBM4帶來50-60%溢價,無視每位元價下滑。第一級售罄配置力(84)強化之——2026產能於年前LTA下售罄,得以對排隊定價。傳統DRAM外溢(76)因AI吸走晶圓而加碼。上限:記憶體週期性加上三星/美光/長鑫追趕(40,負向)。NAND/Solidigm仍為誠實的弱槓桿(50)。"
+      },
+      "sources": {
+        "en": "Highest signal: DART/KRX quarterly filings for the disclosed $78B total and the 'HBM ≈ 40% of DRAM' commentary that anchors the derived HBM number — there is NO HBM segment line. Earnings-call LTA/prepayment disclosures confirm the sold-out lever; TrendForce/Counterpoint for HBM share and DRAM contract/spot indices; TechInsights teardowns for die attribution and base-die node; capex/fab tracking (M15X, Yongin) for supply. Cross-check NVDA/MU proxies for scarcity-premium follow-through only.",
+        "zh": "最高訊號:DART/KRX季報揭露780億美元總營收及「HBM約占DRAM營收40%」的敘述,錨定推導的HBM數字——並無HBM分部項。法說會LTA/預付款揭露確認售罄槓桿;TrendForce/Counterpoint看HBM市占與DRAM合約/現貨指數;TechInsights拆解確認晶粒歸屬與基底晶粒製程;資本支出/建廠追蹤(M15X、龍仁)看供給。NVDA/MU代理僅用於交叉確認稀缺溢價延續。"
+      },
+      "benefit": {
+        "en": "Headline ~$25B HBM revenue run-rate is an ESTIMATE, not a reported line: derived from the disclosed $78B total run-rate (high confidence, T1) times the 'HBM ≈ 40% of DRAM' ratio (medium confidence, T2), cross-checked against a low-confidence ~$14B op-income lens (T3). Consensus sits at the same $25B. Treat the total as fact and the HBM split as a well-triangulated inference — never quote it as disclosed.",
+        "zh": "約250億美元HBM營收運行為估計值,非揭露項:由已揭露780億美元總運行(高信心,T1)乘以「HBM約占DRAM 40%」比率(中信心,T2)推導,並以低信心約140億美元營業利益視角(T3)交叉驗證。市場共識同為250億美元。將總額視為事實,HBM拆分視為三角驗證推論——切勿當作揭露數字引用。"
+      },
+      "silicon": {
+        "en": "~15% TSMC-fabbed with 3 critical links. The structural shift: HBM4 base die moves from in-house to TSMC logic process — hynix DRAM (1c/EUV) stays captive but the base die becomes a direct TSMC advanced-node customer. Every HBM3E/HBM4 stack then mounts on TSMC CoWoS-L/S interposers under GB200/GB300, MI355X and TPU — indirect exposure via the accelerator makers. Advanced MR-MUF / hybrid-bonding at hynix; interposer at TSMC. This is CoWoS-HBM mutual gating in physical form.",
+        "zh": "約15%由台積電代工,3條關鍵鏈。結構性轉變:HBM4基底晶粒由自製移往台積電邏輯製程——海力士DRAM(1c/EUV)仍自產,但基底晶粒成為台積電直接先進製程客戶。每顆HBM3E/HBM4堆疊再裝於台積電CoWoS-L/S中介層,搭載於GB200/GB300、MI355X與TPU——經加速器廠間接曝險。先進MR-MUF/混合鍵合在海力士,中介層在台積電。此即CoWoS-HBM互相閘控的實體體現。"
+      }
+    },
+    "tsmc_implication": {
+      "en": "Both direct and indirect — and the balance is tilting toward direct. Today the dominant tie is indirect: hynix HBM stacks consume TSMC CoWoS interposer capacity on every leading-edge accelerator, making the two mutual gates on deliverable compute (Liebig minimum). But HBM4's base die migrating onto TSMC logic converts hynix into a direct advanced-node customer for the first time at scale. Binding constraint: CoWoS-HBM co-gating — whichever ramps slower sets shippable AI compute, so TSMC packaging throughput and hynix stack yield must be planned as one coupled system, not two.",
+      "zh": "直接與間接兼具——且天平正倒向直接。當前主導為間接:海力士HBM堆疊消耗每顆先進加速器上的台積電CoWoS中介層產能,使雙方成為可交付算力的互相閘門(李比希最小值)。但HBM4基底晶粒移往台積電邏輯製程,首度使海力士成為規模化的直接先進製程客戶。約束點:CoWoS-HBM共同閘控——較慢者決定可出貨AI算力,故台積電封裝產出與海力士堆疊良率須視為單一耦合系統規劃,而非兩者分立。"
+    }
+  },
+  "l5": {
+    "scenarios": [
+      {
+        "name_en": "HBM4 supercycle flywheel",
+        "name_zh": "HBM4超級循環飛輪",
+        "prob": 40,
+        "trigger_en": "HBM4 ramps on schedule at 50-60% premium, hynix holds ≥50% HBM share, 2027 capacity re-sells out under LTAs, DRAM contract prices stay elevated.",
+        "trigger_zh": "HBM4如期以50-60%溢價量產,海力士維持≥50%HBM市占,2027產能於LTA下再度售罄,DRAM合約價維持高位。"
+      },
+      {
+        "name_en": "CoWoS-HBM mutual gating",
+        "name_zh": "CoWoS-HBM互相閘控",
+        "prob": 28,
+        "trigger_en": "TSMC CoWoS and hynix HBM each cap the other; deliverable compute set by slower ramp, demand stays unmet, both hold pricing — volume not price is the constraint.",
+        "trigger_zh": "台積電CoWoS與海力士HBM互相封頂;可交付算力由較慢者決定,需求持續未滿足,雙方維持定價——約束為量而非價。"
+      },
+      {
+        "name_en": "Custom base-die repricing wins",
+        "name_zh": "客製基底晶粒重定價",
+        "prob": 17,
+        "trigger_en": "Co-designed HBM4 base dies on TSMC logic convert commodity stacks into socketed parts; per-stack value capture rises even as commodity DRAM cools.",
+        "trigger_zh": "台積電邏輯製程上共同設計的HBM4基底晶粒將商品堆疊轉為插槽化零件;即使商品DRAM降溫,每堆疊價值捕獲仍上升。"
+      },
+      {
+        "name_en": "Memory down-cycle / catch-up",
+        "name_zh": "記憶體下行/對手追趕",
+        "prob": 15,
+        "trigger_en": "Samsung requalifies HBM4 at scale and Micron ramps while CXMT floods DRAM; AI capex digests, HBM premiums compress, 2027 sold-out lever fails to renew.",
+        "trigger_zh": "三星規模化HBM4通過認證、美光放量、長鑫傾銷DRAM;AI資本支出消化,HBM溢價壓縮,2027售罄槓桿未能續約。"
+      }
+    ],
+    "falsification": [
+      {
+        "en": "Samsung passes NVIDIA HBM4 qualification at volume and takes ≥30% share within two quarters — the sold-out/pricing-the-queue lever breaks and ASP ladder flattens.",
+        "zh": "三星於兩季內大量通過NVIDIA HBM4認證並取得≥30%市占——售罄/對排隊定價槓桿瓦解,ASP階梯走平。"
+      },
+      {
+        "en": "DRAM contract prices reverse >20% QoQ while HBM premium narrows below ~30%, showing AI capex digestion rather than structural tightness.",
+        "zh": "DRAM合約價季減逾20%且HBM溢價收窄至約30%以下,顯示AI資本支出消化而非結構性緊俏。"
+      },
+      {
+        "en": "2027 LTA renewals slip or reprice downward, indicating hynix has lost queue-pricing power to catch-up supply.",
+        "zh": "2027 LTA續約延後或向下重定價,顯示海力士對排隊定價力已流失於追趕供給。"
+      }
+    ],
+    "watch": [
+      {
+        "en": "NVDA/MU sentiment proxies for accelerator-scarcity premium follow-through (currently NVDA -13%/m, MU -9%/m).",
+        "zh": "NVDA/MU情緒代理,追蹤加速器稀缺溢價延續(目前NVDA月-13%、MU月-9%)。",
+        "freq": "weekly"
+      },
+      {
+        "en": "TrendForce DRAM/HBM contract & spot price indices for premium and cyclicality inflection.",
+        "zh": "TrendForce DRAM/HBM合約與現貨價指數,觀察溢價與週期轉折。",
+        "freq": "monthly"
+      },
+      {
+        "en": "HBM4 qualification news at NVIDIA/AMD — Samsung/Micron pass events that erode hynix share.",
+        "zh": "NVIDIA/AMD的HBM4認證消息——三星/美光通過事件將侵蝕海力士市占。",
+        "freq": "monthly"
+      },
+      {
+        "en": "SK hynix earnings-call LTA/prepayment disclosures and 2026/2027 sold-out status.",
+        "zh": "SK海力士法說會LTA/預付款揭露及2026/2027售罄狀態。",
+        "freq": "quarterly"
+      },
+      {
+        "en": "DART/KRX filings: total run-rate and 'HBM % of DRAM' commentary anchoring the derived $25B.",
+        "zh": "DART/KRX季報:總營收運行與『HBM占DRAM%』敘述,錨定推導的250億美元。",
+        "freq": "quarterly"
+      },
+      {
+        "en": "TechInsights teardowns confirming HBM4 base-die node and TSMC attribution (direct-exposure signal).",
+        "zh": "TechInsights拆解確認HBM4基底晶粒製程與台積電歸屬(直接曝險訊號)。",
+        "freq": "per launch"
+      },
+      {
+        "en": "TSMC CoWoS capacity guidance vs hynix stack output — the mutual-gating balance point.",
+        "zh": "台積電CoWoS產能指引對比海力士堆疊產出——互相閘控的平衡點。",
+        "freq": "quarterly"
+      }
+    ]
+  },
+  "analysis_engine": "claude",
+  "cross_links": [
+    {
+      "href": "/bottleneck/",
+      "label_en": "Bottleneck Radar — HBM is the binding constraint (1.72M B200-eq/qtr); this is the company that owns it",
+      "label_zh": "瓶頸雷達 — HBM 是綁定約束（每季 172 萬顆 B200 當量）；這就是擁有它的公司"
+    },
+    {
+      "href": "/racks/",
+      "label_en": "Rack BOM Radar — the HBM stacks per rack that SK hynix supplies",
+      "label_zh": "機櫃 BOM 雷達 — SK海力士供應的每櫃 HBM 用量"
+    },
+    {
+      "href": "/geo/",
+      "label_en": "Geo second-chain — CXMT, the China catch-up threat in the HBM link",
+      "label_zh": "地緣第二供應鏈 — CXMT，HBM 環節的中國追趕威脅"
+    },
+    {
+      "href": "/pricing/",
+      "label_en": "Pricing Power Radar — the memory premium inside the same price stack",
+      "label_zh": "議價能力雷達 — 同一價格堆疊內的記憶體溢價"
+    },
+    {
+      "href": "/company/nvidia/",
+      "label_en": "NVIDIA lens — the anchor customer whose accelerators consume these stacks",
+      "label_zh": "NVIDIA 鏡頭 — 消耗這些堆疊的錨定客戶"
+    }
+  ],
+  "blind_spots_en": [
+    "SK hynix reports NO HBM segment line — the ~$25B headline is DERIVED from total revenue × DRAM share × HBM-share-of-DRAM commentary; each ratio moves quarter to quarter.",
+    "HBM market share (~50-60%) and the HBM4 price premium (~50-60%) are third-party / press estimates — no vendor discloses either.",
+    "The ~15% TSMC-exposure figure is an ESTIMATE of the TSMC-fabbed share of AI-relevant silicon value (HBM4 base die + interposer linkage), not a disclosed number; base-die node attribution is announced-class, not confirmed at part level.",
+    "LTA prepayment/take-or-pay structures are press-reported (T3); actual contract terms are confidential.",
+    "KRW→USD conversion (~₩1,400/USD) moves the dollar run-rate; live 000660.KS / NVDA / MU proxies are sentiment context, kept out of the pricing-power score."
+  ],
+  "blind_spots_zh": [
+    "SK海力士沒有 HBM 分部揭露項 — ~$25B 頭條是由總營收 × DRAM 占比 × HBM 占 DRAM 比例的評論「推導」而來；每個比例逐季變動。",
+    "HBM 市占（約 50-60%）與 HBM4 溢價（約 50-60%）皆為第三方／媒體估計 — 沒有任何廠商揭露。",
+    "台積電曝險約 15% 為對 AI 相關矽價值中台積電製造占比的估計（HBM4 base die＋中介層連結），非揭露數字；base die 節點歸因為公告級、未在零件層級確認。",
+    "LTA 預付／take-or-pay 結構為媒體報導（T3）；實際合約條款屬機密。",
+    "韓元→美元換算（約 ₩1,400/USD）會移動美元年化；即時 000660.KS／NVDA／MU proxy 為情緒情境，排除在定價權分數之外。"
+  ],
+  "news": [
+    {
+      "title": "South Korea Stocks Halt Again, SK Hynix Market Cap Breaks $1 Trillion Mark.",
+      "url": "https://news.google.com/rss/articles/CBMi7ANBVV95cUxQamI4MHJsdXlpZmV0aE9VRmlrNHk3VVZleGM4amVfS0F1dzVuQTFEXzlFVHRPYlIyY2dJOGFGUjV1ZTN3YmtnQkRveEtkSmdOVlVzaTlwdkJxb1d6NVFDbGJFLVpKc2wyblkxaWNmTFZRQUpGekpOY2RVQ04tQUtRV3JHWFUyR3dadFRmeTg3Z3QycUhJMzdoRjNZb25JblNfTENPVE1ROVg1NzhyT0lFWWowZ1dmaFNLaUxUeWp2ZEZnQll5X0U1cTZBRV9zWkNHSWhieVRrYWRLWkdGZzRTQTNWNnhWM0FUWFNOclpHUGZnZzFsZllxTU5DTi1NTUtCVmFlOUFhRzdZZ0lpc3JpYkhuODRXVUlVQ0o1TnlpLVUySWVKTUczUk5wcEM4eGRRRXFoNWxYT1l1VzZ3Vm9sODR5V01rZkEyTl9qOXhTUjBYYjNaMmhUMkRxZUpseWNadjdham0wejFCWmZaNGdBV2ROQXBTRkRjcVVYdndqdW54NkxtYkpqY3NoSkRBczlYbnV2UWUySExhUnBET1dmcVk3dWJHME51Z1VEWXg0aFp3a2I4bUtjLUNjWTU0UXQxdG5BbERKQmhoek4xbDJ1SEZSRU5wbjl4V2l2YUlna3RheFRSdi1SUVJYaWc?oc=5",
+      "source": "TradingKey",
+      "date": "2026-07-01"
+    },
+    {
+      "title": "EXCLUSIVE: China's CXMT wins $3 billion memory supply deal with Tencent, sources say",
+      "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPY1lpSXBra1c5eWlrY0IyOXdLRXcyX2dKWHM2YmJRVXRHWmhmMjM3UUs1MnVmN0doWGVUeDJjeGVxQkEydHZjT19jbko5X0VJZm81bjU3c1llaG9WZExyaElQWjBET280RzE0Y0ZxR1hYRnFkQ1dDYWtQRVRiTzh4VjBMR2VvVXM0TkVETkt6cjF4N2RDZi15QWlyX0NTZFBHNks3ZVM1Z3dCQmRob2Vmd0NEYXdHMlBVWHc?oc=5",
+      "source": "Reuters",
+      "date": "2026-06-29"
+    },
+    {
+      "title": "China memory makers fuel local chip equipment push as CXMT lands Tencent deal",
+      "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNckJLVkV3eXZhTURVRURYZjc4dzVtX2tBRnkxMldxVDFrdGdJYkR2TXdVekNnT3NKbFJsRWFhRldzNmJJY0VDUFo1RE5RaGRnQnRaaEgza00xakhwalpuaXdLUy01SVp5U0lXdGhsVWYwQkVFVWxTd1lOM0RxenBwVFp3ZEtDQUhEUkhr?oc=5",
+      "source": "digitimes",
+      "date": "2026-06-29"
+    },
+    {
+      "title": "SK Hynix Dethroned Samsung After 26 Years: Now Choosing DDR5 Profits Over HBM4 Ramp",
+      "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxOU01KZ1lNcVAycmk3MldtQWpVblJoWnFQdHJoZ0FFTklpWk5aS2FSM3hRTlVPN09oRHhsVGRXaVdicm9JUnQ2dl9YcFptZXVRZllkRGh6V2FqcHVpVzFWTkJORVp2SER3UHpoOVFRY19DUUVSLVBrdkxMcG1RZEMtSEZDNjJqbGQtQUQ2NlIxQmxpNUdLYWpzZ21Ld3RBRklMdnctTGF2ZF9MYmZRMVZXTUlYN2MyY05HMFhqX3gtWGJDMzFhNDZwSVVIVUZSNDBGTDI4?oc=5",
+      "source": "Tech Times",
+      "date": "2026-06-24"
+    },
+    {
+      "title": "China’s CXMT Is Set to Challenge DRAM Incumbents",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1ZeHZtc3VLc3JVODJzal9ZcjFVeTdRTFBGN09HOTB1MGpoSEpZSlZDS2E4RXVPODZhdkQtbmJoUDZNSHFrb3FldC1OdmJ2WlhqSEJwcTJuQk5RTEU4ZGljMk5PMmxLdWJDZ1lUSnpGLXpaNnJ1S29kdWYyNlFoejQ?oc=5",
+      "source": "SemiAnalysis",
+      "date": "2026-06-23"
+    },
+    {
+      "title": "Nvidia Locked In Its Memory Supply Through 2030 With SK Hynix. Here’s What that means for AI.",
+      "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxOdFhHTGt3S1ZFRTloWnU4UWF6clE1QVI2dXNGSjV1WHFMT3JWc0E3c1ZoeTJPYUhtd25iNTV5NG9hcDZjbk5TNE9nZ0k1Yl9UNUNOeVpOblpnSlgwN3o2dDhPVXRWdFVNQkZMelZnRFNWN0NxNlgxUV8zRkNtOWxHeUJhaF9jaDQ0NFdkTVZ1VGtLc2cxaXloU3FncnNyeXQ0S3l6WDBBa3djMjhtQTlDWEp1dnZGUkxUTVNRRDBEUm1ZcDRfUnVRODlEbnNCMXUwbmc?oc=5",
+      "source": "Medium",
+      "date": "2026-06-09"
+    },
+    {
+      "title": "Hanmi Semiconductor Wins First HBM4 TC Bonder Order From SK hynix",
+      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1QWHZfVFRNaVdUbnNQZk8wQlhNU1ZfVXVTWkRlX01RUWR6ODZiZTFRQmIyazE3WEN1WnVmSHA1bG0waVB4bUttdllPUEJua29SUV9FVzdDSzB3RENZM1RhWTAxRXhoU2s?oc=5",
+      "source": "thelec.net",
+      "date": "2026-06-09"
+    },
+    {
+      "title": "Nvidia clears Samsung, SK Hynix, and Micron for next-gen Vera Rubin HBM4 supply, CEO says (NVDA:NASDAQ)",
+      "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPQjRRaTc3dDhHZDB4TWhKMmFCTW1xdmdHai1Cd0dfZmJiVFZaWVJWNzloSjhzN3NGVmtob3JiZklhZnFBZHpjVGhNYVNuMDVCYzN1ZFdhUnJYc1hxUUxKeWdPRjZSTm1MRGx2amtvVVFmZzVUeVFMdUI5LURkZHBGVHhvRWtpOFM5VGN3U005MF9hSFFmZVFXWEVfWm5HRm1HcVktaDMxVS1ZeUY2d1h1UDJCZzY0NUtaUHk3Q2hYbWdVQQ?oc=5",
+      "source": "Seeking Alpha",
+      "date": "2026-06-05"
+    },
+    {
+      "title": "Nvidia certifies Samsung, SK Hynix and Micron for Vera Rubin HBM4 supply",
+      "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxPbUZla3kwc0RNU1BCb3UyeTRTVnQyaGk5LWs5RXdNMnBfRWJmRWNnQ0lTbDhxRTFNM3pvcHo1dW4zNWRnNTNBdGZMbE5fWEhyZWxrUEQwTG5yaFoxbWp6akduRmVaQ3M2TF9hclI0d2pfaWFFYlk0ODAzTVhYaVN5Z3FSYUI0RVlBYW83enhDcS1NVHJydnN5M2IxRmV5OHVZUG1WMWVJNXB3Z2lOMm55Ml9XYm5QTEdHOWN0enYtVEVJYzhzSTRF?oc=5",
+      "source": "Investing.com",
+      "date": "2026-06-05"
+    },
+    {
+      "title": "SK hynix, TSMC Reinforce AI Semiconductor Alliance",
+      "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTFBMLW5ueWVvVDFiRDVCNjFTS24zUFJyQk84UmM2X2JHdW54NXNiaHZJczk5VkpabVRCMDVZOEN5eWN5enVHRmNXV1FEcExmVTNRenk2dzF4SS1rZFROam5yUGM4U1pEcmVad1ZMTkp4WmRNMGFL?oc=5",
+      "source": "Businesskorea",
+      "date": "2026-06-04"
+    },
+    {
+      "title": "SK, TSMC Chiefs Bolster AI Semiconductor Cooperation",
+      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQMDJtMVBnZ1hudEtvZkNNM09uckd0NkhsZmdRTTVuZnRuVmw5cUJ3TFpwSjVxUVBCZzFUNzlGUzA2THhJQThmdlBjS1RjamNDUk5iajNtcDdiMzFxTXJuRzZjd0hXVkE0dEZnRnMtODBsakVuWWNVb3gtNmE2aEYzak1MTnFPVTVn?oc=5",
+      "source": "조선일보",
+      "date": "2026-06-04"
+    },
+    {
+      "title": "SK Hynix to double wafer capacity amid AI memory shortage",
+      "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxNU3lySGduWWlSREo1b0RkZS1JbFV5Qk03Q2pKUlBZSUdMbTJHUVN6cTV1cUd1OVR6ZGRXaWdoYTJJTGY4WUw0emlBNk9COU5ubkg0eUxhNWltb3J1eWRlNWpLT0hQc1kxZ2pvdUN6MkRrQXZXbFlGUDdZNWo2bklxRnVoS2MwdHhfZkJnQ2hXY3I5amV0dFQ0UWwwMkhRR1JFbW1xWg?oc=5",
+      "source": "Techzine Global",
+      "date": "2026-06-02"
+    },
+    {
+      "title": "Micron Slips on Samsung HBM4 Nvidia Report",
+      "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxORVN0UVRvWk1pems5dmJFY0o3bzVNbVdjWDV6S2VSd3RmYUw2UTFtRzlDQk1ybEUtbkpKOGZFT25YaUw3TG9MYk9KRGNIVXRNSVFxWGJ4ZHJsYU52a09sMXBUQ05tN1lsbTdaMTAtV3ktMElQY1Q4SUhKNWFQQWVETnBfUno?oc=5",
+      "source": "Yahoo Finance",
+      "date": "2026-01-26"
+    }
+  ],
+  "fetched_at": "2026-07-02 16:39 UTC"
+}

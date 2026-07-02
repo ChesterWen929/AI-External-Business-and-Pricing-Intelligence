@@ -463,5 +463,108 @@ def test_apple_is_cowos_light(apple_snap):
     assert len(info_links) >= 3
 
 
+# ── SK hynix (seventh company; HBM constraint owner, complement-not-customer, RAISING) ──
+@pytest.fixture
+def skhynix_kb():
+    with open(KB_DIR / "skhynix.json", encoding="utf-8") as f:
+        return json.load(f)
+
+
+@pytest.fixture
+def skh_snap(skhynix_kb, monkeypatch):
+    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    return model.build_snapshot(skhynix_kb, live=None, generated_at="2026-07-02 00:00 UTC", today="2026-07-02")
+
+
+def test_skhynix_builds_and_is_raising(skh_snap):
+    # Constraint owner — RAISING, honesty ladder: NVDA 75.0 > AVGO 73.8 > SKH > AMD 68.3.
+    assert skh_snap["slug"] == "skhynix"
+    assert skh_snap["headline"]["verdict_key"] == "raising"
+    assert 68.3 < skh_snap["headline"]["compute_pricing_score"] < 73.8
+
+
+def test_skhynix_top_lever_is_hbm_generational_asp(skh_snap):
+    assert skh_snap["pillars"]["pricing"]["top_lever_id"] == "hbm_generational_asp"
+    levers = skh_snap["pillars"]["pricing"]["levers"]
+    assert len(levers) == 6
+    # every lever tier-tagged; the competitive-pressure lever is the honest negative
+    assert all(lv["tier"] in ("T1", "T2", "T3") for lv in levers)
+    assert any(lv["direction"] == "down" for lv in levers)
+
+
+def test_skhynix_benefit_hbm_is_derived_estimate(skh_snap):
+    b = skh_snap["pillars"]["benefit"]
+    # No HBM segment line exists → the $25B headline is a DERIVED ESTIMATE
+    assert b["headline_is_estimate"] is True
+    assert skh_snap["headline"]["ai_benefit_metric"] == "revenue_runrate"
+    # disclosed total run-rate ($78B) and op-income lens carry DIFFERENT metrics → not averaged in
+    assert b["consensus_usd_bn"] == round(skh_snap["headline"]["ai_benefit_usd_bn"], 1)
+    # all estimate rows are tier-tagged with an as_of
+    kb_ests = {"hbm_runrate", "total_runrate", "hbm_op_income"}
+    assert {e["id"] for e in b["estimates"]} == kb_ests
+
+
+def test_skhynix_is_complement_not_customer(skh_snap):
+    """The twist pillar: memory dies never touch a TSMC fab — low exposure, unique among the seven."""
+    sil = skh_snap["pillars"]["silicon"]
+    assert skh_snap["headline"]["tsmc_exposure_pct"] <= 30  # vs ~100 for the other six
+    # NOT all chain links are TSMC-fabbed (DRAM stays in SK hynix's own fabs)
+    assert not all(c["fab"].upper().startswith("TSMC") for c in sil["chain"])
+    # the ~100%-exposure concentration alert must NOT fire for the complement company
+    assert not any(a["level"] == "exposure" for a in skh_snap["l3"]["alerts"])
+    read = sil["tsmc_read_en"].lower()
+    assert "complement" in read and "not a customer" in read
+
+
+def test_skhynix_base_die_and_cowos_links_touch_tsmc(skh_snap):
+    """Two threads DO touch TSMC: the HBM4 base die and the CoWoS interposer that consumes every stack."""
+    sil = skh_snap["pillars"]["silicon"]
+    assert sil["chain_count"] == 6
+    assert sil["tsmc_fabbed_count"] >= 1  # the CoWoS complement link
+    blob = json.dumps(sil["chain"], ensure_ascii=False)
+    assert "base die" in blob and "CoWoS" in blob
+    # mutual-gating note aligns with /bottleneck's binding-constraint finding
+    assert "1.72M" in blob
+
+
+def test_skhynix_scenarios_sum_100(skh_snap):
+    probs = [s["prob"] for s in skh_snap["l5"]["scenarios"]]
+    assert sum(probs) == 100 and len(probs) == 4
+
+
+def test_skhynix_no_amazon_or_nvidia_bleed(skh_snap):
+    """KB-driven engine must not leak Amazon/NVIDIA-specific copy into SK hynix's read."""
+    blob = json.dumps(skh_snap, ensure_ascii=False)
+    assert "AWS discloses no AI-only line" not in blob
+    assert "Trainium/Inferentia/Graviton" not in blob
+    ben_alerts = [a for a in skh_snap["l3"]["alerts"] if "AI benefit" in a["en"]]
+    assert ben_alerts and any("DERIVED" in a["en"] for a in ben_alerts)
+
+
+def test_skhynix_pricing_engine_note_drives_strong_alert(skh_snap):
+    strong = [a for a in skh_snap["l3"]["alerts"] if a["level"] == "strong"]
+    assert strong and "constraint's owner" in strong[0]["en"]
+
+
+def test_skhynix_committed_snapshot_matches_engine(skhynix_kb, monkeypatch):
+    """Platform practice (credit_radar pattern): committed snapshot may be seed or live.
+    Seed → strict determinism vs fresh compute; live → structural bounds only."""
+    sp = Path(__file__).resolve().parents[1] / "data" / "company" / "skhynix.json"
+    assert sp.exists(), "committed seed snapshot missing"
+    with open(sp, encoding="utf-8") as f:
+        seed = json.load(f)
+    assert seed["analysis_engine"] in ("rules", "claude")
+    if seed.get("source") == "seed":
+        monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+        fresh = model.build_snapshot(skhynix_kb, live=None,
+                                     generated_at=seed["generated_at"], today=seed["as_of"])
+        assert seed["headline"] == fresh["headline"]
+        assert seed["pillars"]["pricing"]["score"] == fresh["pillars"]["pricing"]["score"]
+        assert seed["l5"] == fresh["l5"]
+    else:
+        assert 0 <= seed["headline"]["compute_pricing_score"] <= 100
+        assert seed["headline"]["verdict_key"] in ("raising", "holding", "eroding")
+
+
 if __name__ == "__main__":
     sys.exit(pytest.main([__file__, "-q"]))
