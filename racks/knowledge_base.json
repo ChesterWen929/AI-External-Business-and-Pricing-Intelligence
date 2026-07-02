@@ -4,536 +4,1997 @@
     "as_of": "2026-06-14",
     "note_zh": "策展知識庫:AI 資料中心 rack-scale 系統的物料清單(BOM)+ 供應鏈地圖。每個系統逐欄記錄加速器/CPU/HBM 數量與供應商,並附來源 URL + 證據分級。證據分級:T1=官方規格/datasheet、T2=權威拆解/分析師(SemiAnalysis/ServeTheHome/Next Platform/TrendForce)、T3=供應鏈報導/傳聞(DigiTimes/經濟日報)。要更新規格→改本檔(附來源+查證日);新品/股價/時效由 refresh 即時補。",
     "note_en": "Curated KB: AI data-center rack-scale system BOMs + supply-chain map. Every system records accelerator/CPU/HBM counts and suppliers with source URL + evidence tier. Tiers: T1=official spec, T2=reputable teardown/analyst, T3=supply-chain report/rumor. Edit this file to update specs (with source+verified date); refresh adds news/stock/staleness.",
-    "tier_legend": {"T1": "官方規格 Official spec/datasheet", "T2": "權威拆解/分析師 Teardown/analyst", "T3": "供應鏈報導/傳聞 Supply-chain/rumor"},
+    "tier_legend": {
+      "T1": "官方規格 Official spec/datasheet",
+      "T2": "權威拆解/分析師 Teardown/analyst",
+      "T3": "供應鏈報導/傳聞 Supply-chain/rumor"
+    },
     "category_legend": {
       "merchant-rack": "商用機櫃級系統 (rack 為單位)",
       "merchant-baseboard": "商用 8-加速器基板 (baseboard,裝進 OEM 伺服器)",
       "custom-pod": "超大規模商自研 ASIC 系統 (pod/rack/UltraServer)"
     }
   },
-
   "systems": [
     {
-      "id": "nvidia-gb200-nvl72", "vendor": "NVIDIA", "name": "GB200 NVL72", "generation": "Blackwell",
-      "category": "merchant-rack", "status": "shipping", "availability": "2024-Q4",
-      "unit": "rack", "compute_trays": 18, "switch_trays": 9,
-      "accelerators": 72, "accelerator_model": "Blackwell B200 (GPU)",
-      "cpus": 36, "cpu_model": "NVIDIA Grace (72-core Arm Neoverse V2)",
-      "hbm_type": "HBM3e", "hbm_gb_per_accel": 186, "hbm_total_tb": 13.4,
-      "scale_up": "NVLink 5 · 72-GPU domain · 130 TB/s", "scale_out": "ConnectX-7/8 · Quantum-2/X800 IB or Spectrum-X",
-      "power_kw": 120, "cooling": "liquid",
+      "id": "nvidia-gb200-nvl72",
+      "vendor": "NVIDIA",
+      "name": "GB200 NVL72",
+      "generation": "Blackwell",
+      "category": "merchant-rack",
+      "status": "shipping",
+      "availability": "2024-Q4",
+      "unit": "rack",
+      "compute_trays": 18,
+      "switch_trays": 9,
+      "accelerators": 72,
+      "accelerator_model": "Blackwell B200 (GPU)",
+      "cpus": 36,
+      "cpu_model": "NVIDIA Grace (72-core Arm Neoverse V2)",
+      "hbm_type": "HBM3e",
+      "hbm_gb_per_accel": 186,
+      "hbm_total_tb": 13.4,
+      "scale_up": "NVLink 5 · 72-GPU domain · 130 TB/s",
+      "scale_out": "ConnectX-7/8 · Quantum-2/X800 IB or Spectrum-X",
+      "power_kw": 120,
+      "cooling": "liquid",
       "suppliers": {
-        "accelerator": [{"name": "NVIDIA", "role": "GPU", "tier": "T1"}],
-        "cpu": [{"name": "NVIDIA Grace", "role": "in-house Arm", "tier": "T1"}],
-        "hbm": [{"name": "SK Hynix", "role": "primary", "tier": "T3"}, {"name": "Samsung", "role": "qualified", "tier": "T3"}, {"name": "Micron", "role": "qualified", "tier": "T3"}],
-        "odm": [{"name": "Foxconn/Hon Hai", "role": "~52% rack share", "tier": "T3"}, {"name": "Wistron", "role": "~21%", "tier": "T3"}, {"name": "Quanta/QCT", "role": "~19%", "tier": "T3"}],
-        "scale_up_switch": [{"name": "NVIDIA NVSwitch", "role": "18 ASICs in-house", "tier": "T2"}],
-        "packaging": [{"name": "TSMC CoWoS-L", "role": "dual-die 2.5D", "tier": "T3"}],
-        "cooling": [{"name": "AVC", "role": "cold plate", "tier": "T2"}, {"name": "Cooler Master", "role": "cold plate/manifold", "tier": "T2"}, {"name": "Vertiv", "role": "CDU >70% first batch", "tier": "T3"}, {"name": "Boyd", "role": "cold plate (RVL)", "tier": "T1"}],
-        "power": [{"name": "Delta + Infineon", "role": "power shelf + PMIC", "tier": "T3"}],
-        "connectors": [{"name": "Amphenol", "role": "NVLink backplane", "tier": "T2"}]
+        "accelerator": [
+          {
+            "name": "NVIDIA",
+            "role": "GPU",
+            "tier": "T1"
+          }
+        ],
+        "cpu": [
+          {
+            "name": "NVIDIA Grace",
+            "role": "in-house Arm",
+            "tier": "T1"
+          }
+        ],
+        "hbm": [
+          {
+            "name": "SK Hynix",
+            "role": "primary",
+            "tier": "T3"
+          },
+          {
+            "name": "Samsung",
+            "role": "qualified",
+            "tier": "T3"
+          },
+          {
+            "name": "Micron",
+            "role": "qualified",
+            "tier": "T3"
+          }
+        ],
+        "odm": [
+          {
+            "name": "Foxconn/Hon Hai",
+            "role": "~52% rack share",
+            "tier": "T3"
+          },
+          {
+            "name": "Wistron",
+            "role": "~21%",
+            "tier": "T3"
+          },
+          {
+            "name": "Quanta/QCT",
+            "role": "~19%",
+            "tier": "T3"
+          }
+        ],
+        "scale_up_switch": [
+          {
+            "name": "NVIDIA NVSwitch",
+            "role": "18 ASICs in-house",
+            "tier": "T2"
+          }
+        ],
+        "packaging": [
+          {
+            "name": "TSMC CoWoS-L",
+            "role": "dual-die 2.5D",
+            "tier": "T3"
+          }
+        ],
+        "cooling": [
+          {
+            "name": "AVC",
+            "role": "cold plate",
+            "tier": "T2"
+          },
+          {
+            "name": "Cooler Master",
+            "role": "cold plate/manifold",
+            "tier": "T2"
+          },
+          {
+            "name": "Vertiv",
+            "role": "CDU >70% first batch",
+            "tier": "T3"
+          },
+          {
+            "name": "Boyd",
+            "role": "cold plate (RVL)",
+            "tier": "T1"
+          }
+        ],
+        "power": [
+          {
+            "name": "Delta + Infineon",
+            "role": "power shelf + PMIC",
+            "tier": "T3"
+          }
+        ],
+        "connectors": [
+          {
+            "name": "Amphenol",
+            "role": "NVLink backplane",
+            "tier": "T2"
+          }
+        ]
       },
       "sources": [
-        {"label": "NVIDIA GB200 NVL72 (official)", "url": "https://www.nvidia.com/en-us/data-center/gb200-nvl72/", "tier": "T1"},
-        {"label": "SemiAnalysis GB200 BOM", "url": "https://newsletter.semianalysis.com/p/gb200-hardware-architecture-and-component", "tier": "T2"}
+        {
+          "label": "NVIDIA GB200 NVL72 (official)",
+          "url": "https://www.nvidia.com/en-us/data-center/gb200-nvl72/",
+          "tier": "T1"
+        },
+        {
+          "label": "SemiAnalysis GB200 BOM",
+          "url": "https://newsletter.semianalysis.com/p/gb200-hardware-architecture-and-component",
+          "tier": "T2"
+        }
       ],
-      "notes": "186 GB usable / 192 GB raw (config-dependent). 官方 13.4 TB HBM3e。功耗 120 kW(運算)~140 kW(含熱)各源不一。", "last_verified": "2026-06-14"
+      "notes": "186 GB usable / 192 GB raw (config-dependent). 官方 13.4 TB HBM3e。功耗 120 kW(運算)~140 kW(含熱)各源不一。",
+      "last_verified": "2026-06-14"
     },
     {
-      "id": "nvidia-gb300-nvl72", "vendor": "NVIDIA", "name": "GB300 NVL72 (Blackwell Ultra)", "generation": "Blackwell Ultra",
-      "category": "merchant-rack", "status": "shipping", "availability": "2025-H2",
-      "unit": "rack", "compute_trays": 18, "switch_trays": 9,
-      "accelerators": 72, "accelerator_model": "Blackwell Ultra B300",
-      "cpus": 36, "cpu_model": "NVIDIA Grace",
-      "hbm_type": "HBM3e (12-Hi)", "hbm_gb_per_accel": 288, "hbm_total_tb": 20.7,
-      "scale_up": "NVLink 5 · 72-GPU · 130 TB/s", "scale_out": "ConnectX-8 (800 Gb/s) · Quantum-X800 / Spectrum-X",
-      "power_kw": 121, "cooling": "liquid",
+      "id": "nvidia-gb300-nvl72",
+      "vendor": "NVIDIA",
+      "name": "GB300 NVL72 (Blackwell Ultra)",
+      "generation": "Blackwell Ultra",
+      "category": "merchant-rack",
+      "status": "shipping",
+      "availability": "2025-H2",
+      "unit": "rack",
+      "compute_trays": 18,
+      "switch_trays": 9,
+      "accelerators": 72,
+      "accelerator_model": "Blackwell Ultra B300",
+      "cpus": 36,
+      "cpu_model": "NVIDIA Grace",
+      "hbm_type": "HBM3e (12-Hi)",
+      "hbm_gb_per_accel": 288,
+      "hbm_total_tb": 20.7,
+      "scale_up": "NVLink 5 · 72-GPU · 130 TB/s",
+      "scale_out": "ConnectX-8 (800 Gb/s) · Quantum-X800 / Spectrum-X",
+      "power_kw": 121,
+      "cooling": "liquid",
       "suppliers": {
-        "accelerator": [{"name": "NVIDIA", "role": "GPU", "tier": "T1"}],
-        "cpu": [{"name": "NVIDIA Grace", "role": "in-house Arm", "tier": "T1"}],
-        "hbm": [{"name": "SK Hynix", "role": "exclusive 12-Hi HBM3e (reported)", "tier": "T3"}, {"name": "Samsung", "role": "qualifying", "tier": "T3"}],
-        "odm": [{"name": "Foxconn/Hon Hai", "role": "lead", "tier": "T3"}, {"name": "Wistron", "role": "rack", "tier": "T3"}, {"name": "Pegatron", "role": "GB300 NVL72", "tier": "T3"}],
-        "scale_up_switch": [{"name": "NVIDIA NVSwitch", "role": "in-house", "tier": "T2"}],
-        "packaging": [{"name": "TSMC CoWoS-L / CoWoS-S", "role": "mixed", "tier": "T3"}],
-        "cooling": [{"name": "AVC", "role": "cold plate ~40-50%", "tier": "T3"}, {"name": "Auras", "role": "cold plate ~25%", "tier": "T3"}, {"name": "Delta", "role": "CDU", "tier": "T3"}]
+        "accelerator": [
+          {
+            "name": "NVIDIA",
+            "role": "GPU",
+            "tier": "T1"
+          }
+        ],
+        "cpu": [
+          {
+            "name": "NVIDIA Grace",
+            "role": "in-house Arm",
+            "tier": "T1"
+          }
+        ],
+        "hbm": [
+          {
+            "name": "SK Hynix",
+            "role": "exclusive 12-Hi HBM3e (reported)",
+            "tier": "T3"
+          },
+          {
+            "name": "Samsung",
+            "role": "qualifying",
+            "tier": "T3"
+          }
+        ],
+        "odm": [
+          {
+            "name": "Foxconn/Hon Hai",
+            "role": "lead",
+            "tier": "T3"
+          },
+          {
+            "name": "Wistron",
+            "role": "rack",
+            "tier": "T3"
+          },
+          {
+            "name": "Pegatron",
+            "role": "GB300 NVL72",
+            "tier": "T3"
+          }
+        ],
+        "scale_up_switch": [
+          {
+            "name": "NVIDIA NVSwitch",
+            "role": "in-house",
+            "tier": "T2"
+          }
+        ],
+        "packaging": [
+          {
+            "name": "TSMC CoWoS-L / CoWoS-S",
+            "role": "mixed",
+            "tier": "T3"
+          }
+        ],
+        "cooling": [
+          {
+            "name": "AVC",
+            "role": "cold plate ~40-50%",
+            "tier": "T3"
+          },
+          {
+            "name": "Auras",
+            "role": "cold plate ~25%",
+            "tier": "T3"
+          },
+          {
+            "name": "Delta",
+            "role": "CDU",
+            "tier": "T3"
+          }
+        ]
       },
       "sources": [
-        {"label": "Introl GB300 deep dive", "url": "https://introl.com/blog/why-nvidia-gb300-nvl72-blackwell-ultra-matters", "tier": "T2"},
-        {"label": "TrendForce SK Hynix 12-Hi GB300", "url": "https://www.trendforce.com/news/2025/03/18/news-sk-hynix-reportedly-locks-in-exclusive-12h-hbm3e-deal-for-nvidias-gb300/", "tier": "T3"}
+        {
+          "label": "Introl GB300 deep dive",
+          "url": "https://introl.com/blog/why-nvidia-gb300-nvl72-blackwell-ultra-matters",
+          "tier": "T2"
+        },
+        {
+          "label": "TrendForce SK Hynix 12-Hi GB300",
+          "url": "https://www.trendforce.com/news/2025/03/18/news-sk-hynix-reportedly-locks-in-exclusive-12h-hbm3e-deal-for-nvidias-gb300/",
+          "tier": "T3"
+        }
       ],
-      "notes": "288 GB/GPU(12-Hi)。20.7 TB HBM + LPDDR ≈ 37 TB 'fast memory'。", "last_verified": "2026-06-14"
+      "notes": "288 GB/GPU(12-Hi)。20.7 TB HBM + LPDDR ≈ 37 TB 'fast memory'。",
+      "last_verified": "2026-06-14"
     },
     {
-      "id": "nvidia-vera-rubin-nvl72", "vendor": "NVIDIA", "name": "Vera Rubin NVL72 (NVL144)", "generation": "Rubin",
-      "category": "merchant-rack", "status": "announced", "availability": "2026-H2",
-      "unit": "rack", "compute_trays": 18, "switch_trays": 9,
-      "accelerators": 72, "accelerator_model": "Rubin GPU (2 dies/package)",
-      "cpus": 36, "cpu_model": "NVIDIA Vera (88 custom Arm cores)",
-      "hbm_type": "HBM4", "hbm_gb_per_accel": 288, "hbm_total_tb": 20.7,
-      "scale_up": "NVLink 6 · 72-GPU · 260 TB/s switch BW", "scale_out": "ConnectX-9 (1.6 Tb/s) · Spectrum-6 / Quantum-X800 · BlueField-4",
-      "power_kw": 210, "cooling": "liquid",
+      "id": "nvidia-vera-rubin-nvl72",
+      "vendor": "NVIDIA",
+      "name": "Vera Rubin NVL72 (NVL144)",
+      "generation": "Rubin",
+      "category": "merchant-rack",
+      "status": "announced",
+      "availability": "2026-H2",
+      "unit": "rack",
+      "compute_trays": 18,
+      "switch_trays": 9,
+      "accelerators": 72,
+      "accelerator_model": "Rubin GPU (2 dies/package)",
+      "cpus": 36,
+      "cpu_model": "NVIDIA Vera (88 custom Arm cores)",
+      "hbm_type": "HBM4",
+      "hbm_gb_per_accel": 288,
+      "hbm_total_tb": 20.7,
+      "scale_up": "NVLink 6 · 72-GPU · 260 TB/s switch BW",
+      "scale_out": "ConnectX-9 (1.6 Tb/s) · Spectrum-6 / Quantum-X800 · BlueField-4",
+      "power_kw": 210,
+      "cooling": "liquid",
       "suppliers": {
-        "accelerator": [{"name": "NVIDIA", "role": "GPU", "tier": "T1"}],
-        "cpu": [{"name": "NVIDIA Vera", "role": "in-house Arm", "tier": "T1"}],
-        "hbm": [{"name": "SK Hynix", "role": "HBM4 lead (expected)", "tier": "T3"}, {"name": "Samsung", "role": "HBM4", "tier": "T3"}, {"name": "Micron", "role": "HBM4", "tier": "T3"}],
-        "odm": [{"name": "Foxconn/Hon Hai", "role": "expected lead", "tier": "T3"}],
-        "packaging": [{"name": "TSMC CoWoS-L", "role": "2.5D", "tier": "T3"}],
-        "cooling": [{"name": "NVIDIA named 4 cold-plate suppliers", "role": "Rubin standardizes liquid", "tier": "T3"}]
+        "accelerator": [
+          {
+            "name": "NVIDIA",
+            "role": "GPU",
+            "tier": "T1"
+          }
+        ],
+        "cpu": [
+          {
+            "name": "NVIDIA Vera",
+            "role": "in-house Arm",
+            "tier": "T1"
+          }
+        ],
+        "hbm": [
+          {
+            "name": "SK Hynix",
+            "role": "HBM4 lead (expected)",
+            "tier": "T3"
+          },
+          {
+            "name": "Samsung",
+            "role": "HBM4",
+            "tier": "T3"
+          },
+          {
+            "name": "Micron",
+            "role": "HBM4",
+            "tier": "T3"
+          }
+        ],
+        "odm": [
+          {
+            "name": "Foxconn/Hon Hai",
+            "role": "expected lead",
+            "tier": "T3"
+          }
+        ],
+        "packaging": [
+          {
+            "name": "TSMC CoWoS-L",
+            "role": "2.5D",
+            "tier": "T3"
+          }
+        ],
+        "cooling": [
+          {
+            "name": "NVIDIA named 4 cold-plate suppliers",
+            "role": "Rubin standardizes liquid",
+            "tier": "T3"
+          }
+        ]
       },
       "sources": [
-        {"label": "NVIDIA Vera Rubin NVL72 (official)", "url": "https://www.nvidia.com/en-us/data-center/vera-rubin-nvl72/", "tier": "T1"},
-        {"label": "SemiAnalysis Vera Rubin", "url": "https://newsletter.semianalysis.com/p/vera-rubin-extreme-co-design-an-evolution", "tier": "T2"}
+        {
+          "label": "NVIDIA Vera Rubin NVL72 (official)",
+          "url": "https://www.nvidia.com/en-us/data-center/vera-rubin-nvl72/",
+          "tier": "T1"
+        },
+        {
+          "label": "SemiAnalysis Vera Rubin",
+          "url": "https://newsletter.semianalysis.com/p/vera-rubin-extreme-co-design-an-evolution",
+          "tier": "T2"
+        }
       ],
-      "notes": "預生產,規格可能變動。Rubin Ultra(2027)→ NVL576,單櫃功耗上看 ~600 kW。", "last_verified": "2026-06-14"
+      "notes": "預生產,規格可能變動。Rubin Ultra(2027)→ NVL576,單櫃功耗上看 ~600 kW。",
+      "last_verified": "2026-06-14"
     },
     {
-      "id": "nvidia-gh200-nvl32", "vendor": "NVIDIA", "name": "GH200 NVL32 (Grace Hopper)", "generation": "Hopper",
-      "category": "merchant-rack", "status": "shipping", "availability": "2024-Q1",
-      "unit": "rack", "compute_trays": 16, "switch_trays": 9,
-      "accelerators": 32, "accelerator_model": "H200 GPU (HBM3e variant)",
-      "cpus": 32, "cpu_model": "NVIDIA Grace (1:1 with GPU)",
-      "hbm_type": "HBM3e", "hbm_gb_per_accel": 144, "hbm_total_tb": 4.6,
-      "scale_up": "NVLink Gen3 · 32-GPU domain · 900 GB/s any-to-any", "scale_out": "ConnectX-7 / BlueField-3 · Quantum-2 / Spectrum-X",
-      "power_kw": 40, "cooling": "liquid",
+      "id": "nvidia-gh200-nvl32",
+      "vendor": "NVIDIA",
+      "name": "GH200 NVL32 (Grace Hopper)",
+      "generation": "Hopper",
+      "category": "merchant-rack",
+      "status": "shipping",
+      "availability": "2024-Q1",
+      "unit": "rack",
+      "compute_trays": 16,
+      "switch_trays": 9,
+      "accelerators": 32,
+      "accelerator_model": "H200 GPU (HBM3e variant)",
+      "cpus": 32,
+      "cpu_model": "NVIDIA Grace (1:1 with GPU)",
+      "hbm_type": "HBM3e",
+      "hbm_gb_per_accel": 144,
+      "hbm_total_tb": 4.6,
+      "scale_up": "NVLink Gen3 · 32-GPU domain · 900 GB/s any-to-any",
+      "scale_out": "ConnectX-7 / BlueField-3 · Quantum-2 / Spectrum-X",
+      "power_kw": 40,
+      "cooling": "liquid",
       "suppliers": {
-        "accelerator": [{"name": "NVIDIA", "role": "GPU", "tier": "T1"}],
-        "cpu": [{"name": "NVIDIA Grace", "role": "in-house Arm", "tier": "T1"}],
-        "hbm": [{"name": "SK Hynix", "role": "primary", "tier": "T3"}, {"name": "Micron", "role": "HBM3e", "tier": "T3"}],
-        "odm": [{"name": "Supermicro/QCT/Wiwynn", "role": "MGX systems", "tier": "T2"}],
-        "packaging": [{"name": "TSMC CoWoS-S", "role": "2.5D", "tier": "T2"}]
+        "accelerator": [
+          {
+            "name": "NVIDIA",
+            "role": "GPU",
+            "tier": "T1"
+          }
+        ],
+        "cpu": [
+          {
+            "name": "NVIDIA Grace",
+            "role": "in-house Arm",
+            "tier": "T1"
+          }
+        ],
+        "hbm": [
+          {
+            "name": "SK Hynix",
+            "role": "primary",
+            "tier": "T3"
+          },
+          {
+            "name": "Micron",
+            "role": "HBM3e",
+            "tier": "T3"
+          }
+        ],
+        "odm": [
+          {
+            "name": "Supermicro/QCT/Wiwynn",
+            "role": "MGX systems",
+            "tier": "T2"
+          }
+        ],
+        "packaging": [
+          {
+            "name": "TSMC CoWoS-S",
+            "role": "2.5D",
+            "tier": "T2"
+          }
+        ]
       },
       "sources": [
-        {"label": "NVIDIA GH200 NVL32 dev blog", "url": "https://developer.nvidia.com/blog/one-giant-superchip-for-llms-recommenders-and-gnns-introducing-nvidia-gh200-nvl32/", "tier": "T1"},
-        {"label": "DCD — GH200 HBM3e 144GB", "url": "https://www.datacenterdynamics.com/en/news/nvidia-announces-updated-gh200-grace-hopper-gpu-with-hbm3e-memory/", "tier": "T2"}
+        {
+          "label": "NVIDIA GH200 NVL32 dev blog",
+          "url": "https://developer.nvidia.com/blog/one-giant-superchip-for-llms-recommenders-and-gnns-introducing-nvidia-gh200-nvl32/",
+          "tier": "T1"
+        },
+        {
+          "label": "DCD — GH200 HBM3e 144GB",
+          "url": "https://www.datacenterdynamics.com/en/news/nvidia-announces-updated-gh200-grace-hopper-gpu-with-hbm3e-memory/",
+          "tier": "T2"
+        }
       ],
-      "notes": "已被 Blackwell 取代。功耗 ~40 kW 為估計(官方未明列)。19.5 TB unified 含 LPDDR5X。", "last_verified": "2026-06-14"
+      "notes": "已被 Blackwell 取代。功耗 ~40 kW 為估計(官方未明列)。19.5 TB unified 含 LPDDR5X。",
+      "last_verified": "2026-06-14"
     },
     {
-      "id": "nvidia-hgx-b200", "vendor": "NVIDIA", "name": "HGX B200 (8-GPU baseboard)", "generation": "Blackwell",
-      "category": "merchant-baseboard", "status": "shipping", "availability": "2025",
-      "unit": "baseboard", "compute_trays": 1, "switch_trays": 0,
-      "accelerators": 8, "accelerator_model": "Blackwell B200 SXM",
-      "cpus": 2, "cpu_model": "x86 host (Xeon / EPYC, OEM choice)",
-      "hbm_type": "HBM3e", "hbm_gb_per_accel": 180, "hbm_total_tb": 1.4,
-      "scale_up": "NVLink 5 · 8-GPU · 14.4 TB/s (2 NVSwitch)", "scale_out": "ConnectX-7/8 + BlueField-3 (0.8 TB/s)",
-      "power_kw": 12, "cooling": "air or liquid",
+      "id": "nvidia-hgx-b200",
+      "vendor": "NVIDIA",
+      "name": "HGX B200 (8-GPU baseboard)",
+      "generation": "Blackwell",
+      "category": "merchant-baseboard",
+      "status": "shipping",
+      "availability": "2025",
+      "unit": "baseboard",
+      "compute_trays": 1,
+      "switch_trays": 0,
+      "accelerators": 8,
+      "accelerator_model": "Blackwell B200 SXM",
+      "cpus": 2,
+      "cpu_model": "x86 host (Xeon / EPYC, OEM choice)",
+      "hbm_type": "HBM3e",
+      "hbm_gb_per_accel": 180,
+      "hbm_total_tb": 1.4,
+      "scale_up": "NVLink 5 · 8-GPU · 14.4 TB/s (2 NVSwitch)",
+      "scale_out": "ConnectX-7/8 + BlueField-3 (0.8 TB/s)",
+      "power_kw": 12,
+      "cooling": "air or liquid",
       "suppliers": {
-        "accelerator": [{"name": "NVIDIA", "role": "GPU", "tier": "T1"}],
-        "cpu": [{"name": "Intel Xeon / AMD EPYC", "role": "OEM host", "tier": "T2"}],
-        "hbm": [{"name": "SK Hynix", "role": "primary", "tier": "T3"}, {"name": "Micron/Samsung", "role": "qualified", "tier": "T3"}],
-        "odm": [{"name": "Supermicro/Dell/HPE/Foxconn/Quanta", "role": "OEM servers", "tier": "T2"}],
-        "packaging": [{"name": "TSMC CoWoS-L", "role": "dual-die", "tier": "T3"}]
+        "accelerator": [
+          {
+            "name": "NVIDIA",
+            "role": "GPU",
+            "tier": "T1"
+          }
+        ],
+        "cpu": [
+          {
+            "name": "Intel Xeon / AMD EPYC",
+            "role": "OEM host",
+            "tier": "T2"
+          }
+        ],
+        "hbm": [
+          {
+            "name": "SK Hynix",
+            "role": "primary",
+            "tier": "T3"
+          },
+          {
+            "name": "Micron/Samsung",
+            "role": "qualified",
+            "tier": "T3"
+          }
+        ],
+        "odm": [
+          {
+            "name": "Supermicro/Dell/HPE/Foxconn/Quanta",
+            "role": "OEM servers",
+            "tier": "T2"
+          }
+        ],
+        "packaging": [
+          {
+            "name": "TSMC CoWoS-L",
+            "role": "dual-die",
+            "tier": "T3"
+          }
+        ]
       },
       "sources": [
-        {"label": "NVIDIA HGX (official)", "url": "https://www.nvidia.com/en-us/data-center/hgx/", "tier": "T1"}
+        {
+          "label": "NVIDIA HGX (official)",
+          "url": "https://www.nvidia.com/en-us/data-center/hgx/",
+          "tier": "T1"
+        }
       ],
-      "notes": "180 GB(獨立 SXM)vs 192 raw。基板裝進 OEM x86 伺服器。Ultra 變體 = HGX B300 NVL16(288 GB/GPU,~2.3 TB)。", "last_verified": "2026-06-14"
+      "notes": "180 GB(獨立 SXM)vs 192 raw。基板裝進 OEM x86 伺服器。Ultra 變體 = HGX B300 NVL16(288 GB/GPU,~2.3 TB)。",
+      "last_verified": "2026-06-14"
     },
     {
-      "id": "nvidia-hgx-h200", "vendor": "NVIDIA", "name": "HGX H200 (8-GPU baseboard)", "generation": "Hopper",
-      "category": "merchant-baseboard", "status": "shipping", "availability": "2024",
-      "unit": "baseboard", "compute_trays": 1, "switch_trays": 0,
-      "accelerators": 8, "accelerator_model": "H200 SXM5",
-      "cpus": 2, "cpu_model": "x86 host (OEM)",
-      "hbm_type": "HBM3e", "hbm_gb_per_accel": 141, "hbm_total_tb": 1.1,
-      "scale_up": "NVLink 4 · 8-GPU · 7.2 TB/s", "scale_out": "ConnectX-7 + BlueField-3 (400 Gb/s)",
-      "power_kw": 11, "cooling": "air or liquid",
+      "id": "nvidia-hgx-h200",
+      "vendor": "NVIDIA",
+      "name": "HGX H200 (8-GPU baseboard)",
+      "generation": "Hopper",
+      "category": "merchant-baseboard",
+      "status": "shipping",
+      "availability": "2024",
+      "unit": "baseboard",
+      "compute_trays": 1,
+      "switch_trays": 0,
+      "accelerators": 8,
+      "accelerator_model": "H200 SXM5",
+      "cpus": 2,
+      "cpu_model": "x86 host (OEM)",
+      "hbm_type": "HBM3e",
+      "hbm_gb_per_accel": 141,
+      "hbm_total_tb": 1.1,
+      "scale_up": "NVLink 4 · 8-GPU · 7.2 TB/s",
+      "scale_out": "ConnectX-7 + BlueField-3 (400 Gb/s)",
+      "power_kw": 11,
+      "cooling": "air or liquid",
       "suppliers": {
-        "accelerator": [{"name": "NVIDIA", "role": "GPU", "tier": "T1"}],
-        "cpu": [{"name": "Intel Xeon / AMD EPYC", "role": "OEM host", "tier": "T2"}],
-        "hbm": [{"name": "SK Hynix", "role": "primary", "tier": "T3"}, {"name": "Micron", "role": "qualified", "tier": "T3"}],
-        "odm": [{"name": "Supermicro/Dell/HPE/Lenovo", "role": "OEM servers", "tier": "T2"}],
-        "packaging": [{"name": "TSMC CoWoS-S", "role": "2.5D", "tier": "T2"}]
+        "accelerator": [
+          {
+            "name": "NVIDIA",
+            "role": "GPU",
+            "tier": "T1"
+          }
+        ],
+        "cpu": [
+          {
+            "name": "Intel Xeon / AMD EPYC",
+            "role": "OEM host",
+            "tier": "T2"
+          }
+        ],
+        "hbm": [
+          {
+            "name": "SK Hynix",
+            "role": "primary",
+            "tier": "T3"
+          },
+          {
+            "name": "Micron",
+            "role": "qualified",
+            "tier": "T3"
+          }
+        ],
+        "odm": [
+          {
+            "name": "Supermicro/Dell/HPE/Lenovo",
+            "role": "OEM servers",
+            "tier": "T2"
+          }
+        ],
+        "packaging": [
+          {
+            "name": "TSMC CoWoS-S",
+            "role": "2.5D",
+            "tier": "T2"
+          }
+        ]
       },
       "sources": [
-        {"label": "RunPod H200 guide", "url": "https://www.runpod.io/articles/guides/nvidia-h200-gpu", "tier": "T2"},
-        {"label": "NVIDIA HGX (official)", "url": "https://www.nvidia.com/en-us/data-center/hgx/", "tier": "T1"}
+        {
+          "label": "RunPod H200 guide",
+          "url": "https://www.runpod.io/articles/guides/nvidia-h200-gpu",
+          "tier": "T2"
+        },
+        {
+          "label": "NVIDIA HGX (official)",
+          "url": "https://www.nvidia.com/en-us/data-center/hgx/",
+          "tier": "T1"
+        }
       ],
-      "notes": "141 GB/GPU(6×24 GB HBM3e)。", "last_verified": "2026-06-14"
+      "notes": "141 GB/GPU(6×24 GB HBM3e)。",
+      "last_verified": "2026-06-14"
     },
     {
-      "id": "nvidia-hgx-h100", "vendor": "NVIDIA", "name": "HGX H100 (8-GPU baseboard)", "generation": "Hopper",
-      "category": "merchant-baseboard", "status": "shipping", "availability": "2022-2023",
-      "unit": "baseboard", "compute_trays": 1, "switch_trays": 0,
-      "accelerators": 8, "accelerator_model": "H100 SXM5",
-      "cpus": 2, "cpu_model": "x86 host (OEM)",
-      "hbm_type": "HBM3", "hbm_gb_per_accel": 80, "hbm_total_tb": 0.64,
-      "scale_up": "NVLink 4 · 8-GPU · 7.2 TB/s (4 NVSwitch3)", "scale_out": "ConnectX-7 + BlueField-3 (up to 800 Gb/s/node)",
-      "power_kw": 11, "cooling": "air (primary) or liquid",
+      "id": "nvidia-hgx-h100",
+      "vendor": "NVIDIA",
+      "name": "HGX H100 (8-GPU baseboard)",
+      "generation": "Hopper",
+      "category": "merchant-baseboard",
+      "status": "shipping",
+      "availability": "2022-2023",
+      "unit": "baseboard",
+      "compute_trays": 1,
+      "switch_trays": 0,
+      "accelerators": 8,
+      "accelerator_model": "H100 SXM5",
+      "cpus": 2,
+      "cpu_model": "x86 host (OEM)",
+      "hbm_type": "HBM3",
+      "hbm_gb_per_accel": 80,
+      "hbm_total_tb": 0.64,
+      "scale_up": "NVLink 4 · 8-GPU · 7.2 TB/s (4 NVSwitch3)",
+      "scale_out": "ConnectX-7 + BlueField-3 (up to 800 Gb/s/node)",
+      "power_kw": 11,
+      "cooling": "air (primary) or liquid",
       "suppliers": {
-        "accelerator": [{"name": "NVIDIA", "role": "GPU", "tier": "T1"}],
-        "cpu": [{"name": "Intel Xeon / AMD EPYC", "role": "OEM host", "tier": "T2"}],
-        "hbm": [{"name": "SK Hynix", "role": "primary", "tier": "T3"}, {"name": "Samsung/Micron", "role": "qualified", "tier": "T3"}],
-        "odm": [{"name": "Supermicro/Dell/HPE/Foxconn", "role": "OEM servers", "tier": "T2"}],
-        "packaging": [{"name": "TSMC CoWoS-S", "role": "2.5D", "tier": "T2"}]
+        "accelerator": [
+          {
+            "name": "NVIDIA",
+            "role": "GPU",
+            "tier": "T1"
+          }
+        ],
+        "cpu": [
+          {
+            "name": "Intel Xeon / AMD EPYC",
+            "role": "OEM host",
+            "tier": "T2"
+          }
+        ],
+        "hbm": [
+          {
+            "name": "SK Hynix",
+            "role": "primary",
+            "tier": "T3"
+          },
+          {
+            "name": "Samsung/Micron",
+            "role": "qualified",
+            "tier": "T3"
+          }
+        ],
+        "odm": [
+          {
+            "name": "Supermicro/Dell/HPE/Foxconn",
+            "role": "OEM servers",
+            "tier": "T2"
+          }
+        ],
+        "packaging": [
+          {
+            "name": "TSMC CoWoS-S",
+            "role": "2.5D",
+            "tier": "T2"
+          }
+        ]
       },
       "sources": [
-        {"label": "HGX H100 640GB baseboard", "url": "https://www.networkgenetics.net/nvidia-hgx-h100-640gb-hbm3-baseboard-with-8x-h100-80gb-sxm5-gpu/", "tier": "T2"},
-        {"label": "NVIDIA HGX (official)", "url": "https://www.nvidia.com/en-us/data-center/hgx/", "tier": "T1"}
+        {
+          "label": "HGX H100 640GB baseboard",
+          "url": "https://www.networkgenetics.net/nvidia-hgx-h100-640gb-hbm3-baseboard-with-8x-h100-80gb-sxm5-gpu/",
+          "tier": "T2"
+        },
+        {
+          "label": "NVIDIA HGX (official)",
+          "url": "https://www.nvidia.com/en-us/data-center/hgx/",
+          "tier": "T1"
+        }
       ],
-      "notes": "80 GB/GPU(5×16 GB HBM3)。前一世代主力。", "last_verified": "2026-06-14"
+      "notes": "80 GB/GPU(5×16 GB HBM3)。前一世代主力。",
+      "last_verified": "2026-06-14"
     },
     {
-      "id": "amd-mi300x", "vendor": "AMD", "name": "Instinct MI300X Platform (8-GPU UBB)", "generation": "CDNA 3",
-      "category": "merchant-baseboard", "status": "shipping", "availability": "2023-12",
-      "unit": "baseboard", "compute_trays": 1, "switch_trays": 0,
-      "accelerators": 8, "accelerator_model": "MI300X (OAM)",
-      "cpus": 2, "cpu_model": "AMD EPYC Genoa/Turin (SP5)",
-      "hbm_type": "HBM3", "hbm_gb_per_accel": 192, "hbm_total_tb": 1.5,
-      "scale_up": "Infinity Fabric 4th-gen · 896 GB/s p2p · 8-GPU all-to-all", "scale_out": "Ethernet via host NIC (400G)",
-      "power_kw": 5.2, "cooling": "air (DLC variants)",
+      "id": "amd-mi300x",
+      "vendor": "AMD",
+      "name": "Instinct MI300X Platform (8-GPU UBB)",
+      "generation": "CDNA 3",
+      "category": "merchant-baseboard",
+      "status": "shipping",
+      "availability": "2023-12",
+      "unit": "baseboard",
+      "compute_trays": 1,
+      "switch_trays": 0,
+      "accelerators": 8,
+      "accelerator_model": "MI300X (OAM)",
+      "cpus": 2,
+      "cpu_model": "AMD EPYC Genoa/Turin (SP5)",
+      "hbm_type": "HBM3",
+      "hbm_gb_per_accel": 192,
+      "hbm_total_tb": 1.5,
+      "scale_up": "Infinity Fabric 4th-gen · 896 GB/s p2p · 8-GPU all-to-all",
+      "scale_out": "Ethernet via host NIC (400G)",
+      "power_kw": 5.2,
+      "cooling": "air (DLC variants)",
       "suppliers": {
-        "accelerator": [{"name": "AMD", "role": "GPU", "tier": "T1"}],
-        "cpu": [{"name": "AMD EPYC", "role": "host", "tier": "T2"}],
-        "hbm": [{"name": "SK Hynix", "role": "initial", "tier": "T3"}, {"name": "Samsung", "role": "AMD-qualified", "tier": "T3"}],
-        "odm": [{"name": "Supermicro/Dell/HPE/Lenovo/Gigabyte", "role": "OEM", "tier": "T2"}],
-        "packaging": [{"name": "TSMC 3.5D (SoIC + CoWoS)", "role": "3D+2.5D", "tier": "T2"}]
+        "accelerator": [
+          {
+            "name": "AMD",
+            "role": "GPU",
+            "tier": "T1"
+          }
+        ],
+        "cpu": [
+          {
+            "name": "AMD EPYC",
+            "role": "host",
+            "tier": "T2"
+          }
+        ],
+        "hbm": [
+          {
+            "name": "SK Hynix",
+            "role": "initial",
+            "tier": "T3"
+          },
+          {
+            "name": "Samsung",
+            "role": "AMD-qualified",
+            "tier": "T3"
+          }
+        ],
+        "odm": [
+          {
+            "name": "Supermicro/Dell/HPE/Lenovo/Gigabyte",
+            "role": "OEM",
+            "tier": "T2"
+          }
+        ],
+        "packaging": [
+          {
+            "name": "TSMC 3.5D (SoIC + CoWoS)",
+            "role": "3D+2.5D",
+            "tier": "T2"
+          }
+        ]
       },
       "sources": [
-        {"label": "AMD MI300X platform (official)", "url": "https://www.amd.com/en/products/accelerators/instinct/mi300/platform.html", "tier": "T1"},
-        {"label": "Tom's Hardware — MI300X packaging (3.5D)", "url": "https://www.tomshardware.com/pc-components/cpus/amd-unveils-instinct-mi300x-gpu-and-mi300a-apu", "tier": "T2"}
+        {
+          "label": "AMD MI300X platform (official)",
+          "url": "https://www.amd.com/en/products/accelerators/instinct/mi300/platform.html",
+          "tier": "T1"
+        },
+        {
+          "label": "Tom's Hardware — MI300X packaging (3.5D)",
+          "url": "https://www.tomshardware.com/pc-components/cpus/amd-unveils-instinct-mi300x-gpu-and-mi300a-apu",
+          "tier": "T2"
+        }
       ],
-      "notes": "8×192 = 1.536 TB ≈ 1.5 TB ✓。封裝 3.5D = SoIC(3D hybrid bond)+ CoWoS(2.5D)。", "last_verified": "2026-06-14"
+      "notes": "8×192 = 1.536 TB ≈ 1.5 TB ✓。封裝 3.5D = SoIC(3D hybrid bond)+ CoWoS(2.5D)。",
+      "last_verified": "2026-06-14"
     },
     {
-      "id": "amd-mi325x", "vendor": "AMD", "name": "Instinct MI325X Platform (8-GPU)", "generation": "CDNA 3",
-      "category": "merchant-baseboard", "status": "shipping", "availability": "2025-Q1",
-      "unit": "baseboard", "compute_trays": 1, "switch_trays": 0,
-      "accelerators": 8, "accelerator_model": "MI325X (OAM)",
-      "cpus": 2, "cpu_model": "AMD EPYC 9005 Turin (SP5)",
-      "hbm_type": "HBM3e", "hbm_gb_per_accel": 256, "hbm_total_tb": 2.05,
-      "scale_up": "Infinity Fabric · 896 GB/s p2p · 8-GPU", "scale_out": "Ethernet · Pensando Pollara 400 validated",
-      "power_kw": 8, "cooling": "air + DLC",
+      "id": "amd-mi325x",
+      "vendor": "AMD",
+      "name": "Instinct MI325X Platform (8-GPU)",
+      "generation": "CDNA 3",
+      "category": "merchant-baseboard",
+      "status": "shipping",
+      "availability": "2025-Q1",
+      "unit": "baseboard",
+      "compute_trays": 1,
+      "switch_trays": 0,
+      "accelerators": 8,
+      "accelerator_model": "MI325X (OAM)",
+      "cpus": 2,
+      "cpu_model": "AMD EPYC 9005 Turin (SP5)",
+      "hbm_type": "HBM3e",
+      "hbm_gb_per_accel": 256,
+      "hbm_total_tb": 2.05,
+      "scale_up": "Infinity Fabric · 896 GB/s p2p · 8-GPU",
+      "scale_out": "Ethernet · Pensando Pollara 400 validated",
+      "power_kw": 8,
+      "cooling": "air + DLC",
       "suppliers": {
-        "accelerator": [{"name": "AMD", "role": "GPU", "tier": "T1"}],
-        "cpu": [{"name": "AMD EPYC Turin", "role": "host", "tier": "T2"}],
-        "hbm": [{"name": "SK Hynix", "role": "mass prod", "tier": "T3"}, {"name": "Micron", "role": "sampling→mass", "tier": "T3"}],
-        "odm": [{"name": "HPE XD685 / Supermicro H14 / Dell", "role": "OEM", "tier": "T2"}],
-        "scale_out_nic": [{"name": "AMD Pensando Pollara 400", "role": "Ultra Ethernet NIC", "tier": "T2"}],
-        "packaging": [{"name": "TSMC 3.5D (SoIC + CoWoS)", "role": "3D+2.5D", "tier": "T2"}]
+        "accelerator": [
+          {
+            "name": "AMD",
+            "role": "GPU",
+            "tier": "T1"
+          }
+        ],
+        "cpu": [
+          {
+            "name": "AMD EPYC Turin",
+            "role": "host",
+            "tier": "T2"
+          }
+        ],
+        "hbm": [
+          {
+            "name": "SK Hynix",
+            "role": "mass prod",
+            "tier": "T3"
+          },
+          {
+            "name": "Micron",
+            "role": "sampling→mass",
+            "tier": "T3"
+          }
+        ],
+        "odm": [
+          {
+            "name": "HPE XD685 / Supermicro H14 / Dell",
+            "role": "OEM",
+            "tier": "T2"
+          }
+        ],
+        "scale_out_nic": [
+          {
+            "name": "AMD Pensando Pollara 400",
+            "role": "Ultra Ethernet NIC",
+            "tier": "T2"
+          }
+        ],
+        "packaging": [
+          {
+            "name": "TSMC 3.5D (SoIC + CoWoS)",
+            "role": "3D+2.5D",
+            "tier": "T2"
+          }
+        ]
       },
       "sources": [
-        {"label": "AMD MI325X platform (official)", "url": "https://amd.com/en/products/accelerators/instinct/mi300/mi325x/platform.html", "tier": "T1"},
-        {"label": "Supermicro H14 8U 8×MI325X datasheet", "url": "https://www.supermicro.com/datasheet/h14/datasheet_H14_8U_8GPU_MI325X.pdf", "tier": "T2"}
+        {
+          "label": "AMD MI325X platform (official)",
+          "url": "https://amd.com/en/products/accelerators/instinct/mi300/mi325x/platform.html",
+          "tier": "T1"
+        },
+        {
+          "label": "Supermicro H14 8U 8×MI325X datasheet",
+          "url": "https://www.supermicro.com/datasheet/h14/datasheet_H14_8U_8GPU_MI325X.pdf",
+          "tier": "T2"
+        }
       ],
-      "notes": "8×256 = 2.048 TB(AMD 標 2 TB)。1000W/GPU。", "last_verified": "2026-06-14"
+      "notes": "8×256 = 2.048 TB(AMD 標 2 TB)。1000W/GPU。",
+      "last_verified": "2026-06-14"
     },
     {
-      "id": "amd-mi355x", "vendor": "AMD", "name": "Instinct MI350X/MI355X Platform (8-GPU)", "generation": "CDNA 4",
-      "category": "merchant-baseboard", "status": "shipping", "availability": "2025-06",
-      "unit": "baseboard", "compute_trays": 1, "switch_trays": 0,
-      "accelerators": 8, "accelerator_model": "MI350X / MI355X (OAM)",
-      "cpus": 2, "cpu_model": "AMD EPYC 9005 Turin (SP5)",
-      "hbm_type": "HBM3e", "hbm_gb_per_accel": 288, "hbm_total_tb": 2.3,
-      "scale_up": "Infinity Fabric · ~1075 GB/s p2p · 8-GPU · UALink-capable", "scale_out": "Pensando Pollara 400 (Ultra Ethernet 1.0)",
-      "power_kw": 11.2, "cooling": "MI350X air · MI355X direct liquid",
+      "id": "amd-mi355x",
+      "vendor": "AMD",
+      "name": "Instinct MI350X/MI355X Platform (8-GPU)",
+      "generation": "CDNA 4",
+      "category": "merchant-baseboard",
+      "status": "shipping",
+      "availability": "2025-06",
+      "unit": "baseboard",
+      "compute_trays": 1,
+      "switch_trays": 0,
+      "accelerators": 8,
+      "accelerator_model": "MI350X / MI355X (OAM)",
+      "cpus": 2,
+      "cpu_model": "AMD EPYC 9005 Turin (SP5)",
+      "hbm_type": "HBM3e",
+      "hbm_gb_per_accel": 288,
+      "hbm_total_tb": 2.3,
+      "scale_up": "Infinity Fabric · ~1075 GB/s p2p · 8-GPU · UALink-capable",
+      "scale_out": "Pensando Pollara 400 (Ultra Ethernet 1.0)",
+      "power_kw": 11.2,
+      "cooling": "MI350X air · MI355X direct liquid",
       "suppliers": {
-        "accelerator": [{"name": "AMD", "role": "GPU", "tier": "T1"}],
-        "cpu": [{"name": "AMD EPYC Turin", "role": "host", "tier": "T2"}],
-        "hbm": [{"name": "Samsung", "role": "HBM3e 12-Hi", "tier": "T3"}, {"name": "Micron", "role": "HBM3e", "tier": "T3"}],
-        "odm": [{"name": "Supermicro/MiTAC/HPE/Dell", "role": "OEM (DLC)", "tier": "T2"}],
-        "scale_out_nic": [{"name": "AMD Pensando Pollara 400", "role": "UE NIC", "tier": "T2"}],
-        "packaging": [{"name": "TSMC N3P + 6nm, 3.5D", "role": "SoIC+CoWoS", "tier": "T2"}]
+        "accelerator": [
+          {
+            "name": "AMD",
+            "role": "GPU",
+            "tier": "T1"
+          }
+        ],
+        "cpu": [
+          {
+            "name": "AMD EPYC Turin",
+            "role": "host",
+            "tier": "T2"
+          }
+        ],
+        "hbm": [
+          {
+            "name": "Samsung",
+            "role": "HBM3e 12-Hi",
+            "tier": "T3"
+          },
+          {
+            "name": "Micron",
+            "role": "HBM3e",
+            "tier": "T3"
+          }
+        ],
+        "odm": [
+          {
+            "name": "Supermicro/MiTAC/HPE/Dell",
+            "role": "OEM (DLC)",
+            "tier": "T2"
+          }
+        ],
+        "scale_out_nic": [
+          {
+            "name": "AMD Pensando Pollara 400",
+            "role": "UE NIC",
+            "tier": "T2"
+          }
+        ],
+        "packaging": [
+          {
+            "name": "TSMC N3P + 6nm, 3.5D",
+            "role": "SoIC+CoWoS",
+            "tier": "T2"
+          }
+        ]
       },
       "sources": [
-        {"label": "AMD MI355X platform (official)", "url": "https://www.amd.com/en/products/accelerators/instinct/mi350/mi355x/platform.html", "tier": "T1"},
-        {"label": "MI355X 1400W (Tom's HW)", "url": "https://www.tomshardware.com/pc-components/gpus/amds-instinct-mi355x-accelerator-will-consume-1-400-watts", "tier": "T2"}
+        {
+          "label": "AMD MI355X platform (official)",
+          "url": "https://www.amd.com/en/products/accelerators/instinct/mi350/mi355x/platform.html",
+          "tier": "T1"
+        },
+        {
+          "label": "MI355X 1400W (Tom's HW)",
+          "url": "https://www.tomshardware.com/pc-components/gpus/amds-instinct-mi355x-accelerator-will-consume-1-400-watts",
+          "tier": "T2"
+        }
       ],
-      "notes": "MI355X 1400W 液冷;MI350X 1000W 氣冷。DLC 機櫃版 128 GPU / 36 TB HBM3e。", "last_verified": "2026-06-14"
+      "notes": "MI355X 1400W 液冷;MI350X 1000W 氣冷。DLC 機櫃版 128 GPU / 36 TB HBM3e。",
+      "last_verified": "2026-06-14"
     },
     {
-      "id": "amd-helios-mi400", "vendor": "AMD", "name": "Helios MI400 Rack (MI455X)", "generation": "CDNA-Next",
-      "category": "merchant-rack", "status": "announced", "availability": "2026-H2",
-      "unit": "rack", "compute_trays": 18, "switch_trays": 0,
-      "accelerators": 72, "accelerator_model": "MI455X",
-      "cpus": 36, "cpu_model": "AMD EPYC Venice (Zen 6, up to 256 cores)",
-      "hbm_type": "HBM4", "hbm_gb_per_accel": 432, "hbm_total_tb": 31,
-      "scale_up": "UALink (UALoE72) · up to 72-GPU · ~260 TB/s", "scale_out": "Pensando Vulcano 800G (Ultra Ethernet)",
-      "power_kw": 0, "cooling": "direct liquid",
+      "id": "amd-helios-mi400",
+      "vendor": "AMD",
+      "name": "Helios MI400 Rack (MI455X)",
+      "generation": "CDNA-Next",
+      "category": "merchant-rack",
+      "status": "announced",
+      "availability": "2026-H2",
+      "unit": "rack",
+      "compute_trays": 18,
+      "switch_trays": 0,
+      "accelerators": 72,
+      "accelerator_model": "MI455X",
+      "cpus": 36,
+      "cpu_model": "AMD EPYC Venice (Zen 6, up to 256 cores)",
+      "hbm_type": "HBM4",
+      "hbm_gb_per_accel": 432,
+      "hbm_total_tb": 31,
+      "scale_up": "UALink (UALoE72) · up to 72-GPU · ~260 TB/s",
+      "scale_out": "Pensando Vulcano 800G (Ultra Ethernet)",
+      "power_kw": 0,
+      "cooling": "direct liquid",
       "suppliers": {
-        "accelerator": [{"name": "AMD", "role": "GPU", "tier": "T2"}],
-        "cpu": [{"name": "AMD EPYC Venice", "role": "host", "tier": "T3"}],
-        "hbm": [{"name": "Samsung", "role": "HBM4 (OpenAI deal, reported)", "tier": "T3"}, {"name": "SK Hynix/Micron", "role": "HBM4 qualifying", "tier": "T3"}],
-        "odm": [{"name": "Sanmina (ex-ZT Systems mfg)", "role": "rack NPI", "tier": "T1"}],
-        "scale_up_switch": [{"name": "UALink Consortium", "role": "open standard", "tier": "T2"}],
-        "scale_out_nic": [{"name": "AMD Pensando Vulcano 800G", "role": "UE NIC", "tier": "T2"}],
-        "packaging": [{"name": "TSMC N2", "role": "2nm", "tier": "T3"}]
+        "accelerator": [
+          {
+            "name": "AMD",
+            "role": "GPU",
+            "tier": "T2"
+          }
+        ],
+        "cpu": [
+          {
+            "name": "AMD EPYC Venice",
+            "role": "host",
+            "tier": "T3"
+          }
+        ],
+        "hbm": [
+          {
+            "name": "Samsung",
+            "role": "HBM4 (OpenAI deal, reported)",
+            "tier": "T3"
+          },
+          {
+            "name": "SK Hynix/Micron",
+            "role": "HBM4 qualifying",
+            "tier": "T3"
+          }
+        ],
+        "odm": [
+          {
+            "name": "Sanmina (ex-ZT Systems mfg)",
+            "role": "rack NPI",
+            "tier": "T1"
+          }
+        ],
+        "scale_up_switch": [
+          {
+            "name": "UALink Consortium",
+            "role": "open standard",
+            "tier": "T2"
+          }
+        ],
+        "scale_out_nic": [
+          {
+            "name": "AMD Pensando Vulcano 800G",
+            "role": "UE NIC",
+            "tier": "T2"
+          }
+        ],
+        "packaging": [
+          {
+            "name": "TSMC N2",
+            "role": "2nm",
+            "tier": "T3"
+          }
+        ]
       },
       "sources": [
-        {"label": "Next Platform Helios 2H'26", "url": "https://www.nextplatform.com/compute/2026/02/23/amd-says-helios-racks-and-mi400-series-gpus-on-track-for-2h-2026/", "tier": "T2"},
-        {"label": "DCD AMD MI400 lineup", "url": "https://www.datacenterdynamics.com/en/news/amd-unveils-full-mi400-product-lineup", "tier": "T2"}
+        {
+          "label": "Next Platform Helios 2H'26",
+          "url": "https://www.nextplatform.com/compute/2026/02/23/amd-says-helios-racks-and-mi400-series-gpus-on-track-for-2h-2026/",
+          "tier": "T2"
+        },
+        {
+          "label": "DCD AMD MI400 lineup",
+          "url": "https://www.datacenterdynamics.com/en/news/amd-unveils-full-mi400-product-lineup",
+          "tier": "T2"
+        }
       ],
-      "notes": "預發表,全部數字為初步。AMD 第一個機櫃級對標 NVL72。432 GB HBM4/GPU,31 TB/rack,2.9 EF FP4。", "last_verified": "2026-06-14"
+      "notes": "預發表,全部數字為初步。AMD 第一個機櫃級對標 NVL72。432 GB HBM4/GPU,31 TB/rack,2.9 EF FP4。",
+      "last_verified": "2026-06-14"
     },
     {
-      "id": "intel-gaudi3", "vendor": "Intel", "name": "Gaudi 3 HLB-325 (8-accelerator baseboard)", "generation": "Gaudi 3",
-      "category": "merchant-baseboard", "status": "shipping", "availability": "2024-Q3",
-      "unit": "baseboard", "compute_trays": 1, "switch_trays": 0,
-      "accelerators": 8, "accelerator_model": "HL-325L (OAM)",
-      "cpus": 2, "cpu_model": "Intel Xeon 6 (6900-P)",
-      "hbm_type": "HBM2e", "hbm_gb_per_accel": 128, "hbm_total_tb": 1.02,
-      "scale_up": "On-board all-to-all RoCE v2 (NO switch IC) · 4.2 TB/s", "scale_out": "1.2 TB/s · 6 OSFP · 24×200 GbE RDMA/card",
-      "power_kw": 7.6, "cooling": "air (liquid variant >900W)",
+      "id": "intel-gaudi3",
+      "vendor": "Intel",
+      "name": "Gaudi 3 HLB-325 (8-accelerator baseboard)",
+      "generation": "Gaudi 3",
+      "category": "merchant-baseboard",
+      "status": "shipping",
+      "availability": "2024-Q3",
+      "unit": "baseboard",
+      "compute_trays": 1,
+      "switch_trays": 0,
+      "accelerators": 8,
+      "accelerator_model": "HL-325L (OAM)",
+      "cpus": 2,
+      "cpu_model": "Intel Xeon 6 (6900-P)",
+      "hbm_type": "HBM2e",
+      "hbm_gb_per_accel": 128,
+      "hbm_total_tb": 1.02,
+      "scale_up": "On-board all-to-all RoCE v2 (NO switch IC) · 4.2 TB/s",
+      "scale_out": "1.2 TB/s · 6 OSFP · 24×200 GbE RDMA/card",
+      "power_kw": 7.6,
+      "cooling": "air (liquid variant >900W)",
       "suppliers": {
-        "accelerator": [{"name": "Intel (Habana)", "role": "accelerator", "tier": "T1"}],
-        "cpu": [{"name": "Intel Xeon", "role": "host", "tier": "T2"}],
-        "hbm": [{"name": "Micron / SK Hynix (likely)", "role": "HBM2e — unconfirmed", "tier": "T3"}],
-        "odm": [{"name": "Dell/Supermicro/HPE/Lenovo/Gigabyte", "role": "OEM", "tier": "T2"}],
-        "packaging": [{"name": "TSMC 5nm (2 dies)", "role": "2.5D for HBM", "tier": "T2"}]
+        "accelerator": [
+          {
+            "name": "Intel (Habana)",
+            "role": "accelerator",
+            "tier": "T1"
+          }
+        ],
+        "cpu": [
+          {
+            "name": "Intel Xeon",
+            "role": "host",
+            "tier": "T2"
+          }
+        ],
+        "hbm": [
+          {
+            "name": "Micron / SK Hynix (likely)",
+            "role": "HBM2e — unconfirmed",
+            "tier": "T3"
+          }
+        ],
+        "odm": [
+          {
+            "name": "Dell/Supermicro/HPE/Lenovo/Gigabyte",
+            "role": "OEM",
+            "tier": "T2"
+          }
+        ],
+        "packaging": [
+          {
+            "name": "TSMC 5nm (2 dies)",
+            "role": "2.5D for HBM",
+            "tier": "T2"
+          }
+        ]
       },
       "sources": [
-        {"label": "Intel Gaudi 3 HLB-325 brief", "url": "https://cdrdv2-public.intel.com/817489/gaudi-3-ai-accelerator-hlb-325-baseboard-product-brief.pdf", "tier": "T1"},
-        {"label": "ServeTheHome — Gaudi 3 128GB HBM2e", "url": "https://www.servethehome.com/this-is-intel-gaudi-3-the-new-128gb-hbm2e-ai-chip-in-the-wild-intel-vision-2024/", "tier": "T2"}
+        {
+          "label": "Intel Gaudi 3 HLB-325 brief",
+          "url": "https://cdrdv2-public.intel.com/817489/gaudi-3-ai-accelerator-hlb-325-baseboard-product-brief.pdf",
+          "tier": "T1"
+        },
+        {
+          "label": "ServeTheHome — Gaudi 3 128GB HBM2e",
+          "url": "https://www.servethehome.com/this-is-intel-gaudi-3-the-new-128gb-hbm2e-ai-chip-in-the-wild-intel-vision-2024/",
+          "tier": "T2"
+        }
       ],
-      "notes": "獨特:無 scale-up switch IC,以板上 RoCE v2 乙太全互連。8×128 = 1.024 TB。14.6 PFLOPS FP8。HBM 供應商未確認。", "last_verified": "2026-06-14"
+      "notes": "獨特:無 scale-up switch IC,以板上 RoCE v2 乙太全互連。8×128 = 1.024 TB。14.6 PFLOPS FP8。HBM 供應商未確認。",
+      "last_verified": "2026-06-14"
     },
     {
-      "id": "google-tpu-v7-ironwood", "vendor": "Google", "name": "TPU v7 'Ironwood' Pod", "generation": "TPU v7",
-      "category": "custom-pod", "status": "shipping", "availability": "2025-11",
-      "unit": "pod", "compute_trays": 0, "switch_trays": 0,
-      "accelerators": 9216, "accelerator_model": "TPU v7 (Ironwood, 64/rack)",
-      "cpus": 0, "cpu_model": "Google Axion (custom Arm) host",
-      "hbm_type": "HBM3e", "hbm_gb_per_accel": 192, "hbm_total_tb": 1769,
-      "scale_up": "ICI 9.6 Tb/s · 3D torus (4×4×4 cube/rack)", "scale_out": "Optical Circuit Switch (up to 48× 144×144) · 800G optical",
-      "power_kw": 0, "cooling": "liquid",
+      "id": "google-tpu-v7-ironwood",
+      "vendor": "Google",
+      "name": "TPU v7 'Ironwood' Pod",
+      "generation": "TPU v7",
+      "category": "custom-pod",
+      "status": "shipping",
+      "availability": "2025-11",
+      "unit": "pod",
+      "compute_trays": 0,
+      "switch_trays": 0,
+      "accelerators": 9216,
+      "accelerator_model": "TPU v7 (Ironwood, 64/rack)",
+      "cpus": 0,
+      "cpu_model": "Google Axion (custom Arm) host",
+      "hbm_type": "HBM3e",
+      "hbm_gb_per_accel": 192,
+      "hbm_total_tb": 1769,
+      "scale_up": "ICI 9.6 Tb/s · 3D torus (4×4×4 cube/rack)",
+      "scale_out": "Optical Circuit Switch (up to 48× 144×144) · 800G optical",
+      "power_kw": 0,
+      "cooling": "liquid",
       "suppliers": {
-        "accelerator": [{"name": "Google", "role": "owner", "tier": "T1"}],
-        "asic_design": [{"name": "Broadcom", "role": "compute/co-design", "tier": "T2"}, {"name": "MediaTek", "role": "I/O, SerDes", "tier": "T3"}],
-        "cpu": [{"name": "Google Axion (Arm)", "role": "host", "tier": "T1"}],
-        "hbm": [{"name": "Samsung", "role": ">60% via Broadcom (2025-26)", "tier": "T3"}, {"name": "SK Hynix", "role": "secondary", "tier": "T3"}, {"name": "Micron", "role": "some", "tier": "T3"}],
-        "packaging": [{"name": "TSMC N3P + CoWoS", "role": "foundry+2.5D", "tier": "T3"}],
-        "networking": [{"name": "Google OCS (in-house)", "role": "optical circuit switch", "tier": "T2"}],
-        "odm": [{"name": "Quanta/Celestica-class", "role": "rack build", "tier": "T3"}]
+        "accelerator": [
+          {
+            "name": "Google",
+            "role": "owner",
+            "tier": "T1"
+          }
+        ],
+        "asic_design": [
+          {
+            "name": "Broadcom",
+            "role": "compute/co-design",
+            "tier": "T2"
+          },
+          {
+            "name": "MediaTek",
+            "role": "I/O, SerDes",
+            "tier": "T3"
+          }
+        ],
+        "cpu": [
+          {
+            "name": "Google Axion (Arm)",
+            "role": "host",
+            "tier": "T1"
+          }
+        ],
+        "hbm": [
+          {
+            "name": "Samsung",
+            "role": ">60% via Broadcom (2025-26)",
+            "tier": "T3"
+          },
+          {
+            "name": "SK Hynix",
+            "role": "secondary",
+            "tier": "T3"
+          },
+          {
+            "name": "Micron",
+            "role": "some",
+            "tier": "T3"
+          }
+        ],
+        "packaging": [
+          {
+            "name": "TSMC N3P + CoWoS",
+            "role": "foundry+2.5D",
+            "tier": "T3"
+          }
+        ],
+        "networking": [
+          {
+            "name": "Google OCS (in-house)",
+            "role": "optical circuit switch",
+            "tier": "T2"
+          }
+        ],
+        "odm": [
+          {
+            "name": "Quanta/Celestica-class",
+            "role": "rack build",
+            "tier": "T3"
+          }
+        ]
       },
       "sources": [
-        {"label": "Google Ironwood blog", "url": "https://blog.google/products/google-cloud/ironwood-tpu-age-of-inference/", "tier": "T1"},
-        {"label": "SemiAnalysis TPUv7", "url": "https://newsletter.semianalysis.com/p/tpuv7-google-takes-a-swing-at-the", "tier": "T2"}
+        {
+          "label": "Google Ironwood blog",
+          "url": "https://blog.google/products/google-cloud/ironwood-tpu-age-of-inference/",
+          "tier": "T1"
+        },
+        {
+          "label": "SemiAnalysis TPUv7",
+          "url": "https://newsletter.semianalysis.com/p/tpuv7-google-takes-a-swing-at-the",
+          "tier": "T2"
+        }
       ],
-      "notes": "9,216 chips/superpod(64/rack,4/tray)。1.77 PB HBM/pod(紀錄)。42.5 FP8 ExaFLOPS/pod。設計 Broadcom+MediaTek。", "last_verified": "2026-06-14"
+      "notes": "9,216 chips/superpod(64/rack,4/tray)。1.77 PB HBM/pod(紀錄)。42.5 FP8 ExaFLOPS/pod。設計 Broadcom+MediaTek。",
+      "last_verified": "2026-06-14"
     },
     {
-      "id": "google-tpu-v6e-trillium", "vendor": "Google", "name": "TPU v6e 'Trillium' Pod", "generation": "TPU v6e",
-      "category": "custom-pod", "status": "shipping", "availability": "2025",
-      "unit": "pod", "compute_trays": 0, "switch_trays": 0,
-      "accelerators": 256, "accelerator_model": "TPU v6e (Trillium)",
-      "cpus": 0, "cpu_model": "dual-socket host (4 TPU/socket)",
-      "hbm_type": "HBM3/HBM3e", "hbm_gb_per_accel": 32, "hbm_total_tb": 8.2,
-      "scale_up": "ICI 3.2 Tb/s · 2D torus · 256/pod", "scale_out": "Jupiter DC network",
-      "power_kw": 0, "cooling": "liquid",
+      "id": "google-tpu-v6e-trillium",
+      "vendor": "Google",
+      "name": "TPU v6e 'Trillium' Pod",
+      "generation": "TPU v6e",
+      "category": "custom-pod",
+      "status": "shipping",
+      "availability": "2025",
+      "unit": "pod",
+      "compute_trays": 0,
+      "switch_trays": 0,
+      "accelerators": 256,
+      "accelerator_model": "TPU v6e (Trillium)",
+      "cpus": 0,
+      "cpu_model": "dual-socket host (4 TPU/socket)",
+      "hbm_type": "HBM3/HBM3e",
+      "hbm_gb_per_accel": 32,
+      "hbm_total_tb": 8.2,
+      "scale_up": "ICI 3.2 Tb/s · 2D torus · 256/pod",
+      "scale_out": "Jupiter DC network",
+      "power_kw": 0,
+      "cooling": "liquid",
       "suppliers": {
-        "accelerator": [{"name": "Google", "role": "owner", "tier": "T1"}],
-        "asic_design": [{"name": "Broadcom", "role": "co-design", "tier": "T2"}],
-        "hbm": [{"name": "Samsung/SK Hynix", "role": "via Broadcom", "tier": "T3"}],
-        "packaging": [{"name": "TSMC N5-class + CoWoS", "role": "foundry+2.5D", "tier": "T3"}]
+        "accelerator": [
+          {
+            "name": "Google",
+            "role": "owner",
+            "tier": "T1"
+          }
+        ],
+        "asic_design": [
+          {
+            "name": "Broadcom",
+            "role": "co-design",
+            "tier": "T2"
+          }
+        ],
+        "hbm": [
+          {
+            "name": "Samsung/SK Hynix",
+            "role": "via Broadcom",
+            "tier": "T3"
+          }
+        ],
+        "packaging": [
+          {
+            "name": "TSMC N5-class + CoWoS",
+            "role": "foundry+2.5D",
+            "tier": "T3"
+          }
+        ]
       },
       "sources": [
-        {"label": "Google Trillium blog", "url": "https://cloud.google.com/blog/products/compute/introducing-trillium-6th-gen-tpus", "tier": "T1"},
-        {"label": "ServeTheHome — TPU v6e Trillium (SC24)", "url": "https://www.servethehome.com/google-cloud-tpu-v6e-trillium-shown-at-sc24/", "tier": "T2"}
+        {
+          "label": "Google Trillium blog",
+          "url": "https://cloud.google.com/blog/products/compute/introducing-trillium-6th-gen-tpus",
+          "tier": "T1"
+        },
+        {
+          "label": "ServeTheHome — TPU v6e Trillium (SC24)",
+          "url": "https://www.servethehome.com/google-cloud-tpu-v6e-trillium-shown-at-sc24/",
+          "tier": "T2"
+        }
       ],
-      "notes": "效率導向,HBM 較小(32 GB)。256 chips/pod(2D torus)。", "last_verified": "2026-06-14"
+      "notes": "效率導向,HBM 較小(32 GB)。256 chips/pod(2D torus)。",
+      "last_verified": "2026-06-14"
     },
     {
-      "id": "aws-trainium2-ultraserver", "vendor": "AWS", "name": "Trainium2 Trn2 UltraServer", "generation": "Trainium2",
-      "category": "custom-pod", "status": "shipping", "availability": "2024-12",
-      "unit": "UltraServer", "compute_trays": 0, "switch_trays": 0,
-      "accelerators": 64, "accelerator_model": "Trainium2 (16/instance, 64/UltraServer)",
-      "cpus": 0, "cpu_model": "Intel Xeon Sapphire Rapids (host)",
-      "hbm_type": "HBM3e", "hbm_gb_per_accel": 96, "hbm_total_tb": 6.1,
-      "scale_up": "NeuronLink-v3 · 4×4×4 3D torus (64)", "scale_out": "EFA v3 up to 3.2 Tbps/instance",
-      "power_kw": 27, "cooling": "air (hot-aisle)",
+      "id": "aws-trainium2-ultraserver",
+      "vendor": "AWS",
+      "name": "Trainium2 Trn2 UltraServer",
+      "generation": "Trainium2",
+      "category": "custom-pod",
+      "status": "shipping",
+      "availability": "2024-12",
+      "unit": "UltraServer",
+      "compute_trays": 0,
+      "switch_trays": 0,
+      "accelerators": 64,
+      "accelerator_model": "Trainium2 (16/instance, 64/UltraServer)",
+      "cpus": 0,
+      "cpu_model": "Intel Xeon Sapphire Rapids (host)",
+      "hbm_type": "HBM3e",
+      "hbm_gb_per_accel": 96,
+      "hbm_total_tb": 6.1,
+      "scale_up": "NeuronLink-v3 · 4×4×4 3D torus (64)",
+      "scale_out": "EFA v3 up to 3.2 Tbps/instance",
+      "power_kw": 27,
+      "cooling": "air (hot-aisle)",
       "suppliers": {
-        "accelerator": [{"name": "AWS Annapurna", "role": "owner", "tier": "T1"}],
-        "asic_design": [{"name": "Marvell", "role": "front-end (this gen)", "tier": "T3"}],
-        "cpu": [{"name": "Intel Xeon SPR", "role": "host", "tier": "T2"}],
-        "hbm": [{"name": "SK Hynix / Micron", "role": "HBM3e", "tier": "T3"}],
-        "packaging": [{"name": "TSMC N5 + CoWoS-S/R", "role": "foundry+2.5D", "tier": "T2"}],
-        "odm": [{"name": "Taiwan ODMs", "role": "rack build", "tier": "T3"}]
+        "accelerator": [
+          {
+            "name": "AWS Annapurna",
+            "role": "owner",
+            "tier": "T1"
+          }
+        ],
+        "asic_design": [
+          {
+            "name": "Marvell",
+            "role": "front-end (this gen)",
+            "tier": "T3"
+          }
+        ],
+        "cpu": [
+          {
+            "name": "Intel Xeon SPR",
+            "role": "host",
+            "tier": "T2"
+          }
+        ],
+        "hbm": [
+          {
+            "name": "SK Hynix / Micron",
+            "role": "HBM3e",
+            "tier": "T3"
+          }
+        ],
+        "packaging": [
+          {
+            "name": "TSMC N5 + CoWoS-S/R",
+            "role": "foundry+2.5D",
+            "tier": "T2"
+          }
+        ],
+        "odm": [
+          {
+            "name": "Taiwan ODMs",
+            "role": "rack build",
+            "tier": "T3"
+          }
+        ]
       },
       "sources": [
-        {"label": "AWS Trn2 architecture", "url": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/trn2-arch.html", "tier": "T1"},
-        {"label": "SemiAnalysis Trainium2", "url": "https://newsletter.semianalysis.com/p/amazons-ai-self-sufficiency-trainium2-architecture-networking", "tier": "T2"}
+        {
+          "label": "AWS Trn2 architecture",
+          "url": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/trn2-arch.html",
+          "tier": "T1"
+        },
+        {
+          "label": "SemiAnalysis Trainium2",
+          "url": "https://newsletter.semianalysis.com/p/amazons-ai-self-sufficiency-trainium2-architecture-networking",
+          "tier": "T2"
+        }
       ],
-      "notes": "64 chips/UltraServer(4 伺服器)。Project Rainier = ~50 萬顆 Trainium2 給 Anthropic。", "last_verified": "2026-06-14"
+      "notes": "64 chips/UltraServer(4 伺服器)。Project Rainier = ~50 萬顆 Trainium2 給 Anthropic。",
+      "last_verified": "2026-06-14"
     },
     {
-      "id": "aws-trainium3-ultraserver", "vendor": "AWS", "name": "Trainium3 Trn3 UltraServer (NL72x2)", "generation": "Trainium3",
-      "category": "custom-pod", "status": "shipping", "availability": "2025-12",
-      "unit": "UltraServer", "compute_trays": 0, "switch_trays": 0,
-      "accelerators": 144, "accelerator_model": "Trainium3 (72/rack, 144/world)",
-      "cpus": 0, "cpu_model": "AWS Graviton4 (NL72) / x86 (NL32)",
-      "hbm_type": "HBM3e (12-Hi)", "hbm_gb_per_accel": 144, "hbm_total_tb": 20.7,
-      "scale_up": "NeuronLink-v4 over PCIe Gen6 · switched all-to-all", "scale_out": "EFA v4 + Nitro-v6 · 200-400 Gbps/chip",
-      "power_kw": 0, "cooling": "liquid (NL72) / air (NL32)",
+      "id": "aws-trainium3-ultraserver",
+      "vendor": "AWS",
+      "name": "Trainium3 Trn3 UltraServer (NL72x2)",
+      "generation": "Trainium3",
+      "category": "custom-pod",
+      "status": "shipping",
+      "availability": "2025-12",
+      "unit": "UltraServer",
+      "compute_trays": 0,
+      "switch_trays": 0,
+      "accelerators": 144,
+      "accelerator_model": "Trainium3 (72/rack, 144/world)",
+      "cpus": 0,
+      "cpu_model": "AWS Graviton4 (NL72) / x86 (NL32)",
+      "hbm_type": "HBM3e (12-Hi)",
+      "hbm_gb_per_accel": 144,
+      "hbm_total_tb": 20.7,
+      "scale_up": "NeuronLink-v4 over PCIe Gen6 · switched all-to-all",
+      "scale_out": "EFA v4 + Nitro-v6 · 200-400 Gbps/chip",
+      "power_kw": 0,
+      "cooling": "liquid (NL72) / air (NL32)",
       "suppliers": {
-        "accelerator": [{"name": "AWS Annapurna", "role": "owner+front-end", "tier": "T1"}],
-        "asic_design": [{"name": "Alchip", "role": "back-end/package", "tier": "T2"}],
-        "cpu": [{"name": "AWS Graviton4 (Arm)", "role": "host", "tier": "T2"}],
-        "hbm": [{"name": "SK Hynix + Micron", "role": "HBM3e", "tier": "T2"}],
-        "packaging": [{"name": "TSMC N3P + CoWoS-R", "role": "organic interposer", "tier": "T2"}]
+        "accelerator": [
+          {
+            "name": "AWS Annapurna",
+            "role": "owner+front-end",
+            "tier": "T1"
+          }
+        ],
+        "asic_design": [
+          {
+            "name": "Alchip",
+            "role": "back-end/package",
+            "tier": "T2"
+          }
+        ],
+        "cpu": [
+          {
+            "name": "AWS Graviton4 (Arm)",
+            "role": "host",
+            "tier": "T2"
+          }
+        ],
+        "hbm": [
+          {
+            "name": "SK Hynix + Micron",
+            "role": "HBM3e",
+            "tier": "T2"
+          }
+        ],
+        "packaging": [
+          {
+            "name": "TSMC N3P + CoWoS-R",
+            "role": "organic interposer",
+            "tier": "T2"
+          }
+        ]
       },
       "sources": [
-        {"label": "AWS Trainium3 (HPCwire)", "url": "https://www.hpcwire.com/2025/12/02/aws-brings-the-trainium3-chip-to-market-with-new-ec2-ultraservers/", "tier": "T2"},
-        {"label": "SemiAnalysis Trn3", "url": "https://newsletter.semianalysis.com/p/aws-trainium3-deep-dive-a-potential", "tier": "T2"}
+        {
+          "label": "AWS Trainium3 (HPCwire)",
+          "url": "https://www.hpcwire.com/2025/12/02/aws-brings-the-trainium3-chip-to-market-with-new-ec2-ultraservers/",
+          "tier": "T2"
+        },
+        {
+          "label": "SemiAnalysis Trn3",
+          "url": "https://newsletter.semianalysis.com/p/aws-trainium3-deep-dive-a-potential",
+          "tier": "T2"
+        }
       ],
-      "notes": "NeuronLink-v4 改 switched fabric(Trn2 為 torus)。Marvell 在此世代被 Alchip 取代(back-end)。", "last_verified": "2026-06-14"
+      "notes": "NeuronLink-v4 改 switched fabric(Trn2 為 torus)。Marvell 在此世代被 Alchip 取代(back-end)。",
+      "last_verified": "2026-06-14"
     },
     {
-      "id": "microsoft-maia200", "vendor": "Microsoft", "name": "Maia 200 'Braga' Rack", "generation": "Maia 200",
-      "category": "custom-pod", "status": "sampling", "availability": "2026",
-      "unit": "rack", "compute_trays": 18, "switch_trays": 0,
-      "accelerators": 72, "accelerator_model": "Maia 200 (4/blade, 18 blades)",
-      "cpus": 18, "cpu_model": "Azure Cobalt 200 (custom Arm)",
-      "hbm_type": "HBM3e", "hbm_gb_per_accel": 216, "hbm_total_tb": 15.6,
-      "scale_up": "Microsoft custom backend", "scale_out": "Ethernet",
-      "power_kw": 0, "cooling": "liquid",
+      "id": "microsoft-maia200",
+      "vendor": "Microsoft",
+      "name": "Maia 200 'Braga' Rack",
+      "generation": "Maia 200",
+      "category": "custom-pod",
+      "status": "sampling",
+      "availability": "2026",
+      "unit": "rack",
+      "compute_trays": 18,
+      "switch_trays": 0,
+      "accelerators": 72,
+      "accelerator_model": "Maia 200 (4/blade, 18 blades)",
+      "cpus": 18,
+      "cpu_model": "Azure Cobalt 200 (custom Arm)",
+      "hbm_type": "HBM3e",
+      "hbm_gb_per_accel": 216,
+      "hbm_total_tb": 15.6,
+      "scale_up": "Microsoft custom backend",
+      "scale_out": "Ethernet",
+      "power_kw": 0,
+      "cooling": "liquid",
       "suppliers": {
-        "accelerator": [{"name": "Microsoft", "role": "owner", "tier": "T1"}],
-        "asic_design": [{"name": "Marvell", "role": "rack co-design", "tier": "T3"}, {"name": "GUC", "role": "chip (reported)", "tier": "T3"}],
-        "cpu": [{"name": "Azure Cobalt 200 (Arm)", "role": "host", "tier": "T1"}],
-        "hbm": [{"name": "HBM3e (vendor unnamed)", "role": "216 GB", "tier": "T1"}],
-        "packaging": [{"name": "TSMC 3nm", "role": "foundry", "tier": "T1"}]
+        "accelerator": [
+          {
+            "name": "Microsoft",
+            "role": "owner",
+            "tier": "T1"
+          }
+        ],
+        "asic_design": [
+          {
+            "name": "Marvell",
+            "role": "rack co-design",
+            "tier": "T3"
+          },
+          {
+            "name": "GUC",
+            "role": "chip (reported)",
+            "tier": "T3"
+          }
+        ],
+        "cpu": [
+          {
+            "name": "Azure Cobalt 200 (Arm)",
+            "role": "host",
+            "tier": "T1"
+          }
+        ],
+        "hbm": [
+          {
+            "name": "HBM3e (vendor unnamed)",
+            "role": "216 GB",
+            "tier": "T1"
+          }
+        ],
+        "packaging": [
+          {
+            "name": "TSMC 3nm",
+            "role": "foundry",
+            "tier": "T1"
+          }
+        ]
       },
       "sources": [
-        {"label": "Microsoft Maia 200 blog", "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/", "tier": "T1"},
-        {"label": "Next Platform Braga/Maia 200", "url": "https://www.nextplatform.com/ai/2026/01/28/microsoft-takes-on-other-clouds-with-braga-maia-200-ai-compute-engines/", "tier": "T2"}
+        {
+          "label": "Microsoft Maia 200 blog",
+          "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/",
+          "tier": "T1"
+        },
+        {
+          "label": "Next Platform Braga/Maia 200",
+          "url": "https://www.nextplatform.com/ai/2026/01/28/microsoft-takes-on-other-clouds-with-braga-maia-200-ai-compute-engines/",
+          "tier": "T2"
+        }
       ],
-      "notes": "blade=4 加速器+1 Cobalt 200;18 blades/rack=72 chips。延後 ~6 個月。216 GB HBM3e/chip。", "last_verified": "2026-06-14"
+      "notes": "blade=4 加速器+1 Cobalt 200;18 blades/rack=72 chips。延後 ~6 個月。216 GB HBM3e/chip。",
+      "last_verified": "2026-06-14"
     },
     {
-      "id": "microsoft-maia100", "vendor": "Microsoft", "name": "Maia 100 (+ Sidekick)", "generation": "Maia 100",
-      "category": "custom-pod", "status": "shipping", "availability": "2024",
-      "unit": "rack", "compute_trays": 0, "switch_trays": 0,
-      "accelerators": 0, "accelerator_model": "Maia 100 (per-rack count not disclosed)",
-      "cpus": 0, "cpu_model": "Azure host",
-      "hbm_type": "HBM2e", "hbm_gb_per_accel": 64, "hbm_total_tb": 0,
-      "scale_up": "Microsoft custom", "scale_out": "Ethernet 12×400 GbE/chip",
-      "power_kw": 0, "cooling": "liquid (Sidekick sidecar)",
+      "id": "microsoft-maia100",
+      "vendor": "Microsoft",
+      "name": "Maia 100 (+ Sidekick)",
+      "generation": "Maia 100",
+      "category": "custom-pod",
+      "status": "shipping",
+      "availability": "2024",
+      "unit": "rack",
+      "compute_trays": 0,
+      "switch_trays": 0,
+      "accelerators": 0,
+      "accelerator_model": "Maia 100 (per-rack count not disclosed)",
+      "cpus": 0,
+      "cpu_model": "Azure host",
+      "hbm_type": "HBM2e",
+      "hbm_gb_per_accel": 64,
+      "hbm_total_tb": 0,
+      "scale_up": "Microsoft custom",
+      "scale_out": "Ethernet 12×400 GbE/chip",
+      "power_kw": 0,
+      "cooling": "liquid (Sidekick sidecar)",
       "suppliers": {
-        "accelerator": [{"name": "Microsoft", "role": "owner", "tier": "T1"}],
-        "asic_design": [{"name": "Microsoft→TSMC (GUC supply-chain; Marvell co-design disputed)", "role": "design", "tier": "T3"}],
-        "hbm": [{"name": "HBM2E (64 GB)", "role": "4 stacks", "tier": "T1"}],
-        "packaging": [{"name": "TSMC N5 + CoWoS-S", "role": "foundry+2.5D", "tier": "T2"}]
+        "accelerator": [
+          {
+            "name": "Microsoft",
+            "role": "owner",
+            "tier": "T1"
+          }
+        ],
+        "asic_design": [
+          {
+            "name": "Microsoft→TSMC (GUC supply-chain; Marvell co-design disputed)",
+            "role": "design",
+            "tier": "T3"
+          }
+        ],
+        "hbm": [
+          {
+            "name": "HBM2E (64 GB)",
+            "role": "4 stacks",
+            "tier": "T1"
+          }
+        ],
+        "packaging": [
+          {
+            "name": "TSMC N5 + CoWoS-S",
+            "role": "foundry+2.5D",
+            "tier": "T2"
+          }
+        ]
       },
       "sources": [
-        {"label": "Microsoft Maia 100 (Hot Chips)", "url": "https://hc2024.hotchips.org/assets/program/conference/day2/81_HC2024.Microsoft.Xu.Ramakrishnan.final.v2.pdf", "tier": "T2"},
-        {"label": "Microsoft — Inside Maia 100 (official)", "url": "https://techcommunity.microsoft.com/blog/azureinfrastructureblog/inside-maia-100-revolutionizing-ai-workloads-with-microsofts-custom-ai-accelerat/4229118", "tier": "T1"}
+        {
+          "label": "Microsoft Maia 100 (Hot Chips)",
+          "url": "https://hc2024.hotchips.org/assets/program/conference/day2/81_HC2024.Microsoft.Xu.Ramakrishnan.final.v2.pdf",
+          "tier": "T2"
+        },
+        {
+          "label": "Microsoft — Inside Maia 100 (official)",
+          "url": "https://techcommunity.microsoft.com/blog/azureinfrastructureblog/inside-maia-100-revolutionizing-ai-workloads-with-microsofts-custom-ai-accelerat/4229118",
+          "tier": "T1"
+        }
       ],
-      "notes": "~820 mm² die,N5,105B 電晶體。液冷靠 'Sidekick' 旁櫃。每櫃顆數未公開。", "last_verified": "2026-06-14"
+      "notes": "~820 mm² die,N5,105B 電晶體。液冷靠 'Sidekick' 旁櫃。每櫃顆數未公開。",
+      "last_verified": "2026-06-14"
     },
     {
-      "id": "meta-mtia-v2", "vendor": "Meta", "name": "MTIA v2 Rack", "generation": "MTIA v2",
-      "category": "custom-pod", "status": "shipping", "availability": "2024",
-      "unit": "rack", "compute_trays": 0, "switch_trays": 0,
-      "accelerators": 72, "accelerator_model": "MTIA v2 (up to 72/rack)",
-      "cpus": 0, "cpu_model": "x86 host",
-      "hbm_type": "LPDDR5 (NOT HBM)", "hbm_gb_per_accel": 128, "hbm_total_tb": 0,
-      "scale_up": "PCIe fabric within rack", "scale_out": "Ethernet",
-      "power_kw": 0, "cooling": "air (90W TDP)",
+      "id": "meta-mtia-v2",
+      "vendor": "Meta",
+      "name": "MTIA v2 Rack",
+      "generation": "MTIA v2",
+      "category": "custom-pod",
+      "status": "shipping",
+      "availability": "2024",
+      "unit": "rack",
+      "compute_trays": 0,
+      "switch_trays": 0,
+      "accelerators": 72,
+      "accelerator_model": "MTIA v2 (up to 72/rack)",
+      "cpus": 0,
+      "cpu_model": "x86 host",
+      "hbm_type": "LPDDR5 (NOT HBM)",
+      "hbm_gb_per_accel": 128,
+      "hbm_total_tb": 0,
+      "scale_up": "PCIe fabric within rack",
+      "scale_out": "Ethernet",
+      "power_kw": 0,
+      "cooling": "air (90W TDP)",
       "suppliers": {
-        "accelerator": [{"name": "Meta", "role": "owner", "tier": "T1"}],
-        "asic_design": [{"name": "Broadcom", "role": "IP/I/O/co-design", "tier": "T2"}],
-        "hbm": [{"name": "LPDDR5 (no HBM)", "role": "128 GB @ 204.8 GB/s + 256 MB SRAM", "tier": "T1"}],
-        "packaging": [{"name": "TSMC N5 + CoWoS", "role": "foundry", "tier": "T1"}],
-        "odm": [{"name": "Quanta/Wiwynn/Inventec/Foxconn/Celestica", "role": "OCP build", "tier": "T1"}]
+        "accelerator": [
+          {
+            "name": "Meta",
+            "role": "owner",
+            "tier": "T1"
+          }
+        ],
+        "asic_design": [
+          {
+            "name": "Broadcom",
+            "role": "IP/I/O/co-design",
+            "tier": "T2"
+          }
+        ],
+        "hbm": [
+          {
+            "name": "LPDDR5 (no HBM)",
+            "role": "128 GB @ 204.8 GB/s + 256 MB SRAM",
+            "tier": "T1"
+          }
+        ],
+        "packaging": [
+          {
+            "name": "TSMC N5 + CoWoS",
+            "role": "foundry",
+            "tier": "T1"
+          }
+        ],
+        "odm": [
+          {
+            "name": "Quanta/Wiwynn/Inventec/Foxconn/Celestica",
+            "role": "OCP build",
+            "tier": "T1"
+          }
+        ]
       },
       "sources": [
-        {"label": "Meta MTIA v2 blog", "url": "https://ai.meta.com/blog/next-generation-meta-training-inference-accelerator-AI-MTIA/", "tier": "T1"},
-        {"label": "MTIA ISCA25 paper", "url": "https://aisystemcodesign.github.io/papers/MTIA-ISCA25.pdf", "tier": "T2"}
+        {
+          "label": "Meta MTIA v2 blog",
+          "url": "https://ai.meta.com/blog/next-generation-meta-training-inference-accelerator-AI-MTIA/",
+          "tier": "T1"
+        },
+        {
+          "label": "MTIA ISCA25 paper",
+          "url": "https://aisystemcodesign.github.io/papers/MTIA-ISCA25.pdf",
+          "tier": "T2"
+        }
       ],
-      "notes": "重要差異:用 LPDDR5 不是 HBM(成本優化,靠 256 MB 片上 SRAM)。HBM 要到 2027 MTIA 500 才登場。設計 Broadcom,Quanta 建。", "last_verified": "2026-06-14"
+      "notes": "重要差異:用 LPDDR5 不是 HBM(成本優化,靠 256 MB 片上 SRAM)。HBM 要到 2027 MTIA 500 才登場。設計 Broadcom,Quanta 建。",
+      "last_verified": "2026-06-14"
     }
   ],
-
   "supplier_landscape": {
     "_note": "供應鏈份額地圖(2025-26)。share 多為 T2/T3 分析師/供應鏈估計,方向性參考。",
     "hbm": {
-      "label_zh": "HBM 記憶體", "label_en": "HBM Memory",
+      "label_zh": "HBM 記憶體",
+      "label_en": "HBM Memory",
       "note_zh": "三家份額為單一來源 (astutegroup, 2026) 的整數估計,湊整 ~100%,僅供方向性參考。",
       "note_en": "Three-vendor shares are rounded integer estimates from a single source (astutegroup, 2026), summing to ~100%; directional only.",
       "rows": [
-        {"name": "SK Hynix", "ticker": "000660.KS", "share": "~62%", "note": "HBM 龍頭;NVIDIA 主供;首個 12-Hi HBM3e", "tier": "T2", "url": "https://www.astutegroup.com/news/general/sk-hynix-holds-62-of-hbm-micron-overtakes-samsung-2026-battle-pivots-to-hbm4/"},
-        {"name": "Micron", "ticker": "MU", "share": "~21%", "note": "已超越三星;12-Hi HBM3e;AMD MI300/350", "tier": "T2", "url": "https://www.astutegroup.com/news/general/sk-hynix-holds-62-of-hbm-micron-overtakes-samsung-2026-battle-pivots-to-hbm4/"},
-        {"name": "Samsung", "ticker": "005930.KS", "share": "~17%", "note": "回升中;Google TPU >60% via Broadcom;AMD HBM4", "tier": "T2", "url": "https://www.astutegroup.com/news/general/sk-hynix-holds-62-of-hbm-micron-overtakes-samsung-2026-battle-pivots-to-hbm4/"}
+        {
+          "name": "SK Hynix",
+          "ticker": "000660.KS",
+          "share": "~62%",
+          "note": "HBM 龍頭;NVIDIA 主供;首個 12-Hi HBM3e",
+          "tier": "T2",
+          "url": "https://www.astutegroup.com/news/general/sk-hynix-holds-62-of-hbm-micron-overtakes-samsung-2026-battle-pivots-to-hbm4/"
+        },
+        {
+          "name": "Micron",
+          "ticker": "MU",
+          "share": "~21%",
+          "note": "已超越三星;12-Hi HBM3e;AMD MI300/350",
+          "tier": "T2",
+          "url": "https://www.astutegroup.com/news/general/sk-hynix-holds-62-of-hbm-micron-overtakes-samsung-2026-battle-pivots-to-hbm4/"
+        },
+        {
+          "name": "Samsung",
+          "ticker": "005930.KS",
+          "share": "~17%",
+          "note": "回升中;Google TPU >60% via Broadcom;AMD HBM4",
+          "tier": "T2",
+          "url": "https://www.astutegroup.com/news/general/sk-hynix-holds-62-of-hbm-micron-overtakes-samsung-2026-battle-pivots-to-hbm4/"
+        }
       ]
     },
     "odm": {
-      "label_zh": "系統整合 / ODM", "label_en": "System Integrators / ODMs",
+      "label_zh": "系統整合 / ODM",
+      "label_en": "System Integrators / ODMs",
       "rows": [
-        {"name": "Foxconn/Hon Hai", "ticker": "2317.TW", "share": "~52%", "note": "GB200/GB300 機櫃龍頭", "tier": "T3", "url": "https://eu.36kr.com/en/p/3590983777108229"},
-        {"name": "Wistron", "ticker": "3231.TW", "share": "~21%", "note": "NVIDIA 認證全櫃", "tier": "T3", "url": "https://eu.36kr.com/en/p/3590983777108229"},
-        {"name": "Quanta/QCT", "ticker": "2382.TW", "share": "~19%", "note": "NVIDIA 認證;hyperscaler", "tier": "T3", "url": "https://eu.36kr.com/en/p/3590983777108229"},
-        {"name": "Wiwynn", "ticker": "6669.TW", "share": "—", "note": "Meta/Microsoft hyperscale 機櫃", "tier": "T3", "url": "https://en.wikipedia.org/wiki/Wiwynn"},
-        {"name": "Supermicro", "ticker": "SMCI", "share": "—", "note": "MI350/Blackwell 系統強", "tier": "T1", "url": "https://www.supermicro.com/en/accelerators/AMD"},
-        {"name": "Sanmina (ex-ZT)", "ticker": "SANM", "share": "—", "note": "AMD 機櫃 NPI(收購 ZT 製造)", "tier": "T1", "url": "https://www.amd.com/en/newsroom/press-releases/2025-10-27-amd-completes-divestiture-of-zt-systems-data-cente.html"}
+        {
+          "name": "Foxconn/Hon Hai",
+          "ticker": "2317.TW",
+          "share": "~52%",
+          "note": "GB200/GB300 機櫃龍頭",
+          "tier": "T3",
+          "url": "https://eu.36kr.com/en/p/3590983777108229"
+        },
+        {
+          "name": "Wistron",
+          "ticker": "3231.TW",
+          "share": "~21%",
+          "note": "NVIDIA 認證全櫃",
+          "tier": "T3",
+          "url": "https://eu.36kr.com/en/p/3590983777108229"
+        },
+        {
+          "name": "Quanta/QCT",
+          "ticker": "2382.TW",
+          "share": "~19%",
+          "note": "NVIDIA 認證;hyperscaler",
+          "tier": "T3",
+          "url": "https://eu.36kr.com/en/p/3590983777108229"
+        },
+        {
+          "name": "Wiwynn",
+          "ticker": "6669.TW",
+          "share": "—",
+          "note": "Meta/Microsoft hyperscale 機櫃",
+          "tier": "T3",
+          "url": "https://en.wikipedia.org/wiki/Wiwynn"
+        },
+        {
+          "name": "Supermicro",
+          "ticker": "SMCI",
+          "share": "—",
+          "note": "MI350/Blackwell 系統強",
+          "tier": "T1",
+          "url": "https://www.supermicro.com/en/accelerators/AMD"
+        },
+        {
+          "name": "Sanmina (ex-ZT)",
+          "ticker": "SANM",
+          "share": "—",
+          "note": "AMD 機櫃 NPI(收購 ZT 製造)",
+          "tier": "T1",
+          "url": "https://www.amd.com/en/newsroom/press-releases/2025-10-27-amd-completes-divestiture-of-zt-systems-data-cente.html"
+        }
       ]
     },
     "packaging": {
-      "label_zh": "先進封裝 / 晶圓 (CoWoS)", "label_en": "Advanced Packaging / Foundry",
+      "label_zh": "先進封裝 / 晶圓 (CoWoS)",
+      "label_en": "Advanced Packaging / Foundry",
       "rows": [
-        {"name": "TSMC", "ticker": "TSM", "share": "CoWoS 35k→75k→130k wpm", "note": "CoWoS-S→CoWoS-L;NVIDIA/AMD/Broadcom/Marvell", "tier": "T2", "url": "https://www.trendforce.com/news/2025/01/02/news-tsmc-set-to-expand-cowos-capacity-to-record-75000-wafers-in-2025-doubling-2024-output/"},
-        {"name": "Amkor", "ticker": "AMKR", "share": "~180-190k wafers/yr", "note": "TSMC CoWoS 外溢", "tier": "T2", "url": "https://markets.financialcontent.com/stocks/article/tokenring-2026-1-1-the-great-packaging-pivot-how-tsmc-is-doubling-cowos-capacity-to-break-the-ai-supply-bottleneck-through-2026"},
-        {"name": "ASE/SPIL", "ticker": "ASX", "share": "~60-80k wafers/yr", "note": "TSMC CoWoS 外溢", "tier": "T2", "url": "https://markets.financialcontent.com/stocks/article/tokenring-2026-1-1-the-great-packaging-pivot-how-tsmc-is-doubling-cowos-capacity-to-break-the-ai-supply-bottleneck-through-2026"}
+        {
+          "name": "TSMC",
+          "ticker": "TSM",
+          "share": "CoWoS 35k→75k→130k wpm",
+          "note": "CoWoS-S→CoWoS-L;NVIDIA/AMD/Broadcom/Marvell",
+          "tier": "T2",
+          "url": "https://www.trendforce.com/news/2025/01/02/news-tsmc-set-to-expand-cowos-capacity-to-record-75000-wafers-in-2025-doubling-2024-output/"
+        },
+        {
+          "name": "Amkor",
+          "ticker": "AMKR",
+          "share": "~180-190k wafers/yr",
+          "note": "TSMC CoWoS 外溢",
+          "tier": "T2",
+          "url": "https://markets.financialcontent.com/stocks/article/tokenring-2026-1-1-the-great-packaging-pivot-how-tsmc-is-doubling-cowos-capacity-to-break-the-ai-supply-bottleneck-through-2026"
+        },
+        {
+          "name": "ASE/SPIL",
+          "ticker": "ASX",
+          "share": "~60-80k wafers/yr",
+          "note": "TSMC CoWoS 外溢",
+          "tier": "T2",
+          "url": "https://markets.financialcontent.com/stocks/article/tokenring-2026-1-1-the-great-packaging-pivot-how-tsmc-is-doubling-cowos-capacity-to-break-the-ai-supply-bottleneck-through-2026"
+        }
       ]
     },
     "networking": {
-      "label_zh": "網路 / 交換晶片", "label_en": "Networking / Switch Silicon",
+      "label_zh": "網路 / 交換晶片",
+      "label_en": "Networking / Switch Silicon",
       "rows": [
-        {"name": "NVIDIA", "ticker": "NVDA", "share": "DC 乙太 ~26% (Q2'25)", "note": "NVLink/Spectrum-X/Quantum IB", "tier": "T2", "url": "https://www.nextplatform.com/2025/06/23/nvidia-passes-cisco-and-rivals-arista-in-datacenter-ethernet-sales/"},
-        {"name": "Broadcom", "ticker": "AVGO", "share": "AI switch 主導", "note": "Tomahawk 6 = 102.4 Tbps;custom XPU + Jericho", "tier": "T2", "url": "https://business.dailytimesleader.com/dailytimesleader/article/marketminute-2025-12-29-the-backbone-of-the-million-gpu-cluster-broadcoms-dominance-in-the-2026-ai-networking-supercycle"},
-        {"name": "Arista", "ticker": "ANET", "share": "DC 乙太 ~19%", "note": "hyperscaler 乙太 AI fabric", "tier": "T2", "url": "https://www.nextplatform.com/2025/06/23/nvidia-passes-cisco-and-rivals-arista-in-datacenter-ethernet-sales/"},
-        {"name": "Marvell", "ticker": "MRVL", "share": "custom + merchant", "note": "與 Broadcom ~95% custom XPU 設計", "tier": "T3", "url": "https://www.tomshardware.com/tech-industry/semiconductors/custom-ai-asics-examined-from-broadcom-to-mtia"}
+        {
+          "name": "NVIDIA",
+          "ticker": "NVDA",
+          "share": "DC 乙太 ~26% (Q2'25)",
+          "note": "NVLink/Spectrum-X/Quantum IB",
+          "tier": "T2",
+          "url": "https://www.nextplatform.com/2025/06/23/nvidia-passes-cisco-and-rivals-arista-in-datacenter-ethernet-sales/"
+        },
+        {
+          "name": "Broadcom",
+          "ticker": "AVGO",
+          "share": "AI switch 主導",
+          "note": "Tomahawk 6 = 102.4 Tbps;custom XPU + Jericho",
+          "tier": "T2",
+          "url": "https://business.dailytimesleader.com/dailytimesleader/article/marketminute-2025-12-29-the-backbone-of-the-million-gpu-cluster-broadcoms-dominance-in-the-2026-ai-networking-supercycle"
+        },
+        {
+          "name": "Arista",
+          "ticker": "ANET",
+          "share": "DC 乙太 ~19%",
+          "note": "hyperscaler 乙太 AI fabric",
+          "tier": "T2",
+          "url": "https://www.nextplatform.com/2025/06/23/nvidia-passes-cisco-and-rivals-arista-in-datacenter-ethernet-sales/"
+        },
+        {
+          "name": "Marvell",
+          "ticker": "MRVL",
+          "share": "custom + merchant",
+          "note": "與 Broadcom ~95% custom XPU 設計",
+          "tier": "T3",
+          "url": "https://www.tomshardware.com/tech-industry/semiconductors/custom-ai-asics-examined-from-broadcom-to-mtia"
+        }
       ]
     },
     "connectivity": {
-      "label_zh": "互連 / 介面晶片", "label_en": "Connectivity / Interface Chips",
+      "label_zh": "互連 / 介面晶片",
+      "label_en": "Connectivity / Interface Chips",
       "rows": [
-        {"name": "Astera Labs", "ticker": "ALAB", "share": "retimer 龍頭", "note": "Aries PCIe/CXL retimer;Scorpio switch", "tier": "T2", "url": "https://newsletter.semianalysis.com/p/astera-labs-ipo-the-next-connectivity"},
-        {"name": "Credo", "ticker": "CRDO", "share": "AEC ~73%", "note": "'紫色線' active electrical cable", "tier": "T3", "url": "https://www.cnbc.com/2025/10/17/500-purple-cables-put-credo-in-middle-of-the-ai-boom.html"}
+        {
+          "name": "Astera Labs",
+          "ticker": "ALAB",
+          "share": "retimer 龍頭",
+          "note": "Aries PCIe/CXL retimer;Scorpio switch",
+          "tier": "T2",
+          "url": "https://newsletter.semianalysis.com/p/astera-labs-ipo-the-next-connectivity"
+        },
+        {
+          "name": "Credo",
+          "ticker": "CRDO",
+          "share": "AEC ~73%",
+          "note": "'紫色線' active electrical cable",
+          "tier": "T3",
+          "url": "https://www.cnbc.com/2025/10/17/500-purple-cables-put-credo-in-middle-of-the-ai-boom.html"
+        }
       ]
     },
     "cooling": {
-      "label_zh": "液冷 (冷板/CDU/分歧管)", "label_en": "Liquid Cooling",
+      "label_zh": "液冷 (冷板/CDU/分歧管)",
+      "label_en": "Liquid Cooling",
       "rows": [
-        {"name": "Vertiv", "ticker": "VRT", "share": "GB200 CDU >70% 首批", "note": "1350 系列 CDU", "tier": "T3", "url": "https://deepfundamental.substack.com/p/deep-dive-liquid-cooling"},
-        {"name": "AVC", "ticker": "3017.TW", "share": "冷板 ~40-50%", "note": "GB200/GB300 冷板;2025 營收 ~US$4.5B", "tier": "T3", "url": "https://english.cw.com.tw/article/article.action?id=4145"},
-        {"name": "Auras", "ticker": "3324.TW", "share": "GB300 冷板 ~25%", "note": "冷板 + 分歧管", "tier": "T3", "url": "https://www.taiwannews.com.tw/news/6209780"},
-        {"name": "Cooler Master", "ticker": "—", "share": "—", "note": "NVIDIA 冷板/分歧管主供(未上市)", "tier": "T3", "url": "https://english.cw.com.tw/article/article.action?id=4145"},
-        {"name": "Boyd", "ticker": "—", "share": "—", "note": "GB200 NVL72 RVL;brazed Cu 冷板", "tier": "T1", "url": "https://www.boydcorp.com/uncategorized/boyd-validated-for-nvidia-gb200-nvl72-recommended-vendor-list.html"},
-        {"name": "Delta", "ticker": "2308.TW", "share": "—", "note": "CDU", "tier": "T3", "url": "https://www.taiwannews.com.tw/news/6209780"}
+        {
+          "name": "Vertiv",
+          "ticker": "VRT",
+          "share": "GB200 CDU >70% 首批",
+          "note": "1350 系列 CDU",
+          "tier": "T3",
+          "url": "https://deepfundamental.substack.com/p/deep-dive-liquid-cooling"
+        },
+        {
+          "name": "AVC",
+          "ticker": "3017.TW",
+          "share": "冷板 ~40-50%",
+          "note": "GB200/GB300 冷板;2025 營收 ~US$4.5B",
+          "tier": "T3",
+          "url": "https://english.cw.com.tw/article/article.action?id=4145"
+        },
+        {
+          "name": "Auras",
+          "ticker": "3324.TW",
+          "share": "GB300 冷板 ~25%",
+          "note": "冷板 + 分歧管",
+          "tier": "T3",
+          "url": "https://www.taiwannews.com.tw/news/6209780"
+        },
+        {
+          "name": "Cooler Master",
+          "ticker": "—",
+          "share": "—",
+          "note": "NVIDIA 冷板/分歧管主供(未上市)",
+          "tier": "T3",
+          "url": "https://english.cw.com.tw/article/article.action?id=4145"
+        },
+        {
+          "name": "Boyd",
+          "ticker": "—",
+          "share": "—",
+          "note": "GB200 NVL72 RVL;brazed Cu 冷板",
+          "tier": "T1",
+          "url": "https://www.boydcorp.com/uncategorized/boyd-validated-for-nvidia-gb200-nvl72-recommended-vendor-list.html"
+        },
+        {
+          "name": "Delta",
+          "ticker": "2308.TW",
+          "share": "—",
+          "note": "CDU",
+          "tier": "T3",
+          "url": "https://www.taiwannews.com.tw/news/6209780"
+        }
       ]
     },
     "power": {
-      "label_zh": "電源 (PMIC/VRM/PSU/busbar)", "label_en": "Power",
+      "label_zh": "電源 (PMIC/VRM/PSU/busbar)",
+      "label_en": "Power",
       "rows": [
-        {"name": "Infineon", "ticker": "IFX.DE", "share": "GB200 PMIC ~60-70%", "note": "與 Delta 共同設計電源", "tier": "T3", "url": "https://damnang2.substack.com/p/ai-datacenter-power-investment-map"},
-        {"name": "Monolithic Power", "ticker": "MPWR", "share": "—", "note": "Blackwell VRM", "tier": "T2", "url": "https://www.mordorintelligence.com/industry-reports/power-delivery-module-vrm-market-for-gpu-and-ai-servers"},
-        {"name": "Delta", "ticker": "2308.TW", "share": "—", "note": "GB200 電源 shelf;AI PSU 領導", "tier": "T3", "url": "https://damnang2.substack.com/p/ai-datacenter-power-investment-map"},
-        {"name": "Vertiv", "ticker": "VRT", "share": "—", "note": "800V HVDC 生態", "tier": "T1", "url": "https://developer.nvidia.com/blog/nvidia-800-v-hvdc-architecture-will-power-the-next-generation-of-ai-factories/"}
+        {
+          "name": "Infineon",
+          "ticker": "IFX.DE",
+          "share": "GB200 PMIC ~60-70%",
+          "note": "與 Delta 共同設計電源",
+          "tier": "T3",
+          "url": "https://damnang2.substack.com/p/ai-datacenter-power-investment-map"
+        },
+        {
+          "name": "Monolithic Power",
+          "ticker": "MPWR",
+          "share": "—",
+          "note": "Blackwell VRM",
+          "tier": "T2",
+          "url": "https://www.mordorintelligence.com/industry-reports/power-delivery-module-vrm-market-for-gpu-and-ai-servers"
+        },
+        {
+          "name": "Delta",
+          "ticker": "2308.TW",
+          "share": "—",
+          "note": "GB200 電源 shelf;AI PSU 領導",
+          "tier": "T3",
+          "url": "https://damnang2.substack.com/p/ai-datacenter-power-investment-map"
+        },
+        {
+          "name": "Vertiv",
+          "ticker": "VRT",
+          "share": "—",
+          "note": "800V HVDC 生態",
+          "tier": "T1",
+          "url": "https://developer.nvidia.com/blog/nvidia-800-v-hvdc-architecture-will-power-the-next-generation-of-ai-factories/"
+        }
       ]
     },
     "substrate": {
-      "label_zh": "載板 / CCL", "label_en": "Substrate / CCL",
+      "label_zh": "載板 / CCL",
+      "label_en": "Substrate / CCL",
       "rows": [
-        {"name": "Ibiden", "ticker": "4062.T", "share": "ABF 前三", "note": "高階 AI/HPC 載板", "tier": "T2", "url": "https://www.360iresearch.com/library/intelligence/abf-substrates-for-server-hpc"},
-        {"name": "Unimicron", "ticker": "3037.TW", "share": "ABF 前三", "note": "AI 加速器載板", "tier": "T2", "url": "https://www.marketreportanalytics.com/reports/abf-substrate-379747"},
-        {"name": "Shinko", "ticker": "6967.T", "share": "ABF 前三", "note": "高階 FC-BGA", "tier": "T2", "url": "https://www.marketreportanalytics.com/reports/abf-substrate-379747"},
-        {"name": "Nan Ya / ITEQ", "ticker": "1303.TW", "share": "—", "note": "高速 AI 伺服器 CCL", "tier": "T3", "url": "https://www.extrapolate.com/chemicals-and-advanced-materials/abf-substrate-market/87578"}
+        {
+          "name": "Ibiden",
+          "ticker": "4062.T",
+          "share": "ABF 前三",
+          "note": "高階 AI/HPC 載板",
+          "tier": "T2",
+          "url": "https://www.360iresearch.com/library/intelligence/abf-substrates-for-server-hpc"
+        },
+        {
+          "name": "Unimicron",
+          "ticker": "3037.TW",
+          "share": "ABF 前三",
+          "note": "AI 加速器載板",
+          "tier": "T2",
+          "url": "https://www.marketreportanalytics.com/reports/abf-substrate-379747"
+        },
+        {
+          "name": "Shinko",
+          "ticker": null,
+          "share": "ABF 前三",
+          "note": "高階 FC-BGA（JIC 私有化已下市，無公開股價）",
+          "tier": "T2",
+          "url": "https://www.marketreportanalytics.com/reports/abf-substrate-379747"
+        },
+        {
+          "name": "Nan Ya / ITEQ",
+          "ticker": "1303.TW",
+          "share": "—",
+          "note": "高速 AI 伺服器 CCL",
+          "tier": "T3",
+          "url": "https://www.extrapolate.com/chemicals-and-advanced-materials/abf-substrate-market/87578"
+        }
       ]
     },
     "optics": {
-      "label_zh": "光通訊 (800G/1.6T)", "label_en": "Optics / Transceivers",
+      "label_zh": "光通訊 (800G/1.6T)",
+      "label_en": "Optics / Transceivers",
       "rows": [
-        {"name": "Innolight", "ticker": "300308.SZ", "share": "1.6T ~50-60%", "note": "NVIDIA 800G/1.6T 首批", "tier": "T2", "url": "https://www.datainsightsmarket.com/reports/800g-and-16-t-optical-transceivers-173535"},
-        {"name": "Eoptolink", "ticker": "300502.SZ", "share": "—", "note": "與 Innolight 分 NVIDIA 增量 800G ~60%", "tier": "T2", "url": "https://www.datainsightsmarket.com/reports/800g-and-16-t-optical-transceivers-173535"},
-        {"name": "Coherent", "ticker": "COHR", "share": "—", "note": "NVIDIA 800G;EML 雷射;NVIDIA 投資 $2B", "tier": "T2", "url": "https://optics.org/news/nvidia-backs-lumentum-and-coherent-with-4bn-cash-investment"},
-        {"name": "Lumentum", "ticker": "LITE", "share": "—", "note": "NVIDIA photonics;NVIDIA 投資 $2B", "tier": "T2", "url": "https://www.cnbc.com/2026/03/02/nvidia-investment-coherent-lumentum.html"},
-        {"name": "Fabrinet", "ticker": "FN", "share": "—", "note": "NVIDIA/Coherent 光學代工組裝", "tier": "T1", "url": "https://www.sec.gov/Archives/edgar/data/0001408710/000140871025000006/fn-2025203xex991q225.htm"}
+        {
+          "name": "Innolight",
+          "ticker": "300308.SZ",
+          "share": "1.6T ~50-60%",
+          "note": "NVIDIA 800G/1.6T 首批",
+          "tier": "T2",
+          "url": "https://www.datainsightsmarket.com/reports/800g-and-16-t-optical-transceivers-173535"
+        },
+        {
+          "name": "Eoptolink",
+          "ticker": "300502.SZ",
+          "share": "—",
+          "note": "與 Innolight 分 NVIDIA 增量 800G ~60%",
+          "tier": "T2",
+          "url": "https://www.datainsightsmarket.com/reports/800g-and-16-t-optical-transceivers-173535"
+        },
+        {
+          "name": "Coherent",
+          "ticker": "COHR",
+          "share": "—",
+          "note": "NVIDIA 800G;EML 雷射;NVIDIA 投資 $2B",
+          "tier": "T2",
+          "url": "https://optics.org/news/nvidia-backs-lumentum-and-coherent-with-4bn-cash-investment"
+        },
+        {
+          "name": "Lumentum",
+          "ticker": "LITE",
+          "share": "—",
+          "note": "NVIDIA photonics;NVIDIA 投資 $2B",
+          "tier": "T2",
+          "url": "https://www.cnbc.com/2026/03/02/nvidia-investment-coherent-lumentum.html"
+        },
+        {
+          "name": "Fabrinet",
+          "ticker": "FN",
+          "share": "—",
+          "note": "NVIDIA/Coherent 光學代工組裝",
+          "tier": "T1",
+          "url": "https://www.sec.gov/Archives/edgar/data/0001408710/000140871025000006/fn-2025203xex991q225.htm"
+        }
       ]
     }
   },
-
   "news_queries": [
-    "GB300 NVL72", "Vera Rubin NVL72", "AMD Helios MI400 rack", "TPU Ironwood",
-    "AWS Trainium3", "HBM4 supplier", "CoWoS capacity", "AI server liquid cooling design win"
+    "GB300 NVL72",
+    "Vera Rubin NVL72",
+    "AMD Helios MI400 rack",
+    "TPU Ironwood",
+    "AWS Trainium3",
+    "HBM4 supplier",
+    "CoWoS capacity",
+    "AI server liquid cooling design win"
   ]
 }

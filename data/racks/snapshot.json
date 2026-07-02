@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-06-22 06:39 UTC",
+  "generated_at": "2026-07-02 06:52 UTC",
   "as_of": "2026-06-14",
-  "today": "2026-06-21",
+  "today": "2026-07-01",
   "live_present": true,
   "tier_legend": {
     "T1": "官方規格 Official spec/datasheet",
@@ -186,7 +186,7 @@
       "last_verified": "2026-06-14",
       "hbm_check_ok": true,
       "hbm_implied_tb": 13.39,
-      "staleness_days": 7,
+      "staleness_days": 17,
       "tier_mix": {
         "T1": 4,
         "T2": 5,
@@ -307,7 +307,7 @@
       "last_verified": "2026-06-14",
       "hbm_check_ok": true,
       "hbm_implied_tb": 20.74,
-      "staleness_days": 7,
+      "staleness_days": 17,
       "tier_mix": {
         "T1": 2,
         "T2": 2,
@@ -406,7 +406,7 @@
       "last_verified": "2026-06-14",
       "hbm_check_ok": true,
       "hbm_implied_tb": 20.74,
-      "staleness_days": 7,
+      "staleness_days": 17,
       "tier_mix": {
         "T1": 3,
         "T2": 1,
@@ -493,7 +493,7 @@
       "last_verified": "2026-06-14",
       "hbm_check_ok": true,
       "hbm_implied_tb": 4.61,
-      "staleness_days": 7,
+      "staleness_days": 17,
       "tier_mix": {
         "T1": 3,
         "T2": 3,
@@ -575,7 +575,7 @@
       "last_verified": "2026-06-14",
       "hbm_check_ok": true,
       "hbm_implied_tb": 1.44,
-      "staleness_days": 7,
+      "staleness_days": 17,
       "tier_mix": {
         "T1": 2,
         "T2": 2,
@@ -662,7 +662,7 @@
       "last_verified": "2026-06-14",
       "hbm_check_ok": true,
       "hbm_implied_tb": 1.13,
-      "staleness_days": 7,
+      "staleness_days": 17,
       "tier_mix": {
         "T1": 2,
         "T2": 4,
@@ -749,7 +749,7 @@
       "last_verified": "2026-06-14",
       "hbm_check_ok": true,
       "hbm_implied_tb": 0.64,
-      "staleness_days": 7,
+      "staleness_days": 17,
       "tier_mix": {
         "T1": 2,
         "T2": 4,
@@ -836,7 +836,7 @@
       "last_verified": "2026-06-14",
       "hbm_check_ok": true,
       "hbm_implied_tb": 1.54,
-      "staleness_days": 7,
+      "staleness_days": 17,
       "tier_mix": {
         "T1": 2,
         "T2": 4,
@@ -930,7 +930,7 @@
       "last_verified": "2026-06-14",
       "hbm_check_ok": true,
       "hbm_implied_tb": 2.05,
-      "staleness_days": 7,
+      "staleness_days": 17,
       "tier_mix": {
         "T1": 2,
         "T2": 5,
@@ -1024,7 +1024,7 @@
       "last_verified": "2026-06-14",
       "hbm_check_ok": true,
       "hbm_implied_tb": 2.3,
-      "staleness_days": 7,
+      "staleness_days": 17,
       "tier_mix": {
         "T1": 2,
         "T2": 5,
@@ -1125,7 +1125,7 @@
       "last_verified": "2026-06-14",
       "hbm_check_ok": true,
       "hbm_implied_tb": 31.1,
-      "staleness_days": 7,
+      "staleness_days": 17,
       "tier_mix": {
         "T1": 1,
         "T2": 5,
@@ -1207,7 +1207,7 @@
       "last_verified": "2026-06-14",
       "hbm_check_ok": true,
       "hbm_implied_tb": 1.02,
-      "staleness_days": 7,
+      "staleness_days": 17,
       "tier_mix": {
         "T1": 2,
         "T2": 4,
@@ -1318,7 +1318,7 @@
       "last_verified": "2026-06-14",
       "hbm_check_ok": true,
       "hbm_implied_tb": 1769.47,
-      "staleness_days": 7,
+      "staleness_days": 17,
       "tier_mix": {
         "T1": 3,
         "T2": 3,
@@ -1393,7 +1393,7 @@
       "last_verified": "2026-06-14",
       "hbm_check_ok": true,
       "hbm_implied_tb": 8.19,
-      "staleness_days": 7,
+      "staleness_days": 17,
       "tier_mix": {
         "T1": 2,
         "T2": 2,
@@ -1482,7 +1482,7 @@
       "last_verified": "2026-06-14",
       "hbm_check_ok": true,
       "hbm_implied_tb": 6.14,
-      "staleness_days": 7,
+      "staleness_days": 17,
       "tier_mix": {
         "T1": 2,
         "T2": 3,
@@ -1564,7 +1564,7 @@
       "last_verified": "2026-06-14",
       "hbm_check_ok": true,
       "hbm_implied_tb": 20.74,
-      "staleness_days": 7,
+      "staleness_days": 17,
       "tier_mix": {
         "T1": 1,
         "T2": 6
@@ -1650,7 +1650,7 @@
       "last_verified": "2026-06-14",
       "hbm_check_ok": true,
       "hbm_implied_tb": 15.55,
-      "staleness_days": 7,
+      "staleness_days": 17,
       "tier_mix": {
         "T1": 5,
         "T2": 1,
@@ -1725,7 +1725,7 @@
       "last_verified": "2026-06-14",
       "hbm_check_ok": null,
       "hbm_implied_tb": null,
-      "staleness_days": 7,
+      "staleness_days": 17,
       "tier_mix": {
         "T1": 3,
         "T2": 2,
@@ -1807,7 +1807,7 @@
       "last_verified": "2026-06-14",
       "hbm_check_ok": null,
       "hbm_implied_tb": null,
-      "staleness_days": 7,
+      "staleness_days": 17,
       "tier_mix": {
         "T1": 5,
         "T2": 2
@@ -2536,9 +2536,10 @@
           "tier": "T2",
           "url": "https://www.astutegroup.com/news/general/sk-hynix-holds-62-of-hbm-micron-overtakes-samsung-2026-battle-pivots-to-hbm4/",
           "live": {
-            "price": 2918000.0,
-            "change_pct": 5.57,
-            "market_cap_bn": 2071356.7
+            "price": 2187000.0,
+            "change_pct": -14.57,
+            "currency": "KRW",
+            "market_cap_bn": 1552452.7
           }
         },
         {
@@ -2549,9 +2550,10 @@
           "tier": "T2",
           "url": "https://www.astutegroup.com/news/general/sk-hynix-holds-62-of-hbm-micron-overtakes-samsung-2026-battle-pivots-to-hbm4/",
           "live": {
-            "price": 1133.99,
-            "change_pct": 8.7,
-            "market_cap_bn": 1278.8
+            "price": 1032.28,
+            "change_pct": -10.57,
+            "currency": "USD",
+            "market_cap_bn": 1165.9
           }
         },
         {
@@ -2562,9 +2564,10 @@
           "tier": "T2",
           "url": "https://www.astutegroup.com/news/general/sk-hynix-holds-62-of-hbm-micron-overtakes-samsung-2026-battle-pivots-to-hbm4/",
           "live": {
-            "price": 352000.0,
-            "change_pct": -0.56,
-            "market_cap_bn": 2311430.3
+            "price": 286000.0,
+            "change_pct": -9.06,
+            "currency": "KRW",
+            "market_cap_bn": 1878037.1
           }
         }
       ]
@@ -2583,9 +2586,10 @@
           "tier": "T3",
           "url": "https://eu.36kr.com/en/p/3590983777108229",
           "live": {
-            "price": 268.5,
-            "change_pct": 0.0,
-            "market_cap_bn": 3759.5
+            "price": 239.0,
+            "change_pct": -3.63,
+            "currency": "TWD",
+            "market_cap_bn": 3346.5
           }
         },
         {
@@ -2596,9 +2600,10 @@
           "tier": "T3",
           "url": "https://eu.36kr.com/en/p/3590983777108229",
           "live": {
-            "price": 162.5,
-            "change_pct": 0.62,
-            "market_cap_bn": 516.8
+            "price": 158.5,
+            "change_pct": -0.63,
+            "currency": "TWD",
+            "market_cap_bn": 504.1
           }
         },
         {
@@ -2609,9 +2614,10 @@
           "tier": "T3",
           "url": "https://eu.36kr.com/en/p/3590983777108229",
           "live": {
-            "price": 380.0,
-            "change_pct": 1.06,
-            "market_cap_bn": 1464.7
+            "price": 369.0,
+            "change_pct": -0.81,
+            "currency": "TWD",
+            "market_cap_bn": 1422.3
           }
         },
         {
@@ -2622,9 +2628,10 @@
           "tier": "T3",
           "url": "https://en.wikipedia.org/wiki/Wiwynn",
           "live": {
-            "price": 4855.0,
-            "change_pct": -5.36,
-            "market_cap_bn": 902.3
+            "price": 5200.0,
+            "change_pct": 3.28,
+            "currency": "TWD",
+            "market_cap_bn": 2899.1
           }
         },
         {
@@ -2635,9 +2642,10 @@
           "tier": "T1",
           "url": "https://www.supermicro.com/en/accelerators/AMD",
           "live": {
-            "price": 30.66,
-            "change_pct": 10.37,
-            "market_cap_bn": 19.8
+            "price": 27.65,
+            "change_pct": -5.73,
+            "currency": "USD",
+            "market_cap_bn": 17.9
           }
         },
         {
@@ -2648,9 +2656,10 @@
           "tier": "T1",
           "url": "https://www.amd.com/en/newsroom/press-releases/2025-10-27-amd-completes-divestiture-of-zt-systems-data-cente.html",
           "live": {
-            "price": 241.49,
-            "change_pct": -0.53,
-            "market_cap_bn": 12.9
+            "price": 246.39,
+            "change_pct": -2.64,
+            "currency": "USD",
+            "market_cap_bn": 13.2
           }
         }
       ]
@@ -2669,9 +2678,10 @@
           "tier": "T2",
           "url": "https://www.trendforce.com/news/2025/01/02/news-tsmc-set-to-expand-cowos-capacity-to-record-75000-wafers-in-2025-doubling-2024-output/",
           "live": {
-            "price": 462.12,
-            "change_pct": 6.94,
-            "market_cap_bn": 2396.8
+            "price": 444.23,
+            "change_pct": -6.98,
+            "currency": "USD",
+            "market_cap_bn": 2304.0
           }
         },
         {
@@ -2682,9 +2692,10 @@
           "tier": "T2",
           "url": "https://markets.financialcontent.com/stocks/article/tokenring-2026-1-1-the-great-packaging-pivot-how-tsmc-is-doubling-cowos-capacity-to-break-the-ai-supply-bottleneck-through-2026",
           "live": {
-            "price": 90.46,
-            "change_pct": 4.66,
-            "market_cap_bn": 22.4
+            "price": 79.99,
+            "change_pct": -7.24,
+            "currency": "USD",
+            "market_cap_bn": 19.8
           }
         },
         {
@@ -2695,9 +2706,10 @@
           "tier": "T2",
           "url": "https://markets.financialcontent.com/stocks/article/tokenring-2026-1-1-the-great-packaging-pivot-how-tsmc-is-doubling-cowos-capacity-to-break-the-ai-supply-bottleneck-through-2026",
           "live": {
-            "price": 40.56,
-            "change_pct": 8.33,
-            "market_cap_bn": 89.0
+            "price": 42.99,
+            "change_pct": -4.72,
+            "currency": "USD",
+            "market_cap_bn": 94.3
           }
         }
       ]
@@ -2716,9 +2728,10 @@
           "tier": "T2",
           "url": "https://www.nextplatform.com/2025/06/23/nvidia-passes-cisco-and-rivals-arista-in-datacenter-ethernet-sales/",
           "live": {
-            "price": 210.69,
-            "change_pct": 2.95,
-            "market_cap_bn": 5103.1
+            "price": 197.58,
+            "change_pct": -1.25,
+            "currency": "USD",
+            "market_cap_bn": 4785.6
           }
         },
         {
@@ -2729,9 +2742,10 @@
           "tier": "T2",
           "url": "https://business.dailytimesleader.com/dailytimesleader/article/marketminute-2025-12-29-the-backbone-of-the-million-gpu-cluster-broadcoms-dominance-in-the-2026-ai-networking-supercycle",
           "live": {
-            "price": 411.35,
-            "change_pct": 4.7,
-            "market_cap_bn": 1957.0
+            "price": 369.34,
+            "change_pct": -2.23,
+            "currency": "USD",
+            "market_cap_bn": 1757.2
           }
         },
         {
@@ -2742,9 +2756,10 @@
           "tier": "T2",
           "url": "https://www.nextplatform.com/2025/06/23/nvidia-passes-cisco-and-rivals-arista-in-datacenter-ethernet-sales/",
           "live": {
-            "price": 169.67,
-            "change_pct": 2.87,
-            "market_cap_bn": 213.6
+            "price": 166.62,
+            "change_pct": -1.92,
+            "currency": "USD",
+            "market_cap_bn": 209.8
           }
         },
         {
@@ -2755,9 +2770,10 @@
           "tier": "T3",
           "url": "https://www.tomshardware.com/tech-industry/semiconductors/custom-ai-asics-examined-from-broadcom-to-mtia",
           "live": {
-            "price": 310.58,
-            "change_pct": 7.27,
-            "market_cap_bn": 271.9
+            "price": 272.05,
+            "change_pct": -8.67,
+            "currency": "USD",
+            "market_cap_bn": 238.2
           }
         }
       ]
@@ -2776,9 +2792,10 @@
           "tier": "T2",
           "url": "https://newsletter.semianalysis.com/p/astera-labs-ipo-the-next-connectivity",
           "live": {
-            "price": 417.07,
-            "change_pct": 11.31,
-            "market_cap_bn": 71.5
+            "price": 430.86,
+            "change_pct": -10.8,
+            "currency": "USD",
+            "market_cap_bn": 73.9
           }
         },
         {
@@ -2789,9 +2806,10 @@
           "tier": "T3",
           "url": "https://www.cnbc.com/2025/10/17/500-purple-cables-put-credo-in-middle-of-the-ai-boom.html",
           "live": {
-            "price": 271.83,
-            "change_pct": 9.02,
-            "market_cap_bn": 50.7
+            "price": 259.09,
+            "change_pct": -4.73,
+            "currency": "USD",
+            "market_cap_bn": 48.3
           }
         }
       ]
@@ -2810,9 +2828,10 @@
           "tier": "T3",
           "url": "https://deepfundamental.substack.com/p/deep-dive-liquid-cooling",
           "live": {
-            "price": 333.05,
-            "change_pct": 4.87,
-            "market_cap_bn": 127.9
+            "price": 311.42,
+            "change_pct": -6.99,
+            "currency": "USD",
+            "market_cap_bn": 119.6
           }
         },
         {
@@ -2823,9 +2842,10 @@
           "tier": "T3",
           "url": "https://english.cw.com.tw/article/article.action?id=4145",
           "live": {
-            "price": 2420.0,
-            "change_pct": 0.83,
-            "market_cap_bn": 950.0
+            "price": 2740.0,
+            "change_pct": 4.58,
+            "currency": "TWD",
+            "market_cap_bn": 1075.6
           }
         },
         {
@@ -2860,9 +2880,10 @@
           "tier": "T3",
           "url": "https://www.taiwannews.com.tw/news/6209780",
           "live": {
-            "price": 2150.0,
-            "change_pct": 0.0,
-            "market_cap_bn": 5584.7
+            "price": 1970.0,
+            "change_pct": -1.01,
+            "currency": "TWD",
+            "market_cap_bn": 5117.2
           }
         }
       ]
@@ -2881,9 +2902,10 @@
           "tier": "T3",
           "url": "https://damnang2.substack.com/p/ai-datacenter-power-investment-map",
           "live": {
-            "price": 81.97,
-            "change_pct": -0.05,
-            "market_cap_bn": 106.5
+            "price": 77.9,
+            "change_pct": -4.62,
+            "currency": "EUR",
+            "market_cap_bn": 101.2
           }
         },
         {
@@ -2894,9 +2916,10 @@
           "tier": "T2",
           "url": "https://www.mordorintelligence.com/industry-reports/power-delivery-module-vrm-market-for-gpu-and-ai-servers",
           "live": {
-            "price": 1563.7,
-            "change_pct": 7.97,
-            "market_cap_bn": 76.8
+            "price": 1331.73,
+            "change_pct": -3.66,
+            "currency": "USD",
+            "market_cap_bn": 65.4
           }
         },
         {
@@ -2907,9 +2930,10 @@
           "tier": "T3",
           "url": "https://damnang2.substack.com/p/ai-datacenter-power-investment-map",
           "live": {
-            "price": 2150.0,
-            "change_pct": 0.0,
-            "market_cap_bn": 5584.7
+            "price": 1970.0,
+            "change_pct": -1.01,
+            "currency": "TWD",
+            "market_cap_bn": 5117.2
           }
         },
         {
@@ -2920,9 +2944,10 @@
           "tier": "T1",
           "url": "https://developer.nvidia.com/blog/nvidia-800-v-hvdc-architecture-will-power-the-next-generation-of-ai-factories/",
           "live": {
-            "price": 333.05,
-            "change_pct": 4.87,
-            "market_cap_bn": 127.9
+            "price": 311.42,
+            "change_pct": -6.99,
+            "currency": "USD",
+            "market_cap_bn": 119.6
           }
         }
       ]
@@ -2941,9 +2966,10 @@
           "tier": "T2",
           "url": "https://www.360iresearch.com/library/intelligence/abf-substrates-for-server-hpc",
           "live": {
-            "price": 26610.0,
-            "change_pct": 8.35,
-            "market_cap_bn": 7430.7
+            "price": 23420.0,
+            "change_pct": -9.17,
+            "currency": "JPY",
+            "market_cap_bn": 6539.9
           }
         },
         {
@@ -2954,16 +2980,17 @@
           "tier": "T2",
           "url": "https://www.marketreportanalytics.com/reports/abf-substrate-379747",
           "live": {
-            "price": 1005.0,
-            "change_pct": 3.82,
-            "market_cap_bn": 1582.0
+            "price": 979.0,
+            "change_pct": -5.87,
+            "currency": "TWD",
+            "market_cap_bn": 1541.1
           }
         },
         {
           "name": "Shinko",
-          "ticker": "6967.T",
+          "ticker": null,
           "share": "ABF 前三",
-          "note": "高階 FC-BGA",
+          "note": "高階 FC-BGA（JIC 私有化已下市，無公開股價）",
           "tier": "T2",
           "url": "https://www.marketreportanalytics.com/reports/abf-substrate-379747"
         },
@@ -2975,9 +3002,10 @@
           "tier": "T3",
           "url": "https://www.extrapolate.com/chemicals-and-advanced-materials/abf-substrate-market/87578",
           "live": {
-            "price": 152.5,
-            "change_pct": 9.71,
-            "market_cap_bn": 1209.5
+            "price": 197.0,
+            "change_pct": 7.65,
+            "currency": "TWD",
+            "market_cap_bn": 1562.4
           }
         }
       ]
@@ -2996,9 +3024,10 @@
           "tier": "T2",
           "url": "https://www.datainsightsmarket.com/reports/800g-and-16-t-optical-transceivers-173535",
           "live": {
-            "price": 1384.25,
-            "change_pct": 1.2,
-            "market_cap_bn": 1543.8
+            "price": 1140.0,
+            "change_pct": -6.8,
+            "currency": "CNY",
+            "market_cap_bn": 1271.4
           }
         },
         {
@@ -3009,9 +3038,10 @@
           "tier": "T2",
           "url": "https://www.datainsightsmarket.com/reports/800g-and-16-t-optical-transceivers-173535",
           "live": {
-            "price": 580.95,
-            "change_pct": -0.09,
-            "market_cap_bn": 810.0
+            "price": 507.38,
+            "change_pct": -11.85,
+            "currency": "CNY",
+            "market_cap_bn": 707.4
           }
         },
         {
@@ -3022,9 +3052,10 @@
           "tier": "T2",
           "url": "https://optics.org/news/nvidia-backs-lumentum-and-coherent-with-4bn-cash-investment",
           "live": {
-            "price": 389.57,
-            "change_pct": 2.83,
-            "market_cap_bn": 76.2
+            "price": 368.65,
+            "change_pct": -6.55,
+            "currency": "USD",
+            "market_cap_bn": 72.1
           }
         },
         {
@@ -3035,9 +3066,10 @@
           "tier": "T2",
           "url": "https://www.cnbc.com/2026/03/02/nvidia-investment-coherent-lumentum.html",
           "live": {
-            "price": 850.0,
-            "change_pct": -2.3,
-            "market_cap_bn": 66.1
+            "price": 801.16,
+            "change_pct": -6.63,
+            "currency": "USD",
+            "market_cap_bn": 62.3
           }
         },
         {
@@ -3048,9 +3080,10 @@
           "tier": "T1",
           "url": "https://www.sec.gov/Archives/edgar/data/0001408710/000140871025000006/fn-2025203xex991q225.htm",
           "live": {
-            "price": 573.76,
-            "change_pct": -1.82,
-            "market_cap_bn": 20.6
+            "price": 547.18,
+            "change_pct": -2.65,
+            "currency": "USD",
+            "market_cap_bn": 19.6
           }
         }
       ]
@@ -3062,11 +3095,60 @@
   },
   "news": [
     {
-      "title": "Tensordyne claims 13x throughput improvement over Nvidia's NVL72 GB300 with new TDN AI Processor",
-      "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE5ycUR2QWQxeDJVVmg2RjloX0dyU29qR1BJX3FkOGlIUTJ3SXMtcTlLY0Z0Sjd3SDZySGRoYmNkVEVyeElWTkxnaGZjUTdxSlI5YU9sUmt2ejQ2bk9yOHE3TFRMenRxRVFXNzNJaGIzczNPUmtiZXRUalhvMjYtUQ?oc=5",
-      "source": "Crypto Briefing",
-      "date": "2026-06-17",
+      "title": "Computing architecture redefined: Nvidia Vera Rubin",
+      "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNT0ljWGY2TVJvTEoyVVI4b2FHVkoteURqNFpjbFJMZllqWkpCdGVTZFVsd3M1eDJzVGhDSzZqcjVtWGRneldfUlhUazhtQm9SbnNFc1RkRVlFMTB2bk5zRWNTTU1iclptU0lUaUhaTzEzbFNmRnNMYWpZY3lLenNjcXlOT2N0a2xEd0g4T3VreFdFVW9NM2cwV29ueXpJMUxodXp4bV82RzU?oc=5",
+      "source": "SiliconANGLE",
+      "date": "2026-06-30",
+      "query": "Vera Rubin NVL72"
+    },
+    {
+      "title": "Nvidia and CoreWeave Validate Vera Rubin NVL72 Rack Platform",
+      "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxON1FiUVA5NG80VlNJZlpWaG1oTktoaERBbVE1N3lXVll6eV82bVRpdGotMTQ3bEVMRVFIWXBkM0tQSncyTjdwMU9pX3BDTWUyRUlGRWdONFI3bXVfY19mUmFocWpiNm43SnpjdGlFdzNMSXNMTWVaaTFEYWJyeGtHcktXSEhaOEMzZksxcEEyNFIxcEZNQXlBaVE2aHcybGtiV1h3dg?oc=5",
+      "source": "Let's Data Science",
+      "date": "2026-06-30",
+      "query": "Vera Rubin NVL72"
+    },
+    {
+      "title": "Mizuho lifts TSMC CoWoS capacity forecasts as server CPU demand surges",
+      "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxQMFRhNjFsRUF2bUNESkY0WjVjVzI3Ukt6ZHRNclZyZEd4RkpFTUs5QWJweW4yQ2QzX0VDLW13dXFBREl6LU9kOC1MQ2pzc2dNNXJ4cDkzclJySVlJSVBuek9PalN0RFJBNnEyMmRvSThvaE5UUFNUZjhwYmZ5R25fZ1VGbklHTjdqTjY2eExrUnRyTUlwVy1Fd2M2Vk1Qb25IWFZkS2s2WnF5ZVdiRHo5SlhrOGJEaXZ4VGFTcDRuN1BjcDdVZGc?oc=5",
+      "source": "Investing.com",
+      "date": "2026-06-30",
+      "query": "CoWoS capacity"
+    },
+    {
+      "title": "Microsoft brings Claude to its own Azure infrastructure, powered by Nvidia GB300 Blackwell",
+      "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNamkzakVyMWwxSjViaFpIY09NMktvcG9KUzRoZ3pkNlFzbU5SSTRsMHhtYUlmQUhXLUZ6VE5qSjk1SnJQczFURVhRcG1kR1cwSm5sdEwxVWlKZ0taanNFbVBYdDRxUWdobzNDN2xVX3BNRUYzeEszZl8xYUsyVWZXMmxSZ214RUhZWnNmeUpkSDBGRzJBS3lMWG5PR0xoM2NKak1ucjNadktCckplT1Z0SEFvaWR1ek9v?oc=5",
+      "source": "Neowin",
+      "date": "2026-06-29",
       "query": "GB300 NVL72"
+    },
+    {
+      "title": "Anthropic Deploys Claude on NVIDIA GB300 in Microsoft Azure",
+      "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPODN2YWxmcWNCNzBRczFXRUpLb2tqWXJuZVZkV3lIUDhPVVFROEQxb3pUY2pENHR0cEhuWTlhMnVPazM1T3Z4djM3ejZ5SC13eVJIeDFraTNldklPMnEzdWttcUxoc0dXMDVzOWwtcWxvZVA2YkZYem5MNExKdDZqSzdqOUljU2l4RkxtTTFoU2NUS01FQ0ZTQ1diRjNMWm5tb1RV?oc=5",
+      "source": "Let's Data Science",
+      "date": "2026-06-29",
+      "query": "GB300 NVL72"
+    },
+    {
+      "title": "Nvidia says its new data center design will fix AI’s water problem",
+      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxOOGJUNFVsQWxocmsxbkFWQ0tsYmo3c3FhdUFIaVRxUEZLbGZVQmJkMkNxVkdyWng2MzZzMFc2dk84d0dfNjQzbTh5TGdMaEJPcF8wOVRxVFFZMHptTHBYS3VZX3lxSzJ1ejc3elZGaUtaUUhIdUFSNUNyMUh1R0hvZmZ1MDRqd09hQ2V2MFhDOA?oc=5",
+      "source": "Fortune",
+      "date": "2026-06-22",
+      "query": "AI server liquid cooling design win"
+    },
+    {
+      "title": "Nvidia says its AI data center design runs hotter to use a lot less water",
+      "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxQSHFCaWdjdnBFU3ZXMkg0emtPX1FIaUNpQ2xhc0Q3ak9DRDNiQ2o2eEhseV93QzMzVF9WQ3pJTVV6MTFhYTYtLTRqM3RDU3ZkUlVUNzdfbWV0OEJVa0V3Z1B5OUtibzA5ZUZoOWF5TEdnTGdCNXYtcEotUENuTlBWOUQtdw?oc=5",
+      "source": "The Verge",
+      "date": "2026-06-22",
+      "query": "AI server liquid cooling design win"
+    },
+    {
+      "title": "Hotter Than a Hot Tub: The 45°C Breakthrough to Cool AI’s Biggest Machines",
+      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTFBSN3d6OG5pZ2hJSkZ5cHhhWUxONkEyRzV0V3FwaGpNbERTSmpiU1ZkVzc4d0Vkc0Vic3J2Z3FMVkdza1M1aEE5TDJBb1NsekFGaWtVUjVEQ3VSSXFtbC1vRi1nVHdZb2pJN0E?oc=5",
+      "source": "NVIDIA Blog",
+      "date": "2026-06-21",
+      "query": "AI server liquid cooling design win"
     },
     {
       "title": "A Deep Dive on CoreWeave Innovations for NVIDIA Vera Rubin NVL72",
@@ -3076,23 +3158,9 @@
       "query": "Vera Rubin NVL72"
     },
     {
-      "title": "Nvidia (NVDA) Starts European Manufacturing For Vera Rubin NVL72 With Bull And Foxconn",
-      "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNdnB2bFY1T1N1dzNwczVmN29iS1IzQXVJUEFvaHdKZlY3NkxYT0dlOTFRVXpqdWtYZ2QyN1dfdDgyblRIVnZrd1NxWWx4OXBPMlR3N1hsQzA5S0RrOFdBbjRzUUNmXzRhYnFsYlFxaEtfT0o3UjF2dXpreWNwT2F0SVFld240VTN4NWZ1Q0NNOUdIODdsUzVNaml2XzdyNFpXaE9JRmhKM2Y?oc=5",
-      "source": "Yahoo Finance",
-      "date": "2026-06-17",
-      "query": "Vera Rubin NVL72"
-    },
-    {
-      "title": "MLPerf® Training 6.0: Leading NVIDIA HGX B300 and competitive NVIDIA GB300 NVL72 results on NVIDIA Blackwell Ultra systems",
-      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE9mR1hqOERURWlLU0IyNXFta1NSOUw2d24zdWVXRkl6cWlfcWVnX0tvSTR0LXFtb1dVLXVRcWh6WlNQenIzRG5SQjhrUXNJOElTaFVUWUR5MzBRWEsyelIwUG4zUHozZmtEOVE?oc=5",
-      "source": "nebius.com",
-      "date": "2026-06-16",
-      "query": "GB300 NVL72"
-    },
-    {
-      "title": "Google and UC Berkeley Detail Five Generations of TPU Evolution from v2 to Ironwood",
-      "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxOWHJhelByX3doeUZtOHBiMjNVQXBjWWJfMVhEUTVMY21vaC1RcXdBSlhzZ3ExRnhBVnIzUC1meG1CN1RZMlBYZS1FM29Ienp2X1JvTW1qcTlINXpYWWVuLXRnYzIzUS11NUNsSVN0SzIyWmVBa0xuM3RGcm01TjNpNDNYY0dlU2w4UE14VXk2OHVITDBhWnlaTEludUZ4Q0RKc1BpRXdGMmJnTmotTUdTWTU0dw?oc=5",
-      "source": "IndexBox",
+      "title": "Google Details Five Generations Of TPU Training Supercomputers",
+      "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxOd2E3dVplV1pXVm9RU2t5Rm5nVTlkdGhMS3dnT3ZpWFQwTDZ0UU5XZzRYS2ZoYU81SEM3OGdzeGNOZTJhUkEzdDJuQlFJTnhNUjFoc0l1d3d6c0tkZ28wTDJLUDF1TkdKNlc0OWcyLTdJNFNNODQtUE5xb1NnRTNEbHdHdlF3MFVaaGhKY2pXNzJJV0l6LWc?oc=5",
+      "source": "Semiconductor Engineering",
       "date": "2026-06-16",
       "query": "TPU Ironwood"
     },
@@ -3111,27 +3179,6 @@
       "query": "CoWoS capacity"
     },
     {
-      "title": "Analyzing TSMC's fab expansion roadmap — multi-fab N2 ramp, CoWoS, SoIC, and uncorking bottlenecks",
-      "url": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxOeGM5Vk5GQmVJLWtnMWtSc2RQMzVCS3N3Q2ROckgwS0NuRThLU29pWUZqQmVGSUkwTHVvdkdQUEhCbXo3NE1TZ2tZMTBjYmh1aU1iaVhHN25uTkQ2VUhLdi1adWRjZ2V2d083TXZrR1E2TE1OeUdFNzV1RWJmRU1ZX0pfVjgxVVp5V1k5QW1BTEhFSEI3Z2RaN2FjOW9NSU1ocXNjVnVlNE9RdjI2VkNJM0t3dmtTTTd1MkpsRzVHWWZQQ0NnQjhHdkZEQXJkekVUQXloSURGSWhxZWlFWl94TjNZX2Y?oc=5",
-      "source": "Tom's Hardware",
-      "date": "2026-06-10",
-      "query": "CoWoS capacity"
-    },
-    {
-      "title": "DeepSeekV4 1.6T Day 0 to Day 43 Performance Over Time - Huawei, GB300 NVL72, MI355X, B200",
-      "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPY3VHZkpoNGNIZkkxUzllUkdnY0JuZkFEUFg0TEppMjZPaU1Uc09MczlKcmJEOURTNlAtMWdFSFhHdE1yYVRXYnoxbHo3aVV1QkhyUnd2R2hvZG15eHNZQXdJSkd1UUFGQ2tBYjNVeEhqdFJPSkRPQlJYbjdLVWFiUU5ueXlSdDA?oc=5",
-      "source": "SemiAnalysis",
-      "date": "2026-06-09",
-      "query": "GB300 NVL72"
-    },
-    {
-      "title": "Cooling parts maker Global PMX wins AI server liquid-cooling supply and expects high-margin shipments in second half",
-      "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPRTVibEZnQjV5OXAzUldpRTI1bXhIQl94QlVTZ0lYc1pHcGFheXlIb3VtZm5XTEY5V0VuZHBZekNka0s4RzJTWHBTN2Y4ejRWUVhzYXRkdWZOQ1JVSm5BWVpKcnI4a2QyX2lJUDYzUGdTbUJnVTlteV9rY21CbHEwXzJfbjdMR0ZDemlkZzl0aE16Q3cxaFBpcDQ5VFU3Vm1iTDFGYzNxYnNlYUZtNDhqRXFSQV9hTHd5VWJVYw?oc=5",
-      "source": "digitimes",
-      "date": "2026-06-09",
-      "query": "AI server liquid cooling design win"
-    },
-    {
       "title": "Micron joins Nvidia’s HBM4 supplier lineup for next-generation AI platform",
       "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPWkZybElTbnJscUFfUjNPY0MyRVVmM2hHeXEtenFFLVlINnVUcW9aYTA5N0lPbGQ5OXBOSV80ODZwTG42OVB6S0FLTEpuSFZSdkZLUlBqTTZoWkI2NHNUSzZWSExRd1AzVThiTGlMaDlyUUg4Qi1ZVlZVWFhXQWtFZllsbW43WXlJVjQ5Z0dwTmUzNHNiUWlrTVozcGFLbHFMNkoxRVBvaWN0T1RXZ0ptUmxJVV9QeTNqTk5qRi1QS2RLUQ?oc=5",
       "source": "Investing.com",
@@ -3139,25 +3186,11 @@
       "query": "HBM4 supplier"
     },
     {
-      "title": "Micron’s HBM4 Certification With Nvidia Puts AI Memory Margins In Focus",
-      "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQTFo2WE05YjN1VjFpbXd1cnZpTEdRNnZGTVM5TkNsTnhsVEhGajRPSWRPUW9aMTdSMlBveHgycnNrNnExRWhjMjY4cDFDM0VEandQWWJUajFndlkySmV2azhRMF9RRTRETTNLd0piSmJWLXRWYXY4bFBnTzItTzR4OGwwX3Iwc25KVkRXNmVvTVhsNkd4c3lyR3o5WnRLX0FjejhKcg?oc=5",
-      "source": "Yahoo Finance",
+      "title": "Nvidia selects top three vendors for critical AI memory",
+      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQY2hQY01TUk53cmhaOVRWRHgwdUlTY1R3bEdJNHV4YXNKU2ZLbXN0SHJ3LTgyQ285SThVblp5S2dZNEtBVi1GamRkb2d6Y3BwX3dNZlNvMEZVNE1mdlh2cDRFWnlwWHJtd0Q5YlhOWlg3aFZhek1aT1dJNWc2T2k2OXVEdS1nQVR0Yzk2bGVNVzMxVjBQN0J3T0pSN25FckZ1bUt0Tld3dE5vcXM?oc=5",
+      "source": "Techzine Global",
       "date": "2026-06-05",
       "query": "HBM4 supplier"
-    },
-    {
-      "title": "AI data centers chase cooling gains as ZJK connectors win 2026 award",
-      "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxQQS1WWFlzS3NnV1ExOU1nV1c2Wlhuc2VaTEkyelM5ZVA4WXB4bUt6dmFnRkg1YVlPeEtZY0VKVVg4M3ltbEljNFFRTUJEWFc2VHBvUGdNSUJQdXFGQTBrb2VqcnFtWE5tWFRCZmxKMVdYM3lHaFp2bU5lQ0NjS2VnTHJPTVFaYkwwbHV6WlR4SUZQZXBMZmp2OW54YlVlb3dpeDh1SlJGN1BHT2dIZE9VNUp0azVHd1FZZlQ1eTJzOA?oc=5",
-      "source": "Stock Titan",
-      "date": "2026-06-02",
-      "query": "AI server liquid cooling design win"
-    },
-    {
-      "title": "Supermicro Introduces DCBBS Blueprints for NVIDIA Vera Rubin NVL72 and NVIDIA HGX™ Rubin NVL8, Built to Scale from 5MW to 1GW as an End-to-End Total Solution",
-      "url": "https://news.google.com/rss/articles/CBMivgJBVV95cUxQOG9wT21Kd2MzSjlmM1ZJaXZxOVpUZ2gwTmIwSjF4ZmR5b1pTUlpKeVhaZXFWWWlJMnpPN2ozWVdjNGZLNDZYTFZfYnNOb2x4d2VEVEtudXlaWi03aExsam9MaVJycHlqTGhqa3J6SDcwZkJqUnNoM2JUUUhWeVEtS1VkOHNZY09WWjdDUTg1ZDdwcFNDc3p6dkhWSmhLemk1Njlmck5uSUdDWEJZN0JmS2RPUHJYWnpROFZRWnlFUS1HbFM2eVhmTlhyMkZPd0laN3Y5ZnJHdUhkVjd3cjVaM2c1eHZqU3I2Umg2dHlESDBzT2NReGlpVjd6YXFkOTJiRjJLNTZzZWtqa0NaaFU0eTEyaGVIMlRvWVZ5aHFMSWlOZ01HekZXWE1rTnJBTlctSlNCek14V0NnNmtCb1E?oc=5",
-      "source": "Supermicro",
-      "date": "2026-06-01",
-      "query": "Vera Rubin NVL72"
     },
     {
       "title": "Uber Picks AWS Trainium3: 50% Cheaper Than Nvidia [2026] - tech-insider.org",
@@ -3179,6 +3212,13 @@
       "source": "",
       "date": "2026-04-13",
       "query": "AMD Helios MI400 rack"
+    },
+    {
+      "title": "Running AI Workloads on Rack-Scale Supercomputers: From Hardware to Topology-Aware Scheduling",
+      "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxQR3BETVVNdHJxMndCYVp1MldGTjl2aGZnMnJucVYybzc1d2JBWG1uMGoyc1R2dWx5QWJlLXpldnl1WVNoeDNqZkFkcFVWYUkwSXp5Y3NtYUhRdGxIS2tsb1d6M0xkT251UzNCbk92dklhMm5qMW80ZWw2SEMzUkMxdXpTMXR2SDFSc0hsT0dnWHhGSThZTTFwSktpUE90d1paVEduaHVNazhUdmZfOXJpNXhPaWJ5d2M4emVOZWt3WVBTaGRXLWc?oc=5",
+      "source": "NVIDIA Developer",
+      "date": "2026-04-07",
+      "query": "GB300 NVL72"
     },
     {
       "title": "AMD Says “Helios” Racks And MI400 Series GPUs On Track For 2H 2026",
@@ -3209,13 +3249,6 @@
       "query": "AWS Trainium3"
     },
     {
-      "title": "Google TPUv7: The 900lb Gorilla In the Room",
-      "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTFBpWXZrV2tSTlAybGdOekZ6OGd3WWVWeUlCT1ZmdVlTN09fZV9iVUZpREpjRUpoaGN5SHY0SUUtQnN4UnFCbXVzUEszaXVibFVIZElfeFdyTTNrd0JIcEZISFhCN2Y2NGZON0FfdzBHSGlCazA0VWpvS21oMA?oc=5",
-      "source": "SemiAnalysis",
-      "date": "2025-11-28",
-      "query": "TPU Ironwood"
-    },
-    {
       "title": "3 things to know about Ironwood, our latest TPU",
       "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOc09zV0FpUkRlMGxnQWZ2aXF6Qnd5MDZFaXZac3g2bEk1OGJieWttX3gwaEIyakxLcVZOTS1IV3AyYm1jOE9JNllYNDRWa3k3X0d3cUhZVmZHX0pOVzJfdjRZcUdjS1JDX3U4bF9SWHpsNWtZdlpJTjZURllwa0NSSURrYUpzUEpGNjZJQ3ktMUZrLXNTb1UtN2VrTzZWNG5POEc1eVFlajJwbUJmNFlQVg?oc=5",
       "source": "blog.google",
@@ -3223,11 +3256,11 @@
       "query": "TPU Ironwood"
     },
     {
-      "title": "AI chips are getting hotter. A microfluidics breakthrough goes straight to the silicon to cool up to three times better.",
-      "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQTXp6NmJwaVFnaFkzUGZZNW0xY1B2Y0hSZlpLU1NKVl9XQnU0dFl2TFRxbUoxVXNWeTNFYUZYdHdTZWdxT1A3OHFiTkRTTlViRU00b2I2QW1BMkg2RWs4eTRQLXpyZHZJdmRTR3IyRjEyR3pWMDdHckQwZm9xRWQ1RENuZkNzVWlZLW40NXVWbVhDdDZieW93?oc=5",
-      "source": "Microsoft Source",
-      "date": "2025-09-24",
-      "query": "AI server liquid cooling design win"
+      "title": "Google's rolling out its most powerful AI chip, taking aim at Nvidia with custom silicon",
+      "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPRFZ4U1hHVUhsSlRFLTduWXhTMDJEZEx1SVVDUWloZ1BDRGhrVXg4WHdfRGktd2p5eklfTjl4U0pLMjdKLWp5ZkJabXFDTHZEXzFzZnVXdFBzOE95R3RJSU9Ia3dFUzhVSEhaRTVOeS1XVTlEZTVGRFJBTkFzVHJZTEM4ZmEyalJVVV9fZ1NDSkZLQ3BWN2pHSzlmeGlsckVmM053ZjEzUmrSAa4BQVVfeXFMTWR0LVpKYlF0cTZ0cFAweG1reS1Ra2pTMXZzZE9FUEYtRWhocW9tRFNfN1lTQ0JnZnl4TktyVDJ6MG9oZnFraEs3eWprT3ZITkZwUHhlLUUtWmhHTUdsd3Q5bzcxOFpWUFIzRk1BUlFFRWV6Q1RyUEdOQnhiQ1h1a084Sk9UZi1FbnhxWXliNVYtV3BOZmZUZ29GUEdtYlBnd3RrZHZGZkFrYkhDMGl3?oc=5",
+      "source": "CNBC",
+      "date": "2025-11-06",
+      "query": "TPU Ironwood"
     }
   ],
   "news_queries": [
