@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-25 08:16 UTC",
-  "as_of": "2026-06-25",
+  "generated_at": "2026-07-02 07:02 UTC",
+  "as_of": "2026-07-02",
   "source": "partial",
   "stale_fetch_ids": [
     "ppi_semi"
@@ -11,21 +11,21 @@
   "method_en": "A three-layer price stack read for a foundry CEO: (L1) upstream supplier input cost → (L2) foundry wafer/packaging ASP → (L3) downstream customer end-product ASP. Real transaction prices are mostly confidential, so each tracked price is either a LIVE market proxy (stock/PPI/commodity via yfinance + keyless FRED — clearly labelled) or a CURATED price estimate with a tier (T1 filings · T2 analyst/channel · T3 news/rumor) and an is-estimate flag. The engine computes each layer's momentum, the cost→ASP→end-market pass-through, a 0–100 pricing-power score and a CEO verdict; Claude (Opus 4.8, rules fallback) writes the read, scenarios and divergence alerts. Seed values render the board offline.",
   "method_zh": "給代工 CEO 的三層價格堆疊判讀:(L1)上游供應商投入成本 →(L2)代工 wafer／封裝 ASP →(L3)下游客戶終端 ASP。真實成交價多屬機密,故每筆價格非即時市場代理(股票/PPI/原物料,經 yfinance + 免 key FRED,明確標示),即為策展估計值並附證據等級(T1 財報官方 · T2 分析師/通路 · T3 新聞/傳聞)與「估計值」旗標。引擎計算各層動能、成本→ASP→終端的轉嫁率、0–100 議價能力分數與 CEO 結論;Claude(Opus 4.8,無 key 走規則)撰寫判讀、情境與背離警報。種子值讓看板可離線渲染。",
   "pricing_power": {
-    "score": 67.0,
+    "score": 64.5,
     "verdict_key": "defensible",
     "verdict_en": "DEFENSIBLE — pricing power intact",
     "verdict_zh": "DEFENSIBLE — 定價權穩固"
   },
   "l3": {
     "stack": {
-      "upstream": 2.0,
-      "foundry": 3.54,
-      "downstream": 2.57
+      "upstream": 1.06,
+      "foundry": 2.65,
+      "downstream": 1.67
     },
     "market_sentiment": {
-      "upstream": 41.14,
-      "foundry": 17.98,
-      "downstream": 9.28
+      "upstream": 26.31,
+      "foundry": 2.21,
+      "downstream": -4.69
     },
     "layers": [
       {
@@ -35,22 +35,22 @@
         "name_zh": "上游供應商成本",
         "role_en": "What it costs TSMC to make a wafer — silicon, substrates, chemicals, tools. Rising = cost pressure.",
         "role_zh": "台積電製造一片晶圓的投入 — 矽晶圓、載板、特化、設備。上升 = 成本壓力。",
-        "momentum": 2.0,
-        "market_sentiment": 41.14,
+        "momentum": 1.06,
+        "market_sentiment": 26.31,
         "signal": "off",
         "items": [
           {
             "id": "asml_proxy",
             "name_en": "ASML (EUV/DUV tool cost proxy)",
             "name_zh": "ASML(EUV/DUV 設備成本代理)",
-            "value": 1929.68,
-            "chg_1w": 1.59,
-            "chg_1m": 32.22,
+            "value": 1843.04,
+            "chg_1w": 4.55,
+            "chg_1m": 13.17,
             "unit": "$",
             "metric": "proxy",
             "direction": "cost",
             "momentum_kind": "equity",
-            "score_chg_1m": 4.0,
+            "score_chg_1m": 3.29,
             "freq": null,
             "freshness_note_en": null,
             "freshness_note_zh": null,
@@ -70,9 +70,9 @@
             "id": "amat_proxy",
             "name_en": "Applied Materials (equip. proxy)",
             "name_zh": "應材 AMAT(設備成本代理)",
-            "value": 617.11,
-            "chg_1w": 11.67,
-            "chg_1m": 51.85,
+            "value": 650.91,
+            "chg_1w": 10.52,
+            "chg_1m": 42.07,
             "unit": "$",
             "metric": "proxy",
             "direction": "cost",
@@ -97,14 +97,14 @@
             "id": "copper_proxy",
             "name_en": "Copper (bonding/substrate raw)",
             "name_zh": "銅(打線/載板原料)",
-            "value": 6.35,
-            "chg_1w": -1.25,
-            "chg_1m": 0.95,
+            "value": 6.14,
+            "chg_1w": 1.14,
+            "chg_1m": -7.66,
             "unit": "$/lb",
             "metric": "proxy",
             "direction": "cost",
             "momentum_kind": "index",
-            "score_chg_1m": 0.95,
+            "score_chg_1m": -7.66,
             "freq": null,
             "freshness_note_en": null,
             "freshness_note_zh": null,
@@ -113,7 +113,7 @@
             "needs_calibration": false,
             "weight": 0.6,
             "live": true,
-            "signal": "off",
+            "signal": "on",
             "source_en": "Comex copper — yfinance",
             "source_zh": "Comex 銅 — yfinance",
             "source_url": "https://finance.yahoo.com/quote/HG=F",
@@ -237,22 +237,22 @@
         "name_zh": "代工 wafer / 封裝 ASP",
         "role_en": "What TSMC (and rivals) charge per wafer & for advanced packaging. Rising = revenue / pricing power.",
         "role_zh": "台積電(與對手)每片 wafer 與先進封裝的報價。上升 = 營收 / 定價權。",
-        "momentum": 3.54,
-        "market_sentiment": 17.98,
+        "momentum": 2.65,
+        "market_sentiment": 2.21,
         "signal": "on",
         "items": [
           {
             "id": "tsm_proxy",
             "name_en": "TSMC (own ASP/revenue proxy)",
             "name_zh": "台積電(自家 ASP/營收代理)",
-            "value": 462.12,
-            "chg_1w": 9.75,
-            "chg_1m": 17.98,
+            "value": 444.23,
+            "chg_1w": 0.77,
+            "chg_1m": 2.21,
             "unit": "$",
             "metric": "proxy",
             "direction": "revenue",
             "momentum_kind": "equity",
-            "score_chg_1m": 4.0,
+            "score_chg_1m": 0.55,
             "freq": null,
             "freshness_note_en": null,
             "freshness_note_zh": null,
@@ -439,22 +439,22 @@
         "name_zh": "下游客戶終端 ASP",
         "role_en": "What TSMC's customers charge for the finished chips/products. Rising = end-market strength & room to raise.",
         "role_zh": "台積電客戶的成品晶片/產品售價。上升 = 終端強勁、有漲價空間。",
-        "momentum": 2.57,
-        "market_sentiment": 9.28,
+        "momentum": 1.67,
+        "market_sentiment": -4.69,
         "signal": "on",
         "items": [
           {
             "id": "nvda_proxy",
             "name_en": "NVIDIA (DC GPU demand/ASP proxy)",
             "name_zh": "NVIDIA(資料中心 GPU 需求/ASP 代理)",
-            "value": 210.69,
-            "chg_1w": 2.84,
-            "chg_1m": -4.39,
+            "value": 197.58,
+            "chg_1w": -0.71,
+            "chg_1m": -11.83,
             "unit": "$",
             "metric": "proxy",
             "direction": "demand",
             "momentum_kind": "equity",
-            "score_chg_1m": -1.1,
+            "score_chg_1m": -2.96,
             "freq": null,
             "freshness_note_en": null,
             "freshness_note_zh": null,
@@ -474,14 +474,14 @@
             "id": "amd_proxy",
             "name_en": "AMD (MI-series demand proxy)",
             "name_zh": "AMD(MI 系列需求代理)",
-            "value": 537.37,
-            "chg_1w": 10.02,
-            "chg_1m": 29.78,
+            "value": 540.88,
+            "chg_1w": 4.07,
+            "chg_1m": 6.03,
             "unit": "$",
             "metric": "proxy",
             "direction": "demand",
             "momentum_kind": "equity",
-            "score_chg_1m": 4.0,
+            "score_chg_1m": 1.51,
             "freq": null,
             "freshness_note_en": null,
             "freshness_note_zh": null,
@@ -609,18 +609,18 @@
       }
     ],
     "pricing_power": {
-      "score": 67.0,
+      "score": 64.5,
       "verdict_key": "defensible",
       "verdict_en": "DEFENSIBLE — pricing power intact",
       "verdict_zh": "DEFENSIBLE — 定價權穩固"
     },
     "transmission": {
-      "up_to_fab": 177,
-      "fab_to_down": 73
+      "up_to_fab": 250,
+      "fab_to_down": 63
     },
     "margin": {
-      "fab_delta": 1.54,
-      "chain_delta": -0.97
+      "fab_delta": 1.59,
+      "chain_delta": -0.98
     },
     "alerts": [
       {
@@ -632,47 +632,47 @@
   },
   "l4": {
     "pricing_power_read": {
-      "en": "Score 67.0/100 — DEFENSIBLE. Foundry ASP (+3.54%/m) is running ahead of input cost (+2.0%/m), a margin delta of 1.54. With downstream demand at +2.57%/m, there is room to push leading-edge & CoWoS pricing. You can raise — lead with the capacity-constrained nodes.",
-      "zh": "分數 67.0/100 — DEFENSIBLE。代工 ASP(+3.54%/月)領先投入成本(+2.0%/月),毛利差 1.54。下游需求 +2.57%/月,先進製程與 CoWoS 有漲價空間。可以漲 — 從產能受限節點先漲。"
+      "en": "Verdict: DEFENSIBLE at 64.5. Foundry ASP momentum (2.65) runs well ahead of upstream cost (1.06), giving us a positive foundry−cost margin delta of +1.59. Translation: we can hold — and selectively raise — leading-edge and CoWoS pricing right now, because our ASP is expanding faster than input cost. The caveat is the downstream side: customer end-ASP momentum (1.67) is below ours, so aggressive across-the-board hikes risk friction. Raise where scarce (N3, CoWoS); hold on mature nodes.",
+      "zh": "評分64.5，判定：可守。晶圓ASP動能(2.65)明顯領先上游成本(1.06)，晶圓−成本利差達+1.59。意即：現階段可守並選擇性調漲先進製程與CoWoS報價，因ASP擴張快於投入成本。隱憂在下游：客戶終端ASP動能(1.67)低於我方，全面漲價恐生摩擦。策略——稀缺處(N3、CoWoS)漲，成熟製程守。"
     },
     "transmission_read": {
-      "en": "Upstream→foundry pass-through 177% (>100% — expanding margin, more than passing cost through). Foundry→downstream 73% (<100% — you are ahead of the end market).",
-      "zh": "上游→代工轉嫁 177% (>100% — 擴張毛利,漲幅超過成本轉嫁)。代工→下游 73% (<100% — 你領先終端市場)。"
+      "en": "Upstream→foundry pass-through 250% (>100%): we are more than fully passing input cost through — margin is expanding, not just holding. Foundry→downstream 63% (<100%): we are moving ahead of the end market; customers are not re-pricing as fast as we are. This is the classic 'we lead' posture — good for near-term margin but it means the next hike must be justified by scarcity (CoWoS/HBM allocation), not by cost, or customers push back.",
+      "zh": "上游→晶圓傳導250%(>100%)：成本不僅全額轉嫁，利差正在擴張。晶圓→下游63%(<100%)：我方領先終端市場，客戶重定價速度慢於我方。此為典型「我方主導」姿態——短期利多，但下一輪漲價須以稀缺性(CoWoS/HBM配額)而非成本為由，否則客戶將抗拒。"
     },
     "layers": {
       "upstream": {
-        "en": "Supplier cost +2.0%/m — equipment/silicon/substrate inflation feeds per-wafer cost.",
-        "zh": "供應商成本 +2.0%/月 — 設備/矽晶圓/載板通膨灌入每片成本。"
+        "en": "Cost momentum is mild (+1.06); silicon wafer +1.8% and ABF +0.5% are calm, copper actually −7.66% — input pressure is contained, no cost shock threatening our margin.",
+        "zh": "成本動能溫和(+1.06)；矽晶圓+1.8%、ABF+0.5%平穩，銅甚至−7.66%——投入壓力受控，無成本衝擊威脅利差。"
       },
       "foundry": {
-        "en": "Foundry ASP +3.54%/m — led by capacity-tight CoWoS & N3 leading-edge.",
-        "zh": "代工 ASP +3.54%/月 — 由產能緊缺的 CoWoS 與 N3 先進製程帶動。"
+        "en": "Foundry is the strongest layer (+2.65), led by CoWoS +5.0% and N3 +4.5% — advanced packaging and leading-edge scarcity are doing the pricing work, exactly where we want power concentrated.",
+        "zh": "晶圓為最強一層(+2.65)，由CoWoS+5.0%、N3+4.5%領軍——先進封裝與先進製程稀缺性主導定價，正是我方希望集中話語權之處。"
       },
       "downstream": {
-        "en": "Customer end-ASP +2.57%/m — AI accelerator & HBM demand sets the room to raise.",
-        "zh": "客戶終端 ASP +2.57%/月 — AI 加速器與 HBM 需求決定漲價空間。"
+        "en": "Demand ASP up +1.67 but uneven: HBM3E +6% and AMD firm, yet NVDA equity sentiment −11.83% (damped −2.96) flags demand-narrative wobble — solid, not euphoric.",
+        "zh": "下游ASP+1.67但分化：HBM3E+6%、AMD穩健，惟NVDA股價情緒−11.83%(阻尼−2.96)顯示需求敘事略有動搖——穩健但非狂熱。"
       }
     },
     "leading_signals": [
       {
-        "en": "CoWoS lead-times & booked capacity — the tightest bottleneck reprices first.",
-        "zh": "CoWoS 交期與已訂產能 — 最緊瓶頸最先重訂價。"
+        "en": "CoWoS advanced-packaging lead-times and allocation — the earliest tell on how much scarcity premium we can still extract.",
+        "zh": "CoWoS先進封裝交期與配額——最早反映我方尚能榨取多少稀缺溢價。"
       },
       {
-        "en": "HBM3E contract resets — a co-input cost that crowds out wafer budget.",
-        "zh": "HBM3E 合約重訂 — 排擠晶圓預算的共同投入成本。"
+        "en": "HBM3E/HBM4 contract reset cadence (currently +6%) — HBM tightness leads AI wafer demand by a quarter.",
+        "zh": "HBM3E/HBM4合約重定價節奏(現+6%)——HBM緊俏領先AI晶圓需求約一季。"
       },
       {
-        "en": "Customer (NVDA/AMD) capex & ASP guides — demand-side room to raise.",
-        "zh": "客戶(NVDA/AMD)capex 與 ASP 指引 — 需求端的漲價空間。"
+        "en": "NVIDIA / AMD capex and GPU channel pricing (B200/GB200 +2.5%) — downstream willingness-to-pay before our ASP books.",
+        "zh": "NVIDIA/AMD資本支出與GPU通路價(B200/GB200+2.5%)——反映下游付費意願，早於我方ASP入帳。"
       },
       {
-        "en": "Silicon-wafer & substrate contract resets — upstream cost lead.",
-        "zh": "矽晶圓與載板合約重訂 — 上游成本先行。"
+        "en": "Silicon-wafer & ABF substrate contract resets (⚑calibrate flags) — earliest move on future cost-side squeeze.",
+        "zh": "矽晶圓與ABF基板合約重定價(⚑校準旗標)——未來成本擠壓的最早訊號。"
       },
       {
-        "en": "Samsung/Intel discounting — the cap on your leading-edge hikes.",
-        "zh": "三星/Intel 折讓 — 你先進製程漲幅的天花板。"
+        "en": "Samsung/Intel/China mature-node quoting — first sign of 28nm price-war risk to our commodity book.",
+        "zh": "三星/英特爾/中國成熟製程報價——28nm價格戰對我方成熟業務的首發訊號。"
       }
     ]
   },
@@ -680,86 +680,86 @@
     "scenarios": [
       {
         "name_en": "Pricing power holds",
-        "name_zh": "定價權延續",
+        "name_zh": "定價力續守",
         "prob": 48,
-        "trigger_en": "N3/CoWoS ASP hikes ≥ upstream cost while NVDA/HBM demand stays strong",
-        "trigger_zh": "N3/CoWoS ASP 漲幅 ≥ 上游成本,且 NVDA/HBM 需求續強"
+        "trigger_en": "N3/CoWoS ASP hikes stay ≥ +4%/m while HBM3E ≥ +5% and AMD/NVDA demand proxies hold flat-to-up.",
+        "trigger_zh": "N3/CoWoS ASP續漲≥+4%/月，HBM3E≥+5%，且AMD/NVDA需求代理持平至上行。"
+      },
+      {
+        "name_en": "Pass-through war",
+        "name_zh": "轉嫁拉鋸",
+        "prob": 24,
+        "trigger_en": "Downstream ASP momentum falls below +1.0 and foundry→downstream pass-through stays <60% for two reads as customers resist hikes.",
+        "trigger_zh": "下游ASP動能跌破+1.0，晶圓→下游傳導連兩期<60%，客戶抗拒漲價。"
       },
       {
         "name_en": "Cost squeeze",
         "name_zh": "成本擠壓",
-        "prob": 14,
-        "trigger_en": "Silicon/equipment/HBM cost +>2%/m but foundry ASP can't follow",
-        "trigger_zh": "矽晶圓/設備/HBM 成本月漲 >2% 但代工 ASP 跟不上"
-      },
-      {
-        "name_en": "Pass-through war",
-        "name_zh": "轉嫁戰",
-        "prob": 23,
-        "trigger_en": "Customers resist hikes, downstream ASP slows, up→fab pass-through <100%",
-        "trigger_zh": "客戶抵制漲價、下游 ASP 放緩,上游→代工轉嫁率 <100%"
+        "prob": 16,
+        "trigger_en": "Silicon wafer + equipment + HBM input costs each +>2%/m while foundry ASP momentum falls under +1.5, cutting margin delta toward zero.",
+        "trigger_zh": "矽晶圓+設備+HBM投入成本各+>2%/月，晶圓ASP動能跌破+1.5，利差趨近零。"
       },
       {
         "name_en": "Mature-node price war",
         "name_zh": "成熟製程價格戰",
-        "prob": 15,
-        "trigger_en": "Samsung/Intel/China discounting widens, 28nm & mature ASP turns down",
-        "trigger_zh": "三星/Intel/中國折讓擴大,28nm 與成熟製程 ASP 轉跌"
+        "prob": 12,
+        "trigger_en": "28nm/mature ASP turns negative m/m as Samsung/Intel/China discounting widens, dragging blended ASP momentum below +2.",
+        "trigger_zh": "三星/英特爾/中國折讓擴大，28nm/成熟ASP轉負，拖累混合ASP動能低於+2。"
       }
     ],
     "falsification": [
       {
-        "en": "TSMC blended ASP guidance cut while CoWoS still tight — pricing power is narrower than the bottleneck implies.",
-        "zh": "台積電綜合 ASP 指引下修但 CoWoS 仍緊 — 定價權比瓶頸所暗示的更窄。"
+        "en": "Foundry−cost margin delta turns negative (upstream→foundry pass-through drops <100%) — verdict flips from DEFENSIBLE to SQUEEZED.",
+        "zh": "晶圓−成本利差轉負(上游→晶圓傳導<100%)——判定由可守翻為受擠壓。"
       },
       {
-        "en": "Upstream cost +>2%/m for 2 months with N3/N5 ASP flat — the verdict must flip to SQUEEZED.",
-        "zh": "上游成本連 2 個月月漲 >2% 而 N3/N5 ASP 持平 — 結論須翻為 SQUEEZED。"
+        "en": "Downstream ASP momentum falls below upstream cost momentum AND NVDA/AMD demand proxies both turn negative — demand-led squeeze, verdict to NEUTRAL/SQUEEZED.",
+        "zh": "下游ASP動能低於上游成本動能，且NVDA/AMD需求代理雙雙轉負——需求主導擠壓，判定轉中性/受擠壓。"
       },
       {
-        "en": "A major customer (NVDA/AAPL) publicly pushes back on wafer pricing — room-to-raise thesis breaks.",
-        "zh": "重要客戶(NVDA/AAPL)公開抵制晶圓報價 — 漲價空間論點破裂。"
+        "en": "CoWoS/N3 hikes stall (≤+1%/m) for two consecutive reads — scarcity premium exhausted, DEFENSIBLE no longer supported.",
+        "zh": "CoWoS/N3漲幅連兩期停滯(≤+1%/月)——稀缺溢價耗盡，可守判定失據。"
       }
     ],
     "watch": [
       {
-        "en": "CoWoS capacity & price (tightest bottleneck)",
-        "zh": "CoWoS 產能與價格(最緊瓶頸)",
+        "en": "NVIDIA/AMD GPU channel & street pricing (B200/GB200) — earliest demand-side tell.",
+        "zh": "NVIDIA/AMD GPU通路與街頭價(B200/GB200)——最早的需求端訊號。",
+        "freq": "daily"
+      },
+      {
+        "en": "CoWoS lead-times and packaging allocation queue.",
+        "zh": "CoWoS交期與封裝配額排隊。",
         "freq": "weekly"
       },
       {
-        "en": "HBM3E contract price (customer co-input cost)",
-        "zh": "HBM3E 合約價(客戶共同投入成本)",
+        "en": "HBM3E/HBM4 contract price resets and DRAM/NAND spot.",
+        "zh": "HBM3E/HBM4合約重定價及DRAM/NAND現貨。",
         "freq": "weekly"
       },
       {
-        "en": "N3/N5 leading-edge ASP & hike reports",
-        "zh": "N3/N5 先進製程 ASP 與漲價報導",
-        "freq": "weekly"
-      },
-      {
-        "en": "Silicon-wafer & substrate cost (SUMCO/Unimicron)",
-        "zh": "矽晶圓與載板成本(SUMCO/欣興)",
+        "en": "Silicon-wafer & ABF substrate contract prices (⚑calibrate flags).",
+        "zh": "矽晶圓與ABF基板合約價(⚑校準旗標)。",
         "freq": "monthly"
       },
       {
-        "en": "Samsung/Intel mature & leading-node discounting",
-        "zh": "三星/Intel 成熟與先進節點折讓",
+        "en": "Samsung/Intel/China mature-node quotes for 28nm price-war signal.",
+        "zh": "三星/英特爾/中國成熟製程28nm報價之價格戰訊號。",
         "freq": "weekly"
       },
       {
-        "en": "NVDA/AMD demand & end-product ASP",
-        "zh": "NVDA/AMD 需求與終端 ASP",
-        "freq": "weekly"
+        "en": "Upstream→foundry and foundry→downstream pass-through ratios each read.",
+        "zh": "每期上游→晶圓及晶圓→下游傳導比率。",
+        "freq": "monthly"
       },
       {
-        "en": "NTD/USD FX (translates into TSMC ASP)",
-        "zh": "新台幣/美元匯率(換算進台積電 ASP)",
-        "freq": "weekly"
+        "en": "ASML/AMAT equipment cost proxies and semiconductor PPI.",
+        "zh": "ASML/AMAT設備成本代理及半導體PPI。",
+        "freq": "monthly"
       }
     ]
   },
-  "analysis_engine": "rules",
+  "analysis_engine": "claude",
   "blind_spots_en": [
     "Real per-customer wafer prices are confidential — leading-edge ASP rows are tier-T2/T3 ESTIMATES, not TSMC's price book.",
     "Equity proxies (TSM/NVDA/ASML/AMAT/AMD) track sentiment & mix, not the literal transaction price — their 1m move is sentiment-damped (×0.25, capped ±4%) before it can touch the bargaining score, and their raw move is rolled into a separate market-sentiment reference that does NOT enter the score; treat as directional only.",
@@ -776,15 +776,51 @@
   ],
   "news": [
     {
-      "title": "Tungsten Hexafluoride Prices Double as AI Computing Demand Reshapes Semiconductor Materials Supply",
-      "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxOYjRiQW5rUHhHWkZwZmZJWTZNVTB5WGhrQlREX2Z0ODZMSFhObFpBallBM194bzlGSUVXLWtwem4tQ3lBem45bnR4eUFmREJFQ0s4cmlqV1lNczFQYmtXc2J5a2FqT1BVOU00S0R0T1p1QlIxMXNXNjR4ZWYxMXVrWkZXQlV4QQ?oc=5",
-      "source": "Pandaily",
+      "title": "[News] ASE Reportedly Raises Advanced Packaging Quotes by More Than 20% in Latest AI-Driven Price Hike",
+      "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxQdWVtR0VVYjVhSEJnVW9SODB6QTMtV0l2ekVGYURvVXgtMVpOeVg1TnBvZUdiWU9tYUlsNDZLQmJzYUZwQU5lTjRvRnQ4RGxLQXIzMFU5RTBDSjA4M0M0blkyWVhjX1NQeVM3QklqaG8zc1pzQTktWHpFZ0VzMnJsUUgtNTl4YUZRbGpQbktyeDJnVVEtX1V4cUtCY3dEWGVPTXYxdVBRZG9XY1RfYXJ0ZmFrSnhjbTJGbFNYQkxXTXNsSFVfcHg3ckRVUXV2TURYcEFiaVprXzVqcGs?oc=5",
+      "source": "TrendForce",
+      "date": "2026-07-01"
+    },
+    {
+      "title": "Why are Micron, SanDisk, and other semiconductor stocks falling today?",
+      "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQQ29hVUN1bjFXdjVGNDNiSlN3TFk1dmpJemNobmhWUEp5djBMb2VBak5KNi1ZeHBrRUVBSEQycWhiTUNYcTUwTUFKYUFhZ1hIempfZkdRU1M2QmZBREFlZ0RZNWhiQ1BraWpoVVUwT3E5RkxWdlR6dEVkT0x4a2J5U3U3ZlRDWmpWYkZYdEowVXpDQTNFZEQwOS1UUE1hRE1BemlHWHNn?oc=5",
+      "source": "Invezz",
+      "date": "2026-07-01"
+    },
+    {
+      "title": "DRAM Contract Price Jun. 2026",
+      "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE02ZGhucUNIVjVVVnBpZkp4UnhsMmFQOGtKaDF2bllrTHA3NnVxLUcyYmJ5cklma0hPOVFSLVBGMG9TYVJPenZ1a1dGcEYwd1FPaEZBek1ieExRZVZQVDZaVGtKUC0tUQ?oc=5",
+      "source": "TrendForce",
+      "date": "2026-06-30"
+    },
+    {
+      "title": "DRAM and NAND prices surge up to 98% in a single quarter, and it’s about to get worse",
+      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1rb1lXUDl6VlNZeURqcUgyMFFZdXJCSXNnaGJnUFplNE5EZ2lkRDM1REp1SHV6c1lzNzlvWlBhVG9XNnFuWFBNdGp2ckR3WmdpWFY3eGJIX002TXRjQUhTRTFLMmxBQzNsclhjYg?oc=5",
+      "source": "Crypto Briefing",
+      "date": "2026-06-30"
+    },
+    {
+      "title": "Global Foundry 2.0 Revenue Rises 23% YoY in Q1 2026 as AI Continues to Boost Demand",
+      "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOdEQydGlKLUpyZWpQX3k4dXJTNmRMQVNZRGFWUTBWYVFrZkJKaWhWMlZRODROeXZWeF9FNUhkQnJPLVRhVVJEeGRwdlVkT3Z4ekJmZktMeGQtNmo1X3d1Z0dEUnlHWmlQVzdEd3VuSUdkdVdKckVGRTc0M1Fma013WVlMTHd1LXFnN3g5UVBLT2hyV2t5aXB3?oc=5",
+      "source": "Counterpoint Research",
+      "date": "2026-06-26"
+    },
+    {
+      "title": "TSMC is reportedly hiking prices for 'all advanced nodes,' accounting for 74% of the company’s wafer business — Nvidia, AMD, Apple, Qualcomm, and others will face higher wafer costs",
+      "url": "https://news.google.com/rss/articles/CBMi1wJBVV95cUxOUzZfVU5UYUJlN25scnJhdjh0MHRrUTVJOTd1WmwzeVZzaDFfTURKeTVldElwN2h1ZU5PMW9mckdDeWY3R1hQSUtPMkRYOEVPQ2NDZzdjYjBQakdCU2VtM2pKLUNwcGRnVmR6dXpCeGxEdV9LTVRoNUE1ck1lbUV2blhKMUVhZTAwRTdaVE5XMXJBR3F5NEdsSFU0cWtKbzh4T1BOT2tvV1VxMTVneXR3azd5UGFQVzJ3RlZxcHhxQ0NvNnl4Z1cxY1pZYnFJdkZjaTM4cTZ5WVhfUmh2a3E2TmlLX1h2Vi1pX1Z6MEE3dHF1Tk9ZdVR4Q1BKRnlWZk1YN0JYSVdfd1YySk1NdS1hV0djRF92Uk9QXzRxRlNrSEFURjVlLWozRm5vSy1SSmF4NlpRNy1jcFFzWG9rQ2V2UzQ0VHFXSGZObEJuckN3c2xLSTNrR1hZ?oc=5",
+      "source": "Tom's Hardware",
+      "date": "2026-06-24"
+    },
+    {
+      "title": "Test-Grade Silicon Wafers Market Forecast Points Higher Toward 2035, Driven by Semiconductor R&D Expansion",
+      "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxNZW5IcVhodGNPaHRlLWJZQVZIbE92WG1iQWZGbjFRYW9HOC15a2RXY1k5X3RBT1R0U1lDWHJpWUc4amRtTFhzQWh1SExZNzVaUUY2enh6eEdFeURYM3lKaUtkZC03WThmdEozMXdMM3pWbF9tOGROTXVYYkpodXZWSzZjR1d4eHpzemxUb0d3YlIwbU04WHR1eFZYYnlzNWpfRFVGTzh4TF9ERW1jQ1dLSGxxRGRZT0hYTG9xXzJ6MUVfbDFlVVFmOFNMSGFjWmlq?oc=5",
+      "source": "IndexBox",
       "date": "2026-06-16"
     },
     {
-      "title": "Semiconductor Materials Market Size, Share & Forecast Report 2035",
-      "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOV0MwYkxoc0I4TERoZ1VWM3Z3ODJSNG4wcks1ejR3S3VpNWx1eDRTS1pYejJlQTJQQ2tvcGQ2QlNGNG1sUV9VMG5ralZtWEVrWTBBTC1wcnpsaUtJWmY2cklNUmVVekhPeS1yWWU1Y21yaS1PV0NXRVNxQWF1cjJyZWhNZUJfc2s?oc=5",
-      "source": "Market Research Future",
+      "title": "TSM's Advanced Packaging Capacity Expected to Improve Supply by 2026",
+      "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPYl9ENTh3clZpZEJialhYd0tfRDExWHoxdWpMTXk1NzNlMWFDOVpLakxjQ3NINkx1LTlCNm8zWlVrdHRfanlzZFRxZjVsUHJocDNIaVJDaGhqM3FRbGVES2NrdVA4b0g2UDhjNWtHWDBIYzk4R19fUmpJYlZqY05rdkJPTEI0dkVWM1Q3VzVzaXFNVHc4ZUpabDh4NldxY2ltdzJoc0lDd2VRZ1NEZWhRU2F4RTFhMzVyTHc?oc=5",
+      "source": "GuruFocus",
       "date": "2026-06-15"
     },
     {
@@ -795,21 +831,9 @@
     },
     {
       "title": "Soaring AI computing demand has spurred a multi-billion-dollar market, confirming a turning point in semiconductor silicon wafer price increases.",
-      "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPdGk5U21Tc3Q1c3owamgta2I1MTFmVERWSEducEpKQjB5WlEyYlhCNVJRdE55bEhwejNfbUZPV3pDWkE2OE5HcGtCWEN4TjlaMGlUbHIzbkFvYnpYQjlSaU1ZVjk0ZHU4b01RMlNKRl91ZmdBRFZRcU9NSGlNYU9jLTNTTGFKVWtQVzdnc19BckhiaW5iWkN6dmpqeENKMVlEbm1RZFlkdDl3QQ?oc=5",
+      "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxOT1lZdFBhNVhRaXk1bGs0UlQ1U3l4ajNzdDE5VS1LenJLaEJCaVNYTzNYMDhzV2pvb2h6VFpwaURfUUN6RDVTQ0pncWxUSUF0TDJmSW1tbGl6cGhqN1dyVUphcEc0d2pNNWtTaGpiU1I1MTJNQ0NfanVEZ3lyeVUxVkRHS1o0Q0NySGpqMW1ZNmRQTW9PTFFCblVHaUUtVUdPTnRBZDdB?oc=5",
       "source": "富途牛牛",
       "date": "2026-06-10"
-    },
-    {
-      "title": "AI Chip Shortage Will Last Years, TSMC Warns: Why Stable Pricing Still Means 2026 Increases",
-      "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxOdEJ0ZjE1ODh0enVlb2Z5LThFSE9HNWZ3MnNGN25TeXI5aU9Cc3dZNG13ZnVaenhzNUZ0ZDA3SHdGTERwUzhNaFBPQ09YWWNXMElBYUNpSFE4MHR0UmQxLW4zMV9VLUdJU0dXRTRUSDNLeVBXeU91eVVSNmR1T09Od0Z6d1k0Y3kyVm5wdmVndmZrOXU5RUQ1bXlIYVZFczJHOGpLNy1aY2FRaEU0R1JHNkJONk8zUHNjYlZvU3lQZEtFblN1a0FEcS1rYVBCQnlJVTlzVFFKSkcwS0hM?oc=5",
-      "source": "Tech Times",
-      "date": "2026-06-05"
-    },
-    {
-      "title": "Memory Chip Prices Will Make or Break DRAM ETF Before Year-End 2026",
-      "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPaE8zMGwxVWR2bkJ4SWE0dTlEY1lWMm8tRzg2NG1McG02MXpGNkJOcnBZQV9wdFE1ODZfX3IxM0JEV1ZrQTNOM2tmd1F1b1NrTG9HZ1dXZHdhaE9PeDRQZGdQb3dwWHRra09nZDlyRHNXdV9NMDZ6WnNaQlhSSm5qSjB5SVhTZTh2NGM3bXduRzN6T1B2Q3h3WVZ3?oc=5",
-      "source": "Yahoo Finance",
-      "date": "2026-06-05"
     },
     {
       "title": "Rapid Contract Price Surge Drives 1Q26 DRAM Industry Up 81% QoQ, Says TrendForce",
@@ -818,28 +842,10 @@
       "date": "2026-06-01"
     },
     {
-      "title": "[News] TSMC Reportedly Eyes Up to 15% 3nm Price Hike in 2H26, Further 5%–10% Seen in 2027 Amid AI, ASIC Demand",
-      "url": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxOSmdTUmpheHFOaTdNSV82ZjRuMmh4THRGZlZsQlFCRDNaX2lmZ20tTzI2bjhtY2l6d3BxQnBLaXJ3VzEtVW03WlhIRXBjaS0tbDU3WjV5bUhMYmktV185VEM2dnk4RUZZeVJRRlJDdExDTUo3cnVPblFEeDY4Y2taRXVFc3dnSjJSZHViUEFmajl5c2dpMWdJNGRXYkFaQndRUDF0RTRRQm02MEplWHJ0X0s3TlNJZFljZ0tZS3REaVBjanhVUFQyeS04c3VaS1FXdE5YQkdGS0Q4ODlZUThBcQ?oc=5",
-      "source": "TrendForce",
-      "date": "2026-05-27"
-    },
-    {
-      "title": "Memory Allocation Pressures Raise Procurement Costs Across 2026",
-      "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxONDk2Q3Z0TnZ3NXl4VDFHRTB3ZHZaZFNDSjd4WjdwMUVLNzlLQ3N4cVR0ZDZ2VVgtT1RydEtOWnBZSmhXc2xDenN6SWpBUktBWE9qb0NucXAza0lfZklmeUtzYnNnOTdEX2t5Y2o1WTdQRGFyWkpWMTFRWG52RUd3dEdQWlFnZE5oQ2JjVW1sX3NVS3h6a2JnSUlyRzBuMjhmdkZpeXBhTHdfSEwtTzUxSmdIeVc?oc=5",
-      "source": "Astute Group",
-      "date": "2026-05-27"
-    },
-    {
       "title": "Taiwan Semiconductor plans 15% price hike for 3nm chips in H2 2026",
       "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE1qbzVfQWwzWUpYT3RTS0lnUVlCWldUa2tOM1pHc3hLbUY0RW9wWjFRQi1BUjFLVHBLQTVGdmhlRUx6Z3NEYU1lRU5pZnhURzJNRnpGS2hUU2ZVVXdWUERsR2FCM1RnM0Vt?oc=5",
       "source": "Crypto Briefing",
       "date": "2026-05-26"
-    },
-    {
-      "title": "TSMC says global chip market to hit $1.5 trillion by 2030 as AI drives growth",
-      "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxQVUh3UjVGTi1HbGJ6WC1hSmtfTkx6dU5BMEpsQkpsSlZWeGVYanJZencxb0dCX2JLTkZISmF0WXFNZUpjNUxVd0F3S3haZWRRX2NOdjZzNUlRY1MxcWxicDlpUnRIcTRJWE9ieTctT3N2WDlFNFUzZzhTU2JQQ05uSmZqcEh5NFVFTVNPS1RzWVdvamt0NGJsbmJFOHNsUjZzN2Z5b2F2eHBIYWxjWk1NOXFzVTlHYUk0LUFkYlR0T3NjUQ?oc=5",
-      "source": "Reuters",
-      "date": "2026-05-13"
     },
     {
       "title": "CoWoS Is No Longer Just Packaging: It Is TSMC’s New Value-Creation Engine",
@@ -848,22 +854,16 @@
       "date": "2026-05-04"
     },
     {
-      "title": "DRAM Contract Price Apr. 2026",
-      "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTFBTczlSNkxlcHg5VkxjZ1NrRUhneEtiUV9hTHBzSDliWGdHb1RNU3BxTHdzWllKWlh6MlRySlBSV05PQjl0TlNSNWpBMmhKWGFoWk9pVjd0MkFGSXM1Q3FqeGtfWGxDdw?oc=5",
-      "source": "TrendForce",
-      "date": "2026-04-30"
-    },
-    {
-      "title": "[News] TSMC CoWoS Wafer ASP Reportedly Nears 7nm; Advanced Packaging to Become a Key Profit Driver",
-      "url": "https://news.google.com/rss/articles/CBMi6AFBVV95cUxOdFdEMXRRSy0xSnVKaHRvVlRzOHlpMm1GS1k3VW8wZHJLM1RCbjhwMmRjVHlHbHAyTldTYXduajRFWHZzd0E3eVVUMWJ4M2U2OWRMazlRa29IbTFmRDY1X24yd2o3UzdPX2dCWEF1aTR3cXg0UFZSMEU1TmxTY01GXzRwQ2xBRVhvaUl2eFFGN216UHRKMkU0SjhycFNraU9ka2JSeXltdnlTNW9IN1RPMXBFdm03d1BjeFFJbnhkejVPYzdpd3FCZU0xZTdKTUQyTFlRdUY5UVZERi1HUW5tSG5ERU41UzZY?oc=5",
-      "source": "TrendForce",
-      "date": "2026-04-28"
-    },
-    {
       "title": "Advanced Nodes Shipments to Capture 60% Share in 2026 as 3nm Leads, 2nm Adoption Rises",
       "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPRmJ4cUpuenVyN3Bjek8yNGYxc3JyTGNRd3JCRXRtdTRNNzlfZlNEWjBqTVlKTXZxZ1RQQS1xWklQT25RS0d0NG5KU29QR2JCcTR2M05MUGozWlVGOFdEV21LOTZGWHhaWVZUX3JRZzJDUUh2bUNhQmJ0bHhBQnlad3VPcm9XX1hkN2JReHd3NGJEVFoycExlamQyTGNDOVk?oc=5",
       "source": "Counterpoint Research",
       "date": "2026-03-23"
+    },
+    {
+      "title": "Silicon EPI Wafers Market to Grow by 26% During 2026-2030 Driven by AI and 5G Expansion - Shin-Etsu Chemical Co., Siltronic, GlobalWafers Co., and SK Siltron Co. Dominate",
+      "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQSXFXaEtqTGZVSjViYy1XRnJZanFFdThkdUJWbW9LUzJHN3VSTDRzeC1oRDd0d2EzX1BqQzRFaGFNYkozTmhKSEhERl9xV3BnUlN1V0NRbXZoZExjbE5ETUc2OUhjaWt4VWFua21UeThicjdzdFE4bnk0aHF5cXBtamJ3?oc=5",
+      "source": "Yahoo Finance",
+      "date": "2026-01-27"
     },
     {
       "title": "Higher DDR5 Profitability Intensifies Capacity Crowding, Strengthening HBM3e Pricing Momentum in 2026, Says TrendForce",
@@ -884,5 +884,5 @@
       "date": "2025-10-29"
     }
   ],
-  "fetched_at": "2026-06-22 06:42 UTC"
+  "fetched_at": "2026-07-02 07:02 UTC"
 }
