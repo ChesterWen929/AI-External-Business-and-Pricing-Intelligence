@@ -82,6 +82,15 @@ from bottleneck_radar import load_snapshot as bottleneck_load_snapshot
 # manual-only (password-gated). NB: the package dir is bottleneck_radar/ NOT bottleneck/ —
 # a dir literally named "bottleneck" shadows pandas' optional bottleneck dependency and
 # breaks boot under gunicorn (repo root on sys.path). Keep this name.
+from credit_radar import credit_bp
+from credit_radar import load_snapshot as credit_load_snapshot
+from geo_radar import geo_bp
+from geo_radar import load_snapshot as geo_load_snapshot
+from cycle_clock import analogue_bp
+from cycle_clock import load_snapshot as analogue_load_snapshot
+# credit / geo / analogue refresh is manual-only (password-gated), same rule as
+# pricing/payback/scenario — keep Opus cost on-demand. Dir names *_radar / cycle_clock
+# avoid pip-package shadowing (same lesson as bottleneck_radar).
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)s | %(message)s")
 log = logging.getLogger("macro-ai")
@@ -101,6 +110,9 @@ app.register_blueprint(payback_bp)
 app.register_blueprint(scenario_bp)
 app.register_blueprint(company_bp)
 app.register_blueprint(bottleneck_bp)
+app.register_blueprint(credit_bp)
+app.register_blueprint(geo_bp)
+app.register_blueprint(analogue_bp)
 
 # ── secrets / auth (all from env; never hard-code real values) ──
 _DEFAULT_SECRET = "dev-insecure-change-me"
@@ -208,17 +220,30 @@ STRINGS = {
     "axis_top":  {"en": "MACRO ECONOMY",               "zh": "經濟面"},
     "axis_bottom":{"en": "INDUSTRY STRATEGY",          "zh": "產業分析"},
     "tier1":     {"en": "Macroeconomy",                "zh": "經濟面"},
-    "tier1_sub": {"en": "The backdrop and the capstone — the macro cycle, plus one synthesis of every layer below into scenarios.",
-                  "zh": "大環境與總綱 — 景氣循環,以及把下方每一層收斂成情境的綜合判讀。"},
+    "tier1_sub": {"en": "The backdrop and the capstone — the macro cycle, one forward synthesis into scenarios, and one backward fix on the historical clock.",
+                  "zh": "大環境與總綱 — 景氣循環、往前收斂成情境的綜合判讀,加上往回對齊歷史的週期座標。"},
     "tier2":     {"en": "Capital Flows & Bubble Heat", "zh": "資金流向與泡沫溫度"},
-    "tier2_sub": {"en": "Where capital is flowing, and how hot the bubble runs — direction paired with temperature.",
-                  "zh": "資金往哪裡流、泡沫燒得多熱 — 方向搭配溫度兩個面向。"},
+    "tier2_sub": {"en": "Where capital flows, how hot the bubble runs — and whose money is funding it: direction, temperature, and the credit behind them.",
+                  "zh": "資金往哪裡流、泡沫燒得多熱、以及這些錢是誰的 — 方向、溫度、加上背後的信用結構。"},
     "tier3":     {"en": "AI Demand & Payback",         "zh": "AI 需求與回本"},
     "tier3_sub": {"en": "One arc, left to right: CapEx → silicon demand → leading-edge wafers → is it paying off yet?",
                   "zh": "一條主線,由左到右:資本支出 → 晶片需求 → 先進製程晶圓 → 回本了沒?"},
     "tier4":     {"en": "Supply Chain & Competitive Strategy", "zh": "供應鏈與產業策略"},
-    "tier4_sub": {"en": "The foundry supply chain itself — rack BOMs, the binding bottleneck, the earnings calendar, pricing power and rivals.",
-                  "zh": "代工供應鏈本身 — 機櫃 BOM、最弱環節瓶頸、法說行事曆、定價權與競爭者。"},
+    "tier4_sub": {"en": "The foundry supply chain itself — rack BOMs, the binding bottleneck, the earnings calendar, pricing power, rivals, and the geopolitical second chain.",
+                  "zh": "代工供應鏈本身 — 機櫃 BOM、最弱環節瓶頸、法說行事曆、定價權、競爭者,以及地緣下的第二條供應鏈。"},
+    # ── three cards added 2026-07-02 (credit / geo / analogue) ──
+    "credit_name":{"en": "AI Credit & Financing Radar", "zh": "AI 信用與融資雷達"},
+    "credit_desc":{"en": "Whose money funds the buildout — cash flow, bonds, private credit, GPU-backed debt or vendor financing — and how soft it is getting.",
+                   "zh": "這輪資本支出是誰的錢 — 現金流、公司債、私募信貸、GPU 抵押還是供應商融資 — 以及它正在變多軟。"},
+    "credit_lbl":{"en": "/100 tightness",              "zh": "/100 信用鬆緊"},
+    "geo_name":  {"en": "Geopolitics & Second-Chain Radar", "zh": "地緣與第二供應鏈雷達"},
+    "geo_desc":  {"en": "Export-control regime, China's link-by-link second AI chain, and Taiwan concentration — the policy variables that can redraw the map overnight.",
+                  "zh": "出口管制現況、中國第二條 AI 供應鏈的逐環完整度、台灣集中度 — 一夜之間能重畫地圖的政策變數。"},
+    "geo_lbl":   {"en": "/100 2nd-chain",              "zh": "/100 第二鏈完整度"},
+    "clock_name":{"en": "Cycle Analogue Clock",        "zh": "週期類比時鐘"},
+    "clock_desc":{"en": "Quantified overlay against the 1996–2002 telecom/fiber cycle: where does today's clock read — 1997 or 1999?",
+                  "zh": "量化對齊 1996–2002 電信/光纖週期:今天的時鐘讀到哪一年 — 1997 還是 1999?"},
+    "clock_lbl": {"en": "clock",                       "zh": "時鐘讀數"},
     "updated":   {"en": "Updated",                    "zh": "更新"},
     "indicators":{"en": "indicators",                 "zh": "指標"},
     "signout":   {"en": "Sign out",                   "zh": "登出"},
@@ -255,7 +280,7 @@ def require_login():
     if session.get("auth"):
         return None
     # Unauthenticated: API/JSON callers get 401, humans go to the login page.
-    if request.path.startswith(("/api/", "/econ/api/", "/aibubble/api/", "/rival/api/", "/compute/api/", "/racks/api/", "/flows/api/", "/cwengine/api/", "/earnings/api/", "/pricing/api/", "/payback/api/", "/scenario/api/", "/bottleneck/api/")) or (request.path.startswith("/company/") and "/api/" in request.path):
+    if request.path.startswith(("/api/", "/econ/api/", "/aibubble/api/", "/rival/api/", "/compute/api/", "/racks/api/", "/flows/api/", "/cwengine/api/", "/earnings/api/", "/pricing/api/", "/payback/api/", "/scenario/api/", "/bottleneck/api/", "/credit/api/", "/geo/api/", "/analogue/api/")) or (request.path.startswith("/company/") and "/api/" in request.path):
         return jsonify({"error": "auth required"}), 401
     return redirect(url_for("login", next=request.path))
 
@@ -364,6 +389,18 @@ def portal():
         bottleneck_snap = bottleneck_load_snapshot()
     except Exception:
         bottleneck_snap = None
+    try:
+        credit_snap = credit_load_snapshot()
+    except Exception:
+        credit_snap = None
+    try:
+        geo_snap = geo_load_snapshot()
+    except Exception:
+        geo_snap = None
+    try:
+        analogue_snap = analogue_load_snapshot()
+    except Exception:
+        analogue_snap = None
     return render_template(
         "portal.html",
         econ_updated=econ_snap.get("date") if econ_snap else None,
@@ -392,6 +429,12 @@ def portal():
         payback_verdict=((payback_snap.get("headline") or {}).get("verdict_key")) if payback_snap else None,
         scenario_updated=(scenario_snap.get("as_of") if scenario_snap else None),
         scenario_prob=((scenario_snap.get("headline") or {}).get("base_prob")) if scenario_snap else None,
+        credit_updated=(credit_snap.get("as_of") if credit_snap else None),
+        credit_score=((credit_snap.get("composite") or {}).get("score")) if credit_snap else None,
+        geo_updated=(geo_snap.get("as_of") if geo_snap else None),
+        geo_score=((((geo_snap.get("l2") or {}).get("composite")) or {}).get("score")) if geo_snap else None,
+        analogue_updated=(analogue_snap.get("as_of") if analogue_snap else None),
+        analogue_clock=((((analogue_snap.get("l3") or {}).get("composite")) or {}).get("clock_label")) if analogue_snap else None,
         scenario_base_label=(((scenario_snap.get("headline") or {}).get("base_label") or {}).get("zh" if ui_lang() == "zh" else "en")) if scenario_snap else None,
         scenario_divergences=((scenario_snap.get("headline") or {}).get("divergence_count")) if scenario_snap else None,
         company_updated=(company_snap.get("as_of") if company_snap else None),

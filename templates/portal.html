@@ -222,7 +222,7 @@
               <span class="tier-name">{{ t('tier1') }}</span>
               <span class="tier-sub">{{ t('tier1_sub') }}</span>
             </div>
-            <div class="row n2">
+            <div class="row n3">
               <a class="card" href="/scenario/">
                 <div class="kicker">CAPSTONE · SCENARIO</div>
                 <h2>{{ t('scenario_name') }}</h2>
@@ -248,6 +248,19 @@
                   <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
                 </div>
               </a>
+
+              <a class="card" href="/analogue/">
+                <div class="kicker">CYCLE CLOCK</div>
+                <h2>{{ t('clock_name') }}</h2>
+                <div class="desc">{{ t('clock_desc') }}</div>
+                <div class="foot">
+                  <div class="stat">
+                    {% if analogue_clock %}<span class="score">{{ analogue_clock }}<small>{{ t('clock_lbl') }}</small></span>{% endif %}
+                    {% if analogue_updated %}<span class="meta">{{ t('updated') }} · {{ analogue_updated }}</span>{% endif %}
+                  </div>
+                  <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
+                </div>
+              </a>
             </div>
           </div>
 
@@ -260,7 +273,7 @@
               <span class="tier-name">{{ t('tier2') }}</span>
               <span class="tier-sub">{{ t('tier2_sub') }}</span>
             </div>
-            <div class="row n2">
+            <div class="row n3">
               <a class="card" href="/flows/">
                 <div class="kicker">FLOWS</div>
                 <h2>{{ t('flows_name') }}</h2>
@@ -284,6 +297,19 @@
                       <span class="score">{{ '%.1f'|format(aib_score) }}{% if aib_zone %}<small>{{ aib_zone }}</small>{% endif %}</span>
                     {% endif %}
                     {% if aib_updated %}<span class="meta">{{ t('updated') }} · {{ aib_updated }}</span>{% endif %}
+                  </div>
+                  <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
+                </div>
+              </a>
+
+              <a class="card" href="/credit/">
+                <div class="kicker">CREDIT</div>
+                <h2>{{ t('credit_name') }}</h2>
+                <div class="desc">{{ t('credit_desc') }}</div>
+                <div class="foot">
+                  <div class="stat">
+                    {% if credit_score is not none %}<span class="score">{{ '%.1f'|format(credit_score) }}<small>{{ t('credit_lbl') }}</small></span>{% endif %}
+                    {% if credit_updated %}<span class="meta">{{ t('updated') }} · {{ credit_updated }}</span>{% endif %}
                   </div>
                   <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
                 </div>
@@ -351,7 +377,7 @@
               <span class="tier-name">{{ t('tier4') }}</span>
               <span class="tier-sub">{{ t('tier4_sub') }}</span>
             </div>
-            <div class="row n5">
+            <div class="row n6">
               <a class="card" href="/racks/">
                 <div class="kicker">RACKS</div>
                 <h2>{{ t('racks_name') }}</h2>
@@ -412,6 +438,19 @@
                   <div class="stat">
                     {% if rival_events %}<span class="score">{{ rival_events }}<small>{{ t('events_lbl') }}</small></span>{% endif %}
                     {% if rival_updated %}<span class="meta">{{ t('updated') }} · {{ rival_updated }}</span>{% endif %}
+                  </div>
+                  <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
+                </div>
+              </a>
+
+              <a class="card" href="/geo/">
+                <div class="kicker">GEO</div>
+                <h2>{{ t('geo_name') }}</h2>
+                <div class="desc">{{ t('geo_desc') }}</div>
+                <div class="foot">
+                  <div class="stat">
+                    {% if geo_score is not none %}<span class="score">{{ '%.1f'|format(geo_score) }}<small>{{ t('geo_lbl') }}</small></span>{% endif %}
+                    {% if geo_updated %}<span class="meta">{{ t('updated') }} · {{ geo_updated }}</span>{% endif %}
                   </div>
                   <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
                 </div>
