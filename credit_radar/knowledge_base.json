@@ -1,0 +1,419 @@
+{
+  "version": "1.0",
+  "as_of_curated": "2026-07-02",
+  "title_en": "AI Credit & Financing Radar",
+  "title_zh": "AI 信用與融資雷達",
+  "method_en": "Whose money funds this AI capex cycle — internal cash flow, equity, or debt & off-balance-sheet structures? The more the stack leans on soft money, the later the cycle and the sharper the break. Curated funding map (L1/L2) + live funding-gap & credit-spread quant (L3) + Claude synthesis with rules fallback (L4/L5). Estimates are estimates — every curated number carries a tier and an as-of date. Not investment advice.",
+  "method_zh": "這輪 AI 資本支出是誰的錢——內部現金流、股權、還是債與表外結構?融資結構越靠軟錢,週期越晚、斷裂越猛。策展融資地圖(L1/L2)+ 即時資金缺口與信用利差量化(L3)+ Claude 合成與規則後備(L4/L5)。估計就是估計——每個策展數字都帶證據等級與資料時點。非投資建議。",
+  "tier_legend": {
+    "T1": {"en": "Official / filings", "zh": "官方/財報"},
+    "T2": {"en": "Authoritative estimate", "zh": "權威估計"},
+    "T3": {"en": "News / inference", "zh": "新聞/推估"}
+  },
+
+  "funding_stack": [
+    {
+      "id": "ocf", "rank": 1,
+      "name_en": "Hyperscaler operating cash flow", "name_zh": "巨頭營運現金流",
+      "hardness_en": "Hardest — self-funded", "hardness_zh": "最硬 — 自有資金",
+      "desc_en": "Capex paid straight out of the ads/cloud/software cash machine. No maturity wall, no covenants, no margin calls. As long as OCF covers capex, the cycle is self-financing.",
+      "desc_zh": "資本支出直接由廣告/雲端/軟體的現金機器支付。沒有到期牆、沒有契約條款、沒有追繳。只要 OCF 蓋得住 capex,這個週期就是自我融資。"
+    },
+    {
+      "id": "ig_bond", "rank": 2,
+      "name_en": "Investment-grade bonds", "name_zh": "投資級公司債",
+      "hardness_en": "Hard — cheap, long, public", "hardness_zh": "硬 — 便宜、長天期、公開",
+      "desc_en": "Mega-bond programs (Meta-, Oracle-style). Still cheap and long-dated, but it creates a maturity schedule and makes the capex cycle visible to — and dependent on — the bond market.",
+      "desc_zh": "巨型發債計畫(Meta、Oracle 型)。仍然便宜且長天期,但從此有了到期時程,也讓 capex 週期開始被債券市場看見、並依賴債券市場。"
+    },
+    {
+      "id": "private_credit", "rank": 3,
+      "name_en": "Neocloud private credit & GPU-collateralized loans", "name_zh": "新雲私募信貸與 GPU 抵押貸款",
+      "hardness_en": "Soft — floating, collateral-dependent", "hardness_zh": "軟 — 浮動利率、依賴抵押品",
+      "desc_en": "CoreWeave-style delayed-draw term loans at SOFR+, secured by GPUs whose residual value is an assumption, not a market. Repricing here does not show up in public spreads first.",
+      "desc_zh": "CoreWeave 型的延遲提取定期貸款,SOFR 加碼計息,抵押品是 GPU——其殘值是假設而非市場。這一層重新定價時,不會先反映在公開利差上。"
+    },
+    {
+      "id": "lab_equity", "rank": 4,
+      "name_en": "Frontier-lab equity mega-rounds", "name_zh": "前沿實驗室股權巨輪",
+      "hardness_en": "Softer — sentiment-gated", "hardness_zh": "更軟 — 看市場情緒開關",
+      "desc_en": "OpenAI / Anthropic-scale rounds fund burn that exceeds revenue. Equity has no maturity wall, but the window can shut in one quarter — and prepayments to clouds stop with it.",
+      "desc_zh": "OpenAI / Anthropic 級別的募資輪支付超過營收的燒錢。股權沒有到期牆,但募資窗口可能一季內關閉——對雲端的預付款也會跟著停。"
+    },
+    {
+      "id": "vendor_spv", "rank": 5,
+      "name_id_note": "instrument ids vendor_financing / spv_leaseback / prepayment map here",
+      "name_en": "Vendor financing / SPV / leaseback", "name_zh": "供應商融資 / SPV / 售後回租",
+      "hardness_en": "Softest — circular & off-balance-sheet", "hardness_zh": "最軟 — 循環且在表外",
+      "desc_en": "Chip vendors funding their own customers, off-balance-sheet DC SPVs, compute prepayments. Demand and supply share one balance sheet; residual risk is parked where it is hardest to see. Circular-deal specifics live in the /aibubble circularity ledger.",
+      "desc_zh": "晶片商出錢給自己的客戶、表外資料中心 SPV、算力預付款。需求與供給共用同一張資產負債表;殘值風險停在最難看見的地方。循環交易的具體金額見 /aibubble 循環台帳。"
+    }
+  ],
+
+  "contagion_channels": [
+    {
+      "from": "ig_bond", "to": "private_credit",
+      "desc_en": "IG spreads widen → private credit reprices with a lag and a multiple; floating-rate GPU loans feel it first.",
+      "desc_zh": "投資級利差走闊 → 私募信貸以落後且放大的方式重新定價;浮動利率的 GPU 貸款最先感受到。"
+    },
+    {
+      "from": "private_credit", "to": "vendor_spv",
+      "desc_en": "A GPU-loan LTV call or neocloud restructuring forces vendors to choose: extend more financing (deeper circularity) or let a customer fail (demand air-pocket).",
+      "desc_zh": "GPU 貸款追繳或新雲重整,逼供應商二選一:再多給融資(循環更深)或讓客戶倒下(需求真空)。"
+    },
+    {
+      "from": "lab_equity", "to": "ocf",
+      "desc_en": "If the equity window closes, lab compute prepayments and commitments stop — cloud backlog quality drops, and the 'hard' OCF layer inherits the revenue hole.",
+      "desc_zh": "股權窗口一關,實驗室的算力預付與承諾就停——雲端在手訂單品質下降,「硬」的 OCF 層反而接下營收缺口。"
+    },
+    {
+      "from": "vendor_spv", "to": "ig_bond",
+      "desc_en": "Off-balance-sheet losses migrating back on-balance-sheet (SPV consolidation, vendor write-downs) is the classic late-cycle surprise that repriced GE and the telcos.",
+      "desc_zh": "表外損失回到表內(SPV 併表、供應商減值)是典型的晚週期驚嚇——GE 與電信業當年就是這樣被重新定價。"
+    }
+  ],
+
+  "indicators": [
+    {
+      "id": "ig_oas",
+      "name_en": "IG OAS (BAMLC0A0CM)", "name_zh": "投資級利差 IG OAS",
+      "what_en": "Option-adjusted spread of US investment-grade corporates.", "what_zh": "美國投資級公司債的選擇權調整利差。",
+      "why_en": "Prices the mega-bond layer: what Meta/Oracle-style programs cost at the margin.", "why_zh": "為巨型發債層定價:Meta/Oracle 型計畫的邊際成本。",
+      "threshold_en": ">1.3% or +30bp/6m = bond window narrowing.", "threshold_zh": ">1.3% 或 6 個月 +30bp = 發債窗口收窄。"
+    },
+    {
+      "id": "hy_oas",
+      "name_en": "HY OAS (BAMLH0A0HYM2)", "name_zh": "高收益利差 HY OAS",
+      "what_en": "Option-adjusted spread of US high-yield corporates.", "what_zh": "美國高收益公司債的選擇權調整利差。",
+      "why_en": "The general credit-cycle thermometer; funding stress migrates from HY inward.", "why_zh": "整體信用週期的溫度計;融資壓力從高收益向內滲透。",
+      "threshold_en": ">4% or +150bp/quarter = regime change.", "threshold_zh": ">4% 或單季 +150bp = 體制轉換。"
+    },
+    {
+      "id": "ccc_oas",
+      "name_en": "CCC & lower OAS (BAMLH0A3HYC)", "name_zh": "CCC 級以下利差",
+      "what_en": "Spread of the weakest rated credits.", "what_zh": "最弱評級信用的利差。",
+      "why_en": "Closest public proxy for where GPU-collateralized / neocloud paper would trade.", "why_zh": "最接近 GPU 抵押/新雲債務會交易在哪裡的公開代理。",
+      "threshold_en": "CCC widening while HY is calm = decompression — the bottom of the stack cracking first.", "threshold_zh": "HY 平靜但 CCC 走闊 = 利差解壓縮——結構最底層先裂。"
+    },
+    {
+      "id": "ccc_minus_ig",
+      "name_en": "CCC − IG differential", "name_zh": "CCC − IG 利差差",
+      "what_en": "Quality spread between the softest and hardest public credit.", "what_zh": "公開信用中最軟與最硬之間的品質利差。",
+      "why_en": "One number for 'how differently is soft money priced vs hard money'.", "why_zh": "一個數字回答「軟錢與硬錢的定價差多少」。",
+      "threshold_en": ">8pp = soft layer effectively shut out.", "threshold_zh": ">8 個百分點 = 軟錢層實質被拒於門外。"
+    },
+    {
+      "id": "funding_gap",
+      "name_en": "Funding gap (capex − OCF)", "name_zh": "資金缺口 (capex − OCF)",
+      "what_en": "Per-hyperscaler TTM capex minus TTM operating cash flow.", "what_zh": "各巨頭 TTM 資本支出減 TTM 營運現金流。",
+      "why_en": "Positive gap = the marginal capex dollar is externally funded.", "why_zh": "缺口為正 = 邊際的 capex 一美元來自外部融資。",
+      "threshold_en": "Aggregate gap >15% of capex = the cycle no longer self-funds.", "threshold_zh": "整體缺口 >capex 的 15% = 週期不再自籌。"
+    },
+    {
+      "id": "external_share",
+      "name_en": "External-funding share", "name_zh": "外部融資占比",
+      "what_en": "max(0, gap) ÷ capex, per company.", "what_zh": "max(0, 缺口) ÷ capex,逐公司。",
+      "why_en": "Who is spending borrowed money — their orders wobble first.", "why_zh": "誰在花借來的錢——他們的訂單最先晃動。",
+      "threshold_en": ">40% external = bond-market dependent capex.", "threshold_zh": ">40% 外部 = capex 依賴債券市場。"
+    },
+    {
+      "id": "soft_share",
+      "name_en": "Soft-money share of financing ledger", "name_zh": "融資台帳軟錢占比",
+      "what_en": "Ledger events weighted by softness rank (1 hard … 5 softest), drawn amounts.", "what_zh": "台帳事件按軟硬等級(1 最硬…5 最軟)以已提取金額加權。",
+      "why_en": "The structural read: how far down the stack the marginal dollar has migrated.", "why_zh": "結構性判讀:邊際資金已經下沉到結構的第幾層。",
+      "threshold_en": "Score >70 = vendor/SPV/equity dominate new money.", "threshold_zh": "分數 >70 = 供應商融資/SPV/股權主導新錢。"
+    },
+    {
+      "id": "burn_multiple",
+      "name_en": "Lab burn ÷ revenue run-rate", "name_zh": "實驗室燒錢 ÷ 營收 run-rate",
+      "what_en": "Estimated annual cash burn over annualized revenue, per frontier lab.", "what_zh": "估計年燒錢除以年化營收,逐前沿實驗室。",
+      "why_en": "How dependent the equity layer is on the next round staying open.", "why_zh": "股權層有多依賴下一輪募資窗口維持開啟。",
+      "threshold_en": ">1.5× = one shut window from distress.", "threshold_zh": ">1.5 倍 = 只差一次窗口關閉就進入壓力。"
+    }
+  ],
+
+  "fred_series": [
+    {
+      "id": "ig_oas", "series": "BAMLC0A0CM", "tier": "T1",
+      "seed": {"value": 0.82, "chg_6m": -0.04, "as_of": "2026-07-01"},
+      "note_en": "Keyless FRED CSV; seed is the 2026-07-01 print.", "note_zh": "FRED 免 key CSV;種子為 2026-07-01 值。"
+    },
+    {
+      "id": "hy_oas", "series": "BAMLH0A0HYM2", "tier": "T1",
+      "seed": {"value": 2.66, "chg_6m": -0.19, "as_of": "2026-07-01"},
+      "align_note": "對齊 /flows·/payback HY OAS 2.66 (FRED BAMLH0A0HYM2, 2026-07-01)",
+      "note_en": "Same series the sibling cards cite.", "note_zh": "與姊妹卡引用同一序列。"
+    },
+    {
+      "id": "ccc_oas", "series": "BAMLH0A3HYC", "tier": "T1",
+      "seed": {"value": 7.60, "chg_6m": 0.35, "as_of": "2026-07-01"},
+      "note_en": "CCC quietly widening while HY tightens — the decompression tell.", "note_zh": "HY 收斂但 CCC 悄悄走闊——解壓縮訊號。"
+    }
+  ],
+
+  "hyperscalers": [
+    {
+      "id": "msft", "name": "Microsoft", "ticker": "MSFT",
+      "seed": {"capex_ttm_usd_bn": 97.2, "ocf_ttm_usd_bn": 148.0, "as_of": "2026-07-02"},
+      "capex_tier": "T1", "ocf_tier": "T2", "ocf_est": true,
+      "align_note": "capex 對齊 /payback live yfinance 2026-07-02",
+      "note_en": "OCF covers capex ~1.5×; the hardest money in the stack. Half of AI buildout sits in finance leases (off this metric).",
+      "note_zh": "OCF 約 1.5 倍覆蓋 capex;結構中最硬的錢。約半數 AI 建置走融資租賃(不在此指標內)。"
+    },
+    {
+      "id": "googl", "name": "Alphabet", "ticker": "GOOGL",
+      "seed": {"capex_ttm_usd_bn": 109.9, "ocf_ttm_usd_bn": 152.0, "as_of": "2026-07-02"},
+      "capex_tier": "T1", "ocf_tier": "T2", "ocf_est": true,
+      "align_note": "capex 對齊 /payback live yfinance 2026-07-02",
+      "note_en": "Self-funded; search cash machine still outruns the TPU/DC build.",
+      "note_zh": "自籌;搜尋現金機器仍跑贏 TPU/資料中心建置。"
+    },
+    {
+      "id": "amzn", "name": "Amazon", "ticker": "AMZN",
+      "seed": {"capex_ttm_usd_bn": 151.0, "ocf_ttm_usd_bn": 166.0, "as_of": "2026-07-02"},
+      "capex_tier": "T1", "ocf_tier": "T2", "ocf_est": true,
+      "align_note": "capex 對齊 /payback live yfinance 2026-07-02;capex/OCF ≈91% 對齊 /payback runway「tight」判讀",
+      "note_en": "Still self-funded on paper but the tightest of the big four — capex eats ~91% of OCF; least slack before turning to debt.",
+      "note_zh": "帳面仍自籌,但四巨頭中最緊——capex 吃掉約 91% 的 OCF;離轉向舉債的緩衝最小。"
+    },
+    {
+      "id": "meta", "name": "Meta", "ticker": "META",
+      "seed": {"capex_ttm_usd_bn": 75.7, "ocf_ttm_usd_bn": 102.0, "as_of": "2026-07-02"},
+      "capex_tier": "T1", "ocf_tier": "T2", "ocf_est": true,
+      "align_note": "capex 對齊 /payback live yfinance 2026-07-02",
+      "note_en": "OCF covers capex — yet Meta still raised a record bond program AND an off-balance-sheet DC SPV (see ledger): pre-funding future capex with soft structures despite hard cash flow.",
+      "note_zh": "OCF 蓋得住 capex——但 Meta 仍發了創紀錄公司債並用表外資料中心 SPV(見台帳):現金流是硬的,卻已用軟結構預先融資未來 capex。"
+    },
+    {
+      "id": "orcl", "name": "Oracle", "ticker": "ORCL",
+      "seed": {"capex_ttm_usd_bn": 55.7, "ocf_ttm_usd_bn": 24.0, "as_of": "2026-07-02"},
+      "capex_tier": "T1", "ocf_tier": "T2", "ocf_est": true,
+      "align_note": "capex 對齊 /payback live yfinance 2026-07-02",
+      "note_en": "The outlier: capex ≈2.3× OCF — the majority of its AI buildout is externally funded, against a backlog concentrated in frontier labs.",
+      "note_zh": "異數:capex 約為 OCF 的 2.3 倍——AI 建置多數靠外部融資,而在手訂單又集中在前沿實驗室。"
+    }
+  ],
+
+  "labs": [
+    {
+      "id": "openai", "name": "OpenAI",
+      "seed": {
+        "revenue_runrate_usd_bn": {"value": 25, "tier": "T3", "est": true, "as_of": "2026-07-02"},
+        "funding_raised_usd_bn": {"value": 122, "tier": "T3", "est": true, "as_of": "2026-07-02"},
+        "valuation_usd_bn": {"value": 850, "tier": "T3", "est": true, "as_of": "2026-07-02"},
+        "annual_burn_usd_bn": {"value": 35.0, "tier": "T3", "est": true, "as_of": "2026-07-02"}
+      },
+      "align_note": "營收 run-rate $25B / 累計募資 $122B / IPO 申報估值 $850B 對齊 /payback KB v2 2026-07-02;燒錢為 /payback OUR_EST 沿用",
+      "note_en": "Burn ≈1.4× revenue run-rate. Its compute commitments (see /payback) sit beneath Oracle's and others' capex plans.",
+      "note_zh": "燒錢約為營收 run-rate 的 1.4 倍。其算力承諾(見 /payback)壓在 Oracle 等雲端的 capex 計畫底下。"
+    },
+    {
+      "id": "anthropic", "name": "Anthropic",
+      "seed": {
+        "revenue_runrate_usd_bn": {"value": 12, "tier": "T3", "est": true, "as_of": "2026-07-02"},
+        "funding_raised_usd_bn": {"value": 95, "tier": "T3", "est": true, "as_of": "2026-07-02"},
+        "valuation_usd_bn": {"value": 965, "tier": "T3", "est": true, "as_of": "2026-07-02"},
+        "annual_burn_usd_bn": {"value": 18.0, "tier": "T3", "est": true, "as_of": "2026-07-02"}
+      },
+      "align_note": "營收 run-rate $12B / 累計募資 $95B / Series-H 估值 $965B 對齊 /payback KB v2 2026-07-02;燒錢為 /payback OUR_EST 沿用",
+      "note_en": "Burn ≈1.5× revenue run-rate; compute routed via Amazon/Google clouds rather than owned DCs.",
+      "note_zh": "燒錢約為營收 run-rate 的 1.5 倍;算力走 Amazon/Google 雲而非自建資料中心。"
+    }
+  ],
+
+  "instruments": {
+    "ig_bond":          {"name_en": "IG bond",              "name_zh": "投資級公司債",   "softness": 2},
+    "private_credit":   {"name_en": "Private credit",       "name_zh": "私募信貸",       "softness": 3},
+    "gpu_collateral":   {"name_en": "GPU-collateral loan",  "name_zh": "GPU 抵押貸款",   "softness": 3},
+    "lab_equity":       {"name_en": "Equity mega-round",    "name_zh": "股權巨輪",       "softness": 4},
+    "vendor_financing": {"name_en": "Vendor financing",     "name_zh": "供應商融資",     "softness": 5},
+    "spv_leaseback":    {"name_en": "SPV / leaseback",      "name_zh": "SPV / 售後回租", "softness": 5},
+    "prepayment":       {"name_en": "Compute prepayment",   "name_zh": "算力預付款",     "softness": 5}
+  },
+
+  "ledger_note_en": "ALL rows are curated 2026-world approximations (EST). Private terms are not public; sizes and costs are news-level estimates with tiers and as-of dates. Circular-deal specifics live in the /aibubble circularity ledger — referenced, not restated.",
+  "ledger_note_zh": "全部列均為策展的 2026 世界近似值(EST)。私募條款不公開;金額與成本為新聞層級估計,附證據等級與資料時點。循環交易的具體數字在 /aibubble 循環台帳——僅引用,不重寫。",
+
+  "ledger": [
+    {
+      "id": "meta_bonds", "counterparty": "Meta", "instrument": "ig_bond",
+      "name_en": "Meta mega-bond program (cumulative)", "name_zh": "Meta 巨型發債計畫(累計)",
+      "size_committed_usd_bn": 55, "size_drawn_usd_bn": 55,
+      "cost_hint_en": "~5.0–5.6% coupons, long-dated", "cost_hint_zh": "票息約 5.0–5.6%,長天期",
+      "tier": "T2", "est": true, "as_of": "2026-06", "counts_debt_issuance": true,
+      "source_en": "Record ~$30B corporate deal (2025-10) plus follow-ons; cumulative approximated.",
+      "source_zh": "2025 年 10 月創紀錄約 $30B 公司債加後續增發;累計為近似值。"
+    },
+    {
+      "id": "orcl_bonds", "counterparty": "Oracle", "instrument": "ig_bond",
+      "name_en": "Oracle IG issuance for OCI/AI capacity", "name_zh": "Oracle 為 OCI/AI 產能之投資級發債",
+      "size_committed_usd_bn": 38, "size_drawn_usd_bn": 38,
+      "cost_hint_en": "~5.5–6.3%; CDS widened on capex concentration", "cost_hint_zh": "約 5.5–6.3%;因 capex 集中度 CDS 走闊",
+      "tier": "T2", "est": true, "as_of": "2026-06", "counts_debt_issuance": true,
+      "source_en": "2025–26 issuance to fund lab-backlog buildout; cumulative approximated.",
+      "source_zh": "2025–26 為實驗室在手訂單建置之發債;累計為近似值。"
+    },
+    {
+      "id": "meta_hyperion_spv", "counterparty": "Meta", "instrument": "spv_leaseback",
+      "name_en": "Hyperion-style off-BS DC SPV (Blue Owl JV)", "name_zh": "Hyperion 型表外資料中心 SPV(Blue Owl 合資)",
+      "size_committed_usd_bn": 27, "size_drawn_usd_bn": 27,
+      "cost_hint_en": "SPV debt ~6.5%+; residual-value risk parked off balance sheet", "cost_hint_zh": "SPV 債務約 6.5% 以上;殘值風險停在表外",
+      "tier": "T2", "est": true, "as_of": "2025-10", "counts_debt_issuance": true,
+      "source_en": "~$27B JV financing for a single DC campus, announced 2025-10; structure details partial.",
+      "source_zh": "單一資料中心園區約 $27B 合資融資,2025 年 10 月宣布;結構細節僅部分公開。"
+    },
+    {
+      "id": "neocloud_gpu_debt", "counterparty": "Neoclouds (CoreWeave-style)", "instrument": "gpu_collateral",
+      "name_en": "GPU-collateralized facilities, cumulative drawn", "name_zh": "GPU 抵押授信,累計已提取",
+      "size_committed_usd_bn": 30, "size_drawn_usd_bn": 23,
+      "cost_hint_en": "~SOFR+5–7 (≈9–11%); collateral = GPUs with assumed 4–6yr residual", "cost_hint_zh": "約 SOFR+5–7(≈9–11%);抵押品為 GPU,殘值假設 4–6 年",
+      "tier": "T3", "est": true, "as_of": "2026-05", "counts_debt_issuance": false,
+      "source_en": "DDTL-style facilities across neoclouds; drawn amount is our estimate from filings + news.",
+      "source_zh": "各新雲的延遲提取貸款;已提取金額為我們由申報與新聞推估。"
+    },
+    {
+      "id": "private_credit_dc", "counterparty": "AI DC developers", "instrument": "private_credit",
+      "name_en": "Private-credit AI-DC lending (Blue Owl/Apollo-style, run-rate)", "name_zh": "私募信貸 AI 資料中心放款(Blue Owl/Apollo 型,年化)",
+      "size_committed_usd_bn": 60, "size_drawn_usd_bn": 50,
+      "cost_hint_en": "~7–9% unitranche; terms confidential", "cost_hint_zh": "約 7–9% unitranche;條款保密",
+      "tier": "T3", "est": true, "as_of": "2026-06", "counts_debt_issuance": false,
+      "source_en": "Annual commitment run-rate approximated from fund disclosures + press.",
+      "source_zh": "年度承諾額由基金揭露與媒體報導近似。"
+    },
+    {
+      "id": "nvda_vendor", "counterparty": "NVIDIA → customers", "instrument": "vendor_financing",
+      "name_en": "NVIDIA vendor-financing / anchor commitments", "name_zh": "NVIDIA 供應商融資 / 錨定承諾",
+      "size_committed_usd_bn": 115, "size_drawn_usd_bn": 15,
+      "cost_hint_en": "Equity stakes + lease/backstop structures; circular — specifics in /aibubble ledger", "cost_hint_zh": "股權入股 + 租賃/背書結構;循環交易——具體金額見 /aibubble 台帳",
+      "tier": "T3", "est": true, "as_of": "2026-06", "counts_debt_issuance": false,
+      "source_en": "Headline commitments (incl. up-to-$100B OpenAI-style anchor) are progressive per deployment; drawn tranche is our estimate.",
+      "source_zh": "頭條承諾(含最高 $100B 的 OpenAI 型錨定)按部署進度分批;已投放額度為我們的估計。"
+    },
+    {
+      "id": "lab_prepay", "counterparty": "Labs → clouds", "instrument": "prepayment",
+      "name_en": "Lab compute prepayments outstanding", "name_zh": "實驗室算力預付款餘額",
+      "size_committed_usd_bn": 20, "size_drawn_usd_bn": 15,
+      "cost_hint_en": "Terms confidential; treated as the softest funding in the stack", "cost_hint_zh": "條款保密;視為結構中最軟的資金",
+      "tier": "T3", "est": true, "as_of": "2026-06", "counts_debt_issuance": false,
+      "source_en": "Inferred from deferred-revenue lines + reporting; TSMC-relevant as counterparty prepay analogue.",
+      "source_zh": "由遞延營收科目與報導推估;對台積電是「客戶預付款」的對照組。"
+    },
+    {
+      "id": "openai_equity", "counterparty": "OpenAI", "instrument": "lab_equity",
+      "name_en": "OpenAI cumulative equity mega-rounds", "name_zh": "OpenAI 累計股權巨輪",
+      "size_committed_usd_bn": 122, "size_drawn_usd_bn": 122,
+      "cost_hint_en": "Priced at $850B IPO-filing valuation", "cost_hint_zh": "以 $850B IPO 申報估值定價",
+      "tier": "T2", "est": true, "as_of": "2026-07-02", "counts_debt_issuance": false,
+      "align_note": "對齊 /payback KB v2 2026-07-02",
+      "source_en": "Cumulative funding $122B per payback KB (news-reported).", "source_zh": "累計募資 $122B,同 /payback KB(新聞報導值)。"
+    },
+    {
+      "id": "anthropic_equity", "counterparty": "Anthropic", "instrument": "lab_equity",
+      "name_en": "Anthropic cumulative equity rounds", "name_zh": "Anthropic 累計股權輪",
+      "size_committed_usd_bn": 95, "size_drawn_usd_bn": 95,
+      "cost_hint_en": "Series-H at $965B valuation", "cost_hint_zh": "Series-H 以 $965B 估值",
+      "tier": "T2", "est": true, "as_of": "2026-07-02", "counts_debt_issuance": false,
+      "align_note": "對齊 /payback KB v2 2026-07-02",
+      "source_en": "Cumulative funding $95B per payback KB (news-reported).", "source_zh": "累計募資 $95B,同 /payback KB(新聞報導值)。"
+    }
+  ],
+
+  "weights": {"funding_gap": 0.35, "spreads": 0.25, "soft_money": 0.25, "lab_burn": 0.15},
+  "verdict_thresholds": {"self_funded_max": 35.0, "levering_max": 60.0},
+
+  "tsmc_view_intro_en": "Who funds with the softest money? Their orders are the first to wobble. TSMC's exposure is mostly indirect — demand aggregates through NVIDIA/AMD — so counterparty risk arrives as sudden order-mix shifts, not defaults on TSMC itself. Prepayments and long-term capacity agreements are TSMC's own version of this ledger.",
+  "tsmc_view_intro_zh": "誰用最軟的錢下單?他們的訂單最先晃。台積電的曝險多半是間接的——需求經 NVIDIA/AMD 匯集——所以交易對手風險以「訂單組合突變」而非「對台積電違約」的形式到來。預付款與產能長約就是台積電自己的這本台帳。",
+  "tsmc_view": [
+    {
+      "counterparty_en": "Neoclouds (CoreWeave-style)", "counterparty_zh": "新雲(CoreWeave 型)",
+      "funding_en": "GPU-collateral debt + vendor support", "funding_zh": "GPU 抵押債 + 供應商撐持",
+      "softness": 5, "wobble": "high",
+      "channel_en": "Order via NVIDIA; first to cancel if private credit reprices or GPU residuals get cut.",
+      "channel_zh": "經 NVIDIA 下單;私募信貸重定價或 GPU 殘值下修時最先砍單。"
+    },
+    {
+      "counterparty_en": "OpenAI", "counterparty_zh": "OpenAI",
+      "funding_en": "Equity mega-rounds + prepayments", "funding_zh": "股權巨輪 + 預付款",
+      "softness": 4, "wobble": "high",
+      "channel_en": "Its compute commitments underwrite Oracle-and-others' capex; if the equity window shuts, the whole chain re-plans.",
+      "channel_zh": "其算力承諾撐起 Oracle 等的 capex;股權窗口一關,整條鏈重排計畫。"
+    },
+    {
+      "counterparty_en": "Oracle", "counterparty_zh": "Oracle",
+      "funding_en": "Debt-funded capex (capex ≈2.3× OCF)", "funding_zh": "舉債支應 capex(capex 約 OCF 2.3 倍)",
+      "softness": 3, "wobble": "medium",
+      "channel_en": "Bond-market access is its oxygen; backlog concentrated in labs makes it a second-derivative lab bet.",
+      "channel_zh": "債券市場是它的氧氣;在手訂單集中於實驗室,等於實驗室的二階槓桿。"
+    },
+    {
+      "counterparty_en": "Anthropic", "counterparty_zh": "Anthropic",
+      "funding_en": "Equity mega-rounds", "funding_zh": "股權巨輪",
+      "softness": 4, "wobble": "medium",
+      "channel_en": "Burn multiple similar to peers but demand routed through AMZN/GOOGL clouds — hard-money intermediaries.",
+      "channel_zh": "燒錢倍數與同儕相近,但需求經 AMZN/GOOGL 雲——由硬錢中介吸收第一擊。"
+    },
+    {
+      "counterparty_en": "Meta", "counterparty_zh": "Meta",
+      "funding_en": "OCF + bonds + off-BS SPV", "funding_zh": "OCF + 公司債 + 表外 SPV",
+      "softness": 2, "wobble": "low",
+      "channel_en": "Self-funded core; the SPV layer is the watch item, not the ad cash machine.",
+      "channel_zh": "核心自籌;要盯的是 SPV 那一層,不是廣告現金機器。"
+    },
+    {
+      "counterparty_en": "MSFT / GOOGL / AMZN", "counterparty_zh": "MSFT / GOOGL / AMZN",
+      "funding_en": "Operating cash flow", "funding_zh": "營運現金流",
+      "softness": 1, "wobble": "low",
+      "channel_en": "Hardest money in the stack — the most durable orders in the book.",
+      "channel_zh": "結構中最硬的錢——訂單簿裡最耐震的部分。"
+    }
+  ],
+
+  "scenarios_seed": [
+    {
+      "id": "self_funded_regime", "name_en": "Self-funded normal", "name_zh": "自籌常態",
+      "trigger_en": "Aggregate funding gap stays <5% of capex, bond programs stop growing, HY OAS <3%.",
+      "trigger_zh": "整體資金缺口維持 <capex 5%、發債計畫不再擴大、HY OAS <3%。"
+    },
+    {
+      "id": "levering_grind", "name_en": "Levering grind", "name_zh": "加槓桿慢磨",
+      "trigger_en": "Bond + SPV issuance keeps rising while spreads stay calm — structure softens without a price signal.",
+      "trigger_zh": "公司債 + SPV 發行持續增加而利差平靜——結構變軟但價格不示警。"
+    },
+    {
+      "id": "private_credit_crack", "name_en": "Private-credit crack", "name_zh": "私募信貸裂縫",
+      "trigger_en": "A neocloud restructuring / GPU-loan LTV call headline, CCC−IG >8pp, vendor financing forced to expand.",
+      "trigger_zh": "新雲重整 / GPU 貸款追繳頭條、CCC−IG >8 個百分點、供應商融資被迫擴大。"
+    },
+    {
+      "id": "credit_event", "name_en": "Credit-event break", "name_zh": "信用事件斷裂",
+      "trigger_en": "HY OAS +150bp in a quarter plus a hyperscaler cutting capex guidance — soft layers shut simultaneously.",
+      "trigger_zh": "HY OAS 單季 +150bp 加上任一巨頭下修 capex 指引——所有軟錢層同時關閉。"
+    }
+  ],
+
+  "blind_spots_en": [
+    "Private-credit terms are not public — sizes, costs and covenants in the ledger are news-level approximations (T3).",
+    "GPU residual-value assumptions inside collateralized loans are unobservable; a repricing there would NOT show in public spreads first.",
+    "SPV / off-balance-sheet coverage is incomplete by design — what is parked off-BS is exactly what is hardest to see.",
+    "Compute-prepayment terms are confidential; we treat them as softest money but cannot see protections either way.",
+    "OCF is company-total, not AI-segment — the funding gap understates AI-specific external funding for diversified firms.",
+    "The financing ledger is a curated sample, not a census; the soft-money share depends on inclusion choices."
+  ],
+  "blind_spots_zh": [
+    "私募信貸條款不公開——台帳中的金額、成本與條款屬新聞層級近似(T3)。",
+    "GPU 抵押貸款內的殘值假設無法觀測;那一層重定價不會先反映在公開利差上。",
+    "SPV / 表外覆蓋天生不完整——刻意放在表外的,正是最難看見的。",
+    "算力預付款條款保密;我們視之為最軟的錢,但也看不見其中的保護條款。",
+    "OCF 是公司整體而非 AI 分部——對多元化公司,資金缺口低估了 AI 專屬的外部融資。",
+    "融資台帳是策展樣本而非普查;軟錢占比受收錄選擇影響。"
+  ],
+
+  "news_queries": [
+    "Meta AI data center bonds",
+    "Oracle debt AI capex",
+    "CoreWeave GPU loan private credit",
+    "private credit data center lending",
+    "NVIDIA vendor financing OpenAI",
+    "AI capex debt financing SPV"
+  ]
+}

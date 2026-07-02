@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Credit & Financing Radar · AI 信用與融資雷達</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0b0f; --panel:rgba(22,24,31,.72); --panel-hi:rgba(30,33,42,.9);
+    --line:rgba(255,255,255,.08); --line-hi:rgba(255,255,255,.16);
+    --ink:#ecedf2; --soft:#a6a9b8; --dim:#6a6e80; --gold:#c8a86a; --acc:#7c83ff;
+    --on:#43c08a; --off:#e0626e; --neu:#c8a86a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:radial-gradient(1100px 560px at 82% -14%,rgba(124,131,255,.10),transparent 58%),radial-gradient(900px 520px at -8% 4%,rgba(200,168,106,.08),transparent 52%),var(--bg);
+       color:var(--ink);font-family:"Inter","PingFang TC","Noto Sans TC",-apple-system,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:22px 26px 60px}
+  .top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:8px}
+  .brand{display:flex;align-items:center;gap:11px}
+  .gem{width:16px;height:16px;transform:rotate(45deg);border:1px solid var(--gold);border-radius:4px;position:relative}
+  .gem::after{content:"";position:absolute;inset:4px;background:var(--gold);border-radius:2px;opacity:.85}
+  h1{font-family:"Noto Serif TC",serif;font-weight:600;font-size:22px;letter-spacing:.5px}
+  .tools{display:flex;align-items:center;gap:10px}
+  .btn{font-size:12px;padding:6px 12px;border-radius:8px;border:1px solid var(--line-hi);background:transparent;color:var(--soft);cursor:pointer;transition:.15s}
+  .btn:hover{color:var(--ink);border-color:var(--acc)}
+  .btn.go{border-color:var(--acc);color:var(--acc)}
+  .status{font-size:11.5px;color:var(--dim)}
+  .crumb{font-size:11px;color:var(--dim);letter-spacing:.4px;margin-bottom:18px}
+  .crumb a:hover{color:var(--gold)}
+  .demo{background:rgba(200,168,106,.10);border:1px solid rgba(200,168,106,.3);color:var(--gold);
+        font-size:12px;padding:9px 13px;border-radius:10px;margin-bottom:18px}
+  .sub{color:var(--dim);font-size:12.5px;line-height:1.6;margin-bottom:22px}
+
+  .grid{display:grid;gap:16px}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+  .panel h2{font-family:"Noto Serif TC",serif;font-size:15px;font-weight:600;letter-spacing:.5px;margin-bottom:4px}
+  .panel .note{font-size:11.5px;color:var(--dim);margin-bottom:14px;line-height:1.5}
+  .eyebrow{font-size:10.5px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);opacity:.85}
+
+  /* hero */
+  .hero{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:16px;margin-bottom:16px}
+  @media(max-width:780px){.hero{grid-template-columns:1fr}}
+  .big{font-variant-numeric:tabular-nums;font-weight:600;font-size:30px;letter-spacing:.5px}
+  .gauge{height:8px;border-radius:999px;background:linear-gradient(90deg,var(--on),var(--neu),var(--off));position:relative;margin:14px 0 8px}
+  .gauge .pin{position:absolute;top:-4px;width:3px;height:16px;background:#fff;border-radius:2px;box-shadow:0 0 8px rgba(255,255,255,.6)}
+  .scale{display:flex;justify-content:space-between;font-size:10px;color:var(--dim)}
+  .tag{display:inline-block;font-size:11px;font-weight:500;padding:2px 9px;border-radius:999px;letter-spacing:.4px}
+  .tag.on{background:rgba(67,192,138,.15);color:var(--on)} .tag.off{background:rgba(224,98,110,.15);color:var(--off)}
+  .tag.neutral{background:rgba(200,168,106,.15);color:var(--neu)}
+  .kv{display:flex;align-items:baseline;justify-content:space-between;gap:8px;font-size:12.5px;padding:5px 0;border-top:1px solid var(--line)}
+  .kv .k{color:var(--soft)} .kv .v{font-variant-numeric:tabular-nums}
+  .chg.up{color:var(--off)} .chg.down{color:var(--on)} .chg.flat{color:var(--dim)}
+  .live{font-size:9px;color:var(--dim);border:1px solid var(--line);border-radius:4px;padding:0 4px}
+  .tier{font-size:9px;border-radius:4px;padding:0 4px;letter-spacing:.4px}
+  .tier.T1{color:var(--on);border:1px solid rgba(67,192,138,.4)}
+  .tier.T2{color:var(--gold);border:1px solid rgba(200,168,106,.4)}
+  .tier.T3{color:var(--off);border:1px solid rgba(224,98,110,.4)}
+  .est{font-size:9px;color:var(--acc);border:1px solid rgba(124,131,255,.4);border-radius:4px;padding:0 4px}
+
+  /* subscores */
+  .subs{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  @media(max-width:780px){.subs{grid-template-columns:repeat(2,1fr)}}
+  .subcard{background:var(--panel-hi);border:1px solid var(--line);border-radius:12px;padding:13px 15px}
+  .subcard .k{font-size:11px;color:var(--soft);letter-spacing:.3px;line-height:1.4}
+  .subcard .v{font-variant-numeric:tabular-nums;font-size:20px;font-weight:600;margin-top:5px}
+  .subcard .w{font-size:10px;color:var(--dim);margin-top:3px}
+  .bar{height:6px;border-radius:999px;background:rgba(255,255,255,.06);margin-top:8px;overflow:hidden}
+  .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--acc),var(--gold))}
+
+  /* funding stack */
+  .layer{display:flex;gap:14px;align-items:flex-start;padding:11px 0;border-top:1px solid var(--line)}
+  .layer .rank{flex:0 0 26px;height:26px;border-radius:8px;border:1px solid var(--line-hi);display:flex;align-items:center;justify-content:center;
+               font-size:12px;font-weight:600;font-variant-numeric:tabular-nums}
+  .layer .nm{font-weight:600;font-size:13px}
+  .layer .hard{font-size:10.5px;letter-spacing:.5px;margin-left:8px}
+  .layer .desc{font-size:12px;color:var(--soft);line-height:1.55;margin-top:4px}
+  .chan{font-size:12px;color:var(--soft);padding:7px 0;border-top:1px solid var(--line);line-height:1.55}
+  .chan b{color:var(--ink);font-weight:500}
+  .arrow{color:var(--gold)}
+
+  /* tables */
+  table.tb{width:100%;border-collapse:collapse;font-size:12px}
+  table.tb th{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--dim);text-align:left;padding:6px 8px;border-bottom:1px solid var(--line-hi);white-space:nowrap}
+  table.tb td{padding:8px;border-top:1px solid var(--line);vertical-align:top}
+  table.tb td.n{font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+  table.tb .co{font-weight:600}
+  .rownote{font-size:10.5px;color:var(--dim);line-height:1.45;margin-top:3px}
+  .scrollx{overflow-x:auto}
+
+  /* labs */
+  .labs{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:680px){.labs{grid-template-columns:1fr}}
+  .labcard{background:var(--panel-hi);border:1px solid var(--line);border-radius:12px;padding:14px 15px}
+
+  /* L4/L5 */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:780px){.two{grid-template-columns:1fr}}
+  .body{font-size:13px;line-height:1.7;color:var(--ink)}
+  .leads li,.fals li{font-size:12.5px;line-height:1.6;color:var(--soft);margin:6px 0 6px 2px;list-style:none;padding-left:16px;position:relative}
+  .leads li::before,.fals li::before{content:"▸";position:absolute;left:0;color:var(--gold)}
+  .scn{padding:11px 0;border-top:1px solid var(--line)}
+  .scnhead{display:flex;justify-content:space-between;gap:10px;font-size:13px}
+  .scnname{font-weight:500}
+  .scnprob{font-variant-numeric:tabular-nums;color:var(--gold);font-weight:600}
+  .scntrig{font-size:11.5px;color:var(--dim);line-height:1.5}
+  table.ew{width:100%;border-collapse:collapse;font-size:12.5px}
+  table.ew td{padding:7px 8px;border-top:1px solid var(--line)}
+  table.ew td.f{text-align:right;color:var(--gold);font-size:11px;white-space:nowrap}
+  .news a{display:block;font-size:12.5px;color:var(--soft);padding:7px 0;border-top:1px solid var(--line);line-height:1.4}
+  .news a:hover{color:var(--ink)} .news .src{color:var(--dim);font-size:11px}
+  .foot{margin-top:24px;font-size:11px;color:var(--dim);line-height:1.7}
+  .conf{font-size:11px;color:var(--soft)}
+  .wob{font-size:10px;font-weight:600;padding:1px 7px;border-radius:999px}
+  .wob.high{background:rgba(224,98,110,.15);color:var(--off)}
+  .wob.medium{background:rgba(200,168,106,.15);color:var(--neu)}
+  .wob.low{background:rgba(67,192,138,.15);color:var(--on)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand"><span class="gem"></span><h1 id="title"></h1></div>
+    <div class="tools">
+      <button class="btn" id="langBtn"></button>
+      <button class="btn go" id="refreshBtn"></button>
+      <span class="status" id="status"></span>
+    </div>
+  </div>
+  <div class="crumb"><a href="/">← <span id="crumbHome"></span></a> · <span id="asof"></span> · <span id="engine"></span></div>
+  <div id="demo" class="demo" style="display:none"></div>
+  <div class="sub" id="method"></div>
+
+  <!-- hero -->
+  <div class="hero">
+    <div class="panel">
+      <span class="eyebrow" id="h_score"></span>
+      <div class="big"><span id="score"></span><span style="font-size:15px;color:var(--dim)">/100</span> <span class="tag" id="verdictTag"></span></div>
+      <div class="gauge"><div class="pin" id="scorePin"></div></div>
+      <div class="scale"><span id="sc_l"></span><span id="sc_m"></span><span id="sc_r"></span></div>
+      <div class="note" style="margin:10px 0 0" id="verdictLine"></div>
+    </div>
+    <div class="panel">
+      <span class="eyebrow" id="h_backdrop"></span>
+      <div id="spreadRows" style="margin-top:8px"></div>
+      <div class="note" style="margin:10px 0 0" id="decompLine"></div>
+    </div>
+    <div class="panel">
+      <span class="eyebrow" id="h_mix"></span>
+      <div id="mixRows" style="margin-top:8px"></div>
+      <div class="note" style="margin:10px 0 0" id="mixHint"></div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <!-- subscores -->
+    <div class="panel">
+      <h2 id="h_subs"></h2><div class="note" id="n_subs"></div>
+      <div class="subs" id="subs"></div>
+    </div>
+
+    <!-- L1 funding stack -->
+    <div class="two">
+      <div class="panel">
+        <h2 id="h_stack"></h2><div class="note" id="n_stack"></div>
+        <div id="stack"></div>
+      </div>
+      <div class="panel">
+        <h2 id="h_chan"></h2><div class="note" id="n_chan"></div>
+        <div id="channels"></div>
+      </div>
+    </div>
+
+    <!-- L3a hyperscaler funding gaps -->
+    <div class="panel">
+      <h2 id="h_gap"></h2><div class="note" id="n_gap"></div>
+      <div class="scrollx"><table class="tb"><thead id="gapHead"></thead><tbody id="gapBody"></tbody></table></div>
+      <div class="note" style="margin:10px 0 0" id="gapAgg"></div>
+    </div>
+
+    <!-- L3c financing ledger -->
+    <div class="panel">
+      <h2 id="h_ledger"></h2><div class="note" id="n_ledger"></div>
+      <div class="scrollx"><table class="tb"><thead id="ledHead"></thead><tbody id="ledBody"></tbody></table></div>
+    </div>
+
+    <!-- labs -->
+    <div class="panel">
+      <h2 id="h_labs"></h2><div class="note" id="n_labs"></div>
+      <div class="labs" id="labs"></div>
+    </div>
+
+    <!-- L4 thesis + structure read -->
+    <div class="two">
+      <div class="panel">
+        <h2 id="h_thesis"></h2>
+        <div class="big" style="font-size:17px;line-height:1.4;margin:6px 0 6px" id="thesisDir"></div>
+        <div class="conf" id="thesisConf"></div>
+        <div class="note" style="margin:14px 0 6px" id="h_leads"></div>
+        <ul class="leads" id="leads"></ul>
+      </div>
+      <div class="panel">
+        <h2 id="h_read"></h2>
+        <div class="body" id="readText"></div>
+      </div>
+    </div>
+
+    <!-- TSMC view -->
+    <div class="panel">
+      <h2 id="h_tsmc"></h2><div class="note" id="n_tsmc"></div>
+      <div class="body" style="margin-bottom:12px" id="tsmcText"></div>
+      <div class="scrollx"><table class="tb"><thead id="tsmcHead"></thead><tbody id="tsmcBody"></tbody></table></div>
+    </div>
+
+    <!-- L5 -->
+    <div class="two">
+      <div class="panel">
+        <h2 id="h_scn"></h2><div class="note" id="n_scn"></div>
+        <div id="scenarios"></div>
+      </div>
+      <div class="panel">
+        <h2 id="h_fals"></h2>
+        <ul class="fals" id="falsification"></ul>
+        <h2 style="margin-top:16px" id="h_ew"></h2>
+        <table class="ew"><tbody id="earlyWarn"></tbody></table>
+      </div>
+    </div>
+
+    <!-- L2 dictionary -->
+    <div class="panel">
+      <h2 id="h_dict"></h2><div class="note" id="n_dict"></div>
+      <div class="scrollx"><table class="tb"><thead id="dictHead"></thead><tbody id="dictBody"></tbody></table></div>
+    </div>
+
+    <!-- news -->
+    <div class="panel" id="newsPanel" style="display:none">
+      <h2 id="h_news"></h2>
+      <div class="news" id="news"></div>
+    </div>
+  </div>
+
+  <!-- 數據做法與假設 · methodology & assumptions (language follows the LANG toggle) -->
+  <div class="panel" id="methodPanel" style="margin-top:16px">
+    <div class="eyebrow">METHODOLOGY &amp; ASSUMPTIONS</div>
+    <h2 id="mp_title"></h2>
+    <div id="mp_zh" style="display:none;font-size:12.5px;color:var(--soft);line-height:1.8">
+      <p><b style="color:var(--ink)">五層架構</b> — L1 融資地圖(硬→軟五層)與 L2 指標字典是人工策展知識庫(寫死於 KB,非即時);L3 是量化即時層;L4 結構判讀·台積電視角與 L5 傳染情境/證偽由 Claude 於刷新時合成(無 API key 走規則後備,頁首 engine 欄標注實際引擎)。</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">L3 數據來源</b> — 資金缺口:各巨頭 TTM capex − TTM 營運現金流。capex 對齊 /payback 卡的即時 yfinance 值(2026-07-02:MSFT 97.2 / GOOGL 109.9 / AMZN 151.0 / META 75.7 / ORCL 55.7 $B);OCF 由 yfinance 季現金流量表即時抓取(種子為 T2 估計,標 EST)。信用背景:FRED 免 key CSV 三條利差(BAMLC0A0CM 投資級、BAMLH0A0HYM2 高收益——與 /flows、/payback 同源,2026-07-01 為 2.66%、BAMLH0A3HYC CCC 級),取水準 + 6 個月變化。抓不到的逐項退回種子並取消 live 標記。</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">融資事件台帳</b> — 全為策展估計(EST):私募信貸與 GPU 抵押貸款條款不公開,金額/成本是新聞層級近似,逐列標 T1/T2/T3 與資料時點。OpenAI/Anthropic 累計募資($122B/$95B)與估值($850B/$965B)對齊 /payback KB v2(2026-07-02)。循環交易具體金額見 /aibubble 循環台帳,此處僅引用不重寫。</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">綜合信用鬆緊分數(0=完全自籌/寬鬆,100=債與表外極端)</b> — 權重寫死:資金缺口與發債 35%(缺口占 capex 比 ×2.5 與 發債+SPV 占 capex 比 ×2.5 各半,上限 100)、利差背景 25%(HY 水準 2.5→6% 映射 40% + CCC−IG 5→10pp 映射 30% + 6 個月走闊趨勢 0→1.5pp 映射 30%)、軟錢占比 25%(台帳按軟硬等級 1–5 以已提取金額加權)、實驗室燒錢 15%(燒錢÷營收 run-rate 均值 0.5×→0、2.0×→100)。結論門檻:<35 SELF-FUNDED、35–60 LEVERING、≥60 STRESSED。</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">假設與限制</b> — OCF 是公司整體而非 AI 分部;台帳是樣本而非普查;GPU 殘值與 SPV 覆蓋不完整;預付款條款保密。估計就是估計,不當事實陳述。手動密碼刷新,非排程。AI 合成內容為解讀輔助,非投資建議。</p>
+    </div>
+    <div id="mp_en" style="display:none;font-size:12.5px;color:var(--soft);line-height:1.8">
+      <p><b style="color:var(--ink)">Five-layer design</b> — the L1 funding stack (five layers, hardest→softest) and L2 indicator dictionary are a hand-curated knowledge base (static, not live). L3 is the quantitative live layer; L4 structure read + TSMC counterparty view and L5 contagion scenarios/falsification are synthesized by Claude on each refresh (rules fallback without an API key; the engine badge shows which ran).</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">L3 sources</b> — funding gap: per-hyperscaler TTM capex − TTM operating cash flow. Capex is aligned with the /payback card's live yfinance values (2026-07-02: MSFT 97.2 / GOOGL 109.9 / AMZN 151.0 / META 75.7 / ORCL 55.7 $B); OCF is fetched live from yfinance quarterly cash-flow statements (seeds are T2 estimates, flagged EST). Credit backdrop: keyless FRED CSV for three spreads (BAMLC0A0CM IG, BAMLH0A0HYM2 HY — same series /flows and /payback cite, 2.66% on 2026-07-01, BAMLH0A3HYC CCC), level + 6-month change. Any failed fetch falls back to its seed and loses the live badge.</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">Financing-events ledger</b> — ALL curated estimates (EST): private-credit and GPU-loan terms are not public, so sizes/costs are news-level approximations, each row tiered T1/T2/T3 with an as-of date. OpenAI/Anthropic cumulative funding ($122B/$95B) and valuations ($850B/$965B) are aligned with the /payback KB v2 (2026-07-02). Circular-deal specifics live in the /aibubble circularity ledger — referenced here, not restated.</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">Composite credit-tightness (0 = fully self-funded/easy, 100 = debt & off-balance-sheet extreme)</b> — hard-coded weights: funding gap & gross issuance 35% (half gap-share-of-capex ×2.5, half bond+SPV-issuance-share ×2.5, capped at 100), spread backdrop 25% (HY level mapped 2.5→6% at 40% + CCC−IG mapped 5→10pp at 30% + 6m widening trend mapped 0→+1.5pp at 30%), soft-money share 25% (ledger weighted by softness rank 1–5 over drawn amounts), lab burn 15% (mean burn÷revenue run-rate, 0.5×→0, 2.0×→100). Verdict thresholds: &lt;35 SELF-FUNDED, 35–60 LEVERING, ≥60 STRESSED.</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">Assumptions & limits</b> — OCF is company-total, not AI-segment; the ledger is a sample, not a census; GPU residual values and SPV coverage are incomplete; prepayment terms are confidential. Estimates are estimates, not asserted truth. Manual password-gated refresh only, no schedule. AI synthesis is an interpretive aid — not investment advice.</p>
+    </div>
+  </div>
+
+  <div class="foot">
+    <div id="blindHead"></div>
+    <ul style="list-style:none;margin-top:6px" id="blind"></ul>
+    <div style="margin-top:12px" id="methodFoot"></div>
+    <div style="margin-top:8px" id="disclaimer"></div>
+  </div>
+</div>
+
+<script>
+const SNAP = {{ snapshot | safe }};
+let LANG = localStorage.getItem("credit_lang") || "en";
+
+const T = {
+  en:{home:"External Market Analysis", lang:"中文", refresh:"↻ Refresh",
+      pwPrompt:"Enter refresh password (default credit2026):", refreshing:"refreshing… live OCF/spreads + Claude L4/L5",
+      done:"done, reloading…", fail:"refresh failed", demo:"Seed view — hit ↻ Refresh to pull live OCF & spreads (and Claude L4/L5 if an API key is set).",
+      asof:"As of", engineRules:"engine: rules (no API key)", engineClaude:"engine: Claude Opus 4.8",
+      score:"Composite credit tightness", scL:"0 self-funded / easy", scM:"levering", scR:"100 debt & off-BS extreme",
+      backdrop:"Credit backdrop (FRED)", mix:"Funding mix",
+      decompOn:"⚠ Decompression: CCC widening while HY stays calm — the bottom of the stack cracks first.",
+      decompOff:"No CCC−IG decompression — the soft layer is not repricing yet.",
+      mixHint:"Soft-money share weights the curated ledger by softness rank (all rows EST).",
+      subs:"Subscores → composite", subsNote:"Weighted mix disclosed in the methodology panel below. Higher = softer money / tighter dependence on markets.",
+      stack:"L1 · Funding stack — hardest to softest", stackNote:"Whose money, in order of how hard it is. The cycle's fragility = how far down this list the marginal dollar sits.",
+      chan:"L1 · Contagion channels", chanNote:"How stress travels between layers (curated framework).",
+      gap:"L3 · Hyperscaler funding gap", gapNote:"TTM capex − TTM operating cash flow. Capex aligned with /payback (live yfinance 2026-07-02); OCF live via yfinance, seed = T2 estimate (EST).",
+      gapCols:["Company","Capex TTM $B","OCF TTM $B","Gap $B","Capex/OCF","External share",""],
+      ledger:"L3 · Financing-events ledger (curated)",
+      labs:"L3 · Frontier-lab burn vs runway", labsNote:"Canonical numbers aligned with /payback KB v2 (2026-07-02). All estimates (EST/T3).",
+      rev:"Revenue run-rate", fund:"Funding raised", val:"Valuation", burn:"Est. annual burn", mult:"Burn ÷ revenue",
+      thesis:"L4 · Funding-structure thesis", conf:"confidence", leads:"Leading signals (move before public spreads)",
+      read:"L4 · Structure read",
+      tsmc:"台積電視角 · TSMC counterparty view", tsmcNote:"Who funds with the softest money — their orders wobble first.",
+      tsmcCols:["Counterparty","Funding","Softness (1–5)","Order-wobble risk","Channel to TSMC"],
+      scn:"L5 · Contagion scenarios", scnNote:"Probabilities from the current read; each with a concrete trigger.",
+      fals:"L5 · Falsification — what would flip the thesis", ew:"L5 · Early-warning checklist",
+      dict:"L2 · Indicator dictionary", dictNote:"What each metric is, why it matters, and the threshold that changes the story.",
+      dictCols:["Indicator","What","Why it matters","Threshold"],
+      news:"News radar (fetched on refresh)",
+      ledCols:["Event","Instrument","Drawn / committed $B","Cost hint","Tier","As of"],
+      blind:"Blind spots", trigger:"Trigger",
+      aggFmt:(a)=>`Aggregate: positive gaps $${a.gap_total_usd_bn}B = ${a.gap_share_pct}% of $${a.capex_total_usd_bn}B TTM capex · observed gross bond+SPV issuance $${a.debt_issuance_usd_bn}B = ${a.debt_issuance_share_pct}% of capex.`,
+      softShare:"Soft-money share (0–100)", gapShare:"Funding-gap share of capex", debtShare:"Gross issuance share of capex",
+      mp:"How the numbers are made",
+      disclaimer:"Estimates are estimates — every curated number carries a tier (T1 official/filings · T2 authoritative estimate · T3 news/inference) and an as-of date. Not investment advice."},
+  zh:{home:"外部市場分析", lang:"EN", refresh:"↻ 更新",
+      pwPrompt:"輸入更新密碼(預設 credit2026):", refreshing:"更新中…即時 OCF/利差 + Claude L4/L5",
+      done:"完成,重新載入中…", fail:"更新失敗", demo:"種子視圖 — 按 ↻ 更新 抓即時 OCF 與利差(若設了 API key 會跑 Claude L4/L5)。",
+      asof:"資料時點", engineRules:"引擎:規則(無 API key)", engineClaude:"引擎:Claude Opus 4.8",
+      score:"綜合信用鬆緊", scL:"0 完全自籌/寬鬆", scM:"加槓桿", scR:"100 債與表外極端",
+      backdrop:"信用背景(FRED)", mix:"融資結構",
+      decompOn:"⚠ 解壓縮:HY 平靜但 CCC 走闊——結構最底層先裂。",
+      decompOff:"CCC−IG 未見解壓縮——軟錢層尚未重新定價。",
+      mixHint:"軟錢占比 = 台帳按軟硬等級以已提取金額加權(全列 EST)。",
+      subs:"子分數 → 綜合分數", subsNote:"加權方式揭露於下方「數據做法與假設」。分數越高 = 錢越軟 / 越依賴市場窗口。",
+      stack:"L1 · 融資結構 — 由硬到軟", stackNote:"這輪是誰的錢,按硬度排序。週期的脆弱度 = 邊際資金沉到這張表的第幾層。",
+      chan:"L1 · 傳染路徑", chanNote:"壓力如何在層與層之間傳導(策展框架)。",
+      gap:"L3 · 巨頭資金缺口", gapNote:"TTM capex − TTM 營運現金流。capex 對齊 /payback(live yfinance 2026-07-02);OCF 由 yfinance 即時抓取,種子為 T2 估計(EST)。",
+      gapCols:["公司","Capex TTM $B","OCF TTM $B","缺口 $B","Capex/OCF","外部融資占比",""],
+      ledger:"L3 · 融資事件台帳(策展)",
+      labs:"L3 · 前沿實驗室燒錢與跑道", labsNote:"正典數字對齊 /payback KB v2(2026-07-02)。全為估計值(EST/T3)。",
+      rev:"營收 run-rate", fund:"累計募資", val:"估值", burn:"估計年燒錢", mult:"燒錢 ÷ 營收",
+      thesis:"L4 · 融資結構論點", conf:"信心", leads:"領先訊號(比公開利差先動)",
+      read:"L4 · 結構判讀",
+      tsmc:"台積電視角 · 交易對手風險", tsmcNote:"誰用最軟的錢下單——他們的訂單最先晃。",
+      tsmcCols:["交易對手","資金來源","軟度(1–5)","訂單晃動風險","對台積電的傳導"],
+      scn:"L5 · 傳染情境", scnNote:"機率來自當前判讀;每個情境附具體觸發條件。",
+      fals:"L5 · 證偽 — 什麼會翻轉論點", ew:"L5 · 早期預警清單",
+      dict:"L2 · 指標字典", dictNote:"每個指標是什麼、為何重要、以及改變故事的門檻。",
+      dictCols:["指標","是什麼","為何重要","門檻"],
+      news:"新聞雷達(更新時抓取)",
+      ledCols:["事件","工具","已提取 / 承諾 $B","成本線索","等級","時點"],
+      blind:"盲點", trigger:"觸發",
+      aggFmt:(a)=>`整體:正缺口 $${a.gap_total_usd_bn}B = 占 $${a.capex_total_usd_bn}B TTM capex 的 ${a.gap_share_pct}% · 可觀察發債+SPV 毛額 $${a.debt_issuance_usd_bn}B = 占 capex ${a.debt_issuance_share_pct}%。`,
+      softShare:"軟錢占比(0–100)", gapShare:"資金缺口占 capex", debtShare:"發債毛額占 capex",
+      mp:"數據做法與假設",
+      disclaimer:"估計就是估計——每個策展數字都帶證據等級(T1 官方/財報 · T2 權威估計 · T3 新聞/推估)與資料時點。非投資建議。"}
+};
+
+function fmt(v){ return (v===null||v===undefined)? "—" : v; }
+function sign(v){ return (v>0?"+":"")+v; }
+function chgCls(v){ if(v===null||v===undefined||v===0) return "flat"; return v>0?"up":"down"; }
+function tierBadge(t){ return t? `<span class="tier ${t}">${t}</span>` : ""; }
+function estBadge(e){ return e? `<span class="est">EST</span>` : ""; }
+function liveBadge(l){ return l? `<span class="live">live</span>` : ""; }
+
+function render(){
+  const t = T[LANG], s = SNAP;
+  document.documentElement.lang = LANG==="zh"?"zh-Hant":"en";
+  document.getElementById("title").textContent = LANG==="zh"? s.title_zh : s.title_en;
+  document.getElementById("langBtn").textContent = t.lang;
+  document.getElementById("refreshBtn").textContent = t.refresh;
+  document.getElementById("crumbHome").textContent = t.home;
+  document.getElementById("asof").textContent = t.asof + " " + (s.as_of||"") + (s.generated_at? " · "+s.generated_at : "");
+  document.getElementById("engine").textContent = s.analysis_engine==="claude"? t.engineClaude : t.engineRules;
+  document.getElementById("method").textContent = LANG==="zh"? s.method_zh : s.method_en;
+  const demo = document.getElementById("demo");
+  if(s.is_demo){ demo.style.display="block"; demo.textContent = t.demo; } else { demo.style.display="none"; }
+
+  const comp = s.composite, l3 = s.l3;
+  // hero — composite score
+  document.getElementById("h_score").textContent = t.score;
+  document.getElementById("score").textContent = comp.score;
+  const vt = document.getElementById("verdictTag");
+  vt.textContent = comp.verdict;
+  vt.className = "tag " + (comp.verdict==="SELF-FUNDED"?"on":comp.verdict==="LEVERING"?"neutral":"off");
+  document.getElementById("scorePin").style.left = comp.score + "%";
+  document.getElementById("sc_l").textContent = t.scL;
+  document.getElementById("sc_m").textContent = t.scM;
+  document.getElementById("sc_r").textContent = t.scR;
+  document.getElementById("verdictLine").textContent = LANG==="zh"? comp.verdict_zh : comp.verdict_en;
+
+  // hero — credit backdrop
+  document.getElementById("h_backdrop").textContent = t.backdrop;
+  const sp = l3.spreads;
+  const spNames = {ig_oas: LANG==="zh"?"IG 投資級":"IG OAS", hy_oas: LANG==="zh"?"HY 高收益":"HY OAS", ccc_oas: LANG==="zh"?"CCC 級以下":"CCC OAS"};
+  document.getElementById("spreadRows").innerHTML =
+    ["ig_oas","hy_oas","ccc_oas"].map(k=>{
+      const o = sp[k]||{};
+      return `<div class="kv"><span class="k">${spNames[k]} ${tierBadge(o.tier)} ${liveBadge(o.live)}</span>
+        <span class="v">${fmt(o.value)}% <span class="chg ${chgCls(o.chg_6m)}">${o.chg_6m===null||o.chg_6m===undefined?"":sign(o.chg_6m)+"pp/6m"}</span></span></div>`;
+    }).join("")
+    + `<div class="kv"><span class="k">CCC − IG</span><span class="v">${fmt(sp.ccc_minus_ig)}pp</span></div>`;
+  const dl = document.getElementById("decompLine");
+  dl.textContent = sp.decompression? t.decompOn : t.decompOff;
+  dl.style.color = sp.decompression? "var(--off)" : "var(--dim)";
+
+  // hero — funding mix
+  document.getElementById("h_mix").textContent = t.mix;
+  const agg = l3.aggregate;
+  document.getElementById("mixRows").innerHTML =
+    `<div class="kv"><span class="k">${t.softShare} ${estBadge(true)}</span><span class="v">${l3.soft_money.score}</span></div>
+     <div class="kv"><span class="k">${t.gapShare}</span><span class="v">${agg.gap_share_pct}%</span></div>
+     <div class="kv"><span class="k">${t.debtShare} ${estBadge(true)}</span><span class="v">${agg.debt_issuance_share_pct}%</span></div>`;
+  document.getElementById("mixHint").textContent = t.mixHint;
+
+  // subscores
+  document.getElementById("h_subs").textContent = t.subs;
+  document.getElementById("n_subs").textContent = t.subsNote;
+  document.getElementById("subs").innerHTML = comp.subscores.map(x=>`
+    <div class="subcard"><div class="k">${LANG==="zh"?x.name_zh:x.name_en}</div>
+      <div class="v">${x.score}</div><div class="w">w = ${Math.round(x.weight*100)}%</div>
+      <div class="bar"><i style="width:${x.score}%"></i></div></div>`).join("");
+
+  // funding stack
+  document.getElementById("h_stack").textContent = t.stack;
+  document.getElementById("n_stack").textContent = t.stackNote;
+  document.getElementById("stack").innerHTML = s.funding_stack.map(l=>{
+    const col = l.rank<=2? "var(--on)" : l.rank===3? "var(--neu)" : "var(--off)";
+    return `<div class="layer"><div class="rank" style="color:${col};border-color:${col}">${l.rank}</div>
+      <div><span class="nm">${LANG==="zh"?l.name_zh:l.name_en}</span>
+      <span class="hard" style="color:${col}">${LANG==="zh"?l.hardness_zh:l.hardness_en}</span>
+      <div class="desc">${LANG==="zh"?l.desc_zh:l.desc_en}</div></div></div>`;
+  }).join("");
+  document.getElementById("h_chan").textContent = t.chan;
+  document.getElementById("n_chan").textContent = t.chanNote;
+  const stackName = {}; s.funding_stack.forEach(l=>stackName[l.id]=LANG==="zh"?l.name_zh:l.name_en);
+  document.getElementById("channels").innerHTML = s.contagion_channels.map(c=>
+    `<div class="chan"><b>${stackName[c.from]||c.from}</b> <span class="arrow">→</span> <b>${stackName[c.to]||c.to}</b><br>${LANG==="zh"?c.desc_zh:c.desc_en}</div>`).join("");
+
+  // hyperscaler gaps
+  document.getElementById("h_gap").textContent = t.gap;
+  document.getElementById("n_gap").textContent = t.gapNote;
+  document.getElementById("gapHead").innerHTML = "<tr>" + t.gapCols.map(c=>`<th>${c}</th>`).join("") + "</tr>";
+  document.getElementById("gapBody").innerHTML = l3.hyperscalers.map(r=>{
+    const gapCol = r.gap_usd_bn>0? "var(--off)" : "var(--on)";
+    return `<tr>
+      <td><span class="co">${r.name}</span> ${liveBadge(r.live)}<div class="rownote">${LANG==="zh"?r.note_zh:r.note_en}</div></td>
+      <td class="n">${r.capex_ttm_usd_bn} ${tierBadge(r.capex_tier)}</td>
+      <td class="n">${r.ocf_ttm_usd_bn} ${tierBadge(r.ocf_tier)}${r.ocf_est&&!r.live?estBadge(true):""}</td>
+      <td class="n" style="color:${gapCol}">${sign(r.gap_usd_bn)}</td>
+      <td class="n">${fmt(r.capex_ocf_pct)}%</td>
+      <td class="n">${fmt(r.external_share_pct)}%</td>
+      <td class="rownote">${r.align_note||""}</td></tr>`;
+  }).join("");
+  document.getElementById("gapAgg").textContent = t.aggFmt(agg);
+
+  // ledger
+  document.getElementById("h_ledger").textContent = t.ledger;
+  document.getElementById("n_ledger").textContent = LANG==="zh"? s.ledger_note_zh : s.ledger_note_en;
+  document.getElementById("ledHead").innerHTML = "<tr>" + t.ledCols.map(c=>`<th>${c}</th>`).join("") + "</tr>";
+  document.getElementById("ledBody").innerHTML = l3.ledger.map(e=>`<tr>
+      <td><span class="co">${LANG==="zh"?e.name_zh:e.name_en}</span> ${estBadge(e.est)}<div class="rownote">${LANG==="zh"?e.source_zh:e.source_en}${e.align_note?" · "+e.align_note:""}</div></td>
+      <td>${LANG==="zh"?e.instrument_zh:e.instrument_en}<div class="rownote">${LANG==="zh"?"軟度":"softness"} ${e.softness}/5</div></td>
+      <td class="n">${e.size_drawn_usd_bn} / ${e.size_committed_usd_bn}</td>
+      <td style="font-size:11px;color:var(--soft)">${LANG==="zh"?e.cost_hint_zh:e.cost_hint_en}</td>
+      <td>${tierBadge(e.tier)}</td>
+      <td class="n" style="font-size:11px;color:var(--dim)">${e.as_of}</td></tr>`).join("");
+
+  // labs
+  document.getElementById("h_labs").textContent = t.labs;
+  document.getElementById("n_labs").textContent = t.labsNote;
+  document.getElementById("labs").innerHTML = l3.labs.map(l=>`
+    <div class="labcard">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span class="co" style="font-size:14px;font-weight:600">${l.name}</span>
+        <span>${tierBadge(l.tier)} ${estBadge(l.est)}</span></div>
+      <div class="kv"><span class="k">${t.rev}</span><span class="v">$${l.revenue_runrate_usd_bn}B</span></div>
+      <div class="kv"><span class="k">${t.burn}</span><span class="v">$${l.annual_burn_usd_bn}B</span></div>
+      <div class="kv"><span class="k">${t.mult}</span><span class="v" style="color:${l.burn_multiple>1.5?"var(--off)":l.burn_multiple>1?"var(--neu)":"var(--on)"}">${l.burn_multiple}×</span></div>
+      <div class="kv"><span class="k">${t.fund}</span><span class="v">$${l.funding_raised_usd_bn}B</span></div>
+      <div class="kv"><span class="k">${t.val}</span><span class="v">$${l.valuation_usd_bn}B</span></div>
+      <div class="rownote" style="margin-top:8px">${LANG==="zh"?l.note_zh:l.note_en} · ${l.align_note}</div>
+    </div>`).join("");
+
+  // L4
+  const l4 = s.l4;
+  document.getElementById("h_thesis").textContent = t.thesis;
+  document.getElementById("thesisDir").textContent = LANG==="zh"? l4.thesis.direction_zh : l4.thesis.direction_en;
+  document.getElementById("thesisConf").textContent = t.conf + ": " + l4.thesis.confidence;
+  document.getElementById("h_leads").textContent = t.leads;
+  document.getElementById("leads").innerHTML = l4.thesis.leading_signals.map(x=>`<li>${LANG==="zh"?x.zh:x.en}</li>`).join("");
+  document.getElementById("h_read").textContent = t.read;
+  document.getElementById("readText").textContent = LANG==="zh"? l4.structure_read.summary_zh : l4.structure_read.summary_en;
+
+  // TSMC view
+  document.getElementById("h_tsmc").textContent = t.tsmc;
+  document.getElementById("n_tsmc").textContent = t.tsmcNote;
+  document.getElementById("tsmcText").textContent = LANG==="zh"? l4.tsmc_view.summary_zh : l4.tsmc_view.summary_en;
+  document.getElementById("tsmcHead").innerHTML = "<tr>" + t.tsmcCols.map(c=>`<th>${c}</th>`).join("") + "</tr>";
+  document.getElementById("tsmcBody").innerHTML = s.tsmc_view.rows.map(r=>`<tr>
+      <td class="co">${LANG==="zh"?r.counterparty_zh:r.counterparty_en}</td>
+      <td style="color:var(--soft)">${LANG==="zh"?r.funding_zh:r.funding_en}</td>
+      <td class="n">${r.softness}/5</td>
+      <td><span class="wob ${r.wobble}">${r.wobble}</span></td>
+      <td style="color:var(--soft);font-size:11.5px;line-height:1.5">${LANG==="zh"?r.channel_zh:r.channel_en}</td></tr>`).join("");
+
+  // L5
+  const l5 = s.l5;
+  document.getElementById("h_scn").textContent = t.scn;
+  document.getElementById("n_scn").textContent = t.scnNote;
+  document.getElementById("scenarios").innerHTML = l5.scenarios.map(sc=>`
+    <div class="scn">
+      <div class="scnhead"><span class="scnname">${LANG==="zh"?sc.name_zh:sc.name_en}</span><span class="scnprob">${sc.prob}%</span></div>
+      <div class="bar" style="margin:7px 0 6px"><i style="width:${sc.prob}%"></i></div>
+      <div class="scntrig">${t.trigger}: ${LANG==="zh"?sc.trigger_zh:sc.trigger_en}</div>
+    </div>`).join("");
+  document.getElementById("h_fals").textContent = t.fals;
+  document.getElementById("falsification").innerHTML = l5.falsification.map(x=>`<li>${LANG==="zh"?x.zh:x.en}</li>`).join("");
+  document.getElementById("h_ew").textContent = t.ew;
+  document.getElementById("earlyWarn").innerHTML = l5.early_warning.map(x=>`<tr><td>${LANG==="zh"?x.zh:x.en}</td><td class="f">${x.freq}</td></tr>`).join("");
+
+  // dictionary
+  document.getElementById("h_dict").textContent = t.dict;
+  document.getElementById("n_dict").textContent = t.dictNote;
+  document.getElementById("dictHead").innerHTML = "<tr>" + t.dictCols.map(c=>`<th>${c}</th>`).join("") + "</tr>";
+  document.getElementById("dictBody").innerHTML = s.indicator_dictionary.map(d=>`<tr>
+      <td class="co">${LANG==="zh"?d.name_zh:d.name_en}</td>
+      <td style="color:var(--soft)">${LANG==="zh"?d.what_zh:d.what_en}</td>
+      <td style="color:var(--soft)">${LANG==="zh"?d.why_zh:d.why_en}</td>
+      <td style="color:var(--gold);font-size:11.5px">${LANG==="zh"?d.threshold_zh:d.threshold_en}</td></tr>`).join("");
+
+  // news
+  if(s.news && s.news.length){
+    document.getElementById("newsPanel").style.display="block";
+    document.getElementById("h_news").textContent = t.news;
+    document.getElementById("news").innerHTML = s.news.slice(0,12).map(n=>`<a href="${n.url}" target="_blank" rel="noopener">${n.title} <span class="src">${n.source?("· "+n.source):""} ${n.date||""}</span></a>`).join("");
+  }
+
+  // blind spots + methodology + disclaimer
+  document.getElementById("blindHead").textContent = t.blind + ":";
+  const blind = LANG==="zh"? s.blind_spots_zh : s.blind_spots_en;
+  document.getElementById("blind").innerHTML = (blind||[]).map(b=>`<li>· ${b}</li>`).join("");
+  document.getElementById("methodFoot").textContent = LANG==="zh"? s.method_zh : s.method_en;
+  document.getElementById("disclaimer").textContent = t.disclaimer;
+  document.getElementById("mp_title").textContent = t.mp;
+  document.getElementById("mp_zh").style.display = LANG==="zh" ? "block" : "none";
+  document.getElementById("mp_en").style.display = LANG==="zh" ? "none" : "block";
+}
+
+document.getElementById("langBtn").addEventListener("click",()=>{
+  LANG = LANG==="zh"?"en":"zh"; localStorage.setItem("credit_lang",LANG); render();
+});
+async function doRefresh(){
+  const t = T[LANG];
+  const pw = prompt(t.pwPrompt); if(!pw) return;
+  const st = document.getElementById("status"); st.textContent = t.refreshing;
+  try{
+    const r = await fetch("/credit/api/refresh",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({password:pw})});
+    const j = await r.json();
+    if(!r.ok || !j.ok){ st.textContent = t.fail + (j.error?` (${j.error})`:""); return; }
+    st.textContent = `${t.done} (${j.engine}, ${j.live_metrics} live, ${j.score} ${j.verdict})`;
+    setTimeout(()=>location.reload(),900);
+  }catch(e){ st.textContent = t.fail; }
+}
+document.getElementById("refreshBtn").addEventListener("click",doRefresh);
+render();
+</script>
+</body>
+</html>
