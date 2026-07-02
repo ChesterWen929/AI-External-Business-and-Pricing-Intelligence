@@ -1,0 +1,308 @@
+{
+  "version": "1.0",
+  "as_of_curated": "2026-07-02",
+  "title_en": "Geopolitics & Second-Chain Radar",
+  "title_zh": "地緣與第二供應鏈雷達",
+  "method_en": "Four blocks: (L1) the current export-control regime is a hand-curated, dated, tier-graded table of official rules; (L2) second-chain link-by-link completeness mirrors /bottleneck's Liebig minimum-law — the weakest link governs the composite; (L3) a China-semis vs western-tools stock basket (sentiment PROXY, weight 0 in the score) plus a bilingual news radar with keyword-rule headline classification; (L4/L5) strategic synthesis by Claude on refresh, deterministic rules fallback otherwise. Every capability % is an estimate (EST) — yields and costs inside China are opaque.",
+  "method_zh": "四個區塊:(L1)管制現況為人工策展、逐條標日期與證據等級的官方規則表;(L2)第二鏈逐環完整度沿用 /bottleneck 的 Liebig 最小值定律——最弱環節決定綜合分數;(L3)中國半導體 vs 西方設備股籃(情緒代理,計分權重 0)加雙語新聞雷達(關鍵字規則分類標題);(L4/L5)刷新時由 Claude 做策略綜合,否則走確定性規則後備。所有能力 % 皆為推估(EST)——中國境內良率與成本不透明。",
+
+  "level": {
+    "label_en": "Structurally TIGHT",
+    "label_zh": "結構性緊",
+    "note_en": "EUV embargo, advanced-DUV licensing, HBM rule, entity list + FDPR all remain in force. The direction score below measures only the marginal 12-month drift, not the level.",
+    "note_zh": "EUV 禁運、先進 DUV 許可制、HBM 規則、實體清單+FDPR 全數仍然有效。下方方向分數只量測近 12 個月的邊際漂移,不是管制水位本身。"
+  },
+
+  "regime": [
+    {
+      "id": "accel",
+      "name_en": "AI accelerators to China",
+      "name_zh": "對中 AI 加速器",
+      "status_en": "A100/H100-class banned since 2022-10; the 2023-10 performance-density update closed the A800/H800 workaround. The compliant H20 became license-required in 2025-04 (NVIDIA took a $5.5B charge), then licenses resumed from 2025-07 under a reported 15%-of-China-revenue arrangement (that arrangement is T2, reported not codified). Blackwell-class (B200/GB200) is not licensable; a scaled-down 'B30A' was publicly debated in late 2025 but not approved (T3).",
+      "status_zh": "A100/H100 級 2022-10 起禁售;2023-10 效能密度門檻補上 A800/H800 繞道。合規版 H20 於 2025-04 改為需許可(NVIDIA 認列 $5.5B 損失),2025-07 起恢復發證,傳聞附帶中國營收 15% 上繳安排(該安排為 T2,媒體報導、未成文)。Blackwell 級(B200/GB200)不可申請;降規版「B30A」2025 年底公開討論中、未批准(T3)。",
+      "as_of": "2025-08",
+      "tier": "T1",
+      "direction": "mixed",
+      "source_en": "BIS rules 2022-10 / 2023-10 / 2025-04; license resumption reported 2025-07–08",
+      "source_zh": "BIS 規則 2022-10 / 2023-10 / 2025-04;2025-07–08 發證恢復報導"
+    },
+    {
+      "id": "entity_fdpr",
+      "name_en": "Entity List & FDPR",
+      "name_zh": "實體清單與 FDPR",
+      "status_en": "Huawei listed 2019-05, foreign direct product rule 2020-08 cut it off from all leading-edge foundries; SMIC listed 2020-12 with presumption-of-denial for advanced-node tools; 2024-12 added ~140 Chinese semiconductor entities (equipment makers, EDA, investment vehicles incl. Swaysure, SiCarrier, Piotech).",
+      "status_zh": "華為 2019-05 上榜,2020-08 外國直接產品規則切斷其所有先進代工來源;中芯 2020-12 上榜,先進製程設備推定拒發;2024-12 再加約 140 家中國半導體實體(設備、EDA、投資載體,含昇維旭、新凱來、拓荊)。",
+      "as_of": "2024-12",
+      "tier": "T1",
+      "direction": "tighten",
+      "source_en": "BIS Entity List actions 2019–2024",
+      "source_zh": "BIS 實體清單行動 2019–2024"
+    },
+    {
+      "id": "litho",
+      "name_en": "Lithography equipment",
+      "name_zh": "微影設備",
+      "status_en": "EUV has never been licensed to China (Dutch policy since 2019). Advanced immersion DUV (NXT:2000i and above) license-required from 2023-09; the Netherlands revoked NXT:1970i/1980i licenses from 2024-01; US 2024-12 rules extended servicing/parts restrictions. SMIC's ≤7nm runs on pre-restriction ASML immersion tools — a depreciating, non-replenishable stock.",
+      "status_zh": "EUV 從未對中發證(荷蘭 2019 年起政策)。先進浸潤式 DUV(NXT:2000i 以上)2023-09 起需許可;荷蘭 2024-01 起撤銷 1970i/1980i 出口證;美方 2024-12 擴及維修與零件。中芯 ≤7nm 靠管制前購入的 ASML 浸潤式機台——一個會折舊、無法補充的存量。",
+      "as_of": "2024-12",
+      "tier": "T1",
+      "direction": "tighten",
+      "source_en": "Dutch export policy 2019/2023/2024; BIS 2024-12",
+      "source_zh": "荷蘭出口政策 2019/2023/2024;BIS 2024-12"
+    },
+    {
+      "id": "hbm",
+      "name_en": "HBM to China",
+      "name_zh": "對中 HBM",
+      "status_en": "BIS 2024-12: HBM above a memory-bandwidth-density threshold (covers HBM2E and up) is controlled to China — cutting Ascend-class accelerators off from Korean HBM and making CXMT the forced domestic substitute.",
+      "status_zh": "BIS 2024-12:記憶體頻寬密度超過門檻的 HBM(涵蓋 HBM2E 以上)對中管制——切斷昇騰級加速器的韓系 HBM 來源,長鑫(CXMT)被迫成為國產替代。",
+      "as_of": "2024-12",
+      "tier": "T1",
+      "direction": "tighten",
+      "source_en": "BIS interim final rule 2024-12",
+      "source_zh": "BIS 暫行最終規則 2024-12"
+    },
+    {
+      "id": "eda",
+      "name_en": "EDA software",
+      "name_zh": "EDA 軟體",
+      "status_en": "GAAFET-oriented EDA controlled since 2022-08. In 2025-05 BIS letters briefly restricted Synopsys/Cadence/Siemens EDA sales into China; the restriction was lifted 2025-07 as part of the London framework — a live demonstration that EDA access can be switched off and on within weeks.",
+      "status_zh": "GAAFET 導向 EDA 自 2022-08 管制。2025-05 BIS 函令一度限制 Synopsys/Cadence/西門子 EDA 對中銷售;2025-07 隨倫敦框架解除——現場示範了 EDA 供應可以在數週內被關掉再打開。",
+      "as_of": "2025-07",
+      "tier": "T1",
+      "direction": "mixed",
+      "source_en": "BIS 2022-08 rule; 2025-05 letters; 2025-07 lift",
+      "source_zh": "BIS 2022-08 規則;2025-05 函令;2025-07 解除"
+    },
+    {
+      "id": "diffusion",
+      "name_en": "AI Diffusion framework",
+      "name_zh": "AI 擴散規則",
+      "status_en": "The three-tier global compute-cap framework announced 2025-01 was rescinded 2025-05 before taking effect, replaced by bilateral country deals plus guidance that using Huawei Ascend chips may violate US export controls (2025-05, wording softened 2025-06). Red line now moves deal-by-deal rather than by codified tiers.",
+      "status_zh": "2025-01 公布的三級全球算力配額框架,2025-05 生效前即撤回,改為逐國雙邊協議,並發布「使用華為昇騰晶片可能違反美國出口管制」指引(2025-05,2025-06 措辭放軟)。紅線從成文分級改為逐案移動。",
+      "as_of": "2025-06",
+      "tier": "T1",
+      "direction": "mixed",
+      "source_en": "BIS 2025-01 rule; 2025-05 rescission + guidance",
+      "source_zh": "BIS 2025-01 規則;2025-05 撤回與指引"
+    },
+    {
+      "id": "china_counter",
+      "name_en": "China countermeasures",
+      "name_zh": "中方反制",
+      "status_en": "Gallium/germanium controls 2023-08, outright Ga/Ge/Sb ban to the US 2024-12; rare-earth export controls 2025-04 (7 elements), expanded 2025-10 (+5 elements, extraterritorial 0.1% de-minimis); the 2025-10 expansion was suspended for one year in the 2025-11 truce. The Nexperia dispute (2025-10) showed legacy-chip chokepoints cut both ways.",
+      "status_zh": "2023-08 鎵/鍺管制,2024-12 對美鎵/鍺/銻全面禁運;2025-04 稀土出口管制(7 元素),2025-10 擴大(+5 元素、0.1% 微量含量域外效力);2025-11 休戰協議將 2025-10 擴大部分暫停一年。安世(Nexperia)事件(2025-10)顯示成熟製程卡點是雙向的。",
+      "as_of": "2025-11",
+      "tier": "T1",
+      "direction": "mixed",
+      "source_en": "MOFCOM announcements 2023–2025; 2025-11 truce terms",
+      "source_zh": "中國商務部公告 2023–2025;2025-11 休戰條款"
+    },
+    {
+      "id": "cloud_gap",
+      "name_en": "Cloud / smuggling gap",
+      "name_zh": "雲端租算與走私缺口",
+      "status_en": "Renting controlled compute through overseas clouds and transshipment via third-country hubs remain incompletely closed; KYC rules proposed but not final, enforcement cases (Southeast-Asia routes) ongoing. Denominator unknown — this gap is unquantifiable by design.",
+      "status_zh": "透過海外雲租用受管制算力、經第三地轉口走私,均未完全堵上;KYC 規則僅提案未定案,執法個案(東南亞路徑)進行中。分母未知——這個缺口天生不可量化。",
+      "as_of": "2025-12",
+      "tier": "T3",
+      "direction": "gap",
+      "source_en": "enforcement reporting; proposed rules (estimates only)",
+      "source_zh": "執法報導;規則提案(僅推估)"
+    }
+  ],
+
+  "moves": [
+    {"id": "mv_2210", "date": "2022-10", "name_en": "October 2022 controls (A100/H100 ban, US-person rule)", "name_zh": "2022-10 管制(A100/H100 禁售、美籍人員規則)", "direction": "tighten", "weight": 1.0, "tier": "T1"},
+    {"id": "mv_2310", "date": "2023-10", "name_en": "Performance-density update closes A800/H800", "name_zh": "2023-10 效能密度更新,封殺 A800/H800", "direction": "tighten", "weight": 0.9, "tier": "T1"},
+    {"id": "mv_2412", "date": "2024-12", "name_en": "HBM rule + ~140 entity-list additions", "name_zh": "2024-12 HBM 規則+約 140 家實體清單", "direction": "tighten", "weight": 1.0, "tier": "T1"},
+    {"id": "mv_2501", "date": "2025-01", "name_en": "AI Diffusion rule announced", "name_zh": "2025-01 AI 擴散規則公布", "direction": "tighten", "weight": 0.8, "tier": "T1"},
+    {"id": "mv_2504", "date": "2025-04", "name_en": "H20 / MI308 license requirement", "name_zh": "2025-04 H20 / MI308 需許可", "direction": "tighten", "weight": 1.0, "tier": "T1"},
+    {"id": "mv_2505a", "date": "2025-05", "name_en": "Diffusion rule rescinded", "name_zh": "2025-05 擴散規則撤回", "direction": "ease", "weight": 0.6, "tier": "T1"},
+    {"id": "mv_2505b", "date": "2025-05", "name_en": "Huawei Ascend 'anywhere in the world' guidance", "name_zh": "2025-05 華為昇騰「全球適用」指引", "direction": "tighten", "weight": 0.6, "tier": "T1"},
+    {"id": "mv_2507", "date": "2025-07", "name_en": "H20 licenses resume; EDA restriction lifted", "name_zh": "2025-07 H20 恢復發證;EDA 限制解除", "direction": "ease", "weight": 0.9, "tier": "T1"},
+    {"id": "mv_2508", "date": "2025-08", "name_en": "15%-of-China-revenue arrangement reported", "name_zh": "2025-08 中國營收 15% 上繳安排(報導)", "direction": "ease", "weight": 0.5, "tier": "T2"},
+    {"id": "mv_2510", "date": "2025-10", "name_en": "China rare-earth expansion (extraterritorial)", "name_zh": "2025-10 中國稀土管制擴大(域外效力)", "direction": "tighten", "weight": 0.8, "tier": "T1"},
+    {"id": "mv_2511", "date": "2025-11", "name_en": "Busan truce: rare-earth expansion suspended 1yr", "name_zh": "2025-11 釜山休戰:稀土擴大暫停一年", "direction": "ease", "weight": 1.0, "tier": "T1"},
+    {"id": "mv_2512", "date": "2025-12", "name_en": "Scaled-down Blackwell ('B30A') sale debated", "name_zh": "2025-12 降規 Blackwell(B30A)售中討論", "direction": "ease", "weight": 0.4, "tier": "T3"}
+  ],
+
+  "links": [
+    {
+      "id": "eda",
+      "name_en": "EDA",
+      "name_zh": "EDA 設計工具",
+      "west_anchor_en": "Synopsys / Cadence / Siemens EDA hold effectively the whole advanced-node design flow",
+      "west_anchor_zh": "Synopsys / Cadence / 西門子 EDA 幾乎壟斷先進製程設計全流程",
+      "completeness": {"pct": 40, "est": true, "tier": "T3", "as_of": "2025-12", "source_en": "Empyrean/Primarius/Semitronix coverage estimates; no verified full RTL-to-GDS flow at ≤7nm", "source_zh": "華大九天/概倫/廣立微覆蓋度推估;≤7nm 無經驗證的完整 RTL-to-GDS 流程"},
+      "years_behind": 8,
+      "slope": "catching_up",
+      "evidence_en": "Domestic EDA covers analog and mature digital flows; the 2025-05 restriction episode accelerated import substitution budgets; Huawei claims internal tools sufficient for 14nm-and-above.",
+      "evidence_zh": "國產 EDA 覆蓋類比與成熟數位流程;2025-05 斷供事件加速了替代預算;華為宣稱內部工具可支撐 14nm 以上。"
+    },
+    {
+      "id": "equipment",
+      "name_en": "Semiconductor equipment (litho·etch·depo)",
+      "name_zh": "半導體設備(微影·蝕刻·沉積)",
+      "west_anchor_en": "ASML (litho) / LAM·AMAT·TEL (etch·depo) — litho is the hard wall: EUV embargoed, advanced DUV licensed",
+      "west_anchor_zh": "ASML(微影)/ LAM·AMAT·TEL(蝕刻·沉積)——微影是硬牆:EUV 禁運、先進 DUV 許可制",
+      "completeness": {"pct": 18, "est": true, "tier": "T3", "as_of": "2025-12", "source_en": "link % = MIN of sub-components (Liebig within the link): litho governs", "source_zh": "環節 % = 子項最小值(環節內 Liebig):微影決定"},
+      "years_behind": 15,
+      "slope": "catching_up",
+      "evidence_en": "Etch (AMEC) and deposition (NAURA) are genuinely competitive; lithography is not — SMEE 28nm-class DUV shipped in small numbers with no volume production line, immersion prototypes unverified (T3). Years-behind is set by litho (~15 vs EUV).",
+      "evidence_zh": "蝕刻(中微)與沉積(北方華創)確實有競爭力;微影沒有——上海微電子 28nm 級 DUV 僅少量交付、無量產線,浸潤式原型未經證實(T3)。落後年數由微影決定(對 EUV 約 15 年)。",
+      "sub_components": [
+        {"id": "litho", "name_en": "Lithography (SMEE)", "name_zh": "微影(上海微電子)", "pct": 18, "tier": "T3", "note_en": "28nm-class DUV, small numbers, no volume line; immersion unverified", "note_zh": "28nm 級 DUV 少量交付、無量產線;浸潤式未證實"},
+        {"id": "etch", "name_en": "Etch (AMEC)", "name_zh": "蝕刻(中微)", "pct": 65, "tier": "T3", "note_en": "CCP/ICP etch competitive at leading edge, used in advanced fabs", "note_zh": "CCP/ICP 蝕刻在先進製程具競爭力,已進先進廠"},
+        {"id": "depo", "name_en": "Deposition (NAURA)", "name_zh": "沉積(北方華創)", "pct": 60, "tier": "T3", "note_en": "Broad PVD/CVD/ALD portfolio, mature-node proven, advancing", "note_zh": "PVD/CVD/ALD 產品線廣,成熟製程已驗證,持續推進"}
+      ]
+    },
+    {
+      "id": "logic_foundry",
+      "name_en": "Advanced logic foundry (SMIC)",
+      "name_zh": "先進邏輯代工(中芯)",
+      "west_anchor_en": "TSMC N3/N2 in HVM; SMIC's N+2 ≈ TSMC 2018-era N7 economics, without EUV",
+      "west_anchor_zh": "台積電 N3/N2 已量產;中芯 N+2 約當台積電 2018 年 N7 的經濟性,且無 EUV",
+      "completeness": {"pct": 55, "est": true, "tier": "T3", "as_of": "2025-12", "source_en": "N+2 (~7nm) HVM confirmed by Kirin 9000s teardown (T1 physical evidence, 2023); N+3 (~5nm-class) yield estimates 20–33% are T3", "source_zh": "N+2(約 7nm)量產有麒麟 9000s 拆解實證(T1 實物證據,2023);N+3(約 5nm 級)良率推估 20–33% 為 T3"},
+      "years_behind": 6,
+      "slope": "catching_up",
+      "evidence_en": "N+2 ships in volume (Huawei phones, Ascend); N+3 reportedly runs for Ascend at low yield via DUV multi-patterning — a cost/throughput penalty that scales badly. Capacity is bounded by the fixed stock of pre-restriction immersion tools.",
+      "evidence_zh": "N+2 已規模出貨(華為手機、昇騰);N+3 傳聞以 DUV 多重曝光為昇騰試產、良率偏低——成本與產出的懲罰隨規模惡化。產能受限於管制前購入的浸潤式機台存量。"
+    },
+    {
+      "id": "hbm",
+      "name_en": "HBM (CXMT)",
+      "name_zh": "HBM(長鑫)",
+      "west_anchor_en": "SK hynix / Samsung / Micron shipping HBM3E, HBM4 arriving 2026",
+      "west_anchor_zh": "SK 海力士/三星/美光已出 HBM3E,HBM4 於 2026 到位",
+      "completeness": {"pct": 30, "est": true, "tier": "T3", "as_of": "2025-12", "source_en": "CXMT HBM2/2E in production 2024–25; HBM3 sampling reported 2025 (unverified volume/yield)", "source_zh": "長鑫 HBM2/2E 2024–25 已投產;HBM3 送樣報導見於 2025(量與良率未證實)"},
+      "years_behind": 4,
+      "slope": "catching_up",
+      "evidence_en": "The 2024-12 HBM rule forced Ascend onto domestic HBM; CXMT is the single point of substitution. Two generations behind and stacking/TSV yield is the open question.",
+      "evidence_zh": "2024-12 HBM 規則迫使昇騰改用國產 HBM;長鑫是唯一替代點。落後兩個世代,堆疊/TSV 良率是未解問題。"
+    },
+    {
+      "id": "adv_packaging",
+      "name_en": "Advanced packaging (CoWoS-like)",
+      "name_zh": "先進封裝(類 CoWoS)",
+      "west_anchor_en": "TSMC CoWoS/SoIC — see /bottleneck for the western chain's own CoWoS constraint (method aligned, numbers live there)",
+      "west_anchor_zh": "台積電 CoWoS/SoIC——西方鏈自身的 CoWoS 瓶頸見 /bottleneck 卡(方法對齊,數字在該卡,不在此重寫)",
+      "completeness": {"pct": 40, "est": true, "tier": "T3", "as_of": "2025-12", "source_en": "SJSemi/JCET/Tongfu 2.5D offerings + Huawei in-house; capacity small vs TSMC CoWoS", "source_zh": "盛合晶微/長電/通富 2.5D 產品+華為自建;產能相對台積電 CoWoS 仍小"},
+      "years_behind": 4,
+      "slope": "catching_up",
+      "evidence_en": "2.5D interposer lines exist and are scaling; packaging is the nearest structural leapfrog — it multiplies effective compute per wafer without needing EUV, which is why '國產 CoWoS' headlines matter more than they look.",
+      "evidence_zh": "2.5D 中介層產線已存在且在放量;封裝是最近的結構性彎道——不需要 EUV 就能放大每片晶圓的有效算力,所以「國產 CoWoS」新聞比表面更重要。"
+    },
+    {
+      "id": "interconnect",
+      "name_en": "Interconnect & networking",
+      "name_zh": "互連與網路",
+      "west_anchor_en": "NVIDIA NVLink/InfiniBand + Broadcom Ethernet ecosystem",
+      "west_anchor_zh": "NVIDIA NVLink/InfiniBand + 博通乙太網生態",
+      "completeness": {"pct": 60, "est": true, "tier": "T3", "as_of": "2025-12", "source_en": "Huawei UnifiedBus / CloudMatrix 384 system demos; Chinese optical-module vendors globally competitive", "source_zh": "華為 UnifiedBus / CloudMatrix 384 系統實證;中國光模組廠商具全球競爭力"},
+      "years_behind": 2,
+      "slope": "catching_up",
+      "evidence_en": "CloudMatrix shows the system-level workaround: lash more weaker chips together with strong fabric, pay in power. Optics is a Chinese strength, not a gap.",
+      "evidence_zh": "CloudMatrix 展示系統級繞道:用強互連把更多較弱晶片綁在一起,代價是電力。光通訊是中國強項而非缺口。"
+    },
+    {
+      "id": "software",
+      "name_en": "Models & software ecosystem",
+      "name_zh": "模型與軟體生態",
+      "west_anchor_en": "CUDA moat + frontier labs; open-weight Chinese models already near-frontier",
+      "west_anchor_zh": "CUDA 護城河+前沿實驗室;中國開放權重模型已近前沿",
+      "completeness": {"pct": 55, "est": true, "tier": "T3", "as_of": "2025-12", "source_en": "Models (DeepSeek/Qwen) near-frontier is T2 benchmark evidence; CANN-vs-CUDA toolchain gap is T3 judgment", "source_zh": "模型(DeepSeek/Qwen)近前沿有 T2 基準測試佐證;CANN 對 CUDA 的工具鏈差距為 T3 判斷"},
+      "years_behind": 3,
+      "slope": "catching_up",
+      "evidence_en": "Model quality is nearly closed (months, not years); the toolchain (CANN vs CUDA, kernels, debuggers, community) is the real lag — blended years-behind of ~3 mixes ~1 for models with ~5 for toolchain.",
+      "evidence_zh": "模型品質差距接近抹平(以月計,非以年計);工具鏈(CANN 對 CUDA、kernel、除錯、社群)才是真正落後——綜合落後約 3 年,是模型約 1 年與工具鏈約 5 年的混合。"
+    }
+  ],
+
+  "composite_note_en": "Composite = 0.7 × MIN(link %) + 0.3 × MEAN(link %). Liebig's law of the minimum, same method as /bottleneck: a chain is as complete as its weakest link; the mean term credits partial progress. Stock-price momentum has weight 0.",
+  "composite_note_zh": "綜合分數 = 0.7 × 最弱環節 % + 0.3 × 各環節平均 %。Liebig 最小值定律,方法與 /bottleneck 對齊:鏈的完整度由最弱環節決定;平均項給部分進度部分學分。股價動能權重為 0。",
+
+  "market_basket": [
+    {"id": "smic", "ticker": "0981.HK", "name_en": "SMIC (0981.HK)", "name_zh": "中芯國際 (0981.HK)", "group": "china", "seed": {"value": 78.0, "chg_1m": 6.5, "as_of": "2026-01", "est": true}},
+    {"id": "huahong", "ticker": "1347.HK", "name_en": "Hua Hong (1347.HK)", "name_zh": "華虹半導體 (1347.HK)", "group": "china", "seed": {"value": 62.0, "chg_1m": 4.0, "as_of": "2026-01", "est": true}},
+    {"id": "naura", "ticker": "002371.SZ", "name_en": "NAURA (002371.SZ)", "name_zh": "北方華創 (002371.SZ)", "group": "china", "seed": {"value": 455.0, "chg_1m": 3.2, "as_of": "2026-01", "est": true}},
+    {"id": "amec", "ticker": "688012.SS", "name_en": "AMEC (688012.SS)", "name_zh": "中微公司 (688012.SS)", "group": "china", "seed": {"value": 248.0, "chg_1m": 5.1, "as_of": "2026-01", "est": true}},
+    {"id": "cambricon", "ticker": "688256.SS", "name_en": "Cambricon (688256.SS)", "name_zh": "寒武紀 (688256.SS)", "group": "china", "seed": {"value": 1285.0, "chg_1m": 8.0, "as_of": "2026-01", "est": true}},
+    {"id": "asml", "ticker": "ASML", "name_en": "ASML", "name_zh": "艾司摩爾 (ASML)", "group": "west", "seed": {"value": 1040.0, "chg_1m": 2.1, "as_of": "2026-01", "est": true}},
+    {"id": "lrcx", "ticker": "LRCX", "name_en": "Lam Research (LRCX)", "name_zh": "科林研發 (LRCX)", "group": "west", "seed": {"value": 152.0, "chg_1m": 3.0, "as_of": "2026-01", "est": true}},
+    {"id": "amat", "ticker": "AMAT", "name_en": "Applied Materials (AMAT)", "name_zh": "應用材料 (AMAT)", "group": "west", "seed": {"value": 238.0, "chg_1m": 1.8, "as_of": "2026-01", "est": true}}
+  ],
+
+  "taiwan": {
+    "concentration": {
+      "pct": 87,
+      "scope_en": "Share of global ≤N5 logic capacity located in Taiwan",
+      "scope_zh": "全球 N5 以下邏輯產能位於台灣的比重",
+      "tier": "T2",
+      "est": true,
+      "as_of": "2025-12",
+      "source_en": "Industry capacity estimates (TrendForce/SEMI-class); definition-sensitive, treat as ±5pp",
+      "source_zh": "產業產能推估(TrendForce/SEMI 類);對口徑敏感,應視為 ±5 個百分點"
+    },
+    "diversification": [
+      {"id": "az_p1", "site_en": "TSMC Arizona Fab 21 P1", "site_zh": "台積電亞利桑那 Fab 21 一期", "node_en": "N4/N5", "node_zh": "N4/N5", "status_en": "HVM since early 2025", "status_zh": "2025 年初起量產", "date": "2025-01", "tier": "T1"},
+      {"id": "az_p2p3", "site_en": "TSMC Arizona P2 / P3", "site_zh": "台積電亞利桑那二期/三期", "node_en": "N3 (~2028) · N2/A16 (~2030)", "node_zh": "N3(約 2028)· N2/A16(約 2030)", "status_en": "Announced under the 2025-03 $100B expansion", "status_zh": "2025-03 千億美元擴建案下已宣布", "date": "2025-03", "tier": "T1"},
+      {"id": "jasm", "site_en": "TSMC Kumamoto JASM 1 / 2", "site_zh": "台積電熊本 JASM 一/二廠", "node_en": "28/22 + 16/12 (HVM 2024Q4); JASM2 6nm-class planned ~2027+", "node_zh": "28/22 + 16/12(2024Q4 量產);二廠 6nm 級預計 2027 之後", "status_en": "JASM1 in HVM; JASM2 schedule has slipped (T3)", "status_zh": "一廠已量產;二廠時程已延後(T3)", "date": "2024-12", "tier": "T1"},
+      {"id": "esmc", "site_en": "TSMC Dresden ESMC", "site_zh": "台積電德勒斯登 ESMC", "node_en": "28/22/16 target 2027", "node_zh": "28/22/16 目標 2027", "status_en": "Under construction", "status_zh": "建設中", "date": "2025-06", "tier": "T1"},
+      {"id": "non_tsmc", "site_en": "Non-TSMC US leading edge", "site_zh": "非台積電美國先進產能", "node_en": "Intel 18A ramp (2025) · Samsung Taylor 2nm target 2026", "node_zh": "Intel 18A 爬坡(2025)· 三星 Taylor 2nm 目標 2026", "status_en": "Both schedules historically volatile (T2)", "status_zh": "兩者時程歷史上皆多次變動(T2)", "date": "2025-12", "tier": "T2"}
+    ],
+    "projection": {
+      "text_en": "Taiwan's share of TSMC ≤N7 capacity: ~100% (2024) → est. 85–90% by 2028 as Arizona/Kumamoto/Dresden ramp. The leading edge (N2/A16) stays Taiwan-first until Arizona P3 (~2030). Diversification is real but slow — geographic concentration remains the strategic fact.",
+      "text_zh": "台積電 ≤N7 產能的台灣比重:約 100%(2024)→ 推估 2028 年降至 85–90%(亞利桑那/熊本/德勒斯登爬坡)。最先進世代(N2/A16)在亞利桑那三期(約 2030)之前仍是台灣優先。分散是真的但很慢——地理集中仍是戰略事實。",
+      "tier": "T3",
+      "est": true,
+      "as_of": "2025-12"
+    }
+  },
+
+  "scenarios_seed": [
+    {"id": "status_quo", "name_en": "Truce holds, slow backfill", "name_zh": "休戰延續、緩慢補鏈", "trigger_en": "Truce renewed at the 2026-11 review; H20-class licensing continues; no new entity-list shock; completeness creeps up single digits/yr", "trigger_zh": "2026-11 檢視時休戰續約;H20 級持續發證;無新實體清單衝擊;完整度每年個位數爬升"},
+    {"id": "re_escalation", "name_en": "Re-escalation", "name_zh": "重新升級", "trigger_en": "Truce collapses — rare-earth expansion reinstated or a new FDPR round; China customer lists redrawn overnight (2025-04 H20 precedent)", "trigger_zh": "休戰破裂——稀土擴大恢復或新一輪 FDPR;中國客戶名單一夕重畫(2025-04 H20 為前例)"},
+    {"id": "breakthrough", "name_en": "China breakthrough", "name_zh": "中國突破", "trigger_en": "CXMT HBM3 in volume + SMIC N+3 yield past ~50%, or SMEE immersion DUV in a volume line — completeness step-change, moat re-rating", "trigger_zh": "長鑫 HBM3 量產+中芯 N+3 良率過約 50%,或上海微電子浸潤式 DUV 進入量產線——完整度階躍,護城河重估"},
+    {"id": "grand_bargain", "name_en": "Grand bargain", "name_zh": "大交易", "trigger_en": "Chip sales broadly relicensed (B30A-class approved) traded for rare-earth/trade concessions — demand map redrawn upward, second-chain urgency fades", "trigger_zh": "晶片銷售大幅重新發證(B30A 級獲批)以換取稀土/貿易讓步——需求版圖向上重畫,第二鏈急迫性下降"}
+  ],
+
+  "watchlist_seed": [
+    {"en": "BIS / Federal Register semiconductor actions", "zh": "BIS / 聯邦公報半導體行動", "freq": "weekly"},
+    {"en": "MOFCOM & China customs export-control notices", "zh": "中國商務部與海關出口管制公告", "freq": "weekly"},
+    {"en": "SMIC / Hua Hong earnings: capex & node commentary", "zh": "中芯/華虹法說:資本支出與製程口徑", "freq": "quarterly"},
+    {"en": "CXMT HBM3 qualification / volume reports", "zh": "長鑫 HBM3 驗證與量產報導", "freq": "monthly"},
+    {"en": "SMEE lithography milestone claims (verify hard)", "zh": "上海微電子微影里程碑宣稱(嚴格查證)", "freq": "monthly"},
+    {"en": "Huawei Ascend shipment / CloudMatrix deployment estimates", "zh": "華為昇騰出貨與 CloudMatrix 部署推估", "freq": "monthly"},
+    {"en": "NVIDIA China-SKU license approvals & revenue disclosure", "zh": "NVIDIA 中國特規版發證與營收揭露", "freq": "monthly"}
+  ],
+
+  "blind_spots_en": [
+    "Yields are opaque: every China-domestic capability % is an estimate (EST); no official yield/cost data exists, so the composite is a judgment scaffold, not a measurement.",
+    "Policy is discontinuous by nature: the direction score describes the past 12 months and cannot be extrapolated — one rule change re-draws the map overnight (H20, 2025-04→07).",
+    "Military-civil fusion information fog: both sides strategically release and withhold information; T3 headlines may themselves be signaling operations.",
+    "Stock prices are a sentiment PROXY, not a capability measurement — weight 0 in the completeness score.",
+    "Smuggling, transshipment and cloud-rental grey channels are unquantifiable; actual Chinese access to compute exceeds what the legal map shows."
+  ],
+  "blind_spots_zh": [
+    "良率不透明:所有中國國產能力 % 皆為推估(EST);沒有官方良率/成本數據,綜合分數是判斷鷹架,不是量測。",
+    "政策天生不連續:方向分數只描述過去 12 個月,不能外推——一紙規則就能一夕重畫版圖(H20,2025-04→07)。",
+    "軍民融合資訊迷霧:雙方都策略性釋放與隱匿資訊;T3 新聞本身可能就是訊號操作。",
+    "股價是情緒代理,不是能力量測——在完整度分數中權重為 0。",
+    "走私、轉口與雲端租算灰色通道無法量化;中國實際可得算力高於合法版圖所顯示。"
+  ],
+
+  "disclaimer_en": "Estimates are estimates, not asserted truth. Not investment advice.",
+  "disclaimer_zh": "推估就是推估,不是斷言的事實。非投資建議。",
+
+  "news_queries": [
+    {"q": "China semiconductor export controls", "lang": "en"},
+    {"q": "Huawei Ascend AI chip", "lang": "en"},
+    {"q": "SMIC advanced node yield", "lang": "en"},
+    {"q": "entity list semiconductor BIS", "lang": "en"},
+    {"q": "CXMT HBM", "lang": "en"},
+    {"q": "出口管制 晶片", "lang": "zh"},
+    {"q": "華為 昇騰", "lang": "zh"},
+    {"q": "CoWoS 國產", "lang": "zh"}
+  ]
+}

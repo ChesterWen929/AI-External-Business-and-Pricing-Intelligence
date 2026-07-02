@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Geopolitics &amp; Second-Chain Radar · 地緣與第二供應鏈雷達</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0b0f; --panel:rgba(22,24,31,.72); --panel-hi:rgba(30,33,42,.9);
+    --line:rgba(255,255,255,.08); --line-hi:rgba(255,255,255,.16);
+    --ink:#ecedf2; --soft:#a6a9b8; --dim:#6a6e80; --gold:#c8a86a; --acc:#7c83ff;
+    --on:#43c08a; --off:#e0626e; --neu:#c8a86a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:radial-gradient(1100px 560px at 82% -14%,rgba(124,131,255,.10),transparent 58%),radial-gradient(900px 520px at -8% 4%,rgba(200,168,106,.08),transparent 52%),var(--bg);
+       color:var(--ink);font-family:"Inter","PingFang TC","Noto Sans TC",-apple-system,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:22px 26px 60px}
+  .top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:8px}
+  .brand{display:flex;align-items:center;gap:11px}
+  .gem{width:16px;height:16px;transform:rotate(45deg);border:1px solid var(--gold);border-radius:4px;position:relative}
+  .gem::after{content:"";position:absolute;inset:4px;background:var(--gold);border-radius:2px;opacity:.85}
+  h1{font-family:"Noto Serif TC",serif;font-weight:600;font-size:22px;letter-spacing:.5px}
+  .tools{display:flex;align-items:center;gap:10px}
+  .btn{font-size:12px;padding:6px 12px;border-radius:8px;border:1px solid var(--line-hi);background:transparent;color:var(--soft);cursor:pointer;transition:.15s}
+  .btn:hover{color:var(--ink);border-color:var(--acc)}
+  .btn.go{border-color:var(--acc);color:var(--acc)}
+  .status{font-size:11.5px;color:var(--dim)}
+  .crumb{font-size:11px;color:var(--dim);letter-spacing:.4px;margin-bottom:18px}
+  .crumb a:hover{color:var(--gold)}
+  .demo{background:rgba(200,168,106,.10);border:1px solid rgba(200,168,106,.3);color:var(--gold);
+        font-size:12px;padding:9px 13px;border-radius:10px;margin-bottom:18px}
+  .sub{color:var(--dim);font-size:12.5px;line-height:1.6;margin-bottom:22px}
+
+  .grid{display:grid;gap:16px}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+  .panel h2{font-family:"Noto Serif TC",serif;font-size:15px;font-weight:600;letter-spacing:.5px;margin-bottom:4px}
+  .panel .note{font-size:11.5px;color:var(--dim);margin-bottom:14px;line-height:1.5}
+  .eyebrow{font-size:10.5px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);opacity:.85}
+
+  /* hero */
+  .hero{display:grid;grid-template-columns:1.3fr 1.1fr 1fr;gap:16px;margin-bottom:16px}
+  @media(max-width:780px){.hero{grid-template-columns:1fr}}
+  .big{font-variant-numeric:tabular-nums;font-weight:600;font-size:30px;letter-spacing:.5px}
+  .gauge{height:8px;border-radius:999px;background:linear-gradient(90deg,var(--on),var(--neu),var(--off));position:relative;margin:14px 0 8px}
+  .gauge .pin{position:absolute;top:-4px;width:3px;height:16px;background:#fff;border-radius:2px;box-shadow:0 0 8px rgba(255,255,255,.6)}
+  .scale{display:flex;justify-content:space-between;font-size:10px;color:var(--dim)}
+  .tag{display:inline-block;font-size:11px;font-weight:500;padding:2px 9px;border-radius:999px;letter-spacing:.4px}
+  .tag.good{background:rgba(67,192,138,.15);color:var(--on)}
+  .tag.bad{background:rgba(224,98,110,.15);color:var(--off)}
+  .tag.neu{background:rgba(200,168,106,.15);color:var(--neu)}
+  .tier{display:inline-block;font-size:9.5px;color:var(--dim);border:1px solid var(--line);border-radius:4px;padding:0 5px;margin-left:6px;vertical-align:1px}
+  .est{display:inline-block;font-size:9.5px;color:var(--gold);border:1px solid rgba(200,168,106,.4);border-radius:4px;padding:0 5px;margin-left:4px;vertical-align:1px}
+  .live{font-size:9px;color:var(--dim);border:1px solid var(--line);border-radius:4px;padding:0 4px}
+
+  /* L2 link bars */
+  .link{padding:11px 0;border-top:1px solid var(--line)}
+  .linkhead{display:flex;justify-content:space-between;gap:10px;font-size:13px;align-items:baseline;flex-wrap:wrap}
+  .linkname{font-weight:500}
+  .linkpct{font-variant-numeric:tabular-nums;color:var(--gold);font-weight:600}
+  .bar{height:6px;border-radius:999px;background:rgba(255,255,255,.06);margin:7px 0 6px;overflow:hidden}
+  .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--acc),var(--gold))}
+  .bar.binding i{background:linear-gradient(90deg,var(--off),var(--gold))}
+  .linkmeta{font-size:11px;color:var(--dim);line-height:1.55}
+  .linkev{font-size:11.5px;color:var(--soft);line-height:1.55;margin-top:4px}
+  .subrow{font-size:11px;color:var(--dim);margin-top:4px}
+  .subrow b{color:var(--soft);font-weight:500}
+  .bindchip{background:rgba(224,98,110,.15);color:var(--off);font-size:10px;padding:1px 7px;border-radius:999px}
+
+  /* L1 regime table */
+  .reg{padding:11px 0;border-top:1px solid var(--line)}
+  .reghead{display:flex;justify-content:space-between;gap:10px;font-size:13px;align-items:baseline;flex-wrap:wrap}
+  .regname{font-weight:500}
+  .regstat{font-size:11.5px;color:var(--soft);line-height:1.6;margin-top:4px}
+  .regsrc{font-size:10.5px;color:var(--dim);margin-top:3px}
+  .dir{font-size:10px;padding:1px 7px;border-radius:999px}
+  .dir.tighten{background:rgba(224,98,110,.15);color:var(--off)}
+  .dir.ease{background:rgba(67,192,138,.15);color:var(--on)}
+  .dir.mixed{background:rgba(200,168,106,.15);color:var(--neu)}
+  .dir.gap{background:rgba(124,131,255,.15);color:var(--acc)}
+  table.mv{width:100%;border-collapse:collapse;font-size:11.5px}
+  table.mv td{padding:6px 6px;border-top:1px solid var(--line);vertical-align:top}
+  table.mv td.n{font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+  .pos{color:var(--off)} .negv{color:var(--on)} .zero{color:var(--dim)}
+
+  /* market + two-col */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:780px){.two{grid-template-columns:1fr}}
+  .ind{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12px;padding:5px 0;border-top:1px solid var(--line)}
+  .ind .iname{color:var(--soft)}
+  .ind .ival{font-variant-numeric:tabular-nums;display:flex;gap:8px;align-items:center}
+  .chg.up{color:var(--on)} .chg.down{color:var(--off)} .chg.flat{color:var(--dim)}
+  .warn{background:rgba(200,168,106,.08);border:1px solid rgba(200,168,106,.25);color:var(--gold);font-size:11.5px;padding:8px 11px;border-radius:9px;margin-top:12px;line-height:1.5}
+
+  /* L4/L5 */
+  .body{font-size:13px;line-height:1.7;color:var(--ink)}
+  .fals li{font-size:12.5px;line-height:1.6;color:var(--soft);margin:6px 0 6px 2px;list-style:none;padding-left:16px;position:relative}
+  .fals li::before{content:"▸";position:absolute;left:0;color:var(--gold)}
+  .scn{padding:11px 0;border-top:1px solid var(--line)}
+  .scnhead{display:flex;justify-content:space-between;gap:10px;font-size:13px}
+  .scnname{font-weight:500}
+  .scnprob{font-variant-numeric:tabular-nums;color:var(--gold);font-weight:600}
+  .scntrig{font-size:11.5px;color:var(--dim);line-height:1.5}
+  table.ew{width:100%;border-collapse:collapse;font-size:12.5px}
+  table.ew td{padding:7px 8px;border-top:1px solid var(--line)}
+  table.ew td.f{text-align:right;color:var(--gold);font-size:11px;white-space:nowrap}
+  .news a{display:block;font-size:12.5px;color:var(--soft);padding:7px 0;border-top:1px solid var(--line);line-height:1.4}
+  .news a:hover{color:var(--ink)} .news .src{color:var(--dim);font-size:11px}
+  .cls{font-size:9.5px;padding:1px 6px;border-radius:999px;margin-right:6px}
+  .cls.escalation{background:rgba(224,98,110,.15);color:var(--off)}
+  .cls.de_escalation{background:rgba(67,192,138,.15);color:var(--on)}
+  .cls.neutral{background:rgba(255,255,255,.06);color:var(--dim)}
+
+  /* taiwan */
+  .tw{padding:9px 0;border-top:1px solid var(--line);font-size:12px;line-height:1.55}
+  .tw b{color:var(--ink);font-weight:500}
+  .tw .m{color:var(--dim);font-size:11px}
+
+  .foot{margin-top:24px;font-size:11px;color:var(--dim);line-height:1.7}
+  .conf{font-size:11px;color:var(--soft)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand"><span class="gem"></span><h1 id="title">地緣與第二供應鏈雷達</h1></div>
+    <div class="tools">
+      <button class="btn" id="langBtn"></button>
+      <button class="btn go" id="refreshBtn"></button>
+      <span class="status" id="status"></span>
+    </div>
+  </div>
+  <div class="crumb"><a href="/">← <span id="crumbHome"></span></a> · <span id="asof"></span> · <span id="engine"></span></div>
+  <div id="demo" class="demo" style="display:none"></div>
+  <div class="sub" id="method"></div>
+
+  <!-- hero -->
+  <div class="hero">
+    <div class="panel">
+      <span class="eyebrow" id="h_comp"></span>
+      <div class="big"><span id="compScore"></span><span style="font-size:15px;color:var(--dim)">/100</span> <span class="tag" id="compTag"></span></div>
+      <div class="gauge"><div class="pin" id="compPin"></div></div>
+      <div class="scale"><span id="sc_l"></span><span>50</span><span id="sc_r"></span></div>
+      <div class="note" style="margin:10px 0 0" id="compBind"></div>
+    </div>
+    <div class="panel">
+      <span class="eyebrow" id="h_ctrl"></span>
+      <div class="big" style="font-size:22px"><span class="tag" id="ctrlTag"></span></div>
+      <div class="note" style="margin:8px 0 4px" id="ctrlScore"></div>
+      <div class="note" style="margin:0" id="ctrlLevel"></div>
+    </div>
+    <div class="panel">
+      <span class="eyebrow" id="h_tw"></span>
+      <div class="big"><span id="twPct"></span><span style="font-size:15px;color:var(--dim)">%</span><span class="tier" id="twTier"></span><span class="est">EST</span></div>
+      <div class="note" style="margin:8px 0 0" id="twScope"></div>
+      <div class="note" style="margin:6px 0 0" id="twTraj"></div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <!-- L2 second-chain completeness -->
+    <div class="panel">
+      <h2 id="h_l2"></h2><div class="note" id="n_l2"></div>
+      <div id="links"></div>
+      <div class="note" style="margin:12px 0 0" id="compNote"></div>
+    </div>
+
+    <!-- L1 control regime -->
+    <div class="two">
+      <div class="panel">
+        <h2 id="h_l1"></h2><div class="note" id="n_l1"></div>
+        <div id="regime"></div>
+      </div>
+      <div class="panel">
+        <h2 id="h_mv"></h2><div class="note" id="n_mv"></div>
+        <table class="mv"><tbody id="moves"></tbody></table>
+      </div>
+    </div>
+
+    <!-- L3 market proxy -->
+    <div class="panel">
+      <h2 id="h_mkt"></h2><div class="note" id="n_mkt"></div>
+      <div class="two">
+        <div>
+          <div class="eyebrow" id="mkt_cn_l"></div>
+          <div id="mktChina"></div>
+        </div>
+        <div>
+          <div class="eyebrow" id="mkt_w_l"></div>
+          <div id="mktWest"></div>
+        </div>
+      </div>
+      <div class="warn" id="mktProxy"></div>
+      <div class="note" style="margin:10px 0 0" id="mktRead"></div>
+    </div>
+
+    <!-- news radar -->
+    <div class="panel" id="newsPanel" style="display:none">
+      <h2 id="h_news"></h2><div class="note" id="n_news"></div>
+      <div class="news" id="news"></div>
+    </div>
+
+    <!-- L4 -->
+    <div class="two">
+      <div class="panel">
+        <h2 id="h_sr"></h2>
+        <div class="body" id="srText"></div>
+        <div class="conf" style="margin-top:10px" id="l4conf"></div>
+      </div>
+      <div class="panel">
+        <h2 id="h_mr"></h2>
+        <div class="body" id="mrText"></div>
+        <h2 style="margin-top:16px" id="h_cr"></h2>
+        <div class="body" id="crText"></div>
+      </div>
+    </div>
+
+    <!-- L5 -->
+    <div class="two">
+      <div class="panel">
+        <h2 id="h_scn"></h2><div class="note" id="n_scn"></div>
+        <div id="scenarios"></div>
+      </div>
+      <div class="panel">
+        <h2 id="h_fals"></h2>
+        <ul class="fals" id="falsification"></ul>
+        <h2 style="margin-top:16px" id="h_wl"></h2>
+        <table class="ew"><tbody id="watchlist"></tbody></table>
+      </div>
+    </div>
+
+    <!-- taiwan concentration -->
+    <div class="panel">
+      <h2 id="h_tw2"></h2><div class="note" id="n_tw2"></div>
+      <div id="twRows"></div>
+      <div class="note" style="margin:12px 0 0" id="twProj"></div>
+    </div>
+  </div>
+
+  <!-- 數據做法與假設 · methodology & assumptions (language follows the LANG toggle) -->
+  <div class="panel" id="methodPanel" style="margin-top:16px">
+    <div class="eyebrow">METHODOLOGY &amp; ASSUMPTIONS</div>
+    <h2 id="mp_title">數據做法與假設</h2>
+    <div id="mp_zh" style="display:none;font-size:12.5px;color:var(--soft);line-height:1.8">
+      <p><b style="color:var(--ink)">L1 管制現況表</b> — 人工策展的官方規則表(BIS/荷蘭出口政策/中國商務部公告),逐條標 as_of 日期與證據等級(T1 官方規則、T2 權威報導、T3 新聞/推估)。「方向分數」= 近 12 個月各事件(收緊 +1 / 放鬆 −1)× 策展權重 × 線性遞減的時近權重(18 個月歸零),> +0.5 判 TIGHTENING、< −0.5 判 EASING。<b style="color:var(--ink)">假設:方向只描述過去,政策天生不連續,不可外推。</b>管制「水位」(結構性緊)與「方向」分開呈現,避免把邊際緩和誤讀成鬆綁。</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">L2 第二鏈完整度</b> — 7 環節(EDA/設備/先進邏輯/HBM/先進封裝/互連/軟體)各給一個中國國產能力 %,全部是推估(EST)並標證據等級與 as_of;中國境內良率與成本無官方數據。綜合分數 = 0.7 × 最弱環節 + 0.3 × 平均(Liebig 最小值定律,方法與 /bottleneck 對齊);設備環節內部再取子項最小值(微影決定)。CoWoS 產能與西方鏈瓶頸數字見 /bottleneck 卡,不在本卡重寫。</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">L3 即時層</b> — yfinance 中國半導體籃(中芯/華虹/北方華創/中微/寒武紀)對照西方設備籃(ASML/LRCX/AMAT)的 1 個月價格動能;<b style="color:var(--ink)">明確標示為情緒代理,計分權重 0</b>(與 /pricing 同一誠實規則)。Google News RSS 雙語新聞雷達,標題分類(升級/緩和/中性)為關鍵字規則,非模型判斷。抓不到的項目退回種子值並取消 live 標記。</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">L4/L5 合成</b> — 刷新且有 ANTHROPIC_API_KEY 時由 Claude Opus 4.8 產出策略判讀與情境機率(結構化輸出);否則走確定性規則後備,頁首 engine 欄標注實際引擎。情境機率為判斷輔助。手動密碼刷新,無排程。非投資建議。</p>
+    </div>
+    <div id="mp_en" style="display:none;font-size:12.5px;color:var(--soft);line-height:1.8">
+      <p><b style="color:var(--ink)">L1 control-regime table</b> — hand-curated official rules (BIS / Dutch export policy / MOFCOM), each row dated (as_of) and tier-graded (T1 official rule, T2 authoritative reporting, T3 news/estimate). The direction score = each trailing-12-month move (tighten +1 / ease −1) × curated weight × linear recency decay (zero at 18 months); > +0.5 reads TIGHTENING, < −0.5 EASING. <b style="color:var(--ink)">Assumption: direction describes the past only — policy is discontinuous by nature and must not be extrapolated.</b> The regime LEVEL (structurally tight) is shown separately from the direction so marginal easing is never misread as deregulation.</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">L2 second-chain completeness</b> — 7 links (EDA / equipment / advanced logic / HBM / advanced packaging / interconnect / software), each with a China-domestic capability %, ALL estimates (EST) with tier and as_of; no official yield/cost data exists inside China. Composite = 0.7 × weakest link + 0.3 × mean (Liebig's law of the minimum, method aligned with /bottleneck); within the equipment link the sub-component MIN governs (litho). CoWoS capacity and the western chain's own bottleneck numbers live on the /bottleneck card and are not re-written here.</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">L3 live layer</b> — yfinance China-semis basket (SMIC / Hua Hong / NAURA / AMEC / Cambricon) vs a western-tools contrast (ASML / LRCX / AMAT), 1-month price momentum; <b style="color:var(--ink)">explicitly a sentiment PROXY with weight 0 in the score</b> (same honesty rule as /pricing). Google News RSS bilingual radar; headline classification (escalation / de-escalation / neutral) is keyword-rule based, not model judgment. Any failed fetch falls back to seeds and loses its live badge.</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">L4/L5 synthesis</b> — Claude Opus 4.8 (structured output) on refresh when ANTHROPIC_API_KEY is set, deterministic rules fallback otherwise; the engine badge in the header shows which ran. Scenario probabilities are a judgment aid. Manual password-gated refresh only, no schedule. Not investment advice.</p>
+    </div>
+  </div>
+
+  <div class="foot">
+    <div id="blindHead"></div>
+    <ul style="list-style:none;margin-top:6px" id="blind"></ul>
+    <div style="margin-top:12px" id="disclaimer"></div>
+  </div>
+</div>
+
+<script>
+const SNAP = {{ snapshot | safe }};
+let LANG = localStorage.getItem("geo_lang") || "en";
+
+const T = {
+  en:{home:"External Market Analysis", lang:"中文", refresh:"↻ Refresh",
+      pwPrompt:"Enter refresh password (default geo2026):", refreshing:"refreshing… market basket + news + Claude L4/L5",
+      done:"done, reloading…", fail:"refresh failed",
+      demo:"Seed/demo view — hit ↻ Refresh to pull the live basket & news (and Claude L4/L5 if an API key is set).",
+      asof:"As of", engineRules:"engine: rules (no API key)", engineClaude:"engine: Claude Opus 4.8",
+      comp:"Second-chain completeness", ctrl:"Control regime", tw:"Taiwan concentration (≤N5)",
+      scL:"0 dependent", scR:"100 parity", bind:"Binding link", drift:"12-month drift score", level:"Level",
+      l2:"L2 · Second chain, link by link", l2Note:"China-domestic capability per link — the weakest link governs (Liebig's law, method aligned with /bottleneck). All percentages are estimates; yields are opaque. Each closed link removes a section of moat.",
+      l1:"L1 · Export-control regime (curated, dated)", l1Note:"Official rules as they stand. T1 = official rule · T2 = authoritative reporting · T3 = news/estimate.",
+      mv:"L1 · Rule-change timeline → direction score", mvNote:"Each move × weight × recency (zero at 18 months). Red = tightening contribution, green = easing. The sum is the drift score in the hero.",
+      mkt:"L3 · Market proxy — China semis vs western tools", mktNote:"1-month price momentum per ticker. Sentiment only.",
+      cnBasket:"China second-chain basket", wBasket:"Western tools contrast",
+      news:"L3 · News radar (fetched on refresh)", newsNote:"Keyword-rule classification: escalation / de-escalation / neutral.",
+      sr:"L4 · Strategic read (for a foundry)", mr:"L4 · Moat erosion map", cr:"L4 · Where the red line sits",
+      conf:"confidence", scn:"L5 · Scenarios", scnNote:"Probabilities from the current read; each with a concrete trigger. Sum = 100.",
+      fals:"L5 · Falsification — what would flip this read", wl:"L5 · Watchlist",
+      tw2:"Taiwan concentration & diversification", tw2Note:"Advanced-logic geographic concentration and the (slow) diversification trajectory.",
+      blind:"Blind spots (declared)", trigger:"Trigger", yrs:"y behind",
+      slope_catching_up:"catching up ↑", slope_stalled:"stalled →", slope_slipping:"slipping ↓",
+      west:"Western anchor", spread:"spread", subs:"sub-components (MIN governs)"},
+  zh:{home:"外部市場分析", lang:"EN", refresh:"↻ 更新",
+      pwPrompt:"輸入更新密碼(預設 geo2026):", refreshing:"更新中…市場籃+新聞+Claude L4/L5",
+      done:"完成,重新載入中…", fail:"更新失敗",
+      demo:"種子/示範視圖 — 按 ↻ 更新 抓即時市場籃與新聞(若設了 API key 會跑 Claude L4/L5)。",
+      asof:"資料時點", engineRules:"引擎:規則(無 API key)", engineClaude:"引擎:Claude Opus 4.8",
+      comp:"第二鏈完整度", ctrl:"管制現況", tw:"台灣集中度(N5 以下)",
+      scL:"0 依賴", scR:"100 對等", bind:"綁定環節", drift:"12 個月方向分數", level:"水位",
+      l2:"L2 · 第二鏈逐環完整度", l2Note:"逐環節的中國國產能力 %——最弱環節決定綜合分數(Liebig 最小值定律,方法與 /bottleneck 對齊)。所有 % 皆為推估;良率不透明。每補一環,護城河少一段。",
+      l1:"L1 · 出口管制現況(策展、逐條標日期)", l1Note:"現行官方規則。T1 = 官方規則 · T2 = 權威報導 · T3 = 新聞/推估。",
+      mv:"L1 · 規則變動時間軸 → 方向分數", mvNote:"每個事件 × 權重 × 時近權重(18 個月歸零)。紅 = 收緊貢獻,綠 = 放鬆。總和即上方方向分數。",
+      mkt:"L3 · 市場代理 — 中國半導體 vs 西方設備", mktNote:"逐檔 1 個月價格動能。僅為情緒。",
+      cnBasket:"中國第二鏈籃", wBasket:"西方設備對照籃",
+      news:"L3 · 新聞雷達(更新時抓取)", newsNote:"關鍵字規則分類:升級 / 緩和 / 中性。",
+      sr:"L4 · 策略判讀(給代工廠)", mr:"L4 · 護城河侵蝕地圖", cr:"L4 · 紅線現在在哪",
+      conf:"信心", scn:"L5 · 情境", scnNote:"機率來自當前判讀;每個情境附具體觸發條件。加總 = 100。",
+      fals:"L5 · 證偽 — 什麼會翻轉這個判讀", wl:"L5 · 觀察清單",
+      tw2:"台灣集中度與分散軌跡", tw2Note:"先進邏輯的地理集中度,以及(緩慢的)分散軌跡。",
+      blind:"盲點(明列)", trigger:"觸發", yrs:"年落後",
+      slope_catching_up:"追趕中 ↑", slope_stalled:"停滯 →", slope_slipping:"下滑 ↓",
+      west:"西方鏈錨點", spread:"價差", subs:"子項(取最小值)"}
+};
+
+function chgClass(v){ if(v===null||v===undefined||v===0) return "flat"; return v>0?"up":"down"; }
+function fmtChg(v){ if(v===null||v===undefined) return "—"; return (v>0?"+":"")+v+"%"; }
+function esc(s){ return String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+function render(){
+  const t = T[LANG], s = SNAP;
+  document.documentElement.lang = LANG==="zh"?"zh-Hant":"en";
+  document.getElementById("title").textContent = LANG==="zh"? s.title_zh : s.title_en;
+  document.getElementById("langBtn").textContent = t.lang;
+  document.getElementById("refreshBtn").textContent = t.refresh;
+  document.getElementById("crumbHome").textContent = t.home;
+  document.getElementById("asof").textContent = t.asof + " " + (s.as_of||"") + (s.generated_at? " · "+s.generated_at : "");
+  document.getElementById("engine").textContent = s.analysis_engine==="claude"? t.engineClaude : t.engineRules;
+  document.getElementById("method").textContent = LANG==="zh"? s.method_zh : s.method_en;
+  const demo = document.getElementById("demo");
+  if(s.is_demo){ demo.style.display="block"; demo.textContent = t.demo; } else { demo.style.display="none"; }
+
+  // hero — completeness
+  const comp = s.l2.composite;
+  document.getElementById("h_comp").textContent = t.comp;
+  document.getElementById("compScore").textContent = comp.score;
+  const ctag = document.getElementById("compTag");
+  ctag.textContent = LANG==="zh"? comp.verdict_zh : comp.verdict_en;
+  ctag.className = "tag " + (comp.score>=45?"bad":comp.score>=25?"neu":"good"); // more complete chain = worse for the moat
+  document.getElementById("compPin").style.left = comp.score + "%";
+  document.getElementById("sc_l").textContent = t.scL;
+  document.getElementById("sc_r").textContent = t.scR;
+  document.getElementById("compBind").textContent = t.bind + ": " + (LANG==="zh"? comp.binding_name_zh : comp.binding_name_en)
+    + " " + comp.min_pct + "% · " + (LANG==="zh"? s.l2.trajectory.label_zh : s.l2.trajectory.label_en);
+
+  // hero — control direction
+  const d = s.l1.direction, lv = s.l1.level;
+  document.getElementById("h_ctrl").textContent = t.ctrl;
+  const dtag = document.getElementById("ctrlTag");
+  dtag.textContent = (LANG==="zh"? d.label_zh : d.label_en) + " · " + d.verdict;
+  dtag.className = "tag " + (d.verdict==="TIGHTENING"?"bad":d.verdict==="EASING"?"good":"neu");
+  document.getElementById("ctrlScore").textContent = t.drift + ": " + (d.score>0?"+":"") + d.score;
+  document.getElementById("ctrlLevel").textContent = t.level + ": " + (LANG==="zh"? lv.label_zh : lv.label_en) + " — " + (LANG==="zh"? lv.note_zh : lv.note_en);
+
+  // hero — taiwan
+  const tc = s.taiwan.concentration;
+  document.getElementById("h_tw").textContent = t.tw;
+  document.getElementById("twPct").textContent = tc.pct;
+  document.getElementById("twTier").textContent = tc.tier + " · " + tc.as_of;
+  document.getElementById("twScope").textContent = LANG==="zh"? tc.scope_zh : tc.scope_en;
+  document.getElementById("twTraj").textContent = LANG==="zh"? tc.source_zh : tc.source_en;
+
+  // L2 links
+  document.getElementById("h_l2").textContent = t.l2;
+  document.getElementById("n_l2").textContent = t.l2Note;
+  document.getElementById("links").innerHTML = s.l2.links.map(r=>{
+    const subs = (r.sub_components||[]).length
+      ? `<div class="subrow">${t.subs}: ${r.sub_components.map(x=>`<b>${esc(LANG==="zh"?x.name_zh:x.name_en)}</b> ${x.pct}%`).join(" · ")}</div>` : "";
+    return `<div class="link">
+      <div class="linkhead">
+        <span class="linkname">${esc(LANG==="zh"?r.name_zh:r.name_en)}${r.is_binding?` <span class="bindchip">${t.bind}</span>`:""}</span>
+        <span class="linkpct">${r.pct}%<span class="tier">${r.tier}</span>${r.est?'<span class="est">EST</span>':''}</span>
+      </div>
+      <div class="bar${r.is_binding?" binding":""}"><i style="width:${r.pct}%"></i></div>
+      <div class="linkmeta">~${r.years_behind} ${t.yrs} · ${t["slope_"+r.slope]||r.slope} · ${esc(r.as_of)} · ${esc(LANG==="zh"?r.source_zh:r.source_en)}</div>
+      ${subs}
+      <div class="linkev">${esc(LANG==="zh"?r.evidence_zh:r.evidence_en)}</div>
+      <div class="linkmeta" style="margin-top:3px">${t.west}: ${esc(LANG==="zh"?r.west_anchor_zh:r.west_anchor_en)}</div>
+    </div>`;
+  }).join("");
+  document.getElementById("compNote").textContent = LANG==="zh"? comp.note_zh : comp.note_en;
+
+  // L1 regime
+  document.getElementById("h_l1").textContent = t.l1;
+  document.getElementById("n_l1").textContent = t.l1Note;
+  document.getElementById("regime").innerHTML = s.l1.regime.map(r=>`
+    <div class="reg">
+      <div class="reghead">
+        <span class="regname">${esc(LANG==="zh"?r.name_zh:r.name_en)}</span>
+        <span><span class="dir ${r.direction}">${r.direction}</span><span class="tier">${r.tier} · ${esc(r.as_of)}</span></span>
+      </div>
+      <div class="regstat">${esc(LANG==="zh"?r.status_zh:r.status_en)}</div>
+      <div class="regsrc">${esc(LANG==="zh"?r.source_zh:r.source_en)}</div>
+    </div>`).join("");
+
+  // moves timeline
+  document.getElementById("h_mv").textContent = t.mv;
+  document.getElementById("n_mv").textContent = t.mvNote;
+  document.getElementById("moves").innerHTML = d.contributions.map(m=>{
+    const c = m.contribution;
+    const cls = c>0?"pos":(c<0?"negv":"zero");
+    return `<tr><td style="white-space:nowrap;color:var(--dim)">${esc(m.date)}</td>
+      <td>${esc(LANG==="zh"?m.name_zh:m.name_en)}<span class="tier">${m.tier}</span></td>
+      <td class="n ${cls}">${c>0?"+":""}${c.toFixed(2)}</td></tr>`;
+  }).join("") + `<tr><td></td><td style="color:var(--soft)">Σ ${t.drift}</td><td class="n" style="color:var(--gold)">${d.score>0?"+":""}${d.score}</td></tr>`;
+
+  // L3 market
+  const mk = s.l3.market;
+  document.getElementById("h_mkt").textContent = t.mkt;
+  document.getElementById("n_mkt").textContent = t.mktNote;
+  document.getElementById("mkt_cn_l").textContent = t.cnBasket + (mk.china_avg_chg_1m!==null? ` · 1m ${fmtChg(mk.china_avg_chg_1m)}`:"");
+  document.getElementById("mkt_w_l").textContent = t.wBasket + (mk.west_avg_chg_1m!==null? ` · 1m ${fmtChg(mk.west_avg_chg_1m)}`:"");
+  const rowHtml = r=>`<div class="ind">
+      <span class="iname">${esc(LANG==="zh"?r.name_zh:r.name_en)}${r.live?' <span class="live">live</span>':' <span class="live">seed</span>'}</span>
+      <span class="ival"><span style="color:var(--dim)">${r.value??"—"}</span><span class="chg ${chgClass(r.chg_1m)}">${fmtChg(r.chg_1m)}</span></span>
+    </div>`;
+  document.getElementById("mktChina").innerHTML = mk.rows.filter(r=>r.group==="china").map(rowHtml).join("");
+  document.getElementById("mktWest").innerHTML = mk.rows.filter(r=>r.group==="west").map(rowHtml).join("");
+  document.getElementById("mktProxy").textContent = LANG==="zh"? mk.proxy_note_zh : mk.proxy_note_en;
+  document.getElementById("mktRead").textContent = (mk.spread!==null? (t.spread+" "+(mk.spread>0?"+":"")+mk.spread+"pp · "):"") + (LANG==="zh"? mk.read_zh : mk.read_en);
+
+  // news
+  const news = s.l3.news||[];
+  if(news.length){
+    document.getElementById("newsPanel").style.display="block";
+    document.getElementById("h_news").textContent = t.news;
+    const nc = s.l3.news_counts;
+    document.getElementById("n_news").textContent = t.newsNote + `  (↑${nc.escalation} / ↓${nc.de_escalation} / ·${nc.neutral})`;
+    document.getElementById("news").innerHTML = news.slice(0,14).map(n=>
+      `<a href="${esc(n.url)}" target="_blank" rel="noopener"><span class="cls ${n.cls}">${n.cls==="de_escalation"?"de-esc":(n.cls==="escalation"?"esc":"·")}</span>${esc(n.title)} <span class="src">${n.source?("· "+esc(n.source)):""} ${esc(n.date||"")}</span></a>`).join("");
+  }
+
+  // L4
+  const l4 = s.l4;
+  document.getElementById("h_sr").textContent = t.sr;
+  document.getElementById("srText").textContent = LANG==="zh"? l4.strategic_read.summary_zh : l4.strategic_read.summary_en;
+  document.getElementById("l4conf").textContent = t.conf + ": " + l4.confidence;
+  document.getElementById("h_mr").textContent = t.mr;
+  document.getElementById("mrText").textContent = LANG==="zh"? l4.moat_read.summary_zh : l4.moat_read.summary_en;
+  document.getElementById("h_cr").textContent = t.cr;
+  document.getElementById("crText").textContent = LANG==="zh"? l4.control_read.summary_zh : l4.control_read.summary_en;
+
+  // L5
+  const l5 = s.l5;
+  document.getElementById("h_scn").textContent = t.scn;
+  document.getElementById("n_scn").textContent = t.scnNote;
+  document.getElementById("scenarios").innerHTML = l5.scenarios.map(sc=>`
+    <div class="scn">
+      <div class="scnhead"><span class="scnname">${esc(LANG==="zh"?sc.name_zh:sc.name_en)}</span><span class="scnprob">${sc.prob}%</span></div>
+      <div class="bar"><i style="width:${sc.prob}%"></i></div>
+      <div class="scntrig">${t.trigger}: ${esc(LANG==="zh"?sc.trigger_zh:sc.trigger_en)}</div>
+    </div>`).join("");
+  document.getElementById("h_fals").textContent = t.fals;
+  document.getElementById("falsification").innerHTML = l5.falsification.map(x=>`<li>${esc(LANG==="zh"?x.zh:x.en)}</li>`).join("");
+  document.getElementById("h_wl").textContent = t.wl;
+  document.getElementById("watchlist").innerHTML = l5.watchlist.map(x=>`<tr><td>${esc(LANG==="zh"?x.zh:x.en)}</td><td class="f">${esc(x.freq)}</td></tr>`).join("");
+
+  // taiwan panel
+  const tw = s.taiwan;
+  document.getElementById("h_tw2").textContent = t.tw2;
+  document.getElementById("n_tw2").textContent = t.tw2Note;
+  document.getElementById("twRows").innerHTML = (tw.diversification||[]).map(r=>`
+    <div class="tw"><b>${esc(LANG==="zh"?r.site_zh:r.site_en)}</b> · ${esc(LANG==="zh"?r.node_zh:r.node_en)}<span class="tier">${r.tier} · ${esc(r.date)}</span><br>
+    <span class="m">${esc(LANG==="zh"?r.status_zh:r.status_en)}</span></div>`).join("");
+  document.getElementById("twProj").textContent = (LANG==="zh"? tw.projection.text_zh : tw.projection.text_en) + " [" + tw.projection.tier + " EST]";
+
+  // methodology panel follows the LANG toggle
+  document.getElementById("mp_title").textContent = LANG==="zh"? "數據做法與假設" : "How the numbers are made · 數據做法與假設";
+  document.getElementById("mp_zh").style.display = LANG==="zh" ? "block" : "none";
+  document.getElementById("mp_en").style.display = LANG==="zh" ? "none" : "block";
+
+  // blind spots + disclaimer
+  document.getElementById("blindHead").textContent = t.blind + ":";
+  const blind = LANG==="zh"? s.blind_spots_zh : s.blind_spots_en;
+  document.getElementById("blind").innerHTML = (blind||[]).map(b=>`<li>· ${esc(b)}</li>`).join("");
+  document.getElementById("disclaimer").textContent = LANG==="zh"? s.disclaimer_zh : s.disclaimer_en;
+}
+
+document.getElementById("langBtn").addEventListener("click",()=>{
+  LANG = LANG==="zh"?"en":"zh"; localStorage.setItem("geo_lang",LANG); render();
+});
+async function doRefresh(){
+  const t = T[LANG];
+  const pw = prompt(t.pwPrompt); if(!pw) return;
+  const st = document.getElementById("status"); st.textContent = t.refreshing;
+  try{
+    const r = await fetch("/geo/api/refresh",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({password:pw})});
+    const j = await r.json();
+    if(!r.ok || !j.ok){ st.textContent = t.fail + (j.error?` (${j.error})`:""); return; }
+    st.textContent = `${t.done} (${j.engine}, ${j.live_tickers} live, ${j.news} news)`;
+    setTimeout(()=>location.reload(),900);
+  }catch(e){ st.textContent = t.fail; }
+}
+document.getElementById("refreshBtn").addEventListener("click",doRefresh);
+render();
+</script>
+</body>
+</html>
