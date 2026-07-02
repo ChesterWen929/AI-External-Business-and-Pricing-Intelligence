@@ -1,0 +1,839 @@
+{
+  "generated_at": "2026-07-02 16:36 UTC",
+  "as_of": "2026-07-02",
+  "source": "live",
+  "is_demo": false,
+  "title_en": "AI Usage & Token Economics Radar",
+  "title_zh": "AI 用量與 Token 經濟雷達",
+  "method_en": "Is the demand real? Answered from the USAGE side, not the spend side. The rest of Tier III derives demand from capex (/compute → /cwengine → /payback); this card reads actual token consumption: disclosed token throughput, per-token price deflation, and realized revenue per token. The usage-vs-spend scissors is the bubble's final judge. Curated usage map (L1/L2) + disclosure-ledger & price-curve quant (L3) + Claude synthesis with rules fallback (L4/L5). Estimates are estimates — every curated number carries a tier and an as-of date. Not investment advice.",
+  "method_zh": "需求是真的嗎?從「用量端」而非「支出端」回答。Tier III 其他卡由 CapEx 推需求(/compute → /cwengine → /payback);這張卡讀實際 token 消耗:揭露的 token 產出量、每 token 價格通縮、每 token 已實現營收。用量與支出的剪刀差,才是泡沫的最終裁判。策展用量地圖(L1/L2)+ 揭露台帳與價格曲線量化(L3)+ Claude 合成與規則後備(L4/L5)。估計就是估計——每個策展數字都帶證據等級與資料時點。非投資建議。",
+  "positioning_en": "/aibubble's supply-demand scissors uses npm downloads — a developer-adoption proxy. This card is the deeper token-level read of the same question, so it references /aibubble's capex growth number rather than restating the npm side. /compute derives silicon demand from capex; this card is its mirror: from consumed tokens back to silicon durability.",
+  "positioning_zh": "/aibubble 的供需剪刀差用 npm 下載量——開發者採用的代理指標。本卡是同一個問題更深一層的 token 級判讀,因此引用 /aibubble 的 capex 增速而不重寫 npm 端。/compute 從 capex 往下推矽需求;本卡是它的鏡像:從實際消耗的 token 回望矽需求的耐久性。",
+  "tier_legend": {
+    "T1": {
+      "en": "Official / filings",
+      "zh": "官方/財報"
+    },
+    "T2": {
+      "en": "Authoritative estimate",
+      "zh": "權威估計"
+    },
+    "T3": {
+      "en": "News / inference",
+      "zh": "新聞/推估"
+    }
+  },
+  "l3": {
+    "token_ledger": {
+      "platforms": [
+        {
+          "id": "google",
+          "name": "Google (Gemini + internal)",
+          "class": "hyperscaler_internal",
+          "latest_monthly_tokens_t": 1900,
+          "latest_date": "2026-04",
+          "latest_tier": "T3",
+          "latest_est": true,
+          "growth_yoy_pct": 121.3,
+          "multiple_since_first": 195.9,
+          "first_date": "2024-04",
+          "points": [
+            {
+              "date": "2024-04",
+              "monthly_tokens_t": 9.7,
+              "tier": "T1",
+              "est": false,
+              "src_en": "Sundar Pichai, I/O 2025 retrospective: 9.7T monthly tokens in Apr-2024",
+              "src_zh": "Pichai 於 I/O 2025 回顧:2024 年 4 月每月 9.7T tokens"
+            },
+            {
+              "date": "2025-04",
+              "monthly_tokens_t": 480,
+              "tier": "T1",
+              "est": false,
+              "src_en": "I/O 2025 keynote: 480T monthly tokens (~50× YoY)",
+              "src_zh": "I/O 2025 主題演講:每月 480T tokens(年增約 50 倍)"
+            },
+            {
+              "date": "2025-06",
+              "monthly_tokens_t": 980,
+              "tier": "T1",
+              "est": false,
+              "src_en": "Alphabet Q2-2025 earnings call: 980T monthly tokens",
+              "src_zh": "Alphabet 2025Q2 法說:每月 980T tokens"
+            },
+            {
+              "date": "2026-04",
+              "monthly_tokens_t": 1900,
+              "tier": "T3",
+              "est": true,
+              "src_en": "Curated 2026-world approximation, extrapolated from disclosure cadence",
+              "src_zh": "策展 2026 世界近似值,依揭露節奏外插"
+            }
+          ],
+          "note_en": "Largest disclosed volume — but mostly internal (AI Overviews, Workspace): no market price on most of it.",
+          "note_zh": "揭露量最大——但多為內部消耗(AI Overviews、Workspace):大部分沒有市場價格。"
+        },
+        {
+          "id": "msft",
+          "name": "Microsoft (Foundry / Azure AI)",
+          "class": "enterprise_apps",
+          "latest_monthly_tokens_t": 110,
+          "latest_date": "2026-03",
+          "latest_tier": "T3",
+          "latest_est": true,
+          "growth_yoy_pct": 230.3,
+          "multiple_since_first": 3.3,
+          "first_date": "2025-03",
+          "points": [
+            {
+              "date": "2025-03",
+              "monthly_tokens_t": 33.3,
+              "tier": "T1",
+              "est": false,
+              "src_en": "Nadella, FY25Q3 earnings: 'over 100T tokens this quarter, up 5× YoY' → ≈33.3T/month",
+              "src_zh": "Nadella FY25Q3 法說:「本季處理逾 100T tokens,年增 5 倍」→ 約 33.3T/月"
+            },
+            {
+              "date": "2026-03",
+              "monthly_tokens_t": 110,
+              "tier": "T3",
+              "est": true,
+              "src_en": "Curated 2026-world approximation from Azure AI growth commentary",
+              "src_zh": "策展 2026 世界近似值,依 Azure AI 成長口徑推估"
+            }
+          ],
+          "note_en": "Platform (Foundry) tokens — enterprise-skewed mix, monetized via Azure consumption + Copilot seats.",
+          "note_zh": "平台(Foundry)token——偏企業組合,經 Azure 用量計費 + Copilot 席次變現。"
+        },
+        {
+          "id": "openai_api",
+          "name": "OpenAI API",
+          "class": "lab_api",
+          "latest_monthly_tokens_t": 480,
+          "latest_date": "2026-06",
+          "latest_tier": "T3",
+          "latest_est": true,
+          "growth_yoy_pct": 152.3,
+          "multiple_since_first": 1.9,
+          "first_date": "2025-10",
+          "points": [
+            {
+              "date": "2025-10",
+              "monthly_tokens_t": 259,
+              "tier": "T2",
+              "est": true,
+              "src_en": "DevDay 2025 statement: ~6B tokens/min on the API → ≈259T/month",
+              "src_zh": "DevDay 2025 聲明:API 每分鐘約 60 億 tokens → 約 259T/月"
+            },
+            {
+              "date": "2026-06",
+              "monthly_tokens_t": 480,
+              "tier": "T3",
+              "est": true,
+              "src_en": "Curated 2026-world approximation (agent workloads accelerating API mix)",
+              "src_zh": "策展 2026 世界近似值(agent 工作負載推升 API 占比)"
+            }
+          ],
+          "note_en": "API only — excludes ChatGPT consumer inference, so the class-1 (per-token priced) volume read.",
+          "note_zh": "僅 API——不含 ChatGPT 消費端推論,即第 1 類(按 token 計價)的量讀值。"
+        },
+        {
+          "id": "openrouter",
+          "name": "OpenRouter (aggregator sample)",
+          "class": "lab_api",
+          "latest_monthly_tokens_t": 55,
+          "latest_date": "2026-06",
+          "latest_tier": "T2",
+          "latest_est": true,
+          "growth_yoy_pct": 205.6,
+          "multiple_since_first": 3.1,
+          "first_date": "2025-06",
+          "points": [
+            {
+              "date": "2025-06",
+              "monthly_tokens_t": 18,
+              "tier": "T2",
+              "est": true,
+              "src_en": "OpenRouter public weekly-tokens dashboard, monthlyized",
+              "src_zh": "OpenRouter 公開每週 token 看板,換算為月"
+            },
+            {
+              "date": "2026-06",
+              "monthly_tokens_t": 55,
+              "tier": "T2",
+              "est": true,
+              "src_en": "Public aggregate, 2026-world approximation — the live collector samples this",
+              "src_zh": "公開彙總,2026 世界近似值——live 收集器即抽樣此源"
+            }
+          ],
+          "note_en": "Small in absolute terms but the only fully public multi-model aggregate — a developer-long-tail sample, declared as such.",
+          "note_zh": "絕對值小,但是唯一完全公開的多模型彙總——屬開發者長尾樣本,如實聲明。"
+        }
+      ],
+      "growth_median_yoy_pct": 178.9,
+      "note_en": "Dated public disclosures + curated 2026-world approximations, each point tier-tagged. Scopes differ by platform (per-model vs per-platform, API-only vs internal) — growth rates are computed within a platform, never across scopes.",
+      "note_zh": "有日期的公開揭露 + 策展 2026 世界近似值,每個點都標證據等級。各平台口徑不一(逐模型 vs 全平台、僅 API vs 含內部)——增速只在同平台內計算,絕不跨口徑相比。"
+    },
+    "price_deflation": {
+      "curves": [
+        {
+          "id": "openai_flagship",
+          "family_en": "OpenAI flagship",
+          "family_zh": "OpenAI 旗艦",
+          "points": [
+            {
+              "date": "2023-03",
+              "model": "GPT-4",
+              "in_usd_per_m": 30,
+              "out_usd_per_m": 60,
+              "tier": "T1",
+              "est": false,
+              "blended": 37.5
+            },
+            {
+              "date": "2023-11",
+              "model": "GPT-4 Turbo",
+              "in_usd_per_m": 10,
+              "out_usd_per_m": 30,
+              "tier": "T1",
+              "est": false,
+              "blended": 15.0
+            },
+            {
+              "date": "2024-05",
+              "model": "GPT-4o",
+              "in_usd_per_m": 5,
+              "out_usd_per_m": 15,
+              "tier": "T1",
+              "est": false,
+              "blended": 7.5
+            },
+            {
+              "date": "2025-08",
+              "model": "GPT-5",
+              "in_usd_per_m": 1.25,
+              "out_usd_per_m": 10,
+              "tier": "T1",
+              "est": false,
+              "blended": 3.44
+            },
+            {
+              "date": "2026-04",
+              "model": "GPT-5.2-class",
+              "in_usd_per_m": 1.75,
+              "out_usd_per_m": 12,
+              "tier": "T3",
+              "est": true,
+              "blended": 4.31
+            }
+          ],
+          "live": false,
+          "first_blended": 37.5,
+          "last_blended": 4.31,
+          "annual_change_pct": -50.4,
+          "note_en": "Official price pages (T1) except the 2026-world point (T3 EST).",
+          "note_zh": "官方價格頁(T1),僅 2026 世界點為 T3 估計。"
+        },
+        {
+          "id": "anthropic_flagship",
+          "family_en": "Anthropic flagship",
+          "family_zh": "Anthropic 旗艦",
+          "points": [
+            {
+              "date": "2024-03",
+              "model": "Claude 3 Opus",
+              "in_usd_per_m": 15,
+              "out_usd_per_m": 75,
+              "tier": "T1",
+              "est": false,
+              "blended": 30.0
+            },
+            {
+              "date": "2025-05",
+              "model": "Claude Opus 4",
+              "in_usd_per_m": 15,
+              "out_usd_per_m": 75,
+              "tier": "T1",
+              "est": false,
+              "blended": 30.0
+            },
+            {
+              "date": "2025-11",
+              "model": "Claude Opus 4.5",
+              "in_usd_per_m": 5,
+              "out_usd_per_m": 25,
+              "tier": "T1",
+              "est": false,
+              "blended": 10.0
+            },
+            {
+              "date": "2026-05",
+              "model": "Claude 5-class Opus",
+              "in_usd_per_m": 4,
+              "out_usd_per_m": 20,
+              "tier": "T3",
+              "est": true,
+              "blended": 8.0
+            }
+          ],
+          "live": false,
+          "first_blended": 30.0,
+          "last_blended": 8.0,
+          "annual_change_pct": -45.7,
+          "note_en": "Sticky for two years, then a step-cut with Opus 4.5 — deflation arrives in steps, not a smooth curve.",
+          "note_zh": "兩年不動價,到 Opus 4.5 一次階梯式降價——通縮是階梯,不是平滑曲線。"
+        },
+        {
+          "id": "openrouter_market",
+          "family_en": "OpenRouter market median",
+          "family_zh": "OpenRouter 市場中位",
+          "points": [
+            {
+              "date": "2025-06",
+              "blended_usd_per_m": 0.9,
+              "tier": "T2",
+              "est": true,
+              "blended": 0.9
+            },
+            {
+              "date": "2026-07",
+              "blended_usd_per_m": 0.75,
+              "tier": "T2",
+              "est": true,
+              "live": true,
+              "blended": 0.75
+            }
+          ],
+          "live": true,
+          "first_blended": 0.9,
+          "last_blended": 0.75,
+          "annual_change_pct": -15.5,
+          "note_en": "Median blended price across listed models — the live collector refreshes this point from the keyless OpenRouter API.",
+          "note_zh": "上架模型的混合價中位數——live 收集器從免 key 的 OpenRouter API 更新此點。"
+        }
+      ],
+      "mean_annual_change_pct": -37.2,
+      "blend_ratio_in_out": 3.0,
+      "caveat_en": "Capability-adjusted deflation is understated by design: the same list price buys a smarter model each year (GPT-4 → 5.2-class), so true $/quality falls faster than $/token — but 'smarter per token' cannot be measured precisely.",
+      "caveat_zh": "「能力調整後」的通縮天生被低估:同樣牌價每年買到更聰明的模型(GPT-4 → 5.2 級),所以每單位品質的價格跌得比每 token 更快——但「同 token 更聰明」無法精確量化。"
+    },
+    "monetization": {
+      "labs": [
+        {
+          "id": "openai",
+          "name": "OpenAI",
+          "points": [
+            {
+              "date": "2025-10",
+              "revenue_runrate_usd_bn": 13,
+              "monthly_tokens_t": 259,
+              "tier": "T3",
+              "est": true,
+              "src_en": "2025 reported revenue run-rate ~$13B; tokens = DevDay API statement",
+              "src_zh": "2025 年報導營收 run-rate 約 $13B;token 量取 DevDay API 聲明",
+              "realized_usd_per_m": 4.18
+            },
+            {
+              "date": "2026-06",
+              "revenue_runrate_usd_bn": 25,
+              "monthly_tokens_t": 480,
+              "tier": "T3",
+              "est": true,
+              "align_note": "營收 run-rate $25B 對齊 /payback KB v2 2026-07-02",
+              "src_en": "Canonical run-rate per /payback KB v2; tokens = curated approximation",
+              "src_zh": "正典 run-rate 同 /payback KB v2;token 量為策展近似",
+              "realized_usd_per_m": 4.34
+            }
+          ],
+          "realized_usd_per_m": 4.34,
+          "realized_trend_pct_yr": 5.8,
+          "note_en": "Realized $/M spans ALL monetization (subscriptions + API) over API-scope tokens — an implied blend, flagged EST.",
+          "note_zh": "已實現 $/M 是「全部變現(訂閱+API)÷ API 口徑 token」的推算混合值,標 EST。"
+        },
+        {
+          "id": "anthropic",
+          "name": "Anthropic",
+          "points": [
+            {
+              "date": "2026-06",
+              "revenue_runrate_usd_bn": 12,
+              "monthly_tokens_t": 130,
+              "tier": "T3",
+              "est": true,
+              "align_note": "營收 run-rate $12B 對齊 /payback KB v2 2026-07-02",
+              "src_en": "Canonical run-rate per /payback KB v2; token volume is our estimate (no disclosure)",
+              "src_zh": "正典 run-rate 同 /payback KB v2;token 量為我們的估計(無揭露)",
+              "realized_usd_per_m": 7.69
+            }
+          ],
+          "realized_usd_per_m": 7.69,
+          "realized_trend_pct_yr": null,
+          "note_en": "Single point — no trend computable. Enterprise/API-heavy mix monetizes above OpenAI's blend.",
+          "note_zh": "僅一個時點——無法算趨勢。偏企業/API 的組合,每 token 變現高於 OpenAI 混合值。"
+        }
+      ],
+      "serving_cost_floor": {
+        "usd_per_m_tokens": 0.6,
+        "tier": "T3",
+        "est": true,
+        "as_of": "2026-07-02",
+        "align_note": "由 /aibubble vast.ai H100 median $2.16/hr(2026-07-02)推導",
+        "assumption_en": "H100-class at ~1,000 tok/s sustained batched inference → 3.6M tokens/hr → $2.16 ÷ 3.6 ≈ $0.60/M. Throughput assumption is the whole estimate.",
+        "assumption_zh": "H100 級以約 1,000 tok/s 批次推論持續輸出 → 每小時 3.6M tokens → $2.16 ÷ 3.6 ≈ $0.60/M。吞吐假設就是整個估計的關鍵。"
+      },
+      "realized_over_floor_x": 7.2
+    },
+    "scissors": {
+      "token_growth_yoy_pct": 178.9,
+      "capex_growth_yoy_pct": 80.6,
+      "capex_tier": "T2",
+      "capex_est": true,
+      "capex_as_of": "2026-07-02",
+      "capex_align_note": "對齊 /aibubble 2026-07-02 剪刀差供給端:capex +80.6% YoY",
+      "unit_ratio": 2.22,
+      "mean_price_change_pct_yr": -37.2,
+      "dollar_growth_yoy_pct": 75.1,
+      "dollar_ratio": 0.93
+    },
+    "openrouter_live": {
+      "median_blended_usd_per_m": 0.754,
+      "model_count": 340,
+      "priced_models": 310,
+      "as_of": "2026-07-02",
+      "live": true
+    }
+  },
+  "composite": {
+    "score": 75.7,
+    "verdict": "REAL-AND-COMPOUNDING",
+    "verdict_en": "REAL-AND-COMPOUNDING — usage dollars and units both outrun spend",
+    "verdict_zh": "REAL-AND-COMPOUNDING — 用量的美元與單位都跑贏支出;需求是真的且在複利",
+    "subscores": [
+      {
+        "id": "usage_vs_spend",
+        "name_en": "Token units vs capex growth",
+        "name_zh": "token 單位 vs capex 增速",
+        "score": 86.0,
+        "weight": 0.3
+      },
+      {
+        "id": "monetization",
+        "name_en": "Realized $/M-tokens trend",
+        "name_zh": "已實現 $/M tokens 趨勢",
+        "score": 71.6,
+        "weight": 0.25
+      },
+      {
+        "id": "dollar_scissors",
+        "name_en": "Token dollars vs capex growth",
+        "name_zh": "token 美元 vs capex 增速",
+        "score": 58.9,
+        "weight": 0.3
+      },
+      {
+        "id": "elasticity",
+        "name_en": "Price-elasticity health",
+        "name_zh": "價格彈性健康度",
+        "score": 95.5,
+        "weight": 0.15
+      }
+    ],
+    "detail": {
+      "unit_ratio": 2.22,
+      "realized_trend_pct": 5.8,
+      "dollar_ratio": 0.93,
+      "dollar_growth_factor": 1.751
+    }
+  },
+  "l4": {
+    "usage_read": {
+      "summary_en": "Units are winning; dollars are catching up. Token unit growth runs 178.9%/yr vs capex 80.6%/yr — a 2.22× unit ratio, the strongest side of the scissors (usage_vs_spend 86.0). But blended flagship deflation of -37.2%/yr drags token-DOLLAR growth to 75.1%/yr, a dollar ratio of 0.93× — dollars still trail capex, barely. The saving grace: realized $/M holds well above the cost floor — OpenAI $4.34/M and Anthropic $7.69/M vs a $0.6/M serving floor (7.2× markup), so monetization (71.6) is not collapsing. Elasticity 95.5 confirms every price cut buys more than proportional volume. Verdict: usage is real and compounding; the dollar scissors (58.9) is the only unhealed gap.",
+      "summary_zh": "用量勝出，金額正在追趕。代幣單位成長178.9%/年對資本支出80.6%/年，單位比2.22×，是剪刀中最強的一側（usage_vs_spend 86.0）。但旗艦混合降價-37.2%/年把代幣「金額」成長壓到75.1%/年，金額比0.93×——金額仍略落後資本支出。關鍵支撐：實現$/M遠高於成本地板，OpenAI $4.34/M、Anthropic $7.69/M，對比$0.6/M服務地板（7.2×加價），故變現力(71.6)未崩。彈性95.5證明每次降價換來超比例的量。結論：用量真實且複利，唯金額剪刀(58.9)為未癒合缺口。"
+    },
+    "silicon_view": {
+      "summary_en": "Inference-led token growth is the durable pillar under the CapEx→wafer arc. Microsoft Foundry (230.3%/yr) and OpenRouter (205.6%/yr) show enterprise-app and aggregator classes accelerating fastest — these are inference workloads that ride N4/N5 + CoWoS regardless of any training pause. Google internal at 121.3%/yr and ×195.9 since 2024 anchors hyperscaler self-consumption. The 7.2× realized/floor markup means serving remains gross-margin positive, so token demand converts to sustained accelerator restocking, not one-off training bursts. TSMC exposure is indirect via NVIDIA/AMD/TPU, but inference volume — not training — now sets the wafer floor. Risk: if deflation outpaces volume, per-token revenue thins and softens the second-order pull on CoWoS capacity.",
+      "summary_zh": "以推論為主的代幣成長是CapEx→晶圓弧的耐久支柱。Microsoft Foundry(230.3%/年)與OpenRouter(205.6%/年)顯示企業應用與聚合器類別加速最快——這些是推論負載，無論訓練是否暫停都支撐N4/N5+CoWoS。Google內部121.3%/年、自2024年×195.9錨定超大規模自用。7.2×實現/地板加價意味服務仍為正毛利，故代幣需求轉為持續的加速器補貨而非一次性訓練爆發。台積電經由NVIDIA/AMD/TPU間接受惠，但推論量而非訓練量正設定晶圓地板。風險：若降價超越放量，單代幣營收變薄，將軟化對CoWoS產能的次級拉力。"
+    },
+    "thesis": {
+      "direction_en": "Compounding — but the dollar scissors is unhealed. Unit growth (2.22×) and elasticity (95.5) agree strongly; realized $/M holds above floor (7.2×); only dollar growth (0.93×) still trails capex. Because two of three signals align and the third is one deflation-inflection away from crossing, the call is real-and-compounding at medium-high confidence.",
+      "direction_zh": "複利——但金額剪刀尚未癒合。單位成長(2.22×)與彈性(95.5)高度一致；實現$/M守在地板上方(7.2×)；僅金額成長(0.93×)仍落後資本支出。三項訊號中兩項一致、第三項距離跨越僅差一個降價拐點，故判定為真實且複利，信心中偏高。",
+      "confidence": "medium",
+      "leading_signals": [
+        {
+          "en": "OpenRouter live market-median $/M — the only real-time price series; a stabilization or uptick flags deflation bottoming before quarterly disclosure.",
+          "zh": "OpenRouter即時市場中位$/M——唯一即時價格序列；企穩或回升在季度揭露前預示降價觸底。"
+        },
+        {
+          "en": "Aggregator token throughput (OpenRouter 55T/mo, 205.6%/yr) — leads platform-reported volumes by weeks as an unfiltered demand pulse.",
+          "zh": "聚合器代幣吞吐(OpenRouter 55T/月、205.6%/年)——作為未過濾需求脈搏，領先平台官方量數週。"
+        },
+        {
+          "en": "Agent/tool-call token share — rising multi-step agent traffic lifts tokens-per-task and defends realized $/M ahead of revenue prints.",
+          "zh": "代理/工具呼叫代幣占比——多步代理流量上升拉高每任務代幣數，在營收公布前守住實現$/M。"
+        },
+        {
+          "en": "Flagship list-price cut cadence — a cut steeper than -50%/yr without matching volume is the earliest deflation-spiral tell.",
+          "zh": "旗艦定價降幅節奏——降幅陡於-50%/年而無對應放量，是降價螺旋最早徵兆。"
+        },
+        {
+          "en": "H100/H200 spot rental ($2.16/hr basis) — a falling serving-cost floor widens or compresses the 7.2× markup and moves before margin disclosure.",
+          "zh": "H100/H200現貨租金(以$2.16/時為基準)——服務成本地板下移改變7.2×加價，先於毛利揭露變動。"
+        }
+      ]
+    }
+  },
+  "l5": {
+    "scenarios": [
+      {
+        "name_en": "Unpaid-growth grind (current state extended)",
+        "name_zh": "未付費成長磨耗（現狀延續）",
+        "prob": 45,
+        "trigger_en": "Unit ratio stays 1.5–2.5× (now 2.22×) while dollar ratio holds 0.85–0.99× (now 0.93×) for 2+ quarters.",
+        "trigger_zh": "單位比維持1.5–2.5×（現2.22×），金額比續守0.85–0.99×（現0.93×）達2季以上。"
+      },
+      {
+        "name_en": "Real and compounding — dollars cross capex",
+        "name_zh": "真實且複利——金額跨越資本支出",
+        "prob": 30,
+        "trigger_en": "Token-dollar growth crosses above capex growth (dollar ratio >1×) as agent monetization lifts realized $/M ≥ current $4.34/M.",
+        "trigger_zh": "代幣金額成長跨越資本支出（金額比>1×），代理變現推動實現$/M≥現$4.34/M。"
+      },
+      {
+        "name_en": "Deflation spiral",
+        "name_zh": "降價螺旋",
+        "prob": 15,
+        "trigger_en": "Flagship blended deflation accelerates past -60%/yr without volume acceleration; realized $/M rolls below $4/M.",
+        "trigger_zh": "旗艦混合降價加速超過-60%/年而無放量；實現$/M跌破$4/M。"
+      },
+      {
+        "name_en": "Usage stall — bubble confirmed",
+        "name_zh": "用量停滯——泡沫確認",
+        "prob": 10,
+        "trigger_en": "Token UNIT growth falls below capex growth (80.6%/yr) for 2 consecutive quarters.",
+        "trigger_zh": "代幣單位成長連續2季低於資本支出成長(80.6%/年)。"
+      }
+    ],
+    "falsification": [
+      {
+        "en": "Token UNIT growth falls below capex growth (80.6%/yr) for 2 consecutive quarters — the Tier III bubble-confirmation line.",
+        "zh": "代幣單位成長連續2季低於資本支出成長(80.6%/年)——第三層泡沫確認線。"
+      },
+      {
+        "en": "Realized $/M breaks below the serving-cost floor trend (currently 7.2× the $0.6/M floor), signalling volume is bought only by pricing below cost.",
+        "zh": "實現$/M跌破服務成本地板趨勢（現為$0.6/M地板的7.2×），代表放量僅靠低於成本定價換得。"
+      },
+      {
+        "en": "Elasticity inverts — a >30% price cut fails to lift volume, breaking the 95.5 elasticity score that underpins the compounding call.",
+        "zh": "彈性反轉——降價>30%未能拉抬量，打破支撐複利判斷的95.5彈性分。"
+      }
+    ],
+    "early_warning": [
+      {
+        "en": "OpenRouter live market-median $/M ($0.75 now) — deflation-inflection tell.",
+        "zh": "OpenRouter即時市場中位$/M（現$0.75）——降價拐點徵兆。",
+        "freq": "daily"
+      },
+      {
+        "en": "Aggregator token throughput (OpenRouter 55T/mo) growth pulse.",
+        "zh": "聚合器代幣吞吐（OpenRouter 55T/月）成長脈搏。",
+        "freq": "weekly"
+      },
+      {
+        "en": "H100/H200 spot rental basis ($2.16/hr) → serving-cost floor.",
+        "zh": "H100/H200現貨租金基準（$2.16/時）→服務成本地板。",
+        "freq": "weekly"
+      },
+      {
+        "en": "Flagship list-price cut cadence vs the -50%/yr line.",
+        "zh": "旗艦定價降幅節奏對比-50%/年線。",
+        "freq": "weekly"
+      },
+      {
+        "en": "Agent/tool-call token share and tokens-per-task.",
+        "zh": "代理/工具呼叫代幣占比與每任務代幣數。",
+        "freq": "monthly"
+      },
+      {
+        "en": "Platform token-volume disclosures (Google 1900T, OpenAI 480T, MS 110T) — within-scope growth only.",
+        "zh": "平台代幣量揭露（Google 1900T、OpenAI 480T、MS 110T）——僅限同口徑成長。",
+        "freq": "quarterly"
+      },
+      {
+        "en": "Realized $/M run-rate (OpenAI $4.34, Anthropic $7.69) vs capex growth 80.6%/yr — the dollar-scissors crossing.",
+        "zh": "實現$/M運行率（OpenAI $4.34、Anthropic $7.69）對比資本支出成長80.6%/年——金額剪刀交叉點。",
+        "freq": "quarterly"
+      }
+    ]
+  },
+  "analysis_engine": "claude",
+  "usage_map": [
+    {
+      "id": "lab_api",
+      "rank": 1,
+      "name_en": "Frontier-lab APIs",
+      "name_zh": "前沿實驗室 API",
+      "econ_en": "Per-token pricing",
+      "econ_zh": "按 token 計價",
+      "desc_en": "OpenAI / Anthropic / Google APIs sold by the token. The only usage class with a clean market price — every price cut here is a demand experiment with a published result.",
+      "desc_zh": "OpenAI / Anthropic / Google 按 token 賣的 API。唯一有乾淨市場價格的用量類別——這裡的每次降價都是一場有公開結果的需求實驗。",
+      "silicon_en": "Most price-elastic: deflation → more tokens → inference silicon. Demand durability tracks workload growth directly, contract-light.",
+      "silicon_zh": "價格彈性最高:通縮 → 更多 token → 推論矽需求。需求耐久性直接跟著工作負載走,合約綁定薄。"
+    },
+    {
+      "id": "hyperscaler_internal",
+      "rank": 2,
+      "name_en": "Hyperscaler internal (search · ads · copilots)",
+      "name_zh": "巨頭內部消耗(搜尋·廣告·副駕)",
+      "econ_en": "Internal cost center — no market price",
+      "econ_zh": "內部成本中心——無市場價格",
+      "desc_en": "Google AI Overviews / Workspace, Microsoft Copilot surfaces. The largest token volumes on the board, consumed with zero per-token revenue — funded by the core business as a strategic cost.",
+      "desc_zh": "Google AI Overviews / Workspace、Microsoft Copilot 介面。看板上最大的 token 量,卻沒有任何按 token 的收入——由本業當策略成本買單。",
+      "silicon_en": "Durable as long as the core cash machine funds it (Google→TPU, MSFT→mixed) — but it is strategy-funded, not price-signal-funded: it cannot validate unit economics.",
+      "silicon_zh": "只要本業現金機器還買單就耐久(Google→TPU、MSFT→混搭)——但這是策略出資而非價格訊號出資:它無法驗證單位經濟。"
+    },
+    {
+      "id": "enterprise_apps",
+      "rank": 3,
+      "name_en": "Enterprise apps & copilots",
+      "name_zh": "企業應用與副駕",
+      "econ_en": "Per-seat subscription",
+      "econ_zh": "按席次訂閱",
+      "desc_en": "M365 Copilot, coding assistants, vertical SaaS. Monetizes tokens well above API list price via seats — the highest realized $/M-tokens class.",
+      "desc_zh": "M365 Copilot、程式助理、垂直 SaaS。透過席次把 token 變現在 API 牌價之上——已實現 $/M tokens 最高的類別。",
+      "silicon_en": "Contract-durable but seat growth saturates; silicon demand grows with usage-per-seat (agents inside apps), not seat count.",
+      "silicon_zh": "有合約耐久性但席次成長會飽和;矽需求跟著每席用量(應用內的 agent)走,而非席次數。"
+    },
+    {
+      "id": "consumer_apps",
+      "rank": 4,
+      "name_en": "Consumer apps",
+      "name_zh": "消費者應用",
+      "econ_en": "Subscription + free tier",
+      "econ_zh": "訂閱 + 免費層",
+      "desc_en": "ChatGPT / Gemini consumer tiers. Huge token volume, thin per-token monetization (free users consume, few pay), churn-sensitive.",
+      "desc_zh": "ChatGPT / Gemini 消費者版。token 量巨大、每 token 變現極薄(免費用戶消耗、少數人付費),對流失敏感。",
+      "silicon_en": "Volume anchor for inference capacity, but the least defensible revenue per token — first class to be margin-squeezed by deflation.",
+      "silicon_zh": "推論產能的量錨,但每 token 收入最不可守——通縮下最先被擠壓毛利的類別。"
+    },
+    {
+      "id": "agents",
+      "rank": 5,
+      "name_en": "Agents & autonomous workloads",
+      "name_zh": "Agent 與自主工作負載",
+      "econ_en": "API tokens at 10–100× per task",
+      "econ_zh": "API token,每任務 10–100 倍消耗",
+      "desc_en": "Agentic coding / research / ops loops: each task burns 10–100× the tokens of a chat turn. The marginal growth engine of 2026 token volume — and the least proven monetization.",
+      "desc_zh": "Agent 化的寫程式/研究/維運迴圈:每個任務燒掉聊天回合 10–100 倍的 token。2026 年 token 量的邊際成長引擎——也是變現最未經證明的類別。",
+      "silicon_en": "If agents monetize, inference silicon demand compounds independent of user growth; if not, this volume is deflation-subsidized burn.",
+      "silicon_zh": "若 agent 變現成立,推論矽需求可脫離用戶成長自行複利;若不成立,這些量就是被通縮補貼的燒錢。"
+    }
+  ],
+  "indicator_dictionary": [
+    {
+      "id": "token_volume",
+      "name_en": "Disclosed token throughput",
+      "name_zh": "揭露 token 產出量",
+      "what_en": "Monthly/quarterly tokens processed, as disclosed by platforms (Google I/O & earnings, Microsoft earnings, OpenAI statements, OpenRouter public aggregate).",
+      "what_zh": "各平台揭露的每月/每季處理 token 量(Google I/O 與法說、Microsoft 法說、OpenAI 聲明、OpenRouter 公開彙總)。",
+      "why_en": "The only direct read of AI demand in units — everything else on Tier III infers demand from spend.",
+      "why_zh": "唯一以「單位」直讀 AI 需求的指標——Tier III 其他卡都是從支出反推需求。",
+      "threshold_en": "Token growth below capex growth for 2 consecutive readings = bubble-confirmation signal.",
+      "threshold_zh": "token 增速連兩次讀值低於 capex 增速 = 泡沫確認訊號。"
+    },
+    {
+      "id": "price_deflation",
+      "name_en": "Per-token price deflation",
+      "name_zh": "每 token 價格通縮",
+      "what_en": "Flagship-model API list price per M tokens (3:1 input:output blend), 2023→2026, annualized change.",
+      "what_zh": "旗艦模型 API 牌價($/M tokens,輸入:輸出 3:1 混合),2023→2026 年化變化。",
+      "why_en": "Deflation is the engine of volume growth AND the tax on monetization — the same number drives both sides of the scissors.",
+      "why_zh": "通縮既是量成長的引擎,也是變現的稅——同一個數字同時驅動剪刀差的兩邊。",
+      "threshold_en": ">60%/yr deflation without matching volume acceleration = value destruction, not elasticity.",
+      "threshold_zh": "年通縮 >60% 而量未同步加速 = 價值毀滅而非彈性。"
+    },
+    {
+      "id": "realized_per_m",
+      "name_en": "Realized $/M tokens",
+      "name_zh": "已實現 $/M tokens",
+      "what_en": "Implied AI end-revenue ÷ token volume — revenue run-rate divided by annualized tokens, per lab.",
+      "what_zh": "推算的 AI 終端營收 ÷ token 量——營收 run-rate 除以年化 token 量,逐實驗室。",
+      "why_en": "List prices deflate ~45%/yr; whether REALIZED revenue per token holds is the whole monetization question.",
+      "why_zh": "牌價每年通縮約 45%;「已實現」每 token 收入撐不撐得住,就是變現問題的全部。",
+      "threshold_en": "Realized $/M falling while volume decelerates = the worst quadrant.",
+      "threshold_zh": "已實現 $/M 下滑且量同時減速 = 最壞象限。"
+    },
+    {
+      "id": "usage_spend_scissors",
+      "name_en": "Usage-vs-spend scissors",
+      "name_zh": "用量-支出剪刀差",
+      "what_en": "Token growth (units and deflation-adjusted dollars) vs hyperscaler capex growth (+80.6% YoY, per /aibubble).",
+      "what_zh": "token 增速(單位與經通縮調整的美元)對比巨頭 capex 增速(+80.6% YoY,引 /aibubble)。",
+      "why_en": "The final judge: spend racing ahead of usage is the definition of a capacity bubble.",
+      "why_zh": "最終裁判:支出跑在用量前面,就是產能泡沫的定義。",
+      "threshold_en": "Dollar-growth ratio <1× for 2 consecutive readings = SPEND-AHEAD-OF-USE.",
+      "threshold_zh": "美元增速比 <1× 連兩次 = 支出領先用量。"
+    },
+    {
+      "id": "serving_cost_floor",
+      "name_en": "Serving-cost floor $/M tokens",
+      "name_zh": "推論成本地板 $/M tokens",
+      "what_en": "Compute cost to serve a million tokens, derived from open-market GPU rent (vast.ai H100 $2.16/hr, per /aibubble).",
+      "what_zh": "供應一百萬 token 的算力成本,由公開市場 GPU 租金推導(vast.ai H100 $2.16/hr,引 /aibubble)。",
+      "why_en": "The floor under price deflation — prices can only deflate to cost; the gap to realized $/M is the serving margin.",
+      "why_zh": "價格通縮的地板——價格最多通縮到成本;它與已實現 $/M 的差距就是推論毛利。",
+      "threshold_en": "Realized $/M < 2× cost floor = margin squeeze on the whole serving stack.",
+      "threshold_zh": "已實現 $/M 低於成本地板 2 倍 = 整個推論鏈毛利受擠。"
+    },
+    {
+      "id": "agent_share",
+      "name_en": "Agent share of token volume",
+      "name_zh": "Agent 占 token 量比重",
+      "what_en": "Share of tokens consumed by agentic workloads (curated estimate — no platform discloses this split).",
+      "what_zh": "Agent 工作負載消耗的 token 占比(策展估計——沒有平台揭露此切分)。",
+      "why_en": "Agents are the marginal growth engine with the least proven monetization — the mix tells you how much growth is unproven.",
+      "why_zh": "Agent 是變現最未經證明的邊際成長引擎——占比告訴你有多少成長是未經證明的。",
+      "threshold_en": ">30% of volume from agents while realized $/M falls = growth built on unpaid workloads.",
+      "threshold_zh": "Agent 占量 >30% 且已實現 $/M 下滑 = 成長建立在沒人付錢的工作負載上。"
+    }
+  ],
+  "weights": {
+    "usage_vs_spend": 0.3,
+    "monetization": 0.25,
+    "dollar_scissors": 0.3,
+    "elasticity": 0.15
+  },
+  "verdict_thresholds": {
+    "spend_ahead_max": 40.0,
+    "unpaid_max": 70.0
+  },
+  "blind_spots_en": [
+    "Token disclosures are fragmentary and inconsistent in scope — per-model vs per-platform, API-only vs internal, input vs output vs cached tokens counted differently. Growth is computed within a platform only.",
+    "Capability-adjusted deflation cannot be measured precisely: the same price buys a smarter model, so $/token understates true deflation ('smarter at the same price ≠ the same token').",
+    "The OpenRouter live sample skews to the developer long tail — it does not represent enterprise direct contracts or hyperscaler internal traffic.",
+    "Internal token consumption (Google search AI, Workspace) has no market price — its monetization rate is unobservable by construction.",
+    "Realized $/M spreads subscription revenue over API-scope token counts — an implied blend, not an accounting figure.",
+    "Platform revenue run-rates and token volumes are disclosed at different dates; growth comparisons carry timing error.",
+    "The serving-cost floor rests on one throughput assumption (~1,000 tok/s on H100-class); halve the throughput and the floor doubles."
+  ],
+  "blind_spots_zh": [
+    "token 揭露零碎且口徑不一——逐模型 vs 全平台、僅 API vs 含內部、輸入/輸出/快取 token 計法各異。增速只在同平台內計算。",
+    "「能力調整後」的通縮無法精確量化:同價買到更聰明的模型,所以 $/token 低估了真實通縮(同價更聰明 ≠ 同 token)。",
+    "OpenRouter live 樣本偏開發者長尾——不代表企業直約或巨頭內部流量。",
+    "內部 token 消耗(Google 搜尋 AI、Workspace)沒有市場價格——其變現率天生不可觀測。",
+    "已實現 $/M 把訂閱營收攤到 API 口徑的 token 上——是推算混合值,不是帳面數字。",
+    "各平台營收 run-rate 與 token 量的揭露時點不同;增速比較帶有時間差誤差。",
+    "推論成本地板建立在單一吞吐假設(H100 級約 1,000 tok/s);吞吐砍半,地板就翻倍。"
+  ],
+  "news": [
+    {
+      "title": "Google Cloud Platform Statistics 2026: Market Growth",
+      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTFBfb3kzZDQ4YlhRRmdjZlVNZG1CMkFfNXZnMDRGcXhsM25MRG5xd0dsTTRFbHFXZm1YcVl4UllNOXprdThEZm9lbU1reDg1YWtwb19XYjAwMnlJeXFpRXNwUGNwTTAxdkVLckE?oc=5",
+      "source": "SQ Magazine",
+      "date": "2026-07-02"
+    },
+    {
+      "title": "DeepSeek to double peak-hour fees for V4 model API from July",
+      "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPUGN3UHdkZEEwak56Y1VxS1dnV1hHWEMwZlJ5R0NwdWZVaUpaMEZDWm03MG93RkUzMEEtbk12U1lLYlNDSHl0NFVYSE9TUnh4end6c1JOWXFTSUFLcEhzTDVEN1J5dzh2WEN4eG9DVy01d1h3aWd6d2VJZDd4QnhyQ2dseTVRdzJmUzQyMEVER0pzNEk5R3JTbVZDWE51S3dQbXV5dDBrU3M?oc=5",
+      "source": "디지털투데이",
+      "date": "2026-07-01"
+    },
+    {
+      "title": "DeepSeek bucks China’s AI price war with peak-hour surcharges for API services",
+      "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxNRkYxaC1IY0w3VDlhSmRNQ1ZrZFlQMW5JV1U5XzNra3hIcDVHM25JelpaZGFQcGRRZ1cydHI2dVA1VzhSNkFSQ080OGk5RnBRZEI2ejdoZjBXUFZFX2dicGJYTXR4bTd2RHAxTENBei1GWWdDdGlaYk5kTmRNQ2U2VE45STZRbHBBZlkxeTdtMnhkcjc0WVlzZkFlU05pSm1ac2tPOE1CSG81VTk0TjZLQndBQWlvcnBJU1dEdUNINkgyaWxyRjNxanFn0gHKAUFVX3lxTE1GRjFoLUhjTDdUOWFKZE1DVmtkWVAxbklXVTlfM2treEhwNUczbkl6WlpkYVBwZFFnVzJ0cjZ1UDVXOFI2QVJDTzQ4aTlGcFFkQjZ6N2hmMFdQVkVfZ2JwYlhNdHhtN3ZEcDFMQ0F6LUZZZ0N0aVpiTmROZE1DZTZUTjlJNlFscEFmWTF5N20yeGRyNzRZWXNmQWVTTmlKbVpza084TUJIbzVVOTRONktCd0FBaW9ycElTV0R1Q0g2SDJpbHJGM3FqcWc?oc=5",
+      "source": "South China Morning Post",
+      "date": "2026-06-30"
+    },
+    {
+      "title": "The AI Inference Flippening: OpenAI's Cost Slash Signals the End of Brute-Force Economics",
+      "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFBGdDVObkpTMndEN2ZYTHE3TWEtRjdiMnpFMEdxZ0w5VHpWdXk5QXJHTzZuX1gxUWZQOHpVWnVNX3RGaWhkM1RnQWwxTzlLaXhzYThYa1hiNlZxUUZja3ZaWjgwbFUtSERJRWE3MmlsazZzS2VLbjhJ?oc=5",
+      "source": "CTOL Digital Solutions",
+      "date": "2026-06-30"
+    },
+    {
+      "title": "How Companies Are Managing AI Token Spend",
+      "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPNzNwRkk2cmFtNFB4YXRlQW5UdjFtcTdDN3VXTXJCenlqY3FkWEhzbE1nZFlWOFhqYmxHM0pGNUtfYjNOSVlmejZHYm5CazRDcWdoMmYyWWRjY2tlamRRZVNxSDZDS3NJN2FnVEJpT09abGNUTmo0MEVHNzZyTnZFN2dzdGd2YWhzOXc?oc=5",
+      "source": "WSJ",
+      "date": "2026-06-30"
+    },
+    {
+      "title": "TokenBudgeting: Our Conversations with Enterprises on Token Spend",
+      "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTFA0SmFyYWtOeW9UcXBaRWJYaGx4NlBMN0U2bFE0OHQydGZ0YURTYUlFTkdISUg1aVJOaXRUMFdFVWZLQ0YybmJlblZBQkZVazV2ODR1eTVRcFkwcEZ4LVc0eG9JYmRJV3FqZlBZazBSYXFJUGpIRlBlT0tB?oc=5",
+      "source": "SemiAnalysis",
+      "date": "2026-06-30"
+    },
+    {
+      "title": "Why Token Optimization Is a Gift to the Hyperscalers",
+      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTFAxTko0RUloYnVMejhIT1pFUVFLemZrLVYxOEVxZThKcmw4Zl9XRDR2Ri1DenJWYUVNNmRvZlQwSXlDUm96bDFMM3FleTZMT2tkUVFSRWVyY3BEWE8tdjZPRldRSWVoMlh2U0xYOWRXSGg?oc=5",
+      "source": "UncoverAlpha",
+      "date": "2026-06-29"
+    },
+    {
+      "title": "How Much Do AI APIs Cost? A 2026 Pricing Guide",
+      "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE1WcHdLMERLLU1zOG94cUlyU1VLUlVuSk9VcFN6Q2ZlVlcwbUtmWEE2aEZjTXdzUGRxSm54Z0dVSHV3WDNzRHhWa1kyZ9IBW0FVX3lxTFBsbGlZZ0FsbTB4eDY3NnZBS2VEZ0FpSjItR3pVMDNGYXhSd2lXRXptRTUwcFRUX3Q3T3VMVUhJUFFqS0RTbnJWZDNacFRXbkZISlM4OUNFNUlJb3M?oc=5",
+      "source": "G2 Learn Hub",
+      "date": "2026-06-29"
+    },
+    {
+      "title": "OpenRouter’s Owl Alpha model hits 10.1T monthly tokens, ranks first globally",
+      "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE85Q1NzaFloajdYVTJab3JLemhna2p0aEV2Sk15UElYZUhKam1MR3FaWjJCR1p1NG5iWmlFWTYzRS1xR2FMRnlKeEQ0OHhPOFFRdk9aNWZIYVVIU3NMVjk0a1dnTFA2cXpTVy1scFBOT1UtTDhVS3FjRA?oc=5",
+      "source": "Crypto Briefing",
+      "date": "2026-06-28"
+    },
+    {
+      "title": "OpenAI and Anthropic face new AI reality as users shift from 'tokenmaxxing' to efficiency",
+      "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxQMF8taEF1Z1U2WElGXzIwUWt0LXpIUVNQSWhGblA4c1NGdmZDNjRqc2tnZ0pLYlYyMzdhVkplOG83b1FpRkFHRkJKMDR6WmtQQkoxVVRFc0hJRV84WGUwUjNFNFhYNk81aWR4MUpyNkdFcFRIbk9TSU0zNjJtaGZQdFowVW9IaGdlMG5vc0tIUTVaOVdEUkVvMi1aQXBiSEpSQ2xWQmRZVnpYd9IBrwFBVV95cUxOaC1qYUpwNng0bktoMjVCOG9qTTZOcW83SDNEY0hHX1cwdER0VElycDNnVFZSaXZ0ZDVMSm5PX1RQT3J0eEZHVFJBLXpZVG5oWmxtWWtFN3p5dXdvY2Nud09BSnlVVWktX1Z4MmV5TjdMZENMY2pRTVBVVFVnaC10NlZlRnVfWTI1TWpqNDVwbmk5WkEtREpzVTZuX0xkclFXS1Iyd1RsXzlPTy1aRFE4?oc=5",
+      "source": "CNBC",
+      "date": "2026-06-26"
+    },
+    {
+      "title": "AI Is Experiencing Its First Deflationary Shock — The Token Economy Is Feeling The Pain",
+      "url": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxPTnBYQmZHby1LQ2R2Ym50dkp5WWlXX21HTGZDU3JVMUNwMU9GRWpJWm1qT1liMndHVGZPUWR6VFJxUC11RUZFZ1FKTDhnVU4ybTJOYjZ6dEtnVHhsWUd2OU91eE13REJOM2ZEWWhOam1sQXc2ZlRkQ0NZY1BiUUlXU3NGdEtpOXVJOXpNSGxMZDZmOF9uOGdZWnl1aWROV21obzc1eWs1NHp5UXlXczlqVlNFQS1EOUhPNzZmNU1yQ0g5WmFocW9aVGQ4anFrNVVucnotc2dXSjBYY09RdUE?oc=5",
+      "source": "TradingView",
+      "date": "2026-06-25"
+    },
+    {
+      "title": "Together AI's token volume surges to 400 trillion as demand for cheaper AI alternatives accelerates",
+      "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE9SR0dVZm5YUkxlRzZzbHRSVTBkUTVPcVhYVExfYkFxZ1g1ZnJHWG13SUpJTG96S3FxWnZDQlVRTDdadm5BRXVkaTE5NFFuYk9uSUxJOF8xTDhiT1RtbWctU0JNaEVkaWllTUtXUDF4UVZITEU?oc=5",
+      "source": "Crypto Briefing",
+      "date": "2026-06-23"
+    },
+    {
+      "title": "AI token economy faces first deflationary shock as costs fall",
+      "url": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxOSUwwS0VRZXQyOUUwb09hZGhkMk1lR2pSM25USVNlUTAyQV9odWMzTlhuSWtUcjFkTHlXODZ1ek45cHdWLVNJRjRxLVA1bjJyXzViZFM2WHdmRHJ4QzdCUzJQT2RBaUtCZnBma09JdzQ5dkRaUlJoUGM3SE5kSnlpU1pGRzUtTVZRUUZqOWs4c1NXdG9VX0ppZngxTVpIbmNONVJWWFdSRHFNNnp0YVB0SEh3aXNwVC1idGRDcmIxbVBtNFlzVldfdHBkTU02WjVuVDBOc1dkTFkzcnNDS2tTNmdWYjRRRnBDa2c4UndWbEdXQzlYWnc?oc=5",
+      "source": "MSN",
+      "date": "2026-06-22"
+    },
+    {
+      "title": "OpenAI Weighs Cutting ChatGPT Token Prices",
+      "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNT3I1czJqSmlPRERVQ09WMHdwSlpHSkR1U1FocENMc3pCUkdPMU9QdkNxczBZZ09YOUJOUHc4S0VpMmpqdVA5MEZnT3U5dHVVQmhYMDY0dmVEWnRWWHF2U3MyRTBlb2lNVWlFUDdNaXRhdXdhSGJqc0p2dlZ3VWFhSzFXYzN6ZFlscWxpaA?oc=5",
+      "source": "Let's Data Science",
+      "date": "2026-06-11"
+    },
+    {
+      "title": "Agentic AI Enterprise Token Cost",
+      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9ZWDdLTGlpdXBuZUVUZTB2U0pDMFc3QnZYb01iSDdpNzIzZTlvUWJJcE5ab1BXNlE4cXV1TGVobS0wM2ZsX0xFcHE5OFFFVUpRRUJ2MkYtTzVIc3ZRUFVlMnp0X2M2Z210aW1z?oc=5",
+      "source": "EY",
+      "date": "2026-06-10"
+    },
+    {
+      "title": "OpenRouter Now Processes More Than a Quadrillion Tokens a Year",
+      "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQX2ppTnBHdnNQLTdzMGVWM25KSGV3dnpueTFuSUc4b3FDdTVnYjRMdmlsR3RiaExHU21xTFhyQm1tYklNRFY2Q2xIcHU2Rk4zT18tdEVwUnpUaWN6MUUweGY5S0xYbFN6dXZOX01SMHNnNU9pYmNwWDZQRTdzZUxwekYxOF85LXYwVnZpd2xDWkR2dHJVTDZCdV92OA?oc=5",
+      "source": "Menlo Ventures",
+      "date": "2026-05-26"
+    },
+    {
+      "title": "B2B Signals",
+      "url": "https://news.google.com/rss/articles/CBMiRkFVX3lxTFA4c0l3endrOTF5SVFPdkJtR2FBZ3J2SmVPSkVwMzdoZHFvM3ZKWXdGOURwbUVkTDhVbjVyWmxJMk5FTkxnQ3c?oc=5",
+      "source": "OpenAI",
+      "date": "2026-05-06"
+    },
+    {
+      "title": "Chinese AI Models Overtake US Rivals in Global Token Consumption",
+      "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQWjd4ZVNXYmp5MTJPbHRSUkNJNDFHd0k5dmE3T2dQbVAyQ240RGpnYXhMVjZRWmZRRDBaNUw4ejFVSFRmbE5XOVYwQ1dPbGhTcV96ZEtYa0prQkZPNVhzME5TQ2lhNWd2bE1ydGN5R3BFZ0U3akJVa0FTeVBaWFlZNzVITzFZdGZnOUJadnM5OUNzV19ZeE03NzVzRQ?oc=5",
+      "source": "trendingtopics.eu",
+      "date": "2026-03-26"
+    }
+  ],
+  "fetched_at": "2026-07-02 16:36 UTC"
+}

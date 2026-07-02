@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Usage & Token Economics Radar · AI 用量與 Token 經濟雷達</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0b0f; --panel:rgba(22,24,31,.72); --panel-hi:rgba(30,33,42,.9);
+    --line:rgba(255,255,255,.08); --line-hi:rgba(255,255,255,.16);
+    --ink:#ecedf2; --soft:#a6a9b8; --dim:#6a6e80; --gold:#c8a86a; --acc:#7c83ff;
+    --on:#43c08a; --off:#e0626e; --neu:#c8a86a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:radial-gradient(1100px 560px at 82% -14%,rgba(124,131,255,.10),transparent 58%),radial-gradient(900px 520px at -8% 4%,rgba(200,168,106,.08),transparent 52%),var(--bg);
+       color:var(--ink);font-family:"Inter","PingFang TC","Noto Sans TC",-apple-system,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:22px 26px 60px}
+  .top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:8px}
+  .brand{display:flex;align-items:center;gap:11px}
+  .gem{width:16px;height:16px;transform:rotate(45deg);border:1px solid var(--gold);border-radius:4px;position:relative}
+  .gem::after{content:"";position:absolute;inset:4px;background:var(--gold);border-radius:2px;opacity:.85}
+  h1{font-family:"Noto Serif TC",serif;font-weight:600;font-size:22px;letter-spacing:.5px}
+  .tools{display:flex;align-items:center;gap:10px}
+  .btn{font-size:12px;padding:6px 12px;border-radius:8px;border:1px solid var(--line-hi);background:transparent;color:var(--soft);cursor:pointer;transition:.15s}
+  .btn:hover{color:var(--ink);border-color:var(--acc)}
+  .btn.go{border-color:var(--acc);color:var(--acc)}
+  .status{font-size:11.5px;color:var(--dim)}
+  .crumb{font-size:11px;color:var(--dim);letter-spacing:.4px;margin-bottom:18px}
+  .crumb a:hover{color:var(--gold)}
+  .demo{background:rgba(200,168,106,.10);border:1px solid rgba(200,168,106,.3);color:var(--gold);
+        font-size:12px;padding:9px 13px;border-radius:10px;margin-bottom:18px}
+  .sub{color:var(--dim);font-size:12.5px;line-height:1.6;margin-bottom:22px}
+
+  .grid{display:grid;gap:16px}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+  .panel h2{font-family:"Noto Serif TC",serif;font-size:15px;font-weight:600;letter-spacing:.5px;margin-bottom:4px}
+  .panel .note{font-size:11.5px;color:var(--dim);margin-bottom:14px;line-height:1.5}
+  .eyebrow{font-size:10.5px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);opacity:.85}
+
+  /* hero */
+  .hero{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:16px;margin-bottom:16px}
+  @media(max-width:780px){.hero{grid-template-columns:1fr}}
+  .big{font-variant-numeric:tabular-nums;font-weight:600;font-size:30px;letter-spacing:.5px}
+  .gauge{height:8px;border-radius:999px;background:linear-gradient(90deg,var(--off),var(--neu),var(--on));position:relative;margin:14px 0 8px}
+  .gauge .pin{position:absolute;top:-4px;width:3px;height:16px;background:#fff;border-radius:2px;box-shadow:0 0 8px rgba(255,255,255,.6)}
+  .scale{display:flex;justify-content:space-between;font-size:10px;color:var(--dim)}
+  .tag{display:inline-block;font-size:11px;font-weight:500;padding:2px 9px;border-radius:999px;letter-spacing:.4px}
+  .tag.on{background:rgba(67,192,138,.15);color:var(--on)} .tag.off{background:rgba(224,98,110,.15);color:var(--off)}
+  .tag.neutral{background:rgba(200,168,106,.15);color:var(--neu)}
+  .kv{display:flex;align-items:baseline;justify-content:space-between;gap:8px;font-size:12.5px;padding:5px 0;border-top:1px solid var(--line)}
+  .kv .k{color:var(--soft)} .kv .v{font-variant-numeric:tabular-nums}
+  .live{font-size:9px;color:var(--dim);border:1px solid var(--line);border-radius:4px;padding:0 4px}
+  .tier{font-size:9px;border-radius:4px;padding:0 4px;letter-spacing:.4px}
+  .tier.T1{color:var(--on);border:1px solid rgba(67,192,138,.4)}
+  .tier.T2{color:var(--gold);border:1px solid rgba(200,168,106,.4)}
+  .tier.T3{color:var(--off);border:1px solid rgba(224,98,110,.4)}
+  .est{font-size:9px;color:var(--acc);border:1px solid rgba(124,131,255,.4);border-radius:4px;padding:0 4px}
+
+  /* subscores */
+  .subs{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  @media(max-width:780px){.subs{grid-template-columns:repeat(2,1fr)}}
+  .subcard{background:var(--panel-hi);border:1px solid var(--line);border-radius:12px;padding:13px 15px}
+  .subcard .k{font-size:11px;color:var(--soft);letter-spacing:.3px;line-height:1.4}
+  .subcard .v{font-variant-numeric:tabular-nums;font-size:20px;font-weight:600;margin-top:5px}
+  .subcard .w{font-size:10px;color:var(--dim);margin-top:3px}
+  .bar{height:6px;border-radius:999px;background:rgba(255,255,255,.06);margin-top:8px;overflow:hidden}
+  .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--acc),var(--gold))}
+
+  /* usage map */
+  .layer{display:flex;gap:14px;align-items:flex-start;padding:11px 0;border-top:1px solid var(--line)}
+  .layer .rank{flex:0 0 26px;height:26px;border-radius:8px;border:1px solid var(--line-hi);display:flex;align-items:center;justify-content:center;
+               font-size:12px;font-weight:600;font-variant-numeric:tabular-nums}
+  .layer .nm{font-weight:600;font-size:13px}
+  .layer .econ{font-size:10.5px;letter-spacing:.5px;margin-left:8px;color:var(--gold)}
+  .layer .desc{font-size:12px;color:var(--soft);line-height:1.55;margin-top:4px}
+  .layer .sil{font-size:11.5px;color:var(--dim);line-height:1.5;margin-top:4px}
+  .layer .sil b{color:var(--acc);font-weight:500}
+
+  /* tables */
+  table.tb{width:100%;border-collapse:collapse;font-size:12px}
+  table.tb th{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--dim);text-align:left;padding:6px 8px;border-bottom:1px solid var(--line-hi);white-space:nowrap}
+  table.tb td{padding:8px;border-top:1px solid var(--line);vertical-align:top}
+  table.tb td.n{font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+  table.tb .co{font-weight:600}
+  .rownote{font-size:10.5px;color:var(--dim);line-height:1.45;margin-top:3px}
+  .scrollx{overflow-x:auto}
+
+  /* monetization cards */
+  .labs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+  @media(max-width:780px){.labs{grid-template-columns:1fr}}
+  .labcard{background:var(--panel-hi);border:1px solid var(--line);border-radius:12px;padding:14px 15px}
+
+  /* L4/L5 */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:780px){.two{grid-template-columns:1fr}}
+  .body{font-size:13px;line-height:1.7;color:var(--ink)}
+  .leads li,.fals li{font-size:12.5px;line-height:1.6;color:var(--soft);margin:6px 0 6px 2px;list-style:none;padding-left:16px;position:relative}
+  .leads li::before,.fals li::before{content:"▸";position:absolute;left:0;color:var(--gold)}
+  .scn{padding:11px 0;border-top:1px solid var(--line)}
+  .scnhead{display:flex;justify-content:space-between;gap:10px;font-size:13px}
+  .scnname{font-weight:500}
+  .scnprob{font-variant-numeric:tabular-nums;color:var(--gold);font-weight:600}
+  .scntrig{font-size:11.5px;color:var(--dim);line-height:1.5}
+  table.ew{width:100%;border-collapse:collapse;font-size:12.5px}
+  table.ew td{padding:7px 8px;border-top:1px solid var(--line)}
+  table.ew td.f{text-align:right;color:var(--gold);font-size:11px;white-space:nowrap}
+  .news a{display:block;font-size:12.5px;color:var(--soft);padding:7px 0;border-top:1px solid var(--line);line-height:1.4}
+  .news a:hover{color:var(--ink)} .news .src{color:var(--dim);font-size:11px}
+  .foot{margin-top:24px;font-size:11px;color:var(--dim);line-height:1.7}
+  .conf{font-size:11px;color:var(--soft)}
+  .chg.up{color:var(--on)} .chg.down{color:var(--off)} .chg.flat{color:var(--dim)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand"><span class="gem"></span><h1 id="title"></h1></div>
+    <div class="tools">
+      <button class="btn" id="langBtn"></button>
+      <button class="btn go" id="refreshBtn"></button>
+      <span class="status" id="status"></span>
+    </div>
+  </div>
+  <div class="crumb"><a href="/">← <span id="crumbHome"></span></a> · <span id="asof"></span> · <span id="engine"></span></div>
+  <div id="demo" class="demo" style="display:none"></div>
+  <div class="sub" id="method"></div>
+
+  <!-- hero -->
+  <div class="hero">
+    <div class="panel">
+      <span class="eyebrow" id="h_score"></span>
+      <div class="big"><span id="score"></span><span style="font-size:15px;color:var(--dim)">/100</span> <span class="tag" id="verdictTag"></span></div>
+      <div class="gauge"><div class="pin" id="scorePin"></div></div>
+      <div class="scale"><span id="sc_l"></span><span id="sc_m"></span><span id="sc_r"></span></div>
+      <div class="note" style="margin:10px 0 0" id="verdictLine"></div>
+    </div>
+    <div class="panel">
+      <span class="eyebrow" id="h_scissors"></span>
+      <div id="scissorRows" style="margin-top:8px"></div>
+      <div class="note" style="margin:10px 0 0" id="scissorHint"></div>
+    </div>
+    <div class="panel">
+      <span class="eyebrow" id="h_monet"></span>
+      <div id="monetRows" style="margin-top:8px"></div>
+      <div class="note" style="margin:10px 0 0" id="monetHint"></div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <!-- subscores -->
+    <div class="panel">
+      <h2 id="h_subs"></h2><div class="note" id="n_subs"></div>
+      <div class="subs" id="subs"></div>
+    </div>
+
+    <!-- L1 usage map -->
+    <div class="panel">
+      <h2 id="h_map"></h2><div class="note" id="n_map"></div>
+      <div id="usageMap"></div>
+      <div class="note" style="margin:12px 0 0" id="positioning"></div>
+    </div>
+
+    <!-- L3a token ledger -->
+    <div class="panel">
+      <h2 id="h_ledger"></h2><div class="note" id="n_ledger"></div>
+      <div class="scrollx"><table class="tb"><thead id="ledHead"></thead><tbody id="ledBody"></tbody></table></div>
+      <div class="note" style="margin:10px 0 0" id="ledgerAgg"></div>
+    </div>
+
+    <!-- L3b price deflation -->
+    <div class="panel">
+      <h2 id="h_price"></h2><div class="note" id="n_price"></div>
+      <div class="scrollx"><table class="tb"><thead id="priceHead"></thead><tbody id="priceBody"></tbody></table></div>
+      <div class="note" style="margin:10px 0 0" id="priceCaveat"></div>
+    </div>
+
+    <!-- L3c monetization -->
+    <div class="panel">
+      <h2 id="h_labs"></h2><div class="note" id="n_labs"></div>
+      <div class="labs" id="labs"></div>
+    </div>
+
+    <!-- L4 thesis + usage read -->
+    <div class="two">
+      <div class="panel">
+        <h2 id="h_thesis"></h2>
+        <div class="big" style="font-size:17px;line-height:1.4;margin:6px 0 6px" id="thesisDir"></div>
+        <div class="conf" id="thesisConf"></div>
+        <div class="note" style="margin:14px 0 6px" id="h_leads"></div>
+        <ul class="leads" id="leads"></ul>
+      </div>
+      <div class="panel">
+        <h2 id="h_read"></h2>
+        <div class="body" id="readText"></div>
+      </div>
+    </div>
+
+    <!-- silicon / TSMC view -->
+    <div class="panel">
+      <h2 id="h_silicon"></h2><div class="note" id="n_silicon"></div>
+      <div class="body" id="siliconText"></div>
+    </div>
+
+    <!-- L5 -->
+    <div class="two">
+      <div class="panel">
+        <h2 id="h_scn"></h2><div class="note" id="n_scn"></div>
+        <div id="scenarios"></div>
+      </div>
+      <div class="panel">
+        <h2 id="h_fals"></h2>
+        <ul class="fals" id="falsification"></ul>
+        <h2 style="margin-top:16px" id="h_ew"></h2>
+        <table class="ew"><tbody id="earlyWarn"></tbody></table>
+      </div>
+    </div>
+
+    <!-- L2 dictionary -->
+    <div class="panel">
+      <h2 id="h_dict"></h2><div class="note" id="n_dict"></div>
+      <div class="scrollx"><table class="tb"><thead id="dictHead"></thead><tbody id="dictBody"></tbody></table></div>
+    </div>
+
+    <!-- news -->
+    <div class="panel" id="newsPanel" style="display:none">
+      <h2 id="h_news"></h2>
+      <div class="news" id="news"></div>
+    </div>
+  </div>
+
+  <!-- 數據做法與假設 · methodology & assumptions (language follows the LANG toggle) -->
+  <div class="panel" id="methodPanel" style="margin-top:16px">
+    <div class="eyebrow">METHODOLOGY &amp; ASSUMPTIONS</div>
+    <h2 id="mp_title"></h2>
+    <div id="mp_zh" style="display:none;font-size:12.5px;color:var(--soft);line-height:1.8">
+      <p><b style="color:var(--ink)">五層架構</b> — L1 用量地圖(五類 token 消耗與各自經濟模式)與 L2 指標字典是人工策展知識庫(寫死於 KB,非即時);L3 是量化層;L4 用量判讀·矽需求視角與 L5 情境/證偽由 Claude 於刷新時合成(無 API key 走規則後備,頁首 engine 欄標注實際引擎)。</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">L3a token 台帳</b> — 有日期的公開揭露(Google I/O 與法說 9.7T→480T→980T/月、Microsoft FY25Q3「單季逾 100T」、OpenAI DevDay「API 每分鐘約 60 億」≈259T/月、OpenRouter 公開看板)加上 2026 世界策展近似值(標 T3/EST)。年化增速 = (v₂/v₁)^(12/月數)−1,只在同平台內計算(口徑不一,絕不跨平台相比);整體讀值取各平台增速「中位數」以避免被單一大平台主導。</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">L3b 價格通縮</b> — 旗艦模型 API 牌價(官方價格頁,T1;2026 世界點為 T3 估計),以輸入:輸出 = 3:1 混合成 $/M tokens:GPT-4 $37.5 → GPT-5.2 級 $4.31、Claude 3 Opus $30 → Claude 5 級 $8、OpenRouter 市場中位 $0.90 → $0.55。逐族年化變化取「首點→末點」,三族平均 −45.0%/yr。「能力調整後」通縮天生被低估(同價更聰明 ≠ 同 token)。live 刷新時 OpenRouter 免 key API 會更新市場中位點。</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">L3c 變現率</b> — 已實現 $/M = 營收 run-rate ÷ 年化 token 量(全為推算,標 EST):OpenAI $25B(對齊 /payback KB v2 2026-07-02)÷ 480T/月×12 ≈ $4.34/M;Anthropic $12B(對齊 /payback)÷ 估計 130T/月 ≈ $7.69/M。推論成本地板 $0.60/M 由 /aibubble vast.ai H100 $2.16/hr ÷ 假設 1,000 tok/s(=3.6M tokens/hr)推導,T3 估計。</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">L3e 剪刀差與綜合分數(0=支出遠超用量,100=需求真實且複利)</b> — capex 增速 +80.6% YoY 引自 /aibubble(2026-07-02,不重算)。token 美元增速 = (1+單位增速)×(1+價格變化)−1。權重寫死:token 單位 vs capex 30%(比值 0.5×→0、2.5×→100)、已實現 $/M 趨勢 25%(−30%/yr→0、+20%/yr→100)、token 美元 vs capex 30%(比值 0.4×→0、1.3×→100)、價格彈性健康度 15%(美元成長係數 0.7→0、1.8→100)。結論門檻:<40 SPEND-AHEAD-OF-USE、40–70 GROWING-BUT-UNPAID、≥70 REAL-AND-COMPOUNDING。</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">定位與姊妹卡</b> — /aibubble 剪刀差用 npm 下載(開發者採用代理),本卡是更深的 token 級讀值,僅引用其 capex 端;/compute 從 capex 推需求,本卡是其鏡像。正典數字(OpenAI $25B、Anthropic $12B、capex +80.6%、vast.ai $2.16/hr)一律標「對齊」出處,不默默複製。</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">假設與限制</b> — token 揭露口徑不一;訂閱營收攤到 token 是推算;OpenRouter 樣本偏長尾;內部消耗無市場價格;成本地板依賴單一吞吐假設。估計就是估計,不當事實陳述。手動密碼刷新,非排程。AI 合成內容為解讀輔助,非投資建議。</p>
+    </div>
+    <div id="mp_en" style="display:none;font-size:12.5px;color:var(--soft);line-height:1.8">
+      <p><b style="color:var(--ink)">Five-layer design</b> — the L1 usage map (five token-consumption classes with their economics) and L2 indicator dictionary are a hand-curated knowledge base (static, not live). L3 is the quantitative layer; L4 usage read + silicon view and L5 scenarios/falsification are synthesized by Claude on each refresh (rules fallback without an API key; the engine badge shows which ran).</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">L3a token ledger</b> — dated public disclosures (Google I/O + earnings 9.7T→480T→980T/month, Microsoft FY25Q3 "over 100T this quarter", OpenAI DevDay "~6B tokens/min on the API" ≈259T/month, OpenRouter public dashboard) plus curated 2026-world approximations (T3/EST). Annualized growth = (v₂/v₁)^(12/months)−1, computed WITHIN a platform only (scopes differ — never compared across platforms); the headline read is the MEDIAN of per-platform growth rates so no single large platform dominates.</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">L3b price deflation</b> — flagship API list prices (official price pages, T1; 2026-world points are T3 EST), blended at 3:1 input:output into $/M tokens: GPT-4 $37.5 → GPT-5.2-class $4.31, Claude 3 Opus $30 → Claude 5-class $8, OpenRouter market median $0.90 → $0.55. Per-family annualized change is first-point→last-point; three-family mean −45.0%/yr. Capability-adjusted deflation is understated by construction (smarter at the same price ≠ the same token). On live refresh the keyless OpenRouter API updates the market-median point.</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">L3c monetization</b> — realized $/M = revenue run-rate ÷ annualized tokens (all implied, EST): OpenAI $25B (aligned /payback KB v2 2026-07-02) ÷ 480T/month×12 ≈ $4.34/M; Anthropic $12B (aligned /payback) ÷ est. 130T/month ≈ $7.69/M. The $0.60/M serving-cost floor derives from /aibubble's vast.ai H100 $2.16/hr ÷ an assumed 1,000 tok/s (=3.6M tokens/hr), T3 EST.</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">L3e scissors & composite (0 = spend far ahead of use, 100 = usage real & compounding)</b> — capex growth +80.6% YoY is cited from /aibubble (2026-07-02, not re-derived). Token-dollar growth = (1+unit growth)×(1+price change)−1. Hard-coded weights: token units vs capex 30% (ratio 0.5×→0, 2.5×→100), realized $/M trend 25% (−30%/yr→0, +20%/yr→100), token dollars vs capex 30% (ratio 0.4×→0, 1.3×→100), price-elasticity health 15% (dollar-growth factor 0.7→0, 1.8→100). Verdict thresholds: &lt;40 SPEND-AHEAD-OF-USE, 40–70 GROWING-BUT-UNPAID, ≥70 REAL-AND-COMPOUNDING.</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">Positioning vs siblings</b> — /aibubble's scissors uses npm downloads (a developer-adoption proxy); this card is the deeper token-level read and only cites its capex side. /compute derives demand from capex; this card is its mirror. Canonical numbers (OpenAI $25B, Anthropic $12B, capex +80.6%, vast.ai $2.16/hr) always carry an alignment note — no silent duplicates.</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">Assumptions & limits</b> — token disclosure scopes are inconsistent; spreading subscription revenue over tokens is an implied blend; the OpenRouter sample skews long-tail; internal consumption has no market price; the cost floor rests on one throughput assumption. Estimates are estimates, not asserted truth. Manual password-gated refresh only, no schedule. AI synthesis is an interpretive aid — not investment advice.</p>
+    </div>
+  </div>
+
+  <div class="foot">
+    <div id="blindHead"></div>
+    <ul style="list-style:none;margin-top:6px" id="blind"></ul>
+    <div style="margin-top:12px" id="methodFoot"></div>
+    <div style="margin-top:8px" id="disclaimer"></div>
+  </div>
+</div>
+
+<script>
+const SNAP = {{ snapshot | safe }};
+let LANG = localStorage.getItem("usage_lang") || "en";
+
+const T = {
+  en:{home:"External Market Analysis", lang:"中文", refresh:"↻ Refresh",
+      pwPrompt:"Enter refresh password (default usage2026):", refreshing:"refreshing… OpenRouter sample + news + Claude L4/L5",
+      done:"done, reloading…", fail:"refresh failed", demo:"Seed view — hit ↻ Refresh to pull the live OpenRouter price sample & news (and Claude L4/L5 if an API key is set).",
+      asof:"As of", engineRules:"engine: rules (no API key)", engineClaude:"engine: Claude Opus 4.8",
+      score:"Demand-reality score", scL:"0 spend ahead of use", scM:"growing, unpaid", scR:"100 real & compounding",
+      scissors:"Usage-vs-spend scissors", monet:"Token monetization",
+      tokGrowth:"Token unit growth (median)", capexGrowth:"Capex growth", unitRatio:"Unit ratio", dollarGrowth:"Token-dollar growth", dollarRatio:"Dollar ratio",
+      scissorHint:"Units vs dollars is the whole verdict: units outrunning capex says demand is real; deflation-adjusted dollars trailing it says monetization lags. Capex growth cited from /aibubble.",
+      realized:"Realized $/M tokens (OpenAI, implied)", deflation:"Flagship price deflation", floor:"Serving-cost floor", multiple:"Realized ÷ floor",
+      monetHint:"Realized $/M spreads ALL revenue over API-scope tokens — an implied blend (EST). Floor derived from /aibubble's vast.ai H100 rent.",
+      subs:"Subscores → composite", subsNote:"Weighted mix disclosed in the methodology panel below. Higher = demand more real on the usage side.",
+      map:"L1 · Usage map — where tokens are consumed", mapNote:"Five consumption classes, each with its own economics — and its own implication for how durable the silicon demand behind it is.",
+      ledger:"L3a · Token disclosure ledger", ledgerNote:"Dated public disclosures + curated 2026-world approximations (T3/EST). Scopes differ — growth is computed within a platform only; the headline read is the cross-platform MEDIAN.",
+      ledCols:["Platform","Class","Latest T/month","Growth /yr","× since first","Disclosure points"],
+      ledgerAggFmt:(g,s)=>`Median token growth ${g}%/yr vs capex +${s.capex_growth_yoy_pct}% (${s.capex_align_note}) → unit ratio ${s.unit_ratio}× · dollar ratio ${s.dollar_ratio}×.`,
+      price:"L3b · Per-token price deflation (flagship list prices)", priceNote:"Official price pages (T1), 2026-world points EST. Blended $/M at 3:1 input:output. Annualized change first→last point.",
+      priceCols:["Family","First point","Latest point","Change /yr","Points"],
+      labs:"L3c · Monetization — realized $/M tokens", labsNote:"Revenue run-rates aligned with /payback KB v2 (2026-07-02); token volumes are curated estimates. All EST.",
+      rev:"Revenue run-rate", tok:"Token volume", realizedShort:"Realized $/M", trend:"Trend /yr", floorCard:"Serving-cost floor",
+      thesis:"L4 · Demand-reality thesis", conf:"confidence", leads:"Leading signals (move before quarterly disclosures)",
+      read:"L4 · Usage read",
+      silicon:"L4 · 矽需求視角 · Silicon durability view", siliconNote:"What the usage mix means for the CapEx→silicon→wafer arc — the TSMC-relevant translation.",
+      scn:"L5 · Scenarios", scnNote:"Probabilities from the current read; each with a concrete trigger.",
+      fals:"L5 · Falsification — what would flip the thesis", ew:"L5 · Early-warning checklist",
+      dict:"L2 · Indicator dictionary", dictNote:"What each metric is, why it matters, and the threshold that changes the story.",
+      dictCols:["Indicator","What","Why it matters","Threshold"],
+      news:"News radar (fetched on refresh)",
+      blind:"Blind spots", trigger:"Trigger",
+      mp:"How the numbers are made",
+      disclaimer:"Estimates are estimates — every curated number carries a tier (T1 official/filings · T2 authoritative estimate · T3 news/inference) and an as-of date. Not investment advice."},
+  zh:{home:"外部市場分析", lang:"EN", refresh:"↻ 更新",
+      pwPrompt:"輸入更新密碼(預設 usage2026):", refreshing:"更新中…OpenRouter 樣本 + 新聞 + Claude L4/L5",
+      done:"完成,重新載入中…", fail:"更新失敗", demo:"種子視圖 — 按 ↻ 更新 抓 OpenRouter 即時價格樣本與新聞(若設了 API key 會跑 Claude L4/L5)。",
+      asof:"資料時點", engineRules:"引擎:規則(無 API key)", engineClaude:"引擎:Claude Opus 4.8",
+      score:"需求真實度", scL:"0 支出領先用量", scM:"成長但未變現", scR:"100 真實且複利",
+      scissors:"用量-支出剪刀差", monet:"Token 變現",
+      tokGrowth:"token 單位增速(中位)", capexGrowth:"capex 增速", unitRatio:"單位比", dollarGrowth:"token 美元增速", dollarRatio:"美元比",
+      scissorHint:"單位與美元的對比就是整個結論:單位跑贏 capex 說明需求是真的;經通縮調整的美元落後說明變現落後。capex 增速引自 /aibubble。",
+      realized:"已實現 $/M tokens(OpenAI,推算)", deflation:"旗艦價格通縮", floor:"推論成本地板", multiple:"已實現 ÷ 地板",
+      monetHint:"已實現 $/M 是「全部營收攤到 API 口徑 token」的推算混合值(EST)。地板由 /aibubble 的 vast.ai H100 租金推導。",
+      subs:"子分數 → 綜合分數", subsNote:"加權方式揭露於下方「數據做法與假設」。分數越高 = 用量端的需求越真實。",
+      map:"L1 · 用量地圖 — token 在哪裡被消耗", mapNote:"五類消耗,各有自己的經濟模式——也各自決定了背後矽需求的耐久性。",
+      ledger:"L3a · Token 揭露台帳", ledgerNote:"有日期的公開揭露 + 2026 世界策展近似值(T3/EST)。口徑不一——增速只在同平台內計算;整體讀值取跨平台「中位數」。",
+      ledCols:["平台","類別","最新 T/月","年增速","× 自首點","揭露時點"],
+      ledgerAggFmt:(g,s)=>`token 增速中位 ${g}%/yr 對 capex +${s.capex_growth_yoy_pct}%(${s.capex_align_note})→ 單位比 ${s.unit_ratio}× · 美元比 ${s.dollar_ratio}×。`,
+      price:"L3b · 每 token 價格通縮(旗艦牌價)", priceNote:"官方價格頁(T1),2026 世界點為估計。以輸入:輸出 3:1 混合成 $/M。年化變化取首點→末點。",
+      priceCols:["族系","首點","最新點","年化變化","價格點"],
+      labs:"L3c · 變現率 — 已實現 $/M tokens", labsNote:"營收 run-rate 對齊 /payback KB v2(2026-07-02);token 量為策展估計。全為 EST。",
+      rev:"營收 run-rate", tok:"token 量", realizedShort:"已實現 $/M", trend:"年趨勢", floorCard:"推論成本地板",
+      thesis:"L4 · 需求真實度論點", conf:"信心", leads:"領先訊號(比季度揭露先動)",
+      read:"L4 · 用量判讀",
+      silicon:"L4 · 矽需求視角", siliconNote:"用量組合對 CapEx→矽→晶圓弧線的意義——與台積電相關的翻譯。",
+      scn:"L5 · 情境", scnNote:"機率來自當前判讀;每個情境附具體觸發條件。",
+      fals:"L5 · 證偽 — 什麼會翻轉論點", ew:"L5 · 早期預警清單",
+      dict:"L2 · 指標字典", dictNote:"每個指標是什麼、為何重要、以及改變故事的門檻。",
+      dictCols:["指標","是什麼","為何重要","門檻"],
+      news:"新聞雷達(更新時抓取)",
+      blind:"盲點", trigger:"觸發",
+      mp:"數據做法與假設",
+      disclaimer:"估計就是估計——每個策展數字都帶證據等級(T1 官方/財報 · T2 權威估計 · T3 新聞/推估)與資料時點。非投資建議。"}
+};
+
+function fmt(v){ return (v===null||v===undefined)? "—" : v; }
+function sign(v){ return (v>0?"+":"")+v; }
+function tierBadge(t){ return t? `<span class="tier ${t}">${t}</span>` : ""; }
+function estBadge(e){ return e? `<span class="est">EST</span>` : ""; }
+function liveBadge(l){ return l? `<span class="live">live</span>` : ""; }
+
+function render(){
+  const t = T[LANG], s = SNAP;
+  document.documentElement.lang = LANG==="zh"?"zh-Hant":"en";
+  document.getElementById("title").textContent = LANG==="zh"? s.title_zh : s.title_en;
+  document.getElementById("langBtn").textContent = t.lang;
+  document.getElementById("refreshBtn").textContent = t.refresh;
+  document.getElementById("crumbHome").textContent = t.home;
+  document.getElementById("asof").textContent = t.asof + " " + (s.as_of||"") + (s.generated_at? " · "+s.generated_at : "");
+  document.getElementById("engine").textContent = s.analysis_engine==="claude"? t.engineClaude : t.engineRules;
+  document.getElementById("method").textContent = LANG==="zh"? s.method_zh : s.method_en;
+  const demo = document.getElementById("demo");
+  if(s.is_demo){ demo.style.display="block"; demo.textContent = t.demo; } else { demo.style.display="none"; }
+
+  const comp = s.composite, l3 = s.l3, sci = l3.scissors;
+  // hero — composite score
+  document.getElementById("h_score").textContent = t.score;
+  document.getElementById("score").textContent = comp.score;
+  const vt = document.getElementById("verdictTag");
+  vt.textContent = comp.verdict;
+  vt.className = "tag " + (comp.verdict==="REAL-AND-COMPOUNDING"?"on":comp.verdict==="GROWING-BUT-UNPAID"?"neutral":"off");
+  document.getElementById("scorePin").style.left = comp.score + "%";
+  document.getElementById("sc_l").textContent = t.scL;
+  document.getElementById("sc_m").textContent = t.scM;
+  document.getElementById("sc_r").textContent = t.scR;
+  document.getElementById("verdictLine").textContent = LANG==="zh"? comp.verdict_zh : comp.verdict_en;
+
+  // hero — scissors
+  document.getElementById("h_scissors").textContent = t.scissors;
+  document.getElementById("scissorRows").innerHTML =
+    `<div class="kv"><span class="k">${t.tokGrowth}</span><span class="v chg up">${sign(sci.token_growth_yoy_pct)}%/yr</span></div>
+     <div class="kv"><span class="k">${t.capexGrowth} ${tierBadge(sci.capex_tier)} ${estBadge(sci.capex_est)}</span><span class="v">${sign(sci.capex_growth_yoy_pct)}%/yr</span></div>
+     <div class="kv"><span class="k">${t.unitRatio}</span><span class="v" style="color:${sci.unit_ratio>=1?"var(--on)":"var(--off)"}">${fmt(sci.unit_ratio)}×</span></div>
+     <div class="kv"><span class="k">${t.dollarGrowth}</span><span class="v">${sign(sci.dollar_growth_yoy_pct)}%/yr</span></div>
+     <div class="kv"><span class="k">${t.dollarRatio}</span><span class="v" style="color:${sci.dollar_ratio>=1?"var(--on)":"var(--off)"}">${fmt(sci.dollar_ratio)}×</span></div>`;
+  document.getElementById("scissorHint").textContent = t.scissorHint;
+
+  // hero — monetization
+  document.getElementById("h_monet").textContent = t.monet;
+  const mon = l3.monetization, lead = mon.labs[0]||{}, floor = mon.serving_cost_floor||{};
+  document.getElementById("monetRows").innerHTML =
+    `<div class="kv"><span class="k">${t.realized} ${estBadge(true)}</span><span class="v">$${fmt(lead.realized_usd_per_m)}/M</span></div>
+     <div class="kv"><span class="k">${t.deflation}</span><span class="v chg down">${fmt(l3.price_deflation.mean_annual_change_pct)}%/yr</span></div>
+     <div class="kv"><span class="k">${t.floor} ${tierBadge(floor.tier)} ${estBadge(floor.est)}</span><span class="v">$${fmt(floor.usd_per_m_tokens)}/M</span></div>
+     <div class="kv"><span class="k">${t.multiple}</span><span class="v">${fmt(mon.realized_over_floor_x)}×</span></div>`;
+  document.getElementById("monetHint").textContent = t.monetHint;
+
+  // subscores
+  document.getElementById("h_subs").textContent = t.subs;
+  document.getElementById("n_subs").textContent = t.subsNote;
+  document.getElementById("subs").innerHTML = comp.subscores.map(x=>`
+    <div class="subcard"><div class="k">${LANG==="zh"?x.name_zh:x.name_en}</div>
+      <div class="v">${x.score}</div><div class="w">w = ${Math.round(x.weight*100)}%</div>
+      <div class="bar"><i style="width:${x.score}%"></i></div></div>`).join("");
+
+  // usage map
+  document.getElementById("h_map").textContent = t.map;
+  document.getElementById("n_map").textContent = t.mapNote;
+  document.getElementById("usageMap").innerHTML = s.usage_map.map(l=>{
+    const col = l.rank<=2? "var(--acc)" : l.rank<=4? "var(--neu)" : "var(--off)";
+    return `<div class="layer"><div class="rank" style="color:${col};border-color:${col}">${l.rank}</div>
+      <div><span class="nm">${LANG==="zh"?l.name_zh:l.name_en}</span>
+      <span class="econ">${LANG==="zh"?l.econ_zh:l.econ_en}</span>
+      <div class="desc">${LANG==="zh"?l.desc_zh:l.desc_en}</div>
+      <div class="sil"><b>→ Si</b> ${LANG==="zh"?l.silicon_zh:l.silicon_en}</div></div></div>`;
+  }).join("");
+  document.getElementById("positioning").textContent = LANG==="zh"? s.positioning_zh : s.positioning_en;
+
+  // token ledger
+  const led = l3.token_ledger;
+  const clsName = {}; s.usage_map.forEach(u=>clsName[u.id]=LANG==="zh"?u.name_zh:u.name_en);
+  document.getElementById("h_ledger").textContent = t.ledger;
+  document.getElementById("n_ledger").textContent = LANG==="zh"? led.note_zh : led.note_en;
+  document.getElementById("ledHead").innerHTML = "<tr>" + t.ledCols.map(c=>`<th>${c}</th>`).join("") + "</tr>";
+  document.getElementById("ledBody").innerHTML = led.platforms.map(r=>`<tr>
+      <td><span class="co">${r.name}</span><div class="rownote">${LANG==="zh"?r.note_zh:r.note_en}</div></td>
+      <td style="font-size:11px;color:var(--soft)">${clsName[r.class]||r.class}</td>
+      <td class="n">${r.latest_monthly_tokens_t} ${tierBadge(r.latest_tier)}${r.latest_est?estBadge(true):""}<div class="rownote">${r.latest_date}</div></td>
+      <td class="n" style="color:var(--on)">${sign(r.growth_yoy_pct)}%</td>
+      <td class="n">×${fmt(r.multiple_since_first)}</td>
+      <td><div class="rownote" style="margin-top:0">${r.points.map(p=>`${p.date}: ${p.monthly_tokens_t}T ${tierBadge(p.tier)}${p.est?estBadge(true):""} — ${LANG==="zh"?p.src_zh:p.src_en}`).join("<br>")}</div></td></tr>`).join("");
+  document.getElementById("ledgerAgg").textContent = t.ledgerAggFmt(led.growth_median_yoy_pct, sci);
+
+  // price deflation
+  const dfl = l3.price_deflation;
+  document.getElementById("h_price").textContent = t.price;
+  document.getElementById("n_price").textContent = t.priceNote;
+  document.getElementById("priceHead").innerHTML = "<tr>" + t.priceCols.map(c=>`<th>${c}</th>`).join("") + "</tr>";
+  document.getElementById("priceBody").innerHTML = dfl.curves.map(c=>{
+    const f = c.points[0], l = c.points[c.points.length-1];
+    return `<tr>
+      <td><span class="co">${LANG==="zh"?c.family_zh:c.family_en}</span> ${liveBadge(c.live)}<div class="rownote">${LANG==="zh"?c.note_zh:c.note_en}</div></td>
+      <td class="n">$${c.first_blended}/M<div class="rownote">${f.date}${f.model?(" · "+f.model):""}</div></td>
+      <td class="n">$${c.last_blended}/M<div class="rownote">${l.date}${l.model?(" · "+l.model):""}</div></td>
+      <td class="n" style="color:var(--off)">${sign(c.annual_change_pct)}%</td>
+      <td><div class="rownote" style="margin-top:0">${c.points.map(p=>`${p.date}: $${p.blended}/M${p.model?(" ("+p.model+")"):""} ${tierBadge(p.tier)}${p.est?estBadge(true):""}${p.live?' <span class="live">live</span>':""}`).join("<br>")}</div></td></tr>`;
+  }).join("");
+  document.getElementById("priceCaveat").textContent = LANG==="zh"? dfl.caveat_zh : dfl.caveat_en;
+
+  // monetization cards
+  document.getElementById("h_labs").textContent = t.labs;
+  document.getElementById("n_labs").textContent = t.labsNote;
+  const labCards = mon.labs.map(l=>{
+    const pt = l.points[l.points.length-1];
+    return `<div class="labcard">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span class="co" style="font-size:14px;font-weight:600">${l.name}</span>
+        <span>${tierBadge(pt.tier)} ${estBadge(pt.est)}</span></div>
+      <div class="kv"><span class="k">${t.rev}</span><span class="v">$${pt.revenue_runrate_usd_bn}B</span></div>
+      <div class="kv"><span class="k">${t.tok}</span><span class="v">${pt.monthly_tokens_t}T/mo</span></div>
+      <div class="kv"><span class="k">${t.realizedShort}</span><span class="v">$${l.realized_usd_per_m}/M</span></div>
+      <div class="kv"><span class="k">${t.trend}</span><span class="v">${l.realized_trend_pct_yr===null?"—":sign(l.realized_trend_pct_yr)+"%"}</span></div>
+      <div class="rownote" style="margin-top:8px">${LANG==="zh"?l.note_zh:l.note_en}${pt.align_note?(" · "+pt.align_note):""}</div>
+    </div>`;
+  });
+  labCards.push(`<div class="labcard">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span class="co" style="font-size:14px;font-weight:600">${t.floorCard}</span>
+        <span>${tierBadge(floor.tier)} ${estBadge(floor.est)}</span></div>
+      <div class="kv"><span class="k">$/M tokens</span><span class="v">$${floor.usd_per_m_tokens}</span></div>
+      <div class="kv"><span class="k">${t.multiple}</span><span class="v">${fmt(mon.realized_over_floor_x)}×</span></div>
+      <div class="rownote" style="margin-top:8px">${LANG==="zh"?floor.assumption_zh:floor.assumption_en} · ${floor.align_note||""}</div>
+    </div>`);
+  document.getElementById("labs").innerHTML = labCards.join("");
+
+  // L4
+  const l4 = s.l4;
+  document.getElementById("h_thesis").textContent = t.thesis;
+  document.getElementById("thesisDir").textContent = LANG==="zh"? l4.thesis.direction_zh : l4.thesis.direction_en;
+  document.getElementById("thesisConf").textContent = t.conf + ": " + l4.thesis.confidence;
+  document.getElementById("h_leads").textContent = t.leads;
+  document.getElementById("leads").innerHTML = l4.thesis.leading_signals.map(x=>`<li>${LANG==="zh"?x.zh:x.en}</li>`).join("");
+  document.getElementById("h_read").textContent = t.read;
+  document.getElementById("readText").textContent = LANG==="zh"? l4.usage_read.summary_zh : l4.usage_read.summary_en;
+  document.getElementById("h_silicon").textContent = t.silicon;
+  document.getElementById("n_silicon").textContent = t.siliconNote;
+  document.getElementById("siliconText").textContent = LANG==="zh"? l4.silicon_view.summary_zh : l4.silicon_view.summary_en;
+
+  // L5
+  const l5 = s.l5;
+  document.getElementById("h_scn").textContent = t.scn;
+  document.getElementById("n_scn").textContent = t.scnNote;
+  document.getElementById("scenarios").innerHTML = l5.scenarios.map(sc=>`
+    <div class="scn">
+      <div class="scnhead"><span class="scnname">${LANG==="zh"?sc.name_zh:sc.name_en}</span><span class="scnprob">${sc.prob}%</span></div>
+      <div class="bar" style="margin:7px 0 6px"><i style="width:${sc.prob}%"></i></div>
+      <div class="scntrig">${t.trigger}: ${LANG==="zh"?sc.trigger_zh:sc.trigger_en}</div>
+    </div>`).join("");
+  document.getElementById("h_fals").textContent = t.fals;
+  document.getElementById("falsification").innerHTML = l5.falsification.map(x=>`<li>${LANG==="zh"?x.zh:x.en}</li>`).join("");
+  document.getElementById("h_ew").textContent = t.ew;
+  document.getElementById("earlyWarn").innerHTML = l5.early_warning.map(x=>`<tr><td>${LANG==="zh"?x.zh:x.en}</td><td class="f">${x.freq}</td></tr>`).join("");
+
+  // dictionary
+  document.getElementById("h_dict").textContent = t.dict;
+  document.getElementById("n_dict").textContent = t.dictNote;
+  document.getElementById("dictHead").innerHTML = "<tr>" + t.dictCols.map(c=>`<th>${c}</th>`).join("") + "</tr>";
+  document.getElementById("dictBody").innerHTML = s.indicator_dictionary.map(d=>`<tr>
+      <td class="co">${LANG==="zh"?d.name_zh:d.name_en}</td>
+      <td style="color:var(--soft)">${LANG==="zh"?d.what_zh:d.what_en}</td>
+      <td style="color:var(--soft)">${LANG==="zh"?d.why_zh:d.why_en}</td>
+      <td style="color:var(--gold);font-size:11.5px">${LANG==="zh"?d.threshold_zh:d.threshold_en}</td></tr>`).join("");
+
+  // news
+  if(s.news && s.news.length){
+    document.getElementById("newsPanel").style.display="block";
+    document.getElementById("h_news").textContent = t.news;
+    document.getElementById("news").innerHTML = s.news.slice(0,12).map(n=>`<a href="${n.url}" target="_blank" rel="noopener">${n.title} <span class="src">${n.source?("· "+n.source):""} ${n.date||""}</span></a>`).join("");
+  }
+
+  // blind spots + methodology + disclaimer
+  document.getElementById("blindHead").textContent = t.blind + ":";
+  const blind = LANG==="zh"? s.blind_spots_zh : s.blind_spots_en;
+  document.getElementById("blind").innerHTML = (blind||[]).map(b=>`<li>· ${b}</li>`).join("");
+  document.getElementById("methodFoot").textContent = LANG==="zh"? s.method_zh : s.method_en;
+  document.getElementById("disclaimer").textContent = t.disclaimer;
+  document.getElementById("mp_title").textContent = t.mp;
+  document.getElementById("mp_zh").style.display = LANG==="zh" ? "block" : "none";
+  document.getElementById("mp_en").style.display = LANG==="zh" ? "none" : "block";
+}
+
+document.getElementById("langBtn").addEventListener("click",()=>{
+  LANG = LANG==="zh"?"en":"zh"; localStorage.setItem("usage_lang",LANG); render();
+});
+async function doRefresh(){
+  const t = T[LANG];
+  const pw = prompt(t.pwPrompt); if(!pw) return;
+  const st = document.getElementById("status"); st.textContent = t.refreshing;
+  try{
+    const r = await fetch("/usage/api/refresh",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({password:pw})});
+    const j = await r.json();
+    if(!r.ok || !j.ok){ st.textContent = t.fail + (j.error?` (${j.error})`:""); return; }
+    st.textContent = `${t.done} (${j.engine}, ${j.live_metrics} live, ${j.score} ${j.verdict})`;
+    setTimeout(()=>location.reload(),900);
+  }catch(e){ st.textContent = t.fail; }
+}
+document.getElementById("refreshBtn").addEventListener("click",doRefresh);
+render();
+</script>
+</body>
+</html>
