@@ -1,0 +1,298 @@
+{
+  "version": "1.0",
+  "as_of_curated": "2026-07-02",
+  "title_en": "Positioning & Sentiment Radar",
+  "title_zh": "部位與情緒雷達",
+  "method_en": "How crowded is the AI trade — and who is already fully invested: institutions, retail, leveraged money? Crowdedness does not time the top, but it sets the violence of the drawdown and narrows the exit. This card fills the blind spot /flows itself declares (no direct institutional-positioning data in the free tier) with genuinely free official sources: CFTC COT, AAII, NAAIM, FINRA margin debt, CBOE put/call, plus yfinance proxies. Curated player map (L1/L2) + live positioning quant with 3-year-percentile framing (L3) + Claude synthesis with rules fallback (L4/L5). Percentiles on curated bands are estimates. Not investment advice.",
+  "method_zh": "這個 AI 交易有多擁擠——誰已經滿倉:機構、散戶、還是槓桿資金?擁擠度不能算出頂在哪一天,但決定回檔的猛烈度、也決定出口有多窄。這張卡直接補掉 /flows 自己聲明的盲點(免費層沒有機構部位直接數據),用真正免費的官方數據填上:CFTC COT、AAII、NAAIM、FINRA 融資餘額、CBOE put/call,加上 yfinance 代理。策展玩家地圖(L1/L2)+ 帶三年百分位框架的即時部位量化(L3)+ Claude 合成與規則後備(L4/L5)。策展區間上的百分位屬估計值。非投資建議。",
+  "tier_legend": {
+    "T1": {"en": "Official / filings", "zh": "官方/財報"},
+    "T2": {"en": "Authoritative estimate", "zh": "權威估計"},
+    "T3": {"en": "News / inference", "zh": "新聞/推估"}
+  },
+
+  "player_map": [
+    {
+      "id": "leveraged", "unwind_rank": 1,
+      "name_en": "Leveraged money — margin debt, vol-target & CTA funds", "name_zh": "槓桿資金 — 融資餘額、vol-target 與 CTA",
+      "holds_en": "Borrowed conviction: FINRA margin debt near record, systematic funds whose equity exposure is a mechanical function of volatility.",
+      "holds_zh": "借來的信仰:FINRA 融資餘額接近歷史高位,系統性基金的股票曝險是波動率的機械函數。",
+      "unwind_en": "Sells FIRST and mechanically — margin calls and vol-target de-leveraging do not ask for a view. A VIX spike is the trigger, not the news that caused it.",
+      "unwind_zh": "最先賣、而且是機械式的——追繳與 vol-target 去槓桿不問觀點。觸發器是 VIX 跳升本身,不是造成它的新聞。",
+      "watch_en": "FINRA margin debt (2-month lag), VIX term structure (^VIX/^VIX3M).",
+      "watch_zh": "FINRA 融資餘額(落後兩個月)、VIX 期限結構(^VIX/^VIX3M)。"
+    },
+    {
+      "id": "active_inst", "unwind_rank": 2,
+      "name_en": "Active institutions — mutual & hedge funds (COT/13F-class)", "name_zh": "主動機構 — 共同基金/避險基金(COT/13F 類)",
+      "holds_en": "Benchmark-constrained overweights in the AI complex; momentum-following futures overlays visible in CFTC COT.",
+      "holds_zh": "受基準約束、對 AI 集群的超配;追動能的期貨部位可在 CFTC COT 看到。",
+      "unwind_en": "Sells second — de-risks when momentum breaks, not when valuation argues. NAAIM shows the turn within a week; COT within two.",
+      "unwind_zh": "第二個賣——動能斷裂時降風險,而不是估值說了算。NAAIM 一週內、COT 兩週內就會顯形。",
+      "watch_en": "CFTC COT NQ net non-commercial, NAAIM exposure. (13F is quarterly + 45-day lag — declared out of the free tier.)",
+      "watch_zh": "CFTC COT 那斯達克期貨投機淨部位、NAAIM 曝險。(13F 為季度+45 天落後——宣告不在免費層內。)"
+    },
+    {
+      "id": "retail", "unwind_rank": 3,
+      "name_en": "Retail — cash & options", "name_zh": "散戶 — 現金與選擇權",
+      "holds_en": "Buy-the-dip reflex plus a 0DTE call tilt; sentiment surveys read the mood, put/call reads the wallet.",
+      "holds_zh": "逢低買進反射動作加上 0DTE 買權傾斜;問卷讀心情,put/call 讀錢包。",
+      "unwind_en": "Sells late but suddenly — dip-buying works until it doesn't; the flip shows up in put/call and volume, not in surveys.",
+      "unwind_zh": "賣得晚、但翻臉很快——逢低買進有效到失效為止;翻轉先出現在 put/call 與量,不在問卷。",
+      "watch_en": "AAII bull-bear spread, CBOE equity put/call, QQQ volume share (proxy).",
+      "watch_zh": "AAII 多空差、CBOE 股票 put/call、QQQ 量能占比(代理)。"
+    },
+    {
+      "id": "insiders", "unwind_rank": 4,
+      "name_en": "Corporate insiders & buybacks", "name_zh": "內部人與庫藏股",
+      "holds_en": "Insiders sell into strength (informational); buybacks are the market's steadiest marginal bid.",
+      "holds_zh": "內部人逢高賣出(帶資訊含量);庫藏股是市場最穩定的邊際買盤。",
+      "unwind_en": "Does not 'sell' the market — the bid disappears on schedule: buyback blackout windows remove it exactly when earnings risk peaks.",
+      "unwind_zh": "不是「賣出」市場——而是買盤按行事曆消失:庫藏股靜默期恰好在財報風險最高時抽走買單。",
+      "watch_en": "Insider-sales tone (qualitative, see dictionary), buyback blackout calendar.",
+      "watch_zh": "內部人賣股基調(定性,見字典)、庫藏股靜默期行事曆。"
+    },
+    {
+      "id": "passive", "unwind_rank": 5,
+      "name_en": "Passive index funds (mechanical)", "name_zh": "被動指數資金(機械性)",
+      "holds_en": "Holds by construction — index concentration means the AI names ARE the index; no view, no discretion.",
+      "holds_zh": "按規則持有——指數集中度使 AI 權值股就是指數本身;沒有觀點、沒有裁量。",
+      "unwind_en": "Sells LAST and only on net redemptions — but when it does, it sells the same few AI names regardless of price.",
+      "unwind_zh": "最後才賣、且只因淨贖回——但一旦賣,就是不計價格地賣同樣那幾檔 AI 權值股。",
+      "watch_en": "Fund-flow reports (weekly ICI / ETF flows — partially outside the free tier).",
+      "watch_zh": "基金流向報告(ICI 週報 / ETF 流向——部分在免費層之外)。"
+    }
+  ],
+
+  "indicators_dict": [
+    {
+      "id": "cot_nq",
+      "name_en": "CFTC COT — NQ net non-commercial", "name_zh": "CFTC COT — 那斯達克期貨投機淨部位",
+      "what_en": "Net long minus short of non-commercial (speculative) traders in NASDAQ-100 e-mini futures, weekly official CFTC data.",
+      "what_zh": "那斯達克 100 e-mini 期貨中非商業(投機)交易者的淨多減淨空,CFTC 每週官方數據。",
+      "why_en": "The only FREE direct read on institutional futures positioning — the blind spot /flows declares.",
+      "why_zh": "免費層唯一能直接看到機構期貨部位的數據——正是 /flows 聲明的盲點。",
+      "threshold_en": ">85th 3y percentile = speculative money one-sided long.", "threshold_zh": ">3 年 85 百分位 = 投機資金單邊做多。"
+    },
+    {
+      "id": "aaii",
+      "name_en": "AAII bull-bear spread", "name_zh": "AAII 多空差",
+      "what_en": "Weekly survey of US individual investors: % bullish minus % bearish (6-month view).",
+      "what_zh": "美國散戶每週問卷:看多比例減看空比例(六個月展望)。",
+      "why_en": "Retail mood; extremes are contrarian. A LUKEWARM read while institutions are full is the 'professional crowding' tell.",
+      "why_zh": "散戶情緒;極端值反向。當機構滿倉而散戶問卷溫吞,就是「專業擁擠」的訊號。",
+      "threshold_en": ">+25pp = retail euphoria; <−20pp = capitulation.", "threshold_zh": ">+25pp = 散戶亢奮;<−20pp = 投降。"
+    },
+    {
+      "id": "naaim",
+      "name_en": "NAAIM Exposure Index", "name_zh": "NAAIM 曝險指數",
+      "what_en": "Weekly average equity exposure reported by active investment managers (can exceed 100 via leverage).",
+      "what_zh": "主動型經理人回報的平均股票曝險(可因槓桿超過 100)。",
+      "why_en": "The fastest weekly read on whether active managers are fully invested.",
+      "why_zh": "最快的每週指標,回答主動機構是否已經滿倉。",
+      "threshold_en": ">90 = managers all-in; <40 = defensive.", "threshold_zh": ">90 = 經理人全押;<40 = 防禦。"
+    },
+    {
+      "id": "margin_debt",
+      "name_en": "FINRA margin debt (YoY)", "name_zh": "FINRA 融資餘額(年增)",
+      "what_en": "Monthly debit balances in customers' securities margin accounts; we score the YoY growth rate.",
+      "what_zh": "客戶保證金帳戶的融資餘額(月頻);本卡對「年增率」計分。",
+      "why_en": "The leverage layer in dollars. Rapid growth = borrowed buying that must reverse mechanically in a drawdown.",
+      "why_zh": "槓桿層的美元數字。快速成長 = 借來的買盤,回檔時必然機械式反轉。",
+      "threshold_en": ">+25% YoY historically precedes violent flushes. Published with a ~2-month lag — honestly stale.",
+      "threshold_zh": "年增 >25% 歷史上常先於猛烈洗倉。發布落後約兩個月——誠實標註它是舊的。"
+    },
+    {
+      "id": "put_call",
+      "name_en": "CBOE equity put/call ratio (10d)", "name_zh": "CBOE 股票 put/call 比(10 日)",
+      "what_en": "10-day average of equity put volume over call volume.",
+      "what_zh": "股票賣權量除以買權量的 10 日平均。",
+      "why_en": "Reads the options wallet, not the survey mouth. Very low = call-chasing complacency (crowded).",
+      "why_zh": "讀的是選擇權錢包,不是問卷嘴巴。極低 = 追買權的自滿(擁擠)。",
+      "threshold_en": "<0.50 = crowded calls; a rise through 0.70 while indices hold = hedging bid returning (crack tell).",
+      "threshold_zh": "<0.50 = 買權擁擠;若指數未跌而比值升破 0.70 = 避險買盤回歸(裂紋訊號)。"
+    },
+    {
+      "id": "vix_term",
+      "name_en": "VIX term structure (VIX ÷ VIX3M)", "name_zh": "VIX 期限結構(VIX ÷ VIX3M)",
+      "what_en": "Spot VIX over 3-month VIX. Deep contango (<0.85) = complacency; ≥1.0 inversion = stress now.",
+      "what_zh": "即期 VIX 除以三個月 VIX。深度正價差(<0.85)= 自滿;≥1.0 倒掛 = 當下壓力。",
+      "why_en": "The trigger wire for vol-target and CTA de-leveraging — the first player in the unwind queue.",
+      "why_zh": "vol-target 與 CTA 去槓桿的引線——解倉隊列裡的第一個玩家。",
+      "threshold_en": "Ratio ≥0.95 = the mechanical sellers' finger moves to the trigger.", "threshold_zh": "比值 ≥0.95 = 機械賣家的手指已放到扳機上。"
+    },
+    {
+      "id": "insider_tone",
+      "name_en": "Insider-sales tone", "name_zh": "內部人賣股基調",
+      "what_en": "Qualitative: are AI-complex insiders selling into strength (Form 4 clusters, 10b5-1 step-ups)?",
+      "what_zh": "定性:AI 集群的內部人是否逢高加速賣股(Form 4 群聚、10b5-1 加碼)?",
+      "why_en": "The most informed player map layer; no free structured feed, so it stays a dictionary entry + news radar item, NOT a scored input.",
+      "why_zh": "玩家地圖裡資訊含量最高的一層;免費層沒有結構化來源,故僅列入字典與新聞雷達,不進入計分。",
+      "threshold_en": "Clustered mega-sales at highs while buybacks pause = distribution tell.",
+      "threshold_zh": "高檔群聚性大額賣出且庫藏股暫停 = 出貨訊號。"
+    }
+  ],
+
+  "indicators_l3": [
+    {
+      "id": "cot_nq",
+      "name_en": "COT — NQ net non-commercial", "name_zh": "COT — 那斯達克投機淨部位",
+      "unit_en": "k contracts net long", "unit_zh": "千口淨多",
+      "tier": "T1", "est": false, "proxy": false, "invert": false, "chg_window": "4w",
+      "seed": {"value": 28.4, "chg": 6.0, "as_of": "2026-06-23"},
+      "bands": [[-30, 5], [0, 25], [20, 55], [45, 88], [70, 99]],
+      "note_en": "CFTC legacy COT (futures only), Socrata keyless API; Tue as-of, Fri publish. Live refresh computes the TRUE 3y percentile from fetched history; the seed percentile uses the curated band (EST). Futures only — excludes the cash & options complex.",
+      "note_zh": "CFTC 傳統 COT(僅期貨),Socrata 免 key API;週二基準、週五發布。即時刷新會用抓到的歷史算「真」3 年百分位;種子百分位用策展區間(估計)。僅涵蓋期貨——不含現貨與選擇權部位。"
+    },
+    {
+      "id": "aaii",
+      "name_en": "AAII bull-bear spread", "name_zh": "AAII 多空差",
+      "unit_en": "pp (bull − bear)", "unit_zh": "pp(多 − 空)",
+      "tier": "T2", "est": true, "proxy": false, "invert": false, "chg_window": "4w",
+      "seed": {"value": 8.4, "chg": -2.1, "as_of": "2026-06-25"},
+      "bands": [[-30, 3], [-10, 20], [0, 35], [10, 60], [20, 85], [35, 99]],
+      "note_en": "Weekly Thursday survey; small self-selected sample (see blind spots). Seed = bulls 41.6% / bears 33.2%. Lukewarm retail vs full institutions is itself a signal.",
+      "note_zh": "每週四發布;小樣本自選問卷(見盲點)。種子 = 看多 41.6% / 看空 33.2%。散戶溫吞、機構滿倉,本身就是訊號。"
+    },
+    {
+      "id": "naaim",
+      "name_en": "NAAIM exposure index", "name_zh": "NAAIM 曝險指數",
+      "unit_en": "avg equity exposure", "unit_zh": "平均股票曝險",
+      "tier": "T2", "est": true, "proxy": false, "invert": false, "chg_window": "4w",
+      "seed": {"value": 92.5, "chg": 7.5, "as_of": "2026-06-24"},
+      "bands": [[10, 2], [40, 20], [60, 40], [80, 70], [90, 88], [105, 99]],
+      "note_en": "Weekly Wednesday; active managers' self-reported exposure, can exceed 100 with leverage. Best-effort live fetch from naaim.org; seed fallback.",
+      "note_zh": "每週三發布;主動經理人自報曝險,槓桿下可超過 100。即時層 best-effort 抓 naaim.org,失敗退回種子。"
+    },
+    {
+      "id": "margin_debt",
+      "name_en": "FINRA margin debt YoY", "name_zh": "FINRA 融資餘額年增",
+      "unit_en": "% YoY", "unit_zh": "% 年增",
+      "tier": "T1", "est": false, "proxy": false, "invert": false, "chg_window": "3m",
+      "seed": {"value": 18.0, "chg": 4.1, "as_of": "2026-04-30", "level_usd_bn": 1190},
+      "bands": [[-20, 2], [0, 25], [10, 55], [20, 80], [30, 95], [40, 99]],
+      "note_en": "Official FINRA monthly statistics — but published with a ~2-month lag: the 2026-04-30 print (~$1,190B) is the freshest available on 2026-07-02. NO live fetch; curated seed only, refreshed by hand when FINRA publishes.",
+      "note_zh": "FINRA 官方月度統計——但發布落後約兩個月:2026-07-02 能拿到的最新值是 2026-04-30(約 $1,190B)。不做即時抓取;僅策展種子,FINRA 發布後人工更新。"
+    },
+    {
+      "id": "put_call",
+      "name_en": "CBOE equity put/call (10d)", "name_zh": "CBOE 股票 put/call(10 日)",
+      "unit_en": "ratio", "unit_zh": "比值",
+      "tier": "T2", "est": true, "proxy": false, "invert": true, "chg_window": "4w",
+      "seed": {"value": 0.58, "chg": 0.03, "as_of": "2026-07-01"},
+      "bands": [[0.40, 1], [0.50, 8], [0.60, 30], [0.75, 60], [0.90, 85], [1.10, 99]],
+      "note_en": "Inverted for crowding: LOW ratio = call-chasing = crowded. Best-effort scrape of CBOE daily stats; seed = curated 10-day average.",
+      "note_zh": "計分反向:比值越低 = 追買權 = 越擁擠。即時層 best-effort 抓 CBOE 日統計;種子為策展 10 日均值。"
+    },
+    {
+      "id": "vix_term",
+      "name_en": "VIX ÷ VIX3M term structure", "name_zh": "VIX ÷ VIX3M 期限結構",
+      "unit_en": "ratio", "unit_zh": "比值",
+      "tier": "T1", "est": false, "proxy": true, "invert": true, "chg_window": "4w",
+      "seed": {"value": 0.913, "chg": 0.021, "as_of": "2026-07-01"},
+      "bands": [[0.75, 2], [0.85, 15], [0.95, 55], [1.05, 80], [1.20, 97]],
+      "note_en": "PROXY — reliably live via yfinance (^VIX, ^VIX3M). Inverted: deep contango (low ratio) = complacency = crowded carry; ≥0.95 flips to a CRACK tell (vol-target trigger wire).",
+      "note_zh": "代理指標——經 yfinance(^VIX、^VIX3M)可靠即時。計分反向:深度正價差(低比值)= 自滿 = 擁擠套利;≥0.95 轉為「裂紋」訊號(vol-target 引線)。"
+    },
+    {
+      "id": "qqq_spy_vol",
+      "name_en": "QQQ/SPY dollar-volume ratio (20d)", "name_zh": "QQQ/SPY 成交金額比(20 日)",
+      "unit_en": "ratio", "unit_zh": "比值",
+      "tier": "T3", "est": true, "proxy": true, "invert": false, "chg_window": "4w",
+      "seed": {"value": 0.82, "chg": -0.04, "as_of": "2026-07-01"},
+      "bands": [[0.40, 5], [0.60, 30], [0.80, 60], [1.00, 85], [1.20, 97]],
+      "note_en": "PROXY — attention/turnover tilt toward the tech complex, not a position. Reliably live via yfinance. Curated band is an estimate (T3).",
+      "note_zh": "代理指標——衡量注意力/換手向科技集群傾斜,不是部位本身。yfinance 可靠即時。策展區間為估計(T3)。"
+    },
+    {
+      "id": "soxx_rel_vol",
+      "name_en": "SOXX relative volume (3m ÷ 1y)", "name_zh": "SOXX 相對量能(3 月 ÷ 1 年)",
+      "unit_en": "×", "unit_zh": "×",
+      "tier": "T3", "est": true, "proxy": true, "invert": false, "chg_window": "4w",
+      "seed": {"value": 1.12, "chg": 0.05, "as_of": "2026-07-01"},
+      "bands": [[0.60, 5], [0.80, 25], [1.00, 50], [1.30, 85], [1.60, 97]],
+      "note_en": "PROXY — how much of the market's attention sits on semis specifically. Reliably live via yfinance. Curated band is an estimate (T3).",
+      "note_zh": "代理指標——市場注意力有多少壓在半導體上。yfinance 可靠即時。策展區間為估計(T3)。"
+    }
+  ],
+
+  "weights": {
+    "cot_nq": 0.20, "naaim": 0.15, "margin_debt": 0.20, "put_call": 0.15,
+    "aaii": 0.10, "vix_term": 0.10, "qqq_spy_vol": 0.05, "soxx_rel_vol": 0.05
+  },
+  "verdict_thresholds": {"uncrowded_max": 40.0, "crowded_max": 75.0},
+
+  "nuance_rules": {
+    "vix_ratio_crack": 0.95,
+    "put_call_crack": 0.70,
+    "cracks_min": 2,
+    "rising_ids": ["cot_nq", "naaim", "margin_debt"],
+    "rising_min": 2
+  },
+
+  "cross_card": {
+    "credit_decompression": {
+      "value": true, "as_of": "2026-07-02",
+      "align_note": "對齊 /credit 2026-07-02:CCC−IG 解壓縮旗標 ON(composite 41.6 LEVERING)",
+      "note_en": "The key nuance pairing: crowded positioning is survivable while credit is calm — crowded positioning WHILE the bottom of the credit stack decompresses is the dangerous combination.",
+      "note_zh": "關鍵配對:信用平靜時擁擠還撐得住——但信用結構最底層開始解壓縮時的擁擠,才是危險組合。"
+    },
+    "aibubble_market": {
+      "value": 64.6, "as_of": "2026-07-02",
+      "align_note": "對齊 /aibubble 2026-07-02:market 64.6 過熱(僅引用作脈絡,不進入計分)",
+      "note_en": "Context only, not a scored input: /aibubble reads temperature (valuation/heat); this card reads crowdedness (who is already in).",
+      "note_zh": "僅作脈絡、不進入計分:/aibubble 讀的是溫度(估值/熱度),本卡讀的是擁擠度(誰已經進場)。"
+    }
+  },
+
+  "scenarios_seed": [
+    {
+      "id": "melt_up_grind", "name_en": "Crowded grind-up", "name_zh": "擁擠續漲",
+      "trigger_en": "NAAIM stays >85, put/call stays <0.60, VIX ratio stays <0.90 — crowding persists without a vol trigger; drawdowns stay <5%.",
+      "trigger_zh": "NAAIM 維持 >85、put/call 維持 <0.60、VIX 比值 <0.90——擁擠延續但沒有波動觸發;回檔維持 <5%。"
+    },
+    {
+      "id": "violent_flush", "name_en": "Violent-but-shallow flush", "name_zh": "猛烈但淺的洗倉",
+      "trigger_en": "VIX ratio inverts (≥1.0) → vol-target/CTA forced selling → 8–15% air-pocket in weeks; COT net long unwinds >1 year of build; ends when leverage is out.",
+      "trigger_zh": "VIX 比值倒掛(≥1.0)→ vol-target/CTA 被迫賣出 → 數週內 8–15% 真空式下跌;COT 淨多回吐逾一年累積;槓桿出清即止。"
+    },
+    {
+      "id": "distribution_top", "name_en": "Distribution top", "name_zh": "高檔換手見頂",
+      "trigger_en": "Insider mega-sales cluster + buyback blackouts + retail finally euphoric (AAII >+25pp) while NAAIM quietly slips below 70 — smart money hands to late money.",
+      "trigger_zh": "內部人群聚大賣 + 庫藏股靜默 + 散戶終於亢奮(AAII >+25pp)而 NAAIM 悄悄跌破 70——聰明錢把貨交給晚到的錢。"
+    },
+    {
+      "id": "uncrowding_reset", "name_en": "Uncrowding reset, trend intact", "name_zh": "去擁擠重置、趨勢未壞",
+      "trigger_en": "A contained 5–8% pullback takes COT below its 3y median and put/call above 0.80 — positioning resets while AI fundamentals (see /payback, /bottleneck) are unchanged.",
+      "trigger_zh": "一次受控的 5–8% 回檔把 COT 壓回 3 年中位數以下、put/call 升破 0.80——部位重置而 AI 基本面(見 /payback、/bottleneck)未變。"
+    }
+  ],
+
+  "blind_spots_en": [
+    "CFTC COT covers futures only — the cash equity and options complex (where much of the AI trade lives) is invisible to it.",
+    "AAII is a small self-selected retail survey; it reads mood, not money. We weight it lowest among the scored inputs.",
+    "FINRA margin debt publishes with a ~2-month lag — the freshest print is genuinely old news and is labeled as such.",
+    "13F institutional holdings are quarterly + 45-day lag — declared OUT of the free tier rather than laundered in as fresh.",
+    "3-year percentiles on curated bands are ESTIMATES; only the COT percentile is computed from true fetched history on live refresh.",
+    "Volume-based proxies (QQQ/SPY, SOXX) measure attention and turnover, not positions — they can be high in both accumulation and distribution.",
+    "0DTE options flow — the fastest-moving retail/leverage layer — has no free structured source and is only visible here via put/call and news."
+  ],
+  "blind_spots_zh": [
+    "CFTC COT 僅涵蓋期貨——現貨與選擇權部位(AI 交易的大宗所在)在它眼裡是看不見的。",
+    "AAII 是小樣本自選散戶問卷;讀的是心情不是錢。在計分輸入中我們給它最低權重。",
+    "FINRA 融資餘額發布落後約兩個月——最新一筆其實是舊聞,本卡如實標註。",
+    "13F 機構持股為季度+45 天落後——直接宣告不在免費層,而不是洗成新數據混進來。",
+    "策展區間上的 3 年百分位是估計值;只有 COT 百分位在即時刷新時用真實歷史計算。",
+    "量能類代理(QQQ/SPY、SOXX)衡量注意力與換手,不是部位——吸籌與出貨階段都可能偏高。",
+    "0DTE 選擇權流——最快的散戶/槓桿層——沒有免費結構化來源,本卡只能透過 put/call 與新聞間接看到。"
+  ],
+
+  "news_queries": [
+    "NASDAQ futures net long positioning",
+    "AAII bullish sentiment survey",
+    "FINRA margin debt record",
+    "0DTE options volume retail",
+    "AI trade crowded positioning hedge funds",
+    "insider selling AI stocks"
+  ]
+}

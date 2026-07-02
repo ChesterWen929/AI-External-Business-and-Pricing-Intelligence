@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Positioning & Sentiment Radar · 部位與情緒雷達</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0b0f; --panel:rgba(22,24,31,.72); --panel-hi:rgba(30,33,42,.9);
+    --line:rgba(255,255,255,.08); --line-hi:rgba(255,255,255,.16);
+    --ink:#ecedf2; --soft:#a6a9b8; --dim:#6a6e80; --gold:#c8a86a; --acc:#7c83ff;
+    --on:#43c08a; --off:#e0626e; --neu:#c8a86a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:radial-gradient(1100px 560px at 82% -14%,rgba(124,131,255,.10),transparent 58%),radial-gradient(900px 520px at -8% 4%,rgba(200,168,106,.08),transparent 52%),var(--bg);
+       color:var(--ink);font-family:"Inter","PingFang TC","Noto Sans TC",-apple-system,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:22px 26px 60px}
+  .top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:8px}
+  .brand{display:flex;align-items:center;gap:11px}
+  .gem{width:16px;height:16px;transform:rotate(45deg);border:1px solid var(--gold);border-radius:4px;position:relative}
+  .gem::after{content:"";position:absolute;inset:4px;background:var(--gold);border-radius:2px;opacity:.85}
+  h1{font-family:"Noto Serif TC",serif;font-weight:600;font-size:22px;letter-spacing:.5px}
+  .tools{display:flex;align-items:center;gap:10px}
+  .btn{font-size:12px;padding:6px 12px;border-radius:8px;border:1px solid var(--line-hi);background:transparent;color:var(--soft);cursor:pointer;transition:.15s}
+  .btn:hover{color:var(--ink);border-color:var(--acc)}
+  .btn.go{border-color:var(--acc);color:var(--acc)}
+  .status{font-size:11.5px;color:var(--dim)}
+  .crumb{font-size:11px;color:var(--dim);letter-spacing:.4px;margin-bottom:18px}
+  .crumb a:hover{color:var(--gold)}
+  .demo{background:rgba(200,168,106,.10);border:1px solid rgba(200,168,106,.3);color:var(--gold);
+        font-size:12px;padding:9px 13px;border-radius:10px;margin-bottom:18px}
+  .sub{color:var(--dim);font-size:12.5px;line-height:1.6;margin-bottom:22px}
+
+  .grid{display:grid;gap:16px}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+  .panel h2{font-family:"Noto Serif TC",serif;font-size:15px;font-weight:600;letter-spacing:.5px;margin-bottom:4px}
+  .panel .note{font-size:11.5px;color:var(--dim);margin-bottom:14px;line-height:1.5}
+  .eyebrow{font-size:10.5px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);opacity:.85}
+
+  /* hero */
+  .hero{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:16px;margin-bottom:16px}
+  @media(max-width:780px){.hero{grid-template-columns:1fr}}
+  .big{font-variant-numeric:tabular-nums;font-weight:600;font-size:30px;letter-spacing:.5px}
+  .gauge{height:8px;border-radius:999px;background:linear-gradient(90deg,var(--on),var(--neu),var(--off));position:relative;margin:14px 0 8px}
+  .gauge .pin{position:absolute;top:-4px;width:3px;height:16px;background:#fff;border-radius:2px;box-shadow:0 0 8px rgba(255,255,255,.6)}
+  .scale{display:flex;justify-content:space-between;font-size:10px;color:var(--dim)}
+  .tag{display:inline-block;font-size:11px;font-weight:500;padding:2px 9px;border-radius:999px;letter-spacing:.4px}
+  .tag.on{background:rgba(67,192,138,.15);color:var(--on)} .tag.off{background:rgba(224,98,110,.15);color:var(--off)}
+  .tag.neutral{background:rgba(200,168,106,.15);color:var(--neu)}
+  .kv{display:flex;align-items:baseline;justify-content:space-between;gap:8px;font-size:12.5px;padding:5px 0;border-top:1px solid var(--line)}
+  .kv .k{color:var(--soft)} .kv .v{font-variant-numeric:tabular-nums}
+  .chg.up{color:var(--off)} .chg.down{color:var(--on)} .chg.flat{color:var(--dim)}
+  .live{font-size:9px;color:var(--dim);border:1px solid var(--line);border-radius:4px;padding:0 4px}
+  .tier{font-size:9px;border-radius:4px;padding:0 4px;letter-spacing:.4px}
+  .tier.T1{color:var(--on);border:1px solid rgba(67,192,138,.4)}
+  .tier.T2{color:var(--gold);border:1px solid rgba(200,168,106,.4)}
+  .tier.T3{color:var(--off);border:1px solid rgba(224,98,110,.4)}
+  .est{font-size:9px;color:var(--acc);border:1px solid rgba(124,131,255,.4);border-radius:4px;padding:0 4px}
+  .proxy{font-size:9px;color:var(--neu);border:1px solid rgba(200,168,106,.4);border-radius:4px;padding:0 4px}
+
+  /* nuance / crack tells */
+  .tell{display:flex;gap:9px;align-items:flex-start;font-size:12px;color:var(--soft);padding:7px 0;border-top:1px solid var(--line);line-height:1.5}
+  .dot{flex:0 0 9px;width:9px;height:9px;border-radius:50%;margin-top:4px}
+  .dot.on{background:var(--off);box-shadow:0 0 7px rgba(224,98,110,.7)}
+  .dot.off{background:rgba(255,255,255,.14)}
+  .tell b{color:var(--ink);font-weight:500}
+  .align{font-size:10.5px;color:var(--gold);opacity:.8}
+
+  /* player map */
+  .layer{display:flex;gap:14px;align-items:flex-start;padding:11px 0;border-top:1px solid var(--line)}
+  .layer .rank{flex:0 0 26px;height:26px;border-radius:8px;border:1px solid var(--line-hi);display:flex;align-items:center;justify-content:center;
+               font-size:12px;font-weight:600;font-variant-numeric:tabular-nums}
+  .layer .nm{font-weight:600;font-size:13px}
+  .layer .hard{font-size:10.5px;letter-spacing:.5px;margin-left:8px}
+  .layer .desc{font-size:12px;color:var(--soft);line-height:1.55;margin-top:4px}
+  .layer .watch{font-size:11px;color:var(--dim);line-height:1.5;margin-top:4px}
+
+  /* tables */
+  table.tb{width:100%;border-collapse:collapse;font-size:12px}
+  table.tb th{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--dim);text-align:left;padding:6px 8px;border-bottom:1px solid var(--line-hi);white-space:nowrap}
+  table.tb td{padding:8px;border-top:1px solid var(--line);vertical-align:top}
+  table.tb td.n{font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+  table.tb .co{font-weight:600}
+  .rownote{font-size:10.5px;color:var(--dim);line-height:1.45;margin-top:3px}
+  .scrollx{overflow-x:auto}
+  .bar{height:6px;border-radius:999px;background:rgba(255,255,255,.06);margin-top:5px;overflow:hidden;min-width:70px}
+  .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--acc),var(--gold))}
+
+  /* L4/L5 */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:780px){.two{grid-template-columns:1fr}}
+  .body{font-size:13px;line-height:1.7;color:var(--ink)}
+  .leads li,.fals li{font-size:12.5px;line-height:1.6;color:var(--soft);margin:6px 0 6px 2px;list-style:none;padding-left:16px;position:relative}
+  .leads li::before,.fals li::before{content:"▸";position:absolute;left:0;color:var(--gold)}
+  .queue{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--line)}
+  .queue .qr{flex:0 0 26px;height:26px;border-radius:50%;border:1px solid var(--off);color:var(--off);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600}
+  .queue .qn{font-weight:600;font-size:13px}
+  .queue .qt{font-size:11.5px;color:var(--soft);line-height:1.5;margin-top:3px}
+  .scn{padding:11px 0;border-top:1px solid var(--line)}
+  .scnhead{display:flex;justify-content:space-between;gap:10px;font-size:13px}
+  .scnname{font-weight:500}
+  .scnprob{font-variant-numeric:tabular-nums;color:var(--gold);font-weight:600}
+  .scntrig{font-size:11.5px;color:var(--dim);line-height:1.5}
+  table.ew{width:100%;border-collapse:collapse;font-size:12.5px}
+  table.ew td{padding:7px 8px;border-top:1px solid var(--line)}
+  table.ew td.f{text-align:right;color:var(--gold);font-size:11px;white-space:nowrap}
+  .news a{display:block;font-size:12.5px;color:var(--soft);padding:7px 0;border-top:1px solid var(--line);line-height:1.4}
+  .news a:hover{color:var(--ink)} .news .src{color:var(--dim);font-size:11px}
+  .foot{margin-top:24px;font-size:11px;color:var(--dim);line-height:1.7}
+  .conf{font-size:11px;color:var(--soft)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand"><span class="gem"></span><h1 id="title"></h1></div>
+    <div class="tools">
+      <button class="btn" id="langBtn"></button>
+      <button class="btn go" id="refreshBtn"></button>
+      <span class="status" id="status"></span>
+    </div>
+  </div>
+  <div class="crumb"><a href="/">← <span id="crumbHome"></span></a> · <span id="asof"></span> · <span id="engine"></span></div>
+  <div id="demo" class="demo" style="display:none"></div>
+  <div class="sub" id="method"></div>
+
+  <!-- hero -->
+  <div class="hero">
+    <div class="panel">
+      <span class="eyebrow" id="h_score"></span>
+      <div class="big"><span id="score"></span><span style="font-size:15px;color:var(--dim)">/100</span> <span class="tag" id="verdictTag"></span></div>
+      <div class="gauge"><div class="pin" id="scorePin"></div></div>
+      <div class="scale"><span id="sc_l"></span><span id="sc_m"></span><span id="sc_r"></span></div>
+      <div class="note" style="margin:10px 0 0" id="verdictLine"></div>
+    </div>
+    <div class="panel">
+      <span class="eyebrow" id="h_nuance"></span>
+      <div style="font-size:16px;font-weight:600;margin:8px 0 2px" id="nuanceState"></div>
+      <div class="note" style="margin:0 0 6px" id="nuanceDesc"></div>
+      <div id="crackList"></div>
+    </div>
+    <div class="panel">
+      <span class="eyebrow" id="h_keys"></span>
+      <div id="keyRows" style="margin-top:8px"></div>
+      <div class="note" style="margin:10px 0 0" id="keysHint"></div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <!-- L3 crowdedness board -->
+    <div class="panel">
+      <h2 id="h_l3"></h2><div class="note" id="n_l3"></div>
+      <div class="scrollx"><table class="tb"><thead id="l3Head"></thead><tbody id="l3Body"></tbody></table></div>
+      <div class="note" style="margin:10px 0 0" id="l3Foot"></div>
+    </div>
+
+    <!-- L1 player map -->
+    <div class="panel">
+      <h2 id="h_map"></h2><div class="note" id="n_map"></div>
+      <div id="map"></div>
+    </div>
+
+    <!-- L4 unwind queue + positioning read -->
+    <div class="two">
+      <div class="panel">
+        <h2 id="h_queue"></h2><div class="note" id="n_queue"></div>
+        <div id="queue"></div>
+      </div>
+      <div class="panel">
+        <h2 id="h_read"></h2>
+        <div class="body" id="readText"></div>
+      </div>
+    </div>
+
+    <!-- L4 thesis + TSMC view -->
+    <div class="two">
+      <div class="panel">
+        <h2 id="h_thesis"></h2>
+        <div class="big" style="font-size:17px;line-height:1.4;margin:6px 0 6px" id="thesisDir"></div>
+        <div class="conf" id="thesisConf"></div>
+        <div class="note" style="margin:14px 0 6px" id="h_leads"></div>
+        <ul class="leads" id="leads"></ul>
+      </div>
+      <div class="panel">
+        <h2 id="h_tsmc"></h2><div class="note" id="n_tsmc"></div>
+        <div class="body" id="tsmcText"></div>
+      </div>
+    </div>
+
+    <!-- L5 -->
+    <div class="two">
+      <div class="panel">
+        <h2 id="h_scn"></h2><div class="note" id="n_scn"></div>
+        <div id="scenarios"></div>
+      </div>
+      <div class="panel">
+        <h2 id="h_fals"></h2>
+        <ul class="fals" id="falsification"></ul>
+        <h2 style="margin-top:16px" id="h_ew"></h2>
+        <table class="ew"><tbody id="earlyWarn"></tbody></table>
+      </div>
+    </div>
+
+    <!-- L2 dictionary -->
+    <div class="panel">
+      <h2 id="h_dict"></h2><div class="note" id="n_dict"></div>
+      <div class="scrollx"><table class="tb"><thead id="dictHead"></thead><tbody id="dictBody"></tbody></table></div>
+    </div>
+
+    <!-- news -->
+    <div class="panel" id="newsPanel" style="display:none">
+      <h2 id="h_news"></h2>
+      <div class="news" id="news"></div>
+    </div>
+  </div>
+
+  <!-- 數據做法與假設 · methodology & assumptions (language follows the LANG toggle) -->
+  <div class="panel" id="methodPanel" style="margin-top:16px">
+    <div class="eyebrow">METHODOLOGY &amp; ASSUMPTIONS</div>
+    <h2 id="mp_title"></h2>
+    <div id="mp_zh" style="display:none;font-size:12.5px;color:var(--soft);line-height:1.8">
+      <p><b style="color:var(--ink)">五層架構</b> — L1 玩家地圖(五類持有者與各自的解倉行為)與 L2 指標字典是人工策展知識庫(寫死於 KB,非即時);L3 是量化即時層;L4 誰先解倉·部位判讀·台積電視角與 L5 情境/證偽由 Claude 於刷新時合成(無 API key 走規則後備,頁首 engine 欄標注實際引擎)。</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">L3 數據來源</b> — CFTC COT:傳統報告(僅期貨)Socrata 免 key API,那斯達克 100 e-mini 非商業淨部位,週二基準、週五發布;即時刷新用抓到的約三年歷史計算「真」百分位。NAAIM(週三)、AAII(週四)、CBOE 股票 put/call:免 key best-effort 抓取,失敗退回帶日期的策展種子。FINRA 融資餘額:官方月度數據但發布落後約兩個月(2026-07-02 能拿到的最新值是 2026-04-30 的 ~$1,190B)——刻意不做即時抓取,只用誠實標註時點的策展種子。yfinance 代理(標 PROXY,可靠即時):^VIX÷^VIX3M 期限結構、QQQ/SPY 20 日成交金額比、SOXX 相對量能。</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">百分位與擁擠度貢獻</b> — 每個指標對照三年百分位:COT 在即時刷新時用真實歷史計算(標 live_3y),其餘用 KB 策展錨點線性內插(標 curated_band,屬估計值)。擁擠度貢獻 = 百分位;對「越低越擁擠」的指標(put/call、VIX 期限結構)取 100 − 百分位。</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">綜合擁擠度(0=不擁擠,100=單邊)</b> — 權重寫死並揭露:COT 20%、融資餘額年增 20%、NAAIM 15%、put/call 15%、AAII 10%、VIX 期限結構 10%、QQQ/SPY 量比 5%、SOXX 相對量 5%。結論門檻:&lt;40 UNCROWDED、40–75 CROWDED、≥75 ONE-SIDED。細膩判讀(nuance):裂紋訊號 3 項——/credit 的 CCC−IG 解壓縮旗標(對齊 /credit 2026-07-02,ON)、VIX÷VIX3M ≥0.95、put/call ≥0.70 且上升;≥2 項亮 = 「擁擠且龜裂」,否則按部位趨勢(COT/NAAIM/融資餘額 4 週變化多數向上)分「擁擠且加碼」或「擁擠但停滯」。</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">假設與限制</b> — COT 僅期貨、不含現貨與選擇權;AAII 是小樣本問卷;融資餘額落後兩個月;13F(季度+45 天)宣告不在免費層;策展區間上的百分位是估計;量能代理衡量注意力而非部位;0DTE 流無免費結構化來源。部位不是需求訊號——它決定回檔的猛烈度,不決定基本面。/aibubble(market 64.6 過熱,2026-07-02)僅作脈絡引用,不進入計分。手動密碼刷新,非排程。AI 合成內容為解讀輔助,非投資建議。</p>
+    </div>
+    <div id="mp_en" style="display:none;font-size:12.5px;color:var(--soft);line-height:1.8">
+      <p><b style="color:var(--ink)">Five-layer design</b> — the L1 player map (five holder classes, each with its typical unwind behavior) and L2 indicator dictionary are a hand-curated knowledge base (static, not live). L3 is the quantitative live layer; L4 who-unwinds-first + positioning read + TSMC view and L5 scenarios/falsification are synthesized by Claude on each refresh (rules fallback without an API key; the engine badge shows which ran).</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">L3 sources</b> — CFTC COT: legacy report (futures only) via the keyless Socrata API, NASDAQ-100 e-mini net non-commercial, Tuesday as-of / Friday publish; live refresh computes the TRUE percentile from ~3 years of fetched history. NAAIM (Wed), AAII (Thu), CBOE equity put/call: keyless best-effort fetches falling back to dated curated seeds. FINRA margin debt: official monthly data published with a ~2-month lag (the freshest print available on 2026-07-02 is 2026-04-30, ~$1,190B) — deliberately NOT fetched live; the honestly-dated curated seed is the source of record. yfinance proxies (flagged PROXY, reliably live): ^VIX÷^VIX3M term structure, QQQ/SPY 20-day dollar-volume ratio, SOXX relative volume.</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">Percentiles & crowd contributions</b> — every indicator is framed as a 3-year percentile: COT gets a true percentile from fetched history on live refresh (tagged live_3y); the rest are linearly interpolated on curated KB anchor bands (tagged curated_band — estimates). Crowd contribution = the percentile, inverted (100 − pct) for indicators where LOW means crowded (put/call, VIX term structure).</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">Composite crowdedness (0 = uncrowded, 100 = one-sided)</b> — hard-coded, disclosed weights: COT 20%, margin-debt YoY 20%, NAAIM 15%, put/call 15%, AAII 10%, VIX term 10%, QQQ/SPY volume 5%, SOXX volume 5%. Verdict thresholds: &lt;40 UNCROWDED, 40–75 CROWDED, ≥75 ONE-SIDED. The nuance read uses 3 crack tells — the /credit card's CCC−IG decompression flag (aligned with /credit 2026-07-02, ON), VIX÷VIX3M ≥0.95, and put/call ≥0.70 & rising; ≥2 tells on = "crowded & cracking", otherwise the build trend (majority of COT/NAAIM/margin 4-week changes positive) splits "crowded & rising" from "crowded & stalling".</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">Assumptions & limits</b> — COT covers futures only; AAII is a small survey; margin debt lags 2 months; 13F (quarterly + 45d) is declared out of the free tier; percentiles on curated bands are estimates; volume proxies measure attention, not positions; 0DTE flow has no free structured source. Positioning is NOT a demand signal — it sets the violence of the drawdown, not the fundamentals. /aibubble (market 64.6 overheated, 2026-07-02) is cited as context only, not scored. Manual password-gated refresh only, no schedule. AI synthesis is an interpretive aid — not investment advice.</p>
+    </div>
+  </div>
+
+  <div class="foot">
+    <div id="blindHead"></div>
+    <ul style="list-style:none;margin-top:6px" id="blind"></ul>
+    <div style="margin-top:12px" id="methodFoot"></div>
+    <div style="margin-top:8px" id="disclaimer"></div>
+  </div>
+</div>
+
+<script>
+const SNAP = {{ snapshot | safe }};
+let LANG = localStorage.getItem("positioning_lang") || "en";
+
+const T = {
+  en:{home:"External Market Analysis", lang:"中文", refresh:"↻ Refresh",
+      pwPrompt:"Enter refresh password (default positioning2026):", refreshing:"refreshing… COT/NAAIM/proxies + Claude L4/L5",
+      done:"done, reloading…", fail:"refresh failed",
+      demo:"Seed view — hit ↻ Refresh to pull live COT, NAAIM & proxies (and Claude L4/L5 if an API key is set).",
+      asof:"As of", engineRules:"engine: rules (no API key)", engineClaude:"engine: Claude Opus 4.8",
+      score:"Composite crowdedness", scL:"0 uncrowded", scM:"crowded", scR:"100 one-sided",
+      nuance:"Nuance — rising vs cracking", keys:"Who is full (3y pct est.)",
+      keysHint:"Percentiles on curated bands are estimates; only COT recomputes on live refresh.",
+      cracksFmt:(n,tot,min)=>`Crack tells ${n}/${tot} on (threshold ${min})`,
+      risingFmt:(n,tot)=>`build trend up in ${n}/${tot}`,
+      l3:"L3 · Crowdedness board", l3Note:"Each indicator framed as a 3-year percentile → crowd contribution (inverted where LOW = crowded). Weights disclosed in the methodology panel.",
+      l3Cols:["Indicator","Value","Δ","3y pct","Crowd","W","As of"],
+      l3FootFmt:(n)=>`pct source: live_3y = true percentile from fetched history · curated_band = interpolated on KB anchors (estimate). ${n} of 8 indicators live.`,
+      map:"L1 · Player map — who holds the AI trade, who sells first", mapNote:"Five holder classes ordered by unwind rank (1 = sells first). The queue, not the average, sets the violence of the drawdown.",
+      sells:"sells #",
+      queue:"L4 · Unwind queue — who sells first", queueNote:"Ordered by mechanical necessity, annotated with today's readings.",
+      read:"L4 · Positioning read",
+      thesis:"L4 · Positioning thesis", conf:"confidence", leads:"Leading signals (ordered by speed)",
+      tsmc:"台積電視角 · TSMC view", tsmcNote:"Positioning is not a demand signal — read what it does to the environment around the order book.",
+      scn:"L5 · Scenarios", scnNote:"Probabilities from the current read; each with a concrete trigger.",
+      fals:"L5 · Falsification — what would flip the thesis", ew:"L5 · Early-warning checklist",
+      dict:"L2 · Indicator dictionary", dictNote:"What each metric is, why it matters, and the extreme that changes the story.",
+      dictCols:["Indicator","What","Why it matters","Extreme / threshold"],
+      news:"News radar (fetched on refresh)",
+      blind:"Blind spots", trigger:"Trigger",
+      mp:"How the numbers are made · 數據做法與假設",
+      disclaimer:"Estimates are estimates — every curated number carries a tier (T1 official/filings · T2 authoritative estimate · T3 news/inference), an as-of date, and PROXY/EST flags where they apply. Not investment advice."},
+  zh:{home:"外部市場分析", lang:"EN", refresh:"↻ 更新",
+      pwPrompt:"輸入更新密碼(預設 positioning2026):", refreshing:"更新中…COT/NAAIM/代理 + Claude L4/L5",
+      done:"完成,重新載入中…", fail:"更新失敗",
+      demo:"種子視圖 — 按 ↻ 更新 抓即時 COT、NAAIM 與代理指標(若設了 API key 會跑 Claude L4/L5)。",
+      asof:"資料時點", engineRules:"引擎:規則(無 API key)", engineClaude:"引擎:Claude Opus 4.8",
+      score:"綜合擁擠度", scL:"0 不擁擠", scM:"擁擠", scR:"100 單邊",
+      nuance:"細膩判讀 — 加碼 vs 龜裂", keys:"誰已滿倉(3 年百分位估計)",
+      keysHint:"策展區間上的百分位屬估計;僅 COT 在即時刷新時重算。",
+      cracksFmt:(n,tot,min)=>`裂紋訊號 ${n}/${tot} 亮(門檻 ${min})`,
+      risingFmt:(n,tot)=>`加碼趨勢 ${n}/${tot} 向上`,
+      l3:"L3 · 擁擠度儀表板", l3Note:"每個指標以三年百分位框架 → 擁擠度貢獻(「越低越擁擠」者反向計)。權重揭露於下方「數據做法與假設」。",
+      l3Cols:["指標","數值","Δ","3年百分位","擁擠貢獻","權重","時點"],
+      l3FootFmt:(n)=>`百分位來源:live_3y = 真實歷史計算 · curated_band = KB 錨點內插(估計)。8 項指標中 ${n} 項即時。`,
+      map:"L1 · 玩家地圖 — 誰持有 AI 交易、誰先賣", mapNote:"五類持有者按解倉順位排列(1 = 最先賣)。決定回檔猛烈度的是這個隊列,不是平均值。",
+      sells:"解倉順位 #",
+      queue:"L4 · 解倉隊列 — 誰先賣", queueNote:"按機械必然性排序,並以今日讀數註記。",
+      read:"L4 · 部位判讀",
+      thesis:"L4 · 部位論點", conf:"信心", leads:"領先訊號(按速度排序)",
+      tsmc:"台積電視角", tsmcNote:"部位不是需求訊號——要讀的是它對訂單簿周遭環境的作用。",
+      scn:"L5 · 情境", scnNote:"機率來自當前判讀;每個情境附具體觸發條件。",
+      fals:"L5 · 證偽 — 什麼會翻轉論點", ew:"L5 · 早期預警清單",
+      dict:"L2 · 指標字典", dictNote:"每個指標是什麼、為何重要、以及改變故事的極端值。",
+      dictCols:["指標","是什麼","為何重要","極端/門檻"],
+      news:"新聞雷達(更新時抓取)",
+      blind:"盲點", trigger:"觸發",
+      mp:"數據做法與假設",
+      disclaimer:"估計就是估計——每個策展數字都帶證據等級(T1 官方/財報 · T2 權威估計 · T3 新聞/推估)、資料時點,以及適用時的 PROXY/EST 標記。非投資建議。"}
+};
+
+function fmt(v){ return (v===null||v===undefined)? "—" : v; }
+function sign(v){ return (v>0?"+":"")+v; }
+function chgCls(v){ if(v===null||v===undefined||v===0) return "flat"; return v>0?"up":"down"; }
+function tierBadge(t){ return t? `<span class="tier ${t}">${t}</span>` : ""; }
+function estBadge(e){ return e? `<span class="est">EST</span>` : ""; }
+function proxyBadge(p){ return p? `<span class="proxy">PROXY</span>` : ""; }
+function liveBadge(l){ return l? `<span class="live">live</span>` : ""; }
+
+function render(){
+  const t = T[LANG], s = SNAP;
+  document.documentElement.lang = LANG==="zh"?"zh-Hant":"en";
+  document.getElementById("title").textContent = LANG==="zh"? s.title_zh : s.title_en;
+  document.getElementById("langBtn").textContent = t.lang;
+  document.getElementById("refreshBtn").textContent = t.refresh;
+  document.getElementById("crumbHome").textContent = t.home;
+  document.getElementById("asof").textContent = t.asof + " " + (s.as_of||"") + (s.generated_at? " · "+s.generated_at : "");
+  document.getElementById("engine").textContent = s.analysis_engine==="claude"? t.engineClaude : t.engineRules;
+  document.getElementById("method").textContent = LANG==="zh"? s.method_zh : s.method_en;
+  const demo = document.getElementById("demo");
+  if(s.is_demo){ demo.style.display="block"; demo.textContent = t.demo; } else { demo.style.display="none"; }
+
+  const comp = s.composite, l3 = s.l3, nu = s.nuance;
+  const rows = l3.indicators;
+  const by = {}; rows.forEach(r=>by[r.id]=r);
+
+  // hero — composite score
+  document.getElementById("h_score").textContent = t.score;
+  document.getElementById("score").textContent = comp.score;
+  const vt = document.getElementById("verdictTag");
+  vt.textContent = comp.verdict;
+  vt.className = "tag " + (comp.verdict==="UNCROWDED"?"on":comp.verdict==="CROWDED"?"neutral":"off");
+  document.getElementById("scorePin").style.left = comp.score + "%";
+  document.getElementById("sc_l").textContent = t.scL;
+  document.getElementById("sc_m").textContent = t.scM;
+  document.getElementById("sc_r").textContent = t.scR;
+  document.getElementById("verdictLine").textContent = LANG==="zh"? comp.verdict_zh : comp.verdict_en;
+
+  // hero — nuance
+  document.getElementById("h_nuance").textContent = t.nuance;
+  const ns = document.getElementById("nuanceState");
+  ns.textContent = LANG==="zh"? nu.state_zh : nu.state_en;
+  ns.style.color = nu.state==="crowded_cracking"? "var(--off)" : nu.state==="not_crowded"? "var(--on)" : "var(--neu)";
+  document.getElementById("nuanceDesc").textContent =
+    t.cracksFmt(nu.cracks_on, nu.crack_tells.length, nu.cracks_min) + " · " + t.risingFmt(nu.rising_count, nu.rising_total);
+  document.getElementById("crackList").innerHTML = nu.crack_tells.map(c=>`
+    <div class="tell"><span class="dot ${c.on?"on":"off"}"></span>
+      <span><b>${LANG==="zh"?c.label_zh:c.label_en}</b> — ${LANG==="zh"?c.detail_zh:c.detail_en}
+      ${c.align_note?`<div class="align">${c.align_note}</div>`:""}</span></div>`).join("");
+
+  // hero — who is full
+  document.getElementById("h_keys").textContent = t.keys;
+  const keyIds = ["naaim","cot_nq","margin_debt","aaii"];
+  document.getElementById("keyRows").innerHTML = keyIds.map(id=>{
+    const r = by[id]; if(!r) return "";
+    return `<div class="kv"><span class="k">${LANG==="zh"?r.name_zh:r.name_en} ${liveBadge(r.live)}</span>
+      <span class="v">${fmt(r.value)} <span style="color:var(--gold)">· p${fmt(r.pct3y)}</span></span></div>`;
+  }).join("");
+  document.getElementById("keysHint").textContent = t.keysHint;
+
+  // L3 board
+  document.getElementById("h_l3").textContent = t.l3;
+  document.getElementById("n_l3").textContent = t.l3Note;
+  document.getElementById("l3Head").innerHTML = "<tr>" + t.l3Cols.map(c=>`<th>${c}</th>`).join("") + "</tr>";
+  document.getElementById("l3Body").innerHTML = rows.map(r=>`<tr>
+      <td><span class="co">${LANG==="zh"?r.name_zh:r.name_en}</span> ${tierBadge(r.tier)}${r.est?" "+estBadge(true):""}${r.proxy?" "+proxyBadge(true):""} ${liveBadge(r.live)}
+        <div class="rownote">${LANG==="zh"?r.note_zh:r.note_en}</div></td>
+      <td class="n">${fmt(r.value)}<div class="rownote">${LANG==="zh"?r.unit_zh:r.unit_en}</div></td>
+      <td class="n"><span class="chg ${chgCls(r.chg)}">${r.chg===null||r.chg===undefined?"—":sign(r.chg)}</span><div class="rownote">${r.chg_window||""}</div></td>
+      <td class="n">${fmt(r.pct3y)}<div class="bar"><i style="width:${r.pct3y||0}%"></i></div><div class="rownote">${r.pct_source}</div></td>
+      <td class="n" style="color:${(r.crowd||0)>=80?"var(--off)":(r.crowd||0)>=55?"var(--neu)":"var(--on)"}">${fmt(r.crowd)}</td>
+      <td class="n">${Math.round((r.weight||0)*100)}%</td>
+      <td class="n" style="font-size:11px;color:var(--dim)">${r.as_of}</td></tr>`).join("");
+  document.getElementById("l3Foot").textContent = t.l3FootFmt(l3.live_count);
+
+  // L1 player map
+  document.getElementById("h_map").textContent = t.map;
+  document.getElementById("n_map").textContent = t.mapNote;
+  document.getElementById("map").innerHTML = s.player_map.slice().sort((a,b)=>a.unwind_rank-b.unwind_rank).map(p=>{
+    const col = p.unwind_rank<=2? "var(--off)" : p.unwind_rank===3? "var(--neu)" : "var(--on)";
+    return `<div class="layer"><div class="rank" style="color:${col};border-color:${col}">${p.unwind_rank}</div>
+      <div><span class="nm">${LANG==="zh"?p.name_zh:p.name_en}</span>
+      <span class="hard" style="color:${col}">${t.sells}${p.unwind_rank}</span>
+      <div class="desc">${LANG==="zh"?p.holds_zh:p.holds_en}</div>
+      <div class="desc" style="color:${col}">${LANG==="zh"?p.unwind_zh:p.unwind_en}</div>
+      <div class="watch">👁 ${LANG==="zh"?p.watch_zh:p.watch_en}</div></div></div>`;
+  }).join("");
+
+  // L4
+  const l4 = s.l4;
+  document.getElementById("h_queue").textContent = t.queue;
+  document.getElementById("n_queue").textContent = t.queueNote;
+  document.getElementById("queue").innerHTML = l4.unwind_queue.map(q=>`
+    <div class="queue"><div class="qr">${q.rank}</div>
+      <div><div class="qn">${LANG==="zh"?q.player_zh:q.player_en}</div>
+      <div class="qt">${LANG==="zh"?q.trigger_zh:q.trigger_en}</div></div></div>`).join("");
+  document.getElementById("h_read").textContent = t.read;
+  document.getElementById("readText").textContent = LANG==="zh"? l4.positioning_read.summary_zh : l4.positioning_read.summary_en;
+
+  document.getElementById("h_thesis").textContent = t.thesis;
+  document.getElementById("thesisDir").textContent = LANG==="zh"? l4.thesis.direction_zh : l4.thesis.direction_en;
+  document.getElementById("thesisConf").textContent = t.conf + ": " + l4.thesis.confidence;
+  document.getElementById("h_leads").textContent = t.leads;
+  document.getElementById("leads").innerHTML = l4.thesis.leading_signals.map(x=>`<li>${LANG==="zh"?x.zh:x.en}</li>`).join("");
+  document.getElementById("h_tsmc").textContent = t.tsmc;
+  document.getElementById("n_tsmc").textContent = t.tsmcNote;
+  document.getElementById("tsmcText").textContent = LANG==="zh"? l4.tsmc_view.summary_zh : l4.tsmc_view.summary_en;
+
+  // L5
+  const l5 = s.l5;
+  document.getElementById("h_scn").textContent = t.scn;
+  document.getElementById("n_scn").textContent = t.scnNote;
+  document.getElementById("scenarios").innerHTML = l5.scenarios.map(sc=>`
+    <div class="scn">
+      <div class="scnhead"><span class="scnname">${LANG==="zh"?sc.name_zh:sc.name_en}</span><span class="scnprob">${sc.prob}%</span></div>
+      <div class="bar" style="margin:7px 0 6px"><i style="width:${sc.prob}%"></i></div>
+      <div class="scntrig">${t.trigger}: ${LANG==="zh"?sc.trigger_zh:sc.trigger_en}</div>
+    </div>`).join("");
+  document.getElementById("h_fals").textContent = t.fals;
+  document.getElementById("falsification").innerHTML = l5.falsification.map(x=>`<li>${LANG==="zh"?x.zh:x.en}</li>`).join("");
+  document.getElementById("h_ew").textContent = t.ew;
+  document.getElementById("earlyWarn").innerHTML = l5.early_warning.map(x=>`<tr><td>${LANG==="zh"?x.zh:x.en}</td><td class="f">${x.freq}</td></tr>`).join("");
+
+  // dictionary
+  document.getElementById("h_dict").textContent = t.dict;
+  document.getElementById("n_dict").textContent = t.dictNote;
+  document.getElementById("dictHead").innerHTML = "<tr>" + t.dictCols.map(c=>`<th>${c}</th>`).join("") + "</tr>";
+  document.getElementById("dictBody").innerHTML = s.indicator_dictionary.map(d=>`<tr>
+      <td class="co">${LANG==="zh"?d.name_zh:d.name_en}</td>
+      <td style="color:var(--soft)">${LANG==="zh"?d.what_zh:d.what_en}</td>
+      <td style="color:var(--soft)">${LANG==="zh"?d.why_zh:d.why_en}</td>
+      <td style="color:var(--gold);font-size:11.5px">${LANG==="zh"?d.threshold_zh:d.threshold_en}</td></tr>`).join("");
+
+  // news
+  if(s.news && s.news.length){
+    document.getElementById("newsPanel").style.display="block";
+    document.getElementById("h_news").textContent = t.news;
+    document.getElementById("news").innerHTML = s.news.slice(0,12).map(n=>`<a href="${n.url}" target="_blank" rel="noopener">${n.title} <span class="src">${n.source?("· "+n.source):""} ${n.date||""}</span></a>`).join("");
+  }
+
+  // blind spots + methodology + disclaimer
+  document.getElementById("blindHead").textContent = t.blind + ":";
+  const blind = LANG==="zh"? s.blind_spots_zh : s.blind_spots_en;
+  document.getElementById("blind").innerHTML = (blind||[]).map(b=>`<li>· ${b}</li>`).join("");
+  document.getElementById("methodFoot").textContent = LANG==="zh"? s.method_zh : s.method_en;
+  document.getElementById("disclaimer").textContent = t.disclaimer;
+  document.getElementById("mp_title").textContent = t.mp;
+  document.getElementById("mp_zh").style.display = LANG==="zh" ? "block" : "none";
+  document.getElementById("mp_en").style.display = LANG==="zh" ? "none" : "block";
+}
+
+document.getElementById("langBtn").addEventListener("click",()=>{
+  LANG = LANG==="zh"?"en":"zh"; localStorage.setItem("positioning_lang",LANG); render();
+});
+async function doRefresh(){
+  const t = T[LANG];
+  const pw = prompt(t.pwPrompt); if(!pw) return;
+  const st = document.getElementById("status"); st.textContent = t.refreshing;
+  try{
+    const r = await fetch("/positioning/api/refresh",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({password:pw})});
+    const j = await r.json();
+    if(!r.ok || !j.ok){ st.textContent = t.fail + (j.error?` (${j.error})`:""); return; }
+    st.textContent = `${t.done} (${j.engine}, ${j.live_metrics} live, ${j.score} ${j.verdict})`;
+    setTimeout(()=>location.reload(),900);
+  }catch(e){ st.textContent = t.fail; }
+}
+document.getElementById("refreshBtn").addEventListener("click",doRefresh);
+render();
+</script>
+</body>
+</html>
