@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-25 08:17 UTC",
+  "generated_at": "2026-07-02 06:50 UTC",
   "as_of": "2026-06-13",
   "base_year": 2025,
   "end_year": 2030,
@@ -18,7 +18,7 @@
     "Alphabet": 109.9,
     "Amazon": 151.0,
     "Meta": 75.7,
-    "Oracle": 48.2
+    "Oracle": 55.7
   },
   "headline": {
     "base_year": 2025,
@@ -842,7 +842,7 @@
     "url": "https://www.iea.org/reports/energy-and-ai/executive-summary"
   },
   "supply": {
-    "_source": "TSMC earnings 2025: HPC >60% of revenue (Q1'25); CoWoS advanced-packaging capacity ~35k wpm (2024) -> ~70k (end-2025) -> ~150k (2026); tight through 2027. Advanced packaging is the binding supply constraint on AI accelerator units.",
+    "_source": "TSMC earnings 2025: HPC >60% of revenue (Q1'25); CoWoS advanced-packaging capacity ~35k wpm (2024) -> ~70k (end-2025) -> ~150k (2026 exit-rate); tight through 2027. The per-year value here is the year EXIT-rate, so it ramps within the year (~80k mid-2026 / Q2 exit, cf. /bottleneck's tsmc_cowos seed, then ~150k by end-2026 — same ramp, different point). Advanced packaging is the binding supply constraint on AI accelerator units.",
     "_confidence": "high",
     "url": "https://longyield.substack.com/p/tsmc-at-the-center-of-the-ai-boom",
     "cowos_wpm": {
@@ -934,11 +934,11 @@
       "source": "SEC EDGAR companyfacts"
     },
     "ORCL": {
-      "annual_revenue_usd_bn": 57.4,
-      "annual_fy_end": "2025-05-31",
+      "annual_revenue_usd_bn": 67.4,
+      "annual_fy_end": "2026-05-31",
       "latest_quarter_revenue_usd_bn": 17.2,
       "quarter_end": "2026-02-28",
-      "annual_capex_usd_bn": 21.2,
+      "annual_capex_usd_bn": 55.7,
       "source": "SEC EDGAR companyfacts"
     }
   },
@@ -1015,7 +1015,7 @@
     },
     {
       "key": "supply_anchors",
-      "source": "TSMC earnings 2025: HPC >60% of revenue (Q1'25); CoWoS advanced-packaging capacity ~35k wpm (2024) -> ~70k (end-2025) -> ~150k (2026); tight through 2027. Advanced packaging is the binding supply constraint on AI accelerator units.",
+      "source": "TSMC earnings 2025: HPC >60% of revenue (Q1'25); CoWoS advanced-packaging capacity ~35k wpm (2024) -> ~70k (end-2025) -> ~150k (2026 exit-rate); tight through 2027. The per-year value here is the year EXIT-rate, so it ramps within the year (~80k mid-2026 / Q2 exit, cf. /bottleneck's tsmc_cowos seed, then ~150k by end-2026 — same ramp, different point). Advanced packaging is the binding supply constraint on AI accelerator units.",
       "confidence": "high",
       "as_of": "2026-06-13",
       "url": "https://longyield.substack.com/p/tsmc-at-the-center-of-the-ai-boom"
