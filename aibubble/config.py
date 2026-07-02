@@ -306,9 +306,10 @@ HN_PROD_KEYWORDS = [
 # 隱含必要收入 = 年化 CapEx × 2（資料中心總成本 + 50% 毛利結構的粗估），
 # 對照「目前 AI 終端收入」估計值（公開報導約數，可隨時調整）。
 # OpenAI/Anthropic 年化營收 run-rate 與 /payback 對齊（單一口徑、避免兩卡漂移）：
-# OpenAI $20B、Anthropic $12B（NEWS，2026Q1）。逐家詳情見 /payback。
+# OpenAI $25B（IPO 申報，2026-07-02 使用者核准 payback KB v2）、Anthropic $12B（NEWS，2026Q1）。
+# 逐家詳情見 /payback。
 AI_REVENUE_ESTIMATES = [
-    {"zh": "OpenAI（年化營收 run-rate，對齊 /payback）",    "value_b": 20},
+    {"zh": "OpenAI（年化營收 run-rate，對齊 /payback）",    "value_b": 25},
     {"zh": "Anthropic（年化營收 run-rate，對齊 /payback）", "value_b": 12},
     {"zh": "微軟/谷歌/Meta AI 歸屬收入（估）",     "value_b": 40},
     {"zh": "其他 AI 應用與 API（估）",             "value_b": 15},

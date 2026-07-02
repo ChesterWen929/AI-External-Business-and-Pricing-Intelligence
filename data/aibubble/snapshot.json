@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-07-02T06:43:57+00:00",
+ "generated_at": "2026-07-02T08:01:15+00:00",
  "groups": [
   {
    "key": "mega",
@@ -2160,15 +2160,15 @@
    "asof": "2026-07-01"
   },
   "BTC-USD": {
-   "price": 60461.2305,
-   "chg_1d": 0.76,
-   "chg_1w": 0.87,
-   "chg_1m": -4.88,
-   "chg_6m": -10.37,
-   "chg_1y": -44.46,
-   "chg_ytd": -30.91,
-   "off_high": -51.54,
-   "vs_200dma": -19.45,
+   "price": 60058.9219,
+   "chg_1d": 0.09,
+   "chg_1w": 0.2,
+   "chg_1m": -5.51,
+   "chg_6m": -10.96,
+   "chg_1y": -44.83,
+   "chg_ytd": -31.37,
+   "off_high": -51.86,
+   "vs_200dma": -19.99,
    "spark": [
     76981.125,
     77279.9297,
@@ -2209,7 +2209,7 @@
     60138.3789,
     58558.8594,
     60003.7578,
-    60461.2305
+    60058.9219
    ],
    "asof": "2026-07-02"
   },
@@ -2268,17 +2268,16 @@
    "asof": "2026-07-01"
   },
   "^VIX": {
-   "price": 16.59,
-   "chg_1d": 0.85,
-   "chg_1w": -10.95,
-   "chg_1m": 3.36,
-   "chg_6m": 15.77,
-   "chg_1y": -1.43,
-   "chg_ytd": 10.97,
-   "off_high": -46.57,
-   "vs_200dma": -11.15,
+   "price": 16.79,
+   "chg_1d": 1.21,
+   "chg_1w": -11.12,
+   "chg_1m": 6.47,
+   "chg_6m": 12.31,
+   "chg_1y": 0.9,
+   "chg_ytd": 12.31,
+   "off_high": -45.93,
+   "vs_200dma": -10.08,
    "spark": [
-    17.39,
     17.08,
     17.19,
     18.38,
@@ -2317,9 +2316,10 @@
     18.41,
     17.65,
     16.45,
-    16.59
+    16.59,
+    16.79
    ],
-   "asof": "2026-07-01"
+   "asof": "2026-07-02"
   },
   "SPY": {
    "price": 745.76,
@@ -3099,7 +3099,7 @@
   "asof": "2026-06-30"
  },
  "scores": {
-  "composite": 64.7,
+  "composite": 64.6,
   "zone": {
    "key": "hot",
    "zh": "過熱區",
@@ -3207,7 +3207,7 @@
     "zh": "信用與投機溫度",
     "en": "Credit & Speculation",
     "note_zh": "高收益債利差（越窄越自滿）、比特幣動能、ARKK 超額、VIX 水位（越低越自滿）",
-    "score": 48.6,
+    "score": 48.3,
     "level": "warn",
     "weight": 0.15,
     "inputs": [
@@ -3217,7 +3217,7 @@
      },
      {
       "zh": "比特幣近 6 月",
-      "v": "-10.4%"
+      "v": "-11.0%"
      },
      {
       "zh": "ARKK 近 6 月超額（vs 標普）",
@@ -3225,7 +3225,7 @@
      },
      {
       "zh": "VIX 水位（越低越自滿）",
-      "v": "16.6"
+      "v": "16.8"
      }
     ]
    },
@@ -3255,7 +3255,7 @@
    "gpus": {
     "h100": {
      "zh": "H100 SXM",
-     "median": 2.156,
+     "median": 2.137,
      "min": 1.736,
      "offers": 18
     },
@@ -3267,9 +3267,9 @@
     },
     "a100": {
      "zh": "A100 SXM4",
-     "median": 0.861,
+     "median": 0.817,
      "min": 0.401,
-     "offers": 24
+     "offers": 28
     }
    },
    "history": [
@@ -3311,8 +3311,8 @@
     },
     {
      "date": "2026-07",
-     "h100": 2.156,
-     "a100": 0.861,
+     "h100": 2.137,
+     "a100": 0.817,
      "live": true
     }
    ],
@@ -3320,7 +3320,7 @@
     1.3,
     1.9
    ],
-   "asof": "2026-07-02T06:43:28+00:00"
+   "asof": "2026-07-02T08:00:19+00:00"
   },
   "adoption": {
    "packages": {
@@ -3450,22 +3450,31 @@
     }
    },
    "pypi_last_week": {
-    "openai": 86678933
+    "openai": 86678933,
+    "anthropic": 36704384
    },
    "avg_g1y": 631.6,
    "avg_g6m": 524.9
   },
   "dc_stress": {
-   "stress_n": 12,
+   "stress_n": 11,
    "expand_n": 7,
-   "neutral_n": 20,
-   "ratio": 0.632,
+   "neutral_n": 21,
+   "ratio": 0.611,
    "classifier": "rules",
    "items": [
     {
+     "title": "Data center pause clouds Spokane's future - Spokane Journal of Business",
+     "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxNX05VM1R4UEhnSU45aTREaDlGSk5SMG1HeEN4SmxNVmEwdi16eHlTWkw4UUlYWENsemVrb3pmQ0E1TWRta3UzSEhqOHpDM3hYUmpGNnJldXkxQmEzNlJXaG14N0l6RFF0ekxka1dLN3puQ3pya2luTExYbl85Tk4wbDhJM1E1SUo0YmRXcDdNcw?oc=5",
+     "pubDate": "Thu, 02 Jul 2026 07:00:00 GMT",
+     "source": "",
+     "lang": "en",
+     "label": "stress"
+    },
+    {
      "title": "Data center pause raises larger questions about who benefits from AI infrastructure - WRAL",
-     "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQUlE5MFVzcFlNVG5ZSFAtX1pJQXpDakVtUWVFVXZQVEJBcEhIdzJ5SjhWLVRvbWxNVElKUzJwaU1Za21sMDRhZWgtbVZ2ZGtZRUFwNEhzT25jancwenNKM1NJcW1sVGJCdl9YV0Zod2N5SE8wc0VpQjB4c01wZTJ3WVc2N1FMZHZjUzN3bUgzVWE?oc=5",
-     "pubDate": "Thu, 02 Jul 2026 01:28:38 GMT",
+     "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQZHMxbGcyajJRbGVObGU2ZkxFVE05OFBTb2lKQUJPVHEyeGhoc18wN2VxcEQ0UEEwcjk0R2NwSmZVVzF3NGtDUnJ6TlZoLTRBR0NMVTRCb1RwSWZ4UGEtakJOQlM1ZW12OGFOcXV6ek41aWNkR0tWRV9DNl9pRHV5b2N3RVg?oc=5",
+     "pubDate": "Thu, 02 Jul 2026 01:04:51 GMT",
      "source": "",
      "lang": "en",
      "label": "stress"
@@ -3511,17 +3520,9 @@
      "label": "stress"
     },
     {
-     "title": "Seward County approves one-year pause on data center permits and construction - KOLN | Nebraska Local News, Weather, Sports | Lincoln, NE",
-     "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOZnlaeThiWVJrNW9OVGJVSWx3dm00bC1OWlF5WHlERHhtdDF2N3NMbHNnTzZ2b1kzOWctS0MwZ0dUWnZvbjdMY2hqOEdVZGJxcmpXc28yV0tuZjJHRndlVEtoRGpYdlJGNmYxUjZUeEs5TnpQMS1uWjhveEJNLUlVUzdwemxBdGhxZ0xPd1RPM1UxcnI1ODh5X0FjSW44TWRNT1ZOdVRMWHZ1UdIBvgFBVV95cUxQcE5DUVdMcTlNeUp3b0dKZ2RGMHhDSHQtVEhUcTh4a1lSaEVJX3FMVmlpaGpOMWVOaE4wTGRnbDRLeUlubzg2S2dJX3I4V1NsVW1uNW94VU04QWlzbGV2R25WZ3d0UEJWWjFoenF0Tk9ZbWV0RjZWMklRY2Ffa1VzRTBuVWRXTDFNejhBeW1EdmFCRXFrYmRtSXgzaDFKd0Z3ODJCaHVFdHdMZ0pEend5dmRxbTRhT1Mxakctai1B?oc=5",
-     "pubDate": "Tue, 30 Jun 2026 22:21:00 GMT",
-     "source": "",
-     "lang": "en",
-     "label": "stress"
-    },
-    {
-     "title": "Commentary: Why Snohomish County paused data center development - goSkagit",
-     "link": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxOQ2lKdGFjb3FQekNfQkNlaTlJUVE0UkNZb1c5VERrVklaUEo4eWJDeTE0NFg5SjY2LV8xWnhRUTNMNS1MUjduT1hEOHNXLVBzc1pQN2Z0OFJEOS1KckpocXpDcHBaVjhSMWtLR2szSWtvZzBkRnlFbm1LTEZqNnZyX1JpRXExVGxmUzNmX2czQTBMSThKYV8wNl9mRnJnak5XSno2b0RmcUdtNURDUjBndVVncXl5RFVocERKMk9TYUhkY1UxSUxKTHZWdVVmak5ZNEUwTEFNMDBnb1VqUmZ3bXhHNUhUX3NRUU8wRGRoLWtiQ1VkQWc?oc=5",
-     "pubDate": "Sun, 28 Jun 2026 19:00:00 GMT",
+     "title": "Inver Grove Heights meeting erupts into shouts after data center moratorium delayed - MPR News",
+     "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxNbFh3SFpjZ2VCTkpmN0R6UnMwdm01T0hWdmE4Y3ZJOS1ZUUxNVjJKdkNDV1VhQlB1TXExM0RkQjdVOC1QS1BTUWlmOGI2bmdjZjZNMW11WkhtYWdpbEZyM3VTV3FlQ2prXzl4ajdQX2daVGVKeHRCYmxMU0hGZ1JzbHhjUE15V3JFY3ZaQU5SWG1icjdzRGlTT0UtTzlndmptQjBlY0ZRVjVmUDBDVWxmNmlfR2NWQkpheHpXdmE5dFlNUQ?oc=5",
+     "pubDate": "Tue, 23 Jun 2026 17:39:00 GMT",
      "source": "",
      "lang": "en",
      "label": "stress"
@@ -3616,83 +3617,26 @@
     }
    ],
    "seed_total_b": 529.3,
-   "fresh_items": [
-    {
-     "title": "Does OpenAI’s new financing make sense? - Marcus on AI | Substack",
-     "link": "https://news.google.com/rss/articles/CBMie0FVX3lxTE4yQ3h1RGh0MXZLc19va09nbHJBUTRNaml1Uk53eDFNYUhvamNfU1B1Zl9famF6NUo0anY1TUk5ekFSTnJkNG41bDdESlIxaU9KbGhzYUtfMnJKTHdiSVJaZHlCZktvZkYtQ2YxR3BYVXdMNFVoREJHcE4wSQ?oc=5",
-     "pubDate": "Fri, 27 Feb 2026 08:00:00 GMT",
-     "source": "",
-     "lang": "en"
-    },
-    {
-     "title": "A Guide to the Circular Deals Underpinning the AI Boom - Bloomberg.com",
-     "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE8zdHpiekFCLW5Rb216RERxWVNfcVcxaUlzanNVVDdzU1VZNHpNR18zR0ppQXZsNjc5ajZPY0tTWkVaZDVoOFlTYlZzZFZ2N0pQTTh1VXFWWXI2bnc2clFqTmRvWkdwT1ptdUE?oc=5",
-     "pubDate": "Thu, 22 Jan 2026 08:00:00 GMT",
-     "source": "",
-     "lang": "en"
-    },
-    {
-     "title": "How Circular Financing Is Fueling the AI Boom - Built In",
-     "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE5RUDFjRXNPcjFEVHhJS0lHYlV4WlY3LV9PZnJBM1RsNWxKSXpJVDVsZjlIdU01dk5LNjFaVWg0YjlDXzRfY2RnNnFaeVU4MHRvdEtxeGMza0x0ZUtDT0tN?oc=5",
-     "pubDate": "Tue, 21 Apr 2026 07:00:00 GMT",
-     "source": "",
-     "lang": "en"
-    },
-    {
-     "title": "Should we worry about AI's circular deals? - by Noah Smith - Noahpinion",
-     "link": "https://news.google.com/rss/articles/CBMickFVX3lxTFBhZU1Ydm1oX1k2QVowQWJwb1BJNDI3MUVZcGdVbFNyN2l1elpiQTdJMlY0blQyQkd3VTdfUVQ3Qngzc2ZldWVrNV9icEIyWEVzTnF0RWVxY1dGNHZqbUVYZ1RCZHlVVlBta0xnOE1ETFBDQQ?oc=5",
-     "pubDate": "Wed, 22 Oct 2025 07:00:00 GMT",
-     "source": "",
-     "lang": "en"
-    },
-    {
-     "title": "Is A.I. Investment Getting Too Circular? - The New York Times",
-     "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNeXlZSnVpYU1qWW5SYU1tbzZuenlxYWpJUU12ZnE1bktGeExXNkQ1RUJjbC1HTDR1alRnYlYyU0RxdHdQeGt3TmxtVC1BTVhqdEtPTmkxZGhpSUo4THlyek81UTU2cERUa2d2ZjBxVUF4RUttVkRuN2JoT2hQWC00SDlxZXBkVGRuazJOYUY0cFRsa2lBZ3lBZ1l6dzc?oc=5",
-     "pubDate": "Tue, 07 Oct 2025 07:00:00 GMT",
-     "source": "",
-     "lang": "en"
-    },
-    {
-     "title": "Capchase: $200+ Million Secured To Scale AI-Powered Vendor Financing Platform For Enterprise Tech - Pulse 2.0",
-     "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQQ0VfQlR1ckJIOS02eWpPdElqYXRmRHlBUVBkWnB4cmJ3MW5BR0FnWDRwSFF1b2h0R3RIU29fS0V2VEdFY0pEamVWWkFCMUtFZWZXMk5rLXZoMFVYS05pcXlNUEVobFkxN2I0WjhXZW1NN25CRjdTMEhIcmpxc1lJTGNWR3NXYVo0Vk9PWFN1SEhPbU1MSDlYaGRFQjNySWpubGtQTURZZjFQLWJEUklILWlFY3bSAboBQVVfeXFMT29ib3BRbDhlc1JCVENsWjdaV3owdGg2ZTdhcGtIOWIxTnNzX2xYdzhuaElBMm9wbk1fbWZfd1oxNXBqNzk1VE1OVGVyUXotSUtJaXhxY0dBNEZCbzhxQm15Mm1URjZJS1pGWnM5LUt2VUJnaHhsV0dLSjFNRHVvV19hZG94NFh3dzJ3MWlaXzJjYXAyUE82QVA4TkdyQWs5bjR6M1RfYkkwRUVMV3ktQzhtZlN0dEN1dTRR?oc=5",
-     "pubDate": "Thu, 28 May 2026 07:00:00 GMT",
-     "source": "",
-     "lang": "en"
-    },
-    {
-     "title": "Nvidia says it isn't using 'circular financing' schemes. 2 famous short sellers disagree. - Yahoo Finance",
-     "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxQMWtiMFdyOGh0aDZMNTZKVUVHU2FpMDg4QTRRcTM4VHdZOVFVTVl4RTQ5RlZvTFhlUkttaVdSZnpsaHVxTnBScF9SbWhJa0lpcEhFaVA4Y1FCQlQzRmd6SkdseDdLVXlzS1QzOWZEeHlkVk05dVF2T1FvcEJTYTFtQXJyNlMxVG83MTBVUlpldS1mVVZFeTVmM0lMWE9oQnNfZldKd2JUU3JvT21YQzlSTGJzTHFJTkxFYk9vX2pQNWgxeHVzNXdMMjV3?oc=5",
-     "pubDate": "Sat, 29 Nov 2025 08:00:00 GMT",
-     "source": "",
-     "lang": "en"
-    },
-    {
-     "title": "Is the Flurry of Circular AI Deals a Win-Win—or Sign of a Bubble? - WSJ",
-     "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxObjFieDNiQlJ1MWNOak1Wc3dPN1B1WU5POEpwNVAzZ0F3c0QwV2htdXhxdFVCUEVuekJsd1pTZi16eUZwdkwtWEpsaHNpQXlxb2MwQjJXbjFCQ0FMQ0RpVWlYM0hpb0dlcXFSamt0UTZVUW1keGt3cG9rdk80WE5CdjlCSkg0U2lxXzhkaXlncTBKLTlOMGptUm4zNldyaExqTmc?oc=5",
-     "pubDate": "Wed, 22 Oct 2025 07:00:00 GMT",
-     "source": "",
-     "lang": "en"
-    }
-   ],
-   "fresh_n": 8
+   "fresh_items": [],
+   "fresh_n": 0
   },
   "hn": {
    "month": "July 2026",
    "story_title": "Ask HN: Who is hiring? (July 2026)",
-   "total_posts": 150,
-   "ai_posts": 96,
-   "ai_share": 64.0,
+   "total_posts": 152,
+   "ai_posts": 97,
+   "ai_share": 63.8,
    "prod_posts": 48,
-   "prod_share": 50.0
+   "prod_share": 49.5
   },
   "revenue_gap": {
    "capex_annual_t": 0.58,
    "required_t": 1.16,
-   "est_revenue_b": 87,
+   "est_revenue_b": 92,
    "items": [
     {
      "zh": "OpenAI（年化營收 run-rate，對齊 /payback）",
-     "value_b": 20
+     "value_b": 25
     },
     {
      "zh": "Anthropic（年化營收 run-rate，對齊 /payback）",
@@ -3707,27 +3651,27 @@
      "value_b": 15
     }
    ],
-   "multiple": 13.3
+   "multiple": 12.6
   },
   "scores": {
-   "composite": 65.1,
+   "composite": 62.6,
    "subs": [
     {
      "key": "gpu_spot",
      "zh": "GPU 現貨租金",
      "en": "GPU Spot Price",
      "note_zh": "vast.ai H100 on-demand 中位數——本輪的「暗光纖點亮率」。租金越接近回本帶，過建證據越強",
-     "score": 60.3,
+     "score": 60.9,
      "level": "warn",
      "weight": 0.25,
      "inputs": [
       {
        "zh": "H100 現貨中位數（vast.ai on-demand）",
-       "v": "2.16 $/hr"
+       "v": "2.14 $/hr"
       },
       {
        "zh": "A100 現貨中位數",
-       "v": "0.86 $/hr"
+       "v": "0.82 $/hr"
       },
       {
        "zh": "回本帶（全成本粗估）",
@@ -3767,13 +3711,13 @@
      "zh": "資料中心壓力事件",
      "en": "DC Stress Events",
      "note_zh": "新聞雷達自動分類：取消/退租/延後 vs 動工/簽約/擴建——微軟 2025 退租事件的泛化監測",
-     "score": 82.4,
+     "score": 80.8,
      "level": "bad",
      "weight": 0.2,
      "inputs": [
       {
        "zh": "壓力事件（取消/退租/延後）",
-       "v": "12 則"
+       "v": "11 則"
       },
       {
        "zh": "擴張事件（動工/簽約/擴建）",
@@ -3781,7 +3725,7 @@
       },
       {
        "zh": "壓力比率",
-       "v": "63%"
+       "v": "61%"
       }
      ]
     },
@@ -3790,8 +3734,8 @@
      "zh": "循環交易強度",
      "en": "Circularity",
      "note_zh": "供應商融資/股權換算力的累計規模與新增事件——思科 vendor financing 的本輪版本",
-     "score": 78.0,
-     "level": "bad",
+     "score": 62.6,
+     "level": "warn",
      "weight": 0.15,
      "inputs": [
       {
@@ -3800,7 +3744,7 @@
       },
       {
        "zh": "本期新增相關報導",
-       "v": "8 則"
+       "v": "0 則"
       }
      ]
     },
@@ -3809,21 +3753,21 @@
      "zh": "徵才部署成熟度",
      "en": "Hiring Maturity",
      "note_zh": "HN Who-is-hiring 月帖：AI 職缺中「生產期」vs「探索期」比例——需求是否真的落地",
-     "score": 25.0,
+     "score": 25.5,
      "level": "good",
      "weight": 0.1,
      "inputs": [
       {
        "zh": "本月 AI 職缺占比",
-       "v": "64.0%"
+       "v": "63.8%"
       },
       {
        "zh": "AI 職缺中生產期比例",
-       "v": "50.0%"
+       "v": "49.5%"
       },
       {
        "zh": "樣本（頂層徵才帖）",
-       "v": "150 帖"
+       "v": "152 帖"
       }
      ]
     },
@@ -3832,7 +3776,7 @@
      "zh": "收入缺口倍數",
      "en": "Revenue Gap",
      "note_zh": "年化 CapEx×2 的隱含必要收入 vs 目前 AI 終端收入估計——$6000 億問題的即時讀數",
-     "score": 92.1,
+     "score": 91.5,
      "level": "bad",
      "weight": 0.1,
      "inputs": [
@@ -3842,11 +3786,11 @@
       },
       {
        "zh": "目前 AI 終端收入估計",
-       "v": "~$87B"
+       "v": "~$92B"
       },
       {
        "zh": "缺口倍數",
-       "v": "13.3x"
+       "v": "12.6x"
       }
      ]
     }
@@ -4216,15 +4160,15 @@
  "brief": {
   "source": "ai",
   "bullets": [
-   "市場層綜合 64.7 與前瞻層 65.1 幾乎同溫，兩層均落在過熱區、無明顯背離，意味炒作與實體訊號同步升溫，投資人少了「僅估值虛高」的安全緩衝。",
-   "收入缺口倍數飆至 92.1 分（隱含必要收入 ~$1.16T vs 目前 AI 終端收入 ~$87B，缺口 13.3x），是全表最極端讀數，暗示當前 CapEx 需要 13 倍營收成長才能回本，變現落差為最大結構性風險。",
-   "資料中心壓力事件得分 82.4（12 則取消/退租 vs 7 則擴張，壓力比率 63%）與循環交易 78.0（~$529B 循環結構、本期新增 8 則報導）顯示供給端已現裂痕與自我融資泡沫特徵，甲骨文融資遇難擬裁 3 萬人即為實證。",
-   "支撐結構性需求面：SDK 下載年增 +631.6%（穩健度量仍 +79.6%）、CoWoS/12 吋矽晶圓與燃氣渦輪機爆單，顯示底層算力與電力需求真實且旺盛，非純粹敘事。",
-   "過熱面明確：AI 籃子近 1 年 +148.4%、近 6 月超額標普 +67.4%（動能 88.1 分），PE 中位 59.2x、PS 20.0x，價格已大幅透支未來成長。",
-   "供需剪刀差僅 +1.0 個百分點（CapEx +80.6% vs 穩健需求 +79.6%，50.6 分）顯示供需大致平衡，尚未見產能全面過剩，是空方論點的主要制約。",
-   "市場自滿訊號仍溫和：HY OAS 275bps、VIX 16.6、比特幣近 6 月 -10.4%、ARKK 超額 -4.9%，信用與投機溫度僅 48.6 分，代表系統性壓力尚未被 credit 市場定價，回檔或以個股而非全面崩盤形式出現。"
+   "市場訊號層達 64.6、前瞻訊號層 62.6，同處過熱區且分歧僅 2 分，代表泡沫特徵已從估值面滲透至實體供需，並非單純情緒推升。",
+   "收入缺口倍數飆至 91.5 分（隱含必要收入 ~$1.16T vs 目前 AI 終端收入 ~$92B，達 12.6 倍），是全表最極端讀數，直指 CapEx 兌現能力嚴重超前收入，為最大結構性風險。",
+   "資料中心壓力事件得 80.8 分，11 則取消/退租對 7 則擴張（壓力比率 61%），加上甲骨文融資遇難、Bloom Energy 單日重挫逾 10%，顯示前瞻實體訊號已現裂痕。",
+   "價格動能過熱 88.1 分（AI 籃子 1 年 +148.4%、6 月超額標普 +67.4%），估值熱度 74.2 分（PE 中位 59.2x、PS 20.0x），多頭已透支未來多年成長。",
+   "支撐面仍在：CapEx 年增 +80.6%、SDK 下載對數壓縮後仍 +79.6%，供需剪刀差僅 +1.0 個百分點，燃氣渦輪與 CoWoS 爆單反映真實需求，尚非無基之彈。",
+   "徵才部署成熟度僅 25.5 分（AI 職缺占比 63.8%，但僅 49.5% 屬生產期），顯示招募仍偏前期建置，商業化落地滯後於資本投入。",
+   "信用與投機溫度僅 48.3 分（HY OAS 275bps、VIX 16.8 偏自滿，但比特幣 6 月 -11%、ARKK 超額 -4.9%），投機端已現分化，市場尚未全面亢奮。"
   ],
-  "watch": "資料中心壓力比率 63% 與甲骨文融資/裁員事件是否擴散——供給端退租潮若延續，將是泡沫由前瞻層向市場層傳導的第一張骨牌。",
+  "watch": "資料中心壓力比率 61% 與甲骨文融資受阻，是否從個案演變為前瞻層的系統性退租潮，將決定泡沫是軟著陸或提前破裂。",
   "stance": "過熱"
  },
  "news": [
@@ -4233,9 +4177,9 @@
    "zh": "AI 泡沫論戰",
    "items": [
     {
-     "title": "AI狂潮恐成泡沫？「傳奇投資人」示警：美股崩跌七成 科技股風險升溫 - Yahoo股市",
-     "link": "https://news.google.com/rss/articles/CBMimwNBVV95cUxNOXlYMzRXdW5fLWZnRkh5R29kNE5weVFnWk94Rk5OS3NRX1VfQXQxMWh6bXRHOW5zTTBrY0tBMmlzcko1WE82WEdpZGdiYWpid2VYVHJQc3daWGpGSjRpZFQyYzdIaTd3SGp0dm1OR2xDWHl1dktqQU82V21SRWt2cG9fVHJWaEhjQ012Y2NudmtSdjdVM3BiOVpKMmVwdVNoSHRfbEVTOEpSODQ2UDhGa1FKeVJ6MUhhLXNiZUs2RFRQS2doYWxHdTlEbGVNRkpXMlI1Z0tkWGZmdlIwdnJQWHA1OUZ5Qi1GUzFHM1NmU2szbEVXYWVyNml4bXZpY2FSUkZQUkp3MjBFYkNTdFJrMWhDbUpyUW02RU9UQWh0cUxjS0JVbWFreTlyN052M1Axc0F5a3cwc3g0UXlLUEFNLTNKb0hmUHlUeG50cU5wTXYxbi1taEcybF9EWWMwVVFiT0V3ei1yRU0wamw2SmNvWFplV0w3V3lNLVBTcU1aX3hUckpNU1h0bkFHQVZMRDdKd1J1ekFPOUthMm8?oc=5",
-     "pubDate": "Wed, 01 Jul 2026 15:50:00 GMT",
+     "title": "「AI出現局部泡沫！」 富邦金羅瑋： 投資已從熱潮變成豪賭 - Yahoo股市",
+     "link": "https://news.google.com/rss/articles/CBMijANBVV95cUxPT3Q4dHVsaWdWd0w2a3NVMzhheGtpaUtVekpER29OZVdLUGVEV0RHeDJ4TXNsRFMxYU9FZTlPeVpzcU5UbDVPOGtsWkl3QWZ2R3JEUlJ3WFFxX19UTzhtRjV3d2dQODhqQ0JpR21FbWJXSzBrRm1CWHdTMXVSS1NvVGRSc1BiTGZ4UlQ3eFVsbGRTYnU5dWMtUHllUlR2ZlRldXlDSGt4cWc3M1lHU2pVVjN0SnQwLVR6UEFQanZXWWFnVDBJRU1aVjhYSkdvSDM3ZXB1VWMzcVlNZkFiYU9KX1VGZFVxM3ZwQ0dWSGV1T1BFSno4dTBJekpQVDZ2Zk1tWjRUc1RRNklvZWdlS0lBbVVHeFl3ZmVtbDZST1VxdFFrUllubDZqRk5PbEt4QnBHXzE5VmxEcS1lelF2a3dsOWZJcENwUWFPT2M4aVRpRzg4NHV1Z0tIbWxIMHowbkhwSFJRaDNfcXRCRzZXd2Z4djRoOGR1VzhkTlNldnlQeUpzQk04ZTNrTllYZ0M?oc=5",
+     "pubDate": "Thu, 02 Jul 2026 03:00:00 GMT",
      "source": "Yahoo股市"
     },
     {
@@ -4257,16 +4201,16 @@
      "source": "CMoney投資網誌"
     },
     {
+     "title": "AI泡沫論｜憂Meta陷算力過剩 晶片股續下瀉 專家稱標題黨式錯殺 - 香港01",
+     "link": "https://news.google.com/rss/articles/CBMiogNBVV95cUxPVnR1WVQzbHRmelczMnAzU1Rub2hXX1VuQ3FscGtXOHltT1dvSmY5YlV1ZGtxbHJ0UWpFakVfVWd0VVR4WERuVEpxd21oVUxqclpXOEhnX0Q0OXBET3djQkV1SWo1eHQ0eHd1X1VodkxnNlhvOWk2X2dOUjFIblFmdGZxWkpwQjgycy1CbEtwWnlXeUpKYURBa0VFaEx0X2poUDd0UEhPSUwtUWkwY05MQWNMZFdjWVNiV20wV3VKRkVUOVEyMEl5MkVCRkJoekJaMjFPMnlsMkhBbGJUS0VaallBRm5GeGJjYUhvS0NpYTBBYmRjT1p6aW1WcVRlRnZ4WWVwbGlNQXJic1dwRG1ucHFjT3RsaGNVUVcxMVJ3T2NZRTNVU2I0bWYtVmdMVWJOYmV5WUpWNU5sR1JrSktyejVXZnBsLWZVWmRTZi1SMjk1d1RsV1dRM0txeGEwQVNqempvSUdmUVBYZHZicVJ1al9rQXpyT0RhWktHU3JaX09JT08tOW5HTEVHZ2hZQmJpbEhzV2lURXR0SGxUdnhidjF3?oc=5",
+     "pubDate": "Thu, 02 Jul 2026 03:11:47 GMT",
+     "source": "香港01"
+    },
+    {
      "title": "AI投資熱潮變 「豪賭」！專家看有局部泡沫　這概念股恐修正　 - NOWnews今日新聞",
      "link": "https://news.google.com/rss/articles/CBMiTEFVX3lxTE5yQjNlQ0dqSXJJTUNNa1ktY1JmZGcwNGh1Zy1LdVREdE81NTVBNDFCMVJMQWJ5ZEFzYlkzU2lKdU5KTUhvc18xQzBjOFnSAVJBVV95cUxPV0gySHkwcWkzRWZUNks4NFU5UlN6bnRhQVIxQlVaR3NNbUREa3FHWmlrWnBCNGJPdnFOaDc1UHZlSWREWGNZakNwVWhJNmVTM2pR?oc=5",
      "pubDate": "Thu, 02 Jul 2026 04:13:27 GMT",
      "source": "NOWnews今日新聞"
-    },
-    {
-     "title": "「期待崩盤」創投家揭露 AI 泡沫必須破裂的真相 唯有重洗牌才能迎來真正轉機 - Business Insider Taiwan",
-     "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE9pU2FjNmFHWkZjUEpic2VyMmVPUHRUcjM1ZGRmOER0ZTJHZFFEQWFWMzQ3VENKNEdnYTdzbWJUU1N0bHdDTkRUeHhXVHNmVjdfS0xDdGN3?oc=5",
-     "pubDate": "Wed, 01 Jul 2026 16:54:48 GMT",
-     "source": "Business Insider Taiwan"
     }
    ]
   },
@@ -4287,16 +4231,16 @@
      "source": "商傳媒"
     },
     {
-     "title": "經濟部修法草案，預告 AI 資料中心納入產業效益評估 - TechNews 科技新報",
-     "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE55NWsyWWRZODJCVEZPSDdTQXRZUlYydHc5dHpSeVBvVGNPOHBmSldHYi1jYU8tMml2WVBrcUZPd0YtMU5sRzBtbnQwWE5qZlQ4d1RSczdMbHRwWTJkaHozTm5qYWU1OGlH?oc=5",
-     "pubDate": "Wed, 01 Jul 2026 10:27:42 GMT",
-     "source": "TechNews 科技新報"
-    },
-    {
      "title": "美能源部長力挺AI資料中心建設籲支持者反擊反對聲浪 - news.cnyes.com",
      "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE5URzBzVXZzOGFHNXFfMFdPckdDRUI5a3FnS0dzUExEQjdUWEItZDNnWGs4S2lCS1o4aElPQmExQjg4RUpFaUtwVGFBQ01Nczkwc0ow?oc=5",
      "pubDate": "Wed, 01 Jul 2026 16:33:06 GMT",
      "source": "news.cnyes.com"
+    },
+    {
+     "title": "經濟部修法草案，預告 AI 資料中心納入產業效益評估 - TechNews 科技新報",
+     "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE55NWsyWWRZODJCVEZPSDdTQXRZUlYydHc5dHpSeVBvVGNPOHBmSldHYi1jYU8tMml2WVBrcUZPd0YtMU5sRzBtbnQwWE5qZlQ4d1RSczdMbHRwWTJkaHozTm5qYWU1OGlH?oc=5",
+     "pubDate": "Wed, 01 Jul 2026 10:27:42 GMT",
+     "source": "TechNews 科技新報"
     },
     {
      "title": "AI資料中心搶占DRAM供應 車廠面臨新一波晶片成本壓力 - 優分析UAnalyze",
@@ -4305,10 +4249,10 @@
      "source": "優分析UAnalyze"
     },
     {
-     "title": "AI 伺服器狂潮引爆記憶體大缺貨 資料中心需求過熱讓供應鏈更吃緊 - Business Insider Taiwan",
-     "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE5DMGFvTzBUSUJxV2pqSDhvOTBrZGtvYWFsdndxLW9pbkhlZFdFOXlaYVRrNDNvcVEtbWRPTmdxNTMyUDdDTUZ5TTNpNWR0bjlxU1JJZVBn?oc=5",
-     "pubDate": "Tue, 30 Jun 2026 09:35:00 GMT",
-     "source": "Business Insider Taiwan"
+     "title": "七成業者想在北部蓋資料中心 經濟部修法吃電怪獸要先過「這幾關」 | 鏡週刊 - LINE TODAY",
+     "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE9zRE9Ndm91LU5yLUFQU2tUTnU4aGNpTEJwcHBQbFVqVzE0Sk00WnU2U0hqY3N6eTluQXpFaWlSS0NaeU5FSG5IRmZYWmFnOTMteGV5NTdB?oc=5",
+     "pubDate": "Wed, 01 Jul 2026 11:18:24 GMT",
+     "source": "LINE TODAY"
     }
    ]
   },
@@ -4317,16 +4261,16 @@
    "zh": "電力與能源",
    "items": [
     {
-     "title": "AI資料中心擴張太耗水電，41座城市聯手提永續條件 - CSRone 永續智庫",
-     "link": "https://news.google.com/rss/articles/CBMiREFVX3lxTFBWYTA4ZU8tZ3NVSUU4T3lydXI5T29fOXNzUlFGc24wSWZWTUZvNUYwRlIzYXE0YzdNS1VUcFB5SDBsaFh6?oc=5",
-     "pubDate": "Wed, 01 Jul 2026 23:00:00 GMT",
-     "source": "CSRone 永續智庫"
-    },
-    {
      "title": "市場報導： AI熱潮推高用電需求，Google與Amazon永續目標受考驗 - 科技產業資訊室",
      "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE85ZExsa0JtVlZ5TXAyQVd0UGh0ZVctNTMxam05V1V6TS1sUU1ha3ZvNEhGU0NrdkNzaXliaFBJZlE1UEhOZFlkZkpqaDJqYzZRRXp5OXE2RkY2azdrdmNobk5SamR6elh5VGc?oc=5",
      "pubDate": "Thu, 02 Jul 2026 02:57:30 GMT",
      "source": "科技產業資訊室"
+    },
+    {
+     "title": "AI資料中心擴張太耗水電，41座城市聯手提永續條件 - CSRone 永續智庫",
+     "link": "https://news.google.com/rss/articles/CBMiREFVX3lxTFBWYTA4ZU8tZ3NVSUU4T3lydXI5T29fOXNzUlFGc24wSWZWTUZvNUYwRlIzYXE0YzdNS1VUcFB5SDBsaFh6?oc=5",
+     "pubDate": "Wed, 01 Jul 2026 23:00:00 GMT",
+     "source": "CSRone 永續智庫"
     },
     {
      "title": "核綠共存新時代5》3大需求帶動 儲能陷價格戰，制度待解成關鍵 - 財訊",
