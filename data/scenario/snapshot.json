@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-25 08:13 UTC",
-  "as_of": "2026-06-25",
+  "generated_at": "2026-07-02 07:17 UTC",
+  "as_of": "2026-07-02",
   "source": "live",
   "is_demo": false,
   "title_en": "Scenario Radar",
@@ -11,22 +11,22 @@
   "disclaimer_zh": "模型輔助情境機率 — 非市場隱含機率。",
   "headline": {
     "base_id": "late_cycle_topping",
-    "base_prob": 34,
+    "base_prob": 52,
     "base_label": {
       "en": "Late-cycle topping",
       "zh": "後段見頂"
     },
     "base_narrative": {
-      "en": "Topping risk is building but NOT yet confirmed: the bubble runs hot and monetization/pricing internals are soft, yet capital has not turned — flows are still neutral-to-inbound. An early-cycle divergence, not the signature top. Watch flow_direction: a turn negative would complete the late-cycle pattern.",
-      "zh": "見頂風險在累積、但尚未確認:泡沫燒得熱、變現/議價等內裡偏弱,然而資金尚未轉向 — 流向仍中性偏流入。屬早期分歧,非招牌見頂。緊盯 flow_direction:一旦轉負,後段見頂格局才算成形。"
+      "en": "The signature divergence: AI demand still reads strong, but payback is burning/under-earning, the bubble runs hot, and capital is quietly draining from risk. Strength on the surface, deteriorating internals underneath — the classic late-cycle top.",
+      "zh": "招牌背離:AI 需求帳面仍強,但回本在燒錢/賺不回,泡沫燒得熱,資金卻悄悄撤離風險。表面強、內裡弱 — 典型的後段見頂。"
     },
-    "regime_key": "mixed",
-    "signature_active": false,
+    "regime_key": "topping",
+    "signature_active": true,
     "signal_strength": "strong",
-    "divergence_count": 4,
-    "coherence_score": 0,
-    "coverage": 0.6,
-    "coverage_label": "6/10 live",
+    "divergence_count": 3,
+    "coherence_score": 11,
+    "coverage": 0.9,
+    "coverage_label": "9/10 live",
     "confidence": "medium"
   },
   "l3": {
@@ -40,12 +40,12 @@
         "is_context": false,
         "note_en": "CFNAI activity + 3m/10y curve + TSMC-negative count from the Economic Monitor.",
         "note_zh": "經濟指標的 CFNAI 活動指數 + 3m/10y 曲線 + TSMC 利空計數。",
-        "value": 0.31260147179180975,
-        "raw": "CFNAI 0.14, 3m10y 0.66, tsmc- 0",
+        "value": 0.06774767004293147,
+        "raw": "CFNAI -0.1, 3m10y 0.63, tsmc- 0",
         "available": true,
         "source": "live",
-        "label_en": "+0.31 (live)",
-        "label_zh": "+0.31 (即時)"
+        "label_en": "+0.07 (live)",
+        "label_zh": "+0.07 (即時)"
       },
       {
         "id": "inflation_rates",
@@ -72,12 +72,12 @@
         "is_context": false,
         "note_en": "AI Bubble composite (0-100); hotter = more negative for sustainable risk.",
         "note_zh": "AI 泡沫 composite(0-100);越熱對可持續風險越負。",
-        "value": -0.6,
-        "raw": "unavailable",
-        "available": false,
-        "source": "unavailable",
-        "label_en": "unavailable",
-        "label_zh": "無資料"
+        "value": -0.29400000000000004,
+        "raw": "composite 64.7, zone hot",
+        "available": true,
+        "source": "live",
+        "label_en": "-0.29 (live)",
+        "label_zh": "-0.29 (即時)"
       },
       {
         "id": "flow_direction",
@@ -88,12 +88,12 @@
         "is_context": false,
         "note_en": "Capital Flow Radar marginal direction (-100..100).",
         "note_zh": "資金流向雷達的邊際方向(-100..100)。",
-        "value": 0.079,
-        "raw": "marginal 7.9",
+        "value": -0.165,
+        "raw": "marginal -16.5",
         "available": true,
         "source": "live",
-        "label_en": "+0.08 (live)",
-        "label_zh": "+0.08 (即時)"
+        "label_en": "-0.17 (live)",
+        "label_zh": "-0.17 (即時)"
       },
       {
         "id": "retail_inst",
@@ -104,12 +104,12 @@
         "is_context": false,
         "note_en": "Retail-vs-institution divergence; retail euphoria vs institutions de-risking reads negative.",
         "note_zh": "散戶對機構背離;散戶狂熱對機構降風險讀為負。",
-        "value": -0.41600000000000004,
-        "raw": "divergence 20.8, warning False",
+        "value": -0.012,
+        "raw": "divergence 0.6, warning False",
         "available": true,
         "source": "live",
-        "label_en": "-0.42 (live)",
-        "label_zh": "-0.42 (即時)"
+        "label_en": "-0.01 (live)",
+        "label_zh": "-0.01 (即時)"
       },
       {
         "id": "payback_health",
@@ -120,12 +120,12 @@
         "is_context": false,
         "note_en": "Capex Payback coverage + verdict (monetizing/investing/burning).",
         "note_zh": "資本支出回本覆蓋率 + 判定(變現/投入/燒錢)。",
-        "value": -0.016500000000000015,
-        "raw": "coverage 0.289, verdict investing",
+        "value": -0.717,
+        "raw": "coverage 0.222, verdict burning",
         "available": true,
-        "source": "seed",
-        "label_en": "-0.02 (seed)",
-        "label_zh": "-0.02 (種子)"
+        "source": "live",
+        "label_en": "-0.72 (live)",
+        "label_zh": "-0.72 (即時)"
       },
       {
         "id": "pricing_power",
@@ -136,12 +136,12 @@
         "is_context": false,
         "note_en": "Pricing Power score + verdict (defensible/neutral/squeezed).",
         "note_zh": "議價能力分數 + 判定(定價權/中性/受擠壓)。",
-        "value": -0.7260000000000001,
-        "raw": "score 21.2, verdict squeezed",
+        "value": 0.43999999999999995,
+        "raw": "score 64.5, verdict defensible",
         "available": true,
         "source": "live",
-        "label_en": "-0.73 (live)",
-        "label_zh": "-0.73 (即時)"
+        "label_en": "+0.44 (live)",
+        "label_zh": "+0.44 (即時)"
       },
       {
         "id": "compute_demand",
@@ -155,9 +155,9 @@
         "value": 0.19542318425498312,
         "raw": "grand_total 649.5 vs 591",
         "available": true,
-        "source": "seed",
-        "label_en": "+0.20 (seed)",
-        "label_zh": "+0.20 (種子)"
+        "source": "live",
+        "label_en": "+0.20 (live)",
+        "label_zh": "+0.20 (即時)"
       },
       {
         "id": "wafer_demand",
@@ -205,9 +205,9 @@
         "value": 1,
         "raw": "73 upcoming earnings",
         "available": true,
-        "source": "seed",
-        "label_en": "+1.00 (seed)",
-        "label_zh": "+1.00 (種子)"
+        "source": "live",
+        "label_en": "+1.00 (live)",
+        "label_zh": "+1.00 (即時)"
       },
       {
         "id": "supply_structure",
@@ -227,57 +227,55 @@
       }
     ],
     "state_vector": {
-      "macro_cycle": 0.31260147179180975,
+      "macro_cycle": 0.06774767004293147,
       "inflation_rates": -0.3703870029925604,
-      "bubble_heat": -0.6,
-      "flow_direction": 0.079,
-      "retail_inst": -0.41600000000000004,
-      "payback_health": -0.016500000000000015,
-      "pricing_power": -0.7260000000000001,
+      "bubble_heat": -0.29400000000000004,
+      "flow_direction": -0.165,
+      "retail_inst": -0.012,
+      "payback_health": -0.717,
+      "pricing_power": 0.43999999999999995,
       "compute_demand": 0.19542318425498312,
       "wafer_demand": 0.06771440055737799,
       "rival_pressure": -0.4583333333333333
     },
     "coverage": {
-      "live_count": 6,
-      "seed_count": 3,
-      "unavailable": [
-        "bubble_heat"
-      ],
-      "coverage": 0.6,
+      "live_count": 9,
+      "seed_count": 1,
+      "unavailable": [],
+      "coverage": 0.9,
       "scoring_count": 10
     },
-    "coherence_score": 0,
+    "coherence_score": 11,
     "scenarios": [
       {
         "id": "soft_landing_broadening",
         "name_en": "Soft landing, AI broadens",
         "name_zh": "軟著陸 · AI 擴散",
         "horizon": "mid",
-        "prob": 9,
+        "prob": 3,
         "prior": 20,
         "prior_prob": 9,
-        "drift": 0,
+        "drift": -6,
         "attribution": [
+          {
+            "driver_id": "payback_health",
+            "name_en": "AI payback health",
+            "name_zh": "AI 回本健康度",
+            "source": "live",
+            "contribution": -3,
+            "direction": "down",
+            "reason_en": "AI payback health weighs against this scenario (coverage 0.222, verdict burning).",
+            "reason_zh": "AI 回本健康度不利於此情境(coverage 0.222, verdict burning)。"
+          },
           {
             "driver_id": "pricing_power",
             "name_en": "Pricing power",
             "name_zh": "議價能力",
             "source": "live",
-            "contribution": -3,
-            "direction": "down",
-            "reason_en": "Pricing power weighs against this scenario (score 21.2, verdict squeezed).",
-            "reason_zh": "議價能力不利於此情境(score 21.2, verdict squeezed)。"
-          },
-          {
-            "driver_id": "macro_cycle",
-            "name_en": "Macro cycle",
-            "name_zh": "總體景氣循環",
-            "source": "live",
-            "contribution": 2,
+            "contribution": 1,
             "direction": "up",
-            "reason_en": "Macro cycle supports this scenario (CFNAI 0.14, 3m10y 0.66, tsmc- 0).",
-            "reason_zh": "總體景氣循環支撐此情境(CFNAI 0.14, 3m10y 0.66, tsmc- 0)。"
+            "reason_en": "Pricing power supports this scenario (score 64.5, verdict defensible).",
+            "reason_zh": "議價能力支撐此情境(score 64.5, verdict defensible)。"
           },
           {
             "driver_id": "inflation_rates",
@@ -293,11 +291,11 @@
             "driver_id": "bubble_heat",
             "name_en": "Bubble heat",
             "name_zh": "泡沫溫度",
-            "source": "unavailable",
+            "source": "live",
             "contribution": -1,
             "direction": "down",
-            "reason_en": "Bubble heat weighs against this scenario (unavailable).",
-            "reason_zh": "泡沫溫度不利於此情境(unavailable)。"
+            "reason_en": "Bubble heat weighs against this scenario (composite 64.7, zone hot).",
+            "reason_zh": "泡沫溫度不利於此情境(composite 64.7, zone hot)。"
           }
         ],
         "narrative": {
@@ -346,50 +344,50 @@
         "name_en": "Liquidity melt-up",
         "name_zh": "流動性噴出",
         "horizon": "near",
-        "prob": 15,
+        "prob": 10,
         "prior": 12,
-        "prior_prob": 20,
+        "prior_prob": 15,
         "drift": -5,
         "attribution": [
-          {
-            "driver_id": "retail_inst",
-            "name_en": "Retail vs institution",
-            "name_zh": "散戶 vs 機構",
-            "source": "live",
-            "contribution": 4,
-            "direction": "up",
-            "reason_en": "Retail vs institution supports this scenario (divergence 20.8, warning False).",
-            "reason_zh": "散戶 vs 機構支撐此情境(divergence 20.8, warning False)。"
-          },
           {
             "driver_id": "bubble_heat",
             "name_en": "Bubble heat",
             "name_zh": "泡沫溫度",
-            "source": "unavailable",
-            "contribution": 3,
+            "source": "live",
+            "contribution": 4,
             "direction": "up",
-            "reason_en": "Bubble heat supports this scenario (unavailable).",
-            "reason_zh": "泡沫溫度支撐此情境(unavailable)。"
+            "reason_en": "Bubble heat supports this scenario (composite 64.7, zone hot).",
+            "reason_zh": "泡沫溫度支撐此情境(composite 64.7, zone hot)。"
+          },
+          {
+            "driver_id": "flow_direction",
+            "name_en": "Capital flow direction",
+            "name_zh": "資金流向",
+            "source": "live",
+            "contribution": -2,
+            "direction": "down",
+            "reason_en": "Capital flow direction weighs against this scenario (marginal -16.5).",
+            "reason_zh": "資金流向不利於此情境(marginal -16.5)。"
+          },
+          {
+            "driver_id": "payback_health",
+            "name_en": "AI payback health",
+            "name_zh": "AI 回本健康度",
+            "source": "live",
+            "contribution": 2,
+            "direction": "up",
+            "reason_en": "AI payback health supports this scenario (coverage 0.222, verdict burning).",
+            "reason_zh": "AI 回本健康度支撐此情境(coverage 0.222, verdict burning)。"
           },
           {
             "driver_id": "pricing_power",
             "name_en": "Pricing power",
             "name_zh": "議價能力",
             "source": "live",
-            "contribution": -2,
-            "direction": "down",
-            "reason_en": "Pricing power weighs against this scenario (score 21.2, verdict squeezed).",
-            "reason_zh": "議價能力不利於此情境(score 21.2, verdict squeezed)。"
-          },
-          {
-            "driver_id": "macro_cycle",
-            "name_en": "Macro cycle",
-            "name_zh": "總體景氣循環",
-            "source": "live",
             "contribution": 1,
             "direction": "up",
-            "reason_en": "Macro cycle supports this scenario (CFNAI 0.14, 3m10y 0.66, tsmc- 0).",
-            "reason_zh": "總體景氣循環支撐此情境(CFNAI 0.14, 3m10y 0.66, tsmc- 0)。"
+            "reason_en": "Pricing power supports this scenario (score 64.5, verdict defensible).",
+            "reason_zh": "議價能力支撐此情境(score 64.5, verdict defensible)。"
           }
         ],
         "narrative": {
@@ -438,50 +436,50 @@
         "name_en": "Late-cycle topping",
         "name_zh": "後段見頂",
         "horizon": "mid",
-        "prob": 34,
+        "prob": 51,
         "prior": 22,
-        "prior_prob": 33,
-        "drift": 1,
+        "prior_prob": 34,
+        "drift": 17,
         "attribution": [
+          {
+            "driver_id": "payback_health",
+            "name_en": "AI payback health",
+            "name_zh": "AI 回本健康度",
+            "source": "live",
+            "contribution": 22,
+            "direction": "up",
+            "reason_en": "AI payback health supports this scenario (coverage 0.222, verdict burning).",
+            "reason_zh": "AI 回本健康度支撐此情境(coverage 0.222, verdict burning)。"
+          },
           {
             "driver_id": "bubble_heat",
             "name_en": "Bubble heat",
             "name_zh": "泡沫溫度",
-            "source": "unavailable",
-            "contribution": 5,
-            "direction": "up",
-            "reason_en": "Bubble heat supports this scenario (unavailable).",
-            "reason_zh": "泡沫溫度支撐此情境(unavailable)。"
-          },
-          {
-            "driver_id": "retail_inst",
-            "name_en": "Retail vs institution",
-            "name_zh": "散戶 vs 機構",
             "source": "live",
-            "contribution": 5,
+            "contribution": 9,
             "direction": "up",
-            "reason_en": "Retail vs institution supports this scenario (divergence 20.8, warning False).",
-            "reason_zh": "散戶 vs 機構支撐此情境(divergence 20.8, warning False)。"
-          },
-          {
-            "driver_id": "pricing_power",
-            "name_en": "Pricing power",
-            "name_zh": "議價能力",
-            "source": "live",
-            "contribution": 4,
-            "direction": "up",
-            "reason_en": "Pricing power supports this scenario (score 21.2, verdict squeezed).",
-            "reason_zh": "議價能力支撐此情境(score 21.2, verdict squeezed)。"
+            "reason_en": "Bubble heat supports this scenario (composite 64.7, zone hot).",
+            "reason_zh": "泡沫溫度支撐此情境(composite 64.7, zone hot)。"
           },
           {
             "driver_id": "compute_demand",
             "name_en": "Compute demand",
             "name_zh": "算力需求",
-            "source": "seed",
-            "contribution": 3,
+            "source": "live",
+            "contribution": 5,
             "direction": "up",
             "reason_en": "Compute demand supports this scenario (grand_total 649.5 vs 591).",
             "reason_zh": "算力需求支撐此情境(grand_total 649.5 vs 591)。"
+          },
+          {
+            "driver_id": "flow_direction",
+            "name_en": "Capital flow direction",
+            "name_zh": "資金流向",
+            "source": "live",
+            "contribution": 4,
+            "direction": "up",
+            "reason_en": "Capital flow direction supports this scenario (marginal -16.5).",
+            "reason_zh": "資金流向支撐此情境(marginal -16.5)。"
           }
         ],
         "narrative": {
@@ -530,50 +528,50 @@
         "name_en": "Growth scare & rotation",
         "name_zh": "成長疑慮與輪動",
         "horizon": "near",
-        "prob": 17,
+        "prob": 14,
         "prior": 20,
-        "prior_prob": 14,
-        "drift": 3,
+        "prior_prob": 17,
+        "drift": -3,
         "attribution": [
           {
-            "driver_id": "macro_cycle",
-            "name_en": "Macro cycle",
-            "name_zh": "總體景氣循環",
+            "driver_id": "payback_health",
+            "name_en": "AI payback health",
+            "name_zh": "AI 回本健康度",
             "source": "live",
-            "contribution": -3,
-            "direction": "down",
-            "reason_en": "Macro cycle weighs against this scenario (CFNAI 0.14, 3m10y 0.66, tsmc- 0).",
-            "reason_zh": "總體景氣循環不利於此情境(CFNAI 0.14, 3m10y 0.66, tsmc- 0)。"
+            "contribution": 4,
+            "direction": "up",
+            "reason_en": "AI payback health supports this scenario (coverage 0.222, verdict burning).",
+            "reason_zh": "AI 回本健康度支撐此情境(coverage 0.222, verdict burning)。"
           },
           {
             "driver_id": "pricing_power",
             "name_en": "Pricing power",
             "name_zh": "議價能力",
             "source": "live",
-            "contribution": 3,
-            "direction": "up",
-            "reason_en": "Pricing power supports this scenario (score 21.2, verdict squeezed).",
-            "reason_zh": "議價能力支撐此情境(score 21.2, verdict squeezed)。"
+            "contribution": -2,
+            "direction": "down",
+            "reason_en": "Pricing power weighs against this scenario (score 64.5, verdict defensible).",
+            "reason_zh": "議價能力不利於此情境(score 64.5, verdict defensible)。"
           },
           {
             "driver_id": "inflation_rates",
             "name_en": "Inflation & rates",
             "name_zh": "通膨與利率",
             "source": "live",
-            "contribution": 1,
+            "contribution": 2,
             "direction": "up",
             "reason_en": "Inflation & rates supports this scenario (CPI YoY 4.2%).",
             "reason_zh": "通膨與利率支撐此情境(CPI YoY 4.2%)。"
           },
           {
-            "driver_id": "retail_inst",
-            "name_en": "Retail vs institution",
-            "name_zh": "散戶 vs 機構",
+            "driver_id": "flow_direction",
+            "name_en": "Capital flow direction",
+            "name_zh": "資金流向",
             "source": "live",
             "contribution": 1,
             "direction": "up",
-            "reason_en": "Retail vs institution supports this scenario (divergence 20.8, warning False).",
-            "reason_zh": "散戶 vs 機構支撐此情境(divergence 20.8, warning False)。"
+            "reason_en": "Capital flow direction supports this scenario (marginal -16.5).",
+            "reason_zh": "資金流向支撐此情境(marginal -16.5)。"
           }
         ],
         "narrative": {
@@ -622,50 +620,50 @@
         "name_en": "Credit / liquidity break",
         "name_zh": "信用 / 流動性裂解",
         "horizon": "structural",
-        "prob": 11,
+        "prob": 12,
         "prior": 12,
-        "prior_prob": 9,
-        "drift": 2,
+        "prior_prob": 11,
+        "drift": 1,
         "attribution": [
+          {
+            "driver_id": "payback_health",
+            "name_en": "AI payback health",
+            "name_zh": "AI 回本健康度",
+            "source": "live",
+            "contribution": 6,
+            "direction": "up",
+            "reason_en": "AI payback health supports this scenario (coverage 0.222, verdict burning).",
+            "reason_zh": "AI 回本健康度支撐此情境(coverage 0.222, verdict burning)。"
+          },
           {
             "driver_id": "pricing_power",
             "name_en": "Pricing power",
             "name_zh": "議價能力",
             "source": "live",
-            "contribution": 3,
-            "direction": "up",
-            "reason_en": "Pricing power supports this scenario (score 21.2, verdict squeezed).",
-            "reason_zh": "議價能力支撐此情境(score 21.2, verdict squeezed)。"
+            "contribution": -3,
+            "direction": "down",
+            "reason_en": "Pricing power weighs against this scenario (score 64.5, verdict defensible).",
+            "reason_zh": "議價能力不利於此情境(score 64.5, verdict defensible)。"
           },
           {
-            "driver_id": "macro_cycle",
-            "name_en": "Macro cycle",
-            "name_zh": "總體景氣循環",
+            "driver_id": "flow_direction",
+            "name_en": "Capital flow direction",
+            "name_zh": "資金流向",
             "source": "live",
-            "contribution": -2,
-            "direction": "down",
-            "reason_en": "Macro cycle weighs against this scenario (CFNAI 0.14, 3m10y 0.66, tsmc- 0).",
-            "reason_zh": "總體景氣循環不利於此情境(CFNAI 0.14, 3m10y 0.66, tsmc- 0)。"
+            "contribution": 2,
+            "direction": "up",
+            "reason_en": "Capital flow direction supports this scenario (marginal -16.5).",
+            "reason_zh": "資金流向支撐此情境(marginal -16.5)。"
           },
           {
             "driver_id": "bubble_heat",
             "name_en": "Bubble heat",
             "name_zh": "泡沫溫度",
-            "source": "unavailable",
-            "contribution": 1,
-            "direction": "up",
-            "reason_en": "Bubble heat supports this scenario (unavailable).",
-            "reason_zh": "泡沫溫度支撐此情境(unavailable)。"
-          },
-          {
-            "driver_id": "retail_inst",
-            "name_en": "Retail vs institution",
-            "name_zh": "散戶 vs 機構",
             "source": "live",
-            "contribution": 1,
+            "contribution": 2,
             "direction": "up",
-            "reason_en": "Retail vs institution supports this scenario (divergence 20.8, warning False).",
-            "reason_zh": "散戶 vs 機構支撐此情境(divergence 20.8, warning False)。"
+            "reason_en": "Bubble heat supports this scenario (composite 64.7, zone hot).",
+            "reason_zh": "泡沫溫度支撐此情境(composite 64.7, zone hot)。"
           }
         ],
         "narrative": {
@@ -714,26 +712,36 @@
         "name_en": "AI capex air-pocket",
         "name_zh": "AI 資本支出空窗",
         "horizon": "structural",
-        "prob": 14,
+        "prob": 10,
         "prior": 14,
-        "prior_prob": 15,
-        "drift": -1,
+        "prior_prob": 14,
+        "drift": -4,
         "attribution": [
+          {
+            "driver_id": "payback_health",
+            "name_en": "AI payback health",
+            "name_zh": "AI 回本健康度",
+            "source": "live",
+            "contribution": 7,
+            "direction": "up",
+            "reason_en": "AI payback health supports this scenario (coverage 0.222, verdict burning).",
+            "reason_zh": "AI 回本健康度支撐此情境(coverage 0.222, verdict burning)。"
+          },
           {
             "driver_id": "pricing_power",
             "name_en": "Pricing power",
             "name_zh": "議價能力",
             "source": "live",
-            "contribution": 6,
-            "direction": "up",
-            "reason_en": "Pricing power supports this scenario (score 21.2, verdict squeezed).",
-            "reason_zh": "議價能力支撐此情境(score 21.2, verdict squeezed)。"
+            "contribution": -4,
+            "direction": "down",
+            "reason_en": "Pricing power weighs against this scenario (score 64.5, verdict defensible).",
+            "reason_zh": "議價能力不利於此情境(score 64.5, verdict defensible)。"
           },
           {
             "driver_id": "compute_demand",
             "name_en": "Compute demand",
             "name_zh": "算力需求",
-            "source": "seed",
+            "source": "live",
             "contribution": -2,
             "direction": "down",
             "reason_en": "Compute demand weighs against this scenario (grand_total 649.5 vs 591).",
@@ -748,16 +756,6 @@
             "direction": "up",
             "reason_en": "Competitive pressure supports this scenario (23 events).",
             "reason_zh": "競爭壓力支撐此情境(23 events)。"
-          },
-          {
-            "driver_id": "bubble_heat",
-            "name_en": "Bubble heat",
-            "name_zh": "泡沫溫度",
-            "source": "unavailable",
-            "contribution": 1,
-            "direction": "up",
-            "reason_en": "Bubble heat supports this scenario (unavailable).",
-            "reason_zh": "泡沫溫度支撐此情境(unavailable)。"
           }
         ],
         "narrative": {
@@ -804,6 +802,18 @@
     ],
     "divergences": [
       {
+        "key": "late_cycle_topping",
+        "severity": "high",
+        "en": "Classic late-cycle top: AI demand still strong while payback burns, the bubble runs hot, and capital is draining from risk.",
+        "zh": "典型後段見頂:AI 需求仍強,但回本在燒、泡沫熱、資金正撤離風險。",
+        "platforms": [
+          "compute",
+          "payback",
+          "aibubble",
+          "flows"
+        ]
+      },
+      {
         "key": "demand_vs_payback_gap",
         "severity": "medium",
         "en": "Demand is rising but payback is deteriorating — spend is outrunning monetization.",
@@ -814,29 +824,10 @@
         ]
       },
       {
-        "key": "demand_vs_pricing",
-        "severity": "medium",
-        "en": "Volume is up while pricing power is squeezed — growth without margin.",
-        "zh": "量增但議價能力受擠壓 — 有量無利。",
-        "platforms": [
-          "compute",
-          "pricing"
-        ]
-      },
-      {
-        "key": "retail_euphoria",
-        "severity": "low",
-        "en": "Retail appetite runs hot while institutions de-risk — a late-stage tell.",
-        "zh": "散戶情緒偏熱、機構降風險 — 晚期訊號。",
-        "platforms": [
-          "flows"
-        ]
-      },
-      {
         "key": "reflexive_split",
         "severity": "low",
-        "en": "Our base case (Late-cycle topping) differs from the Capital Flow Radar's own top read (Liquidity holds → AI continues).",
-        "zh": "本平台 base case(後段見頂)與資金流向雷達自身首選(流動性續強 → AI 延續)不一致。",
+        "en": "Our base case (Late-cycle topping) differs from the Capital Flow Radar's own top read (Rotation → AI grinds, breadth broadens).",
+        "zh": "本平台 base case(後段見頂)與資金流向雷達自身首選(輪動→AI緩升，廣度擴散)不一致。",
         "platforms": [
           "flows"
         ]
@@ -846,27 +837,27 @@
       "flows_scenarios": [
         {
           "mapped_id": "soft_landing_broadening",
-          "name_en": "Liquidity holds → AI continues",
-          "name_zh": "流動性續強 → AI 延續",
-          "prob": 25
+          "name_en": "Rotation → AI grinds, breadth broadens",
+          "name_zh": "輪動→AI緩升，廣度擴散",
+          "prob": 40
         },
         {
           "mapped_id": "growth_scare_rotation",
-          "name_en": "Rotation → AI corrects, index holds",
-          "name_zh": "資金輪動 → AI 補跌、大盤撐住",
+          "name_en": "Liquidity holds → AI continues",
+          "name_zh": "流動性守穩→AI延續",
           "prob": 25
         },
         {
           "mapped_id": "goldilocks_melt_up",
-          "name_en": "Retail blow-off → whistle period",
-          "name_zh": "散戶見頂式狂熱 → 吹哨期",
+          "name_en": "Liquidity ebb → AI corrects, index softer",
+          "name_zh": "流動性退潮→AI回調，指數走軟",
           "prob": 25
         },
         {
           "mapped_id": "credit_liquidity_break",
           "name_en": "Credit cracks → regime break",
-          "name_zh": "信用裂縫 → regime break",
-          "prob": 25
+          "name_zh": "信用破裂→體制轉變",
+          "prob": 10
         }
       ],
       "note_en": "flows' own distribution — same-source cross-check, not weighted in.",
@@ -874,68 +865,68 @@
     },
     "sensitivity_raw": [
       {
-        "driver_id": "flow_direction",
-        "name_en": "Capital flow direction",
-        "name_zh": "資金流向",
-        "up_effect": -8,
-        "down_effect": 7,
-        "mag": 8
-      },
-      {
         "driver_id": "compute_demand",
         "name_en": "Compute demand",
         "name_zh": "算力需求",
-        "up_effect": 8,
-        "down_effect": -8,
-        "mag": 8
+        "up_effect": 13,
+        "down_effect": -16,
+        "mag": 16
       },
       {
-        "driver_id": "payback_health",
-        "name_en": "AI payback health",
-        "name_zh": "AI 回本健康度",
-        "up_effect": -7,
-        "down_effect": 6,
-        "mag": 7
+        "driver_id": "flow_direction",
+        "name_en": "Capital flow direction",
+        "name_zh": "資金流向",
+        "up_effect": -13,
+        "down_effect": 7,
+        "mag": 13
       },
       {
         "driver_id": "wafer_demand",
         "name_en": "Wafer demand",
         "name_zh": "晶圓需求",
-        "up_effect": 5,
-        "down_effect": -6,
-        "mag": 6
+        "up_effect": 9,
+        "down_effect": -11,
+        "mag": 11
       },
       {
-        "driver_id": "retail_inst",
-        "name_en": "Retail vs institution",
-        "name_zh": "散戶 vs 機構",
-        "up_effect": -4,
-        "down_effect": 3,
-        "mag": 4
+        "driver_id": "payback_health",
+        "name_en": "AI payback health",
+        "name_zh": "AI 回本健康度",
+        "up_effect": -10,
+        "down_effect": 5,
+        "mag": 10
+      },
+      {
+        "driver_id": "bubble_heat",
+        "name_en": "Bubble heat",
+        "name_zh": "泡沫溫度",
+        "up_effect": -9,
+        "down_effect": 7,
+        "mag": 9
       }
     ],
     "headline": {
       "base_id": "late_cycle_topping",
-      "base_prob": 34,
+      "base_prob": 52,
       "base_label": {
         "en": "Late-cycle topping",
         "zh": "後段見頂"
       },
       "base_narrative": {
-        "en": "Topping risk is building but NOT yet confirmed: the bubble runs hot and monetization/pricing internals are soft, yet capital has not turned — flows are still neutral-to-inbound. An early-cycle divergence, not the signature top. Watch flow_direction: a turn negative would complete the late-cycle pattern.",
-        "zh": "見頂風險在累積、但尚未確認:泡沫燒得熱、變現/議價等內裡偏弱,然而資金尚未轉向 — 流向仍中性偏流入。屬早期分歧,非招牌見頂。緊盯 flow_direction:一旦轉負,後段見頂格局才算成形。"
+        "en": "The signature divergence: AI demand still reads strong, but payback is burning/under-earning, the bubble runs hot, and capital is quietly draining from risk. Strength on the surface, deteriorating internals underneath — the classic late-cycle top.",
+        "zh": "招牌背離:AI 需求帳面仍強,但回本在燒錢/賺不回,泡沫燒得熱,資金卻悄悄撤離風險。表面強、內裡弱 — 典型的後段見頂。"
       },
-      "regime_key": "mixed",
-      "signature_active": false,
+      "regime_key": "topping",
+      "signature_active": true,
       "signal_strength": "strong",
-      "divergence_count": 4,
-      "coherence_score": 0,
-      "coverage": 0.6,
-      "coverage_label": "6/10 live",
+      "divergence_count": 3,
+      "coherence_score": 11,
+      "coverage": 0.9,
+      "coverage_label": "9/10 live",
       "confidence": "medium"
     },
     "engine_inputs": {
-      "shrink": 0.6,
+      "shrink": 0.9,
       "gain": 1.5,
       "base_idx": 2
     }
@@ -945,194 +936,206 @@
       {
         "id": "soft_landing_broadening",
         "name_en": "Soft landing, AI broadens",
-        "name_zh": "軟著陸 · AI 擴散",
-        "prob": 9,
-        "baseline_prob": 9,
-        "delta_vs_baseline": 0,
-        "rationale_en": "Baseline 9% (prior 20); chiefly moved by Pricing power (-3).",
-        "rationale_zh": "基準 9%(先驗 20);主要由 議價能力 推動(-3)。"
+        "name_zh": "軟著陸、AI擴散",
+        "prob": 4,
+        "rationale_en": "Baseline 3%. Payback burning (-0.72, coverage 0.222) and inflation still hot (CPI 4.2%, driver -0.37) block a clean broadening. Marginal nudge up on defensible pricing power (+0.44).",
+        "rationale_zh": "基準3%。回本燒錢(-0.72，覆蓋率0.222)與通膨仍高(CPI 4.2%，-0.37)阻擋乾淨擴散。憑藉可守定價力(+0.44)微幅上調。",
+        "baseline_prob": 3,
+        "delta_vs_baseline": 1
       },
       {
         "id": "goldilocks_melt_up",
         "name_en": "Liquidity melt-up",
         "name_zh": "流動性噴出",
-        "prob": 15,
-        "baseline_prob": 15,
-        "delta_vs_baseline": 0,
-        "rationale_en": "Baseline 15% (prior 12); chiefly moved by Retail vs institution (+4).",
-        "rationale_zh": "基準 15%(先驗 12);主要由 散戶 vs 機構 推動(+4)。"
+        "prob": 9,
+        "rationale_en": "Baseline 10%. Bubble heat is hot but rolling (64.7, driver -0.29) and flows draining (-0.17), which caps melt-up fuel. Slight trim.",
+        "rationale_zh": "基準10%。泡沫熱度雖高但轉弱(64.7，-0.29)且資金外流(-0.17)，限制噴出燃料。略減。",
+        "baseline_prob": 10,
+        "delta_vs_baseline": -1
       },
       {
         "id": "late_cycle_topping",
         "name_en": "Late-cycle topping",
-        "name_zh": "後段見頂",
-        "prob": 34,
-        "baseline_prob": 34,
-        "delta_vs_baseline": 0,
-        "rationale_en": "Baseline 34% (prior 22); chiefly moved by Bubble heat (+5).",
-        "rationale_zh": "基準 34%(先驗 22);主要由 泡沫溫度 推動(+5)。"
+        "name_zh": "景氣末端做頭",
+        "prob": 52,
+        "rationale_en": "Base case. The high-severity divergence is textbook: compute demand strong (649.5 vs 591, +0.20) while payback burns (-0.72), bubble hot (64.7), flows draining (-0.17). This combo is not averaged away — it defines the read. Held near baseline 51%.",
+        "rationale_zh": "基準情境。高強度背離為教科書式：算力需求強(649.5對591，+0.20)但回本燒錢(-0.72)、泡沫過熱(64.7)、資金外流(-0.17)。此組合不被平均掉，主導判讀。維持基準51%附近。",
+        "baseline_prob": 51,
+        "delta_vs_baseline": 1
       },
       {
         "id": "growth_scare_rotation",
         "name_en": "Growth scare & rotation",
-        "name_zh": "成長疑慮與輪動",
-        "prob": 17,
-        "baseline_prob": 17,
-        "delta_vs_baseline": 0,
-        "rationale_en": "Baseline 17% (prior 20); chiefly moved by Macro cycle (-3).",
-        "rationale_zh": "基準 17%(先驗 20);主要由 總體景氣循環 推動(-3)。"
+        "name_zh": "成長驚嚇與輪動",
+        "prob": 14,
+        "rationale_en": "Baseline 14%. Flow Radar's own top read is rotation (40%), and rival pressure is elevated (-0.46, 23 events), supporting rotation risk. Held.",
+        "rationale_zh": "基準14%。資金雷達自身首選為輪動(40%)，且競爭壓力升高(-0.46，23事件)，支撐輪動風險。維持。",
+        "baseline_prob": 14,
+        "delta_vs_baseline": 0
       },
       {
         "id": "credit_liquidity_break",
         "name_en": "Credit / liquidity break",
-        "name_zh": "信用 / 流動性裂解",
+        "name_zh": "信用/流動性斷裂",
         "prob": 11,
-        "baseline_prob": 11,
-        "delta_vs_baseline": 0,
-        "rationale_en": "Baseline 11% (prior 12); chiefly moved by Pricing power (+3).",
-        "rationale_zh": "基準 11%(先驗 12);主要由 議價能力 推動(+3)。"
+        "rationale_en": "Baseline 12%. 3m10y positive at 0.63 and macro cycle flat (+0.07) argue against imminent break; slight trim but kept as hedge-worthy tail.",
+        "rationale_zh": "基準12%。3m10y正值0.63、景氣週期持平(+0.07)不支持即刻斷裂；略減但保留為值得避險尾部。",
+        "baseline_prob": 12,
+        "delta_vs_baseline": -1
       },
       {
         "id": "ai_capex_air_pocket",
         "name_en": "AI capex air-pocket",
-        "name_zh": "AI 資本支出空窗",
-        "prob": 14,
-        "baseline_prob": 14,
-        "delta_vs_baseline": 0,
-        "rationale_en": "Baseline 14% (prior 14); chiefly moved by Pricing power (+6).",
-        "rationale_zh": "基準 14%(先驗 14);主要由 議價能力 推動(+6)。"
+        "name_zh": "AI資本支出真空",
+        "prob": 10,
+        "rationale_en": "Baseline 10%. Demand-vs-payback gap (spend outrunning monetization) keeps air-pocket risk live even as compute holds (+0.20). Held.",
+        "rationale_zh": "基準10%。需求對回本缺口(支出超越變現)使真空風險續存，即使算力維持(+0.20)。維持。",
+        "baseline_prob": 10,
+        "delta_vs_baseline": 0
       }
     ],
     "base_case": {
       "id": "late_cycle_topping",
-      "thesis_en": "The signature divergence: AI demand still reads strong, but payback is burning/under-earning, the bubble runs hot, and capital is quietly draining from risk. Strength on the surface, deteriorating internals underneath — the classic late-cycle top.",
-      "thesis_zh": "招牌背離:AI 需求帳面仍強,但回本在燒錢/賺不回,泡沫燒得熱,資金卻悄悄撤離風險。表面強、內裡弱 — 典型的後段見頂。",
+      "thesis_en": "Classic late-cycle top: AI compute demand still strong (+0.20) while monetization burns (payback -0.72, coverage 0.222), bubble runs hot (64.7) and capital drains from risk (-0.17). Strength masks deterioration — index grinds higher on narrow leadership until flows or payback break it.",
+      "thesis_zh": "典型末端做頭：AI算力需求仍強(+0.20)但變現燒錢(回本-0.72，覆蓋率0.222)、泡沫過熱(64.7)、資金撤離風險(-0.17)。表象強勢掩蓋惡化——指數在狹窄領導下緩升，直到資金或回本斷裂。",
       "confidence": "medium"
     },
     "tail_risk": {
-      "id": "ai_capex_air_pocket",
-      "why_en": "Most direct hit to leading-edge foundry: utilization and pricing at risk as the AI build pauses — the scenario to hedge.",
-      "why_zh": "對先進製程代工最直接的衝擊:AI 建置暫停,稼動率與價格承壓 — 最該避險的情境。"
+      "id": "credit_liquidity_break",
+      "why_en": "Low-prob (11%) but high-impact: with flows draining (-0.17), payback burning (-0.72) and bubble hot, any liquidity shock could cascade. Curve (3m10y 0.63) still positive so not imminent, but worth hedging.",
+      "why_zh": "低機率(11%)高衝擊：資金外流(-0.17)、回本燒錢(-0.72)、泡沫過熱下，任何流動性衝擊可能連鎖。曲線(3m10y 0.63)仍正值故非即刻，但值得避險。"
     },
     "expected_market_path": {
-      "equities_en": "Index holds near highs on narrow leadership while breadth and credit quietly deteriorate.",
-      "equities_zh": "指數靠少數權值股撐在高檔,廣度與信用悄悄惡化。",
-      "rates_en": "Rates ambiguous; the tell is in credit and positioning, not yields.",
-      "rates_zh": "利率訊號模糊;真正的 tell 在信用與部位,不在殖利率。",
-      "credit_en": "Spreads start to widen at the margin — the earliest crack.",
-      "credit_zh": "利差在邊際開始走擴 — 最早的裂縫。",
-      "ai_semis_en": "AI/semis still leading the tape but on thinning participation; payback fears build.",
-      "ai_semis_zh": "AI/半導體仍領漲但參與度變薄;回本疑慮升高。"
+      "equities_en": "Index grinds higher on narrow AI leadership; breadth stays weak, rallies fade as flows drain.",
+      "equities_zh": "指數靠狹窄AI領導緩升；廣度疲弱，資金外流下反彈難持續。",
+      "rates_en": "Sticky CPI 4.2% keeps cuts limited; front-end firm, curve (0.63) stays positive but flattening bias.",
+      "rates_zh": "CPI 4.2%黏著使降息有限；短端偏硬，曲線(0.63)維持正值但偏平坦。",
+      "credit_en": "Spreads calm for now but fragile; watch for first widening as liquidity ebbs.",
+      "credit_zh": "利差暫穩但脆弱；留意流動性退潮時首度走闊。",
+      "ai_semis_en": "Compute demand (649.5) supports revenue near-term, but payback (0.222 coverage) burning caps multiples; leadership narrows.",
+      "ai_semis_zh": "算力需求(649.5)短期支撐營收，但回本(覆蓋率0.222)燒錢壓抑估值；領導趨窄。"
     }
   },
   "l5": {
     "watch": [
       {
-        "en": "Compute demand strong while payback verdict is investing/burning",
-        "zh": "算力需求強、但回本判定為投入期/燒錢"
+        "en": "Payback coverage trend (0.222, burning) — the core deterioration signal.",
+        "zh": "回本覆蓋率趨勢(0.222，燒錢)——核心惡化訊號。"
       },
       {
-        "en": "Bubble heat hot while capital flow turns negative",
-        "zh": "泡沫熱、同時資金流向轉負"
+        "en": "Capital flow marginal (-16.5) — is drain accelerating or stabilizing?",
+        "zh": "資金邊際流向(-16.5)——外流加速或趨穩？"
       },
       {
-        "en": "Divergence: Demand is rising but payback is deteriorating — spend is outrunning monetization.",
-        "zh": "背離:需求上升但回本惡化 — 投入跑在變現前面。"
+        "en": "Bubble heat composite (64.7, hot zone) — cooling or re-heating?",
+        "zh": "泡沫熱度綜合(64.7，過熱區)——降溫或再升溫？"
+      },
+      {
+        "en": "Compute demand (649.5 vs 591) — any deceleration flips the read.",
+        "zh": "算力需求(649.5對591)——任何減速將翻轉判讀。"
+      },
+      {
+        "en": "CPI 4.2% path — sticky inflation limits Fed cushion.",
+        "zh": "CPI 4.2%路徑——通膨黏著限制聯準會緩衝。"
       }
     ],
     "falsification": [
       {
-        "en": "Payback coverage inflects up decisively",
-        "zh": "回本覆蓋率明確向上轉折"
+        "en": "Compute demand rolls over (-Δ) alongside payback improving — becomes air-pocket or soft-landing, not topping.",
+        "zh": "算力需求翻落(-Δ)同時回本改善——轉為真空或軟著陸，非做頭。"
       },
       {
-        "en": "Flows turn risk-on while breadth broadens",
-        "zh": "資金轉 risk-on 且廣度擴散"
+        "en": "Flows turn strongly positive and bubble re-heats — regime shifts to melt-up.",
+        "zh": "資金強勁轉正且泡沫再升溫——轉為噴出行情。"
+      },
+      {
+        "en": "Credit spreads blow out with curve inverting — regime break supersedes topping.",
+        "zh": "信用利差爆走且曲線倒掛——斷裂取代做頭。"
       }
     ],
     "early_warning": [
       {
-        "en": "Capital flow direction (live) — marginal 7.9",
-        "zh": "資金流向(live) — marginal 7.9",
+        "en": "Capital flow marginal turns more negative than -16.5.",
+        "zh": "資金邊際流向較-16.5更負。",
         "freq": "daily",
-        "source_platform": "flows"
+        "source_platform": "Capital flow direction"
       },
       {
-        "en": "Retail vs institution (live) — divergence 20.8, warning False",
-        "zh": "散戶 vs 機構(live) — divergence 20.8, warning False",
+        "en": "Bubble heat composite breaks below/above 64.7 zone.",
+        "zh": "泡沫熱度突破64.7區間。",
         "freq": "daily",
-        "source_platform": "flows"
+        "source_platform": "Bubble heat"
       },
       {
-        "en": "Bubble heat (unavailable) — unavailable",
-        "zh": "泡沫溫度(unavailable) — unavailable",
+        "en": "Credit spread first widening.",
+        "zh": "信用利差首度走闊。",
         "freq": "weekly",
-        "source_platform": "aibubble"
+        "source_platform": "Inflation & rates"
       },
       {
-        "en": "Competitive pressure (live) — 23 events",
-        "zh": "競爭壓力(live) — 23 events",
+        "en": "Compute demand grand_total slips below 591 baseline.",
+        "zh": "算力需求總量跌破591基準。",
         "freq": "weekly",
-        "source_platform": "rival"
+        "source_platform": "Compute demand"
       },
       {
-        "en": "Macro cycle (live) — CFNAI 0.14, 3m10y 0.66, tsmc- 0",
-        "zh": "總體景氣循環(live) — CFNAI 0.14, 3m10y 0.66, tsmc- 0",
+        "en": "Payback coverage falls below 0.222.",
+        "zh": "回本覆蓋率跌破0.222。",
         "freq": "monthly",
-        "source_platform": "econ"
+        "source_platform": "AI payback health"
       },
       {
-        "en": "Inflation & rates (live) — CPI YoY 4.2%",
-        "zh": "通膨與利率(live) — CPI YoY 4.2%",
+        "en": "CPI YoY prints away from 4.2%.",
+        "zh": "CPI年增偏離4.2%。",
         "freq": "monthly",
-        "source_platform": "econ"
+        "source_platform": "Inflation & rates"
       },
       {
-        "en": "AI payback health (seed) — coverage 0.289, verdict investing",
-        "zh": "AI 回本健康度(seed) — coverage 0.289, verdict investing",
+        "en": "Wafer demand (seed, wpm 22746) confirmed live vs 22000.",
+        "zh": "晶圓需求(種子，wpm 22746)對22000獲實時確認。",
         "freq": "monthly",
-        "source_platform": "payback"
+        "source_platform": "Wafer demand"
       }
     ],
     "sensitivity": [
       {
-        "driver_id": "flow_direction",
-        "if_en": "If Capital flow direction improves (+Δ)",
-        "if_zh": "若資金流向改善(+Δ)",
-        "moves_en": "base case prob -8pt (−Δ: +7pt)",
-        "moves_zh": "base case 機率 -8pt(−Δ:+7pt)"
+        "driver_id": "compute_demand",
+        "if_en": "Compute demand rises further above 649.5.",
+        "if_zh": "算力需求進一步高於649.5。",
+        "moves_en": "Base case +13pt (strongest lever — reinforces topping's demand leg).",
+        "moves_zh": "基準情境+13pt(最強槓桿，強化做頭的需求端)。"
       },
       {
         "driver_id": "compute_demand",
-        "if_en": "If Compute demand improves (+Δ)",
-        "if_zh": "若算力需求改善(+Δ)",
-        "moves_en": "base case prob +8pt (−Δ: -8pt)",
-        "moves_zh": "base case 機率 +8pt(−Δ:-8pt)"
+        "if_en": "Compute demand decelerates below baseline.",
+        "if_zh": "算力需求減速至基準下。",
+        "moves_en": "Base case -16pt — topping thesis breaks toward air-pocket.",
+        "moves_zh": "基準情境-16pt——做頭論點轉向真空。"
       },
       {
-        "driver_id": "payback_health",
-        "if_en": "If AI payback health improves (+Δ)",
-        "if_zh": "若AI 回本健康度改善(+Δ)",
-        "moves_en": "base case prob -7pt (−Δ: +6pt)",
-        "moves_zh": "base case 機率 -7pt(−Δ:+6pt)"
+        "driver_id": "flow_direction",
+        "if_en": "Flows turn positive from -0.17.",
+        "if_zh": "資金由-0.17轉正。",
+        "moves_en": "Base case -13pt — draining is a topping prerequisite.",
+        "moves_zh": "基準情境-13pt——外流是做頭前提。"
       },
       {
         "driver_id": "wafer_demand",
-        "if_en": "If Wafer demand improves (+Δ)",
-        "if_zh": "若晶圓需求改善(+Δ)",
-        "moves_en": "base case prob +5pt (−Δ: -6pt)",
-        "moves_zh": "base case 機率 +5pt(−Δ:-6pt)"
+        "if_en": "Wafer demand (seed) confirms higher.",
+        "if_zh": "晶圓需求(種子)確認上行。",
+        "moves_en": "Base case +9pt, but seed status lowers confidence.",
+        "moves_zh": "基準情境+9pt，但種子狀態降低信心。"
       },
       {
-        "driver_id": "retail_inst",
-        "if_en": "If Retail vs institution improves (+Δ)",
-        "if_zh": "若散戶 vs 機構改善(+Δ)",
-        "moves_en": "base case prob -4pt (−Δ: +3pt)",
-        "moves_zh": "base case 機率 -4pt(−Δ:+3pt)"
+        "driver_id": "bubble_heat",
+        "if_en": "Bubble heat cools from 64.7.",
+        "if_zh": "泡沫熱度從64.7降溫。",
+        "moves_en": "Base case +7pt — orderly cooling favors gradual topping over melt-up.",
+        "moves_zh": "基準情境+7pt——有序降溫利於漸進做頭而非噴出。"
       }
     ]
   },
-  "analysis_engine": "rules",
+  "analysis_engine": "claude",
   "prior_scenarios": [
     {
       "id": "soft_landing_broadening",
@@ -1140,23 +1143,23 @@
     },
     {
       "id": "goldilocks_melt_up",
-      "prob": 20
+      "prob": 15
     },
     {
       "id": "late_cycle_topping",
-      "prob": 33
+      "prob": 34
     },
     {
       "id": "growth_scare_rotation",
-      "prob": 14
+      "prob": 17
     },
     {
       "id": "credit_liquidity_break",
-      "prob": 9
+      "prob": 11
     },
     {
       "id": "ai_capex_air_pocket",
-      "prob": 15
+      "prob": 14
     }
   ],
   "blind_spots_en": [
