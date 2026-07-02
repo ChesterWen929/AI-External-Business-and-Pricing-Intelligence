@@ -136,6 +136,7 @@
   .row.n4 { grid-template-columns: repeat(4, 1fr); max-width: 1164px; }
   .row.n5 { grid-template-columns: repeat(5, 1fr); max-width: 1164px; }
   .row.n6 { grid-template-columns: repeat(6, 1fr); max-width: 1164px; }
+  .row.n7 { grid-template-columns: repeat(7, 1fr); max-width: 1164px; }
 
   /* ── cards ── */
   .card {
@@ -177,10 +178,10 @@
   /* ── responsive ── */
   @media (max-width: 980px) {
     .pyramid::before { display: none; }
-    .row.n1, .row.n2, .row.n3, .row.n4, .row.n5, .row.n6 { grid-template-columns: 1fr 1fr; max-width: 560px; }
+    .row.n1, .row.n2, .row.n3, .row.n4, .row.n5, .row.n6, .row.n7 { grid-template-columns: 1fr 1fr; max-width: 560px; }
   }
   @media (max-width: 560px) {
-    .row.n1, .row.n2, .row.n3, .row.n4, .row.n5, .row.n6 { grid-template-columns: 1fr; max-width: 360px; }
+    .row.n1, .row.n2, .row.n3, .row.n4, .row.n5, .row.n6, .row.n7 { grid-template-columns: 1fr; max-width: 360px; }
   }
 
   /* ── footer ── */
@@ -273,7 +274,7 @@
               <span class="tier-name">{{ t('tier2') }}</span>
               <span class="tier-sub">{{ t('tier2_sub') }}</span>
             </div>
-            <div class="row n3">
+            <div class="row n4">
               <a class="card" href="/flows/">
                 <div class="kicker">FLOWS</div>
                 <h2>{{ t('flows_name') }}</h2>
@@ -314,6 +315,19 @@
                   <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
                 </div>
               </a>
+
+              <a class="card" href="/positioning/">
+                <div class="kicker">POSITIONING</div>
+                <h2>{{ t('pos_name') }}</h2>
+                <div class="desc">{{ t('pos_desc') }}</div>
+                <div class="foot">
+                  <div class="stat">
+                    {% if pos_score is not none %}<span class="score">{{ '%.1f'|format(pos_score) }}<small>{{ t('pos_lbl') }}</small></span>{% endif %}
+                    {% if pos_updated %}<span class="meta">{{ t('updated') }} · {{ pos_updated }}</span>{% endif %}
+                  </div>
+                  <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
+                </div>
+              </a>
             </div>
           </div>
 
@@ -326,7 +340,7 @@
               <span class="tier-name">{{ t('tier3') }}</span>
               <span class="tier-sub">{{ t('tier3_sub') }}</span>
             </div>
-            <div class="row n3">
+            <div class="row n4">
               <a class="card" href="/compute/">
                 <div class="kicker">COMPUTE</div>
                 <h2>{{ t('compute_name') }}</h2>
@@ -361,6 +375,19 @@
                   <div class="stat">
                     {% if payback_coverage is not none %}<span class="score">{{ '%.2f'|format(payback_coverage) }}<small>{% if payback_verdict %}{{ t('v_' ~ payback_verdict) }}{% else %}{{ t('payback_lbl') }}{% endif %}</small></span>{% endif %}
                     {% if payback_updated %}<span class="meta">{{ t('updated') }} · {{ payback_updated }}</span>{% endif %}
+                  </div>
+                  <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
+                </div>
+              </a>
+
+              <a class="card" href="/usage/">
+                <div class="kicker">USAGE</div>
+                <h2>{{ t('usage_name') }}</h2>
+                <div class="desc">{{ t('usage_desc') }}</div>
+                <div class="foot">
+                  <div class="stat">
+                    {% if usage_score is not none %}<span class="score">{{ '%.1f'|format(usage_score) }}<small>{{ t('usage_lbl') }}</small></span>{% endif %}
+                    {% if usage_updated %}<span class="meta">{{ t('updated') }} · {{ usage_updated }}</span>{% endif %}
                   </div>
                   <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
                 </div>
@@ -467,7 +494,7 @@
               <span class="tier-name">{{ t('tier5') }}</span>
               <span class="tier-sub">{{ t('tier5_sub') }}</span>
             </div>
-            <div class="row n6">
+            <div class="row n7">
               <a class="card" href="/company/amazon/">
                 <div class="kicker">COMPANY · AMZN</div>
                 <h2>{{ t('company_name') }}</h2>
@@ -536,6 +563,19 @@
                   <div class="stat">
                     {% if company_ap_score is not none %}<span class="score">{{ '%.0f'|format(company_ap_score) }}<small>{% if company_ap_verdict %}{{ t('v_' ~ company_ap_verdict) }}{% else %}{{ t('company_lbl') }}{% endif %}</small></span>{% endif %}
                     {% if company_ap_benefit is not none %}<span class="meta">AI ≈ ${{ '%.0f'|format(company_ap_benefit) }}B{% if company_ap_updated %} · {{ t('updated') }} {{ company_ap_updated }}{% endif %}</span>{% elif company_ap_updated %}<span class="meta">{{ t('updated') }} · {{ company_ap_updated }}</span>{% endif %}
+                  </div>
+                  <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
+                </div>
+              </a>
+
+              <a class="card" href="/company/skhynix/">
+                <div class="kicker">COMPANY · HYNIX</div>
+                <h2>{{ t('company_hx_name') }}</h2>
+                <div class="desc">{{ t('company_hx_desc') }}</div>
+                <div class="foot">
+                  <div class="stat">
+                    {% if company_hx_score is not none %}<span class="score">{{ '%.0f'|format(company_hx_score) }}<small>{% if company_hx_verdict %}{{ t('v_' ~ company_hx_verdict) }}{% else %}{{ t('company_lbl') }}{% endif %}</small></span>{% endif %}
+                    {% if company_hx_benefit is not none %}<span class="meta">AI ≈ ${{ '%.0f'|format(company_hx_benefit) }}B{% if company_hx_updated %} · {{ t('updated') }} {{ company_hx_updated }}{% endif %}</span>{% elif company_hx_updated %}<span class="meta">{{ t('updated') }} · {{ company_hx_updated }}</span>{% endif %}
                   </div>
                   <span class="enter">{{ t('enter') }} <span class="arr">→</span></span>
                 </div>

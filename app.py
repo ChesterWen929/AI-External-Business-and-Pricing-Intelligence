@@ -88,6 +88,10 @@ from geo_radar import geo_bp
 from geo_radar import load_snapshot as geo_load_snapshot
 from cycle_clock import analogue_bp
 from cycle_clock import load_snapshot as analogue_load_snapshot
+from usage_radar import usage_bp
+from usage_radar import load_snapshot as usage_load_snapshot
+from positioning_radar import positioning_bp
+from positioning_radar import load_snapshot as positioning_load_snapshot
 # credit / geo / analogue refresh is manual-only (password-gated), same rule as
 # pricing/payback/scenario — keep Opus cost on-demand. Dir names *_radar / cycle_clock
 # avoid pip-package shadowing (same lesson as bottleneck_radar).
@@ -113,6 +117,8 @@ app.register_blueprint(bottleneck_bp)
 app.register_blueprint(credit_bp)
 app.register_blueprint(geo_bp)
 app.register_blueprint(analogue_bp)
+app.register_blueprint(usage_bp)
+app.register_blueprint(positioning_bp)
 
 # ── secrets / auth (all from env; never hard-code real values) ──
 _DEFAULT_SECRET = "dev-insecure-change-me"
@@ -223,11 +229,11 @@ STRINGS = {
     "tier1_sub": {"en": "The backdrop and the capstone — the macro cycle, one forward synthesis into scenarios, and one backward fix on the historical clock.",
                   "zh": "大環境與總綱 — 景氣循環、往前收斂成情境的綜合判讀,加上往回對齊歷史的週期座標。"},
     "tier2":     {"en": "Capital Flows & Bubble Heat", "zh": "資金流向與泡沫溫度"},
-    "tier2_sub": {"en": "Where capital flows, how hot the bubble runs — and whose money is funding it: direction, temperature, and the credit behind them.",
-                  "zh": "資金往哪裡流、泡沫燒得多熱、以及這些錢是誰的 — 方向、溫度、加上背後的信用結構。"},
+    "tier2_sub": {"en": "Where capital flows, how hot it runs, whose money funds it, and how crowded the trade is — direction, temperature, credit, positioning.",
+                  "zh": "資金往哪裡流、燒得多熱、錢是誰的、交易有多擠 — 方向、溫度、信用、部位四個面向。"},
     "tier3":     {"en": "AI Demand & Payback",         "zh": "AI 需求與回本"},
-    "tier3_sub": {"en": "One arc, left to right: CapEx → silicon demand → leading-edge wafers → is it paying off yet?",
-                  "zh": "一條主線,由左到右:資本支出 → 晶片需求 → 先進製程晶圓 → 回本了沒?"},
+    "tier3_sub": {"en": "One arc, left to right: CapEx → silicon demand → leading-edge wafers → is it paying off — checked against actual usage.",
+                  "zh": "一條主線,由左到右:資本支出 → 晶片需求 → 先進製程晶圓 → 回本了沒 — 再用實際用量對照。"},
     "tier4":     {"en": "Supply Chain & Competitive Strategy", "zh": "供應鏈與產業策略"},
     "tier4_sub": {"en": "The foundry supply chain itself — rack BOMs, the binding bottleneck, the earnings calendar, pricing power, rivals, and the geopolitical second chain.",
                   "zh": "代工供應鏈本身 — 機櫃 BOM、最弱環節瓶頸、法說行事曆、定價權、競爭者,以及地緣下的第二條供應鏈。"},
@@ -244,6 +250,18 @@ STRINGS = {
     "clock_desc":{"en": "Quantified overlay against the 1996–2002 telecom/fiber cycle: where does today's clock read — 1997 or 1999?",
                   "zh": "量化對齊 1996–2002 電信/光纖週期:今天的時鐘讀到哪一年 — 1997 還是 1999?"},
     "clock_lbl": {"en": "clock",                       "zh": "時鐘讀數"},
+    # ── three cards added 2026-07-02 pm (usage / positioning / skhynix) ──
+    "usage_name":{"en": "AI Usage & Token Economics",  "zh": "AI 用量與 Token 經濟"},
+    "usage_desc":{"en": "The demand-side check on the whole arc: token volumes, per-token price deflation, and realized $/M tokens — is usage keeping up with spend?",
+                  "zh": "整條主線的需求端對照:token 產出量、每 token 價格通縮、已實現變現率 — 用量有沒有跟上支出?"},
+    "usage_lbl": {"en": "/100 demand reality",         "zh": "/100 需求真實度"},
+    "pos_name":  {"en": "Positioning & Sentiment Radar", "zh": "部位與情緒雷達"},
+    "pos_desc":  {"en": "How crowded is the AI trade — institutions, retail, leverage — and is it crowded-and-rising or crowded-and-cracking?",
+                  "zh": "AI 交易有多擁擠 — 機構、散戶、槓桿 — 是擁擠續漲,還是擁擠出現裂紋?"},
+    "pos_lbl":   {"en": "/100 crowdedness",            "zh": "/100 擁擠度"},
+    "company_hx_name":{"en": "SK hynix",               "zh": "SK 海力士"},
+    "company_hx_desc":{"en": "Four pillars on the owner of the binding constraint: how SK hynix raises realized price (HBM3E→HBM4 generational ASP · sold-out LTA allocation · base-die co-design) vs CXMT/Samsung pressure · what to watch it with · its ≈$25B HBM run-rate (est.) · and the twist — a TSMC complement, not customer: HBM4 base die + CoWoS interplay.",
+                       "zh": "對「綁定約束的主人」的四支柱:SK 海力士怎麼提高已實現售價(HBM3E→HBM4 世代 ASP · 售罄長約配置權 · base die 共同設計)vs CXMT/三星壓力 · 用什麼觀察 · 其 ≈$25B HBM 年化營收(估計)· 以及最特別的一點 — 它是台積電的互補者而非客戶:HBM4 base die 與 CoWoS 相互閘門。"},
     "updated":   {"en": "Updated",                    "zh": "更新"},
     "indicators":{"en": "indicators",                 "zh": "指標"},
     "signout":   {"en": "Sign out",                   "zh": "登出"},
@@ -280,7 +298,7 @@ def require_login():
     if session.get("auth"):
         return None
     # Unauthenticated: API/JSON callers get 401, humans go to the login page.
-    if request.path.startswith(("/api/", "/econ/api/", "/aibubble/api/", "/rival/api/", "/compute/api/", "/racks/api/", "/flows/api/", "/cwengine/api/", "/earnings/api/", "/pricing/api/", "/payback/api/", "/scenario/api/", "/bottleneck/api/", "/credit/api/", "/geo/api/", "/analogue/api/")) or (request.path.startswith("/company/") and "/api/" in request.path):
+    if request.path.startswith(("/api/", "/econ/api/", "/aibubble/api/", "/rival/api/", "/compute/api/", "/racks/api/", "/flows/api/", "/cwengine/api/", "/earnings/api/", "/pricing/api/", "/payback/api/", "/scenario/api/", "/bottleneck/api/", "/credit/api/", "/geo/api/", "/analogue/api/", "/usage/api/", "/positioning/api/")) or (request.path.startswith("/company/") and "/api/" in request.path):
         return jsonify({"error": "auth required"}), 401
     return redirect(url_for("login", next=request.path))
 
@@ -401,6 +419,18 @@ def portal():
         analogue_snap = analogue_load_snapshot()
     except Exception:
         analogue_snap = None
+    try:
+        usage_snap = usage_load_snapshot()
+    except Exception:
+        usage_snap = None
+    try:
+        positioning_snap = positioning_load_snapshot()
+    except Exception:
+        positioning_snap = None
+    try:
+        company_hx_snap = company_load_snapshot("skhynix")
+    except Exception:
+        company_hx_snap = None
     return render_template(
         "portal.html",
         econ_updated=econ_snap.get("date") if econ_snap else None,
@@ -435,6 +465,14 @@ def portal():
         geo_score=((((geo_snap.get("l2") or {}).get("composite")) or {}).get("score")) if geo_snap else None,
         analogue_updated=(analogue_snap.get("as_of") if analogue_snap else None),
         analogue_clock=((((analogue_snap.get("l3") or {}).get("composite")) or {}).get("clock_label")) if analogue_snap else None,
+        usage_updated=(usage_snap.get("as_of") if usage_snap else None),
+        usage_score=((usage_snap.get("composite") or {}).get("score")) if usage_snap else None,
+        pos_updated=(positioning_snap.get("as_of") if positioning_snap else None),
+        pos_score=((positioning_snap.get("composite") or {}).get("score")) if positioning_snap else None,
+        company_hx_updated=(company_hx_snap.get("as_of") if company_hx_snap else None),
+        company_hx_score=((company_hx_snap.get("headline") or {}).get("compute_pricing_score")) if company_hx_snap else None,
+        company_hx_verdict=((company_hx_snap.get("headline") or {}).get("verdict_key")) if company_hx_snap else None,
+        company_hx_benefit=((company_hx_snap.get("headline") or {}).get("ai_benefit_usd_bn")) if company_hx_snap else None,
         scenario_base_label=(((scenario_snap.get("headline") or {}).get("base_label") or {}).get("zh" if ui_lang() == "zh" else "en")) if scenario_snap else None,
         scenario_divergences=((scenario_snap.get("headline") or {}).get("divergence_count")) if scenario_snap else None,
         company_updated=(company_snap.get("as_of") if company_snap else None),
