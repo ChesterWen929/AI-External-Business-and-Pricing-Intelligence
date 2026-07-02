@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cycle Analogue Clock · 週期類比時鐘</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0b0f; --panel:rgba(22,24,31,.72); --panel-hi:rgba(30,33,42,.9);
+    --line:rgba(255,255,255,.08); --line-hi:rgba(255,255,255,.16);
+    --ink:#ecedf2; --soft:#a6a9b8; --dim:#6a6e80; --gold:#c8a86a; --acc:#7c83ff;
+    --on:#43c08a; --off:#e0626e; --neu:#c8a86a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:radial-gradient(1100px 560px at 82% -14%,rgba(124,131,255,.10),transparent 58%),radial-gradient(900px 520px at -8% 4%,rgba(200,168,106,.08),transparent 52%),var(--bg);
+       color:var(--ink);font-family:"Inter","PingFang TC","Noto Sans TC",-apple-system,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:22px 26px 60px}
+  .top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:8px}
+  .brand{display:flex;align-items:center;gap:11px}
+  .gem{width:16px;height:16px;transform:rotate(45deg);border:1px solid var(--gold);border-radius:4px;position:relative}
+  .gem::after{content:"";position:absolute;inset:4px;background:var(--gold);border-radius:2px;opacity:.85}
+  h1{font-family:"Noto Serif TC",serif;font-weight:600;font-size:22px;letter-spacing:.5px}
+  .tools{display:flex;align-items:center;gap:10px}
+  .btn{font-size:12px;padding:6px 12px;border-radius:8px;border:1px solid var(--line-hi);background:transparent;color:var(--soft);cursor:pointer;transition:.15s}
+  .btn:hover{color:var(--ink);border-color:var(--acc)}
+  .btn.go{border-color:var(--acc);color:var(--acc)}
+  .status{font-size:11.5px;color:var(--dim)}
+  .crumb{font-size:11px;color:var(--dim);letter-spacing:.4px;margin-bottom:18px}
+  .crumb a:hover{color:var(--gold)}
+  .demo{background:rgba(200,168,106,.10);border:1px solid rgba(200,168,106,.3);color:var(--gold);
+        font-size:12px;padding:9px 13px;border-radius:10px;margin-bottom:18px}
+  .sub{color:var(--dim);font-size:12.5px;line-height:1.6;margin-bottom:22px}
+
+  .grid{display:grid;gap:16px}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+  .panel h2{font-family:"Noto Serif TC",serif;font-size:15px;font-weight:600;letter-spacing:.5px;margin-bottom:4px}
+  .panel .note{font-size:11.5px;color:var(--dim);margin-bottom:14px;line-height:1.5}
+  .eyebrow{font-size:10.5px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);opacity:.85}
+
+  /* hero */
+  .hero{display:grid;grid-template-columns:1.35fr .8fr 1.1fr;gap:16px;margin-bottom:16px}
+  @media(max-width:820px){.hero{grid-template-columns:1fr}}
+  .big{font-variant-numeric:tabular-nums;font-weight:600;font-size:32px;letter-spacing:.5px}
+  .big .pm{font-size:16px;color:var(--soft)}
+  .tag{display:inline-block;font-size:11px;font-weight:500;padding:2px 9px;border-radius:999px;letter-spacing:.4px}
+  .tag.early_cycle,.tag.coherent{background:rgba(67,192,138,.15);color:var(--on)}
+  .tag.mid_cycle,.tag.mixed{background:rgba(200,168,106,.15);color:var(--neu)}
+  .tag.late_cycle{background:rgba(224,150,90,.16);color:#e0a26e}
+  .tag.peak_zone,.tag.post_peak,.tag.structural{background:rgba(224,98,110,.15);color:var(--off)}
+
+  /* timeline gauge */
+  .tl{position:relative;height:34px;margin:16px 0 4px}
+  .tl .track{position:absolute;top:14px;left:0;right:0;height:6px;border-radius:999px;
+             background:linear-gradient(90deg,var(--on),var(--neu) 55%,var(--off) 63%,rgba(224,98,110,.35))}
+  .tl .pk{position:absolute;top:8px;width:2px;height:18px;background:var(--off);opacity:.8}
+  .tl .pin{position:absolute;top:6px;width:3px;height:22px;background:#fff;border-radius:2px;box-shadow:0 0 8px rgba(255,255,255,.6)}
+  .tl .dot{position:absolute;top:15px;width:8px;height:8px;border-radius:50%;border:1px solid rgba(0,0,0,.4);transform:translateX(-4px)}
+  .scale{display:flex;justify-content:space-between;font-size:10px;color:var(--dim)}
+  .heroans{font-size:12.8px;line-height:1.7;color:var(--soft);margin-top:6px}
+
+  /* pair table */
+  table.pairs{width:100%;border-collapse:collapse;font-size:12.5px}
+  table.pairs th{font-size:10.5px;color:var(--dim);text-align:left;font-weight:500;letter-spacing:.6px;padding:4px 8px;border-bottom:1px solid var(--line-hi)}
+  table.pairs td{padding:9px 8px;border-top:1px solid var(--line);vertical-align:top}
+  td.num,.mono{font-variant-numeric:tabular-nums}
+  .rq{color:var(--gold);font-weight:600;white-space:nowrap}
+  .confbar{width:56px;height:5px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;display:inline-block;vertical-align:middle}
+  .confbar i{display:block;height:100%;background:linear-gradient(90deg,var(--acc),var(--gold))}
+  .tier{font-size:9.5px;color:var(--dim);border:1px solid var(--line);border-radius:4px;padding:0 4px;white-space:nowrap}
+  .live{font-size:9px;color:var(--on);border:1px solid rgba(67,192,138,.4);border-radius:4px;padding:0 4px}
+  .warnb{font-size:9.5px;color:var(--off);border:1px solid rgba(224,98,110,.4);border-radius:4px;padding:0 4px;white-space:nowrap}
+  .reason{font-size:11px;color:var(--dim);line-height:1.5;margin-top:3px}
+
+  /* chart */
+  .chartbox{overflow-x:auto}
+  svg text{font-family:"Inter",sans-serif}
+
+  /* mapping dictionary */
+  .map{padding:12px 0;border-top:1px solid var(--line)}
+  .map .nm{font-weight:600;font-size:13.5px;margin-bottom:2px}
+  .map .cp{font-size:11px;color:var(--gold);margin-bottom:6px}
+  .whyrow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:720px){.whyrow{grid-template-columns:1fr}}
+  .why,.brk{font-size:12px;line-height:1.6;padding:8px 10px;border-radius:8px}
+  .why{background:rgba(67,192,138,.06);border:1px solid rgba(67,192,138,.18);color:var(--soft)}
+  .brk{background:rgba(224,98,110,.06);border:1px solid rgba(224,98,110,.2);color:var(--soft)}
+  .why b{color:var(--on);font-weight:600;font-size:10.5px;letter-spacing:1px}
+  .brk b{color:var(--off);font-weight:600;font-size:10.5px;letter-spacing:1px}
+
+  /* L4/L5 */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:780px){.two{grid-template-columns:1fr}}
+  .body{font-size:13px;line-height:1.7;color:var(--ink)}
+  .leads li{font-size:12.5px;line-height:1.6;color:var(--soft);margin:7px 0 7px 2px;list-style:none;padding-left:16px;position:relative}
+  .leads li::before{content:"▸";position:absolute;left:0;color:var(--gold)}
+  .leads.unlike li::before{color:var(--off)}
+  .jump{padding:10px 0;border-top:1px solid var(--line);font-size:12.5px;line-height:1.55;color:var(--soft)}
+  .jump .to{color:var(--gold);font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .jump .to.back{color:var(--on)}
+  table.ew{width:100%;border-collapse:collapse;font-size:12.5px}
+  table.ew td{padding:7px 8px;border-top:1px solid var(--line)}
+  table.ew td.f{text-align:right;color:var(--gold);font-size:11px;white-space:nowrap}
+  .news a{display:block;font-size:12.5px;color:var(--soft);padding:7px 0;border-top:1px solid var(--line);line-height:1.4}
+  .news a:hover{color:var(--ink)} .news .src{color:var(--dim);font-size:11px}
+  .foot{margin-top:24px;font-size:11px;color:var(--dim);line-height:1.7}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand"><span class="gem"></span><h1 id="title"></h1></div>
+    <div class="tools">
+      <button class="btn" id="langBtn"></button>
+      <button class="btn go" id="refreshBtn"></button>
+      <span class="status" id="status"></span>
+    </div>
+  </div>
+  <div class="crumb"><a href="/">← <span id="crumbHome"></span></a> · <span id="asof"></span> · <span id="engine"></span></div>
+  <div id="demo" class="demo" style="display:none"></div>
+  <div class="sub" id="sub"></div>
+
+  <!-- hero -->
+  <div class="hero">
+    <div class="panel">
+      <span class="eyebrow" id="h_clock"></span>
+      <div class="big" style="margin-top:4px"><span id="clockRead"></span> <span class="pm" id="clockPM"></span></div>
+      <div style="margin-top:6px"><span class="tag" id="clockTag"></span></div>
+      <div class="tl" id="timeline"><div class="track"></div></div>
+      <div class="scale"><span>1995</span><span>1997</span><span>1999</span><span id="pkLab" style="color:var(--off)"></span><span>2002</span></div>
+    </div>
+    <div class="panel">
+      <span class="eyebrow" id="h_score"></span>
+      <div class="big" style="margin-top:4px"><span id="scoreV"></span><span style="font-size:15px;color:var(--dim)">/100</span></div>
+      <div class="note" style="margin:8px 0 12px" id="scoreHint"></div>
+      <span class="eyebrow" id="h_disp"></span>
+      <div style="margin-top:6px"><span class="tag" id="dispTag"></span></div>
+      <div class="note" style="margin:8px 0 0" id="beyondNote"></div>
+    </div>
+    <div class="panel">
+      <span class="eyebrow" id="h_ans"></span>
+      <div class="heroans" id="answer"></div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <!-- L3 per-pair readings -->
+    <div class="panel">
+      <h2 id="h_pairs"></h2><div class="note" id="n_pairs"></div>
+      <div style="overflow-x:auto"><table class="pairs">
+        <thead><tr><th id="th_pair"></th><th id="th_today"></th><th id="th_read"></th><th id="th_conf"></th></tr></thead>
+        <tbody id="pairRows"></tbody>
+      </table></div>
+    </div>
+
+    <!-- NASDAQ backdrop -->
+    <div class="panel">
+      <h2 id="h_chart"></h2><div class="note" id="n_chart"></div>
+      <div class="chartbox" id="chart"></div>
+    </div>
+
+    <!-- L4 -->
+    <div class="panel">
+      <h2 id="h_take"></h2>
+      <div class="body" id="takeText"></div>
+    </div>
+    <div class="two">
+      <div class="panel">
+        <h2 id="h_like"></h2>
+        <ul class="leads" id="likeList"></ul>
+      </div>
+      <div class="panel">
+        <h2 id="h_unlike"></h2>
+        <ul class="leads unlike" id="unlikeList"></ul>
+      </div>
+    </div>
+
+    <!-- L5 -->
+    <div class="two">
+      <div class="panel">
+        <h2 id="h_jumps"></h2><div class="note" id="n_jumps"></div>
+        <div id="jumps"></div>
+      </div>
+      <div class="panel">
+        <h2 id="h_movers"></h2><div class="note" id="n_movers"></div>
+        <table class="ew"><tbody id="movers"></tbody></table>
+      </div>
+    </div>
+
+    <!-- L1 mapping dictionary -->
+    <div class="panel">
+      <h2 id="h_map"></h2><div class="note" id="n_map"></div>
+      <div id="mapDict"></div>
+    </div>
+
+    <!-- news -->
+    <div class="panel" id="newsPanel" style="display:none">
+      <h2 id="h_news"></h2>
+      <div class="news" id="news"></div>
+    </div>
+  </div>
+
+  <!-- 數據做法與假設 · methodology & assumptions (language follows the LANG toggle) -->
+  <div class="panel" id="methodPanel" style="margin-top:16px">
+    <div class="eyebrow">METHODOLOGY &amp; ASSUMPTIONS</div>
+    <h2 id="mp_title"></h2>
+    <div id="mp_zh" style="display:none;font-size:12.5px;color:var(--soft);line-height:1.8">
+      <p><b style="color:var(--ink)">五層架構</b> — L1 類比映射字典（每組配對「為何成立／哪裡失效」，人工策展，失效欄是本卡核心而非註腳）；L2 為 1995–2002 季度歷史序列（策展重建值，錨點間線性內插，逐序列標 T2/T3——歷史重建是近似，不是量測）；L3 為純規則最近鄰時鐘引擎；L4/L5 由 Claude 於刷新時合成（無 API key 走規則後備，頁首 engine 欄標注實際引擎）。</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">今日輸入逐項來源</b> — capex 年增率：對齊 /aibubble（live yfinance 財報，T1）；GPU 現貨÷損益兩平：對齊 /aibubble vast.ai 掛牌與估計損益帶（T2）；循環融資比：/aibubble 循環台帳 ÷ TTM capex（T3，分子為累計多年期承諾、分母為一年——口徑不對稱，視為上界）；HY OAS：FRED BAMLH0A0HYM2（T1）；token 價格通縮、前十大權重、募資倍數：本卡推估（T3/EST，來源與時點逐項標注）。刷新時盡力讀取兄弟卡 snapshot 與 FRED；讀不到即退回種子值並取消 live 標記。</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">時鐘怎麼算</b> — 每組配對把今日（水準、一年斜率）做 z 標準化後，在該歷史序列 1996Q1–2002Q4 找最近鄰 → 該組時鐘讀數＋距離信心（exp(−d)）。合成時鐘＝各讀數的加權中位數（權重＝策展映射權重 × 信心）；「±」為加權平均絕對離差。<b style="color:var(--ink)">分歧度本身就是訊號：分歧越大＝兩個時代在結構上越不像。</b>超出歷史區間的讀數以 ⚠ 標注——類比對該數值沒有座標。</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">假設與界線</b> — 類比不是因果；歷史樣本 n=1；映射選擇本身是假設（逐組帶證據層級與權重）。時鐘是歷史座標，非預測——前瞻機率見 /scenario。手動密碼刷新（非排程）。非投資建議。</p>
+    </div>
+    <div id="mp_en" style="display:none;font-size:12.5px;color:var(--soft);line-height:1.8">
+      <p><b style="color:var(--ink)">Five-layer design</b> — L1 is a hand-curated analogue-mapping dictionary (per pair: why the mapping holds / WHERE IT BREAKS — the breaks column is the core of this card, not a footnote). L2 is curated 1995–2002 quarterly history (reconstructions, linearly interpolated between anchors, tiered T2/T3 per series — reconstructions are approximations, not measurements). L3 is a rules-only nearest-neighbour clock engine; L4/L5 are synthesized by Claude on refresh (rules fallback without an API key; the engine badge shows which ran).</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">Today's inputs, per item</b> — capex YoY: aligned to /aibubble (live yfinance report data, T1); GPU spot ÷ breakeven: aligned to /aibubble vast.ai listings + estimated breakeven band (T2); circular-financing ratio: /aibubble circularity ledger ÷ TTM capex (T3 — cumulative multi-year commitments over a one-year denominator: definitional asymmetry, treat as upper bound); HY OAS: FRED BAMLH0A0HYM2 (T1); token-price deflation, top-10 weight, funding multiple: our estimates (T3/EST, each with source + as-of date). On refresh the card best-effort reads sibling snapshots + FRED; anything unreadable falls back to seeds and loses its live badge.</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">How the clock is computed</b> — each pair z-normalizes today's (level, 1-yr slope) and finds the nearest neighbour on its 1996Q1–2002Q4 curve → a per-pair reading + distance confidence (exp(−d)). Composite = weighted median of readings (weight = curated mapping weight × confidence); the "±" is the weighted mean absolute deviation. <b style="color:var(--ink)">Dispersion is itself the signal: the wider it is, the more structurally unlike the two eras are.</b> Beyond-range readings are flagged ⚠ — the analogue has no coordinate for that value.</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">Assumptions & limits</b> — analogy is not causality; n=1 historical sample; the mapping choices are themselves assumptions (tiered and weighted per pair). The clock is a historical coordinate, not a forecast — forward probabilities live at /scenario. Manual password-gated refresh only. Not investment advice.</p>
+    </div>
+  </div>
+
+  <div class="foot">
+    <div id="blindHead"></div>
+    <ul style="list-style:none;margin-top:6px" id="blind"></ul>
+    <div style="margin-top:10px" id="tierLegend"></div>
+    <div style="margin-top:12px" id="disclaimer"></div>
+  </div>
+</div>
+
+<script>
+const SNAP = {{ snapshot | safe }};
+let LANG = localStorage.getItem("analogue_lang") || "en";
+
+const T = {
+  en:{home:"External Market Analysis", lang:"中文", refresh:"↻ Refresh",
+      pwPrompt:"Enter refresh password (default clock2026):", refreshing:"refreshing… siblings + FRED + Claude L4/L5",
+      done:"done, reloading…", fail:"refresh failed",
+      demo:"Seed view — every number carries its tier + as-of date. Hit ↻ Refresh to read sibling snapshots + FRED (and Claude L4/L5 if an API key is set).",
+      asof:"As of", engineRules:"engine: rules (no API key)", engineClaude:"engine: Claude Opus 4.8",
+      clock:"Composite clock reading", score:"Cycle position", disp:"Dispersion of readings",
+      scoreHint:"0 = 1995 start · 100 = the 2000Q1 analogue peak", ans:"“1997 or 1999?”",
+      beyond:(n,t)=>`${n}/${t} pairs read beyond the whole 1995–2002 range — the analogue has no coordinate there.`,
+      pairs:"L3 · Seven analogue pairs on the clock", pairsNote:"Each pair: today's value placed on its 1995–2002 curve (nearest neighbour on level + 1-yr slope). ⚠ = today exceeds the whole historical range.",
+      th_pair:"ANALOGUE PAIR", th_today:"TODAY", th_read:"CLOCK READS", th_conf:"CONFIDENCE",
+      chart:"Backdrop · NASDAQ 1995–2002 with the clock hand", chartNote:"Composite reading pinned on the era's index path (quarterly closes, approximate). A coordinate, not a forecast.",
+      take:"L4 · Clock take", like:"L4 · Where it rhymes with 1998–2000", unlike:"L4 · Where it is structurally UNLIKE (the epistemic core)",
+      jumps:"L5 · If X happens, the clock jumps to Y", jumpsNote:"Falsification/monitor list — concrete observables that would move the reading.",
+      movers:"L5 · What moves the clock forward", moversNote:"Leading indicators, with check frequency.",
+      map:"L1 · Analogue mapping dictionary", mapNote:"The mapping choices are themselves assumptions. WHY each holds — and WHERE IT BREAKS — is first-class, per pair.",
+      why:"WHY THE MAPPING HOLDS", brk:"WHERE IT BREAKS",
+      news:"News radar (fetched on refresh)", blind:"Blind spots", peak:"2000Q1 peak",
+      today90s:"↔", est:"EST"},
+  zh:{home:"外部市場分析", lang:"EN", refresh:"↻ 更新",
+      pwPrompt:"輸入更新密碼(預設 clock2026):", refreshing:"更新中…兄弟卡 + FRED + Claude L4/L5",
+      done:"完成,重新載入中…", fail:"更新失敗",
+      demo:"種子視圖——每個數字都帶證據層級與資料時點。按 ↻ 更新 讀取兄弟卡 snapshot 與 FRED(若設了 API key 會跑 Claude L4/L5)。",
+      asof:"資料時點", engineRules:"引擎:規則(無 API key)", engineClaude:"引擎:Claude Opus 4.8",
+      clock:"合成時鐘讀數", score:"週期位置", disp:"讀數分歧度",
+      scoreHint:"0 = 1995 起點 · 100 = 2000Q1 類比峰值", ans:"「1997 還是 1999?」",
+      beyond:(n,t)=>`${n}/${t} 組配對超出 1995–2002 全區間——類比在那裡沒有座標。`,
+      pairs:"L3 · 七組類比配對上鐘", pairsNote:"每組配對:今日數值放上 1995–2002 曲線(以水準+一年斜率找最近鄰)。⚠ = 今日值超出整段歷史區間。",
+      th_pair:"類比配對", th_today:"今日", th_read:"時鐘讀到", th_conf:"信心",
+      chart:"背景 · 那斯達克 1995–2002 與時鐘指針", chartNote:"合成讀數釘在當年指數路徑上(季收盤,近似值)。是座標,不是預測。",
+      take:"L4 · 時鐘判讀", like:"L4 · 哪裡像 1998–2000", unlike:"L4 · 哪裡結構性不像(本卡認識論核心)",
+      jumps:"L5 · 若 X 發生,時鐘跳到 Y", jumpsNote:"證偽/監控清單——會移動讀數的具體可觀察事件。",
+      movers:"L5 · 什麼會把時鐘往前推", moversNote:"領先指標,附檢查頻率。",
+      map:"L1 · 類比映射字典", mapNote:"映射選擇本身就是假設。每組「為何成立」與「哪裡失效」並列為一級內容。",
+      why:"為何成立", brk:"哪裡失效",
+      news:"新聞雷達(更新時抓取)", blind:"盲點", peak:"2000Q1 峰",
+      today90s:"↔", est:"推估"},
+};
+
+function esc(s){ return String(s??"").replace(/[&<>"]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+function pct(yf){ return Math.max(0, Math.min(100, (yf-1995)/(2003-1995)*100)); }
+
+function render(){
+  const t = T[LANG], s = SNAP, l3 = s.l3, comp = l3.composite;
+  document.documentElement.lang = LANG==="zh"?"zh-Hant":"en";
+  document.getElementById("title").textContent = LANG==="zh"? s.title_zh : s.title_en;
+  document.getElementById("langBtn").textContent = t.lang;
+  document.getElementById("refreshBtn").textContent = t.refresh;
+  document.getElementById("crumbHome").textContent = t.home;
+  document.getElementById("asof").textContent = t.asof + " " + (s.as_of||"") + (s.generated_at? " · "+s.generated_at : "");
+  document.getElementById("engine").textContent = s.analysis_engine==="claude"? t.engineClaude : t.engineRules;
+  document.getElementById("sub").textContent = LANG==="zh"? s.sub_zh : s.sub_en;
+  const demo = document.getElementById("demo");
+  if(s.is_demo){ demo.style.display="block"; demo.textContent = t.demo; } else { demo.style.display="none"; }
+
+  // hero — clock
+  document.getElementById("h_clock").textContent = t.clock;
+  document.getElementById("clockRead").textContent = comp.clock!==null? comp.clock.toFixed(1) : "—";
+  document.getElementById("clockPM").textContent = comp.clock!==null? `± ${comp.plus_minus} · ${comp.clock_label}` : "";
+  const ctag = document.getElementById("clockTag");
+  ctag.textContent = LANG==="zh"? comp.verdict_zh : comp.verdict_en;
+  ctag.className = "tag " + comp.verdict_key;
+  // timeline: peak marker + composite pin + per-pair dots
+  const tl = document.getElementById("timeline");
+  let tlHtml = '<div class="track"></div>';
+  tlHtml += `<div class="pk" style="left:${pct(l3.cycle.peak)}%"></div>`;
+  l3.pairs.forEach(p=>{
+    if(!p.reading) return;
+    const op = 0.35 + 0.6*p.reading.confidence;
+    tlHtml += `<div class="dot" style="left:${pct(p.reading.year_frac)}%;background:rgba(124,131,255,${op.toFixed(2)})" title="${esc(LANG==="zh"?p.name_zh:p.name_en)} → ${p.reading.quarter}"></div>`;
+  });
+  if(comp.clock!==null) tlHtml += `<div class="pin" style="left:${pct(comp.clock)}%"></div>`;
+  tl.innerHTML = tlHtml;
+  document.getElementById("pkLab").textContent = t.peak;
+
+  // hero — score + dispersion
+  document.getElementById("h_score").textContent = t.score;
+  document.getElementById("scoreV").textContent = comp.score!==null? comp.score : "—";
+  document.getElementById("scoreHint").textContent = t.scoreHint;
+  document.getElementById("h_disp").textContent = t.disp;
+  const dtag = document.getElementById("dispTag");
+  dtag.textContent = "± " + comp.plus_minus + " — " + (LANG==="zh"? comp.dispersion_zh : comp.dispersion_en);
+  dtag.className = "tag " + comp.dispersion_key;
+  document.getElementById("beyondNote").textContent = t.beyond(comp.n_beyond, comp.n_pairs);
+
+  // hero — answer
+  document.getElementById("h_ans").textContent = t.ans;
+  document.getElementById("answer").textContent = LANG==="zh"? comp.answer_zh : comp.answer_en;
+
+  // pair table
+  document.getElementById("h_pairs").textContent = t.pairs;
+  document.getElementById("n_pairs").textContent = t.pairsNote;
+  document.getElementById("th_pair").textContent = t.th_pair;
+  document.getElementById("th_today").textContent = t.th_today;
+  document.getElementById("th_read").textContent = t.th_read;
+  document.getElementById("th_conf").textContent = t.th_conf;
+  document.getElementById("pairRows").innerHTML = l3.pairs.map(p=>{
+    const r = p.reading, ti = p.today;
+    const tierb = `<span class="tier">${ti.tier}${ti.est?(" "+t.est):""}</span>` + (ti.live?` <span class="live">live · ${esc(ti.via)}</span>`:"");
+    const chg = ti.change_1y===null||ti.change_1y===undefined ? "—" : (ti.change_1y>0?"+":"")+ti.change_1y;
+    return `<tr>
+      <td><div style="font-weight:600">${esc(LANG==="zh"?p.name_zh:p.name_en)}</div>
+          <div style="font-size:11px;color:var(--dim)">${t.today90s} ${esc(LANG==="zh"?p.counterpart_zh:p.counterpart_en)}</div></td>
+      <td class="num"><div class="mono">${ti.value}${esc(p.unit)} <span style="color:var(--dim);font-size:11px">(1y ${chg})</span></div>
+          <div style="margin-top:3px">${tierb}</div>
+          <div style="font-size:10px;color:var(--dim);margin-top:2px">${esc(ti.as_of)}</div></td>
+      <td>${r? `<span class="rq">${r.quarter}</span>${r.beyond_range? ' <span class="warnb">⚠ '+(LANG==="zh"?"超出區間":"beyond range")+'</span>':""}<div class="reason">${esc(LANG==="zh"?p.reason_zh:p.reason_en)}</div>` : "—"}</td>
+      <td class="num">${r? `<span class="confbar"><i style="width:${Math.round(r.confidence*100)}%"></i></span> <span style="font-size:11px;color:var(--soft)">${r.confidence.toFixed(2)}</span><div style="font-size:10px;color:var(--dim);margin-top:2px">w ${p.weight} → ${p.eff_weight.toFixed(2)}</div>` : "—"}</td>
+    </tr>`;
+  }).join("");
+
+  // chart
+  document.getElementById("h_chart").textContent = t.chart;
+  document.getElementById("n_chart").textContent = t.chartNote + " · " + (LANG==="zh"? s.backdrop.name_zh : s.backdrop.name_en) + " [" + s.backdrop.tier + "]";
+  drawChart(s.backdrop.points, comp, l3.cycle);
+
+  // L4
+  document.getElementById("h_take").textContent = t.take;
+  document.getElementById("takeText").textContent = LANG==="zh"? s.l4.clock_take.summary_zh : s.l4.clock_take.summary_en;
+  document.getElementById("h_like").textContent = t.like;
+  document.getElementById("likeList").innerHTML = s.l4.like_1999.map(x=>`<li>${esc(LANG==="zh"?x.zh:x.en)}</li>`).join("");
+  document.getElementById("h_unlike").textContent = t.unlike;
+  document.getElementById("unlikeList").innerHTML = s.l4.structurally_unlike.map(x=>`<li>${esc(LANG==="zh"?x.zh:x.en)}</li>`).join("");
+
+  // L5
+  document.getElementById("h_jumps").textContent = t.jumps;
+  document.getElementById("n_jumps").textContent = t.jumpsNote;
+  document.getElementById("jumps").innerHTML = s.l5.jumps.map(j=>`
+    <div class="jump">${esc(LANG==="zh"?j.condition_zh:j.condition_en)}
+      <div style="margin-top:3px">→ <span class="to ${j.direction==="backward"?"back":""}">${esc(j.jump_to)}</span>
+      <span style="font-size:10.5px;color:var(--dim)">(${j.direction==="backward"?(LANG==="zh"?"往回撥":"backward"):(LANG==="zh"?"往前撥":"forward")})</span></div>
+    </div>`).join("");
+  document.getElementById("h_movers").textContent = t.movers;
+  document.getElementById("n_movers").textContent = t.moversNote;
+  document.getElementById("movers").innerHTML = s.l5.forward_movers.map(m=>`<tr><td>${esc(LANG==="zh"?m.zh:m.en)}</td><td class="f">${esc(m.freq)}</td></tr>`).join("");
+
+  // L1 mapping dictionary
+  document.getElementById("h_map").textContent = t.map;
+  document.getElementById("n_map").textContent = t.mapNote;
+  document.getElementById("mapDict").innerHTML = l3.pairs.map(p=>`
+    <div class="map">
+      <div class="nm">${esc(LANG==="zh"?p.name_zh:p.name_en)} <span style="color:var(--dim);font-weight:400">${t.today90s}</span> ${esc(LANG==="zh"?p.counterpart_zh:p.counterpart_en)}
+        <span class="tier">${LANG==="zh"?"配對權重":"weight"} ${p.weight}</span> <span class="tier">${LANG==="zh"?"歷史序列":"series"} ${p.series_tier}</span></div>
+      <div class="cp">${esc(LANG==="zh"?p.today.source_zh:p.today.source_en)}</div>
+      <div class="whyrow">
+        <div class="why"><b>${t.why}</b><br>${esc(LANG==="zh"?p.why_zh:p.why_en)}</div>
+        <div class="brk"><b>${t.brk}</b><br>${esc(LANG==="zh"?p.breaks_zh:p.breaks_en)}</div>
+      </div>
+    </div>`).join("");
+
+  // news
+  if(s.news && s.news.length){
+    document.getElementById("newsPanel").style.display="block";
+    document.getElementById("h_news").textContent = t.news;
+    document.getElementById("news").innerHTML = s.news.slice(0,12).map(n=>`<a href="${esc(n.url)}" target="_blank" rel="noopener">${esc(n.title)} <span class="src">${n.source?("· "+esc(n.source)):""} ${esc(n.date||"")}</span></a>`).join("");
+  }
+
+  // methodology panel + foot
+  document.getElementById("mp_title").textContent = LANG==="zh"? "數據做法與假設" : "How the numbers are made";
+  document.getElementById("mp_zh").style.display = LANG==="zh" ? "block" : "none";
+  document.getElementById("mp_en").style.display = LANG==="zh" ? "none" : "block";
+  document.getElementById("blindHead").textContent = t.blind + ":";
+  const blind = LANG==="zh"? s.blind_spots_zh : s.blind_spots_en;
+  document.getElementById("blind").innerHTML = (blind||[]).map(b=>`<li>· ${esc(b)}</li>`).join("");
+  const tl2 = s.tier_legend||{};
+  document.getElementById("tierLegend").textContent = Object.keys(tl2).map(k=>`${k} ${LANG==="zh"?tl2[k].zh:tl2[k].en}`).join(" · ");
+  document.getElementById("disclaimer").textContent = LANG==="zh"? s.disclaimer_zh : s.disclaimer_en;
+}
+
+function drawChart(points, comp, cycle){
+  const box = document.getElementById("chart");
+  if(!points || !points.length){ box.innerHTML=""; return; }
+  const W=720, H=210, L=42, R=14, Tp=14, B=26;
+  const yrs = points.map(p=>{ const [y,q]=p.q.split("Q"); return (+y)+(q-1)*0.25; });
+  const vs = points.map(p=>p.v);
+  const lo=Math.log(Math.min(...vs)), hi=Math.log(Math.max(...vs));
+  const X = yf => L + (yf-1995)/(2003-1995)*(W-L-R);
+  const Y = v => (H-B) - (Math.log(v)-lo)/(hi-lo)*(H-B-Tp);
+  let d = points.map((p,i)=>`${i?"L":"M"}${X(yrs[i]).toFixed(1)},${Y(p.v).toFixed(1)}`).join(" ");
+  let svg = `<svg viewBox="0 0 ${W} ${H}" width="100%" xmlns="http://www.w3.org/2000/svg">`;
+  for(let y=1995;y<=2002;y++){
+    svg += `<line x1="${X(y)}" y1="${Tp}" x2="${X(y)}" y2="${H-B}" stroke="rgba(255,255,255,.05)"/>`;
+    svg += `<text x="${X(y)}" y="${H-9}" fill="#6a6e80" font-size="9.5" text-anchor="middle">${y}</text>`;
+  }
+  svg += `<path d="${d}" fill="none" stroke="#7c83ff" stroke-width="1.8" opacity=".9"/>`;
+  // peak marker
+  const pi = vs.indexOf(Math.max(...vs));
+  svg += `<circle cx="${X(yrs[pi])}" cy="${Y(vs[pi])}" r="3.4" fill="#e0626e"/>`;
+  svg += `<text x="${X(yrs[pi])}" y="${Y(vs[pi])-8}" fill="#e0626e" font-size="9.5" text-anchor="middle">${points[pi].q}</text>`;
+  // clock pin
+  if(comp.clock!==null && comp.clock!==undefined){
+    const cx = X(Math.max(1995, Math.min(2002.75, comp.clock)));
+    svg += `<line x1="${cx}" y1="${Tp}" x2="${cx}" y2="${H-B}" stroke="#fff" stroke-width="1.6" opacity=".85"/>`;
+    // dispersion band
+    const x0 = X(Math.max(1995, comp.clock-comp.plus_minus)), x1 = X(Math.min(2002.75, comp.clock+comp.plus_minus));
+    svg += `<rect x="${x0}" y="${Tp}" width="${Math.max(1,x1-x0)}" height="${H-B-Tp}" fill="rgba(200,168,106,.10)"/>`;
+    svg += `<text x="${cx}" y="${Tp+9}" fill="#fff" font-size="10.5" text-anchor="middle" font-weight="600">${comp.clock.toFixed(1)}</text>`;
+  }
+  svg += `</svg>`;
+  box.innerHTML = svg;
+}
+
+document.getElementById("langBtn").addEventListener("click",()=>{
+  LANG = LANG==="zh"?"en":"zh"; localStorage.setItem("analogue_lang",LANG); render();
+});
+async function doRefresh(){
+  const t = T[LANG];
+  const pw = prompt(t.pwPrompt); if(!pw) return;
+  const st = document.getElementById("status"); st.textContent = t.refreshing;
+  try{
+    const r = await fetch("/analogue/api/refresh",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({password:pw})});
+    const j = await r.json();
+    if(!r.ok || !j.ok){ st.textContent = t.fail + (j.error?` (${j.error})`:""); return; }
+    st.textContent = `${t.done} (${j.engine}, ${j.live_inputs} live, clock ${j.clock})`;
+    setTimeout(()=>location.reload(),900);
+  }catch(e){ st.textContent = t.fail; }
+}
+document.getElementById("refreshBtn").addEventListener("click",doRefresh);
+render();
+</script>
+</body>
+</html>

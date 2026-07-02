@@ -1,0 +1,653 @@
+{
+  "generated_at": "2026-07-02 08:49 UTC",
+  "as_of": "2026-07-02",
+  "source": "live",
+  "is_demo": false,
+  "kb_version": "v1 2026-07-02",
+  "title_en": "Cycle Analogue Clock",
+  "title_zh": "週期類比時鐘",
+  "sub_en": "Where are we on the 1996–2002 telecom/fiber/dotcom clock — 1997 or 1999? Each of 7 analogue pairs places today's value on its 1995–2002 curve (nearest neighbour on level + 1-yr slope); the weighted median is the clock, and the DISPERSION of the seven readings is itself the structural-difference signal. /scenario gives forward probabilities; this card gives the historical coordinate. Analogy is not causality — n=1 sample.",
+  "sub_zh": "對齊 1996–2002 電信／光纖／網路週期，本輪時鐘讀到幾年幾月——1997 還是 1999？七組類比各自把今日數值放上 1995–2002 的歷史曲線（以水準＋一年斜率找最近鄰）；加權中位數是時鐘，七個讀數的「分歧度」本身就是結構性差異訊號。/scenario 給前瞻機率，本卡給歷史座標。類比不是因果——歷史樣本只有一次。",
+  "method_en": "L1 curated mapping dictionary (why each mapping holds / where it breaks) · L2 curated 1995–2002 quarterly series (T2/T3 reconstructions) · L3 nearest-neighbour clock engine · L4/L5 Claude or rules. Estimates are estimates; every number carries a tier and an as-of date. Not investment advice.",
+  "method_zh": "L1 人工策展類比映射字典（為何成立／哪裡失效）· L2 策展 1995–2002 季度序列（T2/T3 重建值）· L3 最近鄰時鐘引擎 · L4/L5 Claude 或規則後備。估計就是估計；每個數字都帶證據層級與資料時點。非投資建議。",
+  "disclaimer_en": "Historical analogy for strategic framing only — not investment advice.",
+  "disclaimer_zh": "歷史類比僅供策略框架參考——非投資建議。",
+  "tier_legend": {
+    "T1": {
+      "en": "Official / financial reports",
+      "zh": "官方／財報"
+    },
+    "T2": {
+      "en": "Authoritative estimate / market data",
+      "zh": "權威估計／市場數據"
+    },
+    "T3": {
+      "en": "News / reconstruction / our estimate",
+      "zh": "新聞／重建／本卡推估"
+    }
+  },
+  "l3": {
+    "pairs": [
+      {
+        "id": "capex",
+        "name_en": "Hyperscaler capex YoY",
+        "name_zh": "超大規模雲端資本支出年增率",
+        "counterpart_en": "1990s telecom carrier capex YoY",
+        "counterpart_zh": "1990s 電信業者資本支出年增率",
+        "unit": "%",
+        "series_id": "telecom_capex_yoy",
+        "series_tier": "T3",
+        "weight": 1.0,
+        "eff_weight": 0.143,
+        "today": {
+          "value": 80.6,
+          "change_1y": 18.0,
+          "tier": "T1",
+          "est": false,
+          "as_of": "2026-07-02",
+          "source_en": "Latest-quarter capex YoY, 5 hyperscalers summed — aligned to /aibubble capex.agg.yoy 2026-07-02. TTM total $489.5B aligned to /payback live yfinance 2026-07-02 (MSFT 97.2 / GOOGL 109.9 / AMZN 151.0 / META 75.7 / ORCL 55.7). 1-yr slope (+18pp) is a T3 estimate.",
+          "source_zh": "五巨頭最新季 capex 合計年增率——對齊 /aibubble capex.agg.yoy 2026-07-02。TTM 合計 $489.5B 對齊 /payback live yfinance 2026-07-02（MSFT 97.2 / GOOGL 109.9 / AMZN 151.0 / META 75.7 / ORCL 55.7）。一年斜率（+18pp）為 T3 推估。",
+          "live": true,
+          "via": "sibling:/aibubble"
+        },
+        "reading": {
+          "year_frac": 2000.25,
+          "quarter": "2000Q2",
+          "distance": 1.948,
+          "confidence": 0.143,
+          "beyond_range": true,
+          "hist_value": 33.0,
+          "hist_slope": 7.0
+        },
+        "reason_en": "Today 80.6% (1-yr Δ 18.0) sits nearest 2000Q2 (33.0%, Δ 7.0); today exceeds the whole 1995–2002 range — no true coordinate.",
+        "reason_zh": "今日 80.6%（一年變化 18.0）最近鄰為 2000Q2（33.0%，變化 7.0）；今日值超出 1995–2002 全區間——類比已無真座標。",
+        "why_en": "Both measure how fast the era's richest demand carriers are pouring concrete: network build-out then, compute build-out now. Capex growth is the cycle's throttle in both.",
+        "why_zh": "兩者都在量測該時代最有錢的需求載體砸實體建設的速度：當年鋪網路、現在蓋算力。資本支出增速在兩輪都是週期油門。",
+        "breaks_en": "1990s telecom capex was debt-funded by levered CLECs and incumbents — the 2001 capex crash was a solvency event. Hyperscalers fund from operating cash flow (capex/OCF ~75% but still FCF-generative, A/AA-rated); a demand wobble cuts capex, it does not bankrupt the builder.",
+        "breaks_zh": "1990s 電信資本支出靠高槓桿 CLEC 與電信商舉債——2001 的資本支出崩塌是償付能力事件。超大規模雲端用營運現金流自籌（capex/OCF 約 75% 但仍產生自由現金流、A/AA 評級）；需求轉弱是砍 capex，不是把建設者砍破產。"
+      },
+      {
+        "id": "token_price",
+        "name_en": "Per-token price deflation",
+        "name_zh": "每 token 價格通縮",
+        "counterpart_en": "Price-per-bit collapse",
+        "counterpart_zh": "每位元價格崩落",
+        "unit": "%/yr",
+        "series_id": "price_per_bit_yoy",
+        "series_tier": "T3",
+        "weight": 0.6,
+        "eff_weight": 0.2094,
+        "today": {
+          "value": -75.0,
+          "change_1y": -10.0,
+          "tier": "T3",
+          "est": true,
+          "as_of": "2026-06",
+          "source_en": "EST — constant-capability LLM token prices are falling roughly 60–90%/yr (published Epoch/a16z-style estimates); −75%/yr taken as midpoint. Slope (deflation deepening ~10pp/yr) is a rough estimate.",
+          "source_zh": "推估——同能力等級 LLM token 價格約年跌 60–90%（Epoch/a16z 類公開估計）；取中值 −75%/yr。斜率（通縮每年加深約 10pp）為粗估。",
+          "live": false,
+          "via": "seed"
+        },
+        "reading": {
+          "year_frac": 2002.25,
+          "quarter": "2002Q2",
+          "distance": 1.053,
+          "confidence": 0.349,
+          "beyond_range": true,
+          "hist_value": -60.0,
+          "hist_slope": -9.0
+        },
+        "reason_en": "Today -75.0%/yr (1-yr Δ -10.0) sits nearest 2002Q2 (-60.0%/yr, Δ -9.0); today exceeds the whole 1995–2002 range — no true coordinate.",
+        "reason_zh": "今日 -75.0%/yr（一年變化 -10.0）最近鄰為 2002Q2（-60.0%/yr，變化 -9.0）；今日值超出 1995–2002 全區間——類比已無真座標。",
+        "why_en": "Both are the unit price of the era's core deliverable — bit transport then, token inference now — collapsing as capacity and efficiency compound.",
+        "why_zh": "兩者都是該時代核心交付物的單價——當年是位元傳輸、現在是 token 推論——在產能與效率複利下崩跌。",
+        "breaks_en": "The 90s per-bit collapse was glut-driven: prices fell below cash cost while ~95% of fiber sat dark. Token deflation so far is mostly efficiency-driven (algorithms + new silicon), and demand elasticity has kept total inference revenue RISING through the price fall — the opposite of stranded fiber.",
+        "breaks_zh": "90 年代每位元崩跌是過剩驅動：價格跌破現金成本、約 95% 光纖未點亮。token 通縮至今主要是效率驅動（演算法＋新晶片），且需求彈性讓推論總營收在降價中仍上升——與擱淺光纖正好相反。"
+      },
+      {
+        "id": "gpu_rent",
+        "name_en": "GPU spot rent ÷ breakeven",
+        "name_zh": "GPU 現貨租金 ÷ 損益兩平",
+        "counterpart_en": "Wholesale bandwidth price vs cost (dark fiber era)",
+        "counterpart_zh": "批發頻寬價格對成本（暗光纖時代）",
+        "unit": "x",
+        "series_id": "bw_price_vs_cost",
+        "series_tier": "T3",
+        "weight": 1.0,
+        "eff_weight": 0.797,
+        "today": {
+          "value": 1.34,
+          "change_1y": -0.4,
+          "tier": "T2",
+          "est": true,
+          "as_of": "2026-07-02",
+          "source_en": "H100 SXM spot median $2.14/hr ÷ breakeven-band midpoint $1.60 (band $1.30–1.90) — aligned to /aibubble frontier.gpu_spot 2026-07-02 (vast.ai listings). Breakeven band is itself an estimate; 1-yr slope (−0.4x) EST from 2025 rent declines.",
+          "source_zh": "H100 SXM 現貨中位數 $2.14/hr ÷ 損益兩平帶中點 $1.60（帶 $1.30–1.90）——對齊 /aibubble frontier.gpu_spot 2026-07-02（vast.ai 掛牌）。損益兩平帶本身即為估計值；一年斜率（−0.4x）依 2025 租金下滑推估。",
+          "live": true,
+          "via": "sibling:/aibubble"
+        },
+        "reading": {
+          "year_frac": 2000.25,
+          "quarter": "2000Q2",
+          "distance": 0.226,
+          "confidence": 0.797,
+          "beyond_range": false,
+          "hist_value": 1.35,
+          "hist_slope": -0.45
+        },
+        "reason_en": "Today 1.34x (1-yr Δ -0.4) sits nearest 2000Q2 (1.35x, Δ -0.45).",
+        "reason_zh": "今日 1.34x（一年變化 -0.4）最近鄰為 2000Q2（1.35x，變化 -0.45）。",
+        "why_en": "The cleanest overbuild gauge in both eras: does the marginal unit of infrastructure earn above its all-in cost? Wholesale bandwidth then, GPU-hours now.",
+        "why_zh": "兩個時代最乾淨的過度建設量表：邊際一單位基礎設施能否賺回全成本？當年是批發頻寬，現在是 GPU 時。",
+        "breaks_en": "Fiber lasts 25+ years and 95% sat dark — a glut could persist for a decade. GPUs depreciate in 4–6 years (self-correcting supply), spot still clears ABOVE breakeven, and power/CoWoS/HBM scarcity caps supply in a way fiber never was.",
+        "breaks_zh": "光纖壽命 25 年以上且 95% 未點亮——過剩可拖十年。GPU 4–6 年折舊（供給會自我修正）、現貨仍高於損益兩平，且電力/CoWoS/HBM 稀缺對供給設了光纖時代從未有過的上限。"
+      },
+      {
+        "id": "vendor_fin",
+        "name_en": "Circular / vendor financing ÷ annual capex",
+        "name_zh": "循環／供應商融資 ÷ 年度資本支出",
+        "counterpart_en": "Lucent / Nortel vendor financing",
+        "counterpart_zh": "Lucent / Nortel 設備商融資",
+        "unit": "%",
+        "series_id": "vendor_fin_pct",
+        "series_tier": "T3",
+        "weight": 0.8,
+        "eff_weight": 0.0,
+        "today": {
+          "value": 108.1,
+          "change_1y": 45.0,
+          "tier": "T3",
+          "est": true,
+          "as_of": "2026-07-02",
+          "source_en": "EST, definitional caveat — announced circular-deal ledger $529.3B (aligned to /aibubble circularity ledger 2026-07-02; deal detail lives there, not re-maintained here) ÷ TTM hyperscaler capex $489.5B. Numerator is CUMULATIVE multi-year commitments vs a one-year denominator — treat as an upper bound.",
+          "source_zh": "推估，含口徑警語——已公告循環交易台帳 $529.3B（對齊 /aibubble 循環台帳 2026-07-02；交易明細在該卡維護，本卡不重複）÷ 超大規模 TTM capex $489.5B。分子是「累計多年期承諾」對上一年期分母——視為上界。",
+          "live": true,
+          "via": "sibling:/aibubble"
+        },
+        "reading": {
+          "year_frac": 2000.25,
+          "quarter": "2000Q2",
+          "distance": 14.311,
+          "confidence": 0.0,
+          "beyond_range": true,
+          "hist_value": 23.0,
+          "hist_slope": 11.2
+        },
+        "reason_en": "Today 108.1% (1-yr Δ 45.0) sits nearest 2000Q2 (23.0%, Δ 11.2); today exceeds the whole 1995–2002 range — no true coordinate.",
+        "reason_zh": "今日 108.1%（一年變化 45.0）最近鄰為 2000Q2（23.0%，變化 11.2）；今日值超出 1995–2002 全區間——類比已無真座標。",
+        "why_en": "Both are the supplier financing its own demand: revenue quality degrades when the vendor's balance sheet (or equity) stands behind the customer's purchase order.",
+        "why_zh": "兩者都是供應商在融資自己的需求：當賣方的資產負債表（或股權）站在客戶採購單背後，營收品質就在劣化。",
+        "breaks_en": "Lucent/Nortel lent cash to CLECs that went insolvent — credit risk crystallized as writedowns. Today's loops are mostly equity stakes and multi-year compute commitments among cash-rich counterparties; but OpenAI-scale commitments against a $25B revenue run-rate rhyme with the pattern.",
+        "breaks_zh": "Lucent/Nortel 把現金借給後來破產的 CLEC——信用風險以減記兌現。今日的循環多是現金充裕方之間的股權入股與多年期算力承諾；但 OpenAI 級承諾對上 $25B 營收 run-rate，韻腳仍像。"
+      },
+      {
+        "id": "concentration",
+        "name_en": "S&P 500 top-10 weight",
+        "name_zh": "標普500前十大權重",
+        "counterpart_en": "2000 concentration peak (~27%)",
+        "counterpart_zh": "2000 年集中度峰值（約 27%）",
+        "unit": "%",
+        "series_id": "top10_share",
+        "series_tier": "T3",
+        "weight": 0.9,
+        "eff_weight": 0.0072,
+        "today": {
+          "value": 40.1,
+          "change_1y": 2.5,
+          "tier": "T2",
+          "est": true,
+          "as_of": "2026-06",
+          "source_en": "EST — S&P Dow Jones Indices factsheet-style top-10 weight ≈40% as of mid-2026; 1-yr slope (+2.5pp) approximate. Related live gauge: /aibubble concentration sub-score.",
+          "source_zh": "推估——依 S&P 道瓊指數 factsheet 類數據，2026 年中前十大權重約 40%；一年斜率（+2.5pp）為近似。相關即時量表見 /aibubble 集中度子分數。",
+          "live": false,
+          "via": "seed"
+        },
+        "reading": {
+          "year_frac": 2000.0,
+          "quarter": "2000Q1",
+          "distance": 4.829,
+          "confidence": 0.008,
+          "beyond_range": true,
+          "hist_value": 26.8,
+          "hist_slope": 4.2
+        },
+        "reason_en": "Today 40.1% (1-yr Δ 2.5) sits nearest 2000Q1 (26.8%, Δ 4.2); today exceeds the whole 1995–2002 range — no true coordinate.",
+        "reason_zh": "今日 40.1%（一年變化 2.5）最近鄰為 2000Q1（26.8%，變化 4.2）；今日值超出 1995–2002 全區間——類比已無真座標。",
+        "why_en": "Both measure how much of the market one theme carries — passive-flow reflexivity, index fragility, and the crowding of the marginal dollar into the same ten tickers.",
+        "why_zh": "兩者都量測整個市場押在單一主題上的比重——被動資金反身性、指數脆弱度、邊際資金擠進同十檔的擁擠度。",
+        "breaks_en": "Today's top-10 earn roughly a quarter to a third of S&P earnings with real cash flows; 2000's leaders (Cisco at ~200x) were priced on forward hope. Concentration is HIGHER than 2000, but the earnings floor under it is far thicker.",
+        "breaks_zh": "今日前十大貢獻標普約四分之一到三分之一的「真實」盈餘與現金流；2000 年的領頭羊（Cisco 約 200 倍）是靠想像定價。集中度比 2000 更高，但下面墊的盈餘地板厚得多。"
+      },
+      {
+        "id": "hy_oas",
+        "name_en": "High-yield OAS path",
+        "name_zh": "高收益債利差路徑",
+        "counterpart_en": "HY OAS 1997–2000 (telecom-heavy index)",
+        "counterpart_zh": "1997–2000 高收益利差（電信占比高）",
+        "unit": "%",
+        "series_id": "hy_oas_hist",
+        "series_tier": "T2",
+        "weight": 1.0,
+        "eff_weight": 0.888,
+        "today": {
+          "value": 2.75,
+          "change_1y": -0.4,
+          "tier": "T1",
+          "est": false,
+          "as_of": "2026-07-01",
+          "source_en": "FRED BAMLH0A0HYM2, 2026-07-01 (canonical platform number). 1-yr slope −0.40pp approximated from the path (3m ago 3.16% — aligned to /aibubble hy_oas 2026-06-30).",
+          "source_zh": "FRED BAMLH0A0HYM2，2026-07-01（平台共用基準值）。一年斜率 −0.40pp 依路徑近似（3 個月前 3.16%——對齊 /aibubble hy_oas 2026-06-30）。",
+          "live": true,
+          "via": "sibling:/flows"
+        },
+        "reading": {
+          "year_frac": 1997.0,
+          "quarter": "1997Q1",
+          "distance": 0.119,
+          "confidence": 0.888,
+          "beyond_range": false,
+          "hist_value": 2.9,
+          "hist_slope": -0.6
+        },
+        "reason_en": "Today 2.75% (1-yr Δ -0.4) sits nearest 1997Q1 (2.9%, Δ -0.6).",
+        "reason_zh": "今日 2.75%（一年變化 -0.4）最近鄰為 1997Q1（2.9%，變化 -0.6）。",
+        "why_en": "Credit prices late-cycle complacency and cracks first: in 1999–2000 the telecom-heavy HY index cracked a full year before NASDAQ's peak-and-fall completed.",
+        "why_zh": "信用市場為後段自滿定價、也最先裂開：1999–2000 電信占比高的高收益指數比那斯達克見頂完成早整整一年裂開。",
+        "breaks_en": "The AI build is equity/OCF-funded and HY has little direct AI exposure — unlike 2000, when telecom was roughly a third of the HY index. Today's tight OAS may say less about AI than 2000's OAS said about telecom; the equivalent stress may hide in private credit.",
+        "breaks_zh": "本輪 AI 建設靠股權與營運現金流，高收益債對 AI 的直接曝險很低——不像 2000 年電信約占高收益指數三分之一。今日的窄利差對 AI 的資訊量，可能遠低於 2000 年利差對電信的資訊量；等價的壓力可能藏在私募信貸。"
+      },
+      {
+        "id": "loss_labs",
+        "name_en": "Frontier labs: funding ÷ revenue",
+        "name_zh": "前沿實驗室：累計募資 ÷ 營收",
+        "counterpart_en": "Loss-making dotcoms' funding multiple",
+        "counterpart_zh": "虧損 dotcom 的募資倍數",
+        "unit": "x",
+        "series_id": "funding_multiple",
+        "series_tier": "T3",
+        "weight": 0.9,
+        "eff_weight": 0.4698,
+        "today": {
+          "value": 5.9,
+          "change_1y": -0.5,
+          "tier": "T3",
+          "est": true,
+          "as_of": "2026-07-02",
+          "source_en": "EST — (OpenAI $122B funding + Anthropic $95B) ÷ (OpenAI $25B revenue run-rate + Anthropic $12B) = 5.9x. Aligned to /payback KB v2 2026-07-02 (OpenAI IPO-filing valuation $850B; Anthropic Series-H $965B, context only). Slope −0.5x EST: revenue is ramping faster than funding — an anti-1999 signal.",
+          "source_zh": "推估——（OpenAI 累計募資 $122B＋Anthropic $95B）÷（OpenAI 營收 run-rate $25B＋Anthropic $12B）＝5.9x。對齊 /payback KB v2 2026-07-02（OpenAI IPO 申報估值 $850B；Anthropic Series-H $965B，僅供脈絡）。斜率 −0.5x 推估：營收爬升快於募資——是「反 1999」訊號。",
+          "live": false,
+          "via": "seed"
+        },
+        "reading": {
+          "year_frac": 1998.75,
+          "quarter": "1998Q4",
+          "distance": 0.65,
+          "confidence": 0.522,
+          "beyond_range": false,
+          "hist_value": 4.8,
+          "hist_slope": 1.6
+        },
+        "reason_en": "Today 5.9x (1-yr Δ -0.5) sits nearest 1998Q4 (4.8x, Δ 1.6).",
+        "reason_zh": "今日 5.9x（一年變化 -0.5）最近鄰為 1998Q4（4.8x，變化 1.6）。",
+        "why_en": "Both are the era's demand engine priced on promise while burning cash: dotcoms carried telecom demand, frontier labs carry compute demand. If the funding window shuts, the demand under the capex evaporates the same way.",
+        "why_zh": "兩者都是該時代「靠承諾定價、邊燒現金」的需求引擎：dotcom 撐起電信需求，前沿實驗室撐起算力需求。募資窗口一關，capex 底下的需求就會用同一種方式蒸發。",
+        "breaks_en": "The top-2 labs have real revenue ($37B combined run-rate, growing >100%/yr) versus 1999 dotcoms' near-zero revenue, and the multiple is COMPRESSING, not expanding. But their multi-year compute commitments exceed the funding actually raised — the fragility moved from revenue to commitments.",
+        "breaks_zh": "頭部兩家實驗室有真實營收（合計 run-rate $37B、年增逾 100%），不像 1999 dotcom 幾乎零營收，且倍數在壓縮而非擴張。但它們的多年期算力承諾超過實際募到的錢——脆弱點從營收移到了承諾。"
+      }
+    ],
+    "composite": {
+      "clock": 1998.75,
+      "clock_label": "1998Q4",
+      "plus_minus": 1.47,
+      "dispersion": 1.47,
+      "dispersion_key": "structural",
+      "dispersion_en": "structurally divergent — the eras differ where it matters",
+      "dispersion_zh": "結構性偏離——兩個時代在關鍵處不像",
+      "score": 75.0,
+      "verdict_key": "late_cycle",
+      "verdict_en": "LATE CYCLE — the late-1998/1999 zone",
+      "verdict_zh": "週期後段——1998 末～1999 區間",
+      "n_pairs": 7,
+      "n_beyond": 4,
+      "answer_en": "Closer to 1999 than 1997: composite 1998.8 ± 1.5. But the pairs disagree: High-yield OAS path reads 1997Q1 while Per-token price deflation reads 2002Q2 — the dispersion IS the message: part of this cycle has no 1990s coordinate.",
+      "answer_zh": "比較像 1999 而非 1997：合成讀數 1998.8 ± 1.5。 但各組配對不同調：高收益債利差路徑讀 1997Q1、每 token 價格通縮讀 2002Q2——分歧本身就是訊息：本輪有一段在 90 年代沒有座標。"
+    },
+    "cycle": {
+      "start": 1995.0,
+      "peak": 2000.0,
+      "peak_label": "2000Q1",
+      "end": 2002.75
+    }
+  },
+  "l4": {
+    "clock_take": {
+      "summary_en": "The composite reads 1998.75 (1998Q4) ± 1.47, cycle-position 75/100 — squarely late cycle, the late-1998/1999 zone. But the ±1.47 dispersion is structural, not noise: 4 of 7 pairs read beyond the 1995–2002 range entirely. Capex YoY (80.6%), vendor financing (108.1% of capex) and top-10 weight (40.1%) all pin to 2000Q1–Q2 with near-zero confidence — they are off the historical scale, not comfortably 1999. Meanwhile HY OAS at 2.75% reads 1997Q1 (conf 0.888) and lab funding/revenue at 5.9x reads 1998Q4 (conf 0.522). The clock is a coordinate, not a forecast: the wide spread says the analogy is strained precisely where it matters — funding structure and valuation.",
+      "summary_zh": "綜合時鐘讀數為1998.75（1998Q4），誤差±1.47，週期位置75/100，明確落在1998年末至1999年的晚週期區。但±1.47的離散是結構性的，非雜訊：七對中有四對完全超出1995–2002歷史區間。資本支出年增80.6%、循環融資佔資本支出108.1%、標普前十權重40.1%，皆對應2000Q1–Q2但信心近零，已脫離歷史刻度。同時高收益利差2.75%讀作1997Q1（信心0.888），前沿實驗室融資／營收5.9倍讀作1998Q4（信心0.522）。時鐘是座標非預測：如此大的離散顯示，恰在融資結構與估值這些關鍵處，類比最為勉強。"
+    },
+    "like_1999": [
+      {
+        "en": "Capex pace rhymes hard: hyperscaler capex is +80.6% YoY (1y Δ +18.0), pinning to 2000Q2 — the same vertical build-out slope seen as telecom capex peaked into 2000.",
+        "zh": "資本支出步調高度相似：超大規模業者資本支出年增80.6%（一年變化+18.0），對應2000Q2——與電信資本支出衝向2000年高峰的垂直斜率如出一轍。"
+      },
+      {
+        "en": "Circular/vendor financing has exploded to 108.1% of annual capex (1y Δ +45.0), echoing Lucent/Nortel vendor loans — chips-for-equity and prepaid-compute loops now exceed a full year of build spend.",
+        "zh": "循環／廠商融資暴增至年度資本支出的108.1%（一年變化+45.0），呼應Lucent／Nortel的廠商貸款——晶片換股權與預付算力迴圈規模已超過整年建設支出。"
+      },
+      {
+        "en": "Index concentration matches the peak: S&P 500 top-10 weight is 40.1% (1y Δ +2.5), reading 2000Q1 — the same narrow-leadership fragility as the 2000 top.",
+        "zh": "指數集中度與高峰相符：標普500前十權重達40.1%（一年變化+2.5），讀作2000Q1——與2000年頂部相同的窄幅領漲脆弱性。"
+      },
+      {
+        "en": "Loss-making demand engines rhyme: frontier labs run at 5.9x funding/revenue (reads 1998Q4), the same capital-ahead-of-cashflow dynamic that fed the fiber demand story.",
+        "zh": "虧損的需求引擎相似：前沿實驗室融資／營收達5.9倍（讀作1998Q4），與當年餵養光纖需求故事的「資本超前現金流」動態相同。"
+      }
+    ],
+    "structurally_unlike": [
+      {
+        "en": "Funding structure is inverted: 1990s telecom capex was debt-funded by levered CLECs and incumbents — the 2001 crash was a solvency event. Today's build is funded from hyperscaler operating cash flow, and top-10 firms earn roughly a quarter to a third of S&P earnings with real cash — unlike Cisco at ~200x on forward hopes.",
+        "zh": "融資結構相反：1990年代電信資本支出由高槓桿CLEC與現有業者舉債支應，2001年崩盤是償付能力事件。今日建設由超大規模業者營運現金流支應，前十大企業以真實現金賺取標普約四分之一至三分之一的獲利——不同於當年思科約200倍的遠期夢想估值。"
+      },
+      {
+        "en": "Physical scarcity, not glut: the 90s saw ~95% of fiber sit dark with prices below cash cost. Today power, CoWoS packaging and HBM are the binding constraints — GPU spot rent still sits at 1.34x breakeven, the opposite of a supply overhang.",
+        "zh": "是實體稀缺而非過剩：1990年代約95%光纖閒置、價格跌破現金成本。今日電力、CoWoS封裝與HBM才是瓶頸——GPU現貨租金仍為損益平衡的1.34倍，與供給過剩恰恰相反。"
+      },
+      {
+        "en": "Depreciation life self-corrects: fiber lasts 25+ years, so a glut could persist a decade. GPUs depreciate in 4–6 years — supply retires itself fast, so any overbuild corrects in quarters, not a lost decade.",
+        "zh": "折舊年限自我修正：光纖壽命超過25年，過剩可延續十年。GPU折舊僅4–6年——供給自行快速退役，任何過度建設以數季修正，而非失落的十年。"
+      },
+      {
+        "en": "Credit-market exposure is small: HY OAS at 2.75% reads 1997Q1, and AI has little direct HY presence — unlike 2000 when telecom was roughly a third of the HY index.",
+        "zh": "信用市場曝險小：高收益利差2.75%讀作1997Q1，AI在高收益債中直接佔比極低——不同於2000年電信約佔高收益指數三分之一。"
+      },
+      {
+        "en": "Demand engines have real revenue: token deflation (-75%/yr) is so far efficiency-driven, not glut-driven below cash cost, and top-2 labs run ~$37B combined run-rate growing >100%/yr versus 1999 dotcoms' near-zero revenue.",
+        "zh": "需求引擎有真實營收：代幣通縮（每年-75%）迄今主要由效率驅動，而非跌破現金成本的過剩；前二大實驗室合計約370億美元年化營收且年增逾100%，不同於1999年營收近零的網路公司。"
+      }
+    ]
+  },
+  "l5": {
+    "jumps": [
+      {
+        "condition_en": "GPU spot rent falls below the breakeven band (ratio <1.0) and stays there a full quarter — signalling genuine supply glut rather than scarcity.",
+        "condition_zh": "GPU現貨租金跌破損益平衡帶（比率<1.0）並維持整季——顯示真正供給過剩而非稀缺。",
+        "jump_to": "2000.5",
+        "direction": "forward"
+      },
+      {
+        "condition_en": "A top-5 lab fails to close a funding round and cuts compute commitments — the funding window shuts for the demand engine.",
+        "condition_zh": "前五大實驗室之一無法完成募資並削減算力承諾——需求引擎的融資窗口關閉。",
+        "jump_to": "2000.75",
+        "direction": "forward"
+      },
+      {
+        "condition_en": "HY OAS widens past 4.5% with AI-adjacent credit (neocloud / datacenter private credit) leading the spread widening.",
+        "condition_zh": "高收益利差擴大逾4.5%，且由AI相關信用（neocloud／資料中心私募信貸）領漲利差。",
+        "jump_to": "1999.75",
+        "direction": "forward"
+      },
+      {
+        "condition_en": "Hyperscaler capex guidance turns negative YoY for two consecutive quarters — the self-funded build finally rolls over.",
+        "condition_zh": "超大規模業者資本支出指引連續兩季年增轉負——自籌資金的建設終於反轉。",
+        "jump_to": "2001.0",
+        "direction": "forward"
+      },
+      {
+        "condition_en": "Token demand elasticity breaks: total inference revenue falls while per-token prices keep dropping — deflation stops being efficiency-driven.",
+        "condition_zh": "代幣需求彈性破裂：推論總營收下滑而每代幣價格仍續跌——通縮不再由效率驅動。",
+        "jump_to": "2000.25",
+        "direction": "forward"
+      },
+      {
+        "condition_en": "Lab revenue keeps compounding >100%/yr so funding/revenue multiple compresses below 4x (from today's 5.9x).",
+        "condition_zh": "實驗室營收持續年增逾100%，使融資／營收倍數自今日5.9倍壓縮至4倍以下。",
+        "jump_to": "1997.5",
+        "direction": "backward"
+      }
+    ],
+    "forward_movers": [
+      {
+        "en": "GPU spot rent ÷ breakeven (today 1.34x): track the drift toward 1.0 as new capacity lands.",
+        "zh": "GPU現貨租金÷損益平衡（今日1.34倍）：追蹤新產能上線後向1.0的下滑。",
+        "freq": "weekly"
+      },
+      {
+        "en": "Vendor/circular financing as % of capex (today 108.1%): rising ratio and any counterparty distress in the chips-for-equity loops.",
+        "zh": "廠商／循環融資佔資本支出比（今日108.1%）：比率上升及晶片換股權迴圈中任何交易對手困境。",
+        "freq": "quarterly"
+      },
+      {
+        "en": "HY OAS and AI-adjacent private credit spreads (today OAS 2.75%): watch neocloud and datacenter credit for early widening.",
+        "zh": "高收益利差及AI相關私募信貸利差（今日利差2.75%）：留意neocloud與資料中心信貸的早期擴大。",
+        "freq": "weekly"
+      },
+      {
+        "en": "Hyperscaler capex guidance YoY (today +80.6%): first deceleration or negative print on earnings calls.",
+        "zh": "超大規模業者資本支出指引年增（今日+80.6%）：財報會議首度減速或轉負。",
+        "freq": "quarterly"
+      },
+      {
+        "en": "Per-token price vs total inference revenue (deflation -75%/yr): flag if revenue turns down while prices keep falling.",
+        "zh": "每代幣價格對比推論總營收（通縮每年-75%）：若營收下滑而價格續跌則示警。",
+        "freq": "monthly"
+      },
+      {
+        "en": "S&P 500 top-10 weight (today 40.1%) and leaders' realized vs forward earnings: monitor concentration and any multiple re-rating.",
+        "zh": "標普500前十權重（今日40.1%）及領導股實現對比遠期獲利：監控集中度與任何估值重評。",
+        "freq": "monthly"
+      }
+    ]
+  },
+  "analysis_engine": "claude",
+  "backdrop": {
+    "id": "nasdaq",
+    "name_en": "NASDAQ Composite (quarterly close, approx.)",
+    "name_zh": "那斯達克綜合指數（季收盤，近似）",
+    "tier": "T2",
+    "source_en": "Public market data; quarterly closes rounded/approximate. Peak: 2000-03-10 intraday 5132.",
+    "source_zh": "公開市場數據；季收盤為近似整理值。峰值：2000-03-10 盤中 5132。",
+    "points": [
+      {
+        "q": "1995Q1",
+        "v": 817
+      },
+      {
+        "q": "1995Q2",
+        "v": 933
+      },
+      {
+        "q": "1995Q3",
+        "v": 1044
+      },
+      {
+        "q": "1995Q4",
+        "v": 1052
+      },
+      {
+        "q": "1996Q1",
+        "v": 1101
+      },
+      {
+        "q": "1996Q2",
+        "v": 1185
+      },
+      {
+        "q": "1996Q3",
+        "v": 1227
+      },
+      {
+        "q": "1996Q4",
+        "v": 1291
+      },
+      {
+        "q": "1997Q1",
+        "v": 1222
+      },
+      {
+        "q": "1997Q2",
+        "v": 1442
+      },
+      {
+        "q": "1997Q3",
+        "v": 1686
+      },
+      {
+        "q": "1997Q4",
+        "v": 1570
+      },
+      {
+        "q": "1998Q1",
+        "v": 1836
+      },
+      {
+        "q": "1998Q2",
+        "v": 1895
+      },
+      {
+        "q": "1998Q3",
+        "v": 1694
+      },
+      {
+        "q": "1998Q4",
+        "v": 2193
+      },
+      {
+        "q": "1999Q1",
+        "v": 2461
+      },
+      {
+        "q": "1999Q2",
+        "v": 2686
+      },
+      {
+        "q": "1999Q3",
+        "v": 2746
+      },
+      {
+        "q": "1999Q4",
+        "v": 4069
+      },
+      {
+        "q": "2000Q1",
+        "v": 4573
+      },
+      {
+        "q": "2000Q2",
+        "v": 3966
+      },
+      {
+        "q": "2000Q3",
+        "v": 3673
+      },
+      {
+        "q": "2000Q4",
+        "v": 2470
+      },
+      {
+        "q": "2001Q1",
+        "v": 1840
+      },
+      {
+        "q": "2001Q2",
+        "v": 2161
+      },
+      {
+        "q": "2001Q3",
+        "v": 1499
+      },
+      {
+        "q": "2001Q4",
+        "v": 1950
+      },
+      {
+        "q": "2002Q1",
+        "v": 1845
+      },
+      {
+        "q": "2002Q2",
+        "v": 1463
+      },
+      {
+        "q": "2002Q3",
+        "v": 1172
+      },
+      {
+        "q": "2002Q4",
+        "v": 1336
+      }
+    ]
+  },
+  "blind_spots_en": [
+    "Analogy is not causality — the clock is a coordinate, not a forecast. /scenario carries the forward probabilities.",
+    "n=1 historical sample: one telecom/dotcom cycle. Readings 'beyond range' mean the analogue simply has no coordinate for today's value.",
+    "The mapping choices themselves are assumptions — each pair carries its own tier, and the where-it-breaks column is the epistemic core of this card, not a footnote.",
+    "Historical series are approximate reconstructions (quarterly values interpolated between anchors, T2/T3) — treat clock readings as ±2 quarters at best.",
+    "Today's inputs mix T1 report data with T3 estimates (token price, funding multiples, top-10 share); the composite inherits the weakest input.",
+    "Sibling snapshots (/aibubble, /payback, /flows) are read best-effort at refresh; if absent the card silently uses seeds dated as marked."
+  ],
+  "blind_spots_zh": [
+    "類比不是因果——時鐘是座標不是預測。前瞻機率在 /scenario。",
+    "歷史樣本 n=1：只有一次電信／網路週期。「超出區間」的讀數代表類比對今日數值根本沒有座標。",
+    "映射選擇本身就是假設——每組配對各帶證據層級，「哪裡失效」欄是本卡的認識論核心，不是註腳。",
+    "歷史序列為近似重建（季度值於錨點間內插，T2/T3）——時鐘讀數最好視為 ±2 季。",
+    "今日輸入混雜 T1 財報數據與 T3 推估（token 價格、募資倍數、前十大權重）；合成讀數繼承最弱的輸入。",
+    "兄弟卡 snapshot（/aibubble、/payback、/flows）於刷新時盡力讀取；不存在時靜默改用標注日期的種子值。"
+  ],
+  "sibling_context": {
+    "circularity_ledger_b": 529.3,
+    "hy_oas_bubble_pct": 2.75,
+    "ttm_capex_total_b": 489.5,
+    "payback_ai_coverage": 0.222,
+    "payback_total_capex_ttm": 433.8
+  },
+  "news": [
+    {
+      "title": "Wall Street's $800 Billion AI Data Center Bet Is Showing Cracks. Only 84 of 157 Gigawatts Will Be Built by 2030",
+      "url": "https://news.google.com/rss/articles/CBMi5wFBVV95cUxNMFVjbE9yNERTNUwzeVlOaXRBZjl4YmFLRkVGdDVwX2RUUHVPb0Utc08yX0VLek1YdDh3alBvb1FMUUduM1ZuTF9uWHE0WHJVTHRTWVRrSVFHVE5ZeUdITnY3WmVraWw0Y0Y2cjctcElibjlOQnJxQ2FRS2o5cUdrODlNUmNjV3htY1IzeU8zZW1XWU43UjNHNF9zRUpRc243LXU3NUQwdW9RcndQTVVrdFZEUTROZlBQc3dhOW5neFVpSzJyQzBISFItV1RRaGpPUVJJNEhmQWhXOV9Na09ZMm94VEVMOUU?oc=5",
+      "source": "24/7 Wall St.",
+      "date": "2026-06-11"
+    },
+    {
+      "title": "Hedge Fund Investor Says Today’s AI Boom Is ‘Nothing’ Compared to 1999 Dot-Com Bubble",
+      "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxPUS1Gdm5zNThpV2xmWkpkRXNZUEJ4U0JWUG9uVTVodlFzRWxCaTVGU2d2SXB4Rm8za2ttdl9xYzlEVVdhZnpTZnBnUm44SHJkVDhjME1oaWNBQTdnTzMtU1c2NGlpY0I1cEk4VVJLWmNuM0RNM05aanZNZzhyWlgxTkk0UlEtNGxqUktpREVkSzJiTTRxRFNVcERHcw?oc=5",
+      "source": "Yahoo Finance",
+      "date": "2026-06-09"
+    },
+    {
+      "title": "I Traded the Dot-Com Bubble and This AI Frenzy Is Different",
+      "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNZ0JyQzlRVEZyUFlqTzFlRUk1ZkNiNzJ0UkZ4eXMxNEN2Rmt2MEJQWURkUDktakpUTEV2QXYtTWRFdFBzbGJjeU5jdERfTVFrXzZ1NDZBTW9ldUZsYkNJZFNpaTNLQ0xJQ3RjTE5HXzdWUFljeFFUdmd3dFdCUVNvazFlVzY3QmlQNFM4Y3JfaFNMTmNiNDAzMnU1ZjFiVXVoaFctcWh3?oc=5",
+      "source": "TheStreet Pro",
+      "date": "2026-05-08"
+    },
+    {
+      "title": "Michael Burry says the market today feels like 'the last months of the 1999-2000 bubble'",
+      "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxOU2loS051REVRa01tOXRjZTg4QzN5UjZlUE85WXV6WXRTYWdqTnA3Mlk3cWs1RGpOTVJCMHdCM3Z5TU0ydndEZHRNcjFERnNXd2ZMa3ZqQVlmcTEtRWx3enpTWm5HRVlHNDdSbXI3d1VhMUtmZXpwclA1WmZuSUF4Tm1DbzRVNjlkMDM1QWt5MFRLUVBlZk9GSGxNa0NtZHphQ25fMUFHb1dBZnNiM3lZdnpJYTMyUnJIODZ3Y1VkN1nSAcYBQVVfeXFMT05aRFdsWl8zLTBnM2VLUldDby1IdE1icXozSi1JbERCbml3bDNVR2lDX1oxUG5Fa1I5QnJKWUUxaWl4cVpVT0FDTV9UakdrOE9fMW1ud2tLM2ZUUGxZVk9LTTRjVDFtUG96TDhoT1NRM3BKUE5HZTBtSE9wSjdQMEhndHJGcjItVXo0MXB5bER4TjNqYkFodVJKNzVMZXV3VHJFblg3TzVPYW1SazNlcGZiOE5NLWo2U1VReGg0TWd6RVdiTUVR?oc=5",
+      "source": "CNBC",
+      "date": "2026-05-08"
+    },
+    {
+      "title": "How AI debt compares to dot-com era telecom borrowing",
+      "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTFBuX21EcVdNTlhRZzU2aXhjMlYweHprRUlaZWpPeDBtMGxmdGI3SUNlMmRwQ1hZcHRMSTFhWmYwZFExWVFiT09wU2ZmUGk2S28ybTBxbWpOeVhFVUFVX2JiLTIxQ0J5UUUzb3BkOGYxdkVnQmtr?oc=5",
+      "source": "qz.com",
+      "date": "2026-05-08"
+    },
+    {
+      "title": "Say Hello to the Internet of AI",
+      "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFBpcFE3cjlOTFVGeWlkVW9jS19TblVwUXVOZTB2dF90RThmLXVUV3R0OFJJaGpuRU94MkJLdDRoNm0yVzZQOEVLel81ZUhyemMwaFQ4aEhITXFWNGxPVUJ3QjJBWE5yenM2?oc=5",
+      "source": "On my Om",
+      "date": "2026-05-04"
+    },
+    {
+      "title": "Beyond the Bubble: Why AI Infrastructure Will Compound Long after the Hype",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBfLXd5ZndONWtLUGR5TVN0X0pQQV9CWWxPMUJJMHphUkpseHpJN29wTEhBVUItNlc1Nmg5OXRHd0ZOYy1xV1QyckNfVEZXMnFkd1dyeGdiOWFXQQ?oc=5",
+      "source": "KKR",
+      "date": "2025-11-04"
+    },
+    {
+      "title": "This Is How the AI Bubble Bursts",
+      "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE5TdWFNekYzQnRaLUJlT2JLclBFVGFoQ0dLS1daWHlXNlZrbEtoamNySlBCUDNWNG1IdVU2YWphQW1NeHJ3X0RrQnFFV3RMSHhGX0NZZUNPWFBnUWhXeF9qNG5zSHR2dy0tTWdOeF9pbG9MRll4Qk5GMkFXcw?oc=5",
+      "source": "Yale Insights",
+      "date": "2025-10-08"
+    }
+  ],
+  "fetched_at": "2026-07-02 08:49 UTC"
+}

@@ -1,0 +1,1444 @@
+{
+  "kb_version": "v1 2026-07-02",
+  "as_of_curated": "2026-07-02",
+  "title_en": "Cycle Analogue Clock",
+  "title_zh": "週期類比時鐘",
+  "sub_en": "Where are we on the 1996–2002 telecom/fiber/dotcom clock — 1997 or 1999? Each of 7 analogue pairs places today's value on its 1995–2002 curve (nearest neighbour on level + 1-yr slope); the weighted median is the clock, and the DISPERSION of the seven readings is itself the structural-difference signal. /scenario gives forward probabilities; this card gives the historical coordinate. Analogy is not causality — n=1 sample.",
+  "sub_zh": "對齊 1996–2002 電信／光纖／網路週期，本輪時鐘讀到幾年幾月——1997 還是 1999？七組類比各自把今日數值放上 1995–2002 的歷史曲線（以水準＋一年斜率找最近鄰）；加權中位數是時鐘，七個讀數的「分歧度」本身就是結構性差異訊號。/scenario 給前瞻機率，本卡給歷史座標。類比不是因果——歷史樣本只有一次。",
+  "method_en": "L1 curated mapping dictionary (why each mapping holds / where it breaks) · L2 curated 1995–2002 quarterly series (T2/T3 reconstructions) · L3 nearest-neighbour clock engine · L4/L5 Claude or rules. Estimates are estimates; every number carries a tier and an as-of date. Not investment advice.",
+  "method_zh": "L1 人工策展類比映射字典（為何成立／哪裡失效）· L2 策展 1995–2002 季度序列（T2/T3 重建值）· L3 最近鄰時鐘引擎 · L4/L5 Claude 或規則後備。估計就是估計；每個數字都帶證據層級與資料時點。非投資建議。",
+  "disclaimer_en": "Historical analogy for strategic framing only — not investment advice.",
+  "disclaimer_zh": "歷史類比僅供策略框架參考——非投資建議。",
+  "tier_legend": {
+    "T1": {
+      "en": "Official / financial reports",
+      "zh": "官方／財報"
+    },
+    "T2": {
+      "en": "Authoritative estimate / market data",
+      "zh": "權威估計／市場數據"
+    },
+    "T3": {
+      "en": "News / reconstruction / our estimate",
+      "zh": "新聞／重建／本卡推估"
+    }
+  },
+  "cycle": {
+    "start": 1995.0,
+    "peak": 2000.0,
+    "peak_label": "2000Q1",
+    "end": 2002.75
+  },
+  "slope_weight": 0.5,
+  "pairs": [
+    {
+      "id": "capex",
+      "series_id": "telecom_capex_yoy",
+      "weight": 1.0,
+      "unit": "%",
+      "name_en": "Hyperscaler capex YoY",
+      "name_zh": "超大規模雲端資本支出年增率",
+      "counterpart_en": "1990s telecom carrier capex YoY",
+      "counterpart_zh": "1990s 電信業者資本支出年增率",
+      "today_seed": {
+        "value": 80.6,
+        "change_1y": 18.0,
+        "tier": "T1",
+        "est": false,
+        "as_of": "2026-07-02",
+        "source_en": "Latest-quarter capex YoY, 5 hyperscalers summed — aligned to /aibubble capex.agg.yoy 2026-07-02. TTM total $489.5B aligned to /payback live yfinance 2026-07-02 (MSFT 97.2 / GOOGL 109.9 / AMZN 151.0 / META 75.7 / ORCL 55.7). 1-yr slope (+18pp) is a T3 estimate.",
+        "source_zh": "五巨頭最新季 capex 合計年增率——對齊 /aibubble capex.agg.yoy 2026-07-02。TTM 合計 $489.5B 對齊 /payback live yfinance 2026-07-02（MSFT 97.2 / GOOGL 109.9 / AMZN 151.0 / META 75.7 / ORCL 55.7）。一年斜率（+18pp）為 T3 推估。"
+      },
+      "why_en": "Both measure how fast the era's richest demand carriers are pouring concrete: network build-out then, compute build-out now. Capex growth is the cycle's throttle in both.",
+      "why_zh": "兩者都在量測該時代最有錢的需求載體砸實體建設的速度：當年鋪網路、現在蓋算力。資本支出增速在兩輪都是週期油門。",
+      "breaks_en": "1990s telecom capex was debt-funded by levered CLECs and incumbents — the 2001 capex crash was a solvency event. Hyperscalers fund from operating cash flow (capex/OCF ~75% but still FCF-generative, A/AA-rated); a demand wobble cuts capex, it does not bankrupt the builder.",
+      "breaks_zh": "1990s 電信資本支出靠高槓桿 CLEC 與電信商舉債——2001 的資本支出崩塌是償付能力事件。超大規模雲端用營運現金流自籌（capex/OCF 約 75% 但仍產生自由現金流、A/AA 評級）；需求轉弱是砍 capex，不是把建設者砍破產。"
+    },
+    {
+      "id": "token_price",
+      "series_id": "price_per_bit_yoy",
+      "weight": 0.6,
+      "unit": "%/yr",
+      "name_en": "Per-token price deflation",
+      "name_zh": "每 token 價格通縮",
+      "counterpart_en": "Price-per-bit collapse",
+      "counterpart_zh": "每位元價格崩落",
+      "today_seed": {
+        "value": -75.0,
+        "change_1y": -10.0,
+        "tier": "T3",
+        "est": true,
+        "as_of": "2026-06",
+        "source_en": "EST — constant-capability LLM token prices are falling roughly 60–90%/yr (published Epoch/a16z-style estimates); −75%/yr taken as midpoint. Slope (deflation deepening ~10pp/yr) is a rough estimate.",
+        "source_zh": "推估——同能力等級 LLM token 價格約年跌 60–90%（Epoch/a16z 類公開估計）；取中值 −75%/yr。斜率（通縮每年加深約 10pp）為粗估。"
+      },
+      "why_en": "Both are the unit price of the era's core deliverable — bit transport then, token inference now — collapsing as capacity and efficiency compound.",
+      "why_zh": "兩者都是該時代核心交付物的單價——當年是位元傳輸、現在是 token 推論——在產能與效率複利下崩跌。",
+      "breaks_en": "The 90s per-bit collapse was glut-driven: prices fell below cash cost while ~95% of fiber sat dark. Token deflation so far is mostly efficiency-driven (algorithms + new silicon), and demand elasticity has kept total inference revenue RISING through the price fall — the opposite of stranded fiber.",
+      "breaks_zh": "90 年代每位元崩跌是過剩驅動：價格跌破現金成本、約 95% 光纖未點亮。token 通縮至今主要是效率驅動（演算法＋新晶片），且需求彈性讓推論總營收在降價中仍上升——與擱淺光纖正好相反。"
+    },
+    {
+      "id": "gpu_rent",
+      "series_id": "bw_price_vs_cost",
+      "weight": 1.0,
+      "unit": "x",
+      "name_en": "GPU spot rent ÷ breakeven",
+      "name_zh": "GPU 現貨租金 ÷ 損益兩平",
+      "counterpart_en": "Wholesale bandwidth price vs cost (dark fiber era)",
+      "counterpart_zh": "批發頻寬價格對成本（暗光纖時代）",
+      "today_seed": {
+        "value": 1.34,
+        "change_1y": -0.4,
+        "tier": "T2",
+        "est": true,
+        "as_of": "2026-07-02",
+        "source_en": "H100 SXM spot median $2.14/hr ÷ breakeven-band midpoint $1.60 (band $1.30–1.90) — aligned to /aibubble frontier.gpu_spot 2026-07-02 (vast.ai listings). Breakeven band is itself an estimate; 1-yr slope (−0.4x) EST from 2025 rent declines.",
+        "source_zh": "H100 SXM 現貨中位數 $2.14/hr ÷ 損益兩平帶中點 $1.60（帶 $1.30–1.90）——對齊 /aibubble frontier.gpu_spot 2026-07-02（vast.ai 掛牌）。損益兩平帶本身即為估計值；一年斜率（−0.4x）依 2025 租金下滑推估。"
+      },
+      "why_en": "The cleanest overbuild gauge in both eras: does the marginal unit of infrastructure earn above its all-in cost? Wholesale bandwidth then, GPU-hours now.",
+      "why_zh": "兩個時代最乾淨的過度建設量表：邊際一單位基礎設施能否賺回全成本？當年是批發頻寬，現在是 GPU 時。",
+      "breaks_en": "Fiber lasts 25+ years and 95% sat dark — a glut could persist for a decade. GPUs depreciate in 4–6 years (self-correcting supply), spot still clears ABOVE breakeven, and power/CoWoS/HBM scarcity caps supply in a way fiber never was.",
+      "breaks_zh": "光纖壽命 25 年以上且 95% 未點亮——過剩可拖十年。GPU 4–6 年折舊（供給會自我修正）、現貨仍高於損益兩平，且電力/CoWoS/HBM 稀缺對供給設了光纖時代從未有過的上限。"
+    },
+    {
+      "id": "vendor_fin",
+      "series_id": "vendor_fin_pct",
+      "weight": 0.8,
+      "unit": "%",
+      "name_en": "Circular / vendor financing ÷ annual capex",
+      "name_zh": "循環／供應商融資 ÷ 年度資本支出",
+      "counterpart_en": "Lucent / Nortel vendor financing",
+      "counterpart_zh": "Lucent / Nortel 設備商融資",
+      "today_seed": {
+        "value": 108.0,
+        "change_1y": 45.0,
+        "tier": "T3",
+        "est": true,
+        "as_of": "2026-07-02",
+        "source_en": "EST, definitional caveat — announced circular-deal ledger $529.3B (aligned to /aibubble circularity ledger 2026-07-02; deal detail lives there, not re-maintained here) ÷ TTM hyperscaler capex $489.5B. Numerator is CUMULATIVE multi-year commitments vs a one-year denominator — treat as an upper bound.",
+        "source_zh": "推估，含口徑警語——已公告循環交易台帳 $529.3B（對齊 /aibubble 循環台帳 2026-07-02；交易明細在該卡維護，本卡不重複）÷ 超大規模 TTM capex $489.5B。分子是「累計多年期承諾」對上一年期分母——視為上界。"
+      },
+      "why_en": "Both are the supplier financing its own demand: revenue quality degrades when the vendor's balance sheet (or equity) stands behind the customer's purchase order.",
+      "why_zh": "兩者都是供應商在融資自己的需求：當賣方的資產負債表（或股權）站在客戶採購單背後，營收品質就在劣化。",
+      "breaks_en": "Lucent/Nortel lent cash to CLECs that went insolvent — credit risk crystallized as writedowns. Today's loops are mostly equity stakes and multi-year compute commitments among cash-rich counterparties; but OpenAI-scale commitments against a $25B revenue run-rate rhyme with the pattern.",
+      "breaks_zh": "Lucent/Nortel 把現金借給後來破產的 CLEC——信用風險以減記兌現。今日的循環多是現金充裕方之間的股權入股與多年期算力承諾；但 OpenAI 級承諾對上 $25B 營收 run-rate，韻腳仍像。"
+    },
+    {
+      "id": "concentration",
+      "series_id": "top10_share",
+      "weight": 0.9,
+      "unit": "%",
+      "name_en": "S&P 500 top-10 weight",
+      "name_zh": "標普500前十大權重",
+      "counterpart_en": "2000 concentration peak (~27%)",
+      "counterpart_zh": "2000 年集中度峰值（約 27%）",
+      "today_seed": {
+        "value": 40.1,
+        "change_1y": 2.5,
+        "tier": "T2",
+        "est": true,
+        "as_of": "2026-06",
+        "source_en": "EST — S&P Dow Jones Indices factsheet-style top-10 weight ≈40% as of mid-2026; 1-yr slope (+2.5pp) approximate. Related live gauge: /aibubble concentration sub-score.",
+        "source_zh": "推估——依 S&P 道瓊指數 factsheet 類數據，2026 年中前十大權重約 40%；一年斜率（+2.5pp）為近似。相關即時量表見 /aibubble 集中度子分數。"
+      },
+      "why_en": "Both measure how much of the market one theme carries — passive-flow reflexivity, index fragility, and the crowding of the marginal dollar into the same ten tickers.",
+      "why_zh": "兩者都量測整個市場押在單一主題上的比重——被動資金反身性、指數脆弱度、邊際資金擠進同十檔的擁擠度。",
+      "breaks_en": "Today's top-10 earn roughly a quarter to a third of S&P earnings with real cash flows; 2000's leaders (Cisco at ~200x) were priced on forward hope. Concentration is HIGHER than 2000, but the earnings floor under it is far thicker.",
+      "breaks_zh": "今日前十大貢獻標普約四分之一到三分之一的「真實」盈餘與現金流；2000 年的領頭羊（Cisco 約 200 倍）是靠想像定價。集中度比 2000 更高，但下面墊的盈餘地板厚得多。"
+    },
+    {
+      "id": "hy_oas",
+      "series_id": "hy_oas_hist",
+      "weight": 1.0,
+      "unit": "%",
+      "name_en": "High-yield OAS path",
+      "name_zh": "高收益債利差路徑",
+      "counterpart_en": "HY OAS 1997–2000 (telecom-heavy index)",
+      "counterpart_zh": "1997–2000 高收益利差（電信占比高）",
+      "today_seed": {
+        "value": 2.66,
+        "change_1y": -0.4,
+        "tier": "T1",
+        "est": false,
+        "as_of": "2026-07-01",
+        "source_en": "FRED BAMLH0A0HYM2, 2026-07-01 (canonical platform number). 1-yr slope −0.40pp approximated from the path (3m ago 3.16% — aligned to /aibubble hy_oas 2026-06-30).",
+        "source_zh": "FRED BAMLH0A0HYM2，2026-07-01（平台共用基準值）。一年斜率 −0.40pp 依路徑近似（3 個月前 3.16%——對齊 /aibubble hy_oas 2026-06-30）。"
+      },
+      "why_en": "Credit prices late-cycle complacency and cracks first: in 1999–2000 the telecom-heavy HY index cracked a full year before NASDAQ's peak-and-fall completed.",
+      "why_zh": "信用市場為後段自滿定價、也最先裂開：1999–2000 電信占比高的高收益指數比那斯達克見頂完成早整整一年裂開。",
+      "breaks_en": "The AI build is equity/OCF-funded and HY has little direct AI exposure — unlike 2000, when telecom was roughly a third of the HY index. Today's tight OAS may say less about AI than 2000's OAS said about telecom; the equivalent stress may hide in private credit.",
+      "breaks_zh": "本輪 AI 建設靠股權與營運現金流，高收益債對 AI 的直接曝險很低——不像 2000 年電信約占高收益指數三分之一。今日的窄利差對 AI 的資訊量，可能遠低於 2000 年利差對電信的資訊量；等價的壓力可能藏在私募信貸。"
+    },
+    {
+      "id": "loss_labs",
+      "series_id": "funding_multiple",
+      "weight": 0.9,
+      "unit": "x",
+      "name_en": "Frontier labs: funding ÷ revenue",
+      "name_zh": "前沿實驗室：累計募資 ÷ 營收",
+      "counterpart_en": "Loss-making dotcoms' funding multiple",
+      "counterpart_zh": "虧損 dotcom 的募資倍數",
+      "today_seed": {
+        "value": 5.9,
+        "change_1y": -0.5,
+        "tier": "T3",
+        "est": true,
+        "as_of": "2026-07-02",
+        "source_en": "EST — (OpenAI $122B funding + Anthropic $95B) ÷ (OpenAI $25B revenue run-rate + Anthropic $12B) = 5.9x. Aligned to /payback KB v2 2026-07-02 (OpenAI IPO-filing valuation $850B; Anthropic Series-H $965B, context only). Slope −0.5x EST: revenue is ramping faster than funding — an anti-1999 signal.",
+        "source_zh": "推估——（OpenAI 累計募資 $122B＋Anthropic $95B）÷（OpenAI 營收 run-rate $25B＋Anthropic $12B）＝5.9x。對齊 /payback KB v2 2026-07-02（OpenAI IPO 申報估值 $850B；Anthropic Series-H $965B，僅供脈絡）。斜率 −0.5x 推估：營收爬升快於募資——是「反 1999」訊號。"
+      },
+      "why_en": "Both are the era's demand engine priced on promise while burning cash: dotcoms carried telecom demand, frontier labs carry compute demand. If the funding window shuts, the demand under the capex evaporates the same way.",
+      "why_zh": "兩者都是該時代「靠承諾定價、邊燒現金」的需求引擎：dotcom 撐起電信需求，前沿實驗室撐起算力需求。募資窗口一關，capex 底下的需求就會用同一種方式蒸發。",
+      "breaks_en": "The top-2 labs have real revenue ($37B combined run-rate, growing >100%/yr) versus 1999 dotcoms' near-zero revenue, and the multiple is COMPRESSING, not expanding. But their multi-year compute commitments exceed the funding actually raised — the fragility moved from revenue to commitments.",
+      "breaks_zh": "頭部兩家實驗室有真實營收（合計 run-rate $37B、年增逾 100%），不像 1999 dotcom 幾乎零營收，且倍數在壓縮而非擴張。但它們的多年期算力承諾超過實際募到的錢——脆弱點從營收移到了承諾。"
+    }
+  ],
+  "series": [
+    {
+      "id": "telecom_capex_yoy",
+      "name_en": "US telecom carrier capex YoY",
+      "name_zh": "美國電信業者資本支出年增率",
+      "unit": "%",
+      "tier": "T3",
+      "source_en": "Approximate reconstruction from FCC carrier statistics and post-mortem telecom-bubble studies (capex ~$40B 1996 → ~$118B 2000 → ~$45B 2002); quarterly values linearly interpolated between annual anchors.",
+      "source_zh": "依 FCC 業者統計與電信泡沫事後研究近似重建（資本支出 1996 約 $40B → 2000 約 $118B → 2002 約 $45B）；季度值為年度錨點線性內插。",
+      "points": [
+        {
+          "q": "1995Q1",
+          "v": 7
+        },
+        {
+          "q": "1995Q2",
+          "v": 7.7
+        },
+        {
+          "q": "1995Q3",
+          "v": 8.3
+        },
+        {
+          "q": "1995Q4",
+          "v": 9.0
+        },
+        {
+          "q": "1996Q1",
+          "v": 10.0
+        },
+        {
+          "q": "1996Q2",
+          "v": 11.0
+        },
+        {
+          "q": "1996Q3",
+          "v": 12.0
+        },
+        {
+          "q": "1996Q4",
+          "v": 13.0
+        },
+        {
+          "q": "1997Q1",
+          "v": 14.2
+        },
+        {
+          "q": "1997Q2",
+          "v": 15.5
+        },
+        {
+          "q": "1997Q3",
+          "v": 16.8
+        },
+        {
+          "q": "1997Q4",
+          "v": 18.0
+        },
+        {
+          "q": "1998Q1",
+          "v": 19.2
+        },
+        {
+          "q": "1998Q2",
+          "v": 20.5
+        },
+        {
+          "q": "1998Q3",
+          "v": 21.8
+        },
+        {
+          "q": "1998Q4",
+          "v": 23.0
+        },
+        {
+          "q": "1999Q1",
+          "v": 24.5
+        },
+        {
+          "q": "1999Q2",
+          "v": 26.0
+        },
+        {
+          "q": "1999Q3",
+          "v": 27.5
+        },
+        {
+          "q": "1999Q4",
+          "v": 29.0
+        },
+        {
+          "q": "2000Q1",
+          "v": 31.0
+        },
+        {
+          "q": "2000Q2",
+          "v": 33.0
+        },
+        {
+          "q": "2000Q3",
+          "v": 26.5
+        },
+        {
+          "q": "2000Q4",
+          "v": 20.0
+        },
+        {
+          "q": "2001Q1",
+          "v": 2.5
+        },
+        {
+          "q": "2001Q2",
+          "v": -15.0
+        },
+        {
+          "q": "2001Q3",
+          "v": -22.5
+        },
+        {
+          "q": "2001Q4",
+          "v": -30.0
+        },
+        {
+          "q": "2002Q1",
+          "v": -36.0
+        },
+        {
+          "q": "2002Q2",
+          "v": -42.0
+        },
+        {
+          "q": "2002Q3",
+          "v": -43.5
+        },
+        {
+          "q": "2002Q4",
+          "v": -45
+        }
+      ]
+    },
+    {
+      "id": "nasdaq",
+      "name_en": "NASDAQ Composite (quarterly close, approx.)",
+      "name_zh": "那斯達克綜合指數（季收盤，近似）",
+      "unit": "index",
+      "tier": "T2",
+      "source_en": "Public market data; quarterly closes rounded/approximate. Peak: 2000-03-10 intraday 5132.",
+      "source_zh": "公開市場數據；季收盤為近似整理值。峰值：2000-03-10 盤中 5132。",
+      "points": [
+        {
+          "q": "1995Q1",
+          "v": 817
+        },
+        {
+          "q": "1995Q2",
+          "v": 933
+        },
+        {
+          "q": "1995Q3",
+          "v": 1044
+        },
+        {
+          "q": "1995Q4",
+          "v": 1052
+        },
+        {
+          "q": "1996Q1",
+          "v": 1101
+        },
+        {
+          "q": "1996Q2",
+          "v": 1185
+        },
+        {
+          "q": "1996Q3",
+          "v": 1227
+        },
+        {
+          "q": "1996Q4",
+          "v": 1291
+        },
+        {
+          "q": "1997Q1",
+          "v": 1222
+        },
+        {
+          "q": "1997Q2",
+          "v": 1442
+        },
+        {
+          "q": "1997Q3",
+          "v": 1686
+        },
+        {
+          "q": "1997Q4",
+          "v": 1570
+        },
+        {
+          "q": "1998Q1",
+          "v": 1836
+        },
+        {
+          "q": "1998Q2",
+          "v": 1895
+        },
+        {
+          "q": "1998Q3",
+          "v": 1694
+        },
+        {
+          "q": "1998Q4",
+          "v": 2193
+        },
+        {
+          "q": "1999Q1",
+          "v": 2461
+        },
+        {
+          "q": "1999Q2",
+          "v": 2686
+        },
+        {
+          "q": "1999Q3",
+          "v": 2746
+        },
+        {
+          "q": "1999Q4",
+          "v": 4069
+        },
+        {
+          "q": "2000Q1",
+          "v": 4573
+        },
+        {
+          "q": "2000Q2",
+          "v": 3966
+        },
+        {
+          "q": "2000Q3",
+          "v": 3673
+        },
+        {
+          "q": "2000Q4",
+          "v": 2470
+        },
+        {
+          "q": "2001Q1",
+          "v": 1840
+        },
+        {
+          "q": "2001Q2",
+          "v": 2161
+        },
+        {
+          "q": "2001Q3",
+          "v": 1499
+        },
+        {
+          "q": "2001Q4",
+          "v": 1950
+        },
+        {
+          "q": "2002Q1",
+          "v": 1845
+        },
+        {
+          "q": "2002Q2",
+          "v": 1463
+        },
+        {
+          "q": "2002Q3",
+          "v": 1172
+        },
+        {
+          "q": "2002Q4",
+          "v": 1336
+        }
+      ]
+    },
+    {
+      "id": "hy_oas_hist",
+      "name_en": "US high-yield OAS",
+      "name_zh": "美國高收益債利差 (OAS)",
+      "unit": "%",
+      "tier": "T2",
+      "source_en": "ICE BofA US HY OAS (FRED BAMLH0A0HYM2, series begins 1996-12) — quarterly approximations; 1995–96 values are T3 estimates from HY yield spreads.",
+      "source_zh": "ICE BofA 美國高收益 OAS（FRED BAMLH0A0HYM2，序列始於 1996-12）— 季度近似值；1995–96 為以高收益殖利率利差推估的 T3 值。",
+      "points": [
+        {
+          "q": "1995Q1",
+          "v": 4.0
+        },
+        {
+          "q": "1995Q2",
+          "v": 3.9
+        },
+        {
+          "q": "1995Q3",
+          "v": 3.8
+        },
+        {
+          "q": "1995Q4",
+          "v": 3.7
+        },
+        {
+          "q": "1996Q1",
+          "v": 3.5
+        },
+        {
+          "q": "1996Q2",
+          "v": 3.4
+        },
+        {
+          "q": "1996Q3",
+          "v": 3.3
+        },
+        {
+          "q": "1996Q4",
+          "v": 3.1
+        },
+        {
+          "q": "1997Q1",
+          "v": 2.9
+        },
+        {
+          "q": "1997Q2",
+          "v": 2.7
+        },
+        {
+          "q": "1997Q3",
+          "v": 2.6
+        },
+        {
+          "q": "1997Q4",
+          "v": 3.0
+        },
+        {
+          "q": "1998Q1",
+          "v": 3.0
+        },
+        {
+          "q": "1998Q2",
+          "v": 3.2
+        },
+        {
+          "q": "1998Q3",
+          "v": 5.0
+        },
+        {
+          "q": "1998Q4",
+          "v": 5.4
+        },
+        {
+          "q": "1999Q1",
+          "v": 4.8
+        },
+        {
+          "q": "1999Q2",
+          "v": 4.4
+        },
+        {
+          "q": "1999Q3",
+          "v": 4.6
+        },
+        {
+          "q": "1999Q4",
+          "v": 4.4
+        },
+        {
+          "q": "2000Q1",
+          "v": 4.6
+        },
+        {
+          "q": "2000Q2",
+          "v": 5.0
+        },
+        {
+          "q": "2000Q3",
+          "v": 5.6
+        },
+        {
+          "q": "2000Q4",
+          "v": 8.5
+        },
+        {
+          "q": "2001Q1",
+          "v": 7.6
+        },
+        {
+          "q": "2001Q2",
+          "v": 7.4
+        },
+        {
+          "q": "2001Q3",
+          "v": 8.9
+        },
+        {
+          "q": "2001Q4",
+          "v": 8.0
+        },
+        {
+          "q": "2002Q1",
+          "v": 7.3
+        },
+        {
+          "q": "2002Q2",
+          "v": 8.0
+        },
+        {
+          "q": "2002Q3",
+          "v": 10.0
+        },
+        {
+          "q": "2002Q4",
+          "v": 9.5
+        }
+      ]
+    },
+    {
+      "id": "top10_share",
+      "name_en": "S&P 500 top-10 weight",
+      "name_zh": "標普500前十大市值權重",
+      "unit": "%",
+      "tier": "T3",
+      "source_en": "Approximate reconstruction from index-concentration studies (top-10 ~17% 1995 → ~27% peak 2000Q1); quarterly values interpolated between annual anchors.",
+      "source_zh": "依指數集中度研究近似重建（前十大權重 1995 約 17% → 2000Q1 峰值約 27%）；季度值為年度錨點線性內插。",
+      "points": [
+        {
+          "q": "1995Q1",
+          "v": 17.3
+        },
+        {
+          "q": "1995Q2",
+          "v": 17.5
+        },
+        {
+          "q": "1995Q3",
+          "v": 17.6
+        },
+        {
+          "q": "1995Q4",
+          "v": 17.8
+        },
+        {
+          "q": "1996Q1",
+          "v": 18.0
+        },
+        {
+          "q": "1996Q2",
+          "v": 18.1
+        },
+        {
+          "q": "1996Q3",
+          "v": 18.3
+        },
+        {
+          "q": "1996Q4",
+          "v": 18.5
+        },
+        {
+          "q": "1997Q1",
+          "v": 18.8
+        },
+        {
+          "q": "1997Q2",
+          "v": 19.1
+        },
+        {
+          "q": "1997Q3",
+          "v": 19.5
+        },
+        {
+          "q": "1997Q4",
+          "v": 19.8
+        },
+        {
+          "q": "1998Q1",
+          "v": 20.3
+        },
+        {
+          "q": "1998Q2",
+          "v": 20.8
+        },
+        {
+          "q": "1998Q3",
+          "v": 21.3
+        },
+        {
+          "q": "1998Q4",
+          "v": 21.8
+        },
+        {
+          "q": "1999Q1",
+          "v": 22.6
+        },
+        {
+          "q": "1999Q2",
+          "v": 23.4
+        },
+        {
+          "q": "1999Q3",
+          "v": 24.2
+        },
+        {
+          "q": "1999Q4",
+          "v": 25.0
+        },
+        {
+          "q": "2000Q1",
+          "v": 26.8
+        },
+        {
+          "q": "2000Q2",
+          "v": 26.4
+        },
+        {
+          "q": "2000Q3",
+          "v": 25.9
+        },
+        {
+          "q": "2000Q4",
+          "v": 25.5
+        },
+        {
+          "q": "2001Q1",
+          "v": 25.1
+        },
+        {
+          "q": "2001Q2",
+          "v": 24.8
+        },
+        {
+          "q": "2001Q3",
+          "v": 24.4
+        },
+        {
+          "q": "2001Q4",
+          "v": 24.0
+        },
+        {
+          "q": "2002Q1",
+          "v": 23.8
+        },
+        {
+          "q": "2002Q2",
+          "v": 23.5
+        },
+        {
+          "q": "2002Q3",
+          "v": 23.2
+        },
+        {
+          "q": "2002Q4",
+          "v": 23.0
+        }
+      ]
+    },
+    {
+      "id": "vendor_fin_pct",
+      "name_en": "Telecom vendor financing / annual sector capex",
+      "name_zh": "電信設備商融資餘額 ÷ 年度產業資本支出",
+      "unit": "%",
+      "tier": "T3",
+      "source_en": "Rough reconstruction: Lucent/Nortel/Cisco et al. vendor-financing commitments reached ~$25B by 2000 vs ~$110B sector capex; quarterly values interpolated.",
+      "source_zh": "粗略重建：Lucent/Nortel/Cisco 等設備商融資承諾 2000 年約達 $25B，對應產業年資本支出約 $110B；季度值為內插。",
+      "points": [
+        {
+          "q": "1995Q1",
+          "v": 2.0
+        },
+        {
+          "q": "1995Q2",
+          "v": 2.2
+        },
+        {
+          "q": "1995Q3",
+          "v": 2.4
+        },
+        {
+          "q": "1995Q4",
+          "v": 2.6
+        },
+        {
+          "q": "1996Q1",
+          "v": 2.9
+        },
+        {
+          "q": "1996Q2",
+          "v": 3.1
+        },
+        {
+          "q": "1996Q3",
+          "v": 3.3
+        },
+        {
+          "q": "1996Q4",
+          "v": 3.5
+        },
+        {
+          "q": "1997Q1",
+          "v": 4.0
+        },
+        {
+          "q": "1997Q2",
+          "v": 4.5
+        },
+        {
+          "q": "1997Q3",
+          "v": 5.0
+        },
+        {
+          "q": "1997Q4",
+          "v": 5.5
+        },
+        {
+          "q": "1998Q1",
+          "v": 6.2
+        },
+        {
+          "q": "1998Q2",
+          "v": 7.0
+        },
+        {
+          "q": "1998Q3",
+          "v": 7.8
+        },
+        {
+          "q": "1998Q4",
+          "v": 8.5
+        },
+        {
+          "q": "1999Q1",
+          "v": 10.1
+        },
+        {
+          "q": "1999Q2",
+          "v": 11.8
+        },
+        {
+          "q": "1999Q3",
+          "v": 13.4
+        },
+        {
+          "q": "1999Q4",
+          "v": 15.0
+        },
+        {
+          "q": "2000Q1",
+          "v": 19.0
+        },
+        {
+          "q": "2000Q2",
+          "v": 23.0
+        },
+        {
+          "q": "2000Q3",
+          "v": 22.0
+        },
+        {
+          "q": "2000Q4",
+          "v": 21.0
+        },
+        {
+          "q": "2001Q1",
+          "v": 17.5
+        },
+        {
+          "q": "2001Q2",
+          "v": 14.0
+        },
+        {
+          "q": "2001Q3",
+          "v": 11.5
+        },
+        {
+          "q": "2001Q4",
+          "v": 9.0
+        },
+        {
+          "q": "2002Q1",
+          "v": 7.8
+        },
+        {
+          "q": "2002Q2",
+          "v": 6.5
+        },
+        {
+          "q": "2002Q3",
+          "v": 5.2
+        },
+        {
+          "q": "2002Q4",
+          "v": 4.0
+        }
+      ]
+    },
+    {
+      "id": "price_per_bit_yoy",
+      "name_en": "Bandwidth price-per-bit, YoY change",
+      "name_zh": "頻寬每位元價格年變化",
+      "unit": "%/yr",
+      "tier": "T3",
+      "source_en": "Approximation from long-haul/transatlantic lease-price studies (per-bit prices fell ~20%/yr mid-90s, accelerating past −60%/yr in the post-2000 glut).",
+      "source_zh": "依長途/跨大西洋租賃價格研究近似（每位元價格 90 年代中約年跌 20%，2000 後過剩期加速到年跌逾 60%）。",
+      "points": [
+        {
+          "q": "1995Q1",
+          "v": -17
+        },
+        {
+          "q": "1995Q2",
+          "v": -17.3
+        },
+        {
+          "q": "1995Q3",
+          "v": -17.7
+        },
+        {
+          "q": "1995Q4",
+          "v": -18.0
+        },
+        {
+          "q": "1996Q1",
+          "v": -18.8
+        },
+        {
+          "q": "1996Q2",
+          "v": -19.5
+        },
+        {
+          "q": "1996Q3",
+          "v": -20.2
+        },
+        {
+          "q": "1996Q4",
+          "v": -21.0
+        },
+        {
+          "q": "1997Q1",
+          "v": -22.0
+        },
+        {
+          "q": "1997Q2",
+          "v": -23.0
+        },
+        {
+          "q": "1997Q3",
+          "v": -24.0
+        },
+        {
+          "q": "1997Q4",
+          "v": -25.0
+        },
+        {
+          "q": "1998Q1",
+          "v": -26.0
+        },
+        {
+          "q": "1998Q2",
+          "v": -27.0
+        },
+        {
+          "q": "1998Q3",
+          "v": -28.0
+        },
+        {
+          "q": "1998Q4",
+          "v": -29.0
+        },
+        {
+          "q": "1999Q1",
+          "v": -30.5
+        },
+        {
+          "q": "1999Q2",
+          "v": -32.0
+        },
+        {
+          "q": "1999Q3",
+          "v": -33.5
+        },
+        {
+          "q": "1999Q4",
+          "v": -35.0
+        },
+        {
+          "q": "2000Q1",
+          "v": -37.5
+        },
+        {
+          "q": "2000Q2",
+          "v": -40.0
+        },
+        {
+          "q": "2000Q3",
+          "v": -42.5
+        },
+        {
+          "q": "2000Q4",
+          "v": -45.0
+        },
+        {
+          "q": "2001Q1",
+          "v": -48.0
+        },
+        {
+          "q": "2001Q2",
+          "v": -51.0
+        },
+        {
+          "q": "2001Q3",
+          "v": -54.0
+        },
+        {
+          "q": "2001Q4",
+          "v": -57.0
+        },
+        {
+          "q": "2002Q1",
+          "v": -58.5
+        },
+        {
+          "q": "2002Q2",
+          "v": -60.0
+        },
+        {
+          "q": "2002Q3",
+          "v": -61.5
+        },
+        {
+          "q": "2002Q4",
+          "v": -63
+        }
+      ]
+    },
+    {
+      "id": "bw_price_vs_cost",
+      "name_en": "Wholesale bandwidth price ÷ all-in cost",
+      "name_zh": "批發頻寬價格 ÷ 全成本",
+      "unit": "x",
+      "tier": "T3",
+      "source_en": "Stylized reconstruction: wholesale lease prices ~2.5x full cost mid-90s, crossing below cash cost during 2001 (≈95% of installed fiber still dark).",
+      "source_zh": "風格化重建：批發租賃價 90 年代中約為全成本 2.5 倍，2001 年跌破現金成本（當時約 95% 已鋪光纖仍未點亮）。",
+      "points": [
+        {
+          "q": "1995Q1",
+          "v": 2.6
+        },
+        {
+          "q": "1995Q2",
+          "v": 2.56
+        },
+        {
+          "q": "1995Q3",
+          "v": 2.53
+        },
+        {
+          "q": "1995Q4",
+          "v": 2.49
+        },
+        {
+          "q": "1996Q1",
+          "v": 2.46
+        },
+        {
+          "q": "1996Q2",
+          "v": 2.42
+        },
+        {
+          "q": "1996Q3",
+          "v": 2.39
+        },
+        {
+          "q": "1996Q4",
+          "v": 2.35
+        },
+        {
+          "q": "1997Q1",
+          "v": 2.3
+        },
+        {
+          "q": "1997Q2",
+          "v": 2.25
+        },
+        {
+          "q": "1997Q3",
+          "v": 2.2
+        },
+        {
+          "q": "1997Q4",
+          "v": 2.15
+        },
+        {
+          "q": "1998Q1",
+          "v": 2.1
+        },
+        {
+          "q": "1998Q2",
+          "v": 2.05
+        },
+        {
+          "q": "1998Q3",
+          "v": 2.0
+        },
+        {
+          "q": "1998Q4",
+          "v": 1.95
+        },
+        {
+          "q": "1999Q1",
+          "v": 1.88
+        },
+        {
+          "q": "1999Q2",
+          "v": 1.8
+        },
+        {
+          "q": "1999Q3",
+          "v": 1.72
+        },
+        {
+          "q": "1999Q4",
+          "v": 1.65
+        },
+        {
+          "q": "2000Q1",
+          "v": 1.5
+        },
+        {
+          "q": "2000Q2",
+          "v": 1.35
+        },
+        {
+          "q": "2000Q3",
+          "v": 1.23
+        },
+        {
+          "q": "2000Q4",
+          "v": 1.1
+        },
+        {
+          "q": "2001Q1",
+          "v": 0.93
+        },
+        {
+          "q": "2001Q2",
+          "v": 0.75
+        },
+        {
+          "q": "2001Q3",
+          "v": 0.68
+        },
+        {
+          "q": "2001Q4",
+          "v": 0.6
+        },
+        {
+          "q": "2002Q1",
+          "v": 0.57
+        },
+        {
+          "q": "2002Q2",
+          "v": 0.54
+        },
+        {
+          "q": "2002Q3",
+          "v": 0.51
+        },
+        {
+          "q": "2002Q4",
+          "v": 0.48
+        }
+      ]
+    },
+    {
+      "id": "funding_multiple",
+      "name_en": "Loss-making internet cos: cumulative funding ÷ annual revenue",
+      "name_zh": "虧損網路公司：累計募資 ÷ 年營收",
+      "unit": "x",
+      "tier": "T3",
+      "source_en": "Stylized reconstruction from VC/IPO funding vs dotcom revenue studies — multiple expanded ~1.5x (1995) → ~12x (2000Q1), collapsing after the funding window shut.",
+      "source_zh": "依創投/IPO 募資對 dotcom 營收研究風格化重建——倍數自 1995 約 1.5x 擴張至 2000Q1 約 12x，募資窗口關閉後崩落。",
+      "points": [
+        {
+          "q": "1995Q1",
+          "v": 1.5
+        },
+        {
+          "q": "1995Q2",
+          "v": 1.6
+        },
+        {
+          "q": "1995Q3",
+          "v": 1.7
+        },
+        {
+          "q": "1995Q4",
+          "v": 1.8
+        },
+        {
+          "q": "1996Q1",
+          "v": 1.9
+        },
+        {
+          "q": "1996Q2",
+          "v": 2.0
+        },
+        {
+          "q": "1996Q3",
+          "v": 2.1
+        },
+        {
+          "q": "1996Q4",
+          "v": 2.2
+        },
+        {
+          "q": "1997Q1",
+          "v": 2.5
+        },
+        {
+          "q": "1997Q2",
+          "v": 2.7
+        },
+        {
+          "q": "1997Q3",
+          "v": 3.0
+        },
+        {
+          "q": "1997Q4",
+          "v": 3.2
+        },
+        {
+          "q": "1998Q1",
+          "v": 3.6
+        },
+        {
+          "q": "1998Q2",
+          "v": 4.0
+        },
+        {
+          "q": "1998Q3",
+          "v": 4.4
+        },
+        {
+          "q": "1998Q4",
+          "v": 4.8
+        },
+        {
+          "q": "1999Q1",
+          "v": 5.7
+        },
+        {
+          "q": "1999Q2",
+          "v": 6.5
+        },
+        {
+          "q": "1999Q3",
+          "v": 7.8
+        },
+        {
+          "q": "1999Q4",
+          "v": 9.0
+        },
+        {
+          "q": "2000Q1",
+          "v": 12.0
+        },
+        {
+          "q": "2000Q2",
+          "v": 11.0
+        },
+        {
+          "q": "2000Q3",
+          "v": 10.0
+        },
+        {
+          "q": "2000Q4",
+          "v": 8.5
+        },
+        {
+          "q": "2001Q1",
+          "v": 7.5
+        },
+        {
+          "q": "2001Q2",
+          "v": 6.5
+        },
+        {
+          "q": "2001Q3",
+          "v": 5.5
+        },
+        {
+          "q": "2001Q4",
+          "v": 4.5
+        },
+        {
+          "q": "2002Q1",
+          "v": 4.1
+        },
+        {
+          "q": "2002Q2",
+          "v": 3.8
+        },
+        {
+          "q": "2002Q3",
+          "v": 3.4
+        },
+        {
+          "q": "2002Q4",
+          "v": 3.0
+        }
+      ]
+    }
+  ],
+  "backdrop_series": "nasdaq",
+  "news_queries": [
+    "AI bubble 1999 dot-com comparison",
+    "AI capex telecom bubble fiber comparison",
+    "AI datacenter overbuild dark fiber"
+  ],
+  "l4_seed": {
+    "like": [
+      {
+        "en": "Capex growth is beyond anything the telecom cycle produced: hyperscaler latest-quarter capex is growing ~80% YoY vs the 2000 telecom peak of ~33% — the build-out is running hotter than 1999.",
+        "zh": "資本支出增速超出電信週期任何時點：超大規模最新季 capex 年增約 80%，對比 2000 電信峰值約 33%——建設熱度已超過 1999。"
+      },
+      {
+        "en": "Vendor/circular financing is back as the demand lubricant — the announced circular-deal ledger now exceeds a full year of hyperscaler capex, rhyming with Lucent/Nortel financing their own customers.",
+        "zh": "供應商／循環融資又成了需求潤滑劑——已公告循環交易台帳已超過一整年的超大規模 capex，與 Lucent/Nortel 融資自家客戶的韻腳相同。"
+      },
+      {
+        "en": "Index concentration exceeds the 2000 peak (~40% top-10 weight vs ~27%), so a single theme again carries the market's marginal dollar.",
+        "zh": "指數集中度超過 2000 峰值（前十大約 40% 對約 27%），整個市場的邊際資金再次押在單一主題。"
+      },
+      {
+        "en": "The demand engine is again loss-making and funding-dependent: the top labs burn cash against a 5.9x funding-to-revenue multiple — squarely in the 1998–99 zone of the dotcom curve.",
+        "zh": "需求引擎再次是虧損且依賴募資的角色：頭部實驗室以 5.9 倍募資對營收倍數燒錢——正落在 dotcom 曲線 1998–99 的區間。"
+      }
+    ],
+    "unlike": [
+      {
+        "en": "Profitability & real cash flows: hyperscalers fund the build from ~$500B of operating cash flow at A/AA ratings; the 1990s build ran on CLEC junk debt. A demand wobble cuts capex — it does not bankrupt the builders.",
+        "zh": "獲利與真實現金流：超大規模用約 $500B 級的營運現金流、A/AA 評級自籌建設；90 年代靠 CLEC 垃圾債。需求轉弱是砍 capex，不會砍破產建設者。"
+      },
+      {
+        "en": "Physical scarcity vs glut: fiber was 95% dark with 25-year life; GPUs sell out above breakeven, and power / CoWoS / HBM ration supply. This cycle's binding constraint is scarcity, not glut — the opposite failure mode.",
+        "zh": "實體稀缺對過剩：當年光纖 95% 未點亮、壽命 25 年；如今 GPU 在損益兩平之上仍供不應求，且電力／CoWoS／HBM 在配給供給。本輪的綁定約束是稀缺不是過剩——失效模式相反。"
+      },
+      {
+        "en": "Depreciation life: 4–6-year GPU depreciation forces the overbuild to self-liquidate within one product cycle, unlike 25-year fiber that overhung pricing for a decade.",
+        "zh": "折舊年限：GPU 4–6 年折舊讓過度建設在一個產品週期內自我清算，不像 25 年壽命的光纖壓在價格上整整十年。"
+      },
+      {
+        "en": "Credit tells diverge: HY OAS at 2.66% sits on the 1997 part of the curve, not 1999–2000 — because AI is equity/OCF-funded and HY has little direct AI exposure (in 2000 telecom was ~1/3 of the index). The 90s early-warning wire may simply not be connected this time.",
+        "zh": "信用訊號分歧：HY OAS 2.66% 落在曲線的 1997 段，而非 1999–2000——因為 AI 靠股權與現金流融資、高收益債對 AI 直接曝險低（2000 年電信占指數約 1/3）。90 年代那條早期預警線這次可能根本沒接上。"
+      },
+      {
+        "en": "Token-price deflation (~−75%/yr) is efficiency-led with demand elasticity keeping revenue rising — per-bit collapse was glut-led with prices below cash cost.",
+        "zh": "token 價格通縮（約年 −75%）由效率主導、需求彈性讓營收續升——每位元崩跌則由過剩主導、價格跌破現金成本。"
+      }
+    ]
+  },
+  "jumps_seed": [
+    {
+      "condition_en": "GPU spot rent falls BELOW the breakeven band (ratio < 1.0) and stays there a quarter",
+      "condition_zh": "GPU 現貨租金跌破損益兩平帶（比值 < 1.0）且持續一季",
+      "jump_to": "2000.5",
+      "direction": "forward"
+    },
+    {
+      "condition_en": "A top-5 lab fails to close a funding round and cuts compute commitments (funding window shuts)",
+      "condition_zh": "前五大實驗室有一家募資關門、砍算力承諾（募資窗口關閉）",
+      "jump_to": "2000.75",
+      "direction": "forward"
+    },
+    {
+      "condition_en": "HY OAS widens past 4.5% with AI-adjacent credit (neocloud / DC private credit) leading",
+      "condition_zh": "HY OAS 走闊破 4.5%，且由 AI 周邊信用（新雲／資料中心私募信貸）領先",
+      "jump_to": "1999.75",
+      "direction": "forward"
+    },
+    {
+      "condition_en": "Hyperscaler capex guidance turns negative YoY for two consecutive quarters",
+      "condition_zh": "超大規模 capex 指引連兩季轉為年減",
+      "jump_to": "2001.0",
+      "direction": "forward"
+    },
+    {
+      "condition_en": "Lab revenue keeps compounding >100%/yr so the funding multiple compresses below 4x",
+      "condition_zh": "實驗室營收持續年增逾 100%，募資倍數壓縮到 4 倍以下",
+      "jump_to": "1997.5",
+      "direction": "backward"
+    },
+    {
+      "condition_en": "Token demand elasticity breaks — total inference revenue falls while prices keep dropping",
+      "condition_zh": "token 需求彈性斷裂——價格續跌但推論總營收開始下滑",
+      "jump_to": "2000.25",
+      "direction": "forward"
+    }
+  ],
+  "forward_movers": [
+    {
+      "en": "GPU spot rent vs breakeven band (/aibubble)",
+      "zh": "GPU 現貨租金對損益兩平帶（/aibubble）",
+      "freq": "weekly"
+    },
+    {
+      "en": "Lab funding rounds closing vs compute commitments (/payback update loop)",
+      "zh": "實驗室募資到位 vs 算力承諾（/payback 更新迴圈）",
+      "freq": "monthly"
+    },
+    {
+      "en": "HY OAS + private-credit DC spreads (/flows)",
+      "zh": "HY OAS 與資料中心私募信貸利差（/flows）",
+      "freq": "weekly"
+    },
+    {
+      "en": "Hyperscaler capex guidance revisions (/payback)",
+      "zh": "超大規模 capex 指引修正（/payback）",
+      "freq": "quarterly"
+    },
+    {
+      "en": "Circular-deal ledger growth (/aibubble)",
+      "zh": "循環交易台帳增速（/aibubble）",
+      "freq": "monthly"
+    },
+    {
+      "en": "Token price vs total inference revenue (elasticity check)",
+      "zh": "token 價格對推論總營收（彈性檢查）",
+      "freq": "quarterly"
+    }
+  ],
+  "blind_spots_en": [
+    "Analogy is not causality — the clock is a coordinate, not a forecast. /scenario carries the forward probabilities.",
+    "n=1 historical sample: one telecom/dotcom cycle. Readings 'beyond range' mean the analogue simply has no coordinate for today's value.",
+    "The mapping choices themselves are assumptions — each pair carries its own tier, and the where-it-breaks column is the epistemic core of this card, not a footnote.",
+    "Historical series are approximate reconstructions (quarterly values interpolated between anchors, T2/T3) — treat clock readings as ±2 quarters at best.",
+    "Today's inputs mix T1 report data with T3 estimates (token price, funding multiples, top-10 share); the composite inherits the weakest input.",
+    "Sibling snapshots (/aibubble, /payback, /flows) are read best-effort at refresh; if absent the card silently uses seeds dated as marked."
+  ],
+  "blind_spots_zh": [
+    "類比不是因果——時鐘是座標不是預測。前瞻機率在 /scenario。",
+    "歷史樣本 n=1：只有一次電信／網路週期。「超出區間」的讀數代表類比對今日數值根本沒有座標。",
+    "映射選擇本身就是假設——每組配對各帶證據層級，「哪裡失效」欄是本卡的認識論核心，不是註腳。",
+    "歷史序列為近似重建（季度值於錨點間內插，T2/T3）——時鐘讀數最好視為 ±2 季。",
+    "今日輸入混雜 T1 財報數據與 T3 推估（token 價格、募資倍數、前十大權重）；合成讀數繼承最弱的輸入。",
+    "兄弟卡 snapshot（/aibubble、/payback、/flows）於刷新時盡力讀取；不存在時靜默改用標注日期的種子值。"
+  ]
+}
