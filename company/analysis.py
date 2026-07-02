@@ -139,7 +139,9 @@ def _claude(kb, pillars, l3):
     )
     msg = client.messages.create(
         model=MODEL,
-        max_tokens=4500,
+        # 6000: zh-heavy bilingual JSON for KBs with six pillar-A levers was
+        # truncating at 4500 → JSONDecodeError → silent rules fallback (AMD).
+        max_tokens=6000,
         thinking={"type": "adaptive"},
         system=[{"type": "text", "text": SYSTEM, "cache_control": {"type": "ephemeral"}}],
         output_config={"format": {"type": "json_schema", "schema": SCHEMA}, "effort": "medium"},

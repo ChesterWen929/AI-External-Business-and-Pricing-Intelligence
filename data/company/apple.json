@@ -1,10 +1,10 @@
 {
   "slug": "apple",
-  "generated_at": "2026-06-30 15:55 UTC",
-  "as_of": "2026-06-30",
-  "source": "seed",
+  "generated_at": "2026-07-02 07:10 UTC",
+  "as_of": "2026-07-02",
+  "source": "live",
   "stale_fetch_ids": [],
-  "is_demo": true,
+  "is_demo": false,
   "company": {
     "name_en": "Apple",
     "name_zh": "Apple（蘋果）",
@@ -386,30 +386,30 @@
         "name_en": "Apple (AAPL)",
         "name_zh": "Apple（蘋果）",
         "kind": "equity",
-        "value": 245.0,
-        "chg_1w": 0.8,
-        "chg_1m": 3.2,
-        "live": false
+        "value": 294.38,
+        "chg_1w": 0.44,
+        "chg_1m": -3.89,
+        "live": true
       },
       {
         "id": "tsm_equity",
         "name_en": "TSMC (TSM) — supply-side proxy",
         "name_zh": "台積電（TSM）— 供給端 proxy",
         "kind": "equity",
-        "value": 230.0,
-        "chg_1w": 1.0,
-        "chg_1m": 5.0,
-        "live": false
+        "value": 444.23,
+        "chg_1w": 0.77,
+        "chg_1m": 2.21,
+        "live": true
       },
       {
         "id": "googl_equity",
         "name_en": "Alphabet (GOOGL) — Siri/Gemini & search-deal partner",
         "name_zh": "Alphabet（GOOGL）— Siri／Gemini 與搜尋合作夥伴",
         "kind": "equity",
-        "value": 180.0,
-        "chg_1w": 0.6,
-        "chg_1m": 2.5,
-        "live": false
+        "value": 361.21,
+        "chg_1w": 4.61,
+        "chg_1m": -3.97,
+        "live": true
       }
     ],
     "alerts": [
@@ -427,112 +427,112 @@
   },
   "l4": {
     "integrated_thesis": {
-      "en": "Apple monetizes AI indirectly — never as a priced SKU. Its realized-price engine is in-house Apple Silicon value capture: it pays TSMC wafer cost, not NVIDIA's merchant margin, then captures the spread through Pro-tier device mix and a ~$100B Services attach surface. Apple Intelligence is the upgrade lure; the ~$12B AI-attributable uplift is a loose estimate, not a disclosed line. Score 57.2 (HOLDING) reflects strong lock-in offset by a partner-dependent frontier. Critically for us: ~100% of that compute is TSMC-fabbed across A19 Pro/M5 on N3P and A20/M6 as N2 lead — but via InFO + unified memory, NOT CoWoS/HBM. Apple is our largest direct leading-edge customer, decoupled from the AI-CoWoS bottleneck.",
-      "zh": "蘋果以間接方式變現AI，從不作為定價SKU。其實現價格引擎是自研Apple Silicon的價值捕捉：支付台積電晶圓成本而非NVIDIA商用毛利，再透過Pro階機型組合與約1,000億美元服務附加面回收價差。Apple Intelligence是升級誘因；約120億美元AI貢獻僅為粗估而非揭露數字。評分57.2（持穩）反映強鎖定但前沿模型受夥伴牽制。對我方關鍵：該算力近100%由台積電代工，A19 Pro/M5用N3P、A20/M6為N2首發客戶，但走InFO＋統一記憶體，非CoWoS/HBM。蘋果是我方最大先進製程直接客戶，與AI-CoWoS瓶頸脫鉤。"
+      "en": "Apple's realized-price engine is unique: it never sells an AI SKU. It captures compute value by owning the silicon (no merchant-GPU markup), gating a Pro-tier mix-shift on Apple Intelligence, and compounding a ~$100B Services attach across ~2.4B devices. Score 57.2 (holding) reflects a strong lock-in / in-house-silicon core dragged by a partner-dependent frontier. AI benefit is a loose ~$12B run-rate ESTIMATE of device-mix + Services uplift — never a reported line. For TSMC this is the cleanest bull case: ~100% of Apple's compute is TSMC-fabbed, A20/M6 are N2 lead-customer volume, and it needs zero CoWoS — pure leading-edge logic + InFO, the highest-margin non-HBM demand we hold.",
+      "zh": "蘋果的實現價格引擎獨一無二:它從不販售AI SKU。它透過自研晶片(無外購GPU加價)、以Apple Intelligence拉動Pro機型組合上移、並在約24億台裝置上疊加約1000億美元服務附加來擷取算力價值。57.2分(維持)反映強勁鎖定與自研晶片核心,被夥伴依賴的前沿模型拖累。約120億美元AI效益僅是裝置組合與服務提升的粗略估計,絕非揭露數字。對台積電而言這是最純粹的多頭:蘋果算力近100%由台積電代工,A20/M6為N2首發客戶量,且完全不需CoWoS——純先進邏輯加InFO,是我們手中利潤最高的非HBM需求。"
     },
     "pillars": {
       "pricing": {
-        "en": "Score 57.2, HOLDING. Top lever is in-house silicon (strength 70, T1): owning A/M-series removes the merchant-GPU markup so Apple banks the margin a rival pays NVIDIA. Reinforced by 2.4B-device lock-in (68) and Services attach (58). Realized price rises via Pro-tier mix-shift, not list price. The drag: a mixed-reception, partner-dependent frontier (34) caps how much AI value Apple itself captures versus leaks to Google/OpenAI.",
-        "zh": "評分57.2，持穩。首要槓桿為自研晶片（強度70，T1）：自有A/M系列省去商用GPU加價，蘋果賺取對手付給NVIDIA的毛利。輔以24億裝置鎖定（68）與服務附加（58）。實現價格靠Pro階組合上移而非定價牌價。拖累項：前沿模型評價分歧且依賴夥伴（34），限制蘋果自身對AI價值的捕捉，部分外洩給Google/OpenAI。"
+        "en": "Score 57.2, verdict holding. Top lever is in-house silicon (strength 70, T1): by fabbing A19 Pro/M5 at TSMC and skipping NVIDIA's markup, Apple keeps the entire compute margin. Ecosystem lock-in (68) and Apple-Intelligence-gated Pro mix (60·est) push realized ASP up even as list prices erode. The drag is a mixed-reception frontier (34): weak own models leak value to partners. Net — realized price rises via mix and vertical integration, not priced AI.",
+        "zh": "57.2分,維持。首要槓桿為自研晶片(強度70,T1):A19 Pro/M5由台積電代工並省去輝達加價,蘋果保留全部算力利潤。生態鎖定(68)與Apple Intelligence拉動的Pro組合(60·估)在定價下滑時仍推升實現ASP。拖累來自反應平平的前沿模型(34):自研模型弱,價值外流給夥伴。淨效果——實現價格靠組合與垂直整合上升,而非以AI定價。"
       },
       "sources": {
-        "en": "Highest-signal: Apple 10-Q/10-K Products vs Services segment splits (read Services run-rate + gross-margin trend as the AI monetization proxy); earnings-call installed-base commentary; Apple Intelligence adoption/usage research for upgrade-pull evidence; TSMC advanced-node revenue disclosures for the supply mirror; teardowns + roadmap for node timing; and the Google–Apple search/Gemini deal + antitrust docket for the ~$20B Services lever at risk.",
-        "zh": "最高訊號：蘋果10-Q/10-K產品與服務分部拆分（以服務運轉率與毛利率趨勢作為AI變現代理）；法說會裝置基數評論；Apple Intelligence採用與使用研究以驗證升級拉力；台積電先進製程營收揭露作供給鏡像；拆解與路線圖看製程時點；以及Google–Apple搜尋/Gemini協議與反壟斷案，追蹤約200億美元服務槓桿風險。"
+        "en": "Highest-signal: Apple 10-Q/10-K Products vs Services split (the only hard ASP/attach signal), earnings-call installed-base commentary, Apple Intelligence adoption research (validates the mix-shift lever), and TSMC advanced-node revenue disclosures (confirms N3P/N2 loading). Teardowns fix each SoC to node. Watch the Google–Apple Gemini/search-payment antitrust track — it directly gauges frontier leakage and the ~$20B Services lever.",
+        "zh": "最高訊號:蘋果10-Q/10-K的產品對服務拆分(唯一硬性ASP/附加訊號)、法說會裝置基數評論、Apple Intelligence採用研究(驗證組合上移槓桿),以及台積電先進製程營收揭露(確認N3P/N2投片)。拆解報告可將各SoC對應製程。緊盯Google–Apple的Gemini/搜尋付款反壟斷進程——直接衡量前沿價值外流與約200億美元服務槓桿。"
       },
       "benefit": {
-        "en": "Apple discloses NO AI-only figure. The ~$12B headline is a low-confidence (T3) estimate of AI-attributable device-mix + Services uplift on a run-rate basis — treat as directional, not reported. The anchored fact is the ~$100B Services SEGMENT run-rate (T1, disclosed) into which AI plugs, but that is not AI-only. Forward upside: a further ~$20B upgrade-cycle pull IF Apple Intelligence lands — also low confidence. Monetization is indirect: hardware mix + Services attach, never a priced AI SKU.",
-        "zh": "蘋果未揭露任何純AI數字。約120億美元頭條為低信度（T3）的AI貢獻裝置組合＋服務增益運轉率估值——僅供方向參考，非揭露事實。可錨定者為約1,000億美元服務分部運轉率（T1，已揭露），AI插入其中，但非純AI。前瞻上行：若Apple Intelligence成功，另約200億美元升級週期拉力——同屬低信度。變現為間接：硬體組合＋服務附加，從非定價AI SKU。"
+        "en": "Headline ~$12B is a LOW-confidence T3 estimate of AI-attributable device-mix + Services uplift — not a disclosed figure. What IS disclosed is the ~$100B Services segment run-rate (T1), the surface AI plugs into but not AI-only. A further ~$20B forward upgrade-pull is contingent on Apple Intelligence actually driving replacement. Read: AI monetizes indirectly through hardware mix and Services attach, never as a SKU — so the benefit number is inherently soft.",
+        "zh": "約120億美元頭條數字是低信心T3估計,涵蓋AI帶動的裝置組合與服務提升——非揭露數字。已揭露的是約1000億美元服務營收(T1),是AI插入的表面而非AI專屬。另約200億美元的前瞻升級拉動,取決於Apple Intelligence是否真能驅動換機。解讀:AI透過硬體組合與服務附加間接變現,從不作為SKU——故效益數字本質偏軟。"
       },
       "silicon": {
-        "en": "This is the pillar that matters most to us: ~100% TSMC-fabbed, 2 critical links. A19 Pro on N3P and M5/M5 Pro/Max on N3 are critical-dependency today; A20/M6 makes Apple our N2 lead customer. Crucially, Apple uses InFO + LPDDR5X unified memory — NOT CoWoS/HBM. So Apple drives our leading-edge wafer demand and N2 ramp, but sits outside the CoWoS bottleneck that constrains the AI-accelerator cohort. Even Private Cloud Compute runs on own server silicon at our fabs.",
-        "zh": "此為對我方最關鍵支柱：近100%台積電代工，2條關鍵連結。A19 Pro用N3P、M5系列用N3，今為關鍵依賴；A20/M6使蘋果成為我方N2首發客戶。關鍵在蘋果採InFO＋LPDDR5X統一記憶體——非CoWoS/HBM。故蘋果驅動我方先進製程晶圓需求與N2量產，卻處於限制AI加速器群的CoWoS瓶頸之外。連Private Cloud Compute亦在我方廠以自研伺服器晶片運行。"
+        "en": "~100% TSMC-fabbed, two critical links. A19 Pro on N3P/InFO and M5 on N3/InFO are critical volume; A20/M6 make Apple the N2 lead customer (high). Crucially: unified LPDDR5X memory, InFO packaging — NOT CoWoS/HBM. So Apple is our largest leading-edge logic customer with zero CoWoS competition against AI-GPU demand. Private Cloud Compute pushes the same Apple Silicon from edge into the datacenter — incremental N3/N2 wafers, no merchant bill.",
+        "zh": "近100%台積電代工,兩條關鍵鏈。A19 Pro採N3P/InFO、M5採N3/InFO為關鍵量;A20/M6使蘋果成N2首發客戶(高)。關鍵在於:統一LPDDR5X記憶體、InFO封裝——非CoWoS/HBM。故蘋果是我們最大的先進邏輯客戶,且完全不與AI-GPU爭搶CoWoS。私有雲端運算將同款Apple Silicon從邊緣推入資料中心——增量N3/N2晶圓,無外購帳單。"
       }
     },
     "tsmc_implication": {
-      "en": "Apple is a DIRECT leading-edge customer — our single largest N3 buyer and N2 anchor — not an indirect-via-NVIDIA one. The strategic point: Apple's AI demand flows to us through wafers (N3P→N2) and InFO packaging, NOT CoWoS. That makes Apple a CoWoS-decoupled volume base that smooths our leading-edge utilization while HBM/CoWoS capacity is rationed to GPU customers. The binding constraint on Apple's growth is its own upgrade-cycle demand and N2 yield/ramp timing, not packaging scarcity. Protect N2 launch slots; Apple's volume underwrites the node economics that the AI cohort also rides.",
-      "zh": "蘋果是直接先進製程客戶——我方最大N3買家與N2錨定客戶——而非經NVIDIA間接者。戰略要點：蘋果AI需求透過晶圓（N3P→N2）與InFO封裝流向我方，而非CoWoS。蘋果因此是CoWoS脫鉤的量能基礎，在HBM/CoWoS產能配給GPU客戶之際，平滑我方先進製程稼動率。蘋果成長的約束是自身升級週期需求與N2良率/量產時點，非封裝稀缺。應保障N2導入產能配置；蘋果量能支撐AI群亦依賴的製程經濟性。"
+      "en": "Apple is a DIRECT leading-edge customer — not indirect-via-NVIDIA — and the ideal one: N2 lead-customer volume that fills our most advanced fabs while consuming zero CoWoS/HBM capacity, leaving that scarce line for AI-GPU customers. The binding constraint for Apple is NOT packaging; it's demand — whether Apple Intelligence drives the upgrade super-cycle that lifts wafer starts. Diversification value is high: Apple stabilizes N3/N2 loading counter-cyclically to the AI-accelerator wave, and its InFO-only footprint means growth here does not compete with our tightest bottleneck.",
+      "zh": "蘋果是直接先進製程客戶——非透過輝達的間接客戶——且是理想型:N2首發量填滿我們最先進廠房,卻零消耗CoWoS/HBM產能,把稀缺產線留給AI-GPU客戶。蘋果的約束不在封裝,而在需求——即Apple Intelligence能否驅動拉升晶圓投片的換機超級循環。分散價值高:蘋果對AI加速器浪潮形成逆週期的N3/N2投片穩定器,且其僅用InFO,成長不與我們最緊的瓶頸爭搶。"
     }
   },
   "l5": {
     "scenarios": [
       {
         "name_en": "Edge-AI ASP / Services repricing",
-        "name_zh": "邊緣AI均價／服務重新定價",
-        "prob": 40,
-        "trigger_en": "Pro-tier mix lifts blended iPhone ASP +5% YoY and Services gross margin holds >74% on flat units over 2 consecutive quarters.",
-        "trigger_zh": "Pro階組合使iPhone綜合均價年增逾5%，且服務毛利於單位數持平下連兩季維持逾74%。"
+        "name_zh": "邊緣AI ASP與服務重新定價",
+        "prob": 38,
+        "trigger_en": "Pro-tier mix rises >5pts and Services run-rate clears $110B on flat units within 4 quarters",
+        "trigger_zh": "單位量持平下,4季內Pro機型組合上升逾5個百分點且服務營收突破1100億美元"
       },
       {
         "name_en": "On-device AI super-cycle",
         "name_zh": "裝置端AI超級循環",
-        "prob": 25,
-        "trigger_en": "iPhone unit growth re-accelerates to >8% YoY with Apple Intelligence cited as upgrade driver in adoption surveys; AI-attributable uplift re-rates above $20B.",
-        "trigger_zh": "iPhone出貨年增重回逾8%，採用調查指Apple Intelligence為升級主因；AI貢獻增益重估逾200億美元。"
+        "prob": 24,
+        "trigger_en": "iPhone units re-accelerate to >8% YoY with Apple Intelligence cited as upgrade driver; AI benefit re-rates toward $20B pull",
+        "trigger_zh": "iPhone出貨年增回升逾8%且Apple Intelligence被列為換機主因;AI效益向200億拉動重估"
       },
       {
         "name_en": "Frontier gap / partner leakage",
-        "name_zh": "前沿落差／夥伴外洩",
-        "prob": 23,
-        "trigger_en": "Antitrust remedy cuts or voids the ~$20B Google payment and Siri leans further on Gemini; Services growth decelerates below 8% YoY.",
-        "trigger_zh": "反壟斷裁罰削減或廢止約200億美元Google付款，Siri更依賴Gemini；服務成長年增降至8%以下。"
+        "name_zh": "前沿落差與夥伴外流",
+        "prob": 25,
+        "trigger_en": "Antitrust remedy cuts or bans the ~$20B Google payment and Siri stays Gemini-dependent through 2026",
+        "trigger_zh": "反壟斷裁決削減或禁止約200億美元Google付款,且Siri至2026仍依賴Gemini"
       },
       {
         "name_en": "AI-feature dud / no upgrade pull",
-        "name_zh": "AI功能無效／無升級拉力",
-        "prob": 12,
-        "trigger_en": "Apple Intelligence adoption stalls, replacement cycle lengthens beyond 4.5 years, and neither ASP nor Services attach lifts; read drifts toward ERODING.",
-        "trigger_zh": "Apple Intelligence採用停滯，換機週期延長逾4.5年，均價與服務附加皆未提升；研判轉向侵蝕。"
+        "name_zh": "AI功能無感、無換機拉動",
+        "prob": 13,
+        "trigger_en": "Two consecutive cycles show no ASP or Services attach lift attributable to Apple Intelligence; read drifts to eroding",
+        "trigger_zh": "連續兩個週期未見Apple Intelligence帶動的ASP或服務附加提升;評分滑向侵蝕"
       }
     ],
     "falsification": [
       {
-        "en": "Apple Intelligence shows measurable upgrade pull yet blended device ASP and Services margin stay flat — disproving that AI monetizes indirectly through mix.",
-        "zh": "Apple Intelligence顯示可量化升級拉力，但綜合裝置均價與服務毛利仍持平——推翻AI透過組合間接變現之論。"
+        "en": "Apple discloses that Apple Intelligence has no measurable effect on device mix or Services attach across multiple quarters — kills the indirect-monetization thesis.",
+        "zh": "蘋果揭露Apple Intelligence於多個季度對裝置組合或服務附加無可衡量效果——推翻間接變現論點。"
       },
       {
-        "en": "Apple discloses or analysts converge on AI-attributable revenue materially below the ~$12B estimate, collapsing the benefit thesis.",
-        "zh": "蘋果揭露或分析師收斂的AI貢獻營收顯著低於約120億美元估值，瓦解效益論點。"
+        "en": "Antitrust forces elimination of the ~$20B Google search payment with no replacement, impairing the Services lever the AI benefit leans on.",
+        "zh": "反壟斷迫使約200億美元Google搜尋付款終止且無替代,削弱AI效益依賴的服務槓桿。"
       },
       {
-        "en": "Apple shifts material AI compute to non-TSMC fabs or merchant GPUs, breaking the ~100% TSMC-exposure and in-house-silicon value-capture premise.",
-        "zh": "蘋果將重要AI算力轉至非台積電廠或商用GPU，打破近100%台積電曝險與自研晶片價值捕捉前提。"
+        "en": "Apple shifts frontier inference to merchant GPUs (NVIDIA) at scale, reintroducing the markup and breaking the in-house-silicon value-capture premise.",
+        "zh": "蘋果大規模將前沿推論轉向外購GPU(輝達),重新引入加價,瓦解自研晶片價值擷取前提。"
       }
     ],
     "watch": [
       {
-        "en": "Google–Apple search/Gemini antitrust remedy ruling (the ~$20B Services lever at risk)",
-        "zh": "Google–Apple搜尋/Gemini反壟斷裁決（約200億美元服務槓桿風險）",
-        "freq": "as filed / weekly"
+        "en": "AAPL price momentum & analyst target revisions vs -3.89%/m baseline",
+        "zh": "AAPL股價動能與分析師目標修正,對比每月-3.89%基準",
+        "freq": "daily"
       },
       {
-        "en": "Apple Intelligence adoption & usage research vs upgrade-intent surveys",
-        "zh": "Apple Intelligence採用與使用研究對比升級意願調查",
+        "en": "Google–Apple Gemini/search-payment antitrust rulings",
+        "zh": "Google–Apple的Gemini與搜尋付款反壟斷裁決",
+        "freq": "per-hearing"
+      },
+      {
+        "en": "Apple 10-Q Products vs Services split & Services run-rate trajectory",
+        "zh": "蘋果10-Q產品對服務拆分及服務營收軌跡",
+        "freq": "quarterly"
+      },
+      {
+        "en": "Apple Intelligence adoption/usage research as upgrade-driver evidence",
+        "zh": "Apple Intelligence採用與使用研究作為換機驅動證據",
         "freq": "monthly"
       },
       {
-        "en": "Services segment run-rate & gross-margin trend in 10-Q",
-        "zh": "10-Q服務分部運轉率與毛利率趨勢",
+        "en": "Pro-tier mix share & blended iPhone ASP from earnings commentary",
+        "zh": "Pro機型組合佔比與法說會揭示的iPhone混合ASP",
         "freq": "quarterly"
       },
       {
-        "en": "iPhone Pro-tier mix & blended ASP from earnings/teardowns",
-        "zh": "iPhone Pro階組合與綜合均價（法說會／拆解）",
+        "en": "TSMC N3/N2 advanced-node revenue mix confirming Apple wafer loading",
+        "zh": "台積電N3/N2先進製程營收組合以確認蘋果晶圓投片",
         "freq": "quarterly"
       },
       {
-        "en": "N2 lead-customer slot commitments & A20/M6 tape-out timing",
-        "zh": "N2首發客戶產能承諾與A20/M6流片時點",
-        "freq": "quarterly"
-      },
-      {
-        "en": "TSMC advanced-node (N3/N2) revenue mix as Apple supply mirror",
-        "zh": "台積電先進製程（N3/N2）營收組合作為蘋果供給鏡像",
-        "freq": "quarterly"
-      },
-      {
-        "en": "Private Cloud Compute server-silicon expansion disclosures",
-        "zh": "Private Cloud Compute伺服器晶片擴張揭露",
-        "freq": "semi-annual"
+        "en": "Apple Silicon roadmap & teardowns (A20/M6 N2 confirmation, PCC scale-up)",
+        "zh": "Apple Silicon路線圖與拆解(A20/M6之N2確認、私有雲端擴產)",
+        "freq": "per-launch"
       }
     ]
   },
@@ -578,6 +578,97 @@
     "約 $20B／年的 Google 搜尋預設付款面臨反壟斷壓力 — 重大的、與 AI 相鄰的服務風險，未納入此分數。",
     "即時 AAPL／TSM／GOOGL proxy 為情緒情境，排除在定價權分數外;判讀只由槓桿驅動。"
   ],
-  "news": [],
-  "fetched_at": null
+  "news": [
+    {
+      "title": "Apple debuts AI-powered Siri with privacy focus at WWDC 2026",
+      "url": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxPNWduMFVuLWNfNF9KazR3V0FCS0dvTm15N25GUjdoVFo4S0tEcUdvZXpZWTZnS2dxZ09zY1VXQTFvYnU3cllxV2JNeEhkUFNCaFZ5bUhYUnRXNF92aUl5dlUtcDhMdnlvcDhScXh2Qy1uYlJYUnotejg0WHY0TlV0Tk1xdUM4WGd3b0ppdi01bFRSVHFtaElPUW1UazZaUG8yMHBiWWRCR3d2VnNCNTYwVkN5S05aTF9fekRFVXBaSkkzWUVFVmljZGU0NGhnblMwR2ZXbXdyc01RTlBVWE5nOHJZT2FlUVVtclRrSFNMT2NtMXVV?oc=5",
+      "source": "MSN",
+      "date": "2026-06-11"
+    },
+    {
+      "title": "As OpenAI leans into enterprise business, Apple and Google set sights on the masses",
+      "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNSTB6cEVFX0hSbC1tSVR1dmZNYkt1eXF4VlBJcEZBbF9GTndRTDB2YVFyakxSQUZyRFVUOGpaOFBKMUswbFk2QnpvVkNPNkp1WFdYM0I2ZVpiV09BZl9NRlNHUXZiRFp3SFVYX21XcG5IY1Utc2JoSzRHODZrbldDWUpyM2IxQ3h0SXp0ZGVlZ2pEZVd0UXlGZ2dSVWRxTFVQRW5BRUhCa9IBrAFBVV95cUxNSHNRZ0FlNm1WN1NmbHM3ZWh6c0pPNUlPeFBrLTdpTkpBcXE1aEFlNzQwVUpNeDNQZDNBMlZ0b3ZYdTVQQ0FWdFoxWWJuVzA4YWxFeWIxSy1NUzhCZXQyNE5UeUdzMjRJN3ZydnYxcUVVTnBMOXBQR0l3YWFGRmJzcWxaeXpISmJlOHhubTRWdWd4ekd2UUpqVlRwWG51TThpaXkwQmdoYmczdzIw?oc=5",
+      "source": "CNBC",
+      "date": "2026-06-11"
+    },
+    {
+      "title": "Apple AI Siri Limited Adoption: Morgan Stanley Report Highlights iPhone Compatibility Issues - News and Statistics",
+      "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQYXdKYzgzNlZRSHFKN0YyWlRjcWhnV3V5Q3pTaTd2OExid0JoWGUzMVp4MnhTdzF3RmQ0eVE0d2Y4aWt4Vnlhb05hME1qT215VVJmRDNRYzZFdG8xay1rcXcwOGJvekh5RUVkS01Fb3A0YnpqM0ZPbEhaU1pzUlR0aXJKV1MwWExKTE9LcnJTRlIxbnFoLWU4MDczVUEtcTNDSDVzUjN1bw?oc=5",
+      "source": "IndexBox",
+      "date": "2026-06-09"
+    },
+    {
+      "title": "Leading-edge foundry roadmaps for TSMC, Intel and Samsung — outlining the path to 1.4nm nodes and beyond",
+      "url": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxPTGpVRFZ3VkhqY3RfbngyVHpxaG9CWjFESnNDQ0M0S2d5LW4wcHhHek9OdHY2Z2pZWjQ4X0NLNzZscnBPUjBCY293OGlIQXdpb2huLTN6SUNCSzRhcjZMeDJ6N3ZKUmZtRnhYNzNieWJoQkhGVUhDQzRrZ19nX0dkbGU0WjYyTzFPR2MtZWdJY0FyYURHNWxrRUFBU0tHVnZNWVdRZFNyQS0zSEtiOEg3ZF9rRzZ1MHRJQW9NVUZMNEVCdi1IM0hmOG9tcXQ1WXJCSHFMNDQtdXJuMzF2Z3k4U2hpV24yMkRyZE9YRHRRUHQ?oc=5",
+      "source": "Tom's Hardware",
+      "date": "2026-05-14"
+    },
+    {
+      "title": "Apple Q2 2026 Earnings Beat Wall Street Expectations, Services Revenue Hits Record $31 Billion",
+      "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNUTMzeW5rUkFKc1Rfa3RKYjFCZG1VQjZ3V0Utb3hwWUxCQjdqdWp6bVRaN1JqSVJ5SUVDWFEwbkpObHUwV21ZTElRejZMbk1yclJ1dmlmVWJ1b0tBYU51ODF0Wll2eXlJUFhjZmR1YUxwOEJNNVJfbWtIWHd4cXpkSDdvYVp4MTEtanlSd1VMSjR1SWdESDMxa0tCRDlLYjJFdUE?oc=5",
+      "source": "Variety",
+      "date": "2026-04-30"
+    },
+    {
+      "title": "Apple's $1B Gemini Deal: Google AI Replaces Siri [2026] - tech-insider.org",
+      "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE01d0NEZ0NWMklfeFNaaVdhaldhRkFxckpCLTJST1A2YVcxSU1iRGpncmE1OVNVMmZLVF9NdHVLVlJKZTFiclVDMjBWUkR5N0xiakxfQm5FQmpmZHByeDVZUFQ5RERhUjRTUFNwT2NzNWxvQ1IyWTYxMk1n?oc=5",
+      "source": "",
+      "date": "2026-04-08"
+    },
+    {
+      "title": "A 'staggering' number of people bought new iPhones last quarter—analysts explain why, and whether it'll happen again soon",
+      "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxPbE51NGo1TXlvbjU3eTY2aTN3Q0tRdWpyNkxFb2RpZGJ4SzNOcGVkZlg4NDJuczRrMVE1R2FJdGIydlY3VXhXbHJncFk0ZGxubXVKWVR5VngxWFZmM0lIbDE2UmNuUzJjR0FER09WNm5mRDI5QXlxQnZvaGFHTFNMUTM1bVNFMEtkQ1Qxc1hLWUN4VVc0TjYxQTNzYVktUTBQZWfSAacBQVVfeXFMT0ozcHh4S2dIeThuMUl1LTUxZWgyRmFfTlJrVmtxR2pJTEpheEdKSkpmRTl4RFZIRHlaOXczTy1kLXdWUlBVRXRad25xZVJ1VFVyM1Rvd1lFVlNDNjVOVlhYbUFic21sMGlaMURJeE9ncjc3YU9qMGVtUWs4Nk5JZjdKQldWb0RkS3ljc21yQ25jNDhUQzhkX3o5bEZuWTNDYjRzMXFOa28?oc=5",
+      "source": "CNBC",
+      "date": "2026-01-31"
+    },
+    {
+      "title": "Hey, Siri. Isn’t the Apple–Google Deal Exactly What Judge Mehta’s Antitrust Opinion Was About?",
+      "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxNVVNUZTBFRkg2YS1YYXhaX0wwLUJSeEtsTGNRUmpwSVJGWVUtSDZDRWZCbmh1ekc1ZEhwNzhYUWNTMkptS2Z4N3FrN1FnUGJGa3FnMlVkOGNVdmJhUTc0OWRDTDMxOUVnVEtPUWR6ZnVsRmxNcnhWZVRXWHg5Wkd2b1pDYXUydw?oc=5",
+      "source": "JD Supra",
+      "date": "2026-01-29"
+    },
+    {
+      "title": "Google–Apple Gemini Deal Underscores Tech’s Antitrust Catch-22",
+      "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxNSmFpRDJiTHkySUFwT2Jhanlud04zd2pQOUQ4ZzlvYnNaR0lnRVlHOVhVTm1Xa3JIU19VZGZzT0lQZ281UHViVHhrZHNhQjNxVUFMN29XX3YxVHlzTDNPOTU0bTVIRnpoMmg0V1RFY0JvWHJFTWQtOGVUUGhrWVE5V3QwYTE2VmJ5MC1oTE40MFZ4dnJJSi03eXVQWTBiUkdOQ1lEejNwcG04RjFkSkhYd0xaZWZxeGtEZlMwN1hKMHdsN1Q4cVFTSWFR?oc=5",
+      "source": "Bloomberg Law News",
+      "date": "2026-01-26"
+    },
+    {
+      "title": "Apple's Services Business Was a Major Catalyst Last Year, and 2026 Will Likely Be Even Better",
+      "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOQkNqYWFEakZlNlNzX19uNXRSaXV3VU8tdU1vS3VNMC0xSmFuV1p1Z0h0RldZLXZzcTJoLUtOdUR5Vkp0Y1J6TUlxMjNrWVJBX0h6UUU0Y3hub3dNU2NCdlhvd01MZmpkdU9RbGhWNUU1TGpUMnJGWDh4dmdoMGltbUI1a0FLeVdCNXJVNUln?oc=5",
+      "source": "Yahoo Finance",
+      "date": "2026-01-13"
+    },
+    {
+      "title": "2025 marked a record-breaking year for Apple services",
+      "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPd2xRQ2tOaUpoOGJxcnNNZzFuTzF3NXNmSVJtbU1Sd2RSSTB0X0hDTmxZa0xMUHB2aVFxbjVXdnJtcldGQXBlaXFEYkM5V0psXzJUWjVJMWROOFR0N0xDUWVWVVhJMEpuUHFSNXFlOHNEUzBMbWhHdEdVQTFmWG5CRmpDZTFzUVNXLU9NOTlQTndRbUpRR3lReQ?oc=5",
+      "source": "Apple",
+      "date": "2026-01-12"
+    },
+    {
+      "title": "Apple-TSMC: The Partnership That Built Modern Semiconductors",
+      "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPeE9uckdzelNZZEVVN29NdDlJTVVqMVl0b1UyeVJoVXV3YWZ6QzhmLXZYU3FmMVhSM0ZyaWRXdUIwcDVvd2NNamNvMDRhUmpoVWZqRWZSbGRzMU5nWHdIQ1ZjNkJyTVJXRDktRUdPc3d5QTN3RHU5aDhiTjVYeXhTZg?oc=5",
+      "source": "SemiAnalysis",
+      "date": "2026-01-08"
+    },
+    {
+      "title": "TSMC to Lead Rivals at 2-nm Node, Analysts Say",
+      "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE1UYTdvZ2wzZ09FWFMxcHhlS0JYcFlhdzNnNWM2RVNjTzVlMmdOM1pIMHhhSGZ1ZTkycGlvZzE0YmU0Z2pKbEJIWnp6cHZ1UzBqTmtsWFRkck5kdGxldkVvZ2o5SzZOdmlHZXFmeVdfdWZPTHFyemFhdlpR?oc=5",
+      "source": "EE Times",
+      "date": "2026-01-07"
+    },
+    {
+      "title": "Apple poised for iPhone sales boost on strong Pro demand",
+      "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxOSnM3Q19TWjRVeksxUDk5QkdBekVvZVJWZXVub2NRRWFhMFlTZ2pFRENNaUlSc2RzTlNZVV9wczR4Y0JiZEZ2Q2o1MkFqRFM4R0JrNzBMd0xwVkxFcUt5a09oS0pYZGItenFSd0JhNmdGOGFmSGx4OWh1cEFpSlQ5cWhhdzBlVVdhUWJSQ1pzN0Z2cWVHMzBXSVpn?oc=5",
+      "source": "Reuters",
+      "date": "2025-10-29"
+    },
+    {
+      "title": "Wedbush hikes Apple stock price target on hot iPhone 17 sales",
+      "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE03NE1wTFhOTWhpeWJiZzd0S29NRGEtWGxyd2J0czZTWkhqUVkxWVZGOHdHRWlIXy0wczhSUmJxdldwdUZmaWNHdFJVc3poZ2NXZzRuYkI0aUpGeGRmX3RBeHNOaDloNF9fZXJqTGJ0WnYzYzhfLWsyQ0pB?oc=5",
+      "source": "qz.com",
+      "date": "2025-09-22"
+    }
+  ],
+  "fetched_at": "2026-07-02 07:10 UTC"
 }

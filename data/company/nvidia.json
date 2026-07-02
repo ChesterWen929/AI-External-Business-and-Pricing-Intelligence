@@ -1,10 +1,10 @@
 {
   "slug": "nvidia",
-  "generated_at": "2026-06-27 15:51 UTC",
-  "as_of": "2026-06-27",
-  "source": "seed",
+  "generated_at": "2026-07-02 07:06 UTC",
+  "as_of": "2026-07-02",
+  "source": "live",
   "stale_fetch_ids": [],
-  "is_demo": true,
+  "is_demo": false,
   "company": {
     "name_en": "NVIDIA",
     "name_zh": "NVIDIA（輝達）",
@@ -386,30 +386,30 @@
         "name_en": "NVIDIA (NVDA)",
         "name_zh": "NVIDIA（NVDA）",
         "kind": "equity",
-        "value": 175.0,
-        "chg_1w": 1.5,
-        "chg_1m": 6.0,
-        "live": false
+        "value": 197.58,
+        "chg_1w": -0.71,
+        "chg_1m": -11.83,
+        "live": true
       },
       {
         "id": "tsm_equity",
         "name_en": "TSMC (TSM) — supply-side proxy",
         "name_zh": "台積電（TSM）— 供給端 proxy",
         "kind": "equity",
-        "value": 230.0,
-        "chg_1w": 1.0,
-        "chg_1m": 5.2,
-        "live": false
+        "value": 444.23,
+        "chg_1w": 0.77,
+        "chg_1m": 2.21,
+        "live": true
       },
       {
         "id": "avgo_equity",
         "name_en": "Broadcom (AVGO) — custom-ASIC competition proxy",
         "name_zh": "博通（AVGO）— 自研 ASIC 競爭 proxy",
         "kind": "equity",
-        "value": 280.0,
-        "chg_1w": 0.6,
-        "chg_1m": 3.4,
-        "live": false
+        "value": 369.34,
+        "chg_1w": -3.33,
+        "chg_1m": -19.58,
+        "live": true
       }
     ],
     "alerts": [
@@ -417,6 +417,11 @@
         "level": "strong",
         "en": "Realized-price engine running hot: pricing-power score 75.0/100 — generational ASP step-ups (Hopper→Blackwell→Rubin), rack-scale system selling and CUDA lock-in are doing the work — NVIDIA is a price-maker, not a price-taker.",
         "zh": "已實現價格引擎火熱：定價權分數 75.0/100 — 世代 ASP 階梯（Hopper→Blackwell→Rubin）、機櫃級整機銷售與 CUDA 鎖定在推動 — NVIDIA 是定價者而非價格接受者。"
+      },
+      {
+        "level": "watch",
+        "en": "GPU-scarcity proxy cooling: NVDA -11.83%/m — watch the accelerator-scarcity premium (capacity-block pricing) for follow-through.",
+        "zh": "GPU 稀缺 proxy 降溫：NVDA -11.83%/月 — 留意加速器稀缺溢價（capacity-block 定價）是否跟跌。"
       },
       {
         "level": "exposure",
@@ -432,116 +437,116 @@
   },
   "l4": {
     "integrated_thesis": {
-      "en": "NVIDIA raises REALIZED compute price even as list prices fall — score 75.0/100 (RAISING), led by 'Generational ASP step-ups (Hopper → Blackwell → Rubin)'. That engine underwrites an estimated $180.0B revenue_runrate of AI benefit, and ~100% of the silicon beneath it is TSMC-fabbed — so the upside and its binding constraint both sit on TSMC's leading-edge & CoWoS.",
-      "zh": "NVIDIA（輝達） 在牌價下跌之際仍提高已實現算力售價 — 分數 75.0/100（RAISING），由「世代 ASP 階梯（Hopper → Blackwell → Rubin）」帶動。這部引擎撐起估計 $180.0B revenue_runrate 的 AI 利益，而其底層約 100% 的矽由台積電製造 — 因此上行空間與綁定約束都押在台積電先進製程與 CoWoS。"
+      "en": "NVIDIA is a price-maker running a realized-price engine at 75/100: generational ASP step-ups (Hopper→Blackwell→Rubin), rack-scale selling (GB200 NVL72), and CUDA lock-in let it raise blended price even as per-FLOP list prices fall. That engine converts into a disclosed ~$180B Data Center run-rate (near-pure AI) and an estimated ~$112B operating-income lens. The whole thing is ~100% TSMC-fabbed with two critical links — Blackwell on N4P/CoWoS-L and Rubin on N3/CoWoS-L+HBM4. NVIDIA is our largest and most strategic leading-edge + CoWoS customer; its growth ceiling is the CoWoS/HBM capacity we control.",
+      "zh": "輝達是定價制定者,實現價格引擎達75/100:世代ASP躍升(Hopper→Blackwell→Rubin)、機櫃級系統銷售(GB200 NVL72)與CUDA鎖定,使其在每FLOP標價下滑時仍能拉高混合價格。此引擎轉化為已揭露約1,800億美元資料中心年化營收(近純AI),營業利益估約1,120億美元。整條鏈近乎100%由台積電代工,兩個關鍵環節:Blackwell走N4P/CoWoS-L、Rubin走N3/CoWoS-L加HBM4。輝達是台積電最大且最具戰略性的先進製程與CoWoS客戶;其成長上限即台積電掌控的CoWoS/HBM產能。"
     },
     "pillars": {
       "pricing": {
-        "en": "Score 75.0/100 — RAISING. The work is done by 'Generational ASP step-ups (Hopper → Blackwell → Rubin)' and the up-stack levers, not list-price hikes. Realized price per useful compute is rising through mix and margin capture.",
-        "zh": "分數 75.0/100 — RAISING。推動者是「世代 ASP 階梯（Hopper → Blackwell → Rubin）」與服務棧上移槓桿，而非抬牌價。每單位有用算力的已實現價格靠組合與利差捕獲在上升。"
+        "en": "Score 75, verdict RAISING, top lever generational ASP (85). Three T1 levers do the heavy lifting: annual-cadence ASP step-ups, rack-scale system selling (not chips), and CUDA lock-in (80). The scarcity premium (70, T2·est) is the fragile leg — NVDA -11.8%/m flags cooling capacity-block pricing. Networking attach (68) and software (55, est) add blended-price upside but are secondary. This is a genuine price-maker, not a per-unit taker.",
+        "zh": "分數75、判定「提價中」,首要槓桿為世代ASP(85)。三項T1槓桿挑大樑:年度節奏ASP躍升、機櫃級系統銷售(非賣晶片)、CUDA鎖定(80)。稀缺溢價(70,T2估)為脆弱環節——NVDA月跌11.8%預示產能區塊定價降溫。網通附帶(68)與軟體(55,估)提供混合價上行但屬次要。這是真正的定價制定者,非單價接受者。"
       },
       "sources": {
-        "en": "Watch it via: NVIDIA 10-Q / 10-K (Data Center segment), NVIDIA earnings calls & investor presentations, Hyperscaler capex guidance (MSFT/GOOG/META/AMZN), SemiAnalysis accelerator model — segment filings + RPO are the hard floor; GPU spot rents & price APIs lead.",
-        "zh": "觀測管道：10-Q/10-K 分部與 RPO 是硬底，GPU 現貨租金與價格 API 領先。"
+        "en": "Highest-signal: NVIDIA 10-Q/10-K Data Center segment (the only near-pure AI disclosure) and earnings calls for ASP/mix commentary. Cross-check demand via hyperscaler capex guidance (MSFT/GOOG/META/AMZN). For scarcity, watch GPU spot-rent trackers (vast.ai) and SemiAnalysis accelerator model. For the supply ceiling that matters to us: TSMC CoWoS capacity disclosures, HBM supply (SK hynix/Micron/Samsung), and the GTC Blackwell/Rubin cadence.",
+        "zh": "最高訊號源:輝達10-Q/10-K資料中心分部(唯一近純AI揭露)與法說會的ASP/組合說明。需求面交叉驗證看超大規模業者資本支出指引(MSFT/GOOG/META/AMZN)。稀缺性看GPU現貨租金追蹤(vast.ai)與SemiAnalysis加速器模型。對台積電最關鍵的供給上限:台積電CoWoS產能揭露、HBM供給(SK海力士/美光/三星),以及GTC的Blackwell/Rubin節奏。"
       },
       "benefit": {
-        "en": "AI benefit headline ≈ $180.0B revenue_runrate — DISCLOSED (consensus $180.0B); NVIDIA reports Data Center revenue directly (near-pure AI); the only estimates are the operating-income split and the software run-rate. Cross-checked against op-income and software lenses.",
-        "zh": "AI 利益頭條 ≈ $180.0B revenue_runrate — 為揭露值（共識 $180.0B）；NVIDIA 直接揭露資料中心營收（近乎純 AI）；唯一的估計是營益拆分與軟體年化。已用營益與軟體視角交叉驗證。"
+        "en": "Headline ~$180B Data Center revenue run-rate is DISCLOSED and annualized — unusually clean, effectively near-pure AI, so little estimation risk on the top line (T1, high confidence). The ~$112B operating-income figure is a margin-lens estimate (T2), and the ~$3B software run-rate is low-confidence (T3). Consensus aligns at $180B. Treat the revenue as fact, the profit split and software as reasoned estimates — not reported line items.",
+        "zh": "頭條約1,800億美元資料中心營收年化為「已揭露」數字,罕見乾淨、近乎純AI,故營收面估計風險極低(T1,高信心)。約1,120億美元營業利益屬利潤率視角之估計(T2);約30億美元軟體年化為低信心(T3)。市場共識同為1,800億。營收視為事實,利潤拆分與軟體僅為推理估計,非申報項目。"
       },
       "silicon": {
-        "en": "~100% TSMC-fabbed across 6 accelerators, 2 critical. Every Blackwell/Rubin/Hopper GPU, the Grace CPU and the NVLink/Spectrum networking are TSMC N3-N5 + CoWoS — NVIDIA is TSMC's single largest CoWoS customer.",
-        "zh": "6 顆加速器約 100% 由台積電製造，2 條關鍵。每顆 Blackwell/Rubin/Hopper GPU、Grace CPU 與 NVLink/Spectrum 網路全為台積電 N3-N5＋CoWoS — NVIDIA 是台積電最大的單一 CoWoS 客戶。"
+        "en": "~100% TSMC-fabbed, two critical links. Blackwell (GB200/GB300) sits on N4P + CoWoS-L today; Rubin moves to N3 + advanced CoWoS-L + HBM4 next. Hopper (N4), Grace CPU (N5/N4), NVLink switches and networking (N5/N7) all route to us. For TSMC this is the single largest advanced-node + CoWoS demand vector. The binding constraint is not NVIDIA's design or demand — it is the CoWoS-L and HBM4 co-packaging capacity we allocate.",
+        "zh": "近乎100%台積電代工,兩個關鍵環節。Blackwell(GB200/GB300)現走N4P加CoWoS-L;Rubin接續轉N3加進階CoWoS-L與HBM4。Hopper(N4)、Grace CPU(N5/N4)、NVLink交換器與網通(N5/N7)全部匯入台積電。對台積電而言,這是最大單一先進製程與CoWoS需求來源。約束不在輝達的設計或需求,而在台積電配置的CoWoS-L與HBM4共封裝產能。"
       }
     },
     "tsmc_implication": {
-      "en": "Essentially 100% of NVIDIA's AI silicon — Blackwell/Rubin/Hopper GPUs, the Grace CPU, NVLink switches and networking — is fabbed by TSMC on N4/N3 and packaged with CoWoS. For TSMC, NVIDIA is the direct anchor customer: a top leading-edge buyer AND the single largest source of CoWoS demand. NVIDIA also aggregates the indirect demand of every hyperscaler that rents its GPUs (Amazon is a TSMC customer 'twice over' partly through NVIDIA). The binding constraint on NVIDIA's growth — CoWoS and HBM — sits inside TSMC's own capacity, so NVIDIA's pricing power and TSMC's pricing power are two ends of t",
-      "zh": "NVIDIA 的 AI 矽 — Blackwell/Rubin/Hopper GPU、Grace CPU、NVLink 交換器與網路 — 幾乎 100% 由台積電以 N4/N3 製造、用 CoWoS 封裝。對台積電而言，NVIDIA 是直接的頭號客戶：頂級先進製程買家，也是 CoWoS 需求的最大單一來源。NVIDIA 同時匯聚了所有租用其 GPU 的雲端巨頭的間接需求（Amazon 之所以是台積電的「雙重」客戶，部分正是透過 NVIDIA）。NVIDIA 成長的綁定約束 — CoWoS 與 HBM — 就在台積電自己的產能裡，因此 NVIDIA 的定價權與台積電的定價權，是同一個先進製程稀缺的兩端。"
+      "en": "NVIDIA is our #1 direct advanced-node AND CoWoS customer — no indirect-via-others layer here; the exposure is direct and ~100%. The binding constraint is CoWoS-L and HBM4 co-packaging capacity, which we control and which caps NVIDIA's shippable units regardless of its pricing power. Strategic reads: (1) our CoWoS ramp IS NVIDIA's revenue ceiling; (2) Rubin's N3 pull-in tightens our leading-edge loading; (3) if custom-ASIC share (Broadcom -19.6%/m proxy) rises, we still fab those too — so foundry demand is resilient even if NVIDIA's share erodes.",
+      "zh": "輝達是台積電第一大直接先進製程「及」CoWoS客戶——無經他人間接層,曝險為直接且近乎100%。約束在CoWoS-L與HBM4共封裝產能,由台積電掌控,無論輝達定價力如何皆限制其可出貨量。戰略解讀:(1)台積電CoWoS擴產即輝達營收上限;(2)Rubin的N3提前拉動使先進製程稼動吃緊;(3)若客製ASIC份額上升(博通月跌19.6%為指標),台積電同樣代工之——即便輝達份額流失,代工需求仍具韌性。"
     }
   },
   "l5": {
     "scenarios": [
       {
         "name_en": "CUDA + annual-cadence flywheel",
-        "name_zh": "CUDA＋年度節奏飛輪",
+        "name_zh": "CUDA加年度節奏飛輪",
         "prob": 40,
-        "trigger_en": "Rubin ships on schedule, Data Center run-rate clears $250B, gross margin holds above 72% as CUDA lock-in and the annual cadence keep ASP and share rising.",
-        "trigger_zh": "Rubin 如期出貨，資料中心年化突破 $250B，毛利率守在 72% 以上，CUDA 鎖定與年度節奏持續推升 ASP 與市占。"
-      },
-      {
-        "name_en": "System & software repricing wins",
-        "name_zh": "系統與軟體再定價勝出",
-        "prob": 27,
-        "trigger_en": "Value migrates from per-chip ASP to rack-systems plus software (AI Enterprise/DGX Cloud); networking attach and software run-rate rise, lifting blended realized price even if per-GPU ASP plateaus.",
-        "trigger_zh": "價值從每晶片 ASP 移向機櫃系統加軟體（AI Enterprise／DGX Cloud）；網路 attach 與軟體年化上升，即使每 GPU ASP 進入高原仍推升混合已實現價格。"
+        "trigger_en": "Rubin ships on schedule, Data Center run-rate clears $250B, gross margin holds above 72%.",
+        "trigger_zh": "Rubin如期出貨,資料中心年化營收突破2,500億美元,毛利率維持72%以上。"
       },
       {
         "name_en": "CoWoS / HBM bottleneck caps volume",
-        "name_zh": "CoWoS／HBM 瓶頸卡住出貨量",
-        "prob": 21,
-        "trigger_en": "TSMC CoWoS and HBM allocation cap shippable units; NVIDIA can hold price but guides supply-constrained, and shipped units stay below demand.",
-        "trigger_zh": "台積電 CoWoS 與 HBM 配額限制可出貨量；NVIDIA 能守住價格卻指引供給受限，出貨量持續低於需求。"
+        "name_zh": "CoWoS/HBM瓶頸限制出貨",
+        "prob": 25,
+        "trigger_en": "NVIDIA guides supply-constrained; shipped units stay below demand as CoWoS-L / HBM4 allocation binds.",
+        "trigger_zh": "輝達指引供給受限;CoWoS-L/HBM4配置緊縮使出貨量低於需求。"
+      },
+      {
+        "name_en": "System & software repricing wins",
+        "name_zh": "系統與軟體重新定價勝出",
+        "prob": 20,
+        "trigger_en": "Per-GPU ASP plateaus but rack-system + networking attach lift blended realized price; software run-rate >$5B.",
+        "trigger_zh": "每GPU ASP持平,但機櫃系統加網通附帶拉升混合實現價;軟體年化營收超50億美元。"
       },
       {
         "name_en": "Accelerator glut / ASP compression",
-        "name_zh": "加速器過剩／ASP 壓縮",
-        "prob": 12,
-        "trigger_en": "Hyperscaler capex flattens YoY, GPU spot rents fall hard, and custom ASICs (Trainium/TPU/MTIA/Maia) take share — the scarcity premium and ASP compress.",
-        "trigger_zh": "雲端巨頭 capex 年增轉平，GPU 現貨租金重挫，自研 ASIC（Trainium/TPU/MTIA/Maia）搶走市占 — 稀缺溢價與 ASP 一起壓縮。"
+        "name_zh": "加速器過剩/ASP壓縮",
+        "prob": 15,
+        "trigger_en": "Hyperscaler capex flattens YoY, GPU spot rents fall hard, custom ASICs take share; scarcity premium compresses.",
+        "trigger_zh": "超大規模資本支出年增持平,GPU現貨租金重挫,客製ASIC搶佔份額;稀缺溢價收斂。"
       }
     ],
     "falsification": [
       {
-        "en": "NVIDIA Data Center gross margin falls for two straight quarters while DC revenue still grows — pricing power is eroding under ASIC/competitive pressure, not scaling.",
-        "zh": "資料中心營收仍成長的同時，NVIDIA 資料中心毛利率連兩季下滑 — 定價權在 ASIC／競爭壓力下轉弱，而非擴張。"
+        "en": "Data Center gross margin falls below ~70% for two consecutive quarters — signals ASP/mix and scarcity premium eroding faster than volume compensates.",
+        "zh": "資料中心毛利率連兩季跌破約70%——顯示ASP/組合與稀缺溢價侵蝕快於出貨量補償。"
       },
       {
-        "en": "Custom-silicon (Trainium/TPU/MTIA/Maia) share of new AI capacity rises materially while NVIDIA DC growth decelerates — the share-and-price moat is breaking.",
-        "zh": "自研晶片（Trainium/TPU/MTIA/Maia）在新增 AI 產能的占比明顯上升，同時 NVIDIA 資料中心成長減速 — 市占與定價的護城河正在破。"
+        "en": "GPU spot rents (vast.ai) fall >40% while hyperscaler capex guidance flattens YoY — breaks the scarcity/allocation-premium leg.",
+        "zh": "GPU現貨租金(vast.ai)跌逾40%且超大規模資本支出年增持平——瓦解稀缺/配置溢價環節。"
       },
       {
-        "en": "GPU spot rents collapse and stay low as supply normalizes — the scarcity / allocation premium is gone.",
-        "zh": "隨供給正常化，GPU 現貨租金崩跌且持續低檔 — 稀缺／配額溢價消失。"
+        "en": "Custom-ASIC (Trainium/TPU/MTIA/Maia) share of hyperscaler training capex crosses ~30%, capping NVIDIA's rack-system pricing power.",
+        "zh": "客製ASIC(Trainium/TPU/MTIA/Maia)佔超大規模訓練資本支出份額突破約30%,壓制輝達機櫃系統定價力。"
       }
     ],
     "watch": [
       {
-        "en": "NVIDIA Data Center revenue & gross margin (10-Q)",
-        "zh": "NVIDIA 資料中心營收與毛利率（10-Q）",
-        "freq": "quarterly"
-      },
-      {
-        "en": "Hyperscaler capex guidance (MSFT/GOOG/META/AMZN) — leads DC revenue",
-        "zh": "雲端巨頭 capex 指引（微軟/Google/Meta/Amazon）— 領先資料中心營收",
-        "freq": "quarterly"
-      },
-      {
-        "en": "Blackwell / Rubin ramp & GTC roadmap cadence",
-        "zh": "Blackwell／Rubin 量產與 GTC 路線圖節奏",
-        "freq": "on-event"
-      },
-      {
-        "en": "CoWoS capacity & HBM (SK hynix / Micron) lead times",
-        "zh": "CoWoS 產能與 HBM（SK 海力士／美光）交期",
-        "freq": "monthly"
-      },
-      {
-        "en": "GPU spot rents (vast.ai / market)",
-        "zh": "GPU 現貨租金（vast.ai／市場）",
+        "en": "GPU spot-rent trackers (vast.ai) for scarcity-premium follow-through after NVDA -11.8%/m.",
+        "zh": "GPU現貨租金追蹤(vast.ai),觀察NVDA月跌11.8%後稀缺溢價後續。",
         "freq": "weekly"
       },
       {
-        "en": "Custom-ASIC share (Trainium/TPU/MTIA/Maia) in hyperscaler fleets",
-        "zh": "雲端機隊中自研 ASIC（Trainium/TPU/MTIA/Maia）占比",
+        "en": "Hyperscaler capex guidance (MSFT/GOOG/META/AMZN) — earliest demand signal.",
+        "zh": "超大規模業者資本支出指引(MSFT/GOOG/META/AMZN)——最早的需求訊號。",
         "freq": "quarterly"
       },
       {
-        "en": "Networking + software (AI Enterprise/DGX Cloud) attach",
-        "zh": "網路＋軟體（AI Enterprise／DGX Cloud）attach",
+        "en": "TSMC CoWoS-L capacity & HBM4 supply (SK hynix/Micron) — the binding volume constraint.",
+        "zh": "台積電CoWoS-L產能與HBM4供給(SK海力士/美光)——出貨量的約束環節。",
+        "freq": "monthly"
+      },
+      {
+        "en": "NVIDIA Data Center revenue & gross margin (10-Q / earnings call).",
+        "zh": "輝達資料中心營收與毛利率(10-Q/法說會)。",
+        "freq": "quarterly"
+      },
+      {
+        "en": "GTC roadmap — Rubin N3 cadence and pull-in timing affecting our leading-edge loading.",
+        "zh": "GTC路線圖——Rubin N3節奏與提前拉貨時點,影響先進製程稼動。",
+        "freq": "quarterly"
+      },
+      {
+        "en": "Broadcom / custom-ASIC momentum (AVGO -19.6%/m proxy) for share-shift signals.",
+        "zh": "博通/客製ASIC動能(AVGO月跌19.6%指標),觀察份額移轉訊號。",
+        "freq": "monthly"
+      },
+      {
+        "en": "NVIDIA software & DGX Cloud run-rate disclosures for repricing-path evidence.",
+        "zh": "輝達軟體與DGX Cloud年化營收揭露,佐證重新定價路徑。",
         "freq": "quarterly"
       }
     ]
   },
-  "analysis_engine": "rules",
+  "analysis_engine": "claude",
   "cross_links": [
     {
       "href": "/cwengine/",
@@ -579,6 +584,97 @@
     "節點與封裝對應（如 Rubin 用 N3、CoWoS-L）來自媒體／產業報導，非台積電/NVIDIA 確認。",
     "即時 proxy（NVDA/TSM/AVGO 股價）為情緒情境，刻意排除在核心定價權分數之外。"
   ],
-  "news": [],
-  "fetched_at": null
+  "news": [
+    {
+      "title": "Nvidia Says It Will Take a Cut of Some Customers’ Cloud Revenues",
+      "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxOc3dNOVgtQWVuSExWT0xHUkZEa3RGRi1rbkdpWG1ST2YzOTEwTkx5cENOVGc3MzNXdVVfZGpid183TjJpdU9CU3pocmRSaC11MVc3TVRudS1tbmhwVlJQTHlYWnN3Q1VVd1o3Q2hjSzV6SDBuWkhVOHdNTkhTWjhjandsenhwR04zNmo3RGRfLUZMQUI2?oc=5",
+      "source": "The Information",
+      "date": "2026-07-02"
+    },
+    {
+      "title": "Nvidia reportedly cancels quad-die Rubin Ultra GPU in favor of dual-GPU design, report claims — complex design purportedly scrapped over 'manufacturing execution concerns'",
+      "url": "https://news.google.com/rss/articles/CBMi0wJBVV95cUxQWVRsVlduRHdRT0x3Tm5CNFBaZUVaLVFGbDBObTRvOUZnWHlvREpBVmE4YkFIZG1waUZ6LWNaQkdNYkJob0VlTUU4YUJPaG1yVFVGTUY0TjZfRjROZVd2Yk5yQ1hNOGVLcklDSy1GY0FXbTI4eTBNbEtVRDh5NVpsbEZSbDY0LUlkSTdNeVdqdFBYTkdIS1NETThiTTMxMHZENHJnUVVYalRfYzdtNnFXSmU5dWRYczI1VTNxckVFdFNnT1hfYWh3MTlocFd2N0k4NVQtVVV6dlBRbTNueWN1cGpoZDN1M1FrRHZCaWloaW5rbjZpNXFIcmRwblpMVkFKQkxFSFE3ckI0YzY2Qm11MFVOVUNDZlBmdzhSTGF6TWdPSTVLVEtQcjdOcThBMUxKTzI5NTlVbkxXbWRqdEU0VnJaYmhRaWktX2VJY2FHWHN4aGc?oc=5",
+      "source": "Tom's Hardware",
+      "date": "2026-06-30"
+    },
+    {
+      "title": "NVIDIA Stock Is Seeing a Summer Swoon. 5 Catalysts Could Rocket It to $300 By the End of 2026.",
+      "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxNM19Jd1ZzTFJDc0tZdml6bElURTZqMExRYk8yWnk3TGlTcmNnUkdoemxYRnpuVnhwVkxQOGlLai1MUFlIZjV4Z05HTzNsTXk0U2RWVGxhOExGVXZIaFUyR21rWFNVSEFJUVFlcGNnUHd4SGhvbkU2MVFXNmdxbnUwel9RX1RvMVZ6c2JEUTgyMk5KX3RwLTdHUU9SVy1RckF2TU1hTlRXY09nZEpKMWstZmNyU2pIR3FwQ0ZfTk11LUU3NVNFaGpiQXhKclFQNWs2?oc=5",
+      "source": "24/7 Wall St.",
+      "date": "2026-06-30"
+    },
+    {
+      "title": "Mizuho lifts TSMC CoWoS capacity forecasts as server CPU demand surges",
+      "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxQMFRhNjFsRUF2bUNESkY0WjVjVzI3Ukt6ZHRNclZyZEd4RkpFTUs5QWJweW4yQ2QzX0VDLW13dXFBREl6LU9kOC1MQ2pzc2dNNXJ4cDkzclJySVlJSVBuek9PalN0RFJBNnEyMmRvSThvaE5UUFNUZjhwYmZ5R25fZ1VGbklHTjdqTjY2eExrUnRyTUlwVy1Fd2M2Vk1Qb25IWFZkS2s2WnF5ZVdiRHo5SlhrOGJEaXZ4VGFTcDRuN1BjcDdVZGc?oc=5",
+      "source": "Investing.com",
+      "date": "2026-06-30"
+    },
+    {
+      "title": "How SK Hynix's bet on a niche memory chip made it more valuable than Samsung",
+      "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxPUzZyMHVEbFBPMjFsTEx3UG01MUF3MnduN2RTbGlhQkdHM1pNYWJtbkNUb0JIc3VfdTMwNFRfOVo2MWhTc09HLTBqdUJjX1NKYnVWbDh1WEdVZ2JBZG5VcW15Yk9hWHpDWHh5UmlwM3VySFk1YzIzX1FzUHlldUJlSklUODJFMnotelN1UVZwbVMyR1YxNXM1LUtTY09Dd0ZscWF2RXk4RFhWaXhqUmZwb01Eb0FtMVdVVXRKTUZUSmhNbEE?oc=5",
+      "source": "Reuters",
+      "date": "2026-06-24"
+    },
+    {
+      "title": "[News] TSMC CoWoS Supply-Demand Gap Reportedly Seen Narrowing from 20% to 10% by End-2026",
+      "url": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxPQmM3dnRWNFJwQnE2ajJRbm40U1REMHlWc3dVaFFBelhDblVlVXJQUkd4MWRhZUNFVVdGbXc3VnhIQ0RRS1Z2V3NLM21SUzlEc291UnV3WXhpUUZXVzV6U3ppal9SUHFGVmhOMVBfcnlEUUZCRmxycTAzb0Z5RDVwbzVPSFZGUUpFYWRQWGJSSHRVbXBwTWpVMmpjUG1LU2ZDelhoUzdjdzc4Wmp0cVhJRDMyaXhSSTFtVE5NSlVXbmo5VlJPbXM4SF9BX0EwMjdGQ1M5M1dOd2dpamlhejV6YzJhYw?oc=5",
+      "source": "TrendForce",
+      "date": "2026-06-15"
+    },
+    {
+      "title": "Nvidia Locked In Its Memory Supply Through 2030 With SK Hynix. Here’s What that means for AI.",
+      "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxOdFhHTGt3S1ZFRTloWnU4UWF6clE1QVI2dXNGSjV1WHFMT3JWc0E3c1ZoeTJPYUhtd25iNTV5NG9hcDZjbk5TNE9nZ0k1Yl9UNUNOeVpOblpnSlgwN3o2dDhPVXRWdFVNQkZMelZnRFNWN0NxNlgxUV8zRkNtOWxHeUJhaF9jaDQ0NFdkTVZ1VGtLc2cxaXloU3FncnNyeXQ0S3l6WDBBa3djMjhtQTlDWEp1dnZGUkxUTVNRRDBEUm1ZcDRfUnVRODlEbnNCMXUwbmc?oc=5",
+      "source": "Medium",
+      "date": "2026-06-09"
+    },
+    {
+      "title": "SK Hynix bets HBM, wins Nvidia jackpot",
+      "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE8tYXd5MmdxZjJVV0RMNUZycjNON0gtZk90VVlsN21rZjVDX3NzbkZ6NzRfUVJ6Q2tPc2RYU0cwWnNFMGVabUloNVBBQk5sSTAwMXNZUThNTG1Gbk1RdEFWTkFmOS1sQjdIQ3g0dzQ1T25YaHlHUl84Vw?oc=5",
+      "source": "Jon Peddie Research",
+      "date": "2026-06-09"
+    },
+    {
+      "title": "NVIDIA Announces Financial Results for First Quarter Fiscal 2027",
+      "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPdC1rUGZycU5DWDhBdkJvNTYyeGl1d0lyV2J2VFlRRkdNZno4d0dWRE1QbHNGc2JOQ1NqUkNQZXA2XzMtTUp6d1hwOVc1RXhsY0p5WnpPX3NCcTFYYjNYS0dOeUlnYXNwWTlBQkNhT016MUZIeUx6b2d5VUJYLTFOSnBIRFY1U2Q2X3hBTmdlY2VwNUlHYlJ1eDJZSFZOZ1RJ?oc=5",
+      "source": "NVIDIA Newsroom",
+      "date": "2026-05-20"
+    },
+    {
+      "title": "CoWoS Is No Longer Just Packaging: It Is TSMC’s New Value-Creation Engine",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBlRkNqTU5ja0xRaVdHSDRsMmRCZkEtVUNsYkRZNjlWUWhUR1JsSEVzaUF0cGswb05KRENTQV9KZHpZQ1lNbllBZ0ZGYTlIMV94OXRrYVpLQjRiR2FLRVNGeWtyZGY3bTBzZ1hHbGZMUllDU01hVTVkaWl2Z3drUkU?oc=5",
+      "source": "semivision",
+      "date": "2026-05-04"
+    },
+    {
+      "title": "Driving Down The AI System Roadmap With Nvidia",
+      "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxNSERSU3FzSDhxYkU3RnA3NHB2T3JoQ2xDVDd1emMtaXk4RWNqN1B5dy1yc0xWX2RLamh6Vm9uWTZpQVg5cTVLTVRpZnhERW94LWVFZ3NRdWRLbGJtX3A0R3NYSWVDeUt3VFpCMnZONllCT0E1UjBBZTN1ZldkNG10QmhVX3llYVhSSVM3bC1UTEVHSVNRZ2JJS1FVMlpOa1pKOHlhSg?oc=5",
+      "source": "The Next Platform",
+      "date": "2026-03-19"
+    },
+    {
+      "title": "NVIDIA Kicks Off the Next Generation of AI With Rubin — Six New Chips, One Incredible AI Supercomputer",
+      "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1wVTdNYW04bUY5N2s2cWlUR25KZzZ3ZlFxdUZ2MWgwZGFmSUJqNGQxV3E5M0ktZDAzOGFkMGtSaThmSnBrc09jN1ZYakpjWDlabmdJcDYxTjV1LXpmVW16MkJ1NDNFNE9sOUYxVUR0UUtWdzdE?oc=5",
+      "source": "NVIDIA Newsroom",
+      "date": "2026-01-05"
+    },
+    {
+      "title": "NVIDIA’s AI Servers Face ‘Unimaginable Demand’ Amid Blackwell Ultra GB300 Ramp-Up as Key Supplier Quanta Reports Production Bottlenecks",
+      "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQUU40V2tOaVViNjc5SUdWTTc5T01vcG1yaFlsVGxTaE40RTFIYm1ULTQwcWpaNmk1RThsaFFESmV6NVdfbHd4TC1HQzdRNTl0TXZ5c1VELW01blluWE5NUmZBRkl2MDRtWGo3UTY3V3JsdThHRGl2ZFhmTUZwQWN2RDNoNklSMVBOR1BZWFZLcmNaQXRuUnI5WdIBngFBVV95cUxNRDJWbE5hbTlJamJRRmMwa18tMjdXUkZlc2h6bTJSSmNCeGtCZVJ5YVM5SG9Pb1ZpclQxUWJsa3FhTU5qejVNbF9ZMmp1SVJuYWxiMFB1TTViM3FlN1pUVHVMazhOU1lCb2xvZWE3WUZESC1DSVVISk9NM1dGNFFNdnRQaGNqOE92MmFUaFdzMXgyb1BuS3FhZ3JkWldHQQ?oc=5",
+      "source": "Wccftech",
+      "date": "2025-09-13"
+    },
+    {
+      "title": "Inside NVIDIA Blackwell Ultra: The Chip Powering the AI Factory Era | NVIDIA Technical Blog",
+      "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNOEpoMUV1eV9tT0pwUnJMYmsxcHBvTkFCLVZ2MURxWmwxTTN0ZjhEQlZaMF9oaEtpaTJVaWhtMHJqRzZtOWd2LUFiUmZEVWo1ZjRIUldvWUJObWtKMVZnYVZTeUF6dlhGRjQ5YXdxdGx1NDc5eGVNc0RGSVZqUlZhUEZDVlE0cmhHcWU3cjM1VWJ3NDJ3UGFRa1oxWEhBNDIxck13?oc=5",
+      "source": "NVIDIA Developer",
+      "date": "2025-08-22"
+    },
+    {
+      "title": "H100 vs GB200 NVL72 Training Benchmarks - Power, TCO, and Reliability Analysis, Software Improvement Over Time",
+      "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNdUFvS2JiSGhxVmo0Qi1DWjZZYWlSMEllMGRPUlFSNXl2OEdtZU0wM3p5VkNaNUpTZFBGRnJYbHpmMGhHYm8tdDJxNU1uSERVMjdzeVJrT0Y5Zk4yUFIzVEhNNlhBdzVvQkptcmNoUXVfeE9pRnVXVExtbXZKQlBWZTMtbw?oc=5",
+      "source": "SemiAnalysis",
+      "date": "2025-08-20"
+    }
+  ],
+  "fetched_at": "2026-07-02 07:06 UTC"
 }
