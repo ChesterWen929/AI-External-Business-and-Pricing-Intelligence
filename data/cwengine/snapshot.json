@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-06-25 08:12 UTC",
+  "generated_at": "2026-07-02 06:46 UTC",
   "as_of": "2026-06-16",
-  "is_demo": true,
+  "is_demo": false,
   "meta": {
     "schema_version": "0.1",
     "as_of": "2026-06-16",
@@ -185,7 +185,32 @@
       "default": false
     }
   ],
-  "live_capex_context": {},
+  "live_capex_context": {
+    "by_company": {
+      "MSFT": {
+        "name": "Microsoft",
+        "capex_ttm_usd_bn": 97.2
+      },
+      "GOOGL": {
+        "name": "Alphabet",
+        "capex_ttm_usd_bn": 109.9
+      },
+      "AMZN": {
+        "name": "Amazon",
+        "capex_ttm_usd_bn": 151.0
+      },
+      "META": {
+        "name": "Meta",
+        "capex_ttm_usd_bn": 75.7
+      },
+      "ORCL": {
+        "name": "Oracle",
+        "capex_ttm_usd_bn": 55.7
+      }
+    },
+    "total_ttm_usd_bn": 489.5,
+    "n": 5
+  },
   "inference": {
     "regime": "inference_rotating",
     "capex_usd_bn": 600,
