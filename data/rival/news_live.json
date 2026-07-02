@@ -1,28 +1,16 @@
 {
- "updated_at": "2026-06-22T06:39:50Z",
+ "updated_at": "2026-07-02T07:02:46Z",
  "items": [
   {
-   "topic": "rapidus",
+   "topic": "samsung_foundry",
    "lang": "en",
-   "title": "Japan’s Rapidus Secures ‘Major’ American Customers for Its 2nm Process, Ramping Up the Race Against TSMC and Intel - Wccftech",
-   "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxNd1d0MjN2THlnMzBTTVRpa1NhVFR1MFhMRWJta3ZqNTQwdmgteGFBOEpobmhlTTB4Njk5QkRmaFBTa3lucnZLXzRYVXFvSHVfQjJrdmE3QS1mcHRNamRGSXJGWXhINlhadEhiZkh5Yno4a09xSWROZWdMalVWOUZjNV9GZkV6Nk1SWnZLVlFQTjNCd9IBlwFBVV95cUxNNDhyd3djc1dJOGxaRVVhVTdHZzV0bGl3YWhELWNsV0VxQ3lIX3ByWDlTM29EUEtxTlowU0t6TFprcnMzTURvWlhaNWVZZ0phSXJjNG1BQnF4b3NDd2NRc1pWSmxkMTVlR1lDWE1BMUNLUzIyQnREUDZ6VHhLQUtXVWRIeGVYSFFtaEpVUnR4VDRESkJSRUFr?oc=5",
-   "published": "Wed, 01 Oct 2025 07:00:00 GMT",
-   "source": "Wccftech",
+   "title": "Reality check: Samsung's 2nm yields too low to win top-tier clients from TSMC - PhoneArena",
+   "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNNjhjMEVvVVd4YTVyNW54OGZPUG1oeWQ2LWx3eENqMl9HRUFZNC1sVDZsTjk3SkpWUFVqNTNTWUg4MzJWcU9OVTFGb0VHSkstSzB1Z2dUVk5KdGREY2ZUZUVyMHlhTXFlUF9acS1tQW9adVFCMDNCUXlPVkxHVGVWWWxULVNyVFRYUGdpTzhVZVo0MHVUb1lkU0VyV3hXODhncjlF?oc=5",
+   "published": "Mon, 13 Apr 2026 07:00:00 GMT",
+   "source": "PhoneArena",
    "signals": [
     "win",
     "node"
-   ]
-  },
-  {
-   "topic": "tsmc_orders",
-   "lang": "en",
-   "title": "Samsung Electronics Wins Foundry Orders From Google, AMD and BYD as TSMC Capacity Tightness Drives Client Shift - TradingKey",
-   "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxOOHpsTDFXT0RoTThlQjM1MlRTNUpwSUcwNGM2VkRkTzYzMmZUdVhPZDJnSFFGMks0UG9MUV9CUHVYemRWLWQzQnBRbW9aZVlleHp3SUQ2UmphOWhtLTJoa21BdmEzcnRqbXhvN05nVXRPa0RENWVadDFSVWttaDdBbktmUVF5UjF4eEEyMWtNcGpvZEpDMjdSMk5uRQ?oc=5",
-   "published": "Wed, 17 Jun 2026 06:43:57 GMT",
-   "source": "TradingKey",
-   "signals": [
-    "win",
-    "capacity"
    ]
   },
   {
@@ -37,14 +25,15 @@
    ]
   },
   {
-   "topic": "zh_intel",
-   "lang": "zh",
-   "title": "封裝賽局化圓為方！台積電強攻次世代CoPoS與玻璃基板，應對英特爾EMIB奪單與聯電代工合作壓力 - TNL The News Lens 關鍵評論網",
-   "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE5mM0pxWXE1VEpVQ3JHakM2YUhnaWwtemxZMHlEb0M2d3JmUmJmcFRHTGJXYkNSTFpaTVRuZGM4TUNkT2Ewb2JMeGVCNDctUm1zLVZvWg?oc=5",
-   "published": "Sat, 20 Jun 2026 03:52:00 GMT",
-   "source": "TNL The News Lens 關鍵評論網",
+   "topic": "tsmc_orders",
+   "lang": "en",
+   "title": "Samsung Electronics Wins Foundry Orders From Google, AMD and BYD as TSMC Capacity Tightness Drives Client Shift - TradingKey",
+   "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxOOHpsTDFXT0RoTThlQjM1MlRTNUpwSUcwNGM2VkRkTzYzMmZUdVhPZDJnSFFGMks0UG9MUV9CUHVYemRWLWQzQnBRbW9aZVlleHp3SUQ2UmphOWhtLTJoa21BdmEzcnRqbXhvN05nVXRPa0RENWVadDFSVWttaDdBbktmUVF5UjF4eEEyMWtNcGpvZEpDMjdSMk5uRQ?oc=5",
+   "published": "Wed, 17 Jun 2026 07:00:00 GMT",
+   "source": "TradingKey",
    "signals": [
-    "win"
+    "win",
+    "capacity"
    ]
   },
   {
@@ -52,30 +41,8 @@
    "lang": "zh",
    "title": "衝刺先進製程！台積電28奈米減產逾25％ 有望迎轉單潮「2台廠」受惠直奔漲停 - Yahoo股市",
    "link": "https://news.google.com/rss/articles/CBMitwNBVV95cUxOVmdwdFhnbUVVaDZrNWxXcS13QmJTRGVPRFVKbkhQZ0hTM1lnaG44Vk1pcWVCMElkblpwaW14WGJsazIzRGo2ak12Z3RCb0FqWGt3MXNZWDB3cDNqM29lX1NzcnZkZ0k2YkhySFFMQW9uRHZLbVpzSkpjN3lQTUZ1SXE2bTNZbDdabGtCX3YwdjRvLThzcDR3WDA1clBqN3dqQlJoOVd3bWNabkJudDFRektkaWhxUENwY2FlbENFVnJGTVBDQ3MybkJzeVRubFA0Q3Z2bjlyejdGdlg1U0FEN2s2RnJ6WHhyOVdGR3JSSk1xV1dQTkhPWC1qZHpFaWZMcTBvVGxyLVZDb1hTd04ySnB1S2oxR2tVTHZnODNqdWwwcU9KRlVtNm45TXZOdUV1M2IwREZzSFhZTEZ6bzN1S2JoRGZvdGVMYl9WZkNmMG82emQwYi1NZXNwYXJqWUtHX2dJMTFnUnN3bU5ERHR5QmJjRk80dHBhTGplUzFxV0ZrMzV1WW5KUVJhd2s1WEFFLXQ1ZXViajlheGJOQnQ0MlpiQlljekptbW40M2t6ck02SFlWS0ZJ?oc=5",
-   "published": "Mon, 22 Jun 2026 01:27:43 GMT",
+   "published": "Sun, 21 Jun 2026 07:00:00 GMT",
    "source": "Yahoo股市",
-   "signals": [
-    "defection"
-   ]
-  },
-  {
-   "topic": "zh_transfer",
-   "lang": "zh",
-   "title": "台積28奈米大減產！聯電、世界先進喜迎轉單潮- 日報 - 工商時報",
-   "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE5jUXNBNzQ1a0VZQ3RmV3pqTkZ2VGZzZllHV1BSdlF6bEZXSkd1ZFdGY3c5Rloya19MQTZrWGJQUmlfbzg5TlBxU25BUmZOMExpZU5hR1BnVzd1QUZzZWtZ?oc=5",
-   "published": "Sun, 21 Jun 2026 19:00:00 GMT",
-   "source": "工商時報",
-   "signals": [
-    "defection"
-   ]
-  },
-  {
-   "topic": "zh_transfer",
-   "lang": "zh",
-   "title": "1分鐘讀財經》台積電28奈米減產原因曝光聯電、世界先進迎轉單- 財經 - 中時新聞網",
-   "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTE1mdzZITHFTeUhJS1NDVTlRQU5QUFhUUHd5T2dwZjJTbnFhRk9RU3ItaVlvMENqSXpyOUlJdDZMbEQ5Nk1UNy1oN0R5NXNHRGI1THdRX3dBbEF3YUk4c2Rsb0QzSENST1NHVjV2a3pR?oc=5",
-   "published": "Mon, 22 Jun 2026 00:31:01 GMT",
-   "source": "中時新聞網",
    "signals": [
     "defection"
    ]
@@ -85,7 +52,7 @@
    "lang": "zh",
    "title": "做不完？傳台積電先進晶片產能吃緊爆轉單潮三星晶片代工詢價量增| 全球財經| 全球 - UDN",
    "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE8taUotRUZmUDdnTGVGbTdZeVlkT1dFdEVueTBhemJqRjRDOS1pOFNxOGdlbDBpZHljT3BGbXBGaXo0X3VESUNhZ3ZHS3ZPX0lM?oc=5",
-   "published": "Wed, 17 Jun 2026 10:56:29 GMT",
+   "published": "Wed, 17 Jun 2026 07:00:00 GMT",
    "source": "UDN",
    "signals": [
     "defection",
@@ -95,10 +62,10 @@
   {
    "topic": "zh_transfer",
    "lang": "zh",
-   "title": "台積電滿載引轉單效應！台灣半導體迎全球挑戰-財經焦點情報站 - CMoney投資網誌",
-   "link": "https://news.google.com/rss/articles/CBMiggFBVV95cUxNaVhLZFdkelRRazkyX1FfVmhGUHVqMUg1NDhDQUU4dVVlNXFSZW1yWWgyQ0VsN0FNZVNlcXpkcG9famt1cHNEcW9qRGpFRmVyQkdJYWRra0NCSEg0SXZrRmgyS1pzWDVqeE5FTERMNTRwNmlSODZSSnVkeTk0WlJzSFd3?oc=5",
-   "published": "Wed, 17 Jun 2026 14:49:11 GMT",
-   "source": "CMoney投資網誌",
+   "title": "台積電又被搶單？Google傳轉單英特爾 下訂300萬顆TPU - 三立新聞網SETN.com",
+   "link": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE9MWmFNWVVwemRvdE9ZR29DMVhXOHZUM3VFR3JYeXJTTlJTZjBwTTExRzlKVG1JdmpITVZ2ODEwaWE4cE8wenV5NW1Gcw?oc=5",
+   "published": "Wed, 10 Jun 2026 07:00:00 GMT",
+   "source": "三立新聞網SETN.com",
    "signals": [
     "defection"
    ]
@@ -106,21 +73,34 @@
   {
    "topic": "zh_transfer",
    "lang": "zh",
-   "title": "台積電CoWoS轉單加持！「封測大廠」今年EPS估達14元 投信卻連3斬帶走45.91億元 - Yahoo股市",
-   "link": "https://news.google.com/rss/articles/CBMioANBVV95cUxPVXFjX0xLSlFKM0M2ODZJbTViWUZqZ3o5NXU0YzdRN1VaZEtUdXFJWUpqQnBiQk15X05XVFVTYjVKUE9sZGtYcGRCcTJJOGxFNDN5LUdkdDd1a1U2YldYc1J5eWRpWTFfNHBseXFYLWluUkJoaUI0eXNtY1RsNVlsb3hxMjVtWHg3a3F5WXdBQTZqUEZWd0thTXppVlZpQmNoTWl4WFZNQzlXQzlqVGpDWEJJVTE5NVBmdWxFNmlycXp4N25FYW9RYmQtd3dReklZYjYxWUJuajR4UmxBZGtiNUNscWtuOGtkZzBEczc1ZVZRQ0VvYUtaRGFMeXhHNl9FdzJxQm9TSWV0M1k2Z3p4ejI1VFFyU3FwMjJLZ2MtS1lNVVBrTUgwREozdEE4MUxOTl9iTzM3aUtjRTEwV2V2M1p3ZkdYYkZHREVlWFNaaFJRVEF6VlNkTGFxNVd5U0FKZlJHdHFxeGNUUXNNOFZQWG1nWXRaNE0tSWFiN1RsRG9hWG1KNVhCOXdYRnUwM1o2eHlMc2RzZTZlZGYyU0tYZA?oc=5",
-   "published": "Tue, 16 Jun 2026 11:30:00 GMT",
+   "title": "台積電全力衝2奈米！28奈米產能收縮逾25% 法人點名「2檔」迎轉單紅利 - Yahoo股市",
+   "link": "https://news.google.com/rss/articles/CBMilANBVV95cUxPN3VkSjVNTVhjMW9VdHdleHhoNDB6YUYzX1VVVW5ndjdGS2drczFQdWVXdGJEaDJheUwyQVp2R1lYLXBDWWcxVlpyc3FlZmpDNEJxNHlMWVNjNmJrNnZLNmQyQ2s1Q2xLNEV0NGhLdXBEX0ZiU3BfNjNkcGI4ZGpiNXhveXJpb1FOaTZaX0xxVi1yaGNkZVJqZzluTkx2ZklZOUdvMGFCYzZCQl81Q2ZFVTRYcE9SN1VETW1WaWJjd2xqaW5TWnlqZDJYVUdkQ1FhbmhyTW1iT09DZzNHakRSZV80WEowa1B5UmxyVVNsQlNXMHJuLXY2LUI5Z2RPdkcyMFFMaXAyZXVTNldMR3NIdGNzMVlUbm1MYm1tVFdSNk16b0dwOEx2aDJpSE12TWdkcUZ3a0RUWEdxYThGY3NRNEdRLTMyTTd3Y1haMWtYbFZiVzZETVlJVnJQY2pMWXNFVXpEdGdGYV9pc2cxbWdwdHJxWkY1NVUwdE4tcy12RWhLQlFBTGpOcFZjdFJZN29nelYxVg?oc=5",
+   "published": "Mon, 22 Jun 2026 07:00:00 GMT",
    "source": "Yahoo股市",
    "signals": [
-    "defection"
+    "defection",
+    "capacity"
    ]
   },
   {
    "topic": "zh_transfer",
    "lang": "zh",
-   "title": "轉單三星？ 聯發科蔡力行：持續與台積電保持最緊密、最好的關係 - 自由財經",
-   "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE4wUzlWT0Q5eEtYelg0b19aTmtJVXJZc3IzbWxWNlBUSi1OemNGTHBhU1RBeEFuMFg0UUdQbF95Q3lPOEp4U1N4dTB0WnpGUWpwYVZtWGRYMEJqdlZsSlFr0gFkQVVfeXFMUHJoS0dkcDdwbmZlVGt0bVg3T1lwYXpJVUdidF8wSkNmb1B2MWk5MUZCT2stUExIYzBPZk53bEtjU0NPMGs2bXpVWG1SUkJYOHlDb3RJYU1INTNXOHFhM3NDMzR3cg?oc=5",
-   "published": "Fri, 29 May 2026 07:00:00 GMT",
+   "title": "蘋果轉單免驚！英特爾也排隊搶台積電產能 - 自由財經",
+   "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE5VUXZQNmJiQl93YmhpOW8yYWZMbXl5WjRIVlJIbHp3bHhwWURqQzlma0Vyc0lhOEJjaW5FN01pS0oxZGlFN1BGZzBmMF9BRXo0QTIxMWE1UHZJRDlSQlVN0gFkQVVfeXFMTVdieTRhVm8xdmhpVHFjQkZ2bW5FN0FVVjlUbF9BT0RFOTFuc3lHU1VYRDFER1piVWMwQl9XQzA2eG9UYTBHMDQ4SEdLSlNwTHpoaGxiX0NHbEFpQllDcFJNWXVtQw?oc=5",
+   "published": "Mon, 11 May 2026 07:00:00 GMT",
    "source": "自由財經",
+   "signals": [
+    "defection",
+    "capacity"
+   ]
+  },
+  {
+   "topic": "zh_transfer",
+   "lang": "zh",
+   "title": "台股破4萬7！台積電領漲，半導體鏈迎轉單潮-財經焦點情報站 - CMoney投資網誌",
+   "link": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQQmg4TGdkQ1QxbEduYmltd3Y4TlZ5cGVnSGE5Z214Qm8yWW1BclZZR2VnWWJqYWl3Rkw0bmxwWDFzMHZjTzlCT2FIXzBxN3ZjVXhRbDFKSXdIOWlpcXRkaEN1b2x5dDRLdnBRbXZ5LXlsbWRBSW5XeGRKTmd5ck12dUJ3?oc=5",
+   "published": "Tue, 23 Jun 2026 07:00:00 GMT",
+   "source": "CMoney投資網誌",
    "signals": [
     "defection"
    ]
@@ -131,6 +111,15 @@
    "title": "AI Demand Drives 4Q25 Global Top 10 Foundries Revenue Up 2.6% QoQ; Samsung Gains Share and Tower Moves Up in Rankings, Says TrendForce - TrendForce",
    "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5LZVZZNTdPMklkTmoxMkhteFltQS1WMXl6MzRRVUlrc21xa2h3WVFRTEFCMTdhSkxmQzVJU29sVXEtdHpublotWGcxN3dmQ0cxTUxyLXBIaTFwcmg2VHluSmtUMXA4bWJZNDBLLXN5blc?oc=5",
    "published": "Thu, 12 Mar 2026 07:00:00 GMT",
+   "source": "TrendForce",
+   "signals": []
+  },
+  {
+   "topic": "foundry_share",
+   "lang": "en",
+   "title": "Strong AI Demand and Early Consumer Electronics Inventory Build Drive Top 10 Foundries to 3.7% QoQ Revenue Growth in 1Q26, Says TrendForce - TrendForce",
+   "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE4wQ0xRQlhiRkJHNGFhUEpiQ2JVOE9YMGRBSENvbC04U1lERFE1ZkNpTkQwMUpLcFd6eFFDUER2Z0l0V0VrRU55Z3dtdXlzVTR3dUNVWE5kSFBSTURpemlfbnVhckR3Z1VoWW5Qel9NSDI?oc=5",
+   "published": "Fri, 12 Jun 2026 07:00:00 GMT",
    "source": "TrendForce",
    "signals": []
   },
@@ -155,24 +144,6 @@
   {
    "topic": "foundry_share",
    "lang": "en",
-   "title": "Strong AI Demand and Early Consumer Electronics Inventory Build Drive Top 10 Foundries to 3.7% QoQ Revenue Growth in 1Q26, Says TrendForce - TrendForce",
-   "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE4wQ0xRQlhiRkJHNGFhUEpiQ2JVOE9YMGRBSENvbC04U1lERFE1ZkNpTkQwMUpLcFd6eFFDUER2Z0l0V0VrRU55Z3dtdXlzVTR3dUNVWE5kSFBSTURpemlfbnVhckR3Z1VoWW5Qel9NSDI?oc=5",
-   "published": "Fri, 12 Jun 2026 06:58:39 GMT",
-   "source": "TrendForce",
-   "signals": []
-  },
-  {
-   "topic": "foundry_share",
-   "lang": "en",
-   "title": "4Q25 Revenue Ranking among Top 10 Global Foundries - TrendForce",
-   "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1aSGNreXFWQ01sbk5QYXpneXVOcWdFR3J2VXNFOUpiOXRweDloTk82LVpsYS00TXpFalRsME9qaFlyaWdkVXItVzF0c1plcHhHamJSYzBJeFB0SkZBeUF0Z2FXdXQ4TUk?oc=5",
-   "published": "Fri, 06 Mar 2026 08:00:00 GMT",
-   "source": "TrendForce",
-   "signals": []
-  },
-  {
-   "topic": "foundry_share",
-   "lang": "en",
    "title": "AI-Fueled Supercycle Propels Memory Market Revenue to More Than Twice That of Foundry Industry, Says TrendForce - TrendForce",
    "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBuWFA5R3hEY2dKLWFPQ1RxU3JxTGFCM3VGekVNWkF3dmpvNG9TSlFqbVF1NDBYbWdNUXE2NW1lUUNFVmxzVk1KS2hjVFZqUmlFbnNESllEb0s5Um1uN05FZW1RQi1LU2xwWmZHQkJ0LWI?oc=5",
    "published": "Mon, 09 Feb 2026 08:00:00 GMT",
@@ -191,9 +162,18 @@
   {
    "topic": "foundry_share",
    "lang": "en",
-   "title": "1Q26 Foundry Diamond Datasheet - TrendForce",
-   "link": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE02U3V2bnRmbXl1NlBJNmdnWURibUdYOXV1S1lJcDNmRWRPUTFCUHpoSFNqc3VDVUdNay00RGtaTzNtcnBDZ0N2aXN3WnJGY3IyaXdlc1NNNWU4T0I1VHhnRDZWNXZFUQ?oc=5",
-   "published": "Wed, 01 Apr 2026 07:00:00 GMT",
+   "title": "4Q25 Revenue Ranking among Top 10 Global Foundries - TrendForce",
+   "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1aSGNreXFWQ01sbk5QYXpneXVOcWdFR3J2VXNFOUpiOXRweDloTk82LVpsYS00TXpFalRsME9qaFlyaWdkVXItVzF0c1plcHhHamJSYzBJeFB0SkZBeUF0Z2FXdXQ4TUk?oc=5",
+   "published": "Fri, 06 Mar 2026 08:00:00 GMT",
+   "source": "TrendForce",
+   "signals": []
+  },
+  {
+   "topic": "foundry_share",
+   "lang": "en",
+   "title": "Foundry Market Bulletin - Jan. 19, 2026 - TrendForce",
+   "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBzRXpITXdmSGlyN3FVNGZvbHloSnI2MTRqUU4yN2U5NzM0NTlNbVd1bWp3V3hjRWtoaFota0ZhU3ZkbTQzM1pmOE9PdlNSemVUeUFLMWtLa3NMN2N2VXJFTHFrOVhBWE0?oc=5",
+   "published": "Mon, 19 Jan 2026 08:00:00 GMT",
    "source": "TrendForce",
    "signals": []
   },
@@ -202,16 +182,27 @@
    "lang": "en",
    "title": "Intel Foundry Details Process Milestones and Future Innovation at VLSI Symposium - Intel Newsroom",
    "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQTno1WXFqX21ncXdfUlpUZUlDeG05dHR3cGVLZnZ6b2NaTFhlb3FHOTh4aFd6dTNUbXVNRXpFem96NC1CbmNfVVlzZ3hoWW95SXJSaV9US05qaF9XTUVwV1JES1hqVmg0YmIwTjlraXgxYk8tS1JYdmptR18yazNfZ0FtaVdWQzRWVWFBV1Z0N3ptdFhoSU05UGZzWm5yTEY1SnJQRWFybmRpM1U3Nm5oOEliWlY0Q2VL?oc=5",
-   "published": "Tue, 16 Jun 2026 21:15:26 GMT",
+   "published": "Tue, 16 Jun 2026 07:00:00 GMT",
    "source": "Intel Newsroom",
    "signals": []
   },
   {
    "topic": "intel_foundry",
    "lang": "en",
+   "title": "Will Intel 18A-P Risk Production Bring External Foundry Customers Through the Door? - The Futurum Group",
+   "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNQ1dEWlFUa3pKUmotX3loM0RVa2FoQUdYNTl4ekdueW9yRFhlX2FhRGdFdE91YTM2NGxVTE9RN3E3X2V3NFhjeHNhemRoYlJ3R2RtMHNtczh4alhWajlMMkwzYmQ2Tmk1aTVpSElzaFMybDRIY1lmem82cTV4SlRxcXJIT3h4TXVwS0t1SmtYX2Q0Y0ZMSGRyRGF1bUN3cERrbW4wZUFZUndWSzdoRXZnQm5EblpTMkZs?oc=5",
+   "published": "Fri, 26 Jun 2026 15:26:20 GMT",
+   "source": "The Futurum Group",
+   "signals": [
+    "node"
+   ]
+  },
+  {
+   "topic": "intel_foundry",
+   "lang": "en",
    "title": "Intel starts cooking up enhanced 18A-P silicon for would-be foundry customers - The Register",
    "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxQSENGeXNRUUI0MlNiaHdQUU5iUkU4WEFSdXJQd1JZTU5feHBxQ3pjdkJyNTd0Q2VMZzlMcDJvRG9mWnBUNG5wRk5UQ2EtYXBfMVZRNTNHdU0yamIyay1uR3BDS3VMa3k2TXJLQnFRa1drcmRkczRYX2pES0IzTGQwYXp2VGhyOGNoZ2FuNFZmLVZ4NkYwWHdtMG12Qk1SMmVCRXFJQmNrM3g2VWFqa3NuT1ctQW5ISkdsX1BSaHNXV01uMnk4aTJpMnJDWDA?oc=5",
-   "published": "Wed, 17 Jun 2026 12:14:00 GMT",
+   "published": "Wed, 17 Jun 2026 07:00:00 GMT",
    "source": "The Register",
    "signals": [
     "node"
@@ -220,29 +211,18 @@
   {
    "topic": "intel_foundry",
    "lang": "en",
-   "title": "Intel begins production of most-advanced chip, inching closer to possible Apple deal - CNBC",
-   "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNTk5Eak1oN2xPUHZMeUpPZXFCWEpXVjRtcDR1VlQtRkZDVlBzQnpCb05pSjk2d29hcjk4NFVmcUJDUmZEaXo2YWZqUVY1Q3Z4dEpURFBTRklFMm5DV0JDeVg1ZE1ZLWl2NXdVZC04VjAzeE9NOXU2RUo5aVlmam8xR21WdzNoNVVsSVNSTk4wMFBSdUV1OXhUVmpHVmdnX0lFdmVqQUVnQnZCQdIBrwFBVV95cUxQaEZaV05idXVmcEpoei1rRU9GM01WQkRRWEdmTXdkdHVpOFJhSmdYTzhEMFJhd280R3RDR3dxSnVPcFVJdEo4eDVJd2FYbnRrbDBTNHJETVpvVWFsS3EwVC1TMkQ3VWRReW1RSDI1OWpMcEZCOVdQZ3R2UFhVc0h4ZWE4MXM1b0Noc2gtdFQxX0d1d2szSkNWMGxvTVZ6SURBUXhsajJOVVFXWGI2YlpV?oc=5",
-   "published": "Tue, 16 Jun 2026 21:00:02 GMT",
+   "title": "Intel CEO says foundry business is gaining momentum as customer interest grows - CNBC",
+   "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPeGJ3dnhQcFNWRTg2OEdLZGx6WVhBNklCS1R0dnRmRk5XRXVUUFZHSmp5ODVsQ09mX3E2YnBYT0l6ZTNWMWpnam9IbkZHdlJPUURKR1AwOHlVaVViNUF0bWtQcjFYRms2WHRiXzFXLURCRzB5TmtrMFdjVnV4V1FMTWhVV1NBaE5MaWNNbVVnLTJpZUM5a0FVY1VzMTJxYmxLdHNWTnpYTVFld9IBrwFBVV95cUxQOU45OVNsZDBfMjRWbWNiQlItdW0wajh6c2JDMDdoNmhRYVBWUzVQRkI2aUJpVHI1SHdiUllsRWZoMExuaDRUX0wxSHdzMnNhNFFsNDlqazdGT29keGlWRzFXVlNSdjZtaDR4dDRla3FFNDJPazE4c2cyUGpaVTVLbFlJSnhBVkhrdjlhQUN3czU2bjlxRC16QzlUc0tHSG5ZR0F1SGx1aFFaRUZMajBr?oc=5",
+   "published": "Mon, 18 May 2026 07:00:00 GMT",
    "source": "CNBC",
    "signals": []
   },
   {
    "topic": "intel_foundry",
    "lang": "en",
-   "title": "Intel’s 18A-P Enters Risk Stage Production - Technology Org",
-   "link": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1pVjcxY01fOXdyQ1l0QWhXUEhIOWtCNHlKaXFFV1poOTlRaDVQQm43ZV90eTgtRWpNU1lHVTk5S19DSGNNa0JEUlI3U19naWtUdV9kTWlzZm1sakpJbV8xTVZTdTFUaXpyY3Zrai1ZdkJaRDdJ?oc=5",
-   "published": "Wed, 17 Jun 2026 09:15:53 GMT",
-   "source": "Technology Org",
-   "signals": [
-    "node"
-   ]
-  },
-  {
-   "topic": "intel_foundry",
-   "lang": "en",
    "title": "Intel Foundry Describes New 18A-P Process - Semiecosystem",
    "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9qcHNpWkhmdVZVanRFZFhLeVdtYnJaRlVtbndvR3V1R1lyOGZwQWN3N252V0UzUlpXSGpPM3NMQ2Q2S1l6cXFJeXRwVk9NWktpRUlfWGRJbnlpd2lyUDJxcEF5VGVUaXZnWGFLSl9lWE9Jd1Fuakx3?oc=5",
-   "published": "Tue, 16 Jun 2026 23:03:44 GMT",
+   "published": "Tue, 16 Jun 2026 07:00:00 GMT",
    "source": "Semiecosystem",
    "signals": [
     "node"
@@ -251,32 +231,30 @@
   {
    "topic": "intel_foundry",
    "lang": "en",
-   "title": "Intel launches production of advanced 18A-P chip node, moves closer to potential Apple foundry deal - MacDailyNews",
-   "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxOa2dMSm1nRnhoRkliRDlvS251RHpQLWJhRi1YeTcwYWVkTWlEeUU0cXRvSy1HN2VvRFdkSnJQOVdtRHQ3ZkRDMDdTYTNDaUZ4ZmU4SDdRM3pJdHFsTVJLZW5xSHBrTko5RkdFNGt3LTh1VzVBV1JsSGdjaHBjRFJjTkt0MGRDRlhYZ0JIMkhzVGVQVlVzenAxRlZydXdkMWxacHAyLWlyaWg5RjlaWmk1OUxzdGF6d0VkVy1tSTlwekRGdWVoclJYeUhuZDZ6Rlcw0gHWAUFVX3lxTFBQREptVFBqQWNxRGpRRUhOQnlVTF9SLUxOcjNuQS1uOXp4ZkhldXJWR2JLSzBacnJXZ2ZJVGJXbkYtWDFkUTlHS2FXM0N0YW9ITVIyb21BZ3hYZ0JKNVBYbmFCb1ZwWGJlR1MtYXlUbkw0VG1hOWUzUlZaU3NuLU8ydTB1S3NuSnk2OVJFRTFTQ25TbjhiWHJfaHhpczNMdTRPblFHYTZSanIzc3JZc0NHUjZfVzlTU0lwTVdGREZFWDFaMl90b29NSV9icDZiUkFQc241S0E?oc=5",
-   "published": "Wed, 17 Jun 2026 16:28:39 GMT",
-   "source": "MacDailyNews",
+   "title": "Intel’s 18A-P Enters Risk Stage Production - Technology Org",
+   "link": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1pVjcxY01fOXdyQ1l0QWhXUEhIOWtCNHlKaXFFV1poOTlRaDVQQm43ZV90eTgtRWpNU1lHVTk5S19DSGNNa0JEUlI3U19naWtUdV9kTWlzZm1sakpJbV8xTVZTdTFUaXpyY3Zrai1ZdkJaRDdJ?oc=5",
+   "published": "Wed, 17 Jun 2026 07:00:00 GMT",
+   "source": "Technology Org",
    "signals": [
     "node"
    ]
+  },
+  {
+   "topic": "intel_foundry",
+   "lang": "en",
+   "title": "Big Tech’s Quiet Diversification Out of Taiwan Is the Ultimate Catalyst for Intel’s Turnaround - 24/7 Wall St.",
+   "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxNVzZTb3RJTzF1aXJnVTdYSUdDUHhYS2drd05fcjFzUVk2ZGw5ZExtUDY1MUlQY2xQdDY1M3lQZktEdzhuMW9nYU5HWTFadF8yUzVuYklrLWFOaTJZbU50Rjg1d25SNHc5V09pNVJ5U3VaZjlXVzk0bkVoSkZKazczanA5R0JXSGg0X2R3UEs2NEhQTkZkc29fOThxWlladzRnb1ZRYllLNVpYMW04VjhWOWxwMFBuaThMcW1uN2twZVdhamFMcmNBUDQ5NndTeGZYUnc?oc=5",
+   "published": "Fri, 26 Jun 2026 14:06:20 GMT",
+   "source": "24/7 Wall St.",
+   "signals": []
   },
   {
    "topic": "intel_foundry",
    "lang": "en",
    "title": "Intel brings improved 18A process to production - Techzine Global",
    "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOeVhUMTVmOVI2Qnh5RUdzMEpqSXU3Y3lYaFdSUy16c19mNkVFSldBT2Z5WktLeGZDRzBxYXlOdEtwbkVMU2o4TThWS051V3B1bUVncDVVSVNSdVNqNHE4Z2Y4b3BMZm5Ta2I4M01zcWszaHQ1bHFuUWJTRlB0TnF6UEZrMEJSLTdmcjhnNDJ6c2hjMmFyTDNhai1mb0o1bTNO?oc=5",
-   "published": "Wed, 17 Jun 2026 08:07:07 GMT",
+   "published": "Wed, 17 Jun 2026 07:00:00 GMT",
    "source": "Techzine Global",
-   "signals": [
-    "node"
-   ]
-  },
-  {
-   "topic": "intel_foundry",
-   "lang": "en",
-   "title": "Intel’s 18A-P Debuts Power Boost, an Industry-First Dual-Contact Transistor That Squeezes More Frequency From the Same Chip Footprint - Wccftech",
-   "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNM2xCSWRhNm5tT3JsNEI5QnI2R2o5M0JlVXM4NGY4QWxMX2FMaG5QZUQtQnI0X05KZHRONmd4dUg3Zmh5cUU2bjBEV3lwVjVtRFZzU3pFLTJtUlo5UnZOUlg3bEhmU2FnNjU4S3d5S0NHVGl6amZ5cDE1aTRXOXBUVXlRY0dJa3hKNFJBem81Vy00VDFpaDBSRjZleVB6aXdJbThLLUpJcURnb0tfb3FkSmtHOVhIY2xnbmVfYjJ2OHVvRndX0gHKAUFVX3lxTE9PODNnVEFPZGJQVFNxUFJreTRONUlJQmVwNXZTZGw5WjZUanVPMjlnRml1QnZuZjFtekEyRmFVNHdGcDE2QVZTNVNpSmFPUHo5X2dmMWtidjVqNG1fNWpQUjVjdEtDZGxGS21DM25iQ1pCeGM0WXRmdkhSejR5ZW5BZVJEN1BIOHBsWGJ6SDNwMGlLTGdKeEhqZDgtZWhRREdrek94SDI4T0xETzE2eGlJX04teWFkWDNLdHJQNWFGMWdKa19nWGRRZlE?oc=5",
-   "published": "Tue, 16 Jun 2026 23:20:00 GMT",
-   "source": "Wccftech",
    "signals": [
     "node"
    ]
@@ -309,26 +287,17 @@
    "lang": "en",
    "title": "Andy McLean: Rapidus MoU Will Help British Innovators Access 2-nm Technology - EE Times",
    "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxPTmQ2SnpFTXFad1pnbUFaVVhiczRlTTZSR01QVFdHTHVvbnVwZ0hQSEpFek1pY0xNNHZlZkdaaDdqUkYzMmxDQVF3eW9fem1rY0VZSFZralg0bUlUczZTZXJLMFNWZW5Sbkl1Qi1sQmVpZnRzT3dURFZ3YTZsYmhPTE9UNjdnYlFvdTJnZFpBRnp3WjhJR1Qzdk1nZWItWk1lR3c?oc=5",
-   "published": "Mon, 15 Jun 2026 13:12:04 GMT",
+   "published": "Mon, 15 Jun 2026 07:00:00 GMT",
    "source": "EE Times",
    "signals": []
   },
   {
    "topic": "rapidus",
    "lang": "en",
-   "title": "Rapidus expands semiconductor ties with Italian foundation - Engineering.com",
-   "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxPNk9vNjZsbUdCMkc2NXEyeXZDNDRZSkJncER5RkxrSXBMeUcxeUJpZXJiQkxneHRtV0dack5FOEFkeUwyVTlUd0tCMk9WZDdGYmt2czcxU3lXRTNVX2o0ZHAtdURUMndqOU51SjRUa0xQOVRqXzJsOE03WG5Rby1laTFyTkNnbFEwWmJqX0hJVnY?oc=5",
-   "published": "Tue, 16 Jun 2026 11:26:09 GMT",
-   "source": "Engineering.com",
-   "signals": []
-  },
-  {
-   "topic": "rapidus",
-   "lang": "en",
-   "title": "Japan Advances 2nm Chips with Rapidus Funding - SNS Insider",
-   "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQOURXS1JoOE5nZ2QzMjRteFBsOGNxRWxSQ2ZxWkd4b1lHTTVfSFhDQnBPaFd6ZFlEd2NUYllmZVNxdHcyM3lmempsNzl6V2t4Y0lWZGg5Y1dnREhYOGtONjNHbklXdXdxZ1RpTWpUbkY3U3ZWcWxPeUg5T2dXeEU5NnhhSW1NbUNI?oc=5",
-   "published": "Thu, 21 May 2026 07:00:00 GMT",
-   "source": "SNS Insider",
+   "title": "Japan injects JPY150B into Rapidus to push for 2nm production by 2027 - digitimes",
+   "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxOemJNOWpFcGpsZWxPamJMYXBkaERTY1pXa2FZbm5fWVJvdnpqU2RmT2RnbzJEZ2FaLVVWSXBweWNEXzl1UDRaZjZkY0E5aS1lTmFQSVA5M3hUdVR3NEZXcTFWM241VmM0T014emx0TGxpSGFtaTRnRXFrRnRYR1BhNEdjVWJJcEhEUnFPQU0yVXNoZzhudlE?oc=5",
+   "published": "Sun, 07 Jun 2026 07:00:00 GMT",
+   "source": "digitimes",
    "signals": [
     "node"
    ]
@@ -347,22 +316,33 @@
   {
    "topic": "rapidus",
    "lang": "en",
+   "title": "[News] LSTC’s Research Breakthrough Clarifies Sub-2nm Process Variations, Supporting Rapidus’s 1.4nm Ambitions - TrendForce",
+   "link": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxNNjdRR19uYklBV3VFMjhEcGhTZDJLaWhrWkpQdkxMSWlnTzVYTGRyVV9TZDFtTTRPSS1ibVVLMEhnWkNXS0V2VjNTcnpqMGxla0FlcE42dWNrXzFhLUg5MURXWDk0RlotSmZUR2RMNkF5aUhsM2RsVTZFellPdDRQYkh1Ny1Zb01kRkxCZUtWellmZWFmRVd2RVRheXoxaFZtc1l3R2ZsTWZsQkFrVzF3c2ZOYzgyMWduNXdSbWY3RnpueEc4Qnl0LXpEbmlkMFg2Y09ZTFJlNEEwbDR2dFBydU5hYw?oc=5",
+   "published": "Thu, 04 Jun 2026 07:00:00 GMT",
+   "source": "TrendForce",
+   "signals": [
+    "node"
+   ]
+  },
+  {
+   "topic": "rapidus",
+   "lang": "en",
+   "title": "Japan Advances 2nm Chips with Rapidus Funding - SNS Insider",
+   "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQOURXS1JoOE5nZ2QzMjRteFBsOGNxRWxSQ2ZxWkd4b1lHTTVfSFhDQnBPaFd6ZFlEd2NUYllmZVNxdHcyM3lmempsNzl6V2t4Y0lWZGg5Y1dnREhYOGtONjNHbklXdXdxZ1RpTWpUbkY3U3ZWcWxPeUg5T2dXeEU5NnhhSW1NbUNI?oc=5",
+   "published": "Thu, 21 May 2026 07:00:00 GMT",
+   "source": "SNS Insider",
+   "signals": [
+    "node"
+   ]
+  },
+  {
+   "topic": "rapidus",
+   "lang": "en",
    "title": "Rapidus Receives More Funding - Semiecosystem",
    "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE9ZSEQwSjN4UWxxNGFaTzlhV2RSUkpsbFNZQWw2Q1BncHFFdmlJYUZzQ2VnVDdrZmhwSTY2TTNsamhreGlNWDI5eEZEd1JaMEItdndNZ1RhLUR5SVhvYXYxNngxRkR4eUZ1SEJHTXJuVWNYQQ?oc=5",
    "published": "Sat, 06 Jun 2026 07:00:00 GMT",
    "source": "Semiecosystem",
    "signals": []
-  },
-  {
-   "topic": "samsung_foundry",
-   "lang": "en",
-   "title": "Samsung’s 2nm Advance Draws on EDA Innovation from Cadence, Siemens, and Synopsys - The Futurum Group",
-   "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNNW82Q3NDd2pfZmU3VVl1QXJfMXRBOVAtZWpBM0RUVW5WX0dfZVJ2emo3N3ZMWTExMi10TVpYdGxRYm5kWkRhMl9qeWdVWjE2VDF1YmZqMVdoZHp1UUNoaDdIa09aUUR5bGJGdGYwVTNiRmFqRmV3QXFLT2NSRVhRRVNUN0FUeVZqY29VSVN6T0gtb1ZLamRsQ21YQWt2b3ZvcFk5cGpPQWhxNlVrT2JYNnpOdw?oc=5",
-   "published": "Mon, 01 Jun 2026 14:41:13 GMT",
-   "source": "The Futurum Group",
-   "signals": [
-    "node"
-   ]
   },
   {
    "topic": "samsung_foundry",
@@ -378,27 +358,20 @@
   {
    "topic": "samsung_foundry",
    "lang": "en",
-   "title": "Siemens and Samsung Foundry strengthen collaboration to advance silicon design enablement - Siemens",
-   "link": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE0zSmRZVzg1bTlwZ240SEk5OWJ5NDljclVicWNNNDJ5VDB3cm1abnBsbjhDbDRteEp2bG9rZS1pY01Nd3FKb1Z3bTFZZVhTRDE1MnMyRTBRbTNhUEczeDdtWlhEajJ5Zw?oc=5",
-   "published": "Thu, 28 May 2026 07:00:00 GMT",
-   "source": "Siemens",
-   "signals": []
-  },
-  {
-   "topic": "samsung_foundry",
-   "lang": "en",
-   "title": "Samsung Foundry Sees Improved Momentum Around 2-Nanometer Process - thelec.net",
-   "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5sNXdmTE5TeU9QWjdDVnVkS2dqSUdKVUVoZGVFb0hMZ3psMmhDb1IxUFhrRTh1a2NzTmZITi1TQmRVb2dLelkzRW14ZUQ2cFhjQjEzUVpXMUFwa1k0RGtTRTVSSVNOM28?oc=5",
-   "published": "Fri, 29 May 2026 07:00:00 GMT",
-   "source": "thelec.net",
-   "signals": []
+   "title": "Samsung Foundry Declares Shift to AI 'Platform' with 2nm Process and DTCO - finance.biggo.com",
+   "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTE1QM1ZTanFIM09sTE4xN3Z2TVViOF9JS2lDci1BeVpLbHEyOWtSMzVpSkQxZUQ2T0o0MEYwbWFKaW5Xb3NfcXVibndBVmFwRGw2LUFyU28tVm5NWkJlcEhYQW44V1RoTWJ0SnAwNV9HR0x5WXpweUE?oc=5",
+   "published": "Wed, 01 Jul 2026 02:55:00 GMT",
+   "source": "finance.biggo.com",
+   "signals": [
+    "node"
+   ]
   },
   {
    "topic": "samsung_foundry",
    "lang": "en",
    "title": "Cadence strikes new partnership with Samsung Foundry to deliver 2nm platform for AI chips - My Everyday Tech",
    "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxOZWpnb3ZMZGhBbjlCb0RNaVpMUjB5VHdMNmpOaUIxS3R1TE1EN3c3VmlmbW9kakRSYlRYSndpMDhXMExOa05nRVZzajgtV2cwb1NDeUZsUjhwOVdfSXdSbGxJTl9qX1ByU28zdU00Mi1hM196eUEyZGRrWDJJQXVwV3QwSFNZMW9COFFHeGo1dHhOZw?oc=5",
-   "published": "Sun, 21 Jun 2026 01:40:11 GMT",
+   "published": "Sun, 28 Jun 2026 01:54:41 GMT",
    "source": "My Everyday Tech",
    "signals": [
     "node"
@@ -418,6 +391,17 @@
   {
    "topic": "samsung_foundry",
    "lang": "en",
+   "title": "Samsung’s 2nm Advance Draws on EDA Innovation from Cadence, Siemens, and Synopsys - The Futurum Group",
+   "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNNW82Q3NDd2pfZmU3VVl1QXJfMXRBOVAtZWpBM0RUVW5WX0dfZVJ2emo3N3ZMWTExMi10TVpYdGxRYm5kWkRhMl9qeWdVWjE2VDF1YmZqMVdoZHp1UUNoaDdIa09aUUR5bGJGdGYwVTNiRmFqRmV3QXFLT2NSRVhRRVNUN0FUeVZqY29VSVN6T0gtb1ZLamRsQ21YQWt2b3ZvcFk5cGpPQWhxNlVrT2JYNnpOdw?oc=5",
+   "published": "Mon, 01 Jun 2026 14:41:13 GMT",
+   "source": "The Futurum Group",
+   "signals": [
+    "node"
+   ]
+  },
+  {
+   "topic": "samsung_foundry",
+   "lang": "en",
    "title": "Samsung Foundry turns to 5nm, 8nm orders as 2nm comeback takes shape - digitimes",
    "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxNQ0t0MTN0UGZ6WjBsRnVHMkJHYUlldTkxU203ZHJEZnN4YW1FNFdINWotaUN3UlNXUVBQUFRnNkYwTFpsbDY2a1QxWE9EeFhNUFA2Ylk2NV9wMG5qbk44YUg5YTl1dXowTFJfVi1XRkUyY09fTERCNDM0UGhGZkcxUF9ldHJFZFpfajZIa1ZTd254UQ?oc=5",
    "published": "Sun, 07 Jun 2026 07:00:00 GMT",
@@ -429,20 +413,18 @@
   {
    "topic": "samsung_foundry",
    "lang": "en",
-   "title": "Cadence, Samsung Foundry Expand 2nm and 3D‑IC Platform Partnership - EE Times Asia",
-   "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPdUhPejBOY1VnWGlWUHpRdGxyQzlNczFTSUJQYnl6MUhMMlRyRVNMSDdrMVhIcl8ySVI0VG9kOE1vamRxaENJTTFLMm84Q1c2aTQxSkM4Rlg3YzU1bUNSNVZ0SGF6bWVHZEhqYXcxakJUbXdFYVFZYmJZNjY1c3lNaV9fT1pqanA0WnZIUW9nOVo3Ti1PbUNxR1ZfVFRIR3c?oc=5",
-   "published": "Fri, 12 Jun 2026 05:34:58 GMT",
-   "source": "EE Times Asia",
-   "signals": [
-    "node"
-   ]
+   "title": "Synopsys Advances Power and Performance for AI and Multi-Die Designs on Latest Samsung Foundry Processes at SAFE Forum 2026 - Synopsys",
+   "link": "https://news.google.com/rss/articles/CBMi8gFBVV95cUxNTGtyY1ppSGFMS3BJbUxQbjZDX1dmdUdGdWxQenlZeTYtX2lBUUdEdk1PWFV1cWpRS3N1YS10R3pPQkZrLWFZS0o3bi0tb2lxbm9sRnJxbVhXVEpfXzZiNnZDb25jMjV2a0xIdGpodjIzLUNCXzdhYkV3cHdhaU42V3V5RzhPanZWN0Z2U2x1OVJ4SktGNXFnOW5rLXF0M0IwdEtjQXh3TW5yaEpaN0dHVktYRmdrX1UzSDgwdXZTN1lVV3B4SHBKVWxLR3IzdHJOZW92VlU2QnpCQkxtamZIYWpoQkdmUk13Xy1UZVhLN1JnQQ?oc=5",
+   "published": "Thu, 28 May 2026 07:00:00 GMT",
+   "source": "Synopsys",
+   "signals": []
   },
   {
    "topic": "smic",
    "lang": "en",
    "title": "Is SMIC N+3’s Metal Pitch Smaller than Intel 18A’s? - SemiAnalysis",
    "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9JQUQzMkxVU3lWcVhHMHRBSDZBUUx0UUZpeUlYa2ZVTnhoNW5pSW03aXhYeG12Wk83eWlDcnB4c1ZjMGVrVlc5SnZqOEc0N3I5OC1TQ2tfQ0U3blVsQXhoc1dLdGpTcGJUdWVraQ?oc=5",
-   "published": "Sun, 14 Jun 2026 19:14:21 GMT",
+   "published": "Sun, 14 Jun 2026 07:00:00 GMT",
    "source": "SemiAnalysis",
    "signals": [
     "node"
@@ -478,6 +460,15 @@
   {
    "topic": "smic",
    "lang": "en",
+   "title": "China aims for 5-fold increase in advanced chip output to meet AI demand - Nikkei Asia",
+   "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxPeGxTVW1yaG9iNnhjc25HZ2owZWNjcWdieFc5c0h2X20weDVzSEdvMVlxZHcwSlJMTVIyN0lCc2NhdEJRY2tTZlM4dzhOdG0yc3JDUTA4XzhXVkVJOVpWdHB0bnhNd2pGNG1ZT1ZtWlNaRVBNQjRxTC1LMHJYRFlaZ3lXQTVKQmQwQWIxdVlDNFlEM3dZTmVGU0htS1duUEt5WGlzTW1ITXRVR2Jwb3V6TGRXS1h5b1c4WDcwX0FUQ1NkN0ZH?oc=5",
+   "published": "Wed, 25 Feb 2026 08:00:00 GMT",
+   "source": "Nikkei Asia",
+   "signals": []
+  },
+  {
+   "topic": "smic",
+   "lang": "en",
    "title": "China aims for fivefold increase in advanced chip output to meet AI demand - KrASIA",
    "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPNE9Yb0ZMc1B1Vl9EZi11b1JBTldVaHpGSkgtaWZSc3J2cVRnTmI2WEoxU1B0OHozMFRnbFBnZHZoZUNQeDk1aW9EaUJiWTM4am1XeHlRZlZoZkh1Qm1yWmJhM1N0WVRmM3IzRlU1Q2N0VTZSTzNRWTBnTnE1VjBpU1lhVTZfMXRsRTFJeVFkN0w2Ql8xUGpHekJn?oc=5",
    "published": "Wed, 04 Mar 2026 08:00:00 GMT",
@@ -503,20 +494,11 @@
    "signals": []
   },
   {
-   "topic": "smic",
-   "lang": "en",
-   "title": "Huawei, SMIC struggle to advance chips to 5-nm level, MateBook shows: report - South China Morning Post",
-   "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQdVpmWjI2MUZMS082NEg3eEczbnJMTjd5d0dsa203bGJfSWNLLS0zUUI0SGdBU0puV2taTEJ2WExsengxYmd6bFJtWnRNdE1iSXFYTmJKbEpTNTRmbDRpSGZ6azF1bHhvNmU3ZE0zaC1zWUdsbHFqWGltWGlXcFZfM0p1NzJHcHJkcjNmbnpZblNVSVNDX3ZLei04dEY2b05XenpLbjM0aUh2MEpsSUxtVzB5TENVT2hxcEHSAboBQVVfeXFMTUkxRC1jLW5pMUlvNTNQQjduZy1UUzJERk1qd0VNcHA4NWZZTXlZQnlDZFdiQzV1cnczbGRFT2pRYkNrdDhGS2dUbE1faDlEWEhNdUpfNVQ1SDdsUmtlR3dOVzQwcUFibkVHTW5KOGJJN3g0cC13TkVnZkROUjVRZGNuSFNKTE9ZQjJROWg3anA3Q3JCQmhuWU40cTk5enVsbHkxSGlHeTB3b1puekhHSTdjRF95S0REVzdR?oc=5",
-   "published": "Tue, 24 Jun 2025 07:00:00 GMT",
-   "source": "South China Morning Post",
-   "signals": []
-  },
-  {
    "topic": "tsmc_orders",
    "lang": "en",
    "title": "Intel Foundry Challenges TSMC Dominance With Massive Google AI Chip Order - HotHardware",
    "link": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPQkJKR1UtbVFtRm5uYzJsTlMzb1QxVUE5MUFHVm5IbDgzRWZfZ05fN09PN1RnOFlhMHBILXNIZFJoSi1MeFdyWHBiMWh4Y1MyTFoyMEtfNTdwZzViNlhWdDlCM2dwMzdvMllockJCUWMxOW9hSnBkemlBa29fTmZhWA?oc=5",
-   "published": "Tue, 09 Jun 2026 18:45:00 GMT",
+   "published": "Tue, 09 Jun 2026 07:00:00 GMT",
    "source": "HotHardware",
    "signals": []
   },
@@ -543,19 +525,19 @@
   {
    "topic": "tsmc_orders",
    "lang": "en",
-   "title": "TSMC Supply Constraints Are Now Forcing Fabless Manufacturers to Look for Alternatives; Samsung Foundry Now a Serious Option - Wccftech",
-   "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPTlFtdDJCMENYTTNvdFZIRWVlTGQxcER5WHYtNWNQanhtTDRyalhTakRHeXRtWGk4aTE0ME42RVZjU2xGLXBXYmFGN0l5VHFRSkJHXzAydlg3OGtJUE9uNlZCVHNGOXpJc3FYZi1zZVJUOTlFVWNWRlpKZFZQU0dqWHMtY2QwSkNMbU00d2pnT3lpRTNCVVg5Rnk5dXpMUXFjdXd5WUpvWGJEbV9Z0gGyAUFVX3lxTFAydUFBdUo4c3ZHU0RSSnZubmE0QXBqZXF2YmZMX0ozeG9TWnRGdDFZRHFlY0Z5N0lYeXZpSUpiV3NaR1F5aGY4QUVWXzRoeW1OQU5kZlc3Ty1IMlRvcFVPclJWWXZjTFk4UDcxTHQ1NDRkenE5dV96cTNYa1R0X1pYalpOUUEtZHEyZ1B1YllIUVZaZVhLT3NzMkI2NjlJSnVNbmQxd3F0UVNqVVUwSHBoVXc?oc=5",
-   "published": "Thu, 01 Jan 2026 08:00:00 GMT",
-   "source": "Wccftech",
+   "title": "Intel to snag orders from TSMC customers after grabbing ex-TSMC “Superhero” Executive - OC3D",
+   "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPV0RQaHU3WXFYNFF5d1BqaUxOcHRqcWEyTGxDaU1WcWZKLXZKeWd2b3RXajVlRjRBRFlMZHJMOHp1NmxReGhkWnN5ZTBtSGJmZ05ZZTJ2TkFZZEN0M0VoQWpnYXhOeHktQjI1dnJvcDhKVHpSbDIyd2tVcXM5VWdZYk9lRndOemFYOGY4bTVJUFVCSDBCc2lZSVZRSkNaaUw0WVJDV2dZc24zZjhTeDBjVnQ5cVNNcUwzU0E?oc=5",
+   "published": "Fri, 21 Nov 2025 08:00:00 GMT",
+   "source": "OC3D",
    "signals": []
   },
   {
    "topic": "tsmc_orders",
    "lang": "en",
-   "title": "Intel to snag orders from TSMC customers after grabbing ex-TSMC “Superhero” Executive - OC3D",
-   "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPV0RQaHU3WXFYNFF5d1BqaUxOcHRqcWEyTGxDaU1WcWZKLXZKeWd2b3RXajVlRjRBRFlMZHJMOHp1NmxReGhkWnN5ZTBtSGJmZ05ZZTJ2TkFZZEN0M0VoQWpnYXhOeHktQjI1dnJvcDhKVHpSbDIyd2tVcXM5VWdZYk9lRndOemFYOGY4bTVJUFVCSDBCc2lZSVZRSkNaaUw0WVJDV2dZc24zZjhTeDBjVnQ5cVNNcUwzU0E?oc=5",
-   "published": "Fri, 21 Nov 2025 08:00:00 GMT",
-   "source": "OC3D",
+   "title": "NVIDIA and AMD Choosing TSMC as Their Primary Foundry Partner Became One of the Biggest Bets They Ever Made, and It Redefined Dominance - Wccftech",
+   "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQR2FfZEYzOUJCdXY5S29Nb0g4a091SS1kRUxfeklmVG9FYS1iZ1pfWU02cTdoSzM2UHpYMDB6NTZDVFI5c1J6aU1ZN1h5aXYxUGVLdUtrc2kyRzBVMnRxZjBLOGpwV3kxZmhRcmNDMXBvTk80U3hlZnZwc3U5ZUdxaWtKYXA1WUd20gGOAUFVX3lxTE56SlBPd1laWlh1V0FyMHh3eFRCN21VdEVhdkxwWTdPYnFWbmRrbzl1dmVKUDJpcE5leEtzUnI3TGJ1M1ZCUjlQTnY3aG1hNUJrNDZRRHo2ZVVuTHdFOUhNMXZfM3lpb19GZ2xmdFNQLXNuQ3VzVFcyODZqSmktemJHU3JDRFdQZTB4bDRUb0E?oc=5",
+   "published": "Sat, 24 Jan 2026 08:00:00 GMT",
+   "source": "Wccftech",
    "signals": []
   },
   {
@@ -570,101 +552,119 @@
   {
    "topic": "zh_intel",
    "lang": "zh",
-   "title": "陳立武認了！英特爾代工仍遠遠落後台積電 這個時間點才看得到成果 - 經濟日報",
-   "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBaN2xuMmFNQ2E2dnFtR3ZnUm1yRHpLU0swcWNuNjRja3VKVUpISUotVFdEQmlsZnhZbi1wQno4dEtUQl9NQkJJampsTm5tSWZxRi1NNVdjYmFRZ9IBX0FVX3lxTFBSdzBJM1ZkenVYamRYZklyMjQ4ckw3WVNONW54aUdteTByQkh5UDgtT3VCMG9QZlhhcFIxbzI4Ri1tajctM1VvS0VFcEZ1RVNaaldXUjRPa2d1WUYwTi1F?oc=5",
-   "published": "Sat, 20 Jun 2026 10:48:15 GMT",
-   "source": "經濟日報",
+   "title": "特斯拉 Terafab 晶片項目首名高層就位 英特爾 17 年老將出任總監 - unwire PRO",
+   "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1ud1J2WHNZSTJLMHlBMWRRcUJyZm1lV2VNS2ZYb1ZyT0hHZzdDQ25FX25PSXU2YU1aTDB6THpVNnNSdkhWNnF2YmxaUGxpeWRhNThvU0VMRXZFQmM0RE1lazZUdWtZM0MzcGNJM0NIX2Q?oc=5",
+   "published": "Thu, 02 Jul 2026 05:00:40 GMT",
+   "source": "unwire PRO",
    "signals": []
   },
   {
    "topic": "zh_intel",
    "lang": "zh",
-   "title": "英特爾傳與聯電合作 3 奈米，專家：可望創雙贏局面 - TechNews 科技新報",
-   "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxObmxHMXBsQnppV0JSY1hUVV9xSjdyVVRjZFc4YlY0WEk4UjVFQUVzS3NBN0JHNWFfMzJ6cU1ZcEhrUE4ybXdVVjhJWnpjbGpfRllhZDFqa2U0NVA1OVJKMjRVUF81OHhWRnlqOVBCY1FWU0VpdUd3RS1tZ3V1XzBOZXZiWDBjc25sVEpzcnRmRHNGUQ?oc=5",
-   "published": "Mon, 22 Jun 2026 04:14:01 GMT",
+   "title": "合作英特爾、切高通供應鏈！「晶圓代工大廠」一度漲停噴38.8萬張 成熟製程H2漲價後市俏 - Yahoo股市",
+   "link": "https://news.google.com/rss/articles/CBMi-AJBVV95cUxPMWZTNGFxWUNIeTFMVno0R1pJaFI4azNfMS03eVhKUUZCd2l0WWczTzZSdUVhLTQ2V3J3S2xhMWc4UjhVSHJNelhuZERjTUZZWkYyeUFWZVdyeDRESV9yNkZEajRkRGJtSDVscGJEOEY2bDBOZDNrNzJrYUktR0lDR2JPc2dEcFJRYThXbjB1eU5ydW9xM1FaNkxxemk3TUhKQUFqRGNRdjdmUTlwWk1CUG83OS02a1F2SkR3OWd2a1dhTHdjYkNXMXlLV0Q1WHdUdDZhVWZ2WXJvUU4xbURKV2gwTGpYS1hIYklHSVhuVmh1dHlEbVZ5aWQ4aUdGMHhoejhVWTJZbkpPQUJPaC01YUpRRUdzUXliZkhIRzNvaF9tSGRaaVgxTFlBQ2RvVG1RNl84OE0xZjRpR1dfazZUUHFFZVpEN3dualNsTXd1RDNQWEo0cnBuV3RyVjhkR193LU9YSjdELUVINkY1czFEalpYemNCRE9u?oc=5",
+   "published": "Fri, 12 Jun 2026 07:00:00 GMT",
+   "source": "Yahoo股市",
+   "signals": []
+  },
+  {
+   "topic": "zh_intel",
+   "lang": "zh",
+   "title": "Terafab延攬英特爾老將 加速晶圓廠建置與量產布局 - DIGITIMES",
+   "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPdDBaWmFMUUkwOTA1aU1NOXE0dDd3eFNsYmVZb0ZqYTBBRHlKT21GZmVPVkdSbHBYM05Uc1RtSFVwdmstek53c0RSWTZPaHQ5ZFFlcTZxb09mUDJMdXBzOTIyNFlRcjV0cHVBcDhDN29XdWNnSk14YXAwVUk5TF9DU21HRFN1YkxUSVdJbjZR?oc=5",
+   "published": "Wed, 01 Jul 2026 03:55:00 GMT",
+   "source": "DIGITIMES",
+   "signals": []
+  },
+  {
+   "topic": "zh_intel",
+   "lang": "zh",
+   "title": "是晶圓代工，還是先進封裝？Google 下單英特爾 300 萬顆晶片消息引爭議 - TechNews 科技新報",
+   "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNbEhOMnpmU2QzdWRsOXlaMzdNTnMxQmpLYjVYb09mQ005M0xxU1NobmFwVUZTQkpZdGFqckNMNElReDU1ZnRsdVFZZXgxMUNMYUZPZmFhVXdSWThGWXFILV9pVTNVamtFWDRWV2lZTGkwMnVYRHNxc3ljNi0yMGJLSHRLT0FzVFZPTmZuMjZGWUtCdjJoQjc4?oc=5",
+   "published": "Wed, 10 Jun 2026 07:00:00 GMT",
    "source": "TechNews 科技新報",
    "signals": []
   },
   {
    "topic": "zh_intel",
    "lang": "zh",
-   "title": "川普幫英特爾抬轎 外媒揭真相：王者還是台積電 - 自由財經",
-   "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE00cEpSTkFmWm9iYkNTNTlQeFFVUG5tVG9jRjFiTXp2VVA1SnE0N2Y2MG1FQjlaZDRFVk9xRmxFblk5WkhVaVo2TWxhelowdDlDVDBFMDFjdGVjZWE4TEZZ0gFkQVVfeXFMUE1teFNhVmZHc01FRVBvTFdlRUhJREVaX191YW1IYjV6OG9tTTE5dzV5YkhnVUJ5SE5MNzR1bC0wOW9ZeWZOT2RYSFZTbEE5NGRZMVotNml2bXpQT0laT3ZiZmRWUA?oc=5",
-   "published": "Mon, 22 Jun 2026 06:27:31 GMT",
-   "source": "自由財經",
+   "title": "美股：英特爾擴建先進光罩新廠，惟不敵半導體拋售潮，週三股價重摔9.03% - 富聯網",
+   "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNd0JnQjE0MGZKaWZZYXRCMTJoV21lS2VKcGxIdXpNU1IyWFRBUkt5MEMyRnU2VzdjUUdhU2tfY1hZQ3ZSTkZ4ZDBoNTRpV25BU0VfTDhUbG9qU3U3N2hMMXVJOXBmbDJ1T0ozTkU2cDV1dmxETWY3dlQ3T2wxZUtXRnhnTkVPbkVV?oc=5",
+   "published": "Thu, 02 Jul 2026 00:54:00 GMT",
+   "source": "富聯網",
    "signals": []
   },
   {
    "topic": "zh_intel",
    "lang": "zh",
-   "title": "英特爾搶攻晶圓代工市場 台積電高階製程霸主地位受考驗 - 財經新聞 - PChome Online 新聞 - PChome Online 新聞",
-   "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxQTFlsNXhCQXpxa0ZvZVllOHZSQUIzZzNfOXppSzJBVGM1QmdnN0hZVDZCaFVrQlFjcGlHZzdYSm5iR0RRTktHQlBIMzVGMEVNaEdJOXY4LV83MlRlaFg2LVY5dDkzcE5yNS1GcVFiWkNOaTJtVVZKS01PTERieGo1ZGVPQ3IxS25QOFc1Qg?oc=5",
-   "published": "Mon, 22 Jun 2026 03:14:21 GMT",
-   "source": "PChome Online 新聞",
+   "title": "晶圓代工迎春燕！「這檔」產用率飆8成獲利翻2倍 世界漲價15%、力積電切美光及英特爾供應鏈 - FTNN 新聞網",
+   "link": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE9RRHhDamlwR1N3VjR4eWxTbFA5WmlXejZLR1JUYWRLYW9FTmNRYmxicXpfc1NvV0oxZ1hkS3dBdWxmSVBzRnRuWkxoYw?oc=5",
+   "published": "Sun, 28 Jun 2026 11:50:00 GMT",
+   "source": "FTNN 新聞網",
    "signals": []
   },
   {
    "topic": "zh_intel",
    "lang": "zh",
-   "title": "英特爾和蘋果根本「還沒談好」合作？美媒曝英特爾高層對川普放消息感到意外 - news.cnyes.com",
-   "link": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE9yUTBTZ2tDY0NvSTZ0cjNYUi1PMkhUeGkxV0NrM2JPNDQ0VVlCbl9iM1FTM2lPM0x2T2dBTDFvX0FpOUdoN2MyT1pvVWN3d28?oc=5",
-   "published": "Fri, 19 Jun 2026 03:03:31 GMT",
-   "source": "news.cnyes.com",
-   "signals": []
-  },
-  {
-   "topic": "zh_intel",
-   "lang": "zh",
-   "title": "坦言英特爾晶圓代工業務遠遠落後台積電 陳立武透露具體成效會落在這個時間點 - 財訊",
-   "link": "https://news.google.com/rss/articles/CBMie0FVX3lxTFB6XzBYc3VLZmlrNTdKNmdWWVVIQ2xsam94Mzg3VV9ROWVrSXEzcEZBQ2liT0pueFRvU1NrTE9xN0JUeE05aHhIc3FMMk9wUkd6emdYNGxYaGMzeS1NdFRaN19xVk1nTlJOWmRfMGR4Y01oNFI2UWF2YUhwVQ?oc=5",
-   "published": "Mon, 22 Jun 2026 04:10:34 GMT",
-   "source": "財訊",
-   "signals": []
-  },
-  {
-   "topic": "zh_intel",
-   "lang": "zh",
-   "title": "川普宣布蘋果英特爾聯手 在美打造晶片供應鏈 - 蕃新聞",
-   "link": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE1UcnUtYTNRVVE4UzNPMDFUaXVDdkp0WF92cXBfaVhWS2pEMjhtcWprcUJzODJWWlVXTWhhVzBvYUdVaFJ4dkp0YVRtcTlxY1VSREE?oc=5",
-   "published": "Mon, 22 Jun 2026 01:46:00 GMT",
-   "source": "蕃新聞",
-   "signals": []
+   "title": "英特爾執行長陳立武：5至10年實現10倍回報 拼晶圓代工良率 - 中時新聞網",
+   "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTE1UWVN4aGZxay1jcXNNaUtIU0hSSjhtOTV5OGdlTnhqc3VrYXhhR0V1bUVTaFQ2R25nRlJJMS11WGRIR0JZR1hBRTM0Um9jcmJua3A3Ui1PVTlyaTFkUUIzQXpwSm1hUkJmWEVXSjRR?oc=5",
+   "published": "Fri, 19 Jun 2026 07:00:00 GMT",
+   "source": "中時新聞網",
+   "signals": [
+    "node"
+   ]
   },
   {
    "topic": "zh_samsung",
    "lang": "zh",
-   "title": "英特爾延攬SK海力士前CEO - 經濟日報",
-   "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1Sb3M0Q2xHNDM3b1BkMk1SMW1WQnBPRXRNVFltNHdwTHdPTjhOcUFiTWYwOG5well6QlV0ajVUR1FYNDhzbm5rdV9oT3NWRElOMnVfUTRuREVGd9IBX0FVX3lxTE1LMFlNMG1CTnItSTFWaXlONjF4QjlPRFpOdkx4MFRVRHRTTXFRc1ExeTFyUVZ2bUh5eTV5X2YyVVY3eXVkQmZaNjRJQmJ1QUlNZnR1d1RRT2lEVXpNX3Bj?oc=5",
-   "published": "Fri, 19 Jun 2026 16:46:30 GMT",
+   "title": "韓媒：三星晶圓代工先進製程近滿載 新訂單改採配額制 - 經濟日報",
+   "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE9zZkZLRmVVbEJReWJkM3NfYndnQ2ZKU2hZWUlHWjVGT05yM0p6WUl2d29uQWxoYmdmekVsZWxzeC1rX21RS1hMM3RTRG5wejlxR2R0eGRZVWVJUdIBX0FVX3lxTE9lTV9fR3ZhaG9DLUEtSVdncTFNSUtSYmRCNzNxSjd5MUlpRVQ3QW9qd3FfMWdxYWNVSHcyclFjeVZXTFdicUlLQ2lDazVQU2RGREVfNWFZSG9SUktHTXZN?oc=5",
+   "published": "Thu, 02 Jul 2026 06:44:10 GMT",
    "source": "經濟日報",
    "signals": []
   },
   {
    "topic": "zh_samsung",
    "lang": "zh",
-   "title": "全球前十大晶圓代工Q1營收季增3.7%創新高 台積電市占率升至72% - news.cnyes.com",
-   "link": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE16STYwbnFmLV9WajNmM3Yyd3ZpUktYUkF6ZG5hd1MyQ1NmNFlnbmlrbVlRRXF6dzdtTzl4TlhnNDJ3RWVyV0RoSmJUNjkwZGs?oc=5",
-   "published": "Fri, 12 Jun 2026 07:00:00 GMT",
-   "source": "news.cnyes.com",
+   "title": "三星晶圓代工 AI 時代布局三大新藍圖，先進製程 SF1.4 Plus 將於 2030 年亮相 - TechNews 科技新報",
+   "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxNSS1uV3pRZHBxUnpnekdjaHk0QVdiTmthdjRqVHVHRl94bDB4dUFMRlVjT2g0UHdFMEZhRlhKaEZEeGUySUxiTk5FNG14V2VMYkVrOGRGUThkemx6ck9qc1ZoWWFtOV9DbnI1OUxLRktaX0VPNmd5X3NoZ0ViRjR6SXA0X0dKR3RWU3N2R1h0MllCXzVEOWxxa3BWc2U0dw?oc=5",
+   "published": "Wed, 01 Jul 2026 23:59:36 GMT",
+   "source": "TechNews 科技新報",
    "signals": []
   },
   {
    "topic": "zh_samsung",
    "lang": "zh",
-   "title": "台積電產能吃緊 Google等多家大廠與三星洽談晶片代工 - 自由財經",
-   "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE95N3ZwQWlsM0FWUk4yZ1NtVldLeG5rdGN1emRlUnRkSXRiU2RpUllEYW1oQzlDX1NlR2RqbTF3MGhtYy1oeEZtbzNhR2hJSGNUMzdjSGluWkVSa2s3VWMw0gFkQVVfeXFMT2s4US15NEJfbzBWY0JuZUN3Z1pBUDNPUm55OFBrWVRMZ1JVd19sZWFZdGF3NzZZeFFHUlNZZ0tpaDA4X3FUdnJvaExRMWxKNHFkSW41OTNnUGZHMTdPM3llQm1YMw?oc=5",
-   "published": "Wed, 17 Jun 2026 06:25:39 GMT",
+   "title": "晶圓代工2.0 台積電38％市佔率第一三星居次僅4 - 自由財經",
+   "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE50aXdCNGlGeU5pWXpEclh4dmNwZnVMR1UtTjJIQ1lraEo1RjZtSExOUEJEQ01sOG5RSTZHTkJMUUlRNkJMT2hZRXNlSURwVVZkeXFDWEtTYXRhYnVYWmFr?oc=5",
+   "published": "Tue, 30 Jun 2026 07:23:25 GMT",
    "source": "自由財經",
-   "signals": [
-    "capacity"
-   ]
+   "signals": []
+  },
+  {
+   "topic": "zh_samsung",
+   "lang": "zh",
+   "title": "三星晶圓代工止血無期！高層首認2027轉盈不容易　恐等到2028 - ETtoday財經雲",
+   "link": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE10aDBhUm9hWGIySlpwNm9VWW90QnNIdDZpd0dzNzVTYldmb1RiV0RuUTZLVkdRYUhhOC14bjJhYTczeVFWdlZ5dXgtTGM1MWNPY3fSAW5BVV95cUxPalNrOHpWWTN4dVB1SjdwNkVLcWZPSVpGNnZZTWx5Z1RpRGh2eFMtdE5NM0NLQXY3TGZEd3l2VC1paWpNM1BBNUU1clBRRVJMSlZlQWt6OU1nVHlrZ0Frb3FmUnV2ZUlyRkdkRG5wQQ?oc=5",
+   "published": "Mon, 15 Jun 2026 07:00:00 GMT",
+   "source": "ETtoday財經雲",
+   "signals": []
+  },
+  {
+   "topic": "zh_samsung",
+   "lang": "zh",
+   "title": "神山越甩越遠！台積電晶圓代工市占攀72%新高 三星縮水 - Yahoo股市",
+   "link": "https://news.google.com/rss/articles/CBMi8wJBVV95cUxPVXhNRzlZX05SdWNWYUlQYzVJaDhieHB1dld3RzY0VFNPdjI5cTBaZURVQUpvYVlCV05lclMzUTE2dk8tbUhlcDZqV1VmU25Wek5jUmVpMGg3OFZENVhlZ2NaVmFIemVEcG8xS25GNTg0TnBRb1Jmc3NBN1g5b3lWMHhmcmZDT0w5eDhBLUdWUjdDZnU2dTJzN3l3V1RfeXJCYkstTEpTZU5NSGsyRjY0WnZkUHptZmhmZElDZDlRMkpRa1dSdUVZeUdEVjhSSUt5Y2JScjRyemdJMklTNDFiOG5RWXhVTk9GTU1uYlViNzA1emlhRGd3UVBWc29rMDVnZEZaZkFmM1ZMeHlpSVE1SmlUWUFkNGM5MmNPSmV1S25aMW1QUXZlOF9GYlZuTGp4LXg1QWRNNENsZVgzaTBBbmI2UUcycllackowc012dmhhVFdOSTh2QlBRaURMZjVnNy1UWXJlUmgwdV9pSHVQZl9qcw?oc=5",
+   "published": "Fri, 12 Jun 2026 07:00:00 GMT",
+   "source": "Yahoo股市",
+   "signals": []
   },
   {
    "topic": "zh_samsung",
    "lang": "zh",
    "title": "台積電產能滿載成三星晶片代工春天！Google、AMD、比亞迪詢單量激增 - 鏈新聞 ABMedia",
    "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPckN4eEVWanltd1k0LWRWQ0RjODV1MGNZN3JGMU1ZV3MtNnM4Ykp3bEpVYmQ3dmFtY3E0NkplbDlQQjFBQk5fR2QyTjFhY2xyODR4VkkxYzBEakJ5NV9UYUsybE1KWHl3YTdPQTVMX3VTeEVFUDNuaDUzaDVzMkFUY0xSOU8?oc=5",
-   "published": "Wed, 17 Jun 2026 07:46:11 GMT",
+   "published": "Wed, 17 Jun 2026 07:00:00 GMT",
    "source": "鏈新聞 ABMedia",
    "signals": [
     "capacity"
@@ -673,42 +673,41 @@
   {
    "topic": "zh_samsung",
    "lang": "zh",
-   "title": "要買 HBM 先來談晶圓代工，三星掌握與台積電競爭施力點 - TechNews 科技新報",
-   "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPS1NmNUFSWHdzek8yTFJTVFh3YVVaSzJIcFZ1OE50bEdzNDVkRFM4UzJ6bkdjb3dNRGZtbDBpeENtWGQ1NV9rbkQ2b01NdjF0aThmUVdYaUJCb1FqXzEtLXBYQWRaVmNBQnpWdHJ4QWt3d1ZTdVBEOUlxY2prOEFNRUlwNVYyeDJ2ZS0xM1lpdDc0RWRvRnZtY25XeTVSV2M?oc=5",
-   "published": "Wed, 25 Mar 2026 07:00:00 GMT",
-   "source": "TechNews 科技新報",
+   "title": "轉型關鍵一招！英特爾挖角三星猛將 強攻晶圓代工市場 - news.cnyes.com",
+   "link": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE5UVnljSWQ0R1RCYjdqUWw0VEcyeTFXZFZPNDI1bzlNVVZWT2tDZ21qZzA2SVZfbTRUUDZacVNQdnZZcHdBZGEtX2tXNngzMDA?oc=5",
+   "published": "Fri, 17 Apr 2026 07:00:00 GMT",
+   "source": "news.cnyes.com",
    "signals": []
   },
   {
    "topic": "zh_samsung",
    "lang": "zh",
-   "title": "三星電子獲 Google、AMD 及比亞迪等代工訂單 台積電產能吃緊推動客戶轉向 - TradingKey",
-   "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQWWlyZDBOMGlUNGk3V0ZNTEtDYVZuZ3d6RzlLYm8yempPYkFsZEpfN0R2YTVGaEJYclNfanJra0Rsd3JGQ3d2amtMaU5JVTBGVXBYbmo1X2hxMlRuWTRTaXcwTHhJbUJiRGNmSXBaNFFPWDFuTkFlMDNUNVcwem9jdDhqLTBGaUNFSHdZNlBNTWo2cmVnVGIwc3NjWXdNSnVDbTBIclBR?oc=5",
-   "published": "Wed, 17 Jun 2026 06:43:48 GMT",
-   "source": "TradingKey",
-   "signals": [
-    "capacity"
-   ]
-  },
-  {
-   "topic": "zh_samsung",
-   "lang": "zh",
-   "title": "三星晶圓代工止血無期！高層首認2027轉盈不容易　恐等到2028 - ETtoday財經雲",
-   "link": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE10aDBhUm9hWGIySlpwNm9VWW90QnNIdDZpd0dzNzVTYldmb1RiV0RuUTZLVkdRYUhhOC14bjJhYTczeVFWdlZ5dXgtTGM1MWNPY3fSAW5BVV95cUxPalNrOHpWWTN4dVB1SjdwNkVLcWZPSVpGNnZZTWx5Z1RpRGh2eFMtdE5NM0NLQXY3TGZEd3l2VC1paWpNM1BBNUU1clBRRVJMSlZlQWt6OU1nVHlrZ0Frb3FmUnV2ZUlyRkdkRG5wQQ?oc=5",
-   "published": "Mon, 15 Jun 2026 04:01:00 GMT",
-   "source": "ETtoday財經雲",
+   "title": "三星熬出頭晶圓代工Q3拚盈- 全球財經- 工商時報 - 中時新聞網",
+   "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTFBCejR5UUxrbFlBc0tlUk4wUzBXV1ppRzFZZ1VzTVAyYnNaUnJDZHpDcmptUnA5bC1ROWFVUUU1eFV2WnBoQVpSUmV5ZGJ5Rm51TGtySEdpUU1Yamd5bmswSFpwNnVmd2tWTzFR?oc=5",
+   "published": "Tue, 09 Jun 2026 07:00:00 GMT",
+   "source": "中時新聞網",
    "signals": []
   },
   {
    "topic": "zh_transfer",
    "lang": "zh",
-   "title": "台積電爆單逼Google、超微集體轉投三星 中企高管嘆：雖良率落後但有產能 | 上報 - LINE TODAY",
-   "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE80WmxMbElzMjJHVG1fa2JLSDQtaEh3aFdhQTh2blBYOFdEMERLMEZZbmhyOTQzSlRTaW80Y0ozSHZyR0R1VmVfZVFMaDljX1MydXlpVWxR?oc=5",
-   "published": "Wed, 17 Jun 2026 09:15:47 GMT",
-   "source": "LINE TODAY",
+   "title": "台積先進、成熟雙軌併進依客戶需求增產能- 日報 - 工商時報",
+   "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE5jUXNBNzQ1a0VZQ3RmV3pqTkZ2VGZzZllHV1BSdlF6bEZXSkd1ZFdGY3c5Rloya19MQTZrWGJQUmlfbzg5TlBxU25BUmZOMExpZU5hR1BnVzd1QUZzZWtZ?oc=5",
+   "published": "Mon, 22 Jun 2026 07:00:00 GMT",
+   "source": "工商時報",
    "signals": [
-    "capacity",
-    "node"
+    "capacity"
+   ]
+  },
+  {
+   "topic": "zh_transfer",
+   "lang": "zh",
+   "title": "傳縮減 28 奈米產能，台積電：成熟製程策略不變 - TechNews 科技新報",
+   "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQajFleVNSMlB0Tm4zSUM0MllLWVlvbDN6UHpFMEdVcWJXMFFHX1dpd3l3UXlNWlZPOVlHMnN0OU1xYjFlcVhOc1AtU2RaQy1KcWJBVWJING5zODdsWGlZN1JrNy1WZTdjazI5aWZxVWQzb21PQjhmeDRWMWMzUzVQMnhHXy1lVGdyU3FjekY2ekl3M2w2NW9ENno5ZWZQdEZiRlVxcTJtM2pYZGgt?oc=5",
+   "published": "Mon, 22 Jun 2026 07:00:00 GMT",
+   "source": "TechNews 科技新報",
+   "signals": [
+    "capacity"
    ]
   }
  ],

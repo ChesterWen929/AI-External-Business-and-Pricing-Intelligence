@@ -1,105 +1,105 @@
 {
- "updated_at": "2026-06-22T06:39:44Z",
+ "updated_at": "2026-07-02T07:02:39Z",
  "quotes": [
   {
    "ticker": "TSM",
    "name_en": "TSMC",
    "name_zh": "台積電",
-   "price": 462.12,
+   "price": 444.23,
    "currency": "USD",
-   "change_pct": 5.68,
-   "market_cap": 0,
-   "ytd_pct": 45.3
+   "change_pct": -6.81,
+   "market_cap": 2303987407775,
+   "ytd_pct": 39.7
   },
   {
    "ticker": "005930.KS",
    "name_en": "Samsung",
    "name_zh": "三星電子",
-   "price": 352000.0,
+   "price": 286000.0,
    "currency": "KRW",
-   "change_pct": -0.56,
-   "market_cap": 0,
-   "ytd_pct": 174.5
+   "change_pct": -9.06,
+   "market_cap": 1878037048316000,
+   "ytd_pct": 123.0
   },
   {
    "ticker": "INTC",
    "name_en": "Intel",
    "name_zh": "英特爾",
-   "price": 133.99,
+   "price": 127.02,
    "currency": "USD",
-   "change_pct": 7.77,
-   "market_cap": 0,
-   "ytd_pct": 240.2
+   "change_pct": -8.88,
+   "market_cap": 638402503128,
+   "ytd_pct": 222.5
   },
   {
    "ticker": "0981.HK",
    "name_en": "SMIC",
    "name_zh": "中芯國際",
-   "price": 79.95,
+   "price": 80.2,
    "currency": "HKD",
-   "change_pct": 4.51,
-   "market_cap": 0,
-   "ytd_pct": 6.5
+   "change_pct": -10.29,
+   "market_cap": 686566345464,
+   "ytd_pct": 6.8
   },
   {
    "ticker": "UMC",
    "name_en": "UMC",
    "name_zh": "聯電",
-   "price": 24.08,
+   "price": 25.71,
    "currency": "USD",
-   "change_pct": 8.86,
-   "market_cap": 0,
-   "ytd_pct": 207.1
+   "change_pct": -5.76,
+   "market_cap": 64513760662,
+   "ytd_pct": 227.9
   },
   {
    "ticker": "GFS",
    "name_en": "GlobalFoundries",
    "name_zh": "格羅方德",
-   "price": 85.83,
+   "price": 77.23,
    "currency": "USD",
-   "change_pct": 5.92,
-   "market_cap": 0,
-   "ytd_pct": 132.8
+   "change_pct": -6.95,
+   "market_cap": 42376167174,
+   "ytd_pct": 109.8
   },
   {
    "ticker": "TSEM",
    "name_en": "Tower Semi",
    "name_zh": "高塔半導體",
-   "price": 286.74,
+   "price": 245.46,
    "currency": "USD",
-   "change_pct": 5.67,
-   "market_cap": 0,
-   "ytd_pct": 135.5
+   "change_pct": -4.17,
+   "market_cap": 29109398220,
+   "ytd_pct": 101.6
   },
   {
    "ticker": "1347.HK",
    "name_en": "Hua Hong",
    "name_zh": "華虹半導體",
-   "price": 166.1,
+   "price": 186.6,
    "currency": "HKD",
-   "change_pct": -1.19,
-   "market_cap": 0,
-   "ytd_pct": 104.3
+   "change_pct": -13.29,
+   "market_cap": 324238819019,
+   "ytd_pct": 129.4
   },
   {
    "ticker": "5347.TWO",
    "name_en": "Vanguard (VIS)",
    "name_zh": "世界先進",
-   "price": 191.5,
+   "price": 198.0,
    "currency": "TWD",
-   "change_pct": 10.37,
-   "market_cap": 0,
-   "ytd_pct": 107.5
+   "change_pct": -2.94,
+   "market_cap": 371911239216,
+   "ytd_pct": 114.5
   },
   {
    "ticker": "6770.TW",
    "name_en": "PSMC",
    "name_zh": "力積電",
-   "price": 81.6,
+   "price": 74.7,
    "currency": "TWD",
-   "change_pct": 10.42,
-   "market_cap": 0,
-   "ytd_pct": 93.8
+   "change_pct": 0.27,
+   "market_cap": 318772258102,
+   "ytd_pct": 77.4
   }
  ],
  "errors": []
