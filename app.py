@@ -34,7 +34,10 @@ from flask import (
 try:
     from dotenv import load_dotenv
 
-    load_dotenv(Path(__file__).parent / ".env")
+    # override=True: the repo .env is the source of truth in local dev, even if
+    # the launcher process inherited stale APP_* vars. Render has no .env file,
+    # so production env vars are unaffected.
+    load_dotenv(Path(__file__).parent / ".env", override=True)
 except Exception:
     pass
 

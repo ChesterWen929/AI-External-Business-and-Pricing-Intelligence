@@ -10,5 +10,45 @@
   </head>
   <body>
     <div id="root"></div>
+    <!-- 數據做法與假設 — static methodology footer (outside the React root, always visible at page bottom) -->
+    <footer id="methodology" style="background:#141824;border-top:1px solid #2a3247;padding:28px 24px 40px;color:#9ca3af;font-size:13px;line-height:1.75;font-family:inherit;">
+      <div style="max-width:1280px;margin:0 auto;">
+        <details open>
+          <summary style="cursor:pointer;color:#d1d5db;font-size:15px;font-weight:600;margin-bottom:12px;">📋 數據做法與假設 · Methodology &amp; Assumptions</summary>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:18px;margin-top:14px;">
+            <div>
+              <div style="color:#d1d5db;font-weight:600;margin-bottom:4px;">數據來源 Data Source</div>
+              全部 60 個指標（8 大類，其中 20 個高重要性）直接取自 <b style="color:#c9cedb;">FRED</b>（聖路易聯儲官方 API），每指標抓取最近 120 期歷史，無任何手動輸入數字。<br>
+              <span style="color:#6b7280;">All 60 indicators (8 categories, 20 high-importance) come directly from the St. Louis Fed FRED API — 120 observations each, no hand-entered numbers.</span>
+            </div>
+            <div>
+              <div style="color:#d1d5db;font-weight:600;margin-bottom:4px;">更新節奏 Refresh Cadence</div>
+              快照制：頁面顯示最近一次每週更新的快照（日期見頁首），非即時串流。各指標「最新值」以其官方發布日為準 — 日/週頻（市場利率、VIX）較新，月/季頻（CPI、GDP）天然落後 1–2 個月，這是官方發布延遲，非數據錯誤。<br>
+              <span style="color:#6b7280;">Snapshot-backed weekly refresh, not a live stream. Each indicator is as fresh as its official release — monthly/quarterly series naturally lag 1–2 months.</span>
+            </div>
+            <div>
+              <div style="color:#d1d5db;font-weight:600;margin-bottom:4px;">單位與變化 Units &amp; Changes</div>
+              依 FRED 原生單位換算顯示（百萬→十億→兆美元、千人 K、%、家數 count）。變化切換提供 週/月/季/年 四種期間；月/季頻指標的短期間顯示為「最近一期」變化。<br>
+              <span style="color:#6b7280;">Values converted from FRED native units ($M→$B→$T, thousands, %, counts). W/M/Q/Y change toggle; for monthly/quarterly series the short horizons show the latest available period.</span>
+            </div>
+            <div>
+              <div style="color:#d1d5db;font-weight:600;margin-bottom:4px;">Nowcast 預測 · 證據分級</div>
+              對即將公布的重要指標，發布前給出預測區間，證據分三級：<b style="color:#c9cedb;">official</b>（FRED 上有官方 nowcast，如 GDP←亞特蘭大聯儲 GDPNow，直接引用，最高信任）→ <b style="color:#c9cedb;">claude</b>（無官方時由 Claude 依領先指標合成，如 PPI/油價/通膨預期 領先 CPI 1–3 個月）→ <b style="color:#c9cedb;">rules</b>（規則後備：自身序列隨機漫步+漂移）。Nowcast 是模型推估，非官方數字。<br>
+              <span style="color:#6b7280;">Pre-release nowcasts with a three-tier evidence grade: official (e.g. GDPNow) → claude (synthesized from leading indicators) → rules (random-walk-with-drift fallback). Model estimates, not official prints.</span>
+            </div>
+            <div>
+              <div style="color:#d1d5db;font-weight:600;margin-bottom:4px;">AI 評論 AI Commentary</div>
+              高重要性指標的雙語評論與產業影響由 Claude 於每次更新時生成；其餘指標於首次點擊時生成一次後存回快照。屬解讀輔助，<b style="color:#c9cedb;">非投資建議</b>。<br>
+              <span style="color:#6b7280;">Claude-generated commentary/industry impact for high-importance indicators at refresh time (on-demand for the rest). Interpretive aid, not investment advice.</span>
+            </div>
+            <div>
+              <div style="color:#d1d5db;font-weight:600;margin-bottom:4px;">驗證與已知限制 Validation &amp; Known Limits</div>
+              每次更新對 60 個序列跑三種驗證：異常跳點、跨指標一致性、資料新鮮度。已知限制：領先指標採 CFNAI（原 USSLIND 已停止更新）；nowcast 與 AI 評論帶模型不確定性；FRED 數據可能事後修正（如非農就業）。<br>
+              <span style="color:#6b7280;">Every refresh runs anomaly / cross-indicator consistency / freshness validators. Known limits: CFNAI replaces the discontinued USSLIND; FRED data is subject to official revisions.</span>
+            </div>
+          </div>
+        </details>
+      </div>
+    </footer>
   </body>
 </html>
