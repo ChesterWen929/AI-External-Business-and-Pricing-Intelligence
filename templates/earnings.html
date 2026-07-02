@@ -202,6 +202,17 @@
 
 <main id="timeline"><div class="empty">載入中…</div></main>
 
+<!-- 數據做法與假設 · methodology & assumptions -->
+<div style="max-width:1080px;margin:8px auto 40px;padding:0 24px;">
+  <div style="background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:18px 20px;font-size:12.5px;color:var(--muted);line-height:1.8;">
+    <div style="color:var(--fg);font-size:14px;font-weight:600;margin-bottom:10px;">📋 數據做法與假設 · Methodology &amp; Assumptions</div>
+    <p style="margin:0 0 8px"><b style="color:var(--fg)">公司宇宙與分層</b> — 73 家 AI 半導體供應鏈公司為人工策展（T1 核心 30 · T2 重要 34 · T3 外圍 9），按供應鏈角色涵蓋 設備/材料 → 代工 → IC 設計 → hyperscaler → 電力/散熱/基建；供應鏈圖（73 節點、132 條邊）同為策展，用於跨公司訊號傳導，非完備圖。<br><span style="color:#6a6e80">73 hand-curated companies (T1 30 / T2 34 / T3 9) spanning equipment/materials → foundry → IC design → hyperscalers → power/cooling; the 132-edge supply-chain graph is curated for signal propagation, not exhaustive.</span></p>
+    <p style="margin:0 0 8px"><b style="color:var(--fg)">法說日期來源</b> — 設有 FINNHUB_API_KEY 時從 Finnhub 法說行事曆同步（美股與 ADR 覆蓋）；Finnhub 免費層拒絕的非美上市（韓/日/台當地代號）以確定性規則在視窗內推估日期，並逐筆標記「估計 EST」。日期以 UTC 儲存、太平洋時間（PT）顯示；盤前 BMO / 盤後 AMC / 盤中分類。<b style="color:var(--fg)">假設：凡標 EST 的日期未經公司 IR 確認、會漂移，重大安排請以公司官網為準。</b><br><span style="color:#6a6e80">Dates sync from Finnhub when a key is set (US + ADR); non-US listings its free tier rejects fall back to deterministic in-window estimates, each badged "估計 EST". UTC-stored, PT-displayed. EST dates are unconfirmed and will drift — verify against company IR for anything important.</span></p>
+    <p style="margin:0 0 8px"><b style="color:var(--fg)">跨公司綜述</b> — 10 大產業與 27 家戰略公司的 4 季敘事由 Claude 讀取季度財報（營收/毛利/EPS surprise 等具體數字）離線生成，附「對台積電意涵」，生成時間與模型標示於綜述區。屬 AI 生成解讀，非投資建議。<br><span style="color:#6a6e80">The 10-industry / 27-company trailing-4Q narratives are Claude-generated offline from reported quarterly numbers, with model + timestamp shown in the synthesis section. Interpretive aid, not investment advice.</span></p>
+    <p style="margin:0"><b style="color:var(--fg)">刷新節奏</b> — 手動密碼刷新重新同步行事曆（新聞/股價不在此卡）；頁首顯示快照產生時間與資料源（finnhub / seed）。<br><span style="color:#6a6e80">Manual password-gated refresh re-syncs the calendar; the header shows snapshot time and source (finnhub / seed).</span></p>
+  </div>
+</div>
+
 <script>
 const SNAPSHOT = {{ snapshot|safe }};
 const TIMING_LABEL = { bmo: "盤前 BMO", amc: "盤後 AMC", intraday: "盤中 Intraday", unknown: "未知" };
@@ -223,8 +234,10 @@ function init() {
     `未來 ${SNAPSHOT.horizon_days} 天 · 來源 ${SNAPSHOT.source} · 更新 ${SNAPSHOT.generated_at} · 顯示時區 America/Los_Angeles (PT)`;
 
   if (SNAPSHOT.estimated_data) {
-    document.getElementById("banner").innerHTML =
-      `<div class="banner">⚠ 目前為 <b>估計/種子日期</b>（伺服器未設定 Finnhub 金鑰時的占位資料，含 Finnhub 免費版拒絕的非美上市公司）。設定 <code>FINNHUB_API_KEY</code> 後按「更新」即可換成真實法說日期。</div>`;
+    const misses = (SNAPSHOT.coverage && SNAPSHOT.coverage.access_misses) || 0;
+    document.getElementById("banner").innerHTML = SNAPSHOT.source === "finnhub"
+      ? `<div class="banner">ℹ 美股/ADR 日期已由 <b>Finnhub 真實同步</b>；${misses} 家非美上市（韓/日/台當地代號，Finnhub 免費層不覆蓋）為規則推估日期，逐筆標「估計 EST」。</div>`
+      : `<div class="banner">⚠ 目前為 <b>估計/種子日期</b>（伺服器未設定 Finnhub 金鑰時的占位資料，含 Finnhub 免費版拒絕的非美上市公司）。設定 <code>FINNHUB_API_KEY</code> 後按「更新」即可換成真實法說日期。</div>`;
   }
   document.getElementById("sigHead").addEventListener("click", () =>
     document.getElementById("sigWrap").classList.toggle("open"));
