@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-22 06:40 UTC",
-  "as_of": "2026-06-21",
+  "generated_at": "2026-07-02 06:39 UTC",
+  "as_of": "2026-07-01",
   "source": "live",
   "is_demo": false,
   "title_en": "Capital Flow Radar",
@@ -19,15 +19,15 @@
         "role_zh": "場邊乾火藥;風險資產的邊際燃料。",
         "group": "safe",
         "signal": "neutral",
-        "tilt": 0.06,
+        "tilt": 0.09,
         "indicators": [
           {
             "id": "walcl",
             "name_en": "Fed balance sheet (WALCL)",
             "name_zh": "Fed 資產負債表",
-            "value": 6736.42,
-            "chg_1w": 0.16,
-            "chg_1m": 0.12,
+            "value": 6735.65,
+            "chg_1w": -0.01,
+            "chg_1m": 0.33,
             "unit": "$B",
             "live": true,
             "is_level": false,
@@ -39,9 +39,9 @@
             "id": "rrp",
             "name_en": "Reverse repo (RRP)",
             "name_zh": "逆回購 (RRP)",
-            "value": 0.25,
-            "chg_1w": -45.65,
-            "chg_1m": -96.52,
+            "value": 1.0,
+            "chg_1w": -77.94,
+            "chg_1m": -91.44,
             "unit": "$B",
             "live": true,
             "is_level": false,
@@ -53,9 +53,9 @@
             "id": "tga",
             "name_en": "Treasury account (TGA)",
             "name_zh": "財政部帳戶 (TGA)",
-            "value": 880.71,
-            "chg_1w": 6.35,
-            "chg_1m": 5.02,
+            "value": 918.7,
+            "chg_1w": 4.31,
+            "chg_1m": 17.59,
             "unit": "$B",
             "live": true,
             "is_level": false,
@@ -67,13 +67,13 @@
             "id": "m2",
             "name_en": "Money supply (M2, WM2NS)",
             "name_zh": "貨幣供給 (M2)",
-            "value": 22879.0,
-            "chg_1w": 0.72,
-            "chg_1m": -0.03,
+            "value": 23062.9,
+            "chg_1w": 0.59,
+            "chg_1m": 1.54,
             "unit": "$B",
             "live": true,
             "is_level": false,
-            "signal": "neutral",
+            "signal": "risk_on",
             "rising_en": "Money growth supports risk",
             "rising_zh": "貨幣成長支撐風險"
           }
@@ -89,19 +89,19 @@
         "role_zh": "所有風險資產的地心引力;利率決定折現率。",
         "group": "safe",
         "signal": "neutral",
-        "tilt": -0.08,
+        "tilt": -0.03,
         "indicators": [
           {
             "id": "tlt",
             "name_en": "Long Treasuries (TLT)",
             "name_zh": "長天期公債 (TLT)",
-            "value": 86.75,
-            "chg_1w": 0.9,
-            "chg_1m": 4.9,
+            "value": 85.52,
+            "chg_1w": -1.77,
+            "chg_1m": 0.43,
             "unit": "",
             "live": true,
             "is_level": false,
-            "signal": "risk_off",
+            "signal": "neutral",
             "rising_en": "Flight to safety / falling rates",
             "rising_zh": "避險/利率下降"
           },
@@ -109,13 +109,13 @@
             "id": "hyg",
             "name_en": "High-yield credit (HYG)",
             "name_zh": "高收益債 (HYG)",
-            "value": 80.01,
-            "chg_1w": 0.09,
-            "chg_1m": 1.35,
+            "value": 79.59,
+            "chg_1w": 0.14,
+            "chg_1m": 0.15,
             "unit": "",
             "live": true,
             "is_level": false,
-            "signal": "risk_on",
+            "signal": "neutral",
             "rising_en": "Credit risk appetite intact",
             "rising_zh": "信用風險偏好仍在"
           },
@@ -123,8 +123,8 @@
             "id": "real10y",
             "name_en": "10y real yield (DFII10)",
             "name_zh": "10年實質利率",
-            "value": 2.23,
-            "chg_1w": 0.02,
+            "value": 2.2,
+            "chg_1w": -0.09,
             "chg_1m": 0.13,
             "unit": "%",
             "live": true,
@@ -137,9 +137,9 @@
             "id": "nom10y",
             "name_en": "10y Treasury yield (DGS10)",
             "name_zh": "10年公債殖利率",
-            "value": 4.49,
+            "value": 4.44,
             "chg_1w": -0.06,
-            "chg_1m": -0.1,
+            "chg_1m": -0.01,
             "unit": "%",
             "live": true,
             "is_level": true,
@@ -151,9 +151,9 @@
             "id": "hy_oas",
             "name_en": "High-yield OAS spread",
             "name_zh": "高收益信用利差",
-            "value": 2.63,
-            "chg_1w": -0.17,
-            "chg_1m": -0.17,
+            "value": 2.75,
+            "chg_1w": 0.04,
+            "chg_1m": 0.03,
             "unit": "%",
             "live": true,
             "is_level": true,
@@ -173,15 +173,15 @@
         "role_zh": "避險與抗法幣對沖;與實質利率反向。",
         "group": "safe",
         "signal": "risk_on",
-        "tilt": 0.41,
+        "tilt": 0.48,
         "indicators": [
           {
             "id": "gold",
             "name_en": "Gold (GLD)",
             "name_zh": "黃金 (GLD)",
-            "value": 387.12,
-            "chg_1w": 0.21,
-            "chg_1m": -5.92,
+            "value": 370.6,
+            "chg_1w": 1.28,
+            "chg_1m": -9.89,
             "unit": "",
             "live": true,
             "is_level": false,
@@ -201,15 +201,15 @@
         "role_zh": "risk-on 流動性海綿;穩定幣供應 = 加密乾火藥。",
         "group": "risk",
         "signal": "risk_off",
-        "tilt": -0.7,
+        "tilt": -0.61,
         "indicators": [
           {
             "id": "btc",
             "name_en": "Bitcoin (BTC-USD)",
             "name_zh": "比特幣 (BTC-USD)",
-            "value": 63973.81,
-            "chg_1w": -0.69,
-            "chg_1m": -10.3,
+            "value": 60504.63,
+            "chg_1w": 0.94,
+            "chg_1m": -4.81,
             "unit": "",
             "live": true,
             "is_level": false,
@@ -221,9 +221,9 @@
             "id": "stablecoins",
             "name_en": "Stablecoin supply (USDT+USDC+…)",
             "name_zh": "穩定幣總供應",
-            "value": 314.9,
-            "chg_1w": 0.06,
-            "chg_1m": -2.32,
+            "value": 311.1,
+            "chg_1w": -0.93,
+            "chg_1m": -2.61,
             "unit": "$B",
             "live": true,
             "is_level": false,
@@ -242,20 +242,20 @@
         "role_en": "The main risk reservoir; breadth shows participation.",
         "role_zh": "主要風險蓄水池;廣度顯示參與度。",
         "group": "risk",
-        "signal": "risk_on",
-        "tilt": 0.72,
+        "signal": "neutral",
+        "tilt": 0.03,
         "indicators": [
           {
             "id": "spx",
             "name_en": "S&P 500 (^GSPC)",
             "name_zh": "標普500 (^GSPC)",
-            "value": 7500.58,
-            "chg_1w": 1.44,
-            "chg_1m": 2.0,
+            "value": 7483.23,
+            "chg_1w": 1.7,
+            "chg_1m": -1.54,
             "unit": "",
             "live": true,
             "is_level": false,
-            "signal": "risk_on",
+            "signal": "risk_off",
             "rising_en": "Broad market into risk",
             "rising_zh": "大盤偏risk-on"
           },
@@ -263,9 +263,9 @@
             "id": "rsp",
             "name_en": "Equal-weight S&P (RSP)",
             "name_zh": "等權標普 (RSP)",
-            "value": 209.96,
-            "chg_1w": 0.1,
-            "chg_1m": 4.14,
+            "value": 213.41,
+            "chg_1w": 1.44,
+            "chg_1m": 2.4,
             "unit": "",
             "live": true,
             "is_level": false,
@@ -277,13 +277,13 @@
             "id": "qqq",
             "name_en": "Nasdaq 100 (QQQ)",
             "name_zh": "那斯達克100 (QQQ)",
-            "value": 740.62,
-            "chg_1w": 3.28,
-            "chg_1m": 5.57,
+            "value": 725.17,
+            "chg_1w": 2.05,
+            "chg_1m": -2.26,
             "unit": "",
             "live": true,
             "is_level": false,
-            "signal": "risk_on",
+            "signal": "risk_off",
             "rising_en": "Growth / tech bid",
             "rising_zh": "成長/科技買盤"
           },
@@ -291,13 +291,13 @@
             "id": "arkk",
             "name_en": "Speculative growth (ARKK)",
             "name_zh": "投機成長 (ARKK)",
-            "value": 80.19,
-            "chg_1w": 6.27,
-            "chg_1m": 8.6,
+            "value": 81.85,
+            "chg_1w": 6.69,
+            "chg_1m": 0.73,
             "unit": "",
             "live": true,
             "is_level": false,
-            "signal": "risk_on",
+            "signal": "neutral",
             "rising_en": "Retail speculation proxy",
             "rising_zh": "散戶投機代理"
           },
@@ -305,9 +305,9 @@
             "id": "iwm",
             "name_en": "Small caps (IWM)",
             "name_zh": "小型股 (IWM)",
-            "value": 295.59,
-            "chg_1w": 2.03,
-            "chg_1m": 8.53,
+            "value": 299.32,
+            "chg_1w": 0.89,
+            "chg_1m": 3.82,
             "unit": "",
             "live": true,
             "is_level": false,
@@ -319,13 +319,13 @@
             "id": "vix",
             "name_en": "Volatility (VIX)",
             "name_zh": "波動率 (VIX)",
-            "value": 16.4,
-            "chg_1w": -3.04,
-            "chg_1m": -1.04,
+            "value": 16.59,
+            "chg_1w": -2.04,
+            "chg_1m": 0.54,
             "unit": "",
             "live": true,
             "is_level": true,
-            "signal": "risk_on",
+            "signal": "risk_off",
             "rising_en": "Fear up — hedging demand",
             "rising_zh": "恐慌上升 — 避險需求"
           }
@@ -341,15 +341,15 @@
         "role_zh": "AI 論點定價之處;集中度與 capex 在此。",
         "group": "risk",
         "signal": "risk_on",
-        "tilt": 1.0,
+        "tilt": 0.75,
         "indicators": [
           {
             "id": "semis",
             "name_en": "Semiconductors (SOXX)",
             "name_zh": "半導體 (SOXX)",
-            "value": 639.45,
-            "chg_1w": 9.0,
-            "chg_1m": 28.79,
+            "value": 599.7,
+            "chg_1w": -0.3,
+            "chg_1m": 4.91,
             "unit": "",
             "live": true,
             "is_level": false,
@@ -369,15 +369,15 @@
         "role_zh": "美元走強抽乾全球流動性,壓制風險資產與黃金。",
         "group": "macro",
         "signal": "risk_off",
-        "tilt": -0.35,
+        "tilt": -0.4,
         "indicators": [
           {
             "id": "dxy",
             "name_en": "US Dollar Index (DXY)",
             "name_zh": "美元指數 (DXY)",
-            "value": 100.91,
-            "chg_1w": 1.16,
-            "chg_1m": 1.82,
+            "value": 101.31,
+            "chg_1w": -0.12,
+            "chg_1m": 2.11,
             "unit": "",
             "live": true,
             "is_level": false,
@@ -390,16 +390,16 @@
     ],
     "derived": {
       "net_liquidity": {
-        "value": 5855.5,
-        "chg_1m": -0.61,
-        "chg_bn": -35.9,
+        "value": 5815.9,
+        "chg_1m": -2.38,
+        "chg_bn": -138.5,
         "sane": true
       },
       "breadth": {
-        "value": 2.14
+        "value": 3.94
       },
       "ai_rel": {
-        "value": 26.79
+        "value": 6.45
       }
     },
     "lenses": {
@@ -408,65 +408,65 @@
         "label": "neutral"
       },
       "price": {
-        "score": 0.21,
-        "label": "risk_on"
+        "score": -0.09,
+        "label": "neutral"
       },
       "positioning": {
-        "score": 0.09,
+        "score": 0.01,
         "label": "neutral"
       },
       "aligned": false
     },
     "marginal_direction": {
-      "score": 7.9,
+      "score": -16.5,
       "label_en": "Mixed / two-way",
       "label_zh": "分歧 / 雙向"
     },
     "retail_vs_inst": {
-      "retail": 30.2,
-      "institution": 9.4,
-      "divergence": 20.8,
+      "retail": 1.4,
+      "institution": 0.8,
+      "divergence": 0.6,
       "warning": false
     },
     "ai_signal": {
-      "score": 68.5,
+      "score": 63.5,
       "label_en": "Supportive",
       "label_zh": "支撐"
     }
   },
   "l4": {
     "retail_vs_institution": {
-      "summary_en": "Retail 30.2 and institution 9.4 appetite are broadly in line (gap 20.8) — no euphoric retail-vs-smart-money split right now.",
-      "summary_zh": "散戶 30.2 與機構 9.4 情緒大致一致(差距 20.8)——目前沒有散戶狂熱對機構撤離的明顯分裂。"
+      "summary_en": "Retail appetite 1.4 outruns institution 0.8, a 0.6 divergence — hot but not yet extreme (no formal warning). This is early topping-type behavior: small caps (IWM +3.82%) and equal-weight (RSP +2.4%) rip while the cap-weighted S&P (-1.54%) and QQQ (-2.26%) sag, signaling retail chasing broadening rotation. But the confirmation of risk-appetite exhaustion is missing — BTC -4.81% and stablecoin supply -2.61% show crypto risk money leaving, not blowing off. VIX only 0.54 and HY OAS +0.03 stay calm. Net liquidity slipping -2.38% with TGA +17.59% draining cash is the quiet institutional tell.",
+      "summary_zh": "散戶情緒1.4高於機構0.8，背離0.6——偏熱但未極端（無正式警示）。呈早期見頂特徵：小型股IWM +3.82%、等權RSP +2.4%狂飆，而市值加權標普-1.54%、QQQ-2.26%走弱，顯示散戶追逐輪動擴散。但風險胃納見頂的確認缺失——比特幣-4.81%、穩定幣供給-2.61%顯示加密資金流出而非狂熱。VIX僅+0.54、高收益利差+0.03仍平靜。淨流動性回落-2.38%、TGA+17.59%抽走現金，是機構悄然收手的訊號。"
     },
     "ai_mapping": {
-      "summary_en": "AI-continuation signal 68.5/100 (Supportive). AI leadership (SOXX−SPX 1m) is 26.79 and breadth (RSP−SPX 1m) is 2.14. Broadening breadth alongside AI leadership is the healthy combination for continuation.",
-      "summary_zh": "AI 延續訊號 68.5/100(支撐)。AI 領先度(SOXX−SPX 1m)為 26.79,廣度(RSP−SPX 1m)為 2.14。廣度擴散 + AI 領漲是延續的健康組合。"
+      "summary_en": "AI leadership stays intact: SOXX +4.91% vs SPX gives AI_rel +6.45, and semis are the standout risk_on reservoir while QQQ (-2.26) lags — leadership is narrowing into chips, not broad tech. Breadth +3.94 (RSP−SPX) confirms participation is rotating outward, supportive short-term. Yet the liquidity tide is ebbing: net liquidity -2.38% and DXY +2.11% tighten conditions, while stablecoin -2.61% and BTC -4.81% show speculative crypto liquidity retreating from the AI risk complex. Continuation signal 63.5 is Supportive but not robust. Flows support AI grinding higher on rotation, but the fuel (liquidity + crypto risk appetite) is thinning — a warning underneath the strength.",
+      "summary_zh": "AI領導地位完好：SOXX +4.91%對標普，AI相對+6.45，半導體是突出的risk_on水池，而QQQ-2.26落後——領導收窄至晶片而非廣泛科技。廣度+3.94（RSP−SPX）確認參與向外輪動，短期偏多。但流動性潮水退去：淨流動性-2.38%、美元+2.11%收緊環境，穩定幣-2.61%、比特幣-4.81%顯示投機性加密流動性撤離AI風險群組。延續訊號63.5為支持但不強健。流量支持AI靠輪動緩升，但燃料（流動性+加密胃納）漸薄——強勢底下暗藏警訊。"
     },
     "thesis": {
-      "direction_en": "Mixed — two-way flows, no clean trend",
-      "direction_zh": "分歧 — 雙向資金、無明確趨勢",
+      "direction_en": "Mixed, leaning cautiously constructive on AI/semis but late-cycle",
+      "direction_zh": "中性偏多AI/半導體，但屬週期後段",
       "confidence": "low",
       "leading_signals": [
         {
-          "en": "Net liquidity 1m change (-0.61%) — the master tide",
-          "zh": "淨流動性月變化(-0.61%)——主潮"
+          "en": "Net liquidity trajectory (WALCL−RRP−TGA): -2.38% 1m; a second monthly contraction flips the tide against AI.",
+          "zh": "淨流動性軌跡（WALCL−RRP−TGA）：月-2.38%；再連續一月收縮將令潮水轉向不利AI。"
         },
         {
-          "en": "Breadth RSP−SPX (2.14) — participation vs concentration",
-          "zh": "廣度 RSP−SPX(2.14)——參與度 vs 集中"
+          "en": "Stablecoin supply (USDT+USDC): -2.61% — falling dry powder for speculative/AI risk; watch for continued drain.",
+          "zh": "穩定幣供給：-2.61%——投機/AI風險的乾火藥減少；留意持續流失。"
         },
         {
-          "en": "HY credit spread direction — earliest risk-off tell",
-          "zh": "高收益信用利差方向——最早的 risk-off 訊號"
+          "en": "SOXX−SPX relative (AI_rel 6.45): a roll-over below zero precedes index-level AI de-rating.",
+          "zh": "SOXX−SPX相對（AI相對6.45）：跌破零的轉向早於指數層面AI估值下修。"
         },
         {
-          "en": "Stablecoin supply trend — crypto dry powder",
-          "zh": "穩定幣供應趨勢——加密乾火藥"
+          "en": "HY OAS (now calm, +0.03): a >50bp widening is the credit canary before equity break.",
+          "zh": "高收益利差（現平靜+0.03）：擴大逾50bp是股市破裂前的信用先行訊號。"
         },
         {
-          "en": "AI leadership SOXX−SPX (26.79) — thesis temperature",
-          "zh": "AI 領先度 SOXX−SPX(26.79)——論點溫度"
+          "en": "Retail-vs-institution divergence (0.6): a push above ~1.0 with BTC/ARKK re-surging marks blow-off whistle.",
+          "zh": "散戶對機構背離（0.6）：升破約1.0且BTC/ARKK重新飆升即為狂熱吹哨。"
         }
       ]
     }
@@ -474,87 +474,87 @@
   "l5": {
     "scenarios": [
       {
+        "name_en": "Rotation → AI grinds, breadth broadens",
+        "name_zh": "輪動→AI緩升，廣度擴散",
+        "prob": 40,
+        "trigger_en": "RSP−SPX breadth stays ≥+3, IWM holds gains, SOXX_rel >0 while QQQ lags; HY OAS <3.5%.",
+        "trigger_zh": "RSP−SPX廣度維持≥+3，IWM守住漲幅，SOXX相對>0而QQQ落後；高收益利差<3.5%。"
+      },
+      {
         "name_en": "Liquidity holds → AI continues",
-        "name_zh": "流動性續強 → AI 延續",
+        "name_zh": "流動性守穩→AI延續",
         "prob": 25,
-        "trigger_en": "Net liquidity rising + breadth ≥0 + HY OAS <3.5%",
-        "trigger_zh": "淨流動性上升 + 廣度≥0 + HY OAS <3.5%"
+        "trigger_en": "Net liquidity re-accelerates (RRP drain funds it), breadth ≥0, stablecoin supply turns positive.",
+        "trigger_zh": "淨流動性重新加速（RRP釋放資金支撐），廣度≥0，穩定幣供給轉正。"
       },
       {
-        "name_en": "Rotation → AI corrects, index holds",
-        "name_zh": "資金輪動 → AI 補跌、大盤撐住",
+        "name_en": "Liquidity ebb → AI corrects, index softer",
+        "name_zh": "流動性退潮→AI回調，指數走軟",
         "prob": 25,
-        "trigger_en": "AI_rel falling while RSP holds + breadth broadening",
-        "trigger_zh": "AI 領先度下滑但 RSP 撐住 + 廣度擴散"
-      },
-      {
-        "name_en": "Retail blow-off → whistle period",
-        "name_zh": "散戶見頂式狂熱 → 吹哨期",
-        "prob": 25,
-        "trigger_en": "BTC+ARKK surging with margin/leverage as institutions raise cash",
-        "trigger_zh": "BTC+ARKK 噴出且槓桿上升,同時機構加現金"
+        "trigger_en": "Net liquidity -2% again + DXY >+3% + SOXX_rel rolls below 0; stablecoin keeps draining.",
+        "trigger_zh": "淨流動性再-2%＋美元>+3%＋SOXX相對跌破0；穩定幣持續流失。"
       },
       {
         "name_en": "Credit cracks → regime break",
-        "name_zh": "信用裂縫 → regime break",
-        "prob": 25,
-        "trigger_en": "HY OAS widening >50bp + VIX >22 + net liquidity contracting",
-        "trigger_zh": "HY OAS 擴張 >50bp + VIX >22 + 淨流動性收縮"
+        "name_zh": "信用破裂→體制轉變",
+        "prob": 10,
+        "trigger_en": "HY OAS widening >50bp + VIX >22 + net liquidity contracting.",
+        "trigger_zh": "高收益利差擴大>50bp＋VIX>22＋淨流動性收縮。"
       }
     ],
     "falsification": [
       {
-        "en": "HY OAS widens >50bp with VIX >22 while the index holds — credit is leading; flip cautious.",
-        "zh": "HY OAS 擴張 >50bp 且 VIX >22 但指數仍撐——信用在領先;轉保守。"
+        "en": "SOXX−SPX relative rolls decisively below 0 for 2+ weeks while QQQ also breaks — AI leadership thesis dead.",
+        "zh": "SOXX−SPX相對持續2週以上明確跌破0且QQQ同破——AI領導論點失效。"
       },
       {
-        "en": "Net liquidity turns down for 3+ weeks while AI keeps making highs — the tide no longer supports the price.",
-        "zh": "淨流動性連 3 週以上下降但 AI 仍創高——潮汐已不支撐價格。"
+        "en": "HY OAS widens >50bp with VIX >22 — calm-but-turning becomes credit break, flip to defensive.",
+        "zh": "高收益利差擴大>50bp且VIX>22——平靜轉裂成信用破裂，轉守勢。"
       },
       {
-        "en": "Breadth collapses (RSP−SPX deeply negative) while marginal direction reads risk-on — concentration, not participation.",
-        "zh": "廣度崩落(RSP−SPX 深度為負)但邊際方向仍 risk-on——是集中而非參與。"
+        "en": "Net liquidity posts a second consecutive monthly contraction while breadth turns negative — no fuel for continuation.",
+        "zh": "淨流動性連續第二月收縮且廣度轉負——延續缺乏燃料。"
       }
     ],
     "early_warning": [
       {
-        "en": "HY credit spread (BAMLH0A0HYM2)",
-        "zh": "高收益信用利差",
+        "en": "Stablecoin supply (USDT+USDC) — flows move first as speculative dry powder.",
+        "zh": "穩定幣供給——作為投機乾火藥最先變動。",
         "freq": "daily"
       },
       {
-        "en": "VIX level & 1w change",
-        "zh": "VIX 水準與週變化",
-        "freq": "daily"
-      },
-      {
-        "en": "Net liquidity (WALCL−RRP−TGA)",
-        "zh": "淨流動性(WALCL−RRP−TGA)",
+        "en": "Net liquidity (WALCL−RRP−TGA) & TGA rebuild pace.",
+        "zh": "淨流動性（WALCL−RRP−TGA）與TGA重建速度。",
         "freq": "weekly"
       },
       {
-        "en": "Breadth RSP−SPX relative",
-        "zh": "廣度 RSP−SPX 相對",
+        "en": "SOXX−SPX relative strength (AI leadership).",
+        "zh": "SOXX−SPX相對強弱（AI領導）。",
         "freq": "daily"
       },
       {
-        "en": "Stablecoin supply trend",
-        "zh": "穩定幣供應趨勢",
+        "en": "RSP−SPX breadth spread — rotation health.",
+        "zh": "RSP−SPX廣度價差——輪動健康度。",
         "freq": "daily"
       },
       {
-        "en": "Retail-vs-institution divergence",
-        "zh": "散戶vs機構背離",
+        "en": "HY OAS spread — credit canary.",
+        "zh": "高收益利差——信用先行指標。",
+        "freq": "daily"
+      },
+      {
+        "en": "Retail-vs-institution divergence + BTC/ARKK — blow-off whistle.",
+        "zh": "散戶對機構背離＋BTC/ARKK——狂熱吹哨。",
         "freq": "weekly"
       },
       {
-        "en": "AI leadership SOXX−SPX",
-        "zh": "AI 領先度 SOXX−SPX",
+        "en": "DXY level — dollar tightening drag on risk.",
+        "zh": "美元指數水平——美元收緊對風險的拖累。",
         "freq": "daily"
       }
     ]
   },
-  "analysis_engine": "rules",
+  "analysis_engine": "claude",
   "money_map": {
     "reservoirs": [
       {
@@ -705,22 +705,46 @@
   ],
   "news": [
     {
-      "title": "US Fund Flows Hold Strong in May as Bond Demand Surges",
-      "url": "https://news.google.com/rss/articles/CBMickFVX3lxTFBwZFpxdjBLX19aN3EtTTFKU2hobmlyNG53a0hsNzlDRWtFeEE0RjcwckpEaTliVXpCMWZhNmJUNmVCV1hNX1NhTktCMGM2MWRPQl9ZMFVGdnlKSEdGWlpBb1lwclBvVklmeHFoZ1FZVWZiQQ?oc=5",
-      "source": "Morningstar",
-      "date": "2026-06-18"
+      "title": "Rapid slowdown in stablecoin growth shakes Bitcoin market! What are the implications for the next move?",
+      "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE5KVEZlV2NIMWxyRDZ4bXJqRnhHazVjaHoyNVRqaXpJeUJqdXhKa3Rwd20yZkZnQXVDcnkyVjQySk9FemVoVmFlZUhJaHR4UldibWFHRmwyWHFiYjhoOHd1S1NpONIBY0FVX3lxTE5KVEZlV2NIMWxyRDZ4bXJqRnhHazVjaHoyNVRqaXpJeUJqdXhKa3Rwd20yZkZnQXVDcnkyVjQySk9FemVoVmFlZUhJaHR4UldibWFHRmwyWHFiYjhoOHd1S1NpOA?oc=5",
+      "source": "Bitget",
+      "date": "2026-06-30"
     },
     {
-      "title": "Market split deepens as AI stocks soar while old economy lags",
-      "url": "https://news.google.com/rss/articles/CBMi9wFBVV95cUxOQzlDZ3pNRDBhRlozXzRPVnVIQUpDTXVQb05XNHVYalo3VlJQSG5pVjhOUFFQWGJZZVpMN3Q3TmVQdlFDM1BUYk5qSVhxa0Y0Z0tNMjJ3WElHLXd1NEZlSnFQcC1BUjR0TmhxTGZ3bHpzejJzeGFyODFRWktUYlVEcFFTbVlnLXRIN1M4Tk11QW5uc1NTZmFqbGpXU1dscF9sRy1HMnpMQkV3U3VDRGExNVZwRVhkUnlEX3ktLUJEdTRuVG52dW9TRmN1VzlwMzZhQXRkQzc0VUhMTnd5VktITHd0OEFjTGRhc2l3YzcycE9INTRYS3Zv?oc=5",
-      "source": "MSN",
-      "date": "2026-06-10"
+      "title": "Quarter-end expected to be quiet for Fed liquidity facilities",
+      "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxNdlNtOTZQY092UEpXaGUxbTFOUm4zZVBkUl9tVVdOd2t3LUFCNE11OEdwR3FmLUVkMVdfalc5ZFJOTEw5Y1NtTGlqNG04MzB0ZnFENlRRZlpNYk5nbjRGS1NlSUtDX1g1MlV3UVEtdU1ZbGNqNFJIWjJlMkxoa29tMEpR?oc=5",
+      "source": "Yahoo Finance",
+      "date": "2026-06-30"
     },
     {
-      "title": "Asia Fixed Income Investment Outlook – Quarterly Update",
-      "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQUkhRM3NFRmRjXzk1VXE5czZXOEVXWUlNcDlhWnpsOEZxTFBQODZ0eWtiaUpyXzNMczFMMUp2MG81Z1loV0JxWlpmZ3k5Vl83bERCSU9tSVlRdmJzSGE5WHJEQXNkdmozQ1B5TWNZRGJaVjVTZ1RqVFRQVEdld0g1SnJXcXJKMlJFX0xrV0FCUkNEakJjXzFEcXNvU1ZuWGdyOVE?oc=5",
-      "source": "invesco.com",
-      "date": "2026-06-03"
+      "title": "Record Retail Inflows: Where Is All The Money Coming From?",
+      "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPT3VQemU1QW1tdVNnWTNnbUhoSDhwcGVyc0hDSWNiM0VIUVlsTkRUUkdDSVVLSzJ4WDhycGJnLWJKbV9DZ3d2ZnZ3Wl9fdHVDV1QzUHhWVVBscEpzZ3hEOWU1djFiUWpqUGZDQ3YzYWc1Wi11dk9OOVA5Vk5iX0R6QkpYU3ZqVHU5YUpFZnQzYXVaNjQzMFFtM3E2Uk12TnRuSmlF?oc=5",
+      "source": "Investing.com",
+      "date": "2026-06-29"
+    },
+    {
+      "title": "Dividend Safety Check: SPHY and High-Yield Bond Income",
+      "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxPeTQ5aFlOUXdfTkEtZnpKRHFtOUltQ0cxaFJBMDMzRGkxUHNPa2VVeUlvNExXaHBwSTVZX053QWZ0d2g3SGNfRE1UX1dFODdiQW5Ba1NYMFJwOHlEcmppQjQ5OTk0NTA2MEJtRTQwQXByU1RlVmp2VXZTb0Nyd3hsUjBoLTl4OGlnQ2NnYktXMU5vZVpIMHhpcWpGMTQyZw?oc=5",
+      "source": "24/7 Wall St.",
+      "date": "2026-06-29"
+    },
+    {
+      "title": "Stablecoin demand starts to fade as Visa and Stripe build for the next boom",
+      "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQb0E0M3FUa1ltZDdGaFFPOWktS1hrSmdWTUNNTWV4WXctdWxwbVdvSHo3Q085M2FYcVN4cXY0NmZrLTFUU3VkVllPUlIzZlR4RzYwLWxpU1lFTGF1MkxpbU8wdklUZUlpemFqLUVPdzhPLThTTGZpcUNnSnJvaVFLUW40YmJIbm94R2NtaFJSbmJNX21tYWRPVnF3VkNsVHZyVE9EMm9WM0ZQZlRDT1VNNVdMRQ?oc=5",
+      "source": "CryptoRank",
+      "date": "2026-06-28"
+    },
+    {
+      "title": "Chilling in Money-Market Funds is the Hot Retail Strategy Now",
+      "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQcUpOS2RnRHEzUGNyT1ZPNzZOWllfVWFENllTbHFIVUV5dGhMUWNmZVFZeEVxcnRFSVp2RTh0akVHbUxzZFlJaWZXTk10MkZOUmFMNVRtMUtXR0Y4VFFTQVBvUW1KWEotTy11RWxGaDZjMVd3dVlQanBJaDVHTUpMdTUxZDMybWhqUEVlZzhwcUFhTVZsR1FFRmk1SFNuRzNkSlF1bWtzVTdxc0E0d3lFbDF2SQ?oc=5",
+      "source": "Bloomberg.com",
+      "date": "2026-06-05"
+    },
+    {
+      "title": "AI is carrying the S&P 500 rally: Chart of the Day",
+      "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxOUWZIOVc0S003TUttNEJ0WlpScTdJZVdLaUVWOUdQSTRRMXlzV1JWcTJBbkJGeUZzRzVHcF8zQjhMb2lLdkt6Si16dzlwZ3NmRGc2MHNrVm5QdVBHcnJMeDBMOHF1Uy1DOFN4d2cteENxZkpVWHlRQ2V4YzA4RDBZYnJrMGJlbTFFSTBhNGh5OW95RktPTnF2RThyZ3Zaenp5cU51em5KZ1E?oc=5",
+      "source": "Yahoo Finance",
+      "date": "2026-06-02"
     },
     {
       "title": "AI is eating the market and Wall Street strategists have bubble brain as they debate: are we in 1997 or 1999?",
@@ -729,16 +753,16 @@
       "date": "2026-05-18"
     },
     {
-      "title": "The Liquidity Equation: How the Fed’s Next Moves Could Shape Markets",
-      "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQc3c3S3cyOE5NbUkzQ2hFNG1WS0JlZGtpQlJPWW8zOW55Q3hlNkdWMHgyVzNPV3RBUFU1d2F6X2FMRE5oWmQ3a3B3ZmVrWllpYTlBTXNpa19MMTlNck9fMnE3TTQ2N0dlamY1a0pwelBYYTZWY1BjTU03TEFYMEFHd1QxWnhlWVVEVlh5ZGExTDZqOGhuaDlnSXJTZ1lrUXcz?oc=5",
-      "source": "BNY",
-      "date": "2026-05-02"
-    },
-    {
       "title": "Why the Crash Was Delayed",
       "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE5fbm9BR0JQWWt3T1c5blAwTGFBRUFRTHlLRXpnWjNNbFhWRjNwcnVUQm9ZVW5QMzdUN3BOd0N6SjdJdXpTQlRDRzZEcXJMSDRyaXZYaVlPdlVIUVR1SmdaMzFn?oc=5",
       "source": "Mises Institute",
       "date": "2026-04-16"
+    },
+    {
+      "title": "Stablecoin supply reaches $315B in Q1 as USDC rises, USDT declines",
+      "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxPSUpSbG1NaHoyaFpka1Q4Q2t0N0tzR2ctOEJ5RXhxS2JSRUZfUTZ4Qm9yWVFucVFuRWE0SXdEM3M0d2NhUXZzVnR2YkQ1ekd0dmtkYy1NWlBfdHE1TGhMeEM0Nk0zYVlnejdMMkNIbDNFMzVMTFMwTVNTQWxFbDBJZXA5aHFUSlVnUzh3eTlCMjQ2TUFENGtLVzNTN0pYaWRUaVJtZDRFUms4QUFSYjNQMnNIYmtMMzdJVG4tVFBoZThaQmRqVFVV?oc=5",
+      "source": "TradingView",
+      "date": "2026-04-02"
     },
     {
       "title": "Investors drive US money market fund assets to records as war-related risk fears multiply",
@@ -753,29 +777,23 @@
       "date": "2026-03-17"
     },
     {
-      "title": "Money Funds Rise to Record $8.27 Trillion in Dash for Cash",
-      "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxOMzc4NWFDbDVITi1RY2IwSmh2T2hRNllsVngzNldvMm5QNlhHeHVSYWM4NUtSMUdMZkVDYjl1NjJUUnZlSmY1a0Y3YjhSeXVValFqN1F5OGlFLTFuUFBtLTFCQlM1M0ZHenFIMFI3Ynd5M1RoZDNQWGZNeGFDQVVvbGZ1RXBRWU5JMEVzUFNjSjFJMGtRUEExTzNPMkF4M0hYd2gySjFNRDNwUjFsU3Zfc1pUTmo?oc=5",
-      "source": "Bloomberg.com",
-      "date": "2026-03-04"
-    },
-    {
       "title": "Redefining Market Concentration in the Age of AI",
       "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOc1BMUTdKU1hVYmFLYlFLRUFZUlFVWjhOLU1Nb3hKemFELUQ5VnA1RWdOc2o5Mm5RY2lDX2tUOHBZTkRoZ2kzTGdOR2poRHd0cUpOQVFWYjJjTmNUbXBQZ2JFUHNtVHVGMHZSdDhULUhjbGtHekhKVGIwS3VoU21aMjU5STRxMHF5ejltNkRuUk9YUEdQMHRZaUVSMm42Ulh0?oc=5",
       "source": "Northwestern Mutual",
       "date": "2026-02-24"
     },
     {
-      "title": "How Floating Rate Notes Perform When Credit Spreads Widen",
-      "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNVTZwd1QwOW56ZksweHJlLS1sY05XOWRfMlJrTXNuSXU2RDFiMDBMTGJHOXMxejVRVW56ZzdXMHVNOXp6SWRSSTloNnNBX2dpcTZrVDlmSjZHWFdYZDNCZk1FU0ZJZmRrSTNKX19hZndBZjJfT2xzOUNneld5WUc3UV8zOWRWeW5iMjJyLU45Q2ZEY3o5MGRUX2RIaGYyRjBPNm1XcFd4Sm9VRzBpcG5R?oc=5",
-      "source": "vaneck.com",
-      "date": "2026-02-23"
-    },
-    {
       "title": "Fed's balance sheet drawdown enters new stage as reverse repos largely drained",
       "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxNX3UzU0Q1RG40eElzXzVYelFubU02cGV5UDgwRHJaUjk3ZWlZNDNCREdlS2wyQjJlTUhlaWMwSDFDU1BLdGJZZFFlaHFBNVJaMlJkY3czNzhVTlIzSDJqT05kUzhxel9UNE5EUEQxYmlzeFl6Sl9UTWxsUW5fOHNkUXVrRkhVWGZNbDJpY2NFRWt3YUtfYk9XWUZucU4tcVdFSzdpbVRQTl9RanBzczA5NDY1U3oxcDVuZlJlbnhjM1czcFhoUFE?oc=5",
       "source": "Reuters",
       "date": "2025-08-29"
+    },
+    {
+      "title": "High Yield: When Boring Is Better",
+      "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQV1BVLUctLU1kZVNiVkZyaHNtTnlHZGYwWnRjTUxjMXBjamtHQ0trTnFqMHcxWW5ZRER1aW5pTGo0eG9LU0xFbGNiQzJsYldjSDBRTDZmX2NOT3hub3NEa0tONmY2RUpZdXJ1R0tVQlNhSG1Qdl9UdGlLM0x3ZWhrcU1lUTZiN3VtR0pua0ViYWpCSHF6LWZ0VHA5czF1cHpneTB6cFgtMUstaDFSRi1PXzBmcw?oc=5",
+      "source": "AllianceBernstein",
+      "date": "2025-08-15"
     }
   ],
-  "fetched_at": "2026-06-22 06:40 UTC"
+  "fetched_at": "2026-07-02 06:39 UTC"
 }

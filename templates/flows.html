@@ -206,6 +206,24 @@
     </div>
   </div>
 
+  <!-- 數據做法與假設 · methodology & assumptions (language follows the LANG toggle) -->
+  <div class="panel" id="methodPanel" style="margin-top:16px">
+    <div class="eyebrow" id="mp_eyebrow"></div>
+    <h2 id="mp_title"></h2>
+    <div id="mp_zh" style="display:none;font-size:12.5px;color:var(--soft);line-height:1.8">
+      <p><b style="color:var(--ink)">五層架構</b> — L1 資金地圖與 L2 指標字典是人工策展知識庫（蓄水池、通道、觸發條件，寫死於 KB，非即時）；L3 流向診斷是純量化即時層；L4 散戶vs機構拆解與 L5 情境/證偽由 Claude 於每次刷新時合成（無 API key 走規則後備，頁面 engine 欄標注實際引擎）。</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">L3 逐蓄水池數據來源</b> — 現金/MMF：FRED 免 key CSV（WALCL 聯儲總資產、RRP 逆回購、TGA 財政部帳戶、M2）。債券：yfinance TLT/HYG + FRED 實質與名目 10Y、高收益 OAS。黃金：GLD。加密：BTC + DefiLlama 穩定幣總供給。股票：SPX/RSP(等權)/QQQ/ARKK/IWM/VIX。AI 半導體：SOXX。美元：DXY。全部即時抓取，抓不到的指標退回種子值並取消 live 標記（頁面顯示 live 數）。</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">邊際流向分數</b> — 純規則計算：各指標的 1週/1月 變化經幅度感知加權後，映射到風險偏好（risk-off 資產與黃金反向、黃金半權重），平均後 ×100，範圍 −100（全面撤離）到 +100（全面進場），±25 內視為「分歧/雙向」。<b style="color:var(--ink)">假設：價格與動能是資金流的「代理」，不是直接量測的申贖資金流。</b></p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">刷新節奏</b> — 手動密碼刷新（非排程），時間戳見頁首 generated_at。AI 合成內容為解讀輔助，非投資建議。已知盲點列於下方。</p>
+    </div>
+    <div id="mp_en" style="display:none;font-size:12.5px;color:var(--soft);line-height:1.8">
+      <p><b style="color:var(--ink)">Five-layer design</b> — L1 money map and L2 indicator dictionary are a hand-curated knowledge base (reservoirs, channels, triggers — static, not live). L3 flow diagnosis is a purely quantitative live layer; L4 retail-vs-institution decomposition and L5 scenarios/falsification are synthesized by Claude on each refresh (rules fallback without an API key; the engine badge shows which ran).</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">L3 sources per reservoir</b> — Cash/MMF: keyless FRED CSV (WALCL, RRP, TGA, M2). Bonds: yfinance TLT/HYG + FRED real & nominal 10Y, HY OAS. Gold: GLD. Crypto: BTC + DefiLlama total stablecoin supply. Equities: SPX/RSP (equal-weight)/QQQ/ARKK/IWM/VIX. AI semis: SOXX. Dollar: DXY. All fetched live; any failed fetch falls back to seeds and loses its live badge.</p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">Marginal-direction score</b> — rules only: 1-week/1-month changes get magnitude-aware weights mapped onto risk appetite (risk-off assets and gold inverted, gold half-weighted), averaged and ×100 into −100 (full risk-off) … +100 (full risk-on); within ±25 reads "Mixed / two-way". <b style="color:var(--ink)">Assumption: prices and momentum proxy for flows — they are not measured fund flows.</b></p>
+      <p style="margin-top:8px"><b style="color:var(--ink)">Refresh cadence</b> — manual password-gated refresh only (no schedule); see generated_at in the header. AI synthesis is an interpretive aid, not investment advice. Known blind spots listed below.</p>
+    </div>
+  </div>
+
   <div class="foot">
     <div id="blindHead"></div>
     <ul style="list-style:none;margin-top:6px" id="blind"></ul>
@@ -382,6 +400,12 @@ function render(){
   const blind = LANG==="zh"? s.blind_spots_zh : s.blind_spots_en;
   document.getElementById("blind").innerHTML = (blind||[]).map(b=>`<li>· ${b}</li>`).join("");
   document.getElementById("methodFoot").textContent = LANG==="zh"? s.method_zh : s.method_en;
+
+  // methodology & assumptions panel
+  document.getElementById("mp_eyebrow").textContent = LANG==="zh"? "METHODOLOGY & ASSUMPTIONS" : "METHODOLOGY & ASSUMPTIONS";
+  document.getElementById("mp_title").textContent = LANG==="zh"? "數據做法與假設" : "How the numbers are made";
+  document.getElementById("mp_zh").style.display = LANG==="zh" ? "block" : "none";
+  document.getElementById("mp_en").style.display = LANG==="zh" ? "none" : "block";
 }
 
 document.getElementById("langBtn").addEventListener("click",()=>{
